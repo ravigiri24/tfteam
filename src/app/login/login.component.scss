@@ -1,0 +1,45 @@
+.logoImage{
+    width: 80%;
+    height: 100px;
+    
+}
+.logoPosition{
+    height: 200px;
+    position: relative;
+    top: 80px;
+    width: 100%;
+
+    text-align: center;
+}
+.login-button{
+    position: relative;
+    top:20px;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+  
+ion-button {
+    --background: var(--app-theme-element-color) !important;
+    --border-color:var(--app-theme-element-color) !important;
+    --color:white !important;
+   
+    }
+}
+.button-eye{
+    ion-input-password-toggle{
+        --background: var(--app-theme-element-color) !important;
+        --border-color:var(--app-theme-element-color) !important;
+        --color:white !important;
+    }
+}
+.input-field{
+margin-top: 15px;
+margin-bottom: 15px;
+ion-input {
+  
+ 
+    --highlight-color-focused:var(--app-theme-element-color) !important;
+  
+   
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "TF_Team",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
