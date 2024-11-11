@@ -3,6 +3,9 @@
     height: 100px;
     
 }
+.background-color{
+    background-color: white;
+}
 .logoPosition{
     height: 200px;
     position: relative;
@@ -36,9 +39,7 @@ ion-button {
 margin-top: 15px;
 margin-bottom: 15px;
 ion-input {
-  
- 
-    --highlight-color-focused:var(--app-theme-element-color) !important;
+   --highlight-color-focused:var(--app-theme-element-color) !important;
   
    
   }

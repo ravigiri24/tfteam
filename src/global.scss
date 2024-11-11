@@ -34,8 +34,17 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+// @import "@ionic/angular/css/palettes/dark.system.css";
 
 .theme-color{
     color:var(--app-theme-element-color) !important;
+  }
+  .theme-color-background{
+    background-color:var(--app-theme-element-color) !important;
+  }
+  .theme-color-second{
+    color:var(--app-theme-element-color-second) !important;
+  }
+  .theme-color-third{
+    color:var(--app-theme-color-third) !important;
   }

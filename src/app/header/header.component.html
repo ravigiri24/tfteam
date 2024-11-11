@@ -1,0 +1,112 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-item>
+        <ion-avatar   class="theme-color" slot="start">
+          <img
+        
+            alt="Silhouette of a person's head"
+            src="https://ionicframework.com/docs/img/demos/avatar.svg"
+          />
+        </ion-avatar>
+
+        <ion-label>Hello {{userDetails?.name}}</ion-label>
+      </ion-item>
+      <!-- <ion-buttons slot="end">
+        <ion-menu-toggle>
+          <ion-back-button
+            class="theme-color"
+            default-href="#"
+          ></ion-back-button>
+        </ion-menu-toggle>
+      </ion-buttons> -->
+
+    </ion-toolbar>
+
+   
+  </ion-header>
+  <ion-content  class="ion-padding ">
+    <ion-toolbar (click)="goToHome()" class="margin-heading" color="light">
+      <div class="heading-css-with-logo">
+      <ion-icon name="home" class="logo-size theme-color" aria-hidden="true"></ion-icon>
+      <ion-title class="font-family-global">Dashboard</ion-title> 
+    </div>
+      </ion-toolbar
+    >
+    <ion-toolbar id="present-alert"  (click)="setOpen(true)" class="margin-heading" color="light">
+      <div class="heading-css-with-logo">
+      <!-- <ion-icon name="home" class="logo-size theme-color" aria-hidden="true"></ion-icon> -->
+      <ion-icon class="logo-size theme-color"  name="log-out-outline"></ion-icon>
+      <!-- <ion-button id="present-alert">Logout</ion-button> -->
+      <ion-title class="font-family-global">Logout</ion-title> 
+    </div>
+      </ion-toolbar
+    >
+    <!-- <ion-toolbar class="margin-heading" color="light">
+      <div class="heading-css-with-logo">
+        <ion-icon name="search" class="logo-size theme-color" aria-hidden="true"></ion-icon>
+        <ion-title class="font-family-global">Find You Tractor</ion-title> 
+      </div>
+
+    </ion-toolbar> -->
+    <!-- <ion-toolbar class="margin-heading" color="light">
+      <div class="heading-css-with-logo">
+        <ion-icon name="help" class="logo-size theme-color" aria-hidden="true"></ion-icon>
+        <ion-title class="font-family-global">FAQ'S</ion-title> 
+      </div>
+     
+    </ion-toolbar> -->
+    <!-- <ion-toolbar class="margin-heading" color="light">
+      <div class="heading-css-with-logo">
+        <ion-icon name="newspaper" class="logo-size theme-color" aria-hidden="true"></ion-icon>
+        <ion-title class="font-family-global">News</ion-title>
+      </div>
+    
+    </ion-toolbar> -->
+    <!-- <ion-content class="ion-padding">
+      <ion-menu-toggle>
+        <ion-button>Click to close the menu</ion-button>
+      </ion-menu-toggle>
+    </ion-content> -->
+  </ion-content>
+</ion-menu>
+<div id="main-content">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button class="theme-color"></ion-menu-button>
+    </ion-buttons>
+    <div (click)="goToHome()" class="imageBlock">
+      <img
+        class="image-height"
+        src="././assets/images/loginbanner.png"
+        alt="Tractor Factory"
+      />
+    </div>
+    <!-- <ion-title>Menu</ion-title> -->
+    <!-- <ion-buttons class="theme-color" slot="secondary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+</div>
+<!-- <ion-button (click)="setOpen(true)">Click Me</ion-button> -->
+<!-- <ion-alert
+  [isOpen]="isAlertOpen"
+  header="Logout"
+  subHeader="You Wii route to Login Page"
+  message=""
+  [buttons]="alertButtons"
+  (didDismiss)="setOpen(false)"
+></ion-alert> -->
+<div class="my-custom-class">
+<ion-alert
+class="theme-color"
+  trigger="present-alert"
+  header="Confirm Logout!"
+  [buttons]="alertButtons"
+  (didDismiss)="setResult($event)"
+></ion-alert>
+</div>

@@ -23,6 +23,7 @@
     "@angular/router": "^18.0.0",
     "@ionic/angular": "^8.0.0",
     "@ionic/cordova-builders": "^12.1.2",
+    "bootstrap": "^5.3.3",
     "cordova-res": "^0.15.4",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
@@ -63,6 +64,9 @@
     "typescript": "~5.4.0"
   },
   "description": "An Ionic project",
+  "config": {
+  "ionic_sass": "./sass.config.js"
+},
   "cordova": {
     "plugins": {
       "cordova-plugin-statusbar": {},
@@ -75,4 +79,6 @@
       "android"
     ]
   }
+
 }
+

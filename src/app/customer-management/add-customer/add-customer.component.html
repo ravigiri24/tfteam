@@ -1,0 +1,85 @@
+<form [formGroup]="customerForm">
+<ion-item class="bottom-margin">
+  <ion-input
+    label="Enter Customer name"
+    labelPlacement="stacked"
+    type="text"
+    placeholder="Your name"
+  formControlName="name"
+  ></ion-input>
+</ion-item>
+<ion-item class="bottom-margin">
+  <ion-input
+    label="Enter Mobile Number"
+    labelPlacement="stacked"
+    type="text"
+
+    placeholder="Your Number"
+    formControlName="mobileNo"
+  ></ion-input>
+</ion-item>
+<ion-item class="bottom-margin">
+  <ion-select    formControlName="customerType" label="Customer Type" label-placement="type">
+    <ion-select-option value="DIGITAL">Digital</ion-select-option>
+    <ion-select-option value="VISITORS">Visitors</ion-select-option>
+  
+
+  </ion-select>
+</ion-item>
+<ion-item class="bottom-margin">
+  <ion-textarea   formControlName="remark"  label="Remark" placeholder="write remark here..."></ion-textarea>
+</ion-item>
+
+<!-- <ion-item>
+  <ion-icon class="right-margine" name="add-circle-outline"></ion-icon>
+  <ion-select label="Select State" label-placement="state">
+    <ion-select-option value="apple">Jabalpur</ion-select-option>
+    <ion-select-option value="banana">Bhopal</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+
+  </ion-select>
+</ion-item>
+<ion-item>
+  <ion-button class="theme-color-button"  slot="end" id="open-city-modal" expand="block"  fill="outline"> <ion-icon class="theme-color"  class="right-margine" name="add-circle-outline"></ion-icon></ion-button>
+  <ion-select label="Select City" label-placement="city">
+    <ion-select-option value="apple">Jabalpur</ion-select-option>
+    <ion-select-option value="banana">Bhopal</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+    <ion-select-option value="apple">Apple</ion-select-option>
+    <ion-select-option value="banana">Banana</ion-select-option>
+    <ion-select-option value="orange">Orange</ion-select-option>
+
+  </ion-select>
+</ion-item> -->
+<div class="login-button">
+
+  <ion-button (click)="saveForm()"  style="text-align: center;" expand="block" >Save</ion-button>
+</div>
+</form>

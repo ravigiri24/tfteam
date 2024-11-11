@@ -1,0 +1,25 @@
+.imageBlock{
+    height: 60px;
+    text-align: center;
+  
+    position: relative;
+    .image-height{
+  height: 100%;
+  
+    }
+  }
+  .heading-css-with-logo{
+    position: relative;
+    left: 20px;
+    display: flex;
+    .logo-size{
+      font-size: 20px !important;
+  
+    }
+  }
+  .margin-heading{
+    margin-bottom: 10px;
+  }
+  .my-custom-class .alert-wrapper {
+    background: #e5e5e5;
+  }
