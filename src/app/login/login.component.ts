@@ -56,7 +56,7 @@ loginForm:FormGroup
         this.spinner?.dismiss()
         this.presentToast('Login Successfully...')
         this.share.set_staff_detail_session(res.data);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/customer-management']);
       } else {
         this.presentToast('Invalid Credential...')
         this.spinner?.dismiss()

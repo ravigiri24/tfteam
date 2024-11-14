@@ -14,8 +14,10 @@ import { CustomerManagementComponent } from './customer-management/customer-mana
 import { ReportUpManagementComponent } from './report-up-management/report-up-management.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddCustomerComponent } from './customer-management/add-customer/add-customer.component';
+import { SearchpipePipe } from './searchpipe.pipe';
+
 @NgModule({
-  declarations: [AppComponent,HomeComponent,HeaderComponent,FooterComponent,UserManagementComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent],
+  declarations: [AppComponent,HomeComponent,HeaderComponent,FooterComponent,UserManagementComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent,SearchpipePipe],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

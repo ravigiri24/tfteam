@@ -1,3 +1,38 @@
 .right-margine{
     margin-right: 5px;
 }
+.left-margin{
+ position: relative;
+ left:20px
+}
+.add-button{
+    position: relative;
+    right: 10px;
+}
+.button-theme{
+    border-color:var(--app-theme-element-color) !important;
+    ion-button {
+        --background: var(--app-theme-element-color) !important;
+        --border-color:var(--app-theme-element-color) !important;
+        --outline-color:var(--app-theme-element-color) !important;
+        --color:white !important;
+       
+        }
+}
+:host {
+    ion-button {
+     
+       
+        --outline-color:var(--app-theme-element-color) !important;
+        --color:var(--app-theme-element-color) !important;
+       
+        }
+  }
+  .total-number{
+    position: relative;
+    left: 6px;
+  }
+  .list-position{
+    position: relative;
+    top: 45px;
+  }

@@ -9,6 +9,9 @@ export class ReportUpManagementComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("ReportUpManagementComponent");
+    
+  }
 
 }
