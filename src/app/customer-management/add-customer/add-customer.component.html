@@ -13,7 +13,7 @@
     label="Enter Mobile Number"
     labelPlacement="stacked"
     type="text"
-
+  [readonly]="editData"
     placeholder="Your Number"
     formControlName="mobileNo"
   ></ion-input>
@@ -26,8 +26,16 @@
 
   </ion-select>
 </ion-item>
-<ion-item class="bottom-margin">
+<ion-item *ngIf="!editData" class="bottom-margin">
   <ion-textarea   formControlName="remark"  label="Remark" placeholder="write remark here..."></ion-textarea>
+</ion-item>
+<ion-item  *ngIf="!editData"  class="bottom-margin">
+  <ion-select    formControlName="assigned_staff_id" label="Assign To Staff" label-placement="type">
+    <ion-select-option *ngFor="let staff of staffList" [value]="staff?.id">{{staff?.name}}</ion-select-option>
+  
+  
+
+  </ion-select>
 </ion-item>
 
 <!-- <ion-item>
@@ -80,6 +88,7 @@
 </ion-item> -->
 <div class="login-button">
 
-  <ion-button (click)="saveForm()"  style="text-align: center;" expand="block" >Save</ion-button>
+  <ion-button *ngIf="!editData" (click)="saveForm()"  style="text-align: center;" expand="block" >Save</ion-button>
+  <ion-button *ngIf="editData" (click)="updateForm()"  style="text-align: center;" expand="block" >Update</ion-button>
 </div>
 </form>

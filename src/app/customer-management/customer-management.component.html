@@ -24,6 +24,7 @@
   <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
   
     <ion-button class="button-theme" class="add-button" slot="end" (click)="dataClear()" id="open-modal" expand="block" fill="outline"><ion-icon class="theme-color" name="person-add-outline" ></ion-icon></ion-button>
+
   </ion-toolbar>     
 </ion-header>
 <ion-content >
@@ -36,7 +37,7 @@
   <!-- <ion-searchbar [(ngModel)]="search" slot="fixed" placeholder="Search Customer"></ion-searchbar> -->
   
 <ion-list *ngIf="customerList?.length && showData" >
-  <ion-item *ngFor="let cus of customerList| searchItem : ['name','mobileNo'] : search">
+  <ion-item *ngFor="let cus of customerList| searchItem : ['name','mobileNo'] : search;let in=index">
     <ion-label>
     <h2>{{cus?.name}}</h2>
     <p>{{cus?.mobileNo}}-{{cus?.customerType}}</p>
@@ -44,9 +45,9 @@
     <!-- <ion-label>{{cus?.name}}</ion-label>
     <ion-label>{{cus?.mobileNo}}</ion-label> -->
 
-    <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus)" class="right-margine theme-color" name="create-outline"></ion-icon>
+    <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
   
-    <ion-icon  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
+    <ion-icon  (click)="addReview(cus,in)"  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
     <ion-icon  class="right-margine theme-color-third"name="reorder-three-outline"></ion-icon>
   </ion-item>
 
@@ -57,7 +58,9 @@
 </ion-infinite-scroll>
 
 <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+
   <ng-template>
+    <ng-container  *ngIf="modelType=='CUSTOMER'">
     <ion-header>
       <ion-toolbar>
         <!-- <ion-buttons slot="start">
@@ -70,8 +73,27 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-   <app-add-customer *ngIf="showAddComp" [editData]="editData" (closeModal)="cancel()"></app-add-customer>
+   <app-add-customer *ngIf="showAddComp && staffList?.length" [staffList]="staffList" [editData]="editData" (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer>
     </ion-content>
+  </ng-container>
+  <ng-container  *ngIf="modelType=='REVIEW'">
+    <ion-header>
+      <ion-toolbar>
+        <!-- <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Cancel</ion-button>
+        </ion-buttons> -->
+        <ion-title>Add Review</ion-title>
+        <ion-buttons slot="end">
+          <ion-icon class="theme-color"  (click)="cancel()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+   <!-- <app-add-customer *ngIf="showAddComp" [editData]="editData" (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer> -->
+    </ion-content>
+  </ng-container>
   </ng-template>
+
 </ion-modal>
+
 </ion-content>

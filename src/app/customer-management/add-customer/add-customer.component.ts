@@ -33,7 +33,10 @@ export class AddCustomerComponent implements OnInit {
     private toastController: ToastController
   ) {}
   @Output() closeModal = new EventEmitter();
+  @Output() updateList = new EventEmitter();
+
   @Input() editData: any = null;
+  @Input() staffList: any = null;
   ngOnInit() {
     console.log('editData', this.editData);
 
@@ -62,8 +65,10 @@ export class AddCustomerComponent implements OnInit {
         Validators.required,
       ]),
       actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
-      id: new FormControl(this.editData?.id || null, [Validators.required]),
+      id: new FormControl(this.editData?.id || null,),
       remark: new FormControl(null, []),
+      assigned_staff_id: new FormControl(null, []),
+      assigining_staff_id: new FormControl(null, []),
     });
   }
   onWillDismiss(event: Event) {
@@ -73,18 +78,50 @@ export class AddCustomerComponent implements OnInit {
     }
   }
   loader = false;
+  getListOfStaff(){
+
+  }
   saveForm() {
     let obj = this.customerForm.value;
     console.log(this.customerForm.value);
-
+if( this.customerForm.valid){
     this.showLoading();
     this.api.postapi('addCustomer', obj).subscribe((res: any) => {
       this.spinner?.dismiss();
       this.presentToast(res?.msg);
 
       this.loader = false;
+      this.updateList.emit(res?.data)
       this.closeModal.emit();
     });
+  }else{
+    this.presentToast('Please Fill All Fields');
+  }
+  }
+  updateForm(){
+    if( this.customerForm.valid){
+    
+    let obj:any =    this.customerForm.value;
+    obj.id=this.editData?.id
+    this.showLoading();
+    this.api.postapi('updateCustomer', obj).subscribe(
+      (res: any) => {
+   console.log("$getUpdatedData",res);
+   
+        this.spinner?.dismiss();
+        this.presentToast(res?.msg);
+        this.updateList.emit(res?.data)
+        this.closeModal.emit();
+      },
+      (error:any) => {
+        this.spinner?.dismiss();
+       
+      }
+    );
+  }
+  else{
+    this.presentToast('Please Fill All Fields');
+  }
   }
 
   spinner: any;
