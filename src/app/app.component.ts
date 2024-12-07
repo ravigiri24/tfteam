@@ -22,8 +22,19 @@ export class AppComponent {
       `--app-theme-color-third`,
       ' #FFA500'
     );
-   
+    this.sreenWidth=  screen.width
+    this.sreenHeight=  screen.height
+     document.documentElement.style.setProperty(
+      `--app-screen-width-global`,
+      this.sreenWidth+'px'
+    );
+    document.documentElement.style.setProperty(
+      `--app-screen-height-global`,
+      this.sreenHeight+'px'
+    );
   }
+  sreenWidth
+  sreenHeight
   selectedTab:any='Customer'
 goToPage(tab:any){
 this.selectedTab=tab

@@ -15,10 +15,10 @@ import { ReportUpManagementComponent } from './report-up-management/report-up-ma
 import { HttpClientModule } from '@angular/common/http';
 import { AddCustomerComponent } from './customer-management/add-customer/add-customer.component';
 import { SearchpipePipe } from './searchpipe.pipe';
-
+import { SharedModule } from './shared-components/shared.module';
 @NgModule({
   declarations: [AppComponent,HomeComponent,HeaderComponent,FooterComponent,UserManagementComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent,SearchpipePipe],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -9,6 +9,14 @@
     position: relative;
     right: 10px;
 }
+.remark-side{
+  margin-left: 20px;
+  .remark-color{
+    color: var(--app-theme-element-color) !important;
+    font-weight: 600;
+  }
+
+}
 .button-theme{
     border-color:var(--app-theme-element-color) !important;
     ion-button {

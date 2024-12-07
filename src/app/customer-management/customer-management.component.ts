@@ -8,6 +8,7 @@ import { ToastController } from '@ionic/angular';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { IonContent } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
+import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -19,18 +20,20 @@ export class CustomerManagementComponent implements OnInit {
   constructor(
     private share: ShareService,
     private api: ApiService,
+    private fb:FormBuilder,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private modalController: ModalController
   ) {}
 
   @ViewChild(IonContent) content: IonContent;
-
+nextScheduleForm:FormGroup
   scrollToTop() {
     this.content.scrollToTop(0);
   }
   showData = true;
   staffDetails: any;
+
 
   ionViewWillEnter() {
     this.customerList = [];
@@ -49,7 +52,56 @@ export class CustomerManagementComponent implements OnInit {
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
     console.log('CustomerManagementComponent');
+ 
     //this.getCustomerList()
+  }
+  followLoader:any=false
+  nextFollowupDate() {
+    if (this.nextScheduleForm.valid) {
+      this.followLoader = true;
+      let obj = {
+        src: 'customer_lead_chats',
+        data: this.nextScheduleForm.value,
+      };
+      this.showLoading('Scheduling ...')
+      this.api.postapi('addOpp', obj).subscribe((res:any) => {
+        this.followLoader = false;
+        this.spinner?.dismiss();
+      this.presentToast("Scheduled Successfully...")
+        this.nextScheduleForm.controls['status'].reset();
+    
+      });
+    }
+  }
+  initializeNextDate(customer:any) {
+    this.nextScheduleForm = this.fb.group({
+      next_lead_date: new FormControl( null, [Validators.required]),
+      customer_id: new FormControl(customer?.id || null, [
+        Validators.required,
+      ]),
+      chat_type: new FormControl("FOLLOW_UP_DATE", [
+        Validators.required,
+      ]),
+      employeId: new FormControl(this.staffDetails?.staffCode || null, [
+        Validators.required,
+      ]),
+    });
+
+    // if(data){
+    //   this.form.addControl(
+    //     'id',
+    //     new FormControl(data?.id || null, [Validators.required])
+    //   );
+    // }
+  }
+  async presentToast(msg: any) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 1500,
+      position: 'bottom',
+    });
+
+    await toast.present();
   }
   number = 50;
   onIonInfinite(ev: any) {
@@ -81,9 +133,9 @@ export class CustomerManagementComponent implements OnInit {
   }
   search: any;
   spinner: any;
-  async showLoading() {
+  async showLoading(message:any) {
     this.spinner = await this.loadingCtrl.create({
-      message: 'Loading...',
+      message: message,
       duration: 5000,
     });
 
@@ -124,10 +176,33 @@ export class CustomerManagementComponent implements OnInit {
       this.showAddComp = true;
     }, 0);
   }
+  customerSelected:any
+  nextScheduleDate:any
+  setDate(v:any){
+    console.log("setDate",this.nextScheduleForm.value,v);
+    
+  }
+  nextSchedule(){
+    console.log("nextSchedule",this.nextScheduleForm.value);
+    
+  }
+
   addReview(cus: any, editIndex: any){
-     
+     this.customerSelected=cus
+     this.showRemark=false
+     setTimeout(() => {
+      this.showRemark=true
+     }, 0);
+     this.initializeNextDate(cus)
        document.getElementById('open-modal')?.click();
          this.modelType='REVIEW'
+  }
+  nextFollowup(cus: any, editIndex: any){
+    this.initializeNextDate(cus)
+    this.customerSelected=cus
+       
+         document.getElementById('open-modal')?.click();
+           this.modelType='FOLLOW-UP'
   }
   updateList(e: any) {
     if (this.editData) {
@@ -136,6 +211,7 @@ export class CustomerManagementComponent implements OnInit {
       this.customerList.unshift(e);
     }
   }
+  showRemark:any=true
   staffList:any=[]
   getStaffList(){
     let obj: any = this.share.getListObj('staffdetails', false, [], true);
@@ -159,7 +235,7 @@ export class CustomerManagementComponent implements OnInit {
   ) {
     console.log(e, firstIndex, lastIndex, loading, doBlank);
 
-    this.showLoading();
+    this.showLoading('Loading...');
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
     obj.firstIndex = firstIndex;

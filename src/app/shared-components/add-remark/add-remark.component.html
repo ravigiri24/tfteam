@@ -1,0 +1,34 @@
+<ion-content >
+<ion-list >
+
+<ion-item *ngFor="let chat of chatHistory" >
+  <ion-label>
+ 
+  <p><b>{{chat?.staffDetails?.name}}</b> <span class="date-time">{{chat?.createdOn}}</span></p>
+  <p class="text-size">{{chat?.status}}</p>
+ <p>
+</p>
+</ion-label>
+</ion-item>
+
+
+
+</ion-list>
+</ion-content>
+<form  [formGroup]="form">
+<div class="chat-box">
+<div >
+ 
+  <input
+
+ class="chat-typing"
+  type="text"
+formControlName="status"
+
+/>
+<ion-spinner *ngIf="loader" class="send-icon" color="primary"></ion-spinner>
+
+<ion-icon *ngIf="!loader"  (click)="onSave()" name="send" class="send-icon"></ion-icon>
+</div>
+</div>
+</form>

@@ -1,0 +1,50 @@
+.text-size{
+    font-size: 17px;
+    font-style:Roboto,sans-serif;
+}
+.date-time{
+    position:absolute;
+    right: 10px;
+}
+.overallHigth{
+    height: var(--app-screen-height-global)
+}
+.list-remark{
+height: 90%;
+}
+.chat-box{
+    border-color: var(--app-theme-element-color) !important;
+    margin-top: 10px;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    height: 45px;
+    background-color:var(--app-theme-element-color) !important;
+ 
+.chat-typing{
+    background-color: white;
+    height: 35px;
+    width: 85%;
+    border-color: var(--app-theme-element-color) !important;
+    position: relative;
+    border-radius: 20px;
+
+    top: 5px;
+    left: 10px;
+    .input-chat{
+        height: 35px;
+        position: relative;
+        bottom: 3px;
+        left: 7px;
+        width: 100%;
+    }
+   
+}
+
+}
+.send-icon{
+    position: relative;
+    margin-left: 17px;
+    top: 12px;
+    font-size: 24px;
+}
