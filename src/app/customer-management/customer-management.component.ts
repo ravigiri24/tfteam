@@ -194,7 +194,7 @@ nextScheduleForm:FormGroup
       this.showRemark=true
      }, 0);
      this.initializeNextDate(cus)
-       document.getElementById('open-modal')?.click();
+      // document.getElementById('open-modal')?.click();
          this.modelType='REVIEW'
   }
   nextFollowup(cus: any, editIndex: any){
@@ -203,6 +203,11 @@ nextScheduleForm:FormGroup
        
          document.getElementById('open-modal')?.click();
            this.modelType='FOLLOW-UP'
+  }
+  viewDetails(cus: any, editIndex: any){
+      this.customerSelected=cus
+       document.getElementById('open-modal')?.click();
+           this.modelType='VIEW-DATA'
   }
   updateList(e: any) {
     if (this.editData) {
