@@ -37,7 +37,7 @@
   <!-- <ion-searchbar [(ngModel)]="search" slot="fixed" placeholder="Search Customer"></ion-searchbar> -->
   
 <ion-list *ngIf="customerList?.length && showData" >
-  <ion-item *ngFor="let cus of customerList| searchItem : ['name','mobileNo'] : search;let in=index">
+  <ion-item *ngFor="let cus of customerList;let in=index">
     <ion-label>
     <h2>{{cus?.name}}</h2>
     <p>{{cus?.mobileNo}}-{{cus?.customerType}}<ion-icon *ngIf="!cus?.leadsChat?.length" name="warning"></ion-icon></p>
@@ -68,7 +68,7 @@
         </ion-buttons> -->
         <ion-title>Add Customer</ion-title>
         <ion-buttons slot="end">
-          <ion-icon class="theme-color"  (click)="cancel()" name="close-circle-outline"></ion-icon>
+          <ion-icon class="theme-color icon-size"  (click)="cancel()" name="close-circle-outline"></ion-icon>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>

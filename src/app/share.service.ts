@@ -2,15 +2,35 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
 export class ShareService {
-
-  constructor(private router:Router,    private loadingCtrl: LoadingController,private toastController: ToastController,) { }
+ showFooter=true
+  constructor(private router:Router,    private loadingCtrl: LoadingController,private toastController: ToastController,private alertController: AlertController) { }
   set_staff_detail_session(data:any){
 localStorage.setItem("userDetails",JSON.stringify(data))
   }
+  clearSession(){
+  //  localStorage.removeItem('currentGame');
+     localStorage.clear();
+ 
+  }
+  showFooterAction(e:any){
+this.showFooter=e
+  }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'A Short Title Is Best',
+      subHeader: 'A Sub Header Is Optional',
+      message: 'A message should be a short, complete sentence.',
+      buttons: ['Action'],
+    });
+
+    await alert.present();
+  }
+
   get_staff(){
  return  localStorage.getItem("userDetails") || null
   }
@@ -51,7 +71,12 @@ localStorage.setItem("userDetails",JSON.stringify(data))
     if(user){
       let userde=JSON.parse(user)
       if(userde){
-        this.router.navigate(['/customer-management'])
+        if(userde?.staff_role=='DIGITAL'){
+        this.router.navigate(['/digital/customer-management'])
+        }
+        else if(userde?.staff_role=='OPERATIONAL'){
+          this.router.navigate(['/operational/new-arrivals'])
+        }
       }
     }else{
       this.router.navigate(['/login'])

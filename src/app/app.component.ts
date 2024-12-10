@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ShareService } from './share.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private share:ShareService,private router:Router) {
+  currentUrl:any
+  constructor(public share:ShareService,private router:Router,private activated:ActivatedRoute) {
+    console.log("share",this.share.showFooter);
+    
     this.share.checkLogin()
     document.documentElement.style.setProperty(
       `--app-theme-element-color`,
@@ -32,6 +35,10 @@ export class AppComponent {
       `--app-screen-height-global`,
       this.sreenHeight+'px'
     );
+    activated.url.subscribe((res)=>{
+      console.log("res",res);
+    this.currentUrl==res[0]?.path
+    })
   }
   sreenWidth
   sreenHeight

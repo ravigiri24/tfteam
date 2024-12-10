@@ -8,10 +8,11 @@
 
     <ion-button
       class="button-theme"
-      class="add-button"
+      class="add-button displaynone"
       slot="end"
+      
       id="open-modal-follow" expand="block"
-    
+  
       fill="outline"
       ><ion-icon class="theme-color" name="refresh-outline"></ion-icon
     ></ion-button>
@@ -21,7 +22,7 @@
   <ion-list *ngIf="followUpList?.length && showData">
     <ion-item
       *ngFor="
-        let cus of followUpList | searchItem : ['name', 'mobileNo'] : search;
+        let cus of followUpList ;
         let in = index
       "
     >
@@ -69,7 +70,7 @@
             </form>
             <ion-buttons slot="end">
               <ion-icon
-                class="theme-color"
+                class="theme-color icon-size"
                 (click)="cancel()"
                 name="close-circle-outline"
               ></ion-icon>
@@ -77,7 +78,7 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <app-add-remark [data]="customerSelected"></app-add-remark>
+          <app-add-remark *ngIf="showRemark" [data]="customerSelected"></app-add-remark>
         </ion-content>
       </ng-container>
     </ng-template>

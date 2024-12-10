@@ -194,7 +194,7 @@ nextScheduleForm:FormGroup
       this.showRemark=true
      }, 0);
      this.initializeNextDate(cus)
-      // document.getElementById('open-modal')?.click();
+       document.getElementById('open-modal')?.click();
          this.modelType='REVIEW'
   }
   nextFollowup(cus: any, editIndex: any){

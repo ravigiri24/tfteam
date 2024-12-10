@@ -16,6 +16,10 @@ export class LoginComponent  implements OnInit {
 loginForm:FormGroup
   ngOnInit() {
     this.initiateForm()
+    this.share.showFooter=false
+  }
+  ionViewWillEnter() {
+ this.initiateForm()
   }
   spinner:any
   async showLoading() {
@@ -56,7 +60,9 @@ loginForm:FormGroup
         this.spinner?.dismiss()
         this.presentToast('Login Successfully...')
         this.share.set_staff_detail_session(res.data);
-        this.router.navigate(['/customer-management']);
+        this.share.showFooter=true
+      //  this.router.navigate(['/digital/customer-management']);
+        this.share.checkLogin()
       } else {
         this.presentToast('Invalid Credential...')
         this.spinner?.dismiss()

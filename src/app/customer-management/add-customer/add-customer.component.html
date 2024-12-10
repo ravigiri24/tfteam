@@ -29,14 +29,14 @@
 <ion-item *ngIf="!editData" class="bottom-margin">
   <ion-textarea   formControlName="remark"  label="Remark" placeholder="write remark here..."></ion-textarea>
 </ion-item>
-<ion-item  *ngIf="!editData"  class="bottom-margin">
+<!-- <ion-item  *ngIf="!editData"  class="bottom-margin">
   <ion-select    formControlName="assigned_staff_id" label="Assign To Staff" label-placement="type">
     <ion-select-option *ngFor="let staff of staffList" [value]="staff?.id">{{staff?.name}}</ion-select-option>
   
   
 
   </ion-select>
-</ion-item>
+</ion-item> -->
 
 <!-- <ion-item>
   <ion-icon class="right-margine" name="add-circle-outline"></ion-icon>

@@ -1,0 +1,47 @@
+<ion-header>
+    
+  <ion-toolbar>
+    <div class="left-margin">
+    <ion-label >
+      <h2>Add New Arrivals</h2>
+  
+    </ion-label> 
+  
+  </div>
+  
+
+  
+    <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal" expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline" ></ion-icon></ion-button>
+ 
+  </ion-toolbar>     
+</ion-header>
+<ion-content >
+<ion-tabs>
+  <!-- Tab bar -->
+  <ion-tab-bar  slot="top">
+    <ion-tab-button  (click)="goToPage('MODEL')" tab="MODEL">
+   <span [ngClass]="{'theme-color':selectedTab=='MODEL','font-wieght':selectedTab=='MODEL'}" > Select Model</span> 
+ 
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('BASIC_INFO')" tab="BASIC_INFO">
+    <span [ngClass]="{'theme-color':selectedTab=='BASIC_INFO','font-wieght':selectedTab=='BASIC_INFO'}" >Basic Info</span>
+    </ion-tab-button>
+    <ion-tab-button  (click)="goToPage('PURCHASE_DETAILES')" tab="PURCHASE_DETAILES">
+ <span [ngClass]="{'theme-color':selectedTab=='PURCHASE_DETAILES','font-wieght':selectedTab=='PURCHASE_DETAILES'}">Purchase Details</span>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+<div class="body-map">
+<div *ngIf="selectedTab=='MODEL'">
+<app-select-brand *ngIf="modelList?.length" [modelList]="modelList"></app-select-brand>
+  </div>
+  <div *ngIf="selectedTab=='BASIC_INFO'">
+    <app-basic-info></app-basic-info>
+  
+    </div>
+    <div *ngIf="selectedTab=='PURCHASE_DETAILES'">
+      <app-purchase-details></app-purchase-details>
+      
+      </div>
+    </div>
+</ion-content>

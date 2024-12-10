@@ -6,6 +6,10 @@
     position:absolute;
     right: 10px;
 }
+.height-list{
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+}
 .overallHigth{
     height: var(--app-screen-height-global)
 }

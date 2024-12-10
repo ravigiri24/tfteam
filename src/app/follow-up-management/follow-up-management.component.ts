@@ -38,12 +38,12 @@ export class FollowUpManagementComponent  implements OnInit {
   }
   show=false
   addReview(cus: any, editIndex: any){
-    this.customerSelected=cus
+    this.customerSelected=cus?.customerDetails
     this.showRemark=false
     setTimeout(() => {
      this.showRemark=true
     }, 0);
-    this.initializeNextDate(cus)
+    this.initializeNextDate(cus?.customerDetails)
       document.getElementById('open-modal-follow')?.click();
   
  }
@@ -97,7 +97,12 @@ export class FollowUpManagementComponent  implements OnInit {
 followUpList:any=[]
   ngOnInit() {}
   refreshList(){
-this.getFollowList()
+    this.getFollowList()
+    setTimeout(() => {
+      this.cancel()
+    }, 0);
+
+
   }
   search:any
   showData=true
@@ -110,12 +115,12 @@ this.getFollowList()
     this.api.postapi('getFollowupList', obj).subscribe(
       (res:any) => {
         this.followUpList = res.data;
-        this.followUpList?.forEach((f:any)=>{
-          this.followUpList.push(f)
-        })
-        this.followUpList?.forEach((f:any)=>{
-          this.followUpList.push(f)
-        })
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
         console.log("followUpList",this.followUpList);
         this.share?.spinner?.dismiss()
         this.loader = false;

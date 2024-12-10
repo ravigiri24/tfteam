@@ -1,0 +1,48 @@
+<ion-header>
+    
+  <ion-toolbar>
+    <div class="left-margin">
+    <ion-label >
+      <h2>Total</h2>
+      <p><b class="total-number">{{newArivalsList?.length}}</b></p>
+    </ion-label> 
+  
+  </div>
+  
+  <!-- <ion-label >
+    <h2>D</h2>
+    <p><b class="total-number">{{digital?.length}}</b></p>
+  </ion-label> 
+  <ion-label >
+    <h2>O</h2>
+    <p><b class="total-number">{{online?.length}}</b></p>
+  </ion-label> 
+  <ion-label >
+    <h2>V</h2>
+    <p><b class="total-number">{{visitors?.length}}</b></p>
+  </ion-label>  -->
+  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
+  
+    <ion-button class="button-theme" class="add-button" slot="end" (click)="goToNewArival()" id="open-modal" expand="block" fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button>
+ 
+  </ion-toolbar>     
+</ion-header>
+<ion-content >
+<ion-list *ngIf="newArivalsList?.length" >
+  <ion-item *ngFor="let tractor of newArivalsList;let in=index">
+    <ion-label>
+    <h2>{{tractor?.name}}</h2>
+    <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn}}</p>
+  </ion-label>
+    <!-- <ion-label>{{cus?.name}}</ion-label>
+    <ion-label>{{cus?.mobileNo}}</ion-label> -->
+   
+    <!-- <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
+  
+    <ion-icon  (click)="addReview(cus,in)"  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
+    <ion-icon (click)="viewDetails(cus,in)"  class="right-margine theme-color-third "name="eye"></ion-icon> -->
+  </ion-item>
+
+
+</ion-list>
+</ion-content>
