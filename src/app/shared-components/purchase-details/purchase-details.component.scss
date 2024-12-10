@@ -1,0 +1,14 @@
+.login-button{
+    position: relative;
+    top:20px;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+  
+ion-button {
+    --background: var(--app-theme-element-color) !important;
+    --border-color:var(--app-theme-element-color) !important;
+    --color:white !important;
+   
+    }
+}

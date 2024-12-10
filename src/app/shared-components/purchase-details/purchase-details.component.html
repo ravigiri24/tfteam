@@ -1,3 +1,113 @@
-<p>
-  purchase-details works!
-</p>
+<form class="form_basic_height" [formGroup]="modelForm">
+  <div formGroupName="purchasedetail" >
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Select Purchase Date"
+        labelPlacement="stacked"
+        type="date"
+     
+      formControlName="purchanseDate"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-select    formControlName="typeOfPurchase" label="Type Of Purchase" label-placement="type">
+        <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id">    {{ type?.name }}</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Name Of Seller"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="nameOfSeller"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Purchase Price"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="purchasePrice"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Seller Address"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="address"
+      ></ion-input>
+    </ion-item>
+   
+    <ion-item class="bottom-margin">
+      <ion-select    formControlName="city" label="City" label-placement="type">
+        <ion-select-option *ngFor="let city of cityList" [value]="city.id">    {{ city?.name }}</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Seller Contact 1"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="contact1"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Seller Contact 2"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="contact2"
+      ></ion-input>
+    </ion-item>
+    
+    <ion-item class="bottom-margin">
+      <ion-select    formControlName="companyRepresentative" label="Company Representative" label-placement="type">
+        <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id">    {{ comp?.name }}</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Chasis Number"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="chasisNumber"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Registraion Number"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="registrationNumber"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Engine Number"
+        labelPlacement="stacked"
+        type="text"
+     
+      formControlName="engineNumber"
+      ></ion-input>
+    </ion-item>
+    
+    </div>
+    <div class="login-button">
+
+      <ion-button (click)="saveForm()"   expand="block" >Save</ion-button>
+
+    </div>
+</form>
+
+

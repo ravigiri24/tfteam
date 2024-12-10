@@ -5,7 +5,7 @@ import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { AddRemarkComponent } from './add-remark/add-remark.component';
 import { ApiService } from '../api.service';
 import { UserManagementComponent } from '../user-management/user-management.component';
-
+import { SearchpipePipe } from '../searchpipe.pipe';
 @NgModule({
     imports: [
       CommonModule,
@@ -14,9 +14,9 @@ import { UserManagementComponent } from '../user-management/user-management.comp
       IonicModule,
      IonicModule.forRoot({})
     ],
-    declarations: [AddRemarkComponent,UserManagementComponent],
+    declarations: [AddRemarkComponent,UserManagementComponent,SearchpipePipe],
     schemas: [],
-    exports: [AddRemarkComponent,UserManagementComponent],
+    exports: [AddRemarkComponent,UserManagementComponent,SearchpipePipe],
   providers:[ApiService]
   })
   export class SharedModule {}

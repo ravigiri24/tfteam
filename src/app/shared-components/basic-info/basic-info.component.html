@@ -1,3 +1,46 @@
-<p>
-  basic-info works!
-</p>
+
+  <form  [formGroup]="form">
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Enter Tractor Name"
+        labelPlacement="stacked"
+        type="text"
+        placeholder="Your name"
+      formControlName="name"
+      ></ion-input>
+    </ion-item>
+ 
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Enter TF Code"
+        labelPlacement="stacked"
+        type="text"
+       
+      formControlName="registractionNo"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Enter Hours"
+        labelPlacement="stacked"
+        type="text"
+       
+      formControlName="hours"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-select    formControlName="yearOfManufactoring" label="Manufactoring" label-placement="type">
+        <ion-select-option  *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Enter Hours"
+        labelPlacement="stacked"
+        type="text"
+       
+      formControlName="price"
+      ></ion-input>
+    </ion-item>
+    </form>
+

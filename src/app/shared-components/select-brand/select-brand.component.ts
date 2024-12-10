@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-select-brand',
@@ -7,8 +7,17 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class SelectBrandComponent  implements OnInit {
 @Input() modelList:any=[]
+@Input() selectedModel:any
+@Output() setModelDetail=new EventEmitter()
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  
+  }
+  search:any
 
+  selectModel(model:any){
+this.selectedModel=model
+this.setModelDetail.emit(model)
+  }
 }

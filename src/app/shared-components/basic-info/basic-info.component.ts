@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-info',
@@ -6,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./basic-info.component.scss'],
 })
 export class BasicInfoComponent  implements OnInit {
-
+@Input() form:FormGroup
   constructor() { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.createYearArray()
+  }
+  yearArray:any = [];
+  createYearArray() {
+    let date = new Date();
+    let getyear = date.getFullYear();
+    let tillyear = Number(getyear) - 21;
+    for (let index = getyear; index > tillyear; index--) {
+      this.yearArray.push(index);
+    }
+  }
 }

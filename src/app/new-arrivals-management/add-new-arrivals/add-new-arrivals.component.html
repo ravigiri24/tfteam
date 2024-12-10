@@ -16,6 +16,7 @@
   </ion-toolbar>     
 </ion-header>
 <ion-content >
+  
 <ion-tabs>
   <!-- Tab bar -->
   <ion-tab-bar  slot="top">
@@ -31,17 +32,24 @@
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
+
 <div class="body-map">
 <div *ngIf="selectedTab=='MODEL'">
-<app-select-brand *ngIf="modelList?.length" [modelList]="modelList"></app-select-brand>
+<app-select-brand [selectedModel]="selectedModel" (setModelDetail)="setModelDetail($event)" *ngIf="modelList?.length" [modelList]="modelList"></app-select-brand>
   </div>
-  <div *ngIf="selectedTab=='BASIC_INFO'">
-    <app-basic-info></app-basic-info>
+  <div class="hieght-body"  *ngIf="selectedTab=='BASIC_INFO'">
+    
+    <ion-content class="ion-padding">
+    <app-basic-info *ngIf="modelForm" [form]="modelForm"></app-basic-info>
+    </ion-content>
   
     </div>
-    <div *ngIf="selectedTab=='PURCHASE_DETAILES'">
-      <app-purchase-details></app-purchase-details>
-      
+    <div class="hieght-body" *ngIf="selectedTab=='PURCHASE_DETAILES'">
+      <ion-content class="ion-padding">
+      <app-purchase-details (saveFormEvent)="saveForm()" [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList" [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"  [modelForm]="modelForm" ></app-purchase-details>
+    </ion-content>
+
       </div>
     </div>
-</ion-content>
+ 
+  </ion-content>

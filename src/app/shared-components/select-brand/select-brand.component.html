@@ -1,3 +1,18 @@
-<p>
-  select-brand works!
-</p>
+
+<ion-searchbar  [(ngModel)]="search" ></ion-searchbar>
+
+<!-- <ion-card *ngFor="let model of modelList  | searchItem : ['name'] : search">
+  <img alt="model" [src]="model?.logoUrl" />
+  <ion-card-header>
+    <ion-card-title>{{model?.name}}</ion-card-title>
+    <ion-card-subtitle>{{model?.brandName}}</ion-card-subtitle>
+  </ion-card-header>
+
+</ion-card> -->
+<ion-list>
+  <ion-item (click)="selectModel(model)" *ngFor="let model of modelList  | searchItem : ['name'] : search">
+    <ion-thumbnail slot="start">
+      <img alt="{{model?.name}}" [src]="model?.logoUrl" />
+    </ion-thumbnail>
+    <ion-label><span [ngClass]="{'theme-color':selectedModel?.id==model?.id,'font-model':selectedModel?.id==model?.id}">{{model?.name}}</span></ion-label>
+  </ion-item>
