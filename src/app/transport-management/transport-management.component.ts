@@ -3,18 +3,20 @@ import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-@Component({
-  selector: 'app-new-arrivals-management',
-  templateUrl: './new-arrivals-management.component.html',
-  styleUrls: ['./new-arrivals-management.component.scss'],
-})
-export class NewArrivalsManagementComponent  implements OnInit {
 
+@Component({
+  selector: 'app-transport-management',
+  templateUrl: './transport-management.component.html',
+  styleUrls: ['./transport-management.component.scss'],
+})
+export class TransportManagementComponent  implements OnInit {
   constructor(private alertCtrl:AlertController,private share:ShareService,private api:ApiService,private route:Router) { }
 
+
   ngOnInit() {}
+  transportList:any=[]
   ionViewWillEnter() {
-    this.newArivalsList = [];
+    this.transportList = [];
     this.getTractorList()
   }
   async showAlert(tractor:any,i:any) {  
@@ -53,15 +55,16 @@ this.startTransport(tractor)
       );
    
   }
-  newArivalsList:any=[]
+ // newArivalsList:any=[]
   backupList:any=[]
   userDetails:any
   staffDetails:any
   goToNewArival(data:any=null){
 this.route.navigate(['/operational/add-new-arrivals'])
   }
-  openEdit(tractor:any,i:any){
-    this.route.navigate(['/operational/edit-newarrivals',tractor?.rowCode])
+  addCost(tractor:any,i:any){
+    this.route.navigate(['/operational/add-cost',tractor?.id])
+    
  
 
   }
@@ -78,8 +81,9 @@ this.route.navigate(['/operational/add-new-arrivals'])
     this.api.postapi('getTractorList', obj).subscribe(
       (res:any) => {
      
-        this.newArivalsList = res.data;
-        this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+        this.transportList = res.data;
+       // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+        this.transportList=this.transportList.filter((f:any)=>f?.tractor_status=='AT_TRANSPORT')
       
         this.share.spinner.dismiss()
         this.backupList = res.data;

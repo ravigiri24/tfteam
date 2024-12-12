@@ -8,18 +8,12 @@ import { FormGroup } from '@angular/forms';
 })
 export class BasicInfoComponent  implements OnInit {
 @Input() form:FormGroup
+@Input() yearArray:any=[]
   constructor() { }
 
   ngOnInit() {
-    this.createYearArray()
+  //  this.createYearArray()
   }
-  yearArray:any = [];
-  createYearArray() {
-    let date = new Date();
-    let getyear = date.getFullYear();
-    let tillyear = Number(getyear) - 21;
-    for (let index = getyear; index > tillyear; index--) {
-      this.yearArray.push(index);
-    }
-  }
+
+
 }

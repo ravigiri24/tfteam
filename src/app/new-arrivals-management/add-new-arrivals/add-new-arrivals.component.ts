@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 
@@ -11,7 +11,7 @@ import { ShareService } from 'src/app/share.service';
 })
 export class AddNewArrivalsComponent  implements OnInit {
 
-  constructor(private router:Router,private share:ShareService,private api:ApiService,private fb:FormBuilder) { }
+  constructor(private activatedRoute:ActivatedRoute,private router:Router,private share:ShareService,private api:ApiService,private fb:FormBuilder) { }
 
   ngOnInit() {
     //this.getModelList()
@@ -59,16 +59,59 @@ export class AddNewArrivalsComponent  implements OnInit {
     );
   }
   staffDetails:any
+  rowCode:any
   ionViewWillEnter() {
+    this.createYearArray()
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
+    this.activatedRoute.params.subscribe((params:any) => {
+      this.rowCode = params?.id;
+    });
+    if (this.rowCode != undefined) {
+      this.getDataByRowCode(this.rowCode);
+    }else{
+      this.initialize()
+    }
+    this.selectedTab='MODEL'
     this.getModelList()
     this.getCityList()
     this.getPurchaseList()
     this.getCompanyRepresentativeList()
-    this.initialize()
+ 
   }
+  yearArray:any=[]
+  createYearArray() {
+    let date = new Date();
+    let getyear = date.getFullYear();
+    let tillyear = Number(getyear) - 21;
+    for (let index = getyear; index > tillyear; index--) {
+      this.yearArray.push(index);
+    }
+  }
+  getDataByRowCode(rowCode:any) {
+  
+    let obj = this.share.getDataRowObj(
+      'tractor',
+      true,
+      [],
+      rowCode
+    );
+    this.api.postapi('getTractorDataByRowCode', obj).subscribe(
+      (res:any) => {
+      
+        this.data = res.data;
+        if (this.data?.isDraft) {
+          this.initialize();
+     
+        }
+      },
+      (error:any) => {
+        //this.loadDataLoader = false;
+      }
+    );
+  }
+
   backToNewArrivals(){
     this.router.navigate(['operational/new-arrivals'])
   }
@@ -145,7 +188,7 @@ export class AddNewArrivalsComponent  implements OnInit {
       data?.otherinformation?.warranty
     );
     console.log("modelForm",this.modelForm.value);
-  //  this.selectedTab='BASIC_INFO'
+  this.selectedTab='BASIC_INFO'
     
   }
   initialize() {
@@ -178,7 +221,7 @@ export class AddNewArrivalsComponent  implements OnInit {
        hindiTranslation: new FormControl(this.data?.hindiTranslation || null),
        
        //  isActive: new FormControl(this.data?.isActive || false, []),
-       city: new FormControl(this.data?.city || null, [Validators.required]),
+       city: new FormControl( null, ),
  
        registractionNo: new FormControl(this.data?.registractionNo || null, []),
        yearOfManufactoring: new FormControl(
@@ -186,28 +229,28 @@ export class AddNewArrivalsComponent  implements OnInit {
          [Validators.required]
        ),
        discount: new FormControl(this.data?.discount || null),
-       price: new FormControl(this.data?.price || null, [Validators.required]),
+       price: new FormControl(this.data?.price || null, []),
        discountedPrice: new FormControl(this.data?.discountedPrice || null),
  
        frontImage: new FormGroup({
          file: new FormControl(null, []),
-         url: new FormControl(this?.data?.frontImageUrl || null),
+         url: new FormControl( null),
        }),
        backImage: new FormGroup({
          file: new FormControl(null, []),
-         url: new FormControl(this?.data?.backImageUrl || null),
+         url: new FormControl( null),
        }),
        leftImage: new FormGroup({
          file: new FormControl(null, []),
-         url: new FormControl(this?.data?.leftImageUrl || null),
+         url: new FormControl(null),
        }),
        displayImage: new FormGroup({
          file: new FormControl(null, []),
-         url: new FormControl(this?.data?.displayImageUrl || null),
+         url: new FormControl(null),
        }),
        rightImage: new FormGroup({
          file: new FormControl(null, []),
-         url: new FormControl(this?.data?.rightImageUrl || null),
+         url: new FormControl( null),
        }),
        actionByid: new FormControl(this.staffDetails?.staffCode, [
          Validators.required,
@@ -610,6 +653,7 @@ getModelList() {
   
       this.modelList = res.data;
       this.share?.spinner?.dismiss()
+   
     },
     (error:any) => {
     
@@ -617,21 +661,150 @@ getModelList() {
   );
 }
 goToPage(tab:any){
+  //this.selectedTab=tab
+  if(tab=='MODEL'){
   this.selectedTab=tab
-//   if(tab=='MODEL'){
-//   this.selectedTab=tab
-//   }else{
-//     if(this.selectedModel){
-//       this.selectedTab=tab
-//     }else{
-//       this.selectedTab='MODEL'
-// this.share.presentToast("Please Select Model")
-//     }
-//   }
+  }else{
+    if(this.modelForm.controls['modalID'].value){
+      this.selectedTab=tab
+    }else{
+      this.selectedTab='MODEL'
+this.share.presentToast("Please Select Model")
+    }
+  }
 
   }
-  saveForm(){
-    console.log("saveForm",this.modelForm.value);
-    
+  upload:any=[]
+  loadedImages:any=[]
+  getSensObj(isDraft: any = false) {
+    let obj;
+    obj = this.modelForm.value;
+    let getLeftImage = this.modelForm.controls['leftImage'] as FormGroup;
+    let getRightImage = this.modelForm.controls['rightImage'] as FormGroup;
+    let getFrontImage = this.modelForm.controls['frontImage'] as FormGroup;
+    let getBackImage = this.modelForm.controls['backImage'] as FormGroup;
+    let getDisplayImage = this.modelForm.controls['displayImage'] as FormGroup;
+
+    if (!this.data) {
+      obj.leftImage = getLeftImage.controls['file'].value;
+      obj.rightImage = getRightImage.controls['file'].value;
+      obj.frontImage = getFrontImage.controls['file'].value;
+      obj.backImage = getBackImage.controls['file'].value;
+      obj.displayImage = getDisplayImage.controls['file'].value;
+      obj.tractorImages = this.upload;
+      obj.isDraft = isDraft;
+    } else if (this.data) {
+      obj.id = this.data?.id;
+      obj.isDraft = isDraft;
+      obj.tractorImages = this.upload;
+      obj.loadedImages = this.loadedImages;
+      if (getLeftImage.controls['file'].value != null) {
+        obj.leftImage = getLeftImage.controls['file'].value;
+      } else {
+        obj.leftImage = null;
+      }
+      if (getRightImage.controls['file'].value != null) {
+        obj.rightImage = getRightImage.controls['file'].value;
+      } else {
+        obj.rightImage = null;
+      }
+      if (getFrontImage.controls['file'].value != null) {
+        obj.frontImage = getFrontImage.controls['file'].value;
+      } else {
+        obj.frontImage = null;
+      }
+      if (getBackImage.controls['file'].value != null) {
+        obj.backImage = getBackImage.controls['file'].value;
+      } else {
+        obj.backImage = null;
+      }
+      if (getDisplayImage.controls['file'].value != null) {
+        obj.displayImage = getDisplayImage.controls['file'].value;
+      } else {
+        obj.displayImage = null;
+      }
+    }
+    return obj;
+  }
+  onSave() {
+    if (this.checkValidation()) {
+      let obj = this.getSensObj();
+      console.log('onSave', obj);
+
+      if (!this.data) {
+       // console.log('modelForm', this.modelForm.value, 'obj', obj);
+       this.share.showLoading('Saving...')
+        this.api.postapi('addTractor', obj).subscribe(
+          (res: any) => {
+           // this.loader = false;
+    this.share.spinner.dismiss()
+    this.share.presentToast("Saved Successfully...")
+          //  this.share.openSnackbarAddSuccess();
+            this.router.navigate(['/operational/new-arrivals']);
+          },
+          (error:any) => {
+          //  this.loader = false;
+          }
+        );
+      } else if (this.data) {
+        this.share.showLoading('Updating...')
+        this.api.postapi('updateTractor', obj).subscribe(
+          (res: any) => {
+            this.share.spinner.dismiss()
+            this.share.presentToast("Updated Successfully...")
+            this.router.navigate(['/operational/new-arrivals']);
+          },
+          (error:any) => {
+          //  this.loader = false;
+          }
+        );
+      }
+    } else {
+      //this.share.openSnackbarValidationError();
+    }
+  }
+  checkValidation() {
+    let status = false;
+    if (!this.data) {
+      if (this.modelForm.valid) {
+        status = true;
+      } else {
+        status = false;
+      }
+    } else if (this.data) {
+   
+       
+        // getLogoFormGroup.controls.file.clearValidators();
+        // getLogoFormGroup.updateValueAndValidity();
+        // this.modelForm.updateValueAndValidity();
+        if (
+          this.modelForm.controls['name'].valid &&
+          this.modelForm.controls['city'].valid &&
+          this.modelForm.controls['registractionNo'].valid &&
+          this.modelForm.controls['yearOfManufactoring'].valid &&
+          this.modelForm.controls['modalID'].valid &&
+          this.modelForm.controls['modalName'].valid &&
+          this.modelForm.controls['brandName'].valid &&
+          this.modelForm.controls['brandID'].valid &&
+          this.modelForm.controls['engine'].valid &&
+          this.modelForm.controls['transmission'].valid &&
+          this.modelForm.controls['brakes'].valid &&
+          this.modelForm.controls['steering'].valid &&
+          this.modelForm.controls['powertakeof'].valid &&
+          this.modelForm.controls['fueltank'].valid &&
+          this.modelForm.controls['dimensionandwieght'].valid &&
+          this.modelForm.controls['hydraulics'].valid &&
+          this.modelForm.controls['wheelsandtyres'].valid &&
+          this.modelForm.controls['otherinformation'].valid &&
+          this.modelForm.controls['inspection'].valid
+        ) {
+          status = true;
+        } else {
+          status = false;
+        }
+   
+    }
+
+    return status;
   }
 }

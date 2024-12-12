@@ -66,6 +66,20 @@ this.showFooter=e
 
     this.spinner.present();
   }
+  getDataRowObj(src:any, isImage:any, images:any,rowCode:any){
+    let staffDetails: any = this.get_staff();
+    //console.log('staffDetails', staffDetails);
+    let getStaff  = JSON.parse(staffDetails);
+    let obj = {
+      src: src,
+      operate: getStaff?.staffCode,
+      isImage: isImage,
+      images: images,
+      rowCode: rowCode,
+     
+    };
+    return obj
+  }
   checkLogin(){
     let user=this.get_staff()
     if(user){

@@ -14,5 +14,5 @@
     <ion-thumbnail slot="start">
       <img alt="{{model?.name}}" [src]="model?.logoUrl" />
     </ion-thumbnail>
-    <ion-label><span [ngClass]="{'theme-color':selectedModel?.id==model?.id,'font-model':selectedModel?.id==model?.id}">{{model?.name}}</span></ion-label>
+    <ion-label><span [ngClass]="{'theme-color':modelForm.controls['modalID'].value==model?.id,'font-model':modelForm.controls['modalID'].value==model?.id}">{{model?.name}}</span></ion-label>
   </ion-item>

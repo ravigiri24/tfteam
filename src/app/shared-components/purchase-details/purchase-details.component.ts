@@ -12,6 +12,7 @@ export class PurchaseDetailsComponent  implements OnInit {
 @Input() typePurchaseList:any=[]
 @Input() companyRepresentativeList:any=[]
 @Input() cityList:any=[]
+@Input() data:any
 @Input() modelForm:FormGroup
 @Output() saveFormEvent=new EventEmitter()
   constructor(private share:ShareService,private api:ApiService) { }

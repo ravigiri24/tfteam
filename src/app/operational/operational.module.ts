@@ -13,10 +13,12 @@ import { SharedModule } from '../shared-components/shared.module';
 import { OperationalComponent } from './operational.component';
 import { HeaderOperationComponent } from './header-operation/header-operation.component';
 import { FooterOperationComponent } from './footer-operation/footer-operation.component';
+import { TransportManagementComponent } from '../transport-management/transport-management.component';
 import { AddNewArrivalsComponent } from '../new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
 import { NewArrivalsManagementComponent } from '../new-arrivals-management/new-arrivals-management.component';
+import { TransportCostListComponent } from '../transport-management/transport-cost-list/transport-cost-list.component';
 @NgModule({
-  declarations: [OperationalComponent,HeaderOperationComponent,FooterOperationComponent,NewArrivalsManagementComponent,AddNewArrivalsComponent,SelectBrandComponent,BasicInfoComponent,PurchaseDetailsComponent],
+  declarations: [OperationalComponent,HeaderOperationComponent,FooterOperationComponent,NewArrivalsManagementComponent,AddNewArrivalsComponent,SelectBrandComponent,BasicInfoComponent,PurchaseDetailsComponent,TransportManagementComponent,TransportCostListComponent],
   imports: [OperationlPageRoutingModule,CommonModule, IonicModule.forRoot(),FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 
