@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouteReuseStrategy } from '@angular/router';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { OperationlPageRoutingModule } from './operational-routing.module';
@@ -17,10 +17,32 @@ import { TransportManagementComponent } from '../transport-management/transport-
 import { AddNewArrivalsComponent } from '../new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
 import { NewArrivalsManagementComponent } from '../new-arrivals-management/new-arrivals-management.component';
 import { TransportCostListComponent } from '../transport-management/transport-cost-list/transport-cost-list.component';
+import { AddCostComponent } from '../transport-management/add-cost/add-cost.component';
+import { AddTransportStatusComponent } from '../transport-management/add-transport-status/add-transport-status.component';
 @NgModule({
-  declarations: [OperationalComponent,HeaderOperationComponent,FooterOperationComponent,NewArrivalsManagementComponent,AddNewArrivalsComponent,SelectBrandComponent,BasicInfoComponent,PurchaseDetailsComponent,TransportManagementComponent,TransportCostListComponent],
-  imports: [OperationlPageRoutingModule,CommonModule, IonicModule.forRoot(),FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
+  declarations: [
+    OperationalComponent,
+    HeaderOperationComponent,
+    FooterOperationComponent,
+    NewArrivalsManagementComponent,
+    AddNewArrivalsComponent,
+    SelectBrandComponent,
+    BasicInfoComponent,
+    PurchaseDetailsComponent,
+    TransportManagementComponent,
+    TransportCostListComponent,
+    AddCostComponent,
+    AddTransportStatusComponent
+  ],
+  imports: [
+    OperationlPageRoutingModule,
+    CommonModule,
+    IonicModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    SharedModule,
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-
 })
-  export class OperationlPageModule {}
+export class OperationlPageModule {}

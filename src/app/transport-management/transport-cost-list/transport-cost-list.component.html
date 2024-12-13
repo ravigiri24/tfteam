@@ -24,7 +24,7 @@
   </ion-label>  -->
   <ion-button  class="button-theme" class="add-button" slot="end" (click)="getList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
   
-    <ion-button  class="button-theme" (click)="dataClear()" class="add-button" slot="end"  id="open-modal-cost" expand="block" fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button>
+    <ion-button  class="button-theme" (click)="showModal()" class="add-button" slot="end"  fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button>
     <ion-button class="button-theme btn-right-margin" class="add-button" slot="end" (click)="backToTansport()"  fill="outline"><ion-icon class="theme-color" name="arrow-back-outline" ></ion-icon></ion-button>
   </ion-toolbar>     
 </ion-header>
@@ -37,7 +37,7 @@
     <p>{{row?.expense_amount}} | {{row?.expense_date}}| {{row?.createdOn}}</p>
   </ion-label>
       
-  <ion-icon   (click)="openEdit(row,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
+  <ion-icon  (click)="showModal(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
     <!-- <ion-icon   (click)="openEdit(tractor,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
     <ion-icon   (click)="showAlert(tractor,in)" class="right-margine theme-color" name="car-outline"></ion-icon> -->
 
