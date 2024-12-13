@@ -1,0 +1,36 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Reach Destination Information</ion-title>  
+   
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form class="form_basic_height" [formGroup]="form">
+
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Delivery Date"
+        labelPlacement="stacked"
+        type="date"
+     
+      formControlName="reachDate"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-select    formControlName="transportDestinationId" label="Warehouse" label-placement="type">
+        <ion-select-option *ngFor="let type of wareHouseLocationList" [value]="type.id">    {{ type?.name }}</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+    <div class="login-button">
+
+      <ion-button  (click)="updateItem()"  style="text-align: center;" expand="block" >Reached</ion-button>
+
+    </div>
+    
+</form>
+</ion-content>

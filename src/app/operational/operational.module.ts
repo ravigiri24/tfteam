@@ -19,6 +19,7 @@ import { NewArrivalsManagementComponent } from '../new-arrivals-management/new-a
 import { TransportCostListComponent } from '../transport-management/transport-cost-list/transport-cost-list.component';
 import { AddCostComponent } from '../transport-management/add-cost/add-cost.component';
 import { AddTransportStatusComponent } from '../transport-management/add-transport-status/add-transport-status.component';
+import { ConfirmDeliveryComponent } from '../transport-management/confirm-delivery/confirm-delivery.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -32,7 +33,8 @@ import { AddTransportStatusComponent } from '../transport-management/add-transpo
     TransportManagementComponent,
     TransportCostListComponent,
     AddCostComponent,
-    AddTransportStatusComponent
+    AddTransportStatusComponent,
+    ConfirmDeliveryComponent
   ],
   imports: [
     OperationlPageRoutingModule,

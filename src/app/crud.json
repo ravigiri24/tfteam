@@ -1,0 +1,601 @@
+{
+    "crud": [
+      {
+        "key": "CYLINDER",
+        "src":"cylinder",
+        "headerTitle":"Cylinder Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Cylinder delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         
+        "data": [
+          {
+            "title": "Cylinder",
+            "type": "number",
+            "key": "name",
+            "errorMsg": "Cylinder is required",
+            "validation":true
+            
+            
+          },
+          
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "HP",
+        "src":"hp",
+        "headerTitle":"HP Management",
+         "field":1,
+         "colArray":["hp","hindiTranslation"],
+         "deleteHeading":"HP delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         
+        "data": [
+          {
+            "title": "Enter HP",
+            "type": "number",
+            "key": "hp",
+            "errorMsg": "HP is required",
+            "validation":true
+            
+            
+          },
+          {
+           "title": "Enter in hindi",
+           "type": "text",
+           "key": "hindiTranslation",
+           "errorMsg": "in hindi is required",
+           "validation":true
+            }
+          
+        ]
+      },
+      {
+        "key": "COOLING",
+        "src":"cooling",
+        "headerTitle":"Cooling Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Cooling delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Cooling",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Cooling is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+        ]
+      },
+      {
+        "key": "AIR_FILTER",
+        "src":"airfilter",
+        "headerTitle":"Air Filter Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Air Filter delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Air Filter",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Air Filter is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "PTOHP",
+        "src":"ptohp",
+        "headerTitle":"PTO HP Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"PTO HP delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter PTO HP",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "PTO HP is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+             
+          
+        ]
+      },
+      {
+        "key": "FUEL_PUMP",
+        "src":"fuelpump",
+        "headerTitle":"Fuel Pump Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Fuel Pump delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Fuel Pump",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Fuel Pump is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "TYPE",
+        "src":"type",
+        "headerTitle":"Type Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Type is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "CLUTCH",
+        "src":"clutch",
+        "headerTitle":"Clutch Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Clutch delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Clutch",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Clutch is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "GEARBOX",
+        "src":"gearbox",
+        "headerTitle":"Gear Box Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Gear Box delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Gear Box",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Gear box is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "BREAK_TYPE",
+        "src":"brakestype",
+        "headerTitle":"Break Type Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Break Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Break Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Break type is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "STEERING_TYPE",
+        "src":"steeringtype",
+        "headerTitle":"Steering Type Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Steering Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Steering Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Steering type is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "STEERING_COLUMN",
+        "src":"steeringcolumn",
+        "headerTitle":"Steering Column Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Steering Column delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Steering Column",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Steering Column is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "POWER_TAKEOFF_TYPE",
+        "src":"powertakeofftype",
+        "headerTitle":"Power Takeoff Type Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Type is required",
+            "validation":true
+             }
+             ,
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+        ]
+      },
+      {
+        "key": "WARRANTY",
+        "src":"warranty",
+        "headerTitle":"WARRANTY Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter WARRANTY",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "WARRANTY is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "CITY",
+        "src":"city",
+        "headerTitle":"City Management",
+         "field":1,
+         "colArray":["name","hindiTranslation"],
+         "deleteHeading":"City delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter City",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "City is required",
+            "validation":true
+             },
+             {
+              "title": "Enter City(in hindi)",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "City is required"
+              
+               }
+          
+        ]
+      },
+      {
+        "key": "BROKER",
+        "src":"broker",
+        "headerTitle":"Broker Management",
+         "field":1,
+         "colArray":["name","contact","hindiTranslation"],
+         "deleteHeading":"Broker delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Name is required",
+            "validation":true
+             },
+             {
+              "title": "Enter Contact",
+              "type": "text",
+              "key": "contact",
+              "errorMsg": "Contact is required",
+              "validation":false
+               }
+        ]
+      },
+      {
+        "key": "COMPANYREPRESENTATIVE",
+        "src":"companyrepresentative",
+        "headerTitle":"Company Representative Management",
+         "field":1,
+         "colArray":["name","contact","hindiTranslation"],
+         "deleteHeading":"Company Representative delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Name is required",
+            "validation":true
+             },
+             {
+              "title": "Enter Contact",
+              "type": "text",
+              "key": "contact",
+              "errorMsg": "Contact is required",
+              "validation":false
+               }
+        ]
+      },
+      {
+        "key": "WAREHOUSELOCATION",
+        "src":"warehouselocation",
+        "headerTitle":"Warehouse Location Management",
+         "field":1,
+         "colArray":["name","address","hindiTranslation"],
+         "deleteHeading":"Warehouse Location delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Name is required",
+            "validation":true
+             },
+             {
+              "title": "Enter Name(in hindi)",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "hindiTranslation is required"
+              
+               },
+        
+             {
+              "title": "Enter Address",
+              "type": "text",
+              "key": "address",
+              "errorMsg": "Address is required",
+              "validation":false
+               }
+           
+        ]
+      },
+      {
+        "key": "REPAIRINGCENTER",
+        "src":"rerepairingcenter",
+        "headerTitle":"Rerepairing Center Management",
+         "field":1,
+         "colArray":["name","address","hindiTranslation"],
+         "deleteHeading":"Rerepairing Center delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "Name is required",
+            "validation":true
+             },
+             {
+              "title": "Enter Address",
+              "type": "text",
+              "key": "address",
+              "errorMsg": "Address is required",
+              "validation":false
+               },
+               
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+        ]
+      },
+      {
+        "key": "REVIEW",
+        "src":"review",
+        "headerTitle":"Review Management",
+         "field":1,
+         "colArray":["review","hindiTranslation"],
+         "deleteHeading":"Review delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Review",
+            "type": "text",
+            "key": "review",
+            "errorMsg": "Review is required",
+            "validation":true
+             },
+             {
+              "title": "Enter in hindi",
+              "type": "text",
+              "key": "hindiTranslation",
+              "errorMsg": "in hindi is required",
+              "validation":true
+               }
+          
+        ]
+      },
+      {
+        "key": "TYPE_OF_PURCHASE",
+        "src":"purchasetype",
+        "headerTitle":"Type of Purchase",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Puchase Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             }
+          
+        ]
+      },
+      {
+        "key": "TYPE_OF_EXPENSE",
+        "src":"expenseType",
+        "headerTitle":"Type of Expense",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Expense Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             }
+          
+        ]
+      },
+      {
+        "key": "TYPE_OF_REPAIRING_EXPENSE",
+        "src":"repairng_expense_type",
+        "headerTitle":"Type of Expense",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Expense Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             }
+          
+        ]
+      }
+    ]
+  }

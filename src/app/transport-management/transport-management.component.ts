@@ -3,6 +3,7 @@ import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ConfirmDeliveryComponent } from './confirm-delivery/confirm-delivery.component';
 import { ModalController } from '@ionic/angular';
 import { AddTransportStatusComponent } from './add-transport-status/add-transport-status.component';
 @Component({
@@ -92,7 +93,16 @@ export class TransportManagementComponent implements OnInit {
   addStatus(tractor:any) {
 this.showModal(tractor?.id)
   }
-
+  async showDeliveryModal(tractor_id:any){
+  const modal = await this.modalCtrl.create({
+    component: ConfirmDeliveryComponent,
+    componentProps: {
+   
+      tractor_id: tractor_id,
+    },
+  });
+  await modal.present();
+}
   async showModal(tractor_id: any = null) {
       const modal = await this.modalCtrl.create({
         component: AddTransportStatusComponent,
