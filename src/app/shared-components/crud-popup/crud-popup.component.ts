@@ -18,7 +18,7 @@ type:any
     this.crudDetail = crud.crud.find((f:any) => f.key == this.type);
     this.getList()
   }
-  view:any
+  view:any='LIST'
   formAction:any
   viewAction(view:any) {
     this.view = view;
@@ -38,17 +38,26 @@ type:any
         src: this.crudDetail.src,
         data: this.form.value,
       };
+      this.share.showLoading('Saving Data..')
       this.api.postapi('addOpp', obj).subscribe((res:any) => {
+        this.share.spinner.dismiss()
      this.share.presentToast("Saved SuccessFully...")
         this.form.reset();
-        //this.view='LIST'
+      
       });
     } else {
       this.form.markAllAsTouched();
  
     }
   }
-  editRow:any
+
+  editRow:any={}
+  editData(data:any) {
+    this.initialize(data);
+    this.editRow=data
+    this.formAction = 'UPDATE';
+    this.view = 'FORM';
+  }
   updateItem(){
     if (this.form.valid) {
       let obj = {
@@ -56,7 +65,9 @@ type:any
         data: this.form.value,
         id:this.editRow?.id
       };
+      this.share.showLoading('Saving Data..')
       this.api.postapi('updateOpp', obj).subscribe((res:any) => {
+        this.share.spinner.dismiss()
         this.share.presentToast("Updated SuccessFully...");
         this.form.reset();
 
@@ -67,6 +78,10 @@ type:any
 
     }
   }
+  openEdit(data:any){
+
+  }
+
   form:FormGroup
   initialize(data:any=null) {
     this.form = this.formBuilder.group({});
@@ -93,10 +108,12 @@ type:any
       [],
       true
     );
+    this.share.showLoading("Fetching Data...")
     this.api.postapi('getList', obj).subscribe(
       (res:any) => {
       
         this.listData = res.data;
+        this.share.spinner.dismiss()
       },
       (error:any) => {
  

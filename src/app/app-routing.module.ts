@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthService } from './auth.service';
 // import { HomeComponent } from './home/home.component';
 // import { UserManagementComponent } from './user-management/user-management.component';
 // import { FollowUpManagementComponent } from './follow-up-management/follow-up-management.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [AuthService],
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   // { path: 'home', component: HomeComponent},

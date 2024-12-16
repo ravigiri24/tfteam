@@ -8,7 +8,7 @@ import {
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
-
+import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
 @Component({
   selector: 'app-confirm-delivery',
   templateUrl: './confirm-delivery.component.html',
@@ -64,6 +64,20 @@ export class ConfirmDeliveryComponent implements OnInit {
       (error: any) => {}
     );
   }
+   async openCrudManagement(type: any) {
+      const modal = await this.modalCtrl.create({
+        component: CrudPopupComponent,
+        componentProps: {
+          type: type,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (type == 'WAREHOUSELOCATION') {
+        this.getWareHouseLocationList()
+      }
+      console.log('role', role);
+    }
 
   updateItem() {
     if (this.form.valid) {

@@ -10,6 +10,8 @@
       ></ion-input>
     </ion-item>
     <ion-item class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="refreshList('TYPE_OF_PURCHASE')" name="refresh-outline"></ion-icon>
       <ion-select    formControlName="typeOfPurchase" label="Type Of Purchase" label-placement="type">
         <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id">    {{ type?.name }}</ion-select-option>
 
@@ -44,6 +46,8 @@
     </ion-item>
    
     <ion-item class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('CITY')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="refreshList('CITY')" name="refresh-outline"></ion-icon>
       <ion-select    formControlName="city" label="City" label-placement="type">
         <ion-select-option *ngFor="let city of cityList" [value]="city.id">    {{ city?.name }}</ion-select-option>
 
@@ -69,6 +73,9 @@
     </ion-item>
     
     <ion-item class="bottom-margin">
+      
+      <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="refreshList('COMPANYREPRESENTATIVE')" name="refresh-outline"></ion-icon>
       <ion-select    formControlName="companyRepresentative" label="Company Representative" label-placement="type">
         <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id">    {{ comp?.name }}</ion-select-option>
 

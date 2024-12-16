@@ -31,6 +31,47 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding"> 
+  <div *ngIf="view == 'LIST'">
+    <ion-list *ngIf="listData?.length" >
+      <ion-item *ngFor="let row of listData;let in=index">
+        <ion-label>
+        <h2>{{row[crudDetail?.colArray[0]]}}</h2>
+        <p *ngFor="let col of crudDetail?.colArray;let i=index">
+          <ng-container *ngIf="i>0">
+            {{ row[col] }}
+        </ng-container>
+      </p>
+      </ion-label>
+      
+        <ion-icon   (click)="editData(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
+
+      </ion-item>
+    
+    
+    </ion-list>
+  </div>
+  <div *ngIf="view == 'FORM'">
+    <form [formGroup]="form">
+      <ion-item *ngFor="let fields of crudDetail?.data" class="bottom-margin">
+        <ion-input
+          label="{{fields.title}}"
+          labelPlacement="stacked"
+          type="test"
+       
+        formControlName="{{ fields.key }}"
+        ></ion-input>
+  </ion-item>
+    </form>
+    <div *ngIf="formAction=='ADD'"  class="login-button">
+
+      <ion-button  (click)="addItem()" style="color:white;"   expand="block" >Save</ion-button>
+
+    </div>
+    <div *ngIf="formAction=='UPDATE'"  class="login-button">
+      <ion-button  (click)="updateItem()" style="color:white;"   expand="block" >Update</ion-button>
+      </div>
+
+    </div>
 
 
   

@@ -46,7 +46,7 @@
     </div>
     <div class="hieght-body" *ngIf="selectedTab=='PURCHASE_DETAILES'">
       <ion-content class="ion-padding">
-      <app-purchase-details [data]="data" (saveFormEvent)="onSave()" [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList" [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"  [modelForm]="modelForm" ></app-purchase-details>
+      <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()" [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList" [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"  [modelForm]="modelForm" ></app-purchase-details>
     </ion-content>
 
       </div>

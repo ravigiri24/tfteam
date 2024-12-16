@@ -18,12 +18,15 @@ export class AddNewArrivalsComponent  implements OnInit {
   }
   cityList:any=[]
   getCityList(loader: any = false) {
-  
+  if(loader){
+    this.share.showLoading("Refreshing Data...")
+  }
     let obj = this.share.getListObj('city', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res:any) => {
         this.cityList = res.data;
-       
+  
+       this.share.spinner.dismiss()
       },
       (error:any) => {
      
@@ -32,12 +35,14 @@ export class AddNewArrivalsComponent  implements OnInit {
   }
   companyRepresentativeList: any = [];
   getCompanyRepresentativeList(loader: any = false) {
-
+    if(loader){
+      this.share.showLoading("Refreshing Data...")
+    }
     let obj = this.share.getListObj('companyrepresentative', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res:any) => {
         this.companyRepresentativeList = res.data;
-       
+        this.share.spinner.dismiss()
       },
       (error:any) => {
      
@@ -46,12 +51,14 @@ export class AddNewArrivalsComponent  implements OnInit {
   }
   typePurchaseList:any=[]
   getPurchaseList(loader: any = false) {
-
+    if(loader){
+      this.share.showLoading("Refreshing Data...")
+    }
     let obj = this.share.getListObj('purchasetype', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res:any) => {
         this.typePurchaseList = res.data;
-     
+        this.share.spinner.dismiss()
       },
       (error:any) => {
       
@@ -111,6 +118,17 @@ export class AddNewArrivalsComponent  implements OnInit {
       }
     );
   }
+  callListApi(type:any) {
+    if(type=='CITY'){
+      this.getCityList(true)
+    }
+    if(type == 'TYPE_OF_PURCHASE'){
+      this.getPurchaseList(true)
+    }
+    if (type == 'COMPANYREPRESENTATIVE') {
+      this.getCompanyRepresentativeList(true);
+    }
+      }
 
   backToNewArrivals(){
     this.router.navigate(['operational/new-arrivals'])

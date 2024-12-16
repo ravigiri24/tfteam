@@ -11,6 +11,8 @@
 <ion-content class="ion-padding">
 <form [formGroup]="form">
   <ion-item class="bottom-margin">
+    <ion-icon (click)="openCrudManagement('TYPE_OF_EXPENSE')" name="add-circle-outline"></ion-icon>
+    <ion-icon (click)="getExpense()" name="refresh-outline"></ion-icon>
     <ion-select    formControlName="expense_id" label="Expense Type" label-placement="type">
       <ion-select-option *ngFor="let type of expenseTypeList" [value]="type.id">    {{ type?.name }}</ion-select-option>
 
