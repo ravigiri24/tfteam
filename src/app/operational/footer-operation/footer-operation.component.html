@@ -16,6 +16,11 @@
           <ion-icon  *ngIf="selectedTab!=='Logistic'" class="theme-color" name="bookmarks-outline"></ion-icon>
         Logistic
         </ion-tab-button>
+        <ion-tab-button (click)="goToPage('Maintainance')" tab="Follow-Up">
+          <ion-icon *ngIf="selectedTab=='Maintainance'" class="theme-color" name="construct"></ion-icon>
+          <ion-icon  *ngIf="selectedTab!=='Maintainance'" class="theme-color" name="construct-outline"></ion-icon>
+          Maintenance
+        </ion-tab-button>
         <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>
           <ion-icon *ngIf="selectedTab!=='Report'"  class="theme-color" name="book-outline"></ion-icon>

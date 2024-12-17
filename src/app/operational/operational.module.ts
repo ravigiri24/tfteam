@@ -20,6 +20,8 @@ import { TransportCostListComponent } from '../transport-management/transport-co
 import { AddCostComponent } from '../transport-management/add-cost/add-cost.component';
 import { AddTransportStatusComponent } from '../transport-management/add-transport-status/add-transport-status.component';
 import { ConfirmDeliveryComponent } from '../transport-management/confirm-delivery/confirm-delivery.component';
+import { MaintainanceManagementComponent } from '../maintainance-management/maintainance-management.component';
+import { ImageViewerComponent } from '../maintainance-management/image-viewer/image-viewer.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -34,7 +36,9 @@ import { ConfirmDeliveryComponent } from '../transport-management/confirm-delive
     TransportCostListComponent,
     AddCostComponent,
     AddTransportStatusComponent,
-    ConfirmDeliveryComponent
+    ConfirmDeliveryComponent,
+    MaintainanceManagementComponent,
+    ImageViewerComponent
   ],
   imports: [
     OperationlPageRoutingModule,

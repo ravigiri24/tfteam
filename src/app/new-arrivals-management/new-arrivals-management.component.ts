@@ -65,6 +65,7 @@ this.route.navigate(['/operational/add-new-arrivals'])
  
 
   }
+
   getTractorList() {
 
     let staffDetails: any = this.share.get_staff();
