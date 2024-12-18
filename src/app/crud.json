@@ -596,6 +596,32 @@
              }
           
         ]
+      },
+      {
+        "key": "MATERIAL_OF_REPAIRING",
+        "src":"repairmateriallist",
+        "headerTitle":"Material",
+         "field":1,
+         "colArray":["name","price"],
+         "deleteHeading":"delete material?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Material Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             },
+             {
+              "title": "Enter Price",
+              "type": "number",
+              "key": "price",
+              "errorMsg": "price is required",
+              "validation":true
+               }
+          
+        ]
       }
     ]
   }

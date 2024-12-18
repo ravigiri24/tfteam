@@ -1,0 +1,16 @@
+.right-margine{
+    margin-right: 5px;
+}
+:host {
+    ion-button {
+     
+       
+        --outline-color:var(--app-theme-element-color) !important;
+        --color:var(--app-theme-element-color) !important;
+       
+        }
+  }
+  .left-margin{
+    position: relative;
+    left:20px
+   }

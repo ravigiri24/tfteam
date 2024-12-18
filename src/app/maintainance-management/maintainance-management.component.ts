@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ShareService } from '../share.service';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { ModalController } from '@ionic/angular';
+import { RepairTractorDashboardComponent } from './repair-tractor-dashboard/repair-tractor-dashboard.component';
 @Component({
   selector: 'app-maintainance-management',
   templateUrl: './maintainance-management.component.html',
@@ -60,6 +61,21 @@ repairtractorList:any=[]
    
     }
   }
- 
+  async viewTractorDashboard(tractor:any){
+    const modal = await this.modalCtrl.create({
+      component: RepairTractorDashboardComponent,
+      componentProps: {
+     
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+   
+    }
+  }
   backupList:any=[]
 }

@@ -7,12 +7,14 @@ import { ApiService } from '../api.service';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { SearchpipePipe } from '../searchpipe.pipe';
 import { CrudPopupComponent } from './crud-popup/crud-popup.component';
+
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
+    
     IonicModule.forRoot({}),
   ],
   declarations: [

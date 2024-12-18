@@ -53,13 +53,24 @@
   <div *ngIf="view == 'FORM'">
     <form [formGroup]="form">
       <ion-item *ngFor="let fields of crudDetail?.data" class="bottom-margin">
+        <ng-container *ngIf="fields?.type=='text'">
         <ion-input
           label="{{fields.title}}"
           labelPlacement="stacked"
-          type="test"
+          type="text"
        
         formControlName="{{ fields.key }}"
         ></ion-input>
+      </ng-container>
+      <ng-container *ngIf="fields?.type=='number'">
+        <ion-input
+        label="{{fields.title}}"
+        labelPlacement="stacked"
+        type="number"
+     
+      formControlName="{{ fields.key }}"
+      ></ion-input>
+      </ng-container>
   </ion-item>
     </form>
     <div *ngIf="formAction=='ADD'"  class="login-button">

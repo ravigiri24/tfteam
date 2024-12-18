@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { PhotoService } from 'src/app/photo.service';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
-
+import { SingleImageShowComponent } from '../single-image-show/single-image-show.component';
 import {
   Camera,
   CameraResultType,
@@ -23,7 +23,8 @@ export class ImageViewerComponent implements OnInit {
     public photoService: PhotoService,
     private modalControl: ModalController,
     private share: ShareService,
-    private api: ApiService
+    private api: ApiService,
+    private modalCtrl:ModalController
   ) {}
   dismiss() {
     this.modalControl.dismiss();
@@ -135,5 +136,20 @@ export class ImageViewerComponent implements OnInit {
  
     });
   }
+  async viewImage(image:any){
+    const modal = await this.modalCtrl.create({
+      component: SingleImageShowComponent,
+      componentProps: {
+     
+        image: image,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
 
+    if (role === 'confirm') {
+   
+    }
+  }
 }
