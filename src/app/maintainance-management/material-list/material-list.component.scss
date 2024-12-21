@@ -69,3 +69,45 @@
   .font-size-price{
     font-size: 17px;
   }
+  .checkboxhieght{
+  height: calc(100% - 100px);;
+  }
+  .color-white{
+    color: white !important;
+  }
+  .bottom-margin-button{
+    margin-bottom: 19px;
+  }
+  .add-font-size{
+    font-size: 22px;
+    position: relative;
+    top: 1px;
+
+    margin-left: 15px;
+    margin-right: 3px;
+  }
+  .remove-font-size{
+    font-size: 22px;
+    position: relative;
+    top: 1px;
+
+  }
+  .qty-class{
+    font-size: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    position: relative;
+    top: -1px;
+  
+  }
+  .border-price{
+   
+    border: 2px solid var(--app-theme-element-color) ;
+   
+    border-radius: 25px;
+    width: 137px;
+    position: relative;
+    left: 44px;
+ 
+
+  }

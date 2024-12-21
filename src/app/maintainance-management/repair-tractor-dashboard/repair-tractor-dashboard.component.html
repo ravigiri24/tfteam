@@ -33,7 +33,7 @@
     </ion-tab-button>
     </ion-tab-bar>
     <ng-container *ngIf="selectedTab=='EXPENSE'">
-      <ion-button (click)="materalManagement()" fill="clear">
+      <ion-button (click)="materalManagement('EXPENSE')" fill="clear">
         <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
          Material
      </ion-button>
@@ -47,7 +47,23 @@
             <ion-label>Material</ion-label>
             
           </ion-item>
-          <div class="ion-padding" slot="content">First Content</div>
+        
+          <div class="ion-padding" slot="content">
+            <ion-list  >
+              <ion-item *ngFor="let mat of expenseMaterialList;let in=index">
+                <ion-label>
+                <h2>{{mat?.billNumber}} -{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}}|{{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+              </ion-label>
+
+              <ion-icon  (click)="openEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            
+              </ion-item>
+            
+            
+            </ion-list>
+            </div>
+            
         </ion-accordion>
         <ion-accordion value="second">
           <ion-item slot="header" color="light">
@@ -59,7 +75,7 @@
       </ion-accordion-group>
     </ng-container>
     <ng-container *ngIf="selectedTab=='PREDICTION'">
-      <ion-button (click)="materalManagement()" fill="clear">
+      <ion-button (click)="materalManagement('PREDICTION')" fill="clear">
         <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
          Material
      </ion-button>
@@ -73,7 +89,22 @@
             <ion-label>Material</ion-label>
             
           </ion-item>
-          <div class="ion-padding" slot="content">First Content</div>
+          <div class="ion-padding" slot="content">
+            <ion-list  >
+              <ion-item *ngFor="let mat of prdeictionMaterialList;let in=index">
+                <ion-label>
+                <h2>{{mat?.billNumber}}-{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}}|{{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+              </ion-label>
+
+          
+              <ion-icon  (click)="openEdit(mat,'PREDICTION')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            
+              </ion-item>
+            
+            
+            </ion-list>
+          </div>
         </ion-accordion>
         <ion-accordion value="seconds">
           <ion-item slot="header" color="light">

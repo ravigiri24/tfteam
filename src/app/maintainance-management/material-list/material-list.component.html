@@ -24,13 +24,40 @@
   </ion-toolbar>
 </ion-header>
 <ion-searchbar  [(ngModel)]="search" ></ion-searchbar>
-<ion-content>
+<form [formGroup]="form">
+<ion-item class="bottom-margin">
+  <ion-input
+    label="Date Of Expense"
+    labelPlacement="stacked"
+    type="date"
+ formControlName="expense_date"
+
+  ></ion-input>
+</ion-item>
+
+<ion-item class="bottom-margin">
+  <ion-icon (click)="openCrudManagement('REPAIRINGCENTER')" name="add-circle-outline"></ion-icon>
+  <ion-icon (click)="getRepairingCenterList(true)" name="refresh-outline"></ion-icon>
+  <ion-select  formControlName="repairing_center"    label="Repairing Center" label-placement="type">
+    <ion-select-option *ngFor="let rep of repairingCenterList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
+
+  </ion-select>
+</ion-item>
+</form>
+<ion-content class="checkboxhieght">
 <ng-container *ngFor="let material of materialList | searchItem : ['name'] : search">
-  <ion-checkbox class="left-marging" labelPlacement="end"
-  ><span class="font-size-heading font-family-all">{{material?.name}}</span><span class="font-size-price font-family-all">&nbsp; ₹ {{material?.price}}</span></ion-checkbox
+  <ion-checkbox [checked]="material?.checked" (ionChange)="checkedAction($event,material)" class="left-marging" labelPlacement="end"
+  ><span class="font-size-heading font-family-all">{{material?.name}}</span><span class="font-size-price font-family-all">&nbsp; ₹ {{material?.price}}</span>
+<br/>
+
+    </ion-checkbox
 >
+<div class="border-price">
+  <ion-icon (click)="qtyUp(material)" class="theme-color add-font-size" name="add-outline"></ion-icon><span class="qty-class">{{material?.qty}}</span><ion-icon  (click)="qtyDown(material)" class="theme-color remove-font-size"  name="remove-outline"></ion-icon>
+</div>
 <br/>
 </ng-container>
+
 <!-- <ion-checkbox class="left-marging" labelPlacement="end"
 ><span class="font-size-heading font-family-all">Clutch</span><span class="font-size-price font-family-all">&nbsp; ₹ 4500</span></ion-checkbox
 >
@@ -86,3 +113,10 @@
 
 
 </ion-content>
+
+<div class="login-button bottom-margin-button">
+
+  <ion-button *ngIf="!editData"   (click)="saveData()"  style="text-align: center;" expand="block" ><span class="color-white">Save</span></ion-button>
+  <ion-button  *ngIf="editData"  (click)="updateData()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
+
+</div>

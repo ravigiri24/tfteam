@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from './shared-components/shared.module';
 import { DigitalPageModule } from './digital/digital.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
