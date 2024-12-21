@@ -37,7 +37,7 @@
         <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
          Material
      </ion-button>
-     <ion-button fill="clear">
+     <ion-button  (click)="addService('EXPENSE')" fill="clear">
       <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
       Service Charge
     </ion-button>
@@ -52,8 +52,8 @@
             <ion-list  >
               <ion-item *ngFor="let mat of expenseMaterialList;let in=index">
                 <ion-label>
-                <h2>{{mat?.billNumber}} -{{mat?.materialDetail?.name}}</h2>
-                <p>{{mat?.expense_date}}|{{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+                <h2>{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}} | {{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
               </ion-label>
 
               <ion-icon  (click)="openEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
@@ -69,7 +69,21 @@
           <ion-item slot="header" color="light">
             <ion-label>Service Charge</ion-label>
           </ion-item>
-          <div class="ion-padding" slot="content">Second Content</div>
+          <div class="ion-padding" slot="content">
+            <ion-list  >
+              <ion-item *ngFor="let mat of expenseServiceList;let in=index">
+                <ion-label>
+                <h2>{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+              </ion-label>
+
+              <ion-icon  (click)="openServiceEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            
+              </ion-item>
+            
+            
+            </ion-list>
+            </div>
         </ion-accordion>
       
       </ion-accordion-group>
@@ -79,7 +93,7 @@
         <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
          Material
      </ion-button>
-     <ion-button fill="clear">
+     <ion-button (click)="addService('PREDICTION')" fill="clear">
       <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
       Service Charge
     </ion-button>
@@ -93,8 +107,8 @@
             <ion-list  >
               <ion-item *ngFor="let mat of prdeictionMaterialList;let in=index">
                 <ion-label>
-                <h2>{{mat?.billNumber}}-{{mat?.materialDetail?.name}}</h2>
-                <p>{{mat?.expense_date}}|{{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+                <h2>{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}} | {{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
               </ion-label>
 
           
@@ -110,7 +124,21 @@
           <ion-item slot="header" color="light">
             <ion-label>Service Charge</ion-label>
           </ion-item>
-          <div class="ion-padding" slot="content">Second Content</div>
+          <div class="ion-padding" slot="content">
+            <ion-list  >
+              <ion-item *ngFor="let mat of prdeictionServiceList;let in=index">
+                <ion-label>
+                <h2>{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+              </ion-label>
+
+              <ion-icon  (click)="openServiceEdit(mat,'PREDICTION')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            
+              </ion-item>
+            
+            
+            </ion-list>
+            </div>
         </ion-accordion>
       
       </ion-accordion-group>

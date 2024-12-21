@@ -593,7 +593,14 @@
             "key": "name",
             "errorMsg": "type is required",
             "validation":true
-             }
+             },
+             {
+              "title": "Enter Price",
+              "type": "number",
+              "key": "price",
+              "errorMsg": "price is required",
+              "validation":true
+               }
           
         ]
       },
