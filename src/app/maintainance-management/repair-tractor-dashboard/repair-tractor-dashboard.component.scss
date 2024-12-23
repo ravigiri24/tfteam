@@ -50,4 +50,11 @@
         --color:white !important;
        
         }
+       
+}
+ion-col {
+  background-color: var(--app-theme-element-color) !important;;
+  border: solid 1px #fff;
+  color: #fff;
+  text-align: center;
 }

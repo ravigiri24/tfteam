@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { MaterialListComponent } from '../material-list/material-list.component';
 import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
+import { AddRepairStatusComponent } from '../add-repair-status/add-repair-status.component';
 import { AddServiceChargeComponent } from '../add-service-charge/add-service-charge.component';
 @Component({
   selector: 'app-repair-tractor-dashboard',
@@ -20,14 +21,14 @@ export class RepairTractorDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getMaterialList();
-    this.getServiceList()
+    this.getServiceList();
   }
   dismiss() {
     this.modalControl.dismiss();
   }
-  expenseServiceList:any=[]
-  prdeictionServiceList:any=[]
-  getServiceList(){
+  expenseServiceList: any = [];
+  prdeictionServiceList: any = [];
+  getServiceList() {
     let obj: any = this.share.getListObj('reparing_cost', false, [], true);
     obj.tractor_id = this.tractorDetails?.id;
     //this.share.showLoading('Fetching Data...');
@@ -40,9 +41,9 @@ export class RepairTractorDashboardComponent implements OnInit {
           (f: any) => f?.expense_head == 'PREDICTION'
         );
         this.share.spinner.dismiss();
-        console.log('expenseServiceList',this.expenseServiceList);
-
-       // this.share.spinner.dismiss();
+        console.log('expenseServiceList', this.expenseServiceList);
+        this.calculateAmount();
+        // this.share.spinner.dismiss();
       },
       (error: any) => {}
     );
@@ -65,18 +66,63 @@ export class RepairTractorDashboardComponent implements OnInit {
         console.log('expenseMaterialList', this.expenseMaterialList);
 
         this.share.spinner.dismiss();
+        this.calculateAmount();
       },
       (error: any) => {}
     );
   }
-  openServiceEdit(ser: any = null, expense_head: any = null){
+  expenseMaterialCost: any = 0;
+  expenseServiceCost: any = 0;
+  prdeictionMaterialCost: any = 0;
+  predictionServiceCost: any = 0;
+  calculateAmount() {
+    this.expenseMaterialCost = 0;
+    this.expenseServiceCost = 0;
+    this.prdeictionMaterialCost = 0;
+    this.predictionServiceCost = 0;
+    this.expenseMaterialList.forEach((f: any) => {
+      this.expenseMaterialCost =
+        this.expenseMaterialCost + Number(f?.total_expense);
+    });
+    this.expenseServiceList.forEach((f: any) => {
+      this.expenseServiceCost =
+        this.expenseServiceCost + Number(f?.total_expense);
+    });
+    this.prdeictionMaterialList.forEach((f: any) => {
+      this.prdeictionMaterialCost =
+        this.prdeictionMaterialCost + Number(f?.total_expense);
+    });
+    this.prdeictionServiceList.forEach((f: any) => {
+      this.predictionServiceCost =
+        this.predictionServiceCost + Number(f?.total_expense);
+    });
+  }
+  addStatus(tractor: any) {
+    this.showModal(tractor?.id);
+  }
+    async showModal(tractor_id: any = null) {
+      const modal = await this.modalCtrl.create({
+        component: AddRepairStatusComponent,
+        componentProps: {
+          tractor_id: tractor_id,
+        },
+      });
+      await modal.present();
+      // const { data, role } = await modal.onWillDismiss();
+      // console.log('role', role);
+  
+      // if (role === 'confirm') {
+  
+      // }
+    }
+  openServiceEdit(ser: any = null, expense_head: any = null) {
     let obj: any = {};
     obj.expense_date = ser?.expense_date;
     obj.expense_id = ser?.expense_id;
     obj.repairing_center = ser?.repairing_center;
     obj.billNumber = ser?.billNumber;
     obj.id = ser?.id;
- 
+
     this.addService(expense_head, obj);
   }
   openEdit(mat: any = null, expense_head: any = null) {
@@ -97,7 +143,7 @@ export class RepairTractorDashboardComponent implements OnInit {
     obj.checkedList = getMaterialOfBill;
     this.materalManagement(expense_head, obj);
   }
- async addService(expense_head: any, obj: any = null){
+  async addService(expense_head: any, obj: any = null) {
     const modal = await this.modalCtrl.create({
       component: AddServiceChargeComponent,
       componentProps: {

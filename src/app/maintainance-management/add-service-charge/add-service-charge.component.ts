@@ -41,11 +41,21 @@ export class AddServiceChargeComponent implements OnInit {
       ]),
       expense_amount: new FormControl(data?.expense_amount || null, []),
 
-      expense_date: new FormControl(data?.expense_date || null),
+      expense_date: new FormControl(data?.expense_date || null, [
+        Validators.required,
+      ]),
       expense_type: new FormControl('REPAIR'),
-      repairing_center: new FormControl(data?.repairing_center || null),
-      tractor_id: new FormControl(this.tractorDetails?.id),
+      repairing_center: new FormControl(data?.repairing_center || null, [
+        Validators.required,
+      ]),
+      tractor_id: new FormControl(this.tractorDetails?.id,),
     });
+    if(this.expense_head=="PREDICTION"){
+      this.form.controls['repairing_center']?.clearValidators()
+      this.form.controls['expense_date']?.clearValidators()
+      this.form.updateValueAndValidity()
+      
+    }
   }
 
   async openCrudManagement(type: any = 'MATERIAL_OF_REPAIRING') {

@@ -26,32 +26,22 @@ export class TransportManagementComponent implements OnInit {
     this.transportList = [];
     this.getTractorList();
   }
-  async showAlert(tractor: any, i: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Are you sure?',
-      subHeader: '',
-      message: 'You want to Start the trasportation!',
-      buttons: ['Yes,Transport It!', 'Cancel'],
-    });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    if (!result?.role) {
-      this.startTransport(tractor);
-    }
-    console.log(result);
-  }
-  startTransport(tractor: any) {
+
+  startRepairingApi(tractor: any) {
     let obj;
 
     obj = {
-      data: { tractor_status: 'AT_TRANSPORT' },
+      data: { tractor_status: 'AT_REPAIR_CENTER' },
       src: 'tractor',
       id: tractor?.id,
     };
 
+    this.share.showLoading('Updating...');
     this.api.postapi('updateOpp', obj).subscribe(
       (res: any) => {
         this.getTractorList();
+        this.share.spinner.dismiss();
+        this.share.presentToast('Updated Successfully...');
       },
       (error: any) => {}
     );
@@ -66,7 +56,7 @@ export class TransportManagementComponent implements OnInit {
   addCost(tractor: any, i: any) {
     this.route.navigate(['/operational/add-cost', tractor?.id]);
   }
-  getTractorList() {
+  getTractorList(loadingMsg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
 
@@ -74,7 +64,7 @@ export class TransportManagementComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       isLive: false,
     };
-    this.share.showLoading('Loading...');
+    this.share.showLoading(loadingMsg);
     this.api.postapi('getTractorList', obj).subscribe(
       (res: any) => {
         this.transportList = res.data;
@@ -89,36 +79,54 @@ export class TransportManagementComponent implements OnInit {
       (error: any) => {}
     );
   }
-  tractor_id:any
-  addStatus(tractor:any) {
-this.showModal(tractor?.id)
+  tractor_id: any;
+  addStatus(tractor: any) {
+    this.showModal(tractor?.id);
   }
-  async showDeliveryModal(tractor_id:any){
-  const modal = await this.modalCtrl.create({
-    component: ConfirmDeliveryComponent,
-    componentProps: {
-   
-      tractor_id: tractor_id,
-    },
-  });
-  await modal.present();
-}
-  async showModal(tractor_id: any = null) {
-      const modal = await this.modalCtrl.create({
-        component: AddTransportStatusComponent,
-        componentProps: {
-       
-          tractor_id: tractor_id,
-        },
-      });
-      await modal.present();
-      // const { data, role } = await modal.onWillDismiss();
-      // console.log('role', role);
-  
-      // if (role === 'confirm') {
-     
-      // }
+  async showDeliveryModal(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ConfirmDeliveryComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+      this.getTractorList('Refreshing Data...');
     }
+  }
+  async startReparinConfiemation(tractor: any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Are you sure?',
+      subHeader: '',
+      message: 'You want to Start the Repair!',
+      buttons: ['Yes,Start!', 'Cancel'],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (!result?.role) {
+      this.startRepairingApi(tractor);
+    }
+    console.log(result);
+  }
+  async showModal(tractor_id: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: AddTransportStatusComponent,
+      componentProps: {
+        tractor_id: tractor_id,
+      },
+    });
+    await modal.present();
+    // const { data, role } = await modal.onWillDismiss();
+    // console.log('role', role);
+
+    // if (role === 'confirm') {
+
+    // }
+  }
   refreshList() {
     this.getTractorList();
   }

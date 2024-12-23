@@ -10,7 +10,7 @@
   </ion-toolbar>  
 </ion-header>  
 <ion-content>
-  <ion-card>
+  <ion-card color="warning">
     <ion-card-header>
       <ion-card-title>{{tractorDetails?.name}}</ion-card-title>
       <ion-card-subtitle>{{tractorDetails?.registractionNo}} 
@@ -20,9 +20,13 @@
     <ion-card-content>
       {{tractorDetails?.yearOfManufactoring}} |  {{tractorDetails?.createdOn}}  |  {{tractorDetails?.hours}}
     </ion-card-content>
-  
+    <ion-button  (click)="addStatus(tractorDetails)" fill="clear">
+      <ion-icon    class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
+    </ion-button>
+
 
   </ion-card>
+
   <ion-tab-bar  >
     <ion-tab-button  (click)="goToPage('EXPENSE')" tab="EXPENSE">
    <span [ngClass]="{'theme-color':selectedTab=='EXPENSE','font-wieght':selectedTab=='EXPENSE'}" >Expense</span> 
@@ -41,6 +45,23 @@
       <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
       Service Charge
     </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>Material</ion-col>
+        <ion-col>₹ {{expenseMaterialCost}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Service</ion-col>
+        <ion-col>₹ {{expenseServiceCost}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Total</ion-col>
+        <ion-col>₹ {{expenseServiceCost + expenseMaterialCost}}</ion-col>
+    
+      </ion-row>
+    </ion-grid>
       <ion-accordion-group [multiple]="true" [value]="[]">
         <ion-accordion value="first">
           <ion-item slot="header" color="light">
@@ -97,6 +118,23 @@
       <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
       Service Charge
     </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>Material</ion-col>
+        <ion-col>₹ {{prdeictionMaterialCost}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Service</ion-col>
+        <ion-col>₹ {{predictionServiceCost}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Total</ion-col>
+        <ion-col>₹ {{predictionServiceCost + prdeictionMaterialCost}}</ion-col>
+    
+      </ion-row>
+    </ion-grid>
       <ion-accordion-group [multiple]="true" [value]="[]">
         <ion-accordion value="firsts">
           <ion-item slot="header" color="light">
@@ -108,7 +146,7 @@
               <ion-item *ngFor="let mat of prdeictionMaterialList;let in=index">
                 <ion-label>
                 <h2>{{mat?.materialDetail?.name}}</h2>
-                <p>{{mat?.expense_date}} | {{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+                <p>{{mat?.qty}} | {{mat?.expense_amount}} | {{mat?.total_expense}}</p>
               </ion-label>
 
           
@@ -129,7 +167,7 @@
               <ion-item *ngFor="let mat of prdeictionServiceList;let in=index">
                 <ion-label>
                 <h2>{{mat?.materialDetail?.name}}</h2>
-                <p>{{mat?.expense_date}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+                <p>{{mat?.total_expense}}</p>
               </ion-label>
 
               <ion-icon  (click)="openServiceEdit(mat,'PREDICTION')" class="right-margine theme-color" name="create-outline"></ion-icon>

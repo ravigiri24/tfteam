@@ -15,7 +15,7 @@ import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-po
   styleUrls: ['./confirm-delivery.component.scss'],
 })
 export class ConfirmDeliveryComponent implements OnInit {
-  tractor_id: any;
+  tractorDetails: any;
   constructor(
     private fb: FormBuilder,
     private share: ShareService,
@@ -25,7 +25,7 @@ export class ConfirmDeliveryComponent implements OnInit {
 
   ngOnInit() {
     this.getWareHouseLocationList();
-    this.initialize();
+    this.initialize(this.tractorDetails);
   }
   dismiss() {
     return this.modalCtrl.dismiss(null, 'Cancel');
@@ -80,15 +80,20 @@ export class ConfirmDeliveryComponent implements OnInit {
     }
 
   updateItem() {
+
     if (this.form.valid) {
       let obj = {
         src: 'tractor',
         data: this.form.value,
-        id: this.tractor_id,
+        id: this.tractorDetails?.id,
       };
-
+this.share.showLoading("Updating Details...")
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-        this.share.presentToast('Saved...');
+        this.share.spinner.dismiss()
+        this.share.presentToast('Details Saved...');
+        this.modalCtrl.dismiss(null, 'confirm')
+        
+     
       });
     } else {
       this.share.presentToast("Please fill all details")

@@ -43,6 +43,12 @@ export class MaterialListComponent implements OnInit {
       ]),
       tractor_id: new FormControl(this.tractorDetails?.id || null),
     });
+    if(this.expense_head=="PREDICTION"){
+      this.form.controls['repairing_center']?.clearValidators()
+      this.form.controls['expense_date']?.clearValidators()
+      this.form.updateValueAndValidity()
+      
+    }
   }
 
   dismiss() {
@@ -97,9 +103,15 @@ export class MaterialListComponent implements OnInit {
     }
     console.log('role', role);
   }
+  resetTotalExpense(list:any){
+    list?.forEach((mat:any)=>{
+      mat.total_expense = Number(mat.qty) * Number(mat?.price);
+    })
+  }
   updateData() {
     let checkedList = this.materialList.filter((f: any) => f.checked == true);
     if (checkedList?.length && this.form.valid) {
+      this.resetTotalExpense(checkedList)
       let forUpdate=checkedList?.filter((f:any)=>f.recordId!=null)
       this.share.showLoading('Updating data...');
       let obj: any = this.share.getListObj('reparing_cost', false, [], true);
@@ -127,7 +139,9 @@ export class MaterialListComponent implements OnInit {
   saveData() {
     let checkedList = this.materialList.filter((f: any) => f.checked == true);
     if (checkedList?.length && this.form.valid) {
+      this.resetTotalExpense(checkedList)
       this.share.showLoading('Saving data...');
+
       let obj: any = this.share.getListObj('reparing_cost', false, [], true);
       obj.checkedList = checkedList;
       obj.expense_date = this.form.controls['expense_date'].value;

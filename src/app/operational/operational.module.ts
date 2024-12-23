@@ -27,6 +27,7 @@ import { RepairTractorDashboardComponent } from '../maintainance-management/repa
 import { MaterialListComponent } from '../maintainance-management/material-list/material-list.component';
 import { AddMaterialComponent } from '../maintainance-management/add-material/add-material.component';
 import { AddServiceChargeComponent } from '../maintainance-management/add-service-charge/add-service-charge.component';
+import { AddRepairStatusComponent } from '../maintainance-management/add-repair-status/add-repair-status.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -48,7 +49,8 @@ import { AddServiceChargeComponent } from '../maintainance-management/add-servic
     RepairTractorDashboardComponent,
     MaterialListComponent,
     AddMaterialComponent,
-    AddServiceChargeComponent
+    AddServiceChargeComponent,
+    AddRepairStatusComponent
   ],
   imports: [
     OperationlPageRoutingModule,

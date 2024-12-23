@@ -561,7 +561,7 @@
       },
       {
         "key": "TYPE_OF_EXPENSE",
-        "src":"expenseType",
+        "src":"expensetype",
         "headerTitle":"Type of Expense",
          "field":1,
          "colArray":["name"],

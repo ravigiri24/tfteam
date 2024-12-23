@@ -112,7 +112,7 @@ export class ImageViewerComponent implements OnInit {
       imageObj: this.renderResult,
       tractor_id: this.tarctor_id,
     };
-    this.share.showLoading('Uploading...');
+    this.share.showLoading('Uploading...',10000);
     this.api.postapi('saveRawImages', obj).subscribe((res: any) => {
       console.log("saveDataTo",res);
       this.imageArray.push(res?.data)

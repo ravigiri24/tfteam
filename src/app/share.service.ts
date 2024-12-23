@@ -58,10 +58,10 @@ this.showFooter=e
     return obj
   }
   spinner: any;
-  async showLoading(message:any) {
+  async showLoading(message:any,duration:any=5000) {
     this.spinner = await this.loadingCtrl.create({
       message: message,
-      duration: 5000,
+      duration: duration,
     });
 
     this.spinner.present();
