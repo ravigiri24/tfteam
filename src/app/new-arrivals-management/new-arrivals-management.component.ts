@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { StartTransportDialogComponent } from '../transport-management/start-transport-dialog/start-transport-dialog.component';
 @Component({
   selector: 'app-new-arrivals-management',
   templateUrl: './new-arrivals-management.component.html',
@@ -10,12 +11,27 @@ import { AlertController } from '@ionic/angular';
 })
 export class NewArrivalsManagementComponent  implements OnInit {
 
-  constructor(private alertCtrl:AlertController,private share:ShareService,private api:ApiService,private route:Router) { }
+  constructor(private modalCtrl:ModalController, private alertCtrl:AlertController,private share:ShareService,private api:ApiService,private route:Router) { }
 
   ngOnInit() {}
   ionViewWillEnter() {
     this.newArivalsList = [];
     this.getTractorList()
+  }
+  async startTranspotation(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: StartTransportDialogComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+      this.getTractorList('Refreshing Data...');
+    }
   }
   async showAlert(tractor:any,i:any) {  
     const alert = await this.alertCtrl.create({  
@@ -66,7 +82,7 @@ this.route.navigate(['/operational/add-new-arrivals'])
 
   }
 
-  getTractorList() {
+  getTractorList(msg:any='Loading...') {
 
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -75,7 +91,7 @@ this.route.navigate(['/operational/add-new-arrivals'])
       operate:this.staffDetails?.staffCode,
       isLive:false
     }
-    this.share.showLoading('Loading...')
+    this.share.showLoading(msg)
     this.api.postapi('getTractorList', obj).subscribe(
       (res:any) => {
      

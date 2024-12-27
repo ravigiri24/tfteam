@@ -1,0 +1,39 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Start Transport Information</ion-title>  
+   
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header> 
+ <ion-content class="ion-padding">
+  <form class="form_basic_height" [formGroup]="form">
+  
+      <ion-item class="bottom-margin">
+        <ion-input
+          label="Transportation Start Date"
+          labelPlacement="stacked"
+          type="date"
+       
+        formControlName="transport_start_date"
+        ></ion-input>
+      </ion-item>
+      <ion-item class="bottom-margin">
+        <ion-input
+          label="From to Where Detail"
+          labelPlacement="stacked"
+          type="text"
+       
+        formControlName="transport_src_place"
+        ></ion-input>
+      </ion-item>
+      <div class="login-button">
+  
+        <ion-button  (click)="updateItem()"  style="text-align: center;" expand="block" >Start</ion-button>
+  
+      </div>
+      
+  </form>
+  </ion-content>

@@ -5,6 +5,7 @@ import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { AddRepairStatusComponent } from '../add-repair-status/add-repair-status.component';
 import { AddServiceChargeComponent } from '../add-service-charge/add-service-charge.component';
+import { FinishRepairDialogComponent } from '../finish-repair-dialog/finish-repair-dialog.component';
 @Component({
   selector: 'app-repair-tractor-dashboard',
   templateUrl: './repair-tractor-dashboard.component.html',
@@ -183,4 +184,19 @@ export class RepairTractorDashboardComponent implements OnInit {
     this.selectedTab = type;
   }
   selectedTab: any = 'EXPENSE';
+ async readyConfirmation(tractor:any){
+   const modal = await this.modalCtrl.create({
+        component: FinishRepairDialogComponent,
+        componentProps: {
+          tractorDetails: tractor,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+       this.dismiss()
+      }
+  }
 }

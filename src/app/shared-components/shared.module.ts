@@ -21,7 +21,8 @@ import { CrudPopupComponent } from './crud-popup/crud-popup.component';
     AddRemarkComponent,
     UserManagementComponent,
     SearchpipePipe,
-    CrudPopupComponent,
+    CrudPopupComponent
+    
   ],
   schemas: [],
   exports: [

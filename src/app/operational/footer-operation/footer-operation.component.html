@@ -9,7 +9,7 @@
         <ion-tab-button (click)="goToPage('New-arrivals')" tab="Customer">
           <ion-icon *ngIf="selectedTab!=='New-arrivals'" class="theme-color" name="people-outline"></ion-icon>
           <ion-icon *ngIf="selectedTab=='New-arrivals'"  class="theme-color" name="people"></ion-icon>
-          New Arriavals
+          Arriavals
         </ion-tab-button>
         <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='Logistic'" class="theme-color" name="bookmarks"></ion-icon>
@@ -20,6 +20,11 @@
           <ion-icon *ngIf="selectedTab=='Maintainance'" class="theme-color" name="construct"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='Maintainance'" class="theme-color" name="construct-outline"></ion-icon>
           Maintenance
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('Live')" tab="User" >
+          <ion-icon  *ngIf="selectedTab!=='Live'" class="theme-color" name="list-circle-outline"></ion-icon>
+          <ion-icon  *ngIf="selectedTab=='Live'" class="theme-color" name="list-circle"></ion-icon>
+          Live
         </ion-tab-button>
         <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>

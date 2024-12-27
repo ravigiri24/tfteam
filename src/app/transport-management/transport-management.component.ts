@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { ConfirmDeliveryComponent } from './confirm-delivery/confirm-delivery.component';
 import { ModalController } from '@ionic/angular';
 import { AddTransportStatusComponent } from './add-transport-status/add-transport-status.component';
+import { StartRepairDialogComponent } from './start-repair-dialog/start-repair-dialog.component';
 @Component({
   selector: 'app-transport-management',
   templateUrl: './transport-management.component.html',
@@ -98,6 +99,22 @@ export class TransportManagementComponent implements OnInit {
       this.getTractorList('Refreshing Data...');
     }
   }
+    async startRepairing(tractor: any) {
+      const modal = await this.modalCtrl.create({
+        component: StartRepairDialogComponent,
+        componentProps: {
+          tractorDetails: tractor,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+        this.getTractorList('Refreshing Data...');
+      }
+    }
+
   async startReparinConfiemation(tractor: any) {
     const alert = await this.alertCtrl.create({
       header: 'Are you sure?',

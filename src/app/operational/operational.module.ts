@@ -28,6 +28,11 @@ import { MaterialListComponent } from '../maintainance-management/material-list/
 import { AddMaterialComponent } from '../maintainance-management/add-material/add-material.component';
 import { AddServiceChargeComponent } from '../maintainance-management/add-service-charge/add-service-charge.component';
 import { AddRepairStatusComponent } from '../maintainance-management/add-repair-status/add-repair-status.component';
+import { StartTransportDialogComponent } from '../transport-management/start-transport-dialog/start-transport-dialog.component';
+import { StartRepairDialogComponent } from '../transport-management/start-repair-dialog/start-repair-dialog.component';
+import { FinishRepairDialogComponent } from '../maintainance-management/finish-repair-dialog/finish-repair-dialog.component';
+import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.component';
+import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -50,7 +55,12 @@ import { AddRepairStatusComponent } from '../maintainance-management/add-repair-
     MaterialListComponent,
     AddMaterialComponent,
     AddServiceChargeComponent,
-    AddRepairStatusComponent
+    AddRepairStatusComponent,
+    StartTransportDialogComponent,
+    StartRepairDialogComponent,
+    FinishRepairDialogComponent,
+    AllTractorListComponent,
+    TractorDashboardComponent
   ],
   imports: [
     OperationlPageRoutingModule,

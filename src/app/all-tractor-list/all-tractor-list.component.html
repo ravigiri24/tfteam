@@ -1,0 +1,38 @@
+<ion-header>
+    
+  <ion-toolbar>
+    <div class="left-margin">
+    <ion-label >
+   
+      <h2>Total</h2>
+      <p><b class="total-number">{{alltractorList?.length}}</b></p>
+    </ion-label> 
+  
+  </div>
+  
+
+  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
+  
+
+ 
+  </ion-toolbar>     
+</ion-header>
+<ion-content >
+  <span class="heading-list">Live Tractor List</span>
+  <ion-list *ngIf="alltractorList?.length" >
+    <ion-item *ngFor="let tractor of alltractorList;let in=index">
+      <ion-label>
+      <h2>{{tractor?.name}}</h2>
+      <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn}}</p>
+    </ion-label>
+
+    <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color-second" name="eye-outline"></ion-icon>
+      <!-- <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
+      <ion-icon   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
+      <ion-icon   (click)="showDeliveryModal(tractor?.id)" class="right-margine theme-color" name="storefront-outline"></ion-icon> -->
+  
+    </ion-item>
+  
+  
+  </ion-list>
+  </ion-content>

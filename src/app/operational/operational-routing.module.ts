@@ -8,6 +8,8 @@ import { TransportManagementComponent } from '../transport-management/transport-
 import { AddNewArrivalsComponent } from '../new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
 import { TransportCostListComponent } from '../transport-management/transport-cost-list/transport-cost-list.component';
 import { MaintainanceManagementComponent } from '../maintainance-management/maintainance-management.component';
+import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.component';
+import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
 const routes: Routes = [
   {
     path: "", component: OperationalComponent,
@@ -18,6 +20,7 @@ const routes: Routes = [
       { path: 'add-new-arrivals', component: AddNewArrivalsComponent},
       { path: 'transport-management', component: TransportManagementComponent},
       { path: 'maintainance-management', component: MaintainanceManagementComponent},
+      { path: 'all-tractor-management', component: AllTractorListComponent},
       {
         path: 'edit-newarrivals/:id',
         component: AddNewArrivalsComponent,
@@ -25,6 +28,10 @@ const routes: Routes = [
       {
         path: 'add-cost/:id',
         component: TransportCostListComponent,
+      },
+      {
+        path: 'view-dashboard/:id',
+        component: TractorDashboardComponent,
       },
       
    

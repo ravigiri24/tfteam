@@ -1,0 +1,31 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Complete Repair Work</ion-title>  
+   
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header> 
+ <ion-content class="ion-padding">
+  <form class="form_basic_height" [formGroup]="form">
+  
+      <ion-item class="bottom-margin">
+        <ion-input
+          label="Work Complete Date"
+          labelPlacement="stacked"
+          type="date"
+       
+        formControlName="repairing_end_date"
+        ></ion-input>
+      </ion-item>
+    
+      <div class="login-button">
+  
+        <ion-button  (click)="updateItem()"  style="text-align: center;" expand="block" >Complete</ion-button>
+  
+      </div>
+      
+  </form>
+  </ion-content>

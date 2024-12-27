@@ -1,0 +1,76 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Dashboard</ion-title>  
+   
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <!-- <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons> -->
+  </ion-toolbar>  
+</ion-header> 
+<ion-content>
+<ion-card color="light">
+  <ion-card-header>
+    <ion-card-title>{{tractorDetails?.name}}</ion-card-title>
+    <ion-card-subtitle>{{tractorDetails?.registractionNo}} 
+   </ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    {{tractorDetails?.yearOfManufactoring}} |  {{tractorDetails?.createdOn}}  |  {{tractorDetails?.hours}}
+  </ion-card-content>
+  <!-- <ion-button  (click)="addStatus(tractorDetails)" fill="clear">
+    <ion-icon    class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
+  </ion-button>
+  <ion-button  (click)="readyConfirmation(tractorDetails)" fill="clear">
+    <ion-icon    class="right-margine theme-color" name="checkmark-done-outline"></ion-icon>
+  </ion-button> -->
+ 
+
+</ion-card>
+<ion-accordion-group [multiple]="true" [value]="[]">
+  <ion-accordion value="first">
+    <ion-item slot="header" color="light">
+      <ion-label>Logistic</ion-label>
+      
+    </ion-item>
+  
+    <div class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item >
+          <ion-button  (click)="addCost()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="calculator-outline"></ion-icon>
+          Expense
+          </ion-button>
+      
+        </ion-item>
+      
+        <ion-item >
+          <ion-button  (click)="addStatusTransport()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
+          Remark
+          </ion-button>
+      
+        </ion-item>
+      </ion-list>
+      </div>
+      
+  </ion-accordion>
+  <ion-accordion value="second">
+    <ion-item slot="header" color="light">
+      <ion-label>Maintainance</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item>
+       
+      
+        </ion-item>
+      
+      
+      </ion-list>
+      </div>
+  </ion-accordion>
+
+</ion-accordion-group>
+</ion-content>
