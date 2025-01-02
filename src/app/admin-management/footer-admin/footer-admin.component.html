@@ -1,0 +1,51 @@
+
+    
+    <ion-tabs  >
+      <ion-tab-bar slot="bottom">
+        <!-- <ion-tab-button tab="home">
+          <ion-icon name="play-circle"></ion-icon>
+          Listen Now
+        </ion-tab-button> -->
+        <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
+          <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
+          <ion-icon *ngIf="selectedTab=='Digital-analyse'"  class="theme-color" name="people"></ion-icon>
+          Leads
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
+          <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
+          <ion-icon *ngIf="selectedTab=='Digital-analyse'"  class="theme-color" name="people"></ion-icon>
+          WebSite
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
+          <ion-icon *ngIf="selectedTab=='operational'" class="theme-color" name="bookmarks"></ion-icon>
+          <ion-icon  *ngIf="selectedTab!=='operational'" class="theme-color" name="bookmarks-outline"></ion-icon>
+        Operational
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
+          <ion-icon *ngIf="selectedTab=='operational'" class="theme-color" name="bookmarks"></ion-icon>
+          <ion-icon  *ngIf="selectedTab!=='operational'" class="theme-color" name="bookmarks-outline"></ion-icon>
+        Expense
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('User')" tab="User" >
+          <ion-icon  *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
+          <ion-icon  *ngIf="selectedTab=='User'" class="theme-color" name="person-circle"></ion-icon>
+          User
+        </ion-tab-button>
+        <!-- <ion-tab-button (click)="goToPage('Maintainance')" tab="Follow-Up">
+          <ion-icon *ngIf="selectedTab=='Maintainance'" class="theme-color" name="construct"></ion-icon>
+          <ion-icon  *ngIf="selectedTab!=='Maintainance'" class="theme-color" name="construct-outline"></ion-icon>
+          Maintenance
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('Live')" tab="User" >
+          <ion-icon  *ngIf="selectedTab!=='Live'" class="theme-color" name="list-circle-outline"></ion-icon>
+          <ion-icon  *ngIf="selectedTab=='Live'" class="theme-color" name="list-circle"></ion-icon>
+          Live
+        </ion-tab-button>
+  
+        <ion-tab-button (click)="goToPage('User')" tab="User" >
+          <ion-icon  *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
+          <ion-icon  *ngIf="selectedTab=='User'" class="theme-color" name="person-circle"></ion-icon>
+          User
+        </ion-tab-button> -->
+      </ion-tab-bar>
+    </ion-tabs>

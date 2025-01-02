@@ -111,6 +111,7 @@ followUpList:any=[]
     this.loader = true;
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.date = this.date;
+    obj.storeId=this.staffDetails?.storeId
     this.share.showLoading('Loading...')
     this.api.postapi('getFollowupList', obj).subscribe(
       (res:any) => {

@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./operational/operational.module').then(m => m.OperationlPageModule)
   },
   {
+    path: 'admin-block',
+    loadChildren: () => import('./admin-management/admin.module').then(m => m.AdminModule)
+  },
+  {
     path: 'login',
     canActivate: [AuthService],
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)

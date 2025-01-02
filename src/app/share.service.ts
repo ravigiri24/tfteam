@@ -91,6 +91,9 @@ this.showFooter=e
         else if(userde?.staff_role=='OPERATIONAL'){
           this.router.navigate(['/operational/new-arrivals'])
         }
+        else if(userde?.staff_role=='SUPER_ADMIN' || userde?.staff_role=='ADMIN'){
+          this.router.navigate(['/admin-block/digital-analyse'])
+        }
       }
     }else{
       this.router.navigate(['/login'])
