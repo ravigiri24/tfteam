@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ShareService } from '../share.service';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { ModalController } from '@ionic/angular';
+import { ImageDashboardComponent } from './image-dashboard/image-dashboard.component';
 import { RepairTractorDashboardComponent } from './repair-tractor-dashboard/repair-tractor-dashboard.component';
 @Component({
   selector: 'app-maintainance-management',
@@ -47,7 +48,7 @@ repairtractorList:any=[]
   }
  async viewImage(tractor:any){
     const modal = await this.modalCtrl.create({
-      component: ImageViewerComponent,
+      component: ImageDashboardComponent,
       componentProps: {
      
         tarctor_id: tractor.id,

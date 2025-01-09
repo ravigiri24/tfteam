@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Manual Charges</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon
+        class="theme-color icon-size"
+        (click)="dismiss()"
+        name="close-circle-outline"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-item *ngIf="expense_head!='PREDICTION'" class="bottom-margin">
+      <ion-input
+        label="Date Of Expense"
+        labelPlacement="stacked"
+        type="date"
+     formControlName="expense_date"
+    
+      ></ion-input>
+    </ion-item>
+    
+    <ion-item  *ngIf="expense_head!='PREDICTION'" class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('REPAIRINGCENTER')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="getRepairingCenterList(true)" name="refresh-outline"></ion-icon>
+      <ion-select  formControlName="repairing_center"    label="Repairing Center" label-placement="type">
+        <ion-select-option *ngFor="let rep of repairingCenterList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
+    
+      </ion-select>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('TYPE_OF_MANUAL_EXPENSE')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="getExpenseManual(true)" name="refresh-outline"></ion-icon>
+      <ion-select  formControlName="expense_id" label="Select Expense" label-placement="type">
+        <ion-select-option *ngFor="let rep of expenseTypeList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
+    
+      </ion-select>
+    </ion-item>
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Price"
+        labelPlacement="stacked"
+        type="number"
+     formControlName="expense_amount"
+    
+      ></ion-input>
+    </ion-item>
+    <div class="login-button bottom-margin-button">
+
+      <ion-button *ngIf="!editData"   (click)="saveData()"  style="text-align: center;" expand="block" ><span class="color-white">Save</span></ion-button>
+      <ion-button  *ngIf="editData"  (click)="updateData()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
+    
+    </div>
+    </form>
+</ion-content>

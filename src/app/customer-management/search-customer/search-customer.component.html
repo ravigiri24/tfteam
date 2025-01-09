@@ -1,0 +1,35 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Search</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+</ion-header>  
+<ion-content>
+  <table style="width:100%; border: 1px solid black;" id="table">
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black;">Firstname</th>
+      <th style="border: 1px solid black;">Lastname</th> 
+      <th style="border: 1px solid black;">Age</th>
+    </tr>
+    <tr style="border: 1px solid black;">
+      <td contenteditable='true' style="border: 1px solid black;">Jill</td>
+      <td style="border: 1px solid black;">Smith</td> 
+      <td style="border: 1px solid black;">50</td>
+    </tr>
+    <tr style="border: 1px solid black;">
+      <td style="border: 1px solid black;">Eve</td>
+      <td style="border: 1px solid black;">Jackson</td> 
+      <td style="border: 1px solid black;">94</td>
+    </tr>
+  </table>
+  <div class="login-button">
+
+    <ion-button (click)="salva()"  style="text-align: center;" expand="block" >Download</ion-button>
+  
+  </div>
+</ion-content>

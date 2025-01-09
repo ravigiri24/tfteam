@@ -41,12 +41,16 @@
     </ion-tab-bar>
     <ng-container *ngIf="selectedTab=='EXPENSE'">
       <ion-button (click)="materalManagement('EXPENSE')" fill="clear">
-        <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
+        <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
          Material
      </ion-button>
      <ion-button  (click)="addService('EXPENSE')" fill="clear">
-      <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
-      Service Charge
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+      Service Ex.
+    </ion-button>
+    <ion-button (click)="addManualExpense('EXPENSE')" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+      Manual Ex.
     </ion-button>
     <ion-grid>
       <ion-row>
@@ -60,8 +64,14 @@
     
       </ion-row>
       <ion-row>
+        <ion-col>Manual</ion-col>
+        <ion-col>₹ {{expenseManualCost}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+
         <ion-col>Total</ion-col>
-        <ion-col>₹ {{expenseServiceCost + expenseMaterialCost}}</ion-col>
+        <ion-col>₹ {{expenseServiceCost + expenseMaterialCost + expenseManualCost}}</ion-col>
     
       </ion-row>
     </ion-grid>
@@ -109,17 +119,40 @@
             </ion-list>
             </div>
         </ion-accordion>
-      
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>Manual Ex.</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list  >
+              <ion-item *ngFor="let mat of expenseManualList;let in=index">
+                <ion-label>
+                <h2>{{mat?.materialDetail?.name}}</h2>
+                <p>{{mat?.expense_date}} | {{mat?.total_expense}} | {{mat?.centerDetail?.name}}</p>
+              </ion-label>
+
+              <ion-icon  (click)="openManualEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            
+              </ion-item>
+            
+            
+            </ion-list>
+            </div>
+        </ion-accordion>
       </ion-accordion-group>
     </ng-container>
     <ng-container *ngIf="selectedTab=='PREDICTION'">
       <ion-button (click)="materalManagement('PREDICTION')" fill="clear">
-        <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
+        <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
          Material
      </ion-button>
      <ion-button (click)="addService('PREDICTION')" fill="clear">
-      <ion-icon class="theme-color icon-size right-margin" name="add-circle-outline"></ion-icon>
-      Service Charge
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+      Service Ex.
+    </ion-button>
+    <ion-button (click)="addManualExpense('PREDICTION')" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+      Manual Ex.
     </ion-button>
     <ion-grid>
       <ion-row>
@@ -133,8 +166,13 @@
     
       </ion-row>
       <ion-row>
+        <ion-col>Manual</ion-col>
+        <ion-col>₹ {{predictionManualCost}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
         <ion-col>Total</ion-col>
-        <ion-col>₹ {{predictionServiceCost + prdeictionMaterialCost}}</ion-col>
+        <ion-col>₹ {{predictionServiceCost + prdeictionMaterialCost + predictionManualCost}}</ion-col>
     
       </ion-row>
     </ion-grid>
@@ -181,7 +219,26 @@
             </ion-list>
             </div>
         </ion-accordion>
-      
+        <ion-accordion value="thirds">
+          <ion-item slot="header" color="light">
+            <ion-label>Manual Ex.</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list  >
+              <ion-item *ngFor="let mat of prdeictionManualList;let in=index">
+                <ion-label>
+                <h2>{{mat?.materialDetail?.name}}</h2>
+                <p> {{mat?.total_expense}} </p>
+              </ion-label>
+
+              <ion-icon  (click)="openManualEdit(mat,'PREDICTION')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            
+              </ion-item>
+            
+            
+            </ion-list>
+            </div>
+        </ion-accordion>
       </ion-accordion-group>
       </ng-container>
 

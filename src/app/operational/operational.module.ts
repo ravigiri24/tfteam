@@ -33,6 +33,8 @@ import { StartRepairDialogComponent } from '../transport-management/start-repair
 import { FinishRepairDialogComponent } from '../maintainance-management/finish-repair-dialog/finish-repair-dialog.component';
 import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.component';
 import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
+import { AddMaunalChargeComponent } from '../maintainance-management/add-maunal-charge/add-maunal-charge.component';
+import { ImageDashboardComponent } from '../maintainance-management/image-dashboard/image-dashboard.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -60,7 +62,9 @@ import { TractorDashboardComponent } from '../shared-components/tractor-dashboar
     StartRepairDialogComponent,
     FinishRepairDialogComponent,
     AllTractorListComponent,
-    TractorDashboardComponent
+    TractorDashboardComponent,
+    AddMaunalChargeComponent,
+    ImageDashboardComponent
   ],
   imports: [
     OperationlPageRoutingModule,

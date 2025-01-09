@@ -10,10 +10,11 @@
   </ion-toolbar>  
 </ion-header>  
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="imageArray?.length">
     <ion-row>
       <ion-col size="6" *ngFor="let photo of imageArray; index as position">
-        <ion-img (click)="viewImage(photo)" [src]="photo.imageUrlUrl"></ion-img>
+     
+        <img (click)="viewImage(photo)" [src]="photo?.imageUrlUrl" />
       </ion-col>
     </ion-row>
   </ion-grid>

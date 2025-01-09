@@ -17,8 +17,9 @@ import { AddCustomerComponent } from '../customer-management/add-customer/add-cu
 // import { SearchpipePipe } from '../searchpipe.pipe';
 import { SharedModule } from '../shared-components/shared.module';
 import { DigitalComponent } from './digital.component';
+import { SearchCustomerComponent } from '../customer-management/search-customer/search-customer.component';
 @NgModule({
-  declarations: [DigitalComponent,HeaderComponent,FooterComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent,HomeComponent],
+  declarations: [DigitalComponent,HeaderComponent,FooterComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent,HomeComponent,SearchCustomerComponent],
   imports: [DigitalPageRoutingModule,CommonModule, IonicModule.forRoot(),FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 

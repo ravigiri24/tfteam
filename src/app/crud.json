@@ -605,6 +605,25 @@
         ]
       },
       {
+        "key": "TYPE_OF_MANUAL_EXPENSE",
+        "src":"manual_expense_type",
+        "headerTitle":"Type of Expense",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Expense Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             }
+          
+        ]
+      },
+      {
         "key": "MATERIAL_OF_REPAIRING",
         "src":"repairmateriallist",
         "headerTitle":"Material",

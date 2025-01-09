@@ -1,0 +1,47 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Image Dashboard</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Before Service</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>After Service</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('AFTER_SERVICE')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Job Card</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('JOB_CARD')"  >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card>
+</ion-content>

@@ -26,7 +26,11 @@ export class MaterialListComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
   selectedArray: any = [];
+  staffDetails:any
   ngOnInit() {
+    let staffDetails: any = this.share.get_staff();
+    console.log('staffDetails', staffDetails);
+    this.staffDetails = JSON.parse(staffDetails);
     this.getList();
     this.getRepairingCenterList();
     this.initialize(this.editData);
@@ -35,6 +39,9 @@ export class MaterialListComponent implements OnInit {
   initialize(data: any = null) {
     this.form = this.formBuilder.group({
       expense_date: new FormControl(data?.expense_date || null, [
+        Validators.required,
+      ]),
+      action_id: new FormControl(this.staffDetails?.id || null, [
         Validators.required,
       ]),
       expense_type: new FormControl('REPAIR'),
@@ -120,6 +127,7 @@ export class MaterialListComponent implements OnInit {
       obj.newEntries = checkedList?.filter((f:any)=>f.recordId==null || f.recordId==undefined) || [];
       obj.expense_date = this.form.controls['expense_date'].value;
       obj.expense_type = this.form.controls['expense_type'].value;
+      obj.action_id = this.form.controls['action_id'].value;
       obj.repairing_center = this.form.controls['repairing_center'].value;
       obj.tractor_id = this.form.controls['tractor_id'].value;
       obj.billNumber=this.editData?.billNumber
@@ -147,6 +155,7 @@ export class MaterialListComponent implements OnInit {
       obj.expense_date = this.form.controls['expense_date'].value;
       obj.expense_type = this.form.controls['expense_type'].value;
       obj.repairing_center = this.form.controls['repairing_center'].value;
+      obj.action_id = this.form.controls['action_id'].value;
       obj.tractor_id = this.form.controls['tractor_id'].value;
       console.log('obj', obj);
 

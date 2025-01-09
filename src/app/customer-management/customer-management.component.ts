@@ -9,6 +9,7 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { IonContent } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
+import { SearchCustomerComponent } from './search-customer/search-customer.component';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -33,6 +34,22 @@ nextScheduleForm:FormGroup
   }
   showData = true;
   staffDetails: any;
+   async searchCustomer(){
+      const modal = await this.modalController.create({
+        component: SearchCustomerComponent,
+        componentProps: {
+       
+          
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+     
+      }
+    }
 
 
   ionViewWillEnter() {

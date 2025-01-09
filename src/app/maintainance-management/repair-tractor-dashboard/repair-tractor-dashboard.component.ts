@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/api.service';
 import { AddRepairStatusComponent } from '../add-repair-status/add-repair-status.component';
 import { AddServiceChargeComponent } from '../add-service-charge/add-service-charge.component';
 import { FinishRepairDialogComponent } from '../finish-repair-dialog/finish-repair-dialog.component';
+import { AddMaunalChargeComponent } from '../add-maunal-charge/add-maunal-charge.component';
 @Component({
   selector: 'app-repair-tractor-dashboard',
   templateUrl: './repair-tractor-dashboard.component.html',
@@ -23,9 +24,32 @@ export class RepairTractorDashboardComponent implements OnInit {
   ngOnInit() {
     this.getMaterialList();
     this.getServiceList();
+    this.getManualExpenseList();
   }
   dismiss() {
     this.modalControl.dismiss();
+  }
+  expenseManualList:any=[]
+  prdeictionManualList:any=[]
+  getManualExpenseList() {
+    let obj: any = this.share.getListObj('reparing_cost', false, [], true);
+    obj.tractor_id = this.tractorDetails?.id;
+    //this.share.showLoading('Fetching Data...');
+    this.api.postapi('getManualExpense', obj).subscribe(
+      (res: any) => {
+        this.expenseManualList = res?.data.filter(
+          (f: any) => f?.expense_head == 'EXPENSE'
+        );
+        this.prdeictionManualList = res?.data.filter(
+          (f: any) => f?.expense_head == 'PREDICTION'
+        );
+        this.share.spinner.dismiss();
+        console.log('expenseServiceList', this.expenseServiceList);
+        this.calculateAmount();
+        // this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
   }
   expenseServiceList: any = [];
   prdeictionServiceList: any = [];
@@ -74,13 +98,17 @@ export class RepairTractorDashboardComponent implements OnInit {
   }
   expenseMaterialCost: any = 0;
   expenseServiceCost: any = 0;
+  expenseManualCost: any = 0;
   prdeictionMaterialCost: any = 0;
   predictionServiceCost: any = 0;
+  predictionManualCost: any = 0;
   calculateAmount() {
     this.expenseMaterialCost = 0;
     this.expenseServiceCost = 0;
     this.prdeictionMaterialCost = 0;
     this.predictionServiceCost = 0;
+    this.expenseManualCost = 0;
+    this.predictionManualCost = 0;
     this.expenseMaterialList.forEach((f: any) => {
       this.expenseMaterialCost =
         this.expenseMaterialCost + Number(f?.total_expense);
@@ -89,6 +117,10 @@ export class RepairTractorDashboardComponent implements OnInit {
       this.expenseServiceCost =
         this.expenseServiceCost + Number(f?.total_expense);
     });
+    this.expenseManualList.forEach((f: any) => {
+      this.expenseManualCost =
+        this.expenseManualCost + Number(f?.total_expense);
+    });
     this.prdeictionMaterialList.forEach((f: any) => {
       this.prdeictionMaterialCost =
         this.prdeictionMaterialCost + Number(f?.total_expense);
@@ -96,6 +128,10 @@ export class RepairTractorDashboardComponent implements OnInit {
     this.prdeictionServiceList.forEach((f: any) => {
       this.predictionServiceCost =
         this.predictionServiceCost + Number(f?.total_expense);
+    });
+    this.prdeictionManualList.forEach((f: any) => {
+      this.predictionManualCost =
+        this.predictionManualCost + Number(f?.total_expense);
     });
   }
   addStatus(tractor: any) {
@@ -125,6 +161,17 @@ export class RepairTractorDashboardComponent implements OnInit {
     obj.id = ser?.id;
 
     this.addService(expense_head, obj);
+  }
+  openManualEdit(ser: any = null, expense_head: any = null) {
+    let obj: any = {};
+    obj.expense_date = ser?.expense_date;
+    obj.expense_amount = ser?.expense_amount;
+    obj.expense_id = ser?.expense_id;
+    obj.repairing_center = ser?.repairing_center;
+    obj.billNumber = ser?.billNumber;
+    obj.id = ser?.id;
+
+    this.addManualExpense(expense_head, obj);
   }
   openEdit(mat: any = null, expense_head: any = null) {
     let obj: any = {};
@@ -157,6 +204,24 @@ export class RepairTractorDashboardComponent implements OnInit {
 
     const { data, role } = await modal.onWillDismiss();
     this.getServiceList();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+    }
+  }
+  async addManualExpense(expense_head: any, obj: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: AddMaunalChargeComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+        expense_head: expense_head,
+        editData: obj,
+      },
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    this.getManualExpenseList();
     console.log('role', role);
 
     if (role === 'confirm') {

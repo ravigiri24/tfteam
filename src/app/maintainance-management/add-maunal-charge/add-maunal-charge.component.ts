@@ -9,12 +9,13 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
+
 @Component({
-  selector: 'app-add-service-charge',
-  templateUrl: './add-service-charge.component.html',
-  styleUrls: ['./add-service-charge.component.scss'],
+  selector: 'app-add-maunal-charge',
+  templateUrl: './add-maunal-charge.component.html',
+  styleUrls: ['./add-maunal-charge.component.scss'],
 })
-export class AddServiceChargeComponent implements OnInit {
+export class AddMaunalChargeComponent  implements OnInit {
   tractorDetails: any;
   expense_head: any;
   editData: any = null;
@@ -29,9 +30,10 @@ export class AddServiceChargeComponent implements OnInit {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
-    this.getExpense();
+    this.getExpenseManual();
     this.getRepairingCenterList();
     this.initialize(this.editData)
+ 
   }
   dismiss() {
     this.modalControl.dismiss();
@@ -45,7 +47,8 @@ export class AddServiceChargeComponent implements OnInit {
       action_id: new FormControl(this.staffDetails?.id || null, [
         Validators.required,
       ]),
-      expense_amount: new FormControl(data?.expense_amount || null, []),
+      
+      expense_amount: new FormControl(data?.expense_amount || null, [ Validators.required]),
 
       expense_date: new FormControl(data?.expense_date || null, [
         Validators.required,
@@ -73,18 +76,18 @@ export class AddServiceChargeComponent implements OnInit {
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-    if (type == 'TYPE_OF_REPAIRING_EXPENSE') {
-      this.getExpense();
+    if (type == 'TYPE_OF_MANUAL_EXPENSE') {
+      this.getExpenseManual();
     } else if (type == 'REPAIRINGCENTER') {
       this.getRepairingCenterList(true);
     }
     console.log('role', role);
   }
   expenseTypeList: any = [];
-  getExpense(loader: any = false) {
+  getExpenseManual(loader: any = false) {
     this.share.showLoading('Getting Data...');
     let obj: any = this.share.getListObj(
-      'repairng_expense_type',
+      'manual_expense_type',
       false,
       [],
       true
@@ -121,12 +124,12 @@ export class AddServiceChargeComponent implements OnInit {
         (f: any) => f.id == objData?.expense_id
       );
 
-      objData.expense_amount = getSelected?.price;
+      //objData.expense_amount = getSelected?.price;
       objData.expense_type = "REPAIR";
     
       objData.expense_head = this.expense_head;
-      objData.expense_method = "SERVICE";
-      objData.total_expense = getSelected?.price;
+      objData.expense_method = "MANUAL_EXPENSE";
+      objData.total_expense = this.form.value?.expense_amount;
       objData.billNumber = "TF-"+Math.floor(100000 + Math.random() * 900000)
       objData.qty = 1;
       let obj = {
@@ -150,12 +153,12 @@ this.share.presentToast("Please Fill Required Fields")
   updateData() {
     if (this.form.valid) {
       let objData: any = this.form.value;
-      let getSelected = this.expenseTypeList?.find(
-        (f: any) => f.id == objData?.expense_id
-      );
+      // let getSelected = this.expenseTypeList?.find(
+      //   (f: any) => f.id == objData?.expense_id
+      // );
 
-      objData.expense_amount = getSelected?.price;
-       objData.total_expense = getSelected?.price;
+     // objData.expense_amount = getSelected?.price;
+       objData.total_expense =this.form.value?.expense_amount;
     
       objData.qty = 1;
    

@@ -19,6 +19,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class ImageViewerComponent implements OnInit {
   tarctor_id: any;
+  imageGroup: any;
   constructor(
     public photoService: PhotoService,
     private modalControl: ModalController,
@@ -31,6 +32,12 @@ export class ImageViewerComponent implements OnInit {
   }
   imageArray: any = [];
   ngOnInit() {
+    let staffDetails: any = this.share.get_staff();
+    console.log('staffDetails', staffDetails);
+    this.staffDetails = JSON.parse(staffDetails);
+    if(!this.staffDetails?.id){
+this.share.checkLogin()
+    }
     this.imageArray = [];
     this.getRawImages()
   }
@@ -111,6 +118,9 @@ export class ImageViewerComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       imageObj: this.renderResult,
       tractor_id: this.tarctor_id,
+      actionByid: this.staffDetails?.id,
+      imageGroup: this.imageGroup,
+
     };
     this.share.showLoading('Uploading...',10000);
     this.api.postapi('saveRawImages', obj).subscribe((res: any) => {
@@ -131,7 +141,8 @@ export class ImageViewerComponent implements OnInit {
     this.share.showLoading('Fetching Data...');
     this.api.postapi('getRawImages', obj).subscribe((res: any) => {
       console.log("data",res);
-      this.imageArray=res?.data
+      this.imageArray=res?.data || []
+      this.imageArray= this.imageArray.filter((f:any)=>f.imageGroup==this.imageGroup)
       this.share.spinner.dismiss();
  
     });
