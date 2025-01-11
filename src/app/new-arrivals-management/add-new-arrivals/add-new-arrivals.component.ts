@@ -91,7 +91,7 @@ export class AddNewArrivalsComponent  implements OnInit {
   createYearArray() {
     let date = new Date();
     let getyear = date.getFullYear();
-    let tillyear = Number(getyear) - 21;
+    let tillyear = Number(getyear) - 41;
     for (let index = getyear; index > tillyear; index--) {
       this.yearArray.push(index);
     }

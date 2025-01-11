@@ -32,6 +32,9 @@ this.getLeads()
       this.share.checkLogin()
     }
   }
+  refreshList(){
+    this.getLeads()
+  }
   staffDetails:any
   counts:any={}
   getLeads(){
@@ -47,6 +50,8 @@ this.getLeads()
           this.api.postapi('getLeads', obj).subscribe(
             (res: any) => {
           this.counts=res?.data
+          console.log("  this.counts",  this.counts);
+          
               this.share.spinner?.dismiss();
           
            

@@ -3,7 +3,7 @@
     <ion-title >Leads</ion-title>  
    
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
- 
+    <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
   </ion-toolbar>  
 </ion-header> 
 <ion-content>
@@ -15,7 +15,7 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row>
+          <ion-row >
             <ion-col>Digital</ion-col>
             <ion-col>{{counts?.customers_today_digital}}</ion-col>
         
@@ -39,19 +39,19 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row >
             <ion-col>Digital</ion-col>
-            <ion-col>30</ion-col>
+            <ion-col>{{counts?.customers_yesterday_digital}}</ion-col>
         
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
-            <ion-col>20</ion-col>
+            <ion-col>{{counts?.customers_yesterday_visitors}}</ion-col>
         
           </ion-row>
           <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
-            <ion-col>35</ion-col>
+            <ion-col>{{counts?.customers_yesterday_ONLINE}}</ion-col>
         
           </ion-row>
         </ion-grid>
@@ -63,19 +63,19 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row >
             <ion-col>Digital</ion-col>
-            <ion-col>30</ion-col>
+            <ion-col>{{counts?.customers_last_Seven_days_digital}}</ion-col>
         
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
-            <ion-col>20</ion-col>
+            <ion-col>{{counts?.customers_last_Seven_days_visitors}}</ion-col>
         
           </ion-row>
           <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
-            <ion-col>35</ion-col>
+            <ion-col>{{counts?.customers_last_Seven_days_ONLINE}}</ion-col>
         
           </ion-row>
         </ion-grid>
@@ -87,19 +87,19 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row >
             <ion-col>Digital</ion-col>
-            <ion-col>30</ion-col>
+            <ion-col>{{counts?.customers_this_month_digital}}</ion-col>
         
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
-            <ion-col>20</ion-col>
+            <ion-col>{{counts?.customers_this_month_visitors}}</ion-col>
         
           </ion-row>
           <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
-            <ion-col>35</ion-col>
+            <ion-col>{{counts?.customers_this_month_ONLINE}}</ion-col>
         
           </ion-row>
         </ion-grid>

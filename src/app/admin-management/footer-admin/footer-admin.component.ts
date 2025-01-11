@@ -30,7 +30,7 @@ export class FooterAdminComponent  implements OnInit {
   //   this.router.navigate(['/digital//report-management'])
   // }
   else if(tab=='User'){
-    this.router.navigate(['/operational/user-management'])
+    this.router.navigate(['/admin-block/user-management'])
   }
   
   }
