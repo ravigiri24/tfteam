@@ -20,7 +20,7 @@
 <ion-tabs>
   <!-- Tab bar -->
   <ion-tab-bar  slot="top">
-    <ion-tab-button  (click)="goToPage('MODEL')" tab="MODEL">
+    <ion-tab-button *ngIf="!rowCode"  (click)="goToPage('MODEL')" tab="MODEL">
    <span [ngClass]="{'theme-color':selectedTab=='MODEL','font-wieght':selectedTab=='MODEL'}" > Select Model</span> 
  
     </ion-tab-button>

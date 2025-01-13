@@ -23,7 +23,7 @@ export class FinishRepairDialogComponent  implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initialize();
+    this.initialize(this.tractorDetails);
   }
   dismiss() {
     return this.modalCtrl.dismiss(null, 'Cancel');

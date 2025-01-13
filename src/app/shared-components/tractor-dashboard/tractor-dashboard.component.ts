@@ -9,7 +9,12 @@ import {
 import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmDeliveryComponent } from 'src/app/transport-management/confirm-delivery/confirm-delivery.component';
 import { AddTransportStatusComponent } from 'src/app/transport-management/add-transport-status/add-transport-status.component';
+import { StartRepairDialogComponent } from 'src/app/transport-management/start-repair-dialog/start-repair-dialog.component';
+import { ImageDashboardComponent } from 'src/app/maintainance-management/image-dashboard/image-dashboard.component';
+import { RepairTractorDashboardComponent } from 'src/app/maintainance-management/repair-tractor-dashboard/repair-tractor-dashboard.component';
+import { StartTransportDialogComponent } from 'src/app/transport-management/start-transport-dialog/start-transport-dialog.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -41,6 +46,27 @@ export class TractorDashboardComponent  implements OnInit {
   dismiss() {
     return this.modalCtrl.dismiss(null, 'Cancel');
   }
+  backToList(){
+    this.route.navigate(['/operational/all-tractor-management'])
+  }
+  openEdit() {
+    this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode]);
+  }
+    async startTranspotation() {
+      const modal = await this.modalCtrl.create({
+        component: StartTransportDialogComponent,
+        componentProps: {
+          tractorDetails: this.tractorDetails,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+     // if (role === 'confirm') {
+        this.getTractorDetails('Refreshing Data...');
+      //}
+    }
   staffDetails:any
   getTractorDetails(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
@@ -54,7 +80,7 @@ export class TractorDashboardComponent  implements OnInit {
     this.api.postapi('getTractorById', obj).subscribe(
       (res: any) => {
         this.tractorDetails = res?.data;
-      
+    
         this.share.spinner.dismiss();
      
       },
@@ -82,5 +108,65 @@ export class TractorDashboardComponent  implements OnInit {
   
       // }
     }
+  async showDeliveryModal() {
+    const modal = await this.modalCtrl.create({
+      component: ConfirmDeliveryComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
 
+    if (role === 'confirm') {
+     this.getTractorDetails('Refreshing Data...');
+    }
+  }
+    async viewTractorDashboard(){
+      const modal = await this.modalCtrl.create({
+        component: RepairTractorDashboardComponent,
+        componentProps: {
+       
+          tractorDetails: this.tractorDetails,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  //    if (role === 'confirm') {
+      this.getTractorDetails('Refreshing Data...')
+    //  }
+    }
+   async viewImage(){
+      const modal = await this.modalCtrl.create({
+        component: ImageDashboardComponent,
+        componentProps: {
+       
+          tarctor_id: this.tractorDetails.id,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+        this.getTractorDetails('Refreshing Data...')
+      }
+    }
+      async startRepairing() {
+        const modal = await this.modalCtrl.create({
+          component: StartRepairDialogComponent,
+          componentProps: {
+            tractorDetails: this.tractorDetails,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+          this.getTractorDetails('Refreshing Data...');
+        }
+      }
 }

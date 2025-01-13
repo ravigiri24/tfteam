@@ -38,13 +38,13 @@
         }
 }
 :host {
-    ion-button {
-     
-       
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:var(--app-theme-element-color) !important;
-       
-        }
+  ion-button {
+    
+      
+      --outline-color:var(--app-theme-element-color) !important;
+      --color:var(--app-theme-element-color) !important;
+      
+      }
    
         ion-checkbox{
     --checkbox-background-checked: var(--app-theme-element-color) !important;

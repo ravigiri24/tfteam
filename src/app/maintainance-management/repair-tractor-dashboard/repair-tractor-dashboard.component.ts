@@ -261,7 +261,29 @@ export class RepairTractorDashboardComponent implements OnInit {
       console.log('role', role);
   
       if (role === 'confirm') {
+      
        this.dismiss()
       }
+      this.getTractorDetails()
+  }
+  staffDetails:any
+  getTractorDetails(msg: any = 'Refreshing Data...') {
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+      tractor_id: this.tractorDetails?.id,
+    };
+    this.share.showLoading(msg);
+    this.api.postapi('getTractorById', obj).subscribe(
+      (res: any) => {
+        this.tractorDetails = res?.data;
+      
+        this.share.spinner.dismiss();
+     
+      },
+      (error: any) => {}
+    );
   }
 }

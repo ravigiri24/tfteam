@@ -110,7 +110,7 @@ export class AddNewArrivalsComponent  implements OnInit {
         this.data = res.data;
         if (this.data?.isDraft) {
           this.initialize();
-     
+     this.selectedTab='BASIC_INFO'
         }
       },
       (error:any) => {

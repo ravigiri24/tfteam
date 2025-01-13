@@ -2,14 +2,16 @@
   <ion-toolbar>  
     <ion-title >Dashboard</ion-title>  
    
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons (click)="backToList()" slot="end">
+      <ion-icon class="theme-color icon-size"   name="arrow-back-outline"></ion-icon>
+    </ion-buttons>
     <!-- <ion-buttons slot="end">
       <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons> -->
   </ion-toolbar>  
 </ion-header> 
 <ion-content>
-<ion-card color="light">
+<ion-card *ngIf="tractorDetails" color="light">
   <ion-card-header>
     <ion-card-title>{{tractorDetails?.name}}</ion-card-title>
     <ion-card-subtitle>{{tractorDetails?.registractionNo}} 
@@ -29,7 +31,35 @@
 
 </ion-card>
 <ion-accordion-group [multiple]="true" [value]="[]">
-  <ion-accordion value="first">
+  <ion-accordion *ngIf="tractorDetails?.tractor_status == 'AT_TRANSPORT' || tractorDetails?.tractor_status == 'AT_REPAIR_CENTER' || tractorDetails?.tractor_status == null" value="third">
+    <ion-item slot="header" color="light">
+      <ion-label>Basic Details</ion-label>
+      
+    </ion-item>
+  
+    <div class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item >
+          <ion-button  (click)="openEdit()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="create-outline"></ion-icon>
+          Edit Details
+          </ion-button>
+      
+        </ion-item>
+        <ion-item >
+          <ion-button  (click)="startTranspotation()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="car-outline"></ion-icon>
+        Transport Start Details
+          </ion-button>
+      
+        </ion-item>
+    
+       
+      </ion-list>
+      </div>
+      
+  </ion-accordion>
+  <ion-accordion  *ngIf="tractorDetails?.tractor_status == 'AT_REPAIR_CENTER' || tractorDetails?.tractor_status == null" value="first">
     <ion-item slot="header" color="light">
       <ion-label>Logistic</ion-label>
       
@@ -52,23 +82,53 @@
           </ion-button>
       
         </ion-item>
+        <ion-item >
+          <ion-button  (click)="showDeliveryModal()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="storefront-outline"></ion-icon>
+          Delivery Details
+          </ion-button>
+      
+        </ion-item>
+        <ion-item  *ngIf="tractorDetails?.transportDestinationId!=null" >
+          <ion-button  (click)="startRepairing()"  fill="clear">
+            <ion-icon   class="right-margine theme-color"  name="construct-outline"></ion-icon>
+          Start Reparing Details
+          </ion-button>
+      
+        </ion-item>
+       
       </ion-list>
       </div>
       
   </ion-accordion>
-  <ion-accordion value="second">
+  <ion-accordion *ngIf="tractorDetails?.tractor_status == null" value="second">
     <ion-item slot="header" color="light">
       <ion-label>Maintainance</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
       <ion-list  >
-        <ion-item>
-       
+        <ion-item >
+          <ion-button  (click)="viewImage()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="camera-outline"></ion-icon>
+          Image
+          </ion-button>
       
         </ion-item>
       
       
-      </ion-list>
+      
+    
+      <ion-item >
+        <ion-button  (click)="viewTractorDashboard()"  fill="clear">
+          <ion-icon   class="right-margine theme-color" name="camera-outline"></ion-icon>
+        Repair Dashboard
+        </ion-button>
+    
+      </ion-item>
+    
+    
+    
+    </ion-list>
       </div>
   </ion-accordion>
 

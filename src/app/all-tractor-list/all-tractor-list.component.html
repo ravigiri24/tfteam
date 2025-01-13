@@ -23,10 +23,10 @@
     <ion-item *ngFor="let tractor of alltractorList;let in=index">
       <ion-label>
       <h2>{{tractor?.name}}</h2>
-      <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn}}</p>
+      <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn  | date }}</p>
     </ion-label>
 
-    <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color-second" name="eye-outline"></ion-icon>
+    <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color-second" name="apps-outline"></ion-icon>
       <!-- <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
       <ion-icon   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
       <ion-icon   (click)="showDeliveryModal(tractor?.id)" class="right-margine theme-color" name="storefront-outline"></ion-icon> -->

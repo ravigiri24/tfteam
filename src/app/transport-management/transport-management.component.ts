@@ -148,4 +148,7 @@ export class TransportManagementComponent implements OnInit {
     this.getTractorList();
   }
   dataClear() {}
+  tractorDashboard(tractor: any) {
+    this.route.navigate(['/operational/view-dashboard', tractor?.id]);
+  }
 }

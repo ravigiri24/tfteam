@@ -5,6 +5,7 @@ import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { ModalController } from '@ionic/angular';
 import { ImageDashboardComponent } from './image-dashboard/image-dashboard.component';
 import { RepairTractorDashboardComponent } from './repair-tractor-dashboard/repair-tractor-dashboard.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-maintainance-management',
   templateUrl: './maintainance-management.component.html',
@@ -12,7 +13,7 @@ import { RepairTractorDashboardComponent } from './repair-tractor-dashboard/repa
 })
 export class MaintainanceManagementComponent  implements OnInit {
 
-  constructor(private api:ApiService,private share:ShareService,private modalCtrl:ModalController) { }
+  constructor(private api:ApiService,private share:ShareService,private modalCtrl:ModalController,private router:Router) { }
 repairtractorList:any=[]
   ngOnInit() {}
   ionViewWillEnter() {
@@ -77,4 +78,7 @@ repairtractorList:any=[]
     this.getTractorList()
   }
   backupList:any=[]
+  tractorDashboard(tractor: any) {
+    this.router.navigate(['/operational/view-dashboard', tractor?.id]);
+  }
 }

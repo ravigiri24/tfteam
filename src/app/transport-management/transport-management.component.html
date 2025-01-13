@@ -34,12 +34,13 @@
   <ion-item *ngFor="let tractor of transportList;let in=index">
     <ion-label>
     <h2>{{tractor?.name}}</h2>
-    <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn}}</p>
+    <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn  | date }}</p>
   </ion-label>
     <!-- <ion-label>{{cus?.name}}</ion-label>
     <ion-label>{{cus?.mobileNo}}</ion-label> -->
     <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
     <ion-icon  *ngIf="tractor?.transportDestinationId==null"   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
+    <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color" name="apps-outline"></ion-icon>
     <ion-icon   (click)="showDeliveryModal(tractor)" class="right-margine theme-color" name="storefront-outline"></ion-icon>
     <ion-icon  *ngIf="tractor?.transportDestinationId!=null" (click)="startRepairing(tractor)"  class="right-margine theme-color" name="construct-outline"></ion-icon>
 
