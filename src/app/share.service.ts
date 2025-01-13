@@ -99,4 +99,22 @@ this.showFooter=e
       this.router.navigate(['/login'])
     }
   }
+  getDataId(src:any, isImage:any, images:any,id:any){
+    let user = this.get_staff();
+    let obj :any
+   if(user){
+      let userde=JSON.parse(user)
+     obj = {
+      src: src,
+      operate: userde?.staffCode,
+      isImage: isImage,
+      images: images,
+     
+      id: id,
+     
+    };
+
+  }
+  return obj
+}
 }

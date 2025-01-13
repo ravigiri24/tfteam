@@ -15,6 +15,7 @@ import { StartRepairDialogComponent } from 'src/app/transport-management/start-r
 import { ImageDashboardComponent } from 'src/app/maintainance-management/image-dashboard/image-dashboard.component';
 import { RepairTractorDashboardComponent } from 'src/app/maintainance-management/repair-tractor-dashboard/repair-tractor-dashboard.component';
 import { StartTransportDialogComponent } from 'src/app/transport-management/start-transport-dialog/start-transport-dialog.component';
+import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/tractor-sells-details.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -157,6 +158,21 @@ export class TractorDashboardComponent  implements OnInit {
       async startRepairing() {
         const modal = await this.modalCtrl.create({
           component: StartRepairDialogComponent,
+          componentProps: {
+            tractorDetails: this.tractorDetails,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+          this.getTractorDetails('Refreshing Data...');
+        }
+      }
+     async addSellDetails(){
+        const modal = await this.modalCtrl.create({
+          component: TractorSellsDetailsComponent,
           componentProps: {
             tractorDetails: this.tractorDetails,
           },

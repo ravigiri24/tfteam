@@ -10,6 +10,7 @@ import { TransportCostListComponent } from '../transport-management/transport-co
 import { MaintainanceManagementComponent } from '../maintainance-management/maintainance-management.component';
 import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.component';
 import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
+import { TractorSellsDetailsComponent } from '../tractor-sells-details/tractor-sells-details.component';
 const routes: Routes = [
   {
     path: "", component: OperationalComponent,
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'transport-management', component: TransportManagementComponent},
       { path: 'maintainance-management', component: MaintainanceManagementComponent},
       { path: 'all-tractor-management', component: AllTractorListComponent},
+      { path: 'sell-tractor-details', component: TractorSellsDetailsComponent},
       {
         path: 'edit-newarrivals/:id',
         component: AddNewArrivalsComponent,

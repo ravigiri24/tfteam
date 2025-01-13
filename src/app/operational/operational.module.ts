@@ -35,6 +35,7 @@ import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.co
 import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
 import { AddMaunalChargeComponent } from '../maintainance-management/add-maunal-charge/add-maunal-charge.component';
 import { ImageDashboardComponent } from '../maintainance-management/image-dashboard/image-dashboard.component';
+import { TractorSellsDetailsComponent } from '../tractor-sells-details/tractor-sells-details.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -64,7 +65,8 @@ import { ImageDashboardComponent } from '../maintainance-management/image-dashbo
     AllTractorListComponent,
     TractorDashboardComponent,
     AddMaunalChargeComponent,
-    ImageDashboardComponent
+    ImageDashboardComponent,
+    TractorSellsDetailsComponent
   ],
   imports: [
     OperationlPageRoutingModule,
