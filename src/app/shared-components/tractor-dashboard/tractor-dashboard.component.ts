@@ -181,8 +181,8 @@ export class TractorDashboardComponent  implements OnInit {
         const { data, role } = await modal.onWillDismiss();
         console.log('role', role);
     
-        if (role === 'confirm') {
+        //if (role === 'confirm') {
           this.getTractorDetails('Refreshing Data...');
-        }
+        //}
       }
 }

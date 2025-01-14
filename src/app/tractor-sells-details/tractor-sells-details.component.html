@@ -1,3 +1,105 @@
-<p>
-  tractor-sells-details works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Sells Details</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon
+        class="theme-color icon-size"
+        (click)="dismiss()"
+        name="close-circle-outline"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="soldStatusForm">
+  <form [formGroup]="soldStatusForm">
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Customer Name"
+        labelPlacement="stacked"
+        type="text"
+     formControlName="nameOfCustomer"
+    
+      ></ion-input>
+    </ion-item>
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Customer Mobile Number"
+        labelPlacement="stacked"
+        type="number"
+     formControlName="mobileNo"
+    
+      ></ion-input>
+    </ion-item>
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Address"
+        labelPlacement="stacked"
+        type="text"
+     formControlName="address"
+    
+      ></ion-input>
+    </ion-item>
+ 
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Selling Price"
+        labelPlacement="stacked"
+        type="number"
+     formControlName="sellingPrice"
+    
+      ></ion-input>
+    </ion-item>
+   
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Remark"
+        labelPlacement="stacked"
+        type="text"
+     formControlName="remark"
+    
+      ></ion-input>
+    </ion-item>
+    <ion-item  class="bottom-margin">
+      <ion-input
+        label="Selling Date"
+        labelPlacement="stacked"
+        type="date"
+     formControlName="sellingDate"
+    
+      ></ion-input>
+    </ion-item>
+    <ion-item   class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('BROKER')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="getBrokerList(true)" name="refresh-outline"></ion-icon>
+      <ion-select  formControlName="brokerId"    label="Broker" label-placement="type">
+        <ion-select-option *ngFor="let rep of brokerList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
+    
+      </ion-select>
+    </ion-item>
+
+    <ion-item   class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="getCompanyRepresentativeList(true)" name="refresh-outline"></ion-icon>
+      <ion-select  formControlName="companyRepresentative"    label="Company Representative" label-placement="type">
+        <ion-select-option *ngFor="let com of companyRepresentativeList" [value]="com.id">    {{ com?.name }}</ion-select-option>
+    
+      </ion-select>
+    </ion-item>
+    <ion-item   class="bottom-margin">
+      <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
+      <ion-icon (click)="getWareHouseLocationList(true)" name="refresh-outline"></ion-icon>
+      <ion-select  formControlName="wareHouseLocation"    label="Store" label-placement="type">
+        <ion-select-option *ngFor="let ware of wareHouseLocationList" [value]="ware.id">    {{ ware?.name }}</ion-select-option>
+    
+      </ion-select>
+    </ion-item>
+    <div class="login-button bottom-margin-button">
+
+      <ion-button *ngIf="!sellingData"   (click)="save()"  style="text-align: center;" expand="block" ><span class="color-white">Save</span></ion-button>
+      <ion-button  *ngIf="sellingData"  (click)="updateSellingDetails()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
+    
+    </div>
+  </form>
+  
+  </ion-content>

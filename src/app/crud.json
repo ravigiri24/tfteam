@@ -648,6 +648,44 @@
                }
           
         ]
+      },
+      {
+        "key": "BANK_DETAILS",
+        "src":"bank",
+        "headerTitle":"Bank",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete Bank?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Bank Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
+      },
+      {
+        "key": "BANK_REPRESENTATIVE_DETAILS",
+        "src":"bankreprensentetive",
+        "headerTitle":" Bank Representative",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete name?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
       }
     ]
   }

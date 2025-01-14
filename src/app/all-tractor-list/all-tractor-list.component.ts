@@ -73,7 +73,7 @@ alltractorList:any=[]
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
 
-  //  this.getTractorList()
+  this.getTractorList()
   }
   backupList:any=[]
   tractorDashboard(tractor: any) {

@@ -21,7 +21,7 @@
       ></ion-input>
     </ion-item>
     <ion-item class="bottom-margin">
-  <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon>
+  <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
   <ion-icon (click)="getWareHouseLocationList()" name="refresh-outline"></ion-icon>
       <ion-select    formControlName="transportDestinationId" label="Warehouse" label-placement="type">
         <ion-select-option *ngFor="let type of wareHouseLocationList" [value]="type.id">    {{ type?.name }}</ion-select-option>
