@@ -199,12 +199,12 @@ if(loader){
   updateSellingDetails() {
     if (this.soldStatusForm.valid) {
       let obj = this.getSensObj();
-    this.share.showLoading("Refreshing Data...")
+    this.share.showLoading("Updating Data...")
     this.api.postapi('updateSellingDetails', obj).subscribe(
       (res: any) => {
 
         this.share.spinner.dismiss()
-        this.share.presentToast("Updating Data...")
+        this.share.presentToast("Updated Successfully...")
         this.dismiss()
      
       },
@@ -218,5 +218,6 @@ if(loader){
       this.share.spinner.dismiss()
     }
   }
+  
 
 }

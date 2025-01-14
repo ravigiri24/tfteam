@@ -14,87 +14,105 @@
 
 <ion-content *ngIf="financeForm">
   <form [formGroup]="financeForm">
-    <ion-item   class="bottom-margin">
-      <ion-icon (click)="openCrudManagement('BANK_DETAILS')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="getfinancerList(true)" name="refresh-outline"></ion-icon>
-      <ion-select  formControlName="brokerId"    label="Financer" label-placement="type">
-        <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">    {{ fin?.name }}</ion-select-option>
-    
+    <ion-item class="bottom-margin">
+      <ion-icon
+        (click)="openCrudManagement('BANK_DETAILS')"
+        name="add-circle-outline"
+      ></ion-icon>
+      <ion-icon
+        (click)="getfinancerList(true)"
+        name="refresh-outline"
+      ></ion-icon>
+      <ion-select
+        formControlName="bankId"
+        label="Financer"
+        label-placement="type"
+      >
+        <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
+          {{ fin?.name }}</ion-select-option
+        >
       </ion-select>
     </ion-item>
 
-    <ion-item  class="bottom-margin">
+    <ion-item class="bottom-margin">
+      <ion-select
+        formControlName="isFIDone"
+        label="FIDone?"
+        label-placement="type"
+      >
+        <ion-select-option value="YES">Yes</ion-select-option>
+        <ion-select-option value="NO">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="bottom-margin">
       <ion-input
         label="Finance Amount"
         labelPlacement="stacked"
         type="number"
-     formControlName="saleAmount"
-    
+        formControlName="financeAmount"
       ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-        <ion-input
-          label="Down Payment"
-          labelPlacement="stacked"
-          type="number"
-       formControlName="downPayment"
-      
-        ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-        <ion-input
-          label="1st disbursal"
-          labelPlacement="stacked"
-          type="number"
-       formControlName="downPayment"
-      
-        ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-        <ion-input
-          label="1st disbursal Date"
-          labelPlacement="stacked"
-          type="date"
-       formControlName="downPayment"
-      
-        ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-        <ion-input
-          label="2nd disbursal"
-          labelPlacement="stacked"
-          type="number"
-       formControlName="downPayment"
-      
-        ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-        <ion-input
-          label="2nd disbursal Date"
-          labelPlacement="stacked"
-          type="date"
-       formControlName="downPayment"
-      
-        ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-  <ion-input
-          label="Net Market"
-          labelPlacement="stacked"
-          type="number"
-       formControlName="downPayment"
-      
-        ></ion-input>
-      </ion-item>
-      <ion-item  class="bottom-margin">
-        <ion-input
-                label="Outstanding"
-                labelPlacement="stacked"
-                type="number"
-             formControlName="downPayment"
-            
-              ></ion-input>
-            </ion-item>
-      
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Down Payment"
+        labelPlacement="stacked"
+        type="number"
+        formControlName="downPayment"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="1st Disbursal"
+        labelPlacement="stacked"
+        type="number"
+        formControlName="first_disbursal"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="1st Disbursal Date"
+        labelPlacement="stacked"
+        type="date"
+        formControlName="first_disbursal_date"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="2nd Disbursal"
+        labelPlacement="stacked"
+        type="number"
+        formControlName="second_disbursal"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="2nd Disbursal Date"
+        labelPlacement="stacked"
+        type="date"
+        formControlName="second_disbursal_date"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Net Market"
+        labelPlacement="stacked"
+        type="number"
+        formControlName="net_market"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Outstanding"
+        labelPlacement="stacked"
+        type="number"
+        formControlName="outstanding"
+      ></ion-input>
+    </ion-item>
+    <div class="login-button bottom-margin-button">
+
+      <ion-button *ngIf="!financeData"   (click)="save()"  style="text-align: center;" expand="block" ><span class="color-white">Save</span></ion-button>
+      <ion-button  *ngIf="financeData"  (click)="updateSellingDetails()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
+    
+    </div>
   </form>
 </ion-content>
