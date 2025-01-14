@@ -153,7 +153,7 @@ financeData:any
       (res: any) => {
 
         this.share.spinner.dismiss()
-        this.share.presentToast("Updating Data...")
+        this.share.presentToast("Updated Successfully...")
         this.dismiss()
      
       },
