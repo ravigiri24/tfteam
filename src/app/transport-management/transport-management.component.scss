@@ -1,56 +1,67 @@
-.right-margine{
-    margin-right: 5px;
+.right-margine {
+  margin-right: 5px;
 }
-.left-margin{
- position: relative;
- left:20px
+
+.left-margin {
+  position: relative;
+  left: 20px
 }
-.heading-list{
-    font-size: 14px;
-    font-weight: 600;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    color:var(--app-theme-element-color) !important;
-  }
-.add-button{
-    position: relative;
-    right: 10px;
+
+.heading-list {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  color: var(--app-theme-element-color) !important;
 }
-.icon-size{
+
+.add-button {
+  position: relative;
+  right: 10px;
+}
+
+.icon-size {
   font-size: 30px;
 }
-.remark-side{
+
+.remark-side {
   margin-left: 20px;
-  .remark-color{
+
+  .remark-color {
     color: var(--app-theme-element-color) !important;
     font-weight: 600;
   }
 
 }
-.button-theme{
-    border-color:var(--app-theme-element-color) !important;
-    ion-button {
-        --background: var(--app-theme-element-color) !important;
-        --border-color:var(--app-theme-element-color) !important;
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:white !important;
-       
-        }
+
+.button-theme {
+  border-color: var(--app-theme-element-color) !important;
+
+  ion-button {
+    --background: var(--app-theme-element-color) !important;
+    --border-color: var(--app-theme-element-color) !important;
+    --outline-color: var(--app-theme-element-color) !important;
+    --color: white !important;
+
+  }
 }
+
 :host {
-    ion-button {
-     
-       
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:var(--app-theme-element-color) !important;
-       
-        }
+  ion-button {
+
+
+    --outline-color: var(--app-theme-element-color) !important;
+    --color: var(--app-theme-element-color) !important;
+
   }
-  .total-number{
-    position: relative;
-    left: 6px;
-  }
-  .list-position{
-    position: relative;
-    top: 45px;
-  }
+}
+
+.total-number {
+  position: relative;
+  left: 6px;
+}
+
+.list-position {
+  position: relative;
+  top: 45px;
+}

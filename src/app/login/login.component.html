@@ -1,37 +1,25 @@
-<div class="background-color" >
-<div class="logoPosition">
-  <img class="logoImage"  src="././assets/images/loginbanner.png"/>
-
-</div>
-<!-- <div class="input-fields"> -->
-  <form [formGroup]="loginForm">
-  <div class="input-field">
-<ion-item>
-  <!-- <ion-input label="User Name" placeholder="Enter Username"></ion-input> -->
-  <ion-input label="User Name *"  formControlName="userId" labelPlacement="stacked" placeholder="Enter Username" labelPlacement="stacked" ></ion-input>
-  <!-- <ion-input label="User Name" label-placement="floating" fill="outline" placeholder="Enter Username"></ion-input> -->
-</ion-item>
-</div>
-<div class="input-field">
-<ion-item>
-   <ion-input label="Password *" formControlName="password" type="password" labelPlacement="stacked" placeholder="Enter Password"> 
-
-    <ion-input-password-toggle color="danger" slot="end"></ion-input-password-toggle>
-  </ion-input> 
-  <!-- <ion-input label="User Name" type="password" label-placement="floating" fill="outline" placeholder="Enter Username">
-    <ion-input-password-toggle color="danger" slot="end"></ion-input-password-toggle>
-  </ion-input> -->
-
-</ion-item>
-</div>
-</form>
-<!-- </div> -->
-
-<div class="login-button">
-  <ion-loading trigger="open-loading" message="Login..." duration="3000"></ion-loading>
-  <ion-button (click)="checkAuthentication()" style="text-align: center;" expand="block" >Login</ion-button>
-</div>
-<!-- <ion-input type="password" label="Password" value="NeverGonnaGiveYouUp">
-  <ion-input-password-toggle labelPlacement="stacked" slot="end"></ion-input-password-toggle>
-</ion-input> -->
+<div class="login_main_container">
+  <!-- <div class="top-canvas"></div> -->
+  <div class="middle_login_details">
+    <div class="logo_position">
+      <img class="logo_image" src="././assets/images/loginbanner.png" />
+    </div>
+    <form [formGroup]="loginForm">
+      <div class="global_input_block">
+        <ion-input label="User Name *" fill="outline" formControlName="userId" labelPlacement="stacked"
+          placeholder="Enter Username" labelPlacement="stacked"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Password *" fill="outline" formControlName="password" type="password" labelPlacement="stacked"
+          placeholder="Enter Password">
+          <ion-input-password-toggle class="eye_password" color="danger" slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </div>
+    </form>
+    <div class="login-button">
+      <ion-loading trigger="open-loading" message="Login..." duration="3000"></ion-loading>
+      <ion-button (click)="checkAuthentication()" class="global_submit_button" expand="block">Login</ion-button>
+    </div>
+  </div>
+  <!-- <div class="bottom-canvas"></div> -->
 </div>

@@ -1,46 +1,64 @@
-.logoImage{
-    width: 80%;
-    height: 100px;
-    
-}
-.background-color{
-    background-color: white;
-}
-.logoPosition{
-    height: 200px;
-    position: relative;
-    top: 80px;
+.login_main_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    min-height: 100vh;
+    position: relative;
 
-    text-align: center;
-}
-.login-button{
-    position: relative;
-    top:20px;
-    height: 50px;
-    width: 100%;
-    text-align: center;
-  
-ion-button {
-    --background: var(--app-theme-element-color) !important;
-    --border-color:var(--app-theme-element-color) !important;
-    --color:white !important;
-   
+    .middle_login_details {
+        width: 100%;
+        padding: 0px 15px;
+
+        .logo_position {
+            text-align: center;
+            margin-bottom: 30px;
+
+            .logo_image {
+                height: 60px;
+            }
+        }
     }
 }
-.button-eye{
-    ion-input-password-toggle{
-        --background: var(--app-theme-element-color) !important;
-        --border-color:var(--app-theme-element-color) !important;
-        --color:white !important;
-    }
-}
-.input-field{
-margin-top: 15px;
-margin-bottom: 15px;
-ion-input {
-   --highlight-color-focused:var(--app-theme-element-color) !important;
-  
-   
-  }
-}
+
+
+// .login-button {
+//     position: relative;
+//     top: 20px;
+//     height: 50px;
+//     width: 100%;
+//     text-align: center;
+
+//     ion-button {
+//         --background: var(--app-theme-element-color) !important;
+//         --border-color: var(--app-theme-element-color) !important;
+//         --color: white !important;
+
+//     }
+// }
+
+
+
+// .input-field {
+//     margin-top: 15px;
+//     margin-bottom: 15px;
+
+//     ion-input {
+//         --highlight-color-focused: var(--app-theme-element-color) !important;
+
+
+//     }
+// }
+
+// Used Css
+// .top-canvas {
+//     background: linear-gradient(to bottom right, #ff7a5c, #ffcc70);
+//     height: 30%;
+//     clip-path: ellipse(130% 80% at 50% 0%);
+// }
+
+// .bottom-canvas {
+//     background: linear-gradient(to top right, #02d7d7, #ff9a7b);
+//     height: 20%;
+//     clip-path: ellipse(130% 80% at 50% 100%);
+// }

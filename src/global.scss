@@ -1,29 +1,26 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
+:root {
+  --app-bg-color: var(--app-bg-color);
+  --app-primary-color: var(--app-theme-element-color);
+  --app-secondary-color: var(--app-theme-element-color-second);
+  --app-guest-color: var(--app-theme-color-third);
+  --app-brand-font: 'Montserrat, sans-serif';
+  --app-brand-shadow: 0px 11px 19px rgba(0, 0, 0, .2);
+}
 
-/* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
+// @import "@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-@import "@ionic/angular/css/normalize.css";
-@import "@ionic/angular/css/structure.css";
-@import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
+// @import "@ionic/angular/css/normalize.css";
+// @import "@ionic/angular/css/structure.css";
+// @import "@ionic/angular/css/typography.css";
+// @import "@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
-@import "@ionic/angular/css/padding.css";
-@import "@ionic/angular/css/float-elements.css";
-@import "@ionic/angular/css/text-alignment.css";
-@import "@ionic/angular/css/text-transformation.css";
-@import "@ionic/angular/css/flex-utils.css";
+// @import "@ionic/angular/css/padding.css";
+// @import "@ionic/angular/css/float-elements.css";
+// @import "@ionic/angular/css/text-alignment.css";
+// @import "@ionic/angular/css/text-transformation.css";
+// @import "@ionic/angular/css/flex-utils.css";
 
 /**
  * Ionic Dark Mode
@@ -36,43 +33,105 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import "@ionic/angular/css/palettes/dark.system.css";
 
-.theme-color{
-    color:var(--app-theme-element-color) !important;
-  }
-  .theme-color-background{
-    background-color:var(--app-theme-element-color) !important;
-  }
-  .theme-color-second{
-    color:var(--app-theme-element-color-second) !important;
-  }
-  .theme-color-third{
-    color:var(--app-theme-color-third) !important;
-  }
-  .icon-size{
-    font-size: 30px;
-  }
-  .login-button{
-    position: relative;
-    top:20px;
-    height: 50px;
-    width: 100%;
-    text-align: center;
-  
-ion-button {
-    --background: var(--app-theme-element-color) !important;
-    --border-color:var(--app-theme-element-color) !important;
-    --color:white !important;
-   
-    }
+.theme-color {
+  // color: var(--app-theme-element-color) !important;
+  color: var(--app-primary-color);
 }
 
-.heading-list{
+.theme-color-background {
+  // background-color: var(--app-theme-element-color) !important;
+  background-color: var(--app-primary-color);
+}
+
+.theme-color-second {
+  // color: var(--app-theme-element-color-second) !important;
+  color: var(--app-secondary-color);
+}
+
+.theme-color-third {
+  // color: var(--app-guest-color) !important;
+  color: var(--app-guest-color);
+}
+
+.global_input_block {
+  padding-bottom: 20px;
+  width: 100%;
+
+  ion-input {
+    min-height: 45px !important;
+    font-size: 14px;
+    color: #666666;
+  }
+}
+
+// .eye_password {
+//   background: var(--app-primary-color) !important;
+//   border-color: var(--app-primary-color) !important;
+//   color: var(--app-primary-color) !important;
+
+//   button {
+//     background: var(--app-primary-color) !important;
+//     border-color: var(--app-primary-color) !important;
+//     color: var(--app-primary-color) !important;
+
+//     .button-inner {
+//       background: var(--app-primary-color) !important;
+//       border-color: var(--app-primary-color) !important;
+//       color: var(--app-primary-color) !important;
+//     }
+//   }
+
+//   ion-icon {
+//     color: var(--app-primary-color) !important;
+//   }
+
+
+// }
+
+.icon-size {
+  font-size: 30px;
+}
+
+// :host {
+//   // .eye_password {
+//     .ionicon {
+//       fill: var(--app-primary-color) !important;
+//     }
+//   // }
+// }
+
+// .login-button {
+//   position: relative;
+//   top: 20px;
+//   height: 50px;
+//   width: 100%;
+//   text-align: center;
+
+//   ion-button {
+//     --background: var(--app-theme-element-color) !important;
+//     --border-color: var(--app-theme-element-color) !important;
+//     --color: white !important;
+
+//   }
+// }
+.global_submit_button {
+  position: relative;
+  --background: var(--app-theme-element-color) !important;
+  --border-color: var(--app-theme-element-color) !important;
+  --color: white !important;
+  min-height: 45px;
+  width: 100%;
+  margin: 0px;
+}
+
+.heading-list {
   font-size: 14px;
   font-weight: 600;
   margin-left: 5px;
   margin-bottom: 5px;
-  color:var(--app-theme-element-color) !important;
+  color: var(--app-theme-element-color) !important;
 }
-.font-family-all{
-  font-family: serif;
+
+.font-family-all {
+  font-family: var(--app-brand-font);
 }
