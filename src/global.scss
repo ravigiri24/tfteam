@@ -84,6 +84,12 @@
     color: #666666;
   }
 }
+.login_main_container {
+  background-image: url(../src/assets/images/login_bg.png);
+  background-size: 100% 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
 
 // .eye_password {
 //   background: var(--app-primary-color) !important;
