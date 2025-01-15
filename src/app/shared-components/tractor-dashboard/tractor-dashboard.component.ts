@@ -17,6 +17,8 @@ import { RepairTractorDashboardComponent } from 'src/app/maintainance-management
 import { StartTransportDialogComponent } from 'src/app/transport-management/start-transport-dialog/start-transport-dialog.component';
 import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/tractor-sells-details.component';
 import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
+import { SellDocumentComponent } from 'src/app/sell-document/sell-document.component';
+import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expense-list/other-expense-list.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -191,6 +193,37 @@ export class TractorDashboardComponent  implements OnInit {
           component: TractorFinanceDetailsComponent,
           componentProps: {
             tractorDetails: this.tractorDetails,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        //if (role === 'confirm') {
+
+          this.getTractorDetails('Refreshing Data...');
+        //}
+      }
+      async addDocument(){
+        const modal = await this.modalCtrl.create({
+          component: SellDocumentComponent,
+          componentProps: {
+            tractorDetail: this.tractorDetails,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        //if (role === 'confirm') {
+          this.getTractorDetails('Refreshing Data...');
+        //}
+      }
+      async AddOtherExpense(){
+        const modal = await this.modalCtrl.create({
+          component: OtherExpenseListComponent,
+          componentProps: {
+            tarctor_id: this.tractorDetails?.id,
           },
         });
         await modal.present();

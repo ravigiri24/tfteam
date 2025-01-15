@@ -135,7 +135,7 @@
     <ion-item slot="header" color="light">
       <ion-label>Sell Details</ion-label>
     </ion-item>
-    <div class="ion-padding" slot="content">
+    <div   class="ion-padding" slot="content">
       <ion-list  >
         <ion-item >
           <ion-button  (click)="addSellDetails()"  fill="clear">
@@ -145,21 +145,42 @@
       
         </ion-item>
       
-        <ion-item >
+        <ion-item  *ngIf="tractorDetails?.sellingDetailedId" >
           <ion-button  (click)="addFinanceDetails()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="document-text-outline"></ion-icon>
         Finance Details
           </ion-button>
       
         </ion-item>
-        <ion-item >
-          <ion-button  (click)="addFinanceDetails()"  fill="clear">
+        <ion-item *ngIf="tractorDetails?.sellingDetailedId" >
+          <ion-button  (click)="addDocument()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="document-text-outline"></ion-icon>
        Upload Documents
           </ion-button>
       
         </ion-item>
     
+   
+    
+    
+    
+    </ion-list>
+      </div>
+  </ion-accordion>
+  <ion-accordion   value="fifth">
+    <ion-item slot="header" color="light">
+      <ion-label>Other Expenses</ion-label>
+    </ion-item>
+    <div   class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item >
+          <ion-button  (click)="AddOtherExpense()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
+         Add Other Expenses
+          </ion-button>
+      
+        </ion-item>
+      
    
     
     

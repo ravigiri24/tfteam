@@ -19,7 +19,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class SellDocumentComponent  implements OnInit {
 
-  tractor_id: any;
+  tractorDetail: any;
 
   constructor(
     public photoService: PhotoService,
@@ -118,15 +118,17 @@ this.share.checkLogin()
     let obj = {
       operate: this.staffDetails?.staffCode,
       imageObj: this.renderResult,
-      tractor_id: this.tractor_id,
+      referencedId: this.tractorDetail?.sellingDetailedId,
       actionByid: this.staffDetails?.id,
      
 
     };
     this.share.showLoading('Uploading...',10000);
-    this.api.postapi('saveRawImages', obj).subscribe((res: any) => {
-      console.log("saveDataTo",res);
-      this.imageArray.push(res?.data)
+    this.api.postapi('addSellsDocument', obj).subscribe((res: any) => {
+      console.log("addSellsDocument",res);
+      let obje:any=res?.data
+       obje.url=res?.data?.imageUrlUrl
+      this.imageArray.push(obje)
       this.share.spinner.dismiss();
       this.share.presentToast("Uploaded Successfully...")
     });
@@ -137,10 +139,10 @@ this.share.checkLogin()
     let obj = {
       operate: this.staffDetails?.staffCode,
       
-      tractor_id: this.tractor_id,
+      sell_id: this.tractorDetail?.sellingDetailedId,
     };
     this.share.showLoading('Fetching Data...');
-    this.api.postapi('getRawImages', obj).subscribe((res: any) => {
+    this.api.postapi('getSellsDocument', obj).subscribe((res: any) => {
       console.log("data",res);
       this.imageArray=res?.data || []
 

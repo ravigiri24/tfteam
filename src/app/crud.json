@@ -686,6 +686,25 @@
              }
           
         ]
+      },
+      {
+        "key": "OTHER_EXPENSE_TYPE",
+        "src":"other_expenses",
+        "headerTitle":"Other Expense",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete Type?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Expense Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
       }
     ]
   }

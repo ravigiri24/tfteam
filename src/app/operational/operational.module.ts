@@ -37,6 +37,9 @@ import { AddMaunalChargeComponent } from '../maintainance-management/add-maunal-
 import { ImageDashboardComponent } from '../maintainance-management/image-dashboard/image-dashboard.component';
 import { TractorSellsDetailsComponent } from '../tractor-sells-details/tractor-sells-details.component';
 import { TractorFinanceDetailsComponent } from '../tractor-finance-details/tractor-finance-details.component';
+import { SellDocumentComponent } from '../sell-document/sell-document.component';
+import { OtherExpenseListComponent } from '../tractor-dashboard/other-expense-list/other-expense-list.component'
+import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense/add-other-expense.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -68,7 +71,10 @@ import { TractorFinanceDetailsComponent } from '../tractor-finance-details/tract
     AddMaunalChargeComponent,
     ImageDashboardComponent,
     TractorSellsDetailsComponent,
-    TractorFinanceDetailsComponent
+    TractorFinanceDetailsComponent,
+    SellDocumentComponent,
+    OtherExpenseListComponent,
+    AddOtherExpenseComponent
   ],
   imports: [
     OperationlPageRoutingModule,
