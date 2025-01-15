@@ -7,6 +7,7 @@ import { ApiService } from '../api.service';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { SearchpipePipe } from '../searchpipe.pipe';
 import { CrudPopupComponent } from './crud-popup/crud-popup.component';
+import { TractorCostingListComponent } from './tractor-costing-list/tractor-costing-list.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { CrudPopupComponent } from './crud-popup/crud-popup.component';
     AddRemarkComponent,
     UserManagementComponent,
     SearchpipePipe,
-    CrudPopupComponent
+    CrudPopupComponent,
+    TractorCostingListComponent
     
   ],
   schemas: [],

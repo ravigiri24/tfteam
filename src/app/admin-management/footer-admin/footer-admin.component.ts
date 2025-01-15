@@ -10,14 +10,14 @@ export class FooterAdminComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='New-arrivals'
+  selectedTab:any='Digital-analyse'
   goToPage(tab:any){
   this.selectedTab=tab
-  if(tab=='New-arrivals'){
+  if(tab=='Digital-analyse'){
     this.router.navigate(['/admin-block/digital-analyse'])
   }
-  else if(tab=='operational'){
-    this.router.navigate(['/admin-block/operational-analyse'])
+  else if(tab=='tractor-costing-list'){
+    this.router.navigate(['/admin-block/tractor-costing'])
   }
   else if(tab=='Maintainance'){
     this.router.navigate(['/operational/maintainance-management'])
