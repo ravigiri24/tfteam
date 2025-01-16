@@ -1,0 +1,13 @@
+.left-margin{
+    position: relative;
+    left:20px
+   }
+
+   :host {
+    ion-button {
+      
+        
+        --outline-color:var(--app-theme-element-color) !important;
+        --color:var(--app-theme-element-color) !important;
+        
+        }}

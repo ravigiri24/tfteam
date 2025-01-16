@@ -1,0 +1,20 @@
+.primaryColor{
+ion-col {
+    background-color: var(--app-theme-element-color) !important;;
+    border: solid 1px #fff;
+    color: #fff;
+    text-align: center;
+  }
+}
+.secondartColor{
+    ion-col {
+        background-color: var(--app-theme-element-color-second) !important;;
+        border: solid 1px #fff;
+        color: #fff;
+        text-align: center;
+      }
+    }
+    .right-margine{
+        margin-right: 20px;
+        font-size: 32px;
+        }

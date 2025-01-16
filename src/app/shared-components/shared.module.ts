@@ -8,7 +8,7 @@ import { UserManagementComponent } from '../user-management/user-management.comp
 import { SearchpipePipe } from '../searchpipe.pipe';
 import { CrudPopupComponent } from './crud-popup/crud-popup.component';
 import { TractorCostingListComponent } from './tractor-costing-list/tractor-costing-list.component';
-
+import { TractorCostingDashboardComponent } from './tractor-costing-dashboard/tractor-costing-dashboard.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +23,8 @@ import { TractorCostingListComponent } from './tractor-costing-list/tractor-cost
     UserManagementComponent,
     SearchpipePipe,
     CrudPopupComponent,
-    TractorCostingListComponent
+    TractorCostingListComponent,
+    TractorCostingDashboardComponent
     
   ],
   schemas: [],
