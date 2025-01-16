@@ -255,7 +255,7 @@
       </ion-item>
 
       <div class="ion-padding" slot="content">
-        <ion-grid class="primaryColor">
+        <ion-grid class="secondartColor">
           <ion-row>
             <ion-col>Maintainance Cost</ion-col>
             <ion-col>₹ {{ maintainanaceCost }}</ion-col>
@@ -277,7 +277,7 @@
             </ion-item>
 
             <div class="ion-padding" slot="content">
-              <ion-grid class="primaryColor">
+              <ion-grid class="secondartColor">
                 <ion-row *ngFor="let main of allMaintainance">
                   <ion-col>{{main?.materialDetail?.name}}</ion-col>
                   <ion-col>₹ {{main?.total_expense}}</ion-col>
@@ -323,7 +323,7 @@
             </ion-item>
 
             <div class="ion-padding" slot="content">
-              <ion-grid class="primaryColor">
+              <ion-grid class="secondartColor">
                 <ion-row>
                   <ion-col>Customer Name </ion-col>
                   <ion-col>{{sellingData?.nameOfCustomer || '-'}}</ion-col>
