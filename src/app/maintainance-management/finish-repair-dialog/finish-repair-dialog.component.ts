@@ -42,6 +42,9 @@ export class FinishRepairDialogComponent  implements OnInit {
       isLive: new FormControl(true, [
         Validators.required,
       ]),
+      isDraft: new FormControl(true, [
+        Validators.required,
+      ]),
     });
 
     // if(data){

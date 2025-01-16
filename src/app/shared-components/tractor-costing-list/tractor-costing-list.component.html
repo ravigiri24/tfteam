@@ -11,14 +11,23 @@
   </div>
   
 
-  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
+  <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
   
 
  
   </ion-toolbar>     
 </ion-header>
 <ion-content >
-  <span class="heading-list">Live Tractor List</span>
+  <ion-item class="bottom-margin">
+
+    <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>
+    <ion-select    (ionChange)="getListByBrand()" [(ngModel)]="selectedBrand"  label="Select Brand" label-placement="type">
+      <ion-select-option *ngFor="let type of brandList" [value]="type.id">    {{ type?.name }}</ion-select-option>
+
+    </ion-select>
+  </ion-item>
+  <!-- <span class="heading-list">Tractor List</span> -->
+
   <ion-list *ngIf="alltractorList?.length" >
     <ion-item *ngFor="let tractor of alltractorList;let in=index">
       <ion-label>

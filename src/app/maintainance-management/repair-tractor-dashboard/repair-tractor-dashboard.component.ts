@@ -96,6 +96,7 @@ export class RepairTractorDashboardComponent implements OnInit {
       (error: any) => {}
     );
   }
+
   expenseMaterialCost: any = 0;
   expenseServiceCost: any = 0;
   expenseManualCost: any = 0;
