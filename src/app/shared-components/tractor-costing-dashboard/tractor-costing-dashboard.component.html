@@ -54,11 +54,11 @@
     </ion-row>
     <ion-row>
       <ion-col>All Expenses</ion-col>
-      <ion-col>₹ {{ allExpenses }}</ion-col>
+      <ion-col>₹ {{ logisticCost+maintainanaceCost+otherExpenseCost }}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col>Total</ion-col>
-      <ion-col>₹ {{ purchaseAndAllExpenseCost }}</ion-col>
+      <ion-col>₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost }}</ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid class="secondartColor">
@@ -74,32 +74,29 @@
       <ion-col>Other Cost</ion-col>
       <ion-col>₹ {{ otherExpenseCost }}</ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>Selling Price</ion-col>
-      <ion-col>₹ {{ sellingPrice }}</ion-col>
-    </ion-row>
+
 
     <ion-row>
       <ion-col>Total Expense</ion-col>
-      <ion-col>₹ {{ totalExpense }}</ion-col>
+      <ion-col>₹ {{ logisticCost+maintainanaceCost+otherExpenseCost }}</ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid class="primaryColor">
     <ion-row>
       <ion-col>Total Expense</ion-col>
-      <ion-col>₹ {{ purchaseAndAllExpenseCost }}</ion-col>
+      <ion-col>₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost }}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col>Sell Price</ion-col>
-      <ion-col>₹ {{ sellPrice }}</ion-col>
+      <ion-col>₹ {{ sellingPrice }}</ion-col>
     </ion-row>
-    <ion-row *ngIf="purchaseAndAllExpenseCost <= sellPrice">
+    <ion-row *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) <= sellingPrice) && tractorDetails?.sellingDetailedId">
       <ion-col>Profit</ion-col>
-      <ion-col>₹ {{ purchaseAndAllExpenseCost - sellPrice }}</ion-col>
+      <ion-col>₹ {{  sellingPrice -(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )  }}</ion-col>
     </ion-row>
-    <ion-row *ngIf="purchaseAndAllExpenseCost > sellPrice">
+    <ion-row *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
       <ion-col>Loss</ion-col>
-      <ion-col>₹ {{ sellPrice - purchaseAndAllExpenseCost }}</ion-col>
+      <ion-col>₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )- sellingPrice  }}</ion-col>
     </ion-row>
   </ion-grid>
   <ion-accordion-group [multiple]="true" [value]="[]">
