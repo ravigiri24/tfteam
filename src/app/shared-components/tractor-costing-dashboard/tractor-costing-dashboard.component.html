@@ -342,11 +342,11 @@
                 </ion-row>
                 <ion-row>
                   <ion-col>Store</ion-col>
-                  <ion-col>{{sellingData?.wareHouseLocation||'-'}}</ion-col>
+                  <ion-col>{{sellingData?.wareHouseLocationDetails?.name||'-'}}</ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col>By </ion-col>
-                  <ion-col>{{sellingData?.companyRepresentative ||'-'}}</ion-col>
+                  <ion-col>{{sellingData?.companyRepresentativeDetails?.name ||'-'}}</ion-col>
                 </ion-row>
               
               </ion-grid>
@@ -363,7 +363,7 @@
               <ion-grid class="primaryColor">
                 <ion-row>
                   <ion-col>Financer </ion-col>
-                  <ion-col>{{financeData?.bankId || '-'}}</ion-col>
+                  <ion-col>{{financeData?.bankDetails?.name || '-'}}</ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col>Finance Amount </ion-col>

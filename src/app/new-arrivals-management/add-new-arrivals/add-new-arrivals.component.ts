@@ -216,6 +216,8 @@ export class AddNewArrivalsComponent  implements OnInit {
        brandID: new FormControl(this.data?.brandID || null, [
          Validators.required,
        ]),
+   
+       
        brandName: new FormControl(this.data?.brandName || null, [
          Validators.required,
        ]),
@@ -694,7 +696,7 @@ this.share.presentToast("Please Select Model")
   }
   upload:any=[]
   loadedImages:any=[]
-  getSensObj(isDraft: any = false) {
+  getSensObj(isDraft: any = true) {
     let obj;
     obj = this.modelForm.value;
     let getLeftImage = this.modelForm.controls['leftImage'] as FormGroup;
