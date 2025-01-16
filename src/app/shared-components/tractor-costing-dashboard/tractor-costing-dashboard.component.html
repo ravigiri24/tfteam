@@ -26,7 +26,7 @@
           ><b
             >{{ tractorDetails?.registractionNo }} -<span
               *ngIf="tractorDetails?.tractor_status"
-              >{{ tractorDetails?.tractor_status }}</span
+              >&nbsp;{{ tractorDetails?.tractor_status }}</span
             >
             <span *ngIf="!tractorDetails?.tractor_status">Live</span>
           </b>
@@ -111,7 +111,7 @@
       <div class="ion-padding" slot="content">
         <ion-list>
           <ion-item>
-            <ion-button fill="clear">
+            <ion-button (click)="viewImageLive()" fill="clear">
               <ion-icon
                 class="right-margine theme-color"
                 name="camera-outline"
@@ -120,7 +120,7 @@
             </ion-button>
           </ion-item>
           <ion-item>
-            <ion-button fill="clear">
+            <ion-button (click)="viewImage('BEFORE_SERVICE')" fill="clear">
               <ion-icon
                 class="right-margine theme-color"
                 name="camera-outline"
@@ -129,7 +129,7 @@
             </ion-button>
           </ion-item>
           <ion-item>
-            <ion-button fill="clear">
+            <ion-button (click)="viewImage('AFTER_SERVICE')"  fill="clear">
               <ion-icon
                 class="right-margine theme-color"
                 name="camera-outline"

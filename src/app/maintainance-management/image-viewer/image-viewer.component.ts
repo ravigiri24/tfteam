@@ -20,6 +20,8 @@ import { ApiService } from 'src/app/api.service';
 export class ImageViewerComponent implements OnInit {
   tarctor_id: any;
   imageGroup: any;
+  uploadPhoto: any=true;
+  callApi: any=true;
   constructor(
     public photoService: PhotoService,
     private modalControl: ModalController,
@@ -38,8 +40,11 @@ export class ImageViewerComponent implements OnInit {
     if(!this.staffDetails?.id){
 this.share.checkLogin()
     }
-    this.imageArray = [];
-    this.getRawImages()
+    if(this.callApi){
+      this.imageArray = [];
+      this.getRawImages()
+    }
+
   }
   addPhotoToGallery() {
     let image: any = this.addNewToGallery(this.imageArray);

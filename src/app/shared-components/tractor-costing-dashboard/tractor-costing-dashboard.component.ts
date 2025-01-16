@@ -9,6 +9,7 @@ import {
 import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageViewerComponent } from 'src/app/maintainance-management/image-viewer/image-viewer.component';
 import { ConfirmDeliveryComponent } from 'src/app/transport-management/confirm-delivery/confirm-delivery.component';
 import { AddTransportStatusComponent } from 'src/app/transport-management/add-transport-status/add-transport-status.component';
 import { StartRepairDialogComponent } from 'src/app/transport-management/start-repair-dialog/start-repair-dialog.component';
@@ -65,7 +66,7 @@ export class TractorCostingDashboardComponent implements OnInit {
   }
   sellingData:any
   getDataByIDSellData(){
-    this.share.showLoading("Getting Data...")
+    
     let obj = this.share.getDataId(null, false, [], this.tractorDetails?.sellingDetailedId);
     this.api.postapi('getSellingDetailsByID', obj).subscribe(
       (res:any) => {
@@ -231,6 +232,51 @@ export class TractorCostingDashboardComponent implements OnInit {
       this.allMaintainance?.push(f);
     });
   }
+  async viewImage(imageGroup:any){
+    const modal = await this.modalCtrl.create({
+      component: ImageViewerComponent,
+      componentProps: {
+     
+        tarctor_id: this.tractor_id,
+        imageGroup:imageGroup,
+        uploadPhoto:false
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+   
+    }
+  }
+   async viewImageLive(){
+ 
+   let imageArray:any=[]
+   
+   imageArray.push({imageUrlUrl:this.tractorDetails?.leftImageUrl})
+   imageArray.push({imageUrlUrl:this.tractorDetails?.rightImageUrl})
+   imageArray.push({imageUrlUrl:this.tractorDetails?.frontImageUrl})
+   imageArray.push({imageUrlUrl:this.tractorDetails?.backImageUrl})
+      const modal = await this.modalCtrl.create({
+        component: ImageViewerComponent,
+        componentProps: {
+       
+          tarctor_id: this.tractor_id,
+          imageGroup:null,
+          uploadPhoto:false,
+          imageArray:imageArray,
+          callApi:false
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+     
+      }
+    }
   staffDetails: any;
   getTractorDetails(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
