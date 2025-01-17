@@ -25,7 +25,7 @@ import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expen
   styleUrls: ['./tractor-dashboard.component.scss'],
 })
 export class TractorDashboardComponent  implements OnInit {
-
+  
   tractorDetails: any;
   constructor(
     private modalCtrl: ModalController,
@@ -61,6 +61,7 @@ export class TractorDashboardComponent  implements OnInit {
         component: StartTransportDialogComponent,
         componentProps: {
           tractorDetails: this.tractorDetails,
+          updateTranctorStatus:false
         },
       });
       await modal.present();
@@ -131,8 +132,8 @@ export class TractorDashboardComponent  implements OnInit {
       const modal = await this.modalCtrl.create({
         component: RepairTractorDashboardComponent,
         componentProps: {
-       
-          tractorDetails: this.tractorDetails,
+          updateTranctorStatus:false,
+          tractorDetails: this.tractorDetails
         },
       });
       await modal.present();
@@ -163,6 +164,7 @@ export class TractorDashboardComponent  implements OnInit {
           component: StartRepairDialogComponent,
           componentProps: {
             tractorDetails: this.tractorDetails,
+            updateTranctorStatus:false
           },
         });
         await modal.present();

@@ -28,6 +28,7 @@ export class NewArrivalsManagementComponent implements OnInit {
       component: StartTransportDialogComponent,
       componentProps: {
         tractorDetails: tractor,
+    
       },
     });
     await modal.present();

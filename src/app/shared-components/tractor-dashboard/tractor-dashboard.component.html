@@ -31,7 +31,7 @@
 
 </ion-card>
 <ion-accordion-group [multiple]="true" [value]="[]">
-  <ion-accordion *ngIf="tractorDetails?.tractor_status == 'AT_TRANSPORT' || tractorDetails?.tractor_status == 'AT_REPAIR_CENTER' || tractorDetails?.tractor_status == null" value="third">
+  <ion-accordion  value="third">
     <ion-item slot="header" color="light">
       <ion-label>Basic Details</ion-label>
       
@@ -59,7 +59,7 @@
       </div>
       
   </ion-accordion>
-  <ion-accordion  *ngIf="tractorDetails?.tractor_status == 'AT_REPAIR_CENTER' || tractorDetails?.tractor_status == null" value="first">
+  <ion-accordion   value="first">
     <ion-item slot="header" color="light">
       <ion-label>Logistic</ion-label>
       
@@ -101,7 +101,7 @@
       </div>
       
   </ion-accordion>
-  <ion-accordion *ngIf="tractorDetails?.tractor_status == null" value="second">
+  <ion-accordion value="second">
     <ion-item slot="header" color="light">
       <ion-label>Maintainance</ion-label>
     </ion-item>
@@ -131,7 +131,7 @@
     </ion-list>
       </div>
   </ion-accordion>
-  <ion-accordion  *ngIf="tractorDetails?.tractor_status == null" value="fourth">
+  <ion-accordion   value="fourth">
     <ion-item slot="header" color="light">
       <ion-label>Sell Details</ion-label>
     </ion-item>

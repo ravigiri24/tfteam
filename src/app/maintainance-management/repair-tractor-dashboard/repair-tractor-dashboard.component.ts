@@ -14,6 +14,7 @@ import { AddMaunalChargeComponent } from '../add-maunal-charge/add-maunal-charge
 })
 export class RepairTractorDashboardComponent implements OnInit {
   tractorDetails: any;
+  updateTranctorStatus:any=true
   constructor(
     private modalControl: ModalController,
     private modalCtrl: ModalController,
@@ -255,6 +256,7 @@ export class RepairTractorDashboardComponent implements OnInit {
         component: FinishRepairDialogComponent,
         componentProps: {
           tractorDetails: tractor,
+          updateTranctorStatus:this.updateTranctorStatus
         },
       });
       await modal.present();

@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class FinishRepairDialogComponent  implements OnInit {
   tractorDetails: any;
+  updateTranctorStatus:any=true
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
@@ -30,6 +31,7 @@ export class FinishRepairDialogComponent  implements OnInit {
   }
   form: FormGroup;
   initialize(data: any = null) {
+    if(this.updateTranctorStatus){
     this.form = this.fb.group({
       repairing_end_date: new FormControl(
         data?.repairing_end_date || null,
@@ -46,6 +48,22 @@ export class FinishRepairDialogComponent  implements OnInit {
         Validators.required,
       ]),
     });
+  }else{
+    this.form = this.fb.group({
+      repairing_end_date: new FormControl(
+        data?.repairing_end_date || null,
+        [Validators.required]
+      ),
+
+     
+      tractor_status: new FormControl(null),
+       
+      isLive: new FormControl(true, [
+        Validators.required,
+      ]),
+   
+    });
+  }
 
     // if(data){
     //   this.form.addControl(

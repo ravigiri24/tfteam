@@ -26,9 +26,11 @@
           ><b
             >{{ tractorDetails?.registractionNo }} -<span
               *ngIf="tractorDetails?.tractor_status"
-              >&nbsp;{{ tractorDetails?.tractor_status }}</span
+              >&nbsp;{{ tractorDetails?.tractor_status }} </span
             >
             <span *ngIf="!tractorDetails?.tractor_status">Live</span>
+            <span *ngIf="tractorDetails?.isSold==1">- Sold</span>
+            <span *ngIf="tractorDetails?.isSold==0">- Not Sold</span>
           </b>
         </span>
       </ion-card-subtitle>

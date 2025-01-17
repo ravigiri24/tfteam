@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class StartTransportDialogComponent implements OnInit {
   tractorDetails: any;
+  updateTranctorStatus:any=true
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
@@ -30,6 +31,7 @@ export class StartTransportDialogComponent implements OnInit {
   }
   form: FormGroup;
   initialize(data: any = null) {
+    if(this.updateTranctorStatus){
     this.form = this.fb.group({
       transport_start_date: new FormControl(
         data?.transport_start_date || null,
@@ -43,6 +45,19 @@ export class StartTransportDialogComponent implements OnInit {
         Validators.required,
       ]),
     });
+  }else{
+    this.form = this.fb.group({
+      transport_start_date: new FormControl(
+        data?.transport_start_date || null,
+        [Validators.required]
+      ),
+
+      transport_src_place: new FormControl(data?.transport_src_place || null, [
+        Validators.required,
+      ]),
+
+    });
+  }
 
     // if(data){
     //   this.form.addControl(
