@@ -29,6 +29,11 @@ const routes: Routes = [
     loadChildren: () => import('./admin-management/admin.module').then(m => m.AdminModule)
   },
   {
+    path: 'purchase-management',
+    loadChildren: () => import('./purchase-management/purchase.module').then(m => m.PurchaseManagementModule)
+  },
+  
+  {
     path: 'login',
     canActivate: [AuthService],
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)

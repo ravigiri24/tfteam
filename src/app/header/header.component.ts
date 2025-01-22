@@ -12,6 +12,7 @@ export class HeaderComponent  implements OnInit {
   constructor(private router:Router,private share:ShareService) { }
  userDetails:any
   ngOnInit() {
+console.log("ROUTER",this.router.url);
 
 let user=this.share.get_staff()
 if(user){

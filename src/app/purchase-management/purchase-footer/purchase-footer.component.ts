@@ -1,0 +1,37 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-purchase-footer',
+  templateUrl: './purchase-footer.component.html',
+  styleUrls: ['./purchase-footer.component.scss'],
+})
+export class PurchaseFooterComponent  implements OnInit {
+  constructor(private router:Router) { }
+
+  ngOnInit() {}
+  selectedTab:any='New-findings'
+  goToPage(tab:any){
+  this.selectedTab=tab
+  if(tab=='New-findings'){
+    this.router.navigate(['/purchase-management/new-findings'])
+  }
+  else if(tab=='Logistic'){
+    this.router.navigate(['/operational/transport-management'])
+  }
+  else if(tab=='Maintainance'){
+    this.router.navigate(['/operational/maintainance-management'])
+  }
+  else if(tab=='Live'){
+    this.router.navigate(['/operational/all-tractor-management'])
+  }
+  
+  // else if(tab=='Report'){
+  //   this.router.navigate(['/digital//report-management'])
+  // }
+  else if(tab=='User'){
+    this.router.navigate(['/purchase-management/user-management'])
+  }
+  
+  }
+}
