@@ -1,12 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Dashboard</ion-title>
-
     <ion-buttons (click)="backToList()" slot="end">
-      <ion-icon
-        class="theme-color icon-size"
-        name="arrow-back-outline"
-      ></ion-icon>
+      <ion-icon class="theme-color icon-size" name="arrow-back-outline"></ion-icon>
     </ion-buttons>
     <!-- <ion-buttons slot="end">
       <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
@@ -14,23 +10,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngIf="tractorDetails" color="light">
+  <ion-card *ngIf="tractorDetails">
     <ion-card-header>
-      <ion-card-title
-        ><span class="theme-color">{{
+      <ion-card-title><span class="theme-color">{{
           tractorDetails?.name
-        }}</span></ion-card-title
-      >
-      <ion-card-subtitle
-        ><span class="theme-color-second"
-          ><b
-            >{{ tractorDetails?.registractionNo }} -<span
-              *ngIf="tractorDetails?.tractor_status"
-              >&nbsp;{{ tractorDetails?.tractor_status }} </span
-            >
+          }}</span></ion-card-title>
+      <ion-card-subtitle><span class="theme-color-second"><b>{{ tractorDetails?.registractionNo }} -<span
+              *ngIf="tractorDetails?.tractor_status">&nbsp;{{ tractorDetails?.tractor_status }} </span>
             <span *ngIf="!tractorDetails?.tractor_status">Live</span>
-            <span *ngIf="tractorDetails?.isSold==1">- Sold</span>
-            <span *ngIf="tractorDetails?.isSold==0">- Not Sold</span>
+            <span *ngIf="tractorDetails?.isSold===1">- Sold</span>
+            <span *ngIf="tractorDetails?.isSold===0">- Not Sold</span>
           </b>
         </span>
       </ion-card-subtitle>
@@ -92,13 +81,15 @@
       <ion-col>Sell Price</ion-col>
       <ion-col>₹ {{ sellingPrice }}</ion-col>
     </ion-row>
-    <ion-row *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) <= sellingPrice) && tractorDetails?.sellingDetailedId">
+    <ion-row
+      *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) <= sellingPrice) && tractorDetails?.sellingDetailedId">
       <ion-col>Profit</ion-col>
-      <ion-col>₹ {{  sellingPrice -(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )  }}</ion-col>
+      <ion-col>₹ {{ sellingPrice -(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) }}</ion-col>
     </ion-row>
-    <ion-row *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
+    <ion-row
+      *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
       <ion-col>Loss</ion-col>
-      <ion-col>₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )- sellingPrice  }}</ion-col>
+      <ion-col>₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )- sellingPrice }}</ion-col>
     </ion-row>
   </ion-grid>
   <ion-accordion-group [multiple]="true" [value]="[]">
@@ -111,28 +102,19 @@
         <ion-list>
           <ion-item>
             <ion-button (click)="viewImageLive()" fill="clear">
-              <ion-icon
-                class="right-margine theme-color"
-                name="camera-outline"
-              ></ion-icon>
+              <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
               Live
             </ion-button>
           </ion-item>
           <ion-item>
             <ion-button (click)="viewImage('BEFORE_SERVICE')" fill="clear">
-              <ion-icon
-                class="right-margine theme-color"
-                name="camera-outline"
-              ></ion-icon>
+              <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
               Before Maintainance
             </ion-button>
           </ion-item>
           <ion-item>
-            <ion-button (click)="viewImage('AFTER_SERVICE')"  fill="clear">
-              <ion-icon
-                class="right-margine theme-color"
-                name="camera-outline"
-              ></ion-icon>
+            <ion-button (click)="viewImage('AFTER_SERVICE')" fill="clear">
+              <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
               After Maintainance
             </ion-button>
           </ion-item>
@@ -153,18 +135,17 @@
 
           <ion-row *ngIf="purchaseAndAllExpenseCost > sellPrice">
             <ion-col>Purchase Date</ion-col>
-            <ion-col
-              >{{
-                tractorDetails?.purchasedetail?.purchanseDate ?  tractorDetails?.purchasedetail?.purchanseDate : '-' 
+            <ion-col>{{
+              tractorDetails?.purchasedetail?.purchanseDate ? tractorDetails?.purchasedetail?.purchanseDate : '-'
               }}
-              
+
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Seller Name</ion-col>
             <ion-col>
               {{
-                tractorDetails?.purchasedetail?.nameOfSeller ?  tractorDetails?.purchasedetail?.nameOfSeller : '-' 
+              tractorDetails?.purchasedetail?.nameOfSeller ? tractorDetails?.purchasedetail?.nameOfSeller : '-'
               }}
             </ion-col>
           </ion-row>
@@ -172,7 +153,7 @@
             <ion-col>Seller Address</ion-col>
             <ion-col>
               {{
-                tractorDetails?.purchasedetail?.address ?  tractorDetails?.purchasedetail?.address : '-' 
+              tractorDetails?.purchasedetail?.address ? tractorDetails?.purchasedetail?.address : '-'
               }}
             </ion-col>
           </ion-row>
@@ -180,7 +161,7 @@
             <ion-col>Seller Contact</ion-col>
             <ion-col>
               {{
-                tractorDetails?.purchasedetail?.contact1 ?  tractorDetails?.purchasedetail?.contact1 : '-' 
+              tractorDetails?.purchasedetail?.contact1 ? tractorDetails?.purchasedetail?.contact1 : '-'
               }}
             </ion-col>
           </ion-row>
@@ -200,30 +181,30 @@
           </ion-row>
           <ion-row>
             <ion-col>Transport Start Date</ion-col>
-            <ion-col>  {{
-              tractorDetails?.transport_start_date ?  tractorDetails?.transport_start_date : '-' 
-            }}</ion-col>
+            <ion-col> {{
+              tractorDetails?.transport_start_date ? tractorDetails?.transport_start_date : '-'
+              }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Store</ion-col>
             <ion-col>
               {{
-                tractorDetails?.transportdestinationDetails ?  tractorDetails?.transportdestinationDetails?.name : '-' 
+              tractorDetails?.transportdestinationDetails ? tractorDetails?.transportdestinationDetails?.name : '-'
               }}
 
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Date(Reached)</ion-col>
-            <ion-col>    {{
-              tractorDetails?.reachDate ?  tractorDetails?.reachDate : '-' 
-            }}</ion-col>
+            <ion-col> {{
+              tractorDetails?.reachDate ? tractorDetails?.reachDate : '-'
+              }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Transport Details</ion-col>
             <ion-col>
               {{
-                tractorDetails?.transport_src_place ?  tractorDetails?.transport_src_place : '-' 
+              tractorDetails?.transport_src_place ? tractorDetails?.transport_src_place : '-'
               }}
             </ion-col>
           </ion-row>
@@ -243,7 +224,7 @@
                 </ion-row>
                 <ion-row *ngIf="!logisticData?.length">
                   <ion-col colspan="2">No Data Inserted</ion-col>
-                  </ion-row>
+                </ion-row>
               </ion-grid>
             </div>
           </ion-accordion>
@@ -286,7 +267,7 @@
                 </ion-row>
                 <ion-row *ngIf="!allMaintainance?.length">
                   <ion-col colspan="2">No Data Inserted</ion-col>
-                  </ion-row>
+                </ion-row>
               </ion-grid>
             </div>
           </ion-accordion>
@@ -302,13 +283,13 @@
       <div class="ion-padding" slot="content">
         <ion-grid class="primaryColor">
           <ion-row *ngFor="let row of listDataOther">
-         
+
             <ion-col>{{row?.expenseType?.name}} </ion-col>
             <ion-col>₹ {{row?.expense_amount}}</ion-col>
           </ion-row>
           <ion-row *ngIf="!listDataOther?.length">
             <ion-col colspan="2">No Data Inserted</ion-col>
-            </ion-row>
+          </ion-row>
         </ion-grid>
       </div>
     </ion-accordion>
@@ -350,7 +331,7 @@
                   <ion-col>By </ion-col>
                   <ion-col>{{sellingData?.companyRepresentativeDetails?.name ||'-'}}</ion-col>
                 </ion-row>
-              
+
               </ion-grid>
             </div>
           </ion-accordion>
@@ -375,7 +356,7 @@
                   <ion-col>Down Payment</ion-col>
                   <ion-col>{{financeData?.downPayment || '-'}}</ion-col>
                 </ion-row>
-            
+
                 <ion-row>
                   <ion-col>1st Disbursal</ion-col>
                   <ion-col>{{financeData?.first_disbursal || '-'}}</ion-col>

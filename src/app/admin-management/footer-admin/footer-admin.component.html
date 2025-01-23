@@ -1,47 +1,45 @@
-
-    
-    <ion-tabs  >
-      <ion-tab-bar slot="bottom">
-        <!-- <ion-tab-button tab="home">
+<ion-tabs>
+  <ion-tab-bar class="bottom_footer_row" slot="bottom">
+    <!-- <ion-tab-button tab="home">
           <ion-icon name="play-circle"></ion-icon>
           Listen Now
         </ion-tab-button> -->
-        <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
-          <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
-          <ion-icon *ngIf="selectedTab=='Digital-analyse'"  class="theme-color" name="people"></ion-icon>
-          Leads
-        </ion-tab-button>
-           <ion-tab-button (click)="goToPage('tractor-costing-list')" tab="Costing">
-          <ion-icon *ngIf="selectedTab!=='tractor-costing-list'" class="theme-color" name="business-outline"></ion-icon>
-          <ion-icon *ngIf="selectedTab=='tractor-costing-list'"  class="theme-color" name="business"></ion-icon>
-          Tractor
-        </ion-tab-button>
-        <!-- <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
+    <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
+      <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Digital-analyse'" class="theme-color" name="people"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Digital-analyse'}" >Leads</label>
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('tractor-costing-list')" tab="Costing">
+      <ion-icon *ngIf="selectedTab!=='tractor-costing-list'" class="theme-color" name="business-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='tractor-costing-list'" class="theme-color" name="business"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'tractor-costing-list'}">Tractor</label>
+    </ion-tab-button>
+    <!-- <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
           <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
           <ion-icon *ngIf="selectedTab=='Digital-analyse'"  class="theme-color" name="people"></ion-icon>
           WebSite
         </ion-tab-button> -->
-        <!-- <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='operational'" class="theme-color" name="bookmarks"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='operational'" class="theme-color" name="bookmarks-outline"></ion-icon>
         Operational
         </ion-tab-button> -->
-        <!-- <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='operational'" class="theme-color" name="bookmarks"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='operational'" class="theme-color" name="bookmarks-outline"></ion-icon>
         New Tractor
         </ion-tab-button> -->
-        <!-- <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('operational')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='operational'" class="theme-color" name="bookmarks"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='operational'" class="theme-color" name="bookmarks-outline"></ion-icon>
         Expense
         </ion-tab-button> -->
-        <ion-tab-button (click)="goToPage('User')" tab="User" >
-          <ion-icon  *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
-          <ion-icon  *ngIf="selectedTab=='User'" class="theme-color" name="person-circle"></ion-icon>
-          User
-        </ion-tab-button>
-        <!-- <ion-tab-button (click)="goToPage('Maintainance')" tab="Follow-Up">
+    <ion-tab-button (click)="goToPage('User')" tab="User">
+      <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}">User</label>
+    </ion-tab-button>
+    <!-- <ion-tab-button (click)="goToPage('Maintainance')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='Maintainance'" class="theme-color" name="construct"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='Maintainance'" class="theme-color" name="construct-outline"></ion-icon>
           Maintenance
@@ -57,5 +55,5 @@
           <ion-icon  *ngIf="selectedTab=='User'" class="theme-color" name="person-circle"></ion-icon>
           User
         </ion-tab-button> -->
-      </ion-tab-bar>
-    </ion-tabs>
+  </ion-tab-bar>
+</ion-tabs>
