@@ -37,6 +37,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {}
   tractor_id: any;
   ionViewWillEnter() {
