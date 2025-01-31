@@ -1,14 +1,13 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Image</ion-title>  
-  
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Image</ion-title>
+    <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon> 
+  </ion-toolbar>
+</ion-header> -->
 
-  </ion-toolbar>  
-</ion-header>  
-<ion-content>
-<ion-img  [src]="image.imageUrlUrl"></ion-img>
+<ion-buttons class="right_close" slot="end">
+  <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+</ion-buttons>
+<ion-content class="single_image_content">
+  <ion-img [src]="image.imageUrlUrl"></ion-img>
 </ion-content>

@@ -101,302 +101,305 @@
         </ion-row>
       </ion-card>
     </ion-grid>
-    <ion-accordion-group [multiple]="true" [value]="[]">
-      <ion-accordion value="sixth">
-        <!-- <ion-card> -->
-        <ion-item slot="header" color="light">
-          <ion-label>Images</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-list>
-            <ion-item>
-              <ion-button (click)="viewImageLive()" fill="clear">
-                <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
-                Live
-              </ion-button>
-            </ion-item>
-            <ion-item>
-              <ion-button (click)="viewImage('BEFORE_SERVICE')" fill="clear">
-                <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
-                Before Maintainance
-              </ion-button>
-            </ion-item>
-            <ion-item>
-              <ion-button (click)="viewImage('AFTER_SERVICE')" fill="clear">
-                <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
-                After Maintainance
-              </ion-button>
-            </ion-item>
-          </ion-list>
-        </div>
-        <!-- </ion-card> -->
-      </ion-accordion>
-      <ion-accordion value="first">
-        <ion-item slot="header" color="light">
-          <ion-label>Purchase Details</ion-label>
-        </ion-item>
-
-        <div class="ion-padding" slot="content">
-          <ion-grid class="secondartColor">
-            <ion-row>
-              <ion-col>Purchase Price</ion-col>
-              <ion-col>₹ {{ purchaseCost }}</ion-col>
-            </ion-row>
-
-            <ion-row *ngIf="purchaseAndAllExpenseCost > sellPrice">
-              <ion-col>Purchase Date</ion-col>
-              <ion-col>{{
-                tractorDetails?.purchasedetail?.purchanseDate ? tractorDetails?.purchasedetail?.purchanseDate : '-'
-                }}
-
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Seller Name</ion-col>
-              <ion-col>
-                {{
-                tractorDetails?.purchasedetail?.nameOfSeller ? tractorDetails?.purchasedetail?.nameOfSeller : '-'
-                }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Seller Address</ion-col>
-              <ion-col>
-                {{
-                tractorDetails?.purchasedetail?.address ? tractorDetails?.purchasedetail?.address : '-'
-                }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Seller Contact</ion-col>
-              <ion-col>
-                {{
-                tractorDetails?.purchasedetail?.contact1 ? tractorDetails?.purchasedetail?.contact1 : '-'
-                }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="second">
-        <ion-item slot="header" color="light">
-          <ion-label>Logistic Details</ion-label>
-        </ion-item>
-
-        <div class="ion-padding" slot="content">
-          <ion-grid class="primaryColor">
-            <ion-row>
-              <ion-col>Logistic Cost</ion-col>
-              <ion-col>₹ {{ logisticCost }}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Transport Start Date</ion-col>
-              <ion-col> {{
-                tractorDetails?.transport_start_date ? tractorDetails?.transport_start_date : '-'
-                }}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Store</ion-col>
-              <ion-col>
-                {{
-                tractorDetails?.transportdestinationDetails ? tractorDetails?.transportdestinationDetails?.name : '-'
-                }}
-
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Date(Reached)</ion-col>
-              <ion-col> {{
-                tractorDetails?.reachDate ? tractorDetails?.reachDate : '-'
-                }}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Transport Details</ion-col>
-              <ion-col>
-                {{
-                tractorDetails?.transport_src_place ? tractorDetails?.transport_src_place : '-'
-                }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-
-          <ion-accordion-group [multiple]="true" [value]="[]">
-            <ion-accordion value="secondfirst">
-              <ion-item slot="header" color="light">
-                <ion-label>Logistic Expenses</ion-label>
+    <ion-accordion-group class="accordian_dashboard" [multiple]="true" [value]="[]">
+      <ion-card class="accordian_card">
+        <ion-accordion value="sixth">
+          <ion-item slot="header" color="light">
+            <ion-label>Images</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="viewImageLive()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+                  <span>Live - 10</span>
+                </ion-button>
               </ion-item>
-
-              <div class="ion-padding" slot="content">
-                <ion-grid class="primaryColor">
-                  <ion-row *ngFor="let log of logisticData">
-                    <ion-col>{{log?.expenseType?.name}}</ion-col>
-                    <ion-col>₹ {{log?.expense_amount }}</ion-col>
-                  </ion-row>
-                  <ion-row *ngIf="!logisticData?.length">
-                    <ion-col colspan="2">No Data Inserted</ion-col>
-                  </ion-row>
-                </ion-grid>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
-        </div>
-      </ion-accordion>
-
-      <ion-accordion value="third">
-        <ion-item slot="header" color="light">
-          <ion-label>Maintainance Details</ion-label>
-        </ion-item>
-
-        <div class="ion-padding" slot="content">
-          <ion-grid class="secondartColor">
-            <ion-row>
-              <ion-col>Maintainance Cost</ion-col>
-              <ion-col>₹ {{ maintainanaceCost }}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col> Start Date</ion-col>
-              <ion-col>{{tractorDetails?.repairing_start_date ? tractorDetails?.repairing_start_date : '-'}}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col> End Date</ion-col>
-              <ion-col>{{tractorDetails?.repairing_end_date ? tractorDetails?.repairing_end_date:'-'}}</ion-col>
-            </ion-row>
-          </ion-grid>
-
-          <ion-accordion-group [multiple]="true" [value]="[]">
-            <ion-accordion value="thirdfirst">
-              <ion-item slot="header" color="light">
-                <ion-label>Maintainance Expenses</ion-label>
+              <ion-item>
+                <ion-button (click)="viewImage('BEFORE_SERVICE')" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+                  <span>Before Maintainance - 3</span>
+                </ion-button>
               </ion-item>
-
-              <div class="ion-padding" slot="content">
-                <ion-grid class="secondartColor">
-                  <ion-row *ngFor="let main of allMaintainance">
-                    <ion-col>{{main?.materialDetail?.name}}</ion-col>
-                    <ion-col>₹ {{main?.total_expense}}</ion-col>
-                  </ion-row>
-                  <ion-row *ngIf="!allMaintainance?.length">
-                    <ion-col colspan="2">No Data Inserted</ion-col>
-                  </ion-row>
-                </ion-grid>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
-        </div>
-      </ion-accordion>
-
-      <ion-accordion value="fourth">
-        <ion-item slot="header" color="light">
-          <ion-label>Other Expenses</ion-label>
-        </ion-item>
-
-        <div class="ion-padding" slot="content">
-          <ion-grid class="primaryColor">
-            <ion-row *ngFor="let row of listDataOther">
-
-              <ion-col>{{row?.expenseType?.name}} </ion-col>
-              <ion-col>₹ {{row?.expense_amount}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="!listDataOther?.length">
-              <ion-col colspan="2">No Data Inserted</ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="fifth">
-        <ion-item slot="header" color="light">
-          <ion-label>Sell Details</ion-label>
-        </ion-item>
-
-        <div class="ion-padding" slot="content">
-          <ion-accordion-group [multiple]="true" [value]="[]">
-            <ion-accordion value="fifthfirst">
-              <ion-item slot="header" color="light">
-                <ion-label>Sell Details</ion-label>
+              <ion-item>
+                <ion-button (click)="viewImage('AFTER_SERVICE')" class="" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+                  <span>After Maintainance - 5</span>
+                </ion-button>
               </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Purchase Details</ion-label>
+          </ion-item>
 
-              <div class="ion-padding" slot="content">
-                <ion-grid class="secondartColor">
-                  <ion-row>
-                    <ion-col>Customer Name </ion-col>
-                    <ion-col>{{sellingData?.nameOfCustomer || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Contact </ion-col>
-                    <ion-col>{{sellingData?.mobileNo||'-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Address</ion-col>
-                    <ion-col>{{sellingData?.address||'-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Selling Date</ion-col>
-                    <ion-col>{{sellingData?.sellingDate||'-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Store</ion-col>
-                    <ion-col>{{sellingData?.wareHouseLocationDetails?.name||'-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>By </ion-col>
-                    <ion-col>{{sellingData?.companyRepresentativeDetails?.name ||'-'}}</ion-col>
-                  </ion-row>
+          <div class="ion-padding" slot="content">
+            <ion-grid class="secondartColor">
+              <ion-row>
+                <ion-col>Purchase Price</ion-col>
+                <ion-col>₹ {{ purchaseCost }}</ion-col>
+              </ion-row>
 
-                </ion-grid>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
-          <ion-accordion-group [multiple]="true" [value]="[]">
-            <ion-accordion value="fifthSecond">
-              <ion-item slot="header" color="light">
-                <ion-label>Finance Details</ion-label>
-              </ion-item>
+              <ion-row *ngIf="purchaseAndAllExpenseCost > sellPrice">
+                <ion-col>Purchase Date</ion-col>
+                <ion-col>{{
+                  tractorDetails?.purchasedetail?.purchanseDate ? tractorDetails?.purchasedetail?.purchanseDate : '-'
+                  }}
 
-              <div class="ion-padding" slot="content">
-                <ion-grid class="primaryColor">
-                  <ion-row>
-                    <ion-col>Financer </ion-col>
-                    <ion-col>{{financeData?.bankDetails?.name || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Finance Amount </ion-col>
-                    <ion-col>{{financeData?.financeAmount || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Down Payment</ion-col>
-                    <ion-col>{{financeData?.downPayment || '-'}}</ion-col>
-                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Seller Name</ion-col>
+                <ion-col>
+                  {{
+                  tractorDetails?.purchasedetail?.nameOfSeller ? tractorDetails?.purchasedetail?.nameOfSeller : '-'
+                  }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Seller Address</ion-col>
+                <ion-col>
+                  {{
+                  tractorDetails?.purchasedetail?.address ? tractorDetails?.purchasedetail?.address : '-'
+                  }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Seller Contact</ion-col>
+                <ion-col>
+                  {{
+                  tractorDetails?.purchasedetail?.contact1 ? tractorDetails?.purchasedetail?.contact1 : '-'
+                  }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="second">
+          <ion-item slot="header" color="light">
+            <ion-label>Logistic Details</ion-label>
+          </ion-item>
 
-                  <ion-row>
-                    <ion-col>1st Disbursal</ion-col>
-                    <ion-col>{{financeData?.first_disbursal || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Date</ion-col>
-                    <ion-col>{{financeData?.first_disbursal_date || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>2nd Disbursal </ion-col>
-                    <ion-col>{{financeData?.second_disbursal || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Date </ion-col>
-                    <ion-col>{{financeData?.second_disbursal_date || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Net Amount </ion-col>
-                    <ion-col>{{financeData?.net_market || '-'}}</ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col>Outstanding</ion-col>
-                    <ion-col>{{financeData?.outstanding || '-'}}</ion-col>
-                  </ion-row>
-                </ion-grid>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
-        </div>
-      </ion-accordion>
+          <div class="ion-padding" slot="content">
+            <ion-grid class="primaryColor">
+              <ion-row>
+                <ion-col>Logistic Cost</ion-col>
+                <ion-col>₹ {{ logisticCost }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Transport Start Date</ion-col>
+                <ion-col> {{
+                  tractorDetails?.transport_start_date ? tractorDetails?.transport_start_date : '-'
+                  }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Store</ion-col>
+                <ion-col>
+                  {{
+                  tractorDetails?.transportdestinationDetails ? tractorDetails?.transportdestinationDetails?.name : '-'
+                  }}
+
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Date(Reached)</ion-col>
+                <ion-col> {{
+                  tractorDetails?.reachDate ? tractorDetails?.reachDate : '-'
+                  }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Transport Details</ion-col>
+                <ion-col>
+                  {{
+                  tractorDetails?.transport_src_place ? tractorDetails?.transport_src_place : '-'
+                  }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <ion-accordion-group [multiple]="true" [value]="[]">
+              <ion-card class="accordian_card">
+                <ion-accordion value="secondfirst">
+                  <ion-item slot="header" color="light">
+                    <ion-label>Logistic Expenses</ion-label>
+                  </ion-item>
+
+                  <div class="ion-padding" slot="content">
+                    <ion-grid class="primaryColor">
+                      <ion-row *ngFor="let log of logisticData">
+                        <ion-col>{{log?.expenseType?.name}}</ion-col>
+                        <ion-col>₹ {{log?.expense_amount }}</ion-col>
+                      </ion-row>
+                      <ion-row *ngIf="!logisticData?.length">
+                        <ion-col colspan="2">No Data Inserted</ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </ion-accordion>
+              </ion-card>
+            </ion-accordion-group>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="third">
+          <ion-item slot="header" color="light">
+            <ion-label>Maintainance Details</ion-label>
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <ion-grid class="secondartColor">
+              <ion-row>
+                <ion-col>Maintainance Cost</ion-col>
+                <ion-col>₹ {{ maintainanaceCost }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col> Start Date</ion-col>
+                <ion-col>{{tractorDetails?.repairing_start_date ? tractorDetails?.repairing_start_date : '-'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col> End Date</ion-col>
+                <ion-col>{{tractorDetails?.repairing_end_date ? tractorDetails?.repairing_end_date:'-'}}</ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <ion-accordion-group [multiple]="true" [value]="[]">
+              <ion-card class="accordian_card">
+                <ion-accordion value="thirdfirst">
+                  <ion-item slot="header" color="light">
+                    <ion-label>Maintainance Expenses</ion-label>
+                  </ion-item>
+
+                  <div class="ion-padding" slot="content">
+                    <ion-grid class="secondartColor">
+                      <ion-row *ngFor="let main of allMaintainance">
+                        <ion-col>{{main?.materialDetail?.name}}</ion-col>
+                        <ion-col>₹ {{main?.total_expense}}</ion-col>
+                      </ion-row>
+                      <ion-row *ngIf="!allMaintainance?.length">
+                        <ion-col colspan="2">No Data Inserted</ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </ion-accordion>
+              </ion-card>
+            </ion-accordion-group>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="fourth">
+          <ion-item slot="header" color="light">
+            <ion-label>Other Expenses</ion-label>
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <ion-grid class="primaryColor">
+              <ion-row *ngFor="let row of listDataOther">
+
+                <ion-col>{{row?.expenseType?.name}} </ion-col>
+                <ion-col>₹ {{row?.expense_amount}}</ion-col>
+              </ion-row>
+              <ion-row *ngIf="!listDataOther?.length">
+                <ion-col colspan="2">No Data Inserted</ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="fifth">
+          <ion-item slot="header" color="light">
+            <ion-label class="accordian_label">Sell Details</ion-label>
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <ion-grid class="secondartColor">
+              <ion-row>
+                <ion-col>Customer Name </ion-col>
+                <ion-col>{{sellingData?.nameOfCustomer || '-'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Contact </ion-col>
+                <ion-col>{{sellingData?.mobileNo||'-'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Address</ion-col>
+                <ion-col>{{sellingData?.address||'-'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Selling Date</ion-col>
+                <ion-col>{{sellingData?.sellingDate||'-'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>Store</ion-col>
+                <ion-col>{{sellingData?.wareHouseLocationDetails?.name||'-'}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>By </ion-col>
+                <ion-col>{{sellingData?.companyRepresentativeDetails?.name ||'-'}}</ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-accordion-group [multiple]="true" [value]="[]">
+              <ion-card class="accordian_card">
+                <ion-accordion value="fifthSecond">
+                  <ion-item slot="header" color="light">
+                    <ion-label>Finance Details</ion-label>
+                  </ion-item>
+
+                  <div class="ion-padding" slot="content">
+                    <ion-grid class="primaryColor">
+                      <ion-row>
+                        <ion-col>Financer </ion-col>
+                        <ion-col>{{financeData?.bankDetails?.name || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>Finance Amount </ion-col>
+                        <ion-col>{{financeData?.financeAmount || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>Down Payment</ion-col>
+                        <ion-col>{{financeData?.downPayment || '-'}}</ion-col>
+                      </ion-row>
+
+                      <ion-row>
+                        <ion-col>1st Disbursal</ion-col>
+                        <ion-col>{{financeData?.first_disbursal || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>Date</ion-col>
+                        <ion-col>{{financeData?.first_disbursal_date || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>2nd Disbursal </ion-col>
+                        <ion-col>{{financeData?.second_disbursal || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>Date </ion-col>
+                        <ion-col>{{financeData?.second_disbursal_date || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>Net Amount </ion-col>
+                        <ion-col>{{financeData?.net_market || '-'}}</ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>Outstanding</ion-col>
+                        <ion-col>{{financeData?.outstanding || '-'}}</ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </ion-accordion>
+              </ion-card>
+            </ion-accordion-group>
+          </div>
+        </ion-accordion>
+      </ion-card>
     </ion-accordion-group>
   </ion-card-content>
 </ion-content>

@@ -118,7 +118,7 @@
 // }
 
 .icon-size {
-  font-size: 30px;
+  font-size: 24px;
 }
 
 // :host {
@@ -179,5 +179,29 @@
   .selected_tabs {
     color: var(--app-primary-color);
     font-weight: 600;
+  }
+}
+
+.accordian_card {
+  ion-accordion {
+    ion-item {
+
+      ion-icon {
+        font-size: 20px;
+        color: #666666;
+        margin-right: -5px;
+      }
+    }
+  }
+}
+
+ion-header {
+  ion-title {
+    font-size: 16px;
+  }
+
+  .icon-size {
+    font-size: 24px;
+    margin-right: 5px;
   }
 }
