@@ -11,6 +11,12 @@
           <ion-icon *ngIf="selectedTab=='New-findings'"  class="theme-color" name="people"></ion-icon>
           Finding
         </ion-tab-button>
+        <ion-tab-button (click)="goToPage('Cost-prediction')" tab="Customer">
+          <ion-icon *ngIf="selectedTab!=='Cost-prediction'" class="theme-color" name="cash-outline"></ion-icon>
+          <ion-icon *ngIf="selectedTab=='Cost-prediction'"  class="theme-color" name="cash"></ion-icon>
+          Cost Prediction
+        </ion-tab-button>
+        
         <!-- <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='Logistic'" class="theme-color" name="bookmarks"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='Logistic'" class="theme-color" name="bookmarks-outline"></ion-icon>

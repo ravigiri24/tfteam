@@ -1,0 +1,13 @@
+.left-margin{
+    position: relative;
+    left:20px
+   }
+
+.cost-estimate{
+    text-align: center;
+    position: relative;
+    top:20px;
+    border: 2px solid var(--app-primary-color);
+    color: var( --app-secondary-color);
+    border-radius: 20px;
+}   

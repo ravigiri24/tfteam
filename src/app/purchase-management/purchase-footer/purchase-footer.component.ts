@@ -16,8 +16,8 @@ export class PurchaseFooterComponent  implements OnInit {
   if(tab=='New-findings'){
     this.router.navigate(['/purchase-management/new-findings'])
   }
-  else if(tab=='Logistic'){
-    this.router.navigate(['/operational/transport-management'])
+  else if(tab=='Cost-prediction'){
+    this.router.navigate(['/purchase-management/cost-prediction'])
   }
   else if(tab=='Maintainance'){
     this.router.navigate(['/operational/maintainance-management'])

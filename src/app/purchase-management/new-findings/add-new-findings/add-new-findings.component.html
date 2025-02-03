@@ -1,0 +1,117 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title *ngIf="!data">Add New Finding</ion-title>  
+    <ion-title *ngIf="data && !isShowOnly" >Update</ion-title>  
+    <ion-title *ngIf="isShowOnly" >View Details</ion-title>  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form [formGroup]="newFindingForms">
+
+  <ion-item class="bottom-margin">
+    <ion-select   (ionChange)="getModelsbyBrand()"      formControlName="brand_id" label="Select Brand" label-placement="type">
+      <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
+  
+    
+  
+    </ion-select>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-select      formControlName="model_id" label="Select Model" label-placement="type">
+      <ion-select-option *ngFor="let model of modelList"  [value]="model?.id">{{model?.name}} </ion-select-option>
+   
+    
+  
+    </ion-select>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Expected Price"
+      labelPlacement="stacked"
+      type="number"
+      [readonly]="isShowOnly"
+    formControlName="expected_price"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Year"
+      labelPlacement="stacked"
+      type="text"
+      [readonly]="isShowOnly"
+    
+      formControlName="yearOfManufactoring"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Hours"
+      labelPlacement="stacked"
+      type="text"
+      [readonly]="isShowOnly"
+ 
+      formControlName="hours"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Registration Number"
+      labelPlacement="stacked"
+      type="text"
+      [readonly]="isShowOnly"
+    
+      formControlName="registractionNo"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Location"
+      labelPlacement="stacked"
+      type="text"
+      [readonly]="isShowOnly"
+    formControlName="location"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Dealer Name"
+      labelPlacement="stacked"
+      type="text"
+      [readonly]="isShowOnly"
+   
+      formControlName="dealerName"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Contact Number"
+      labelPlacement="stacked"
+      type="text"
+     [readonly]="isShowOnly"
+   
+      formControlName="contactNumber"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Remark"
+      labelPlacement="stacked"
+      type="text"
+      [readonly]="isShowOnly"
+      placeholder="Enter Remark"
+      formControlName="remark"
+    ></ion-input>
+  </ion-item>
+ 
+
+  <div class="login-button">
+  
+    <ion-button *ngIf="!data && !isShowOnly" (click)="saveForm()"  style="text-align: center;" expand="block" >Save</ion-button>
+    <ion-button *ngIf="data && !isShowOnly" (click)="updateForm()"  style="text-align: center;" expand="block" >Update</ion-button>
+  </div>
+  </form>
+</ion-content>

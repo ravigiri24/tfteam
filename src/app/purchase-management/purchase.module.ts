@@ -12,6 +12,8 @@ import { SharedModule } from '../shared-components/shared.module';
 import { PurchaseManagementComponent } from './purchase-management.component';
 import { PurchaseFooterComponent } from './purchase-footer/purchase-footer.component';
 import { NewFindingsComponent } from './new-findings/new-findings.component';
+import { AddNewFindingsComponent } from './new-findings/add-new-findings/add-new-findings.component'
+import { CostPredictionComponent } from './cost-prediction/cost-prediction.component';
 @NgModule({
   declarations: [
 
@@ -19,7 +21,9 @@ import { NewFindingsComponent } from './new-findings/new-findings.component';
 
     
     PurchaseFooterComponent,
-    NewFindingsComponent
+    NewFindingsComponent,
+    AddNewFindingsComponent,
+    CostPredictionComponent
   ],
   imports: [
     PurchaseRoutingModule,

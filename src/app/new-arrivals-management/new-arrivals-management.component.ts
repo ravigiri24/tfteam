@@ -11,11 +11,11 @@ import { StartTransportDialogComponent } from '../transport-management/start-tra
 })
 export class NewArrivalsManagementComponent implements OnInit {
   constructor(
-    private modalCtrl: ModalController,
-    private alertCtrl: AlertController,
-    private share: ShareService,
-    private api: ApiService,
-    private route: Router
+  private modalCtrl: ModalController,
+  private alertCtrl: AlertController,
+  private share: ShareService,
+  private api: ApiService,
+  private route: Router
   ) {}
 
   ngOnInit() {}

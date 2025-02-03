@@ -21,6 +21,8 @@ export class ImageViewerComponent implements OnInit {
   tarctor_id: any;
   imageGroup: any;
   uploadPhoto: any=true;
+  apiName:any='saveRawImages'
+  getApiName:any='getRawImages'
   callApi: any=true;
   constructor(
     public photoService: PhotoService,
@@ -128,7 +130,7 @@ this.share.checkLogin()
 
     };
     this.share.showLoading('Uploading...',10000);
-    this.api.postapi('saveRawImages', obj).subscribe((res: any) => {
+    this.api.postapi(this.apiName, obj).subscribe((res: any) => {
       console.log("saveDataTo",res);
       this.imageArray.push(res?.data)
       this.share.spinner.dismiss();
@@ -144,7 +146,7 @@ this.share.checkLogin()
       tractor_id: this.tarctor_id,
     };
     this.share.showLoading('Fetching Data...');
-    this.api.postapi('getRawImages', obj).subscribe((res: any) => {
+    this.api.postapi(this.getApiName, obj).subscribe((res: any) => {
       console.log("data",res);
       this.imageArray=res?.data || []
       this.imageArray= this.imageArray.filter((f:any)=>f.imageGroup==this.imageGroup)
