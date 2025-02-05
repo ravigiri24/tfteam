@@ -116,6 +116,28 @@
 
 
 // }
+.top_heading {
+  padding: 0px 0px 0px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left_text {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    white-space: nowrap;
+    .selected_ddl {
+      margin: 0px 8px;
+    }
+  }
+
+  .right_action ion-icon {
+    font-size: 22px;
+    margin-right: 10px;
+    color: var(--app-theme-color);
+  }
+}
 
 .icon-size {
   font-size: 24px;
