@@ -32,7 +32,10 @@ const routes: Routes = [
     path: 'purchase-management',
     loadChildren: () => import('./purchase-management/purchase.module').then(m => m.PurchaseManagementModule)
   },
-  
+  {
+    path: 'franchise-management',
+    loadChildren: () => import('./franchise-management/franchise.module').then(m => m.FranchiseManagementModule)
+  },
   {
     path: 'login',
     canActivate: [AuthService],

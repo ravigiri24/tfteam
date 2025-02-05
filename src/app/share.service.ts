@@ -98,6 +98,9 @@ this.showFooter=e
         else if(userde?.staff_role=='SUPER_ADMIN' || userde?.staff_role=='ADMIN'){
           this.router.navigate(['/admin-block/digital-analyse'])
         }
+        else if(userde?.staff_role=='FRANCHISE'){
+          this.router.navigate(['/franchise-management/new-tractor'])
+        }
       }
     }else{
       this.router.navigate(['/login'])
