@@ -15,15 +15,15 @@ export class AppComponent {
     this.share.checkLogin()
     document.documentElement.style.setProperty(
       `--app-theme-element-color`,
-      '#dc3545'
+      '#1530f5'
     );
     document.documentElement.style.setProperty(
       `--app-theme-element-color-second`,
-      '#6300a3'
+      '#c28af9'
     );
     document.documentElement.style.setProperty(
       `--app-theme-color-third`,
-      ' #FFA500'
+      '#FFA500'
     );
     this.sreenWidth=  screen.width
     this.sreenHeight=  screen.height
