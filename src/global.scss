@@ -217,6 +217,20 @@ ion-icon {
   }
 }
 
+.footer_tabs {
+  .bottom_footer_row {
+    border-top: solid 5px var(--app-primary-color);
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: #0003 0 3px 3px -2px, #00000024 0 3px 4px, #0000001f 0 1px 8px;
+  }
+
+  ion-tab-button {
+    ion-icon {
+      margin-bottom: 3px;
+    }
+  }
+}
+
 .accordian_card {
   ion-accordion {
     ion-item {
