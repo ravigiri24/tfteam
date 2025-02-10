@@ -40,7 +40,7 @@
   ></ion-input>
 </ion-item>
 <ion-item class="bottom-margin">
-  <ion-select  (ionChange)="resetPrice()"  
+  <ion-select  (ionChange)="resetPrediction()"  
   formControlName="year"        label="Year" label-placement="type">
     <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
 
@@ -48,6 +48,45 @@
 
   </ion-select>
 </ion-item>
+<ion-item class="bottom-margin">
+  <ion-select  (ionChange)="resetPrediction()"  
+  formControlName="tyreCondition"        label="Tyre Condition" label-placement="type">
+    <ion-select-option value="Poor">0-25%(Poor)</ion-select-option>
+    <ion-select-option value="Average">26-50%(Average)</ion-select-option>
+    <ion-select-option value="Good">51-75%(Good)</ion-select-option>
+    <ion-select-option value="Very_Good">76-100%(Very Good)</ion-select-option>
+
+  
+
+  </ion-select>
+</ion-item>
+<ion-item class="bottom-margin">
+  <ion-select  (ionChange)="resetPrediction()"  
+  formControlName="bodyCondition"        label="Body Condition" label-placement="type">
+    <ion-select-option value="Poor">0-25%(Poor)</ion-select-option>
+    <ion-select-option value="Average">26-50%(Average)</ion-select-option>
+    <ion-select-option value="Good">51-75%(Good)</ion-select-option>
+    <ion-select-option value="Very_Good">76-100%(Very Good)</ion-select-option>
+
+  
+
+  </ion-select>
+</ion-item>
+<ion-item>
+  <ion-button (click)="addPhotoToGallery()" class="" fill="clear">
+    <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+    <span>Upload Image</span>
+  </ion-button>
+</ion-item>
+<ion-grid *ngIf="imageArray?.length">
+  <ion-row>
+    <ion-col size="6" *ngFor="let photo of imageArray; index as position">
+      <ion-card class="m-0">
+        <img (click)="viewImage(photo)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 <div class="login-button">
   
   <ion-button  (click)="getPriceEstimate()"  style="text-align: center;" expand="block" >Check</ion-button>

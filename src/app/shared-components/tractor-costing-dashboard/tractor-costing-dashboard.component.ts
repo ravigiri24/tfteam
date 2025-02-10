@@ -255,10 +255,19 @@ export class TractorCostingDashboardComponent implements OnInit {
  
    let imageArray:any=[]
    
-   imageArray.push({imageUrlUrl:this.tractorDetails?.leftImageUrl})
-   imageArray.push({imageUrlUrl:this.tractorDetails?.rightImageUrl})
-   imageArray.push({imageUrlUrl:this.tractorDetails?.frontImageUrl})
+   if(this.tractorDetails?.leftImageUrl){
+    imageArray.push({imageUrlUrl:this.tractorDetails?.leftImageUrl})
+    }
+    if(this.tractorDetails?.rightImageUrl){
+     imageArray.push({imageUrlUrl:this.tractorDetails?.rightImageUrl})
+    }
+    if(this.tractorDetails?.frontImageUrl){
+     imageArray.push({imageUrlUrl:this.tractorDetails?.frontImageUrl})
+    }
+  if(this.tractorDetails?.backImageUrl){
    imageArray.push({imageUrlUrl:this.tractorDetails?.backImageUrl})
+  }
+  
       const modal = await this.modalCtrl.create({
         component: ImageViewerComponent,
         componentProps: {

@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="main_card_block">
+  <!-- <ion-card > -->
+  <ion-card-content *ngIf="tractorDetails">
+    <div class="flex_block_container">
+      <ion-card class="top_imagewith_details">
+        <div class="image_block">
+          <img src="{{tractorDetails?.displayImageUrl}}"   onerror="this.src='../../../assets/images/tractor.jpg';" >
+        </div>
+      </ion-card>
+      <div class="right_details_block">
+        <!-- <ion-card-header> -->
+        <ion-card-title><span class="theme-color">{{tractorDetails?.name}}</span></ion-card-title>
+        <ion-card-subtitle>
+          <span class="theme-color-second"><b>{{ tractorDetails?.registractionNo }} -<span
+                *ngIf="tractorDetails?.tractor_status">&nbsp;{{ tractorDetails?.tractor_status }} </span>
+              <span *ngIf="!tractorDetails?.tractor_status">Live</span>
+             
+            </b>
+          </span>
+        </ion-card-subtitle>
+        <!-- </ion-card-header> -->
+
+        <span class="main_title_text">
+          {{ tractorDetails?.yearOfManufactoring }} |
+          {{ tractorDetails?.createdOn | date }} | {{ tractorDetails?.hours }}
+        </span>
+      </div>
+    </div>
+
+    <ion-grid class="main_block_details">
+      <ion-card>
+        <ion-row>
+          <ion-col>Brand Name</ion-col>
+          <ion-col class="amount_col">{{ tractorDetails?.brandName }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>HP</ion-col>
+          <ion-col class="amount_col">{{ tractorDetails?.hp }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <!-- <ion-card>
+        <ion-row>
+          <ion-col>Logistic Cost</ion-col>
+          <ion-col class="amount_col">₹ {{ logisticCost }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Maintainance Cost</ion-col>
+          <ion-col class="amount_col">₹ {{ maintainanaceCost }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Other Cost</ion-col>
+          <ion-col class="amount_col">₹ {{ otherExpenseCost }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Total Expense</ion-col>
+          <ion-col class="amount_col">₹ {{ logisticCost+maintainanaceCost+otherExpenseCost }}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card>
+        <ion-row>
+          <ion-col>Total Expense</ion-col>
+          <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Sell Price</ion-col>
+          <ion-col class="amount_col">₹ {{ sellingPrice }}</ion-col>
+        </ion-row>
+        <ion-row
+          *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) <= sellingPrice) && tractorDetails?.sellingDetailedId">
+          <ion-col>Profit</ion-col>
+          <ion-col class="amount_col">₹ {{ sellingPrice -(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )
+            }}</ion-col>
+        </ion-row>
+        <ion-row
+          *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
+          <ion-col>Loss</ion-col>
+          <ion-col class="amount_col">₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )- sellingPrice
+            }}</ion-col>
+        </ion-row>
+      </ion-card> -->
+    </ion-grid>
+    <ion-accordion-group class="accordian_dashboard" [multiple]="true" [value]="[]">
+      <ion-card class="accordian_card">
+        <ion-accordion value="sixth">
+          <ion-item slot="header" color="light">
+            <ion-label>Images</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="viewImageLive()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+                  <span>Live</span>
+                </ion-button>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="viewImage('BEFORE_SERVICE')" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+                  <span>Before Maintainance</span>
+                </ion-button>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="viewImage('AFTER_SERVICE')" class="" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
+                  <span>After Maintainance</span>
+                </ion-button>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-card>
+     
+    </ion-accordion-group>
+  </ion-card-content>
+</ion-content>
