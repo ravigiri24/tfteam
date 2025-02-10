@@ -7,6 +7,7 @@ import { ShareService } from 'src/app/share.service';
 import { ModalController } from '@ionic/angular';
 import { ViewTractorDetailsComponent } from 'src/app/shared-components/view-tractor-details/view-tractor-details.component';
 import { Router } from '@angular/router';
+import { FranchiseTractorDashboardComponent } from '../franchise-tractor-dashboard/franchise-tractor-dashboard.component';
 @Component({
   selector: 'app-store-tractor',
   templateUrl: './store-tractor.component.html',
@@ -26,6 +27,7 @@ alltractorList:any=[]
   refreshList(){
     this.getTractorList()
   }
+
 
 
   staffDetails:any
@@ -57,6 +59,20 @@ alltractorList:any=[]
     async viewTractorDashboard(tractor:any){
       const modal = await this.modalCtrl.create({
         component: ViewTractorDetailsComponent,
+        componentProps: {
+       
+          tractorDetails: tractor,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+    //this.getTractorList()
+    }
+    async tractorDetailsEntry(tractor:any){
+      const modal = await this.modalCtrl.create({
+        component: FranchiseTractorDashboardComponent,
         componentProps: {
        
           tractorDetails: tractor,

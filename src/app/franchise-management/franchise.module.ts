@@ -14,6 +14,7 @@ import { NewTractorComponent } from './new-tractor/new-tractor.component';
 import { FranchiseFooterComponent } from './franchise-footer/franchise-footer.component';
 import { StoreTractorComponent } from './store-tractor/store-tractor.component';
 import { StoreTansactionComponent } from './store-tansaction/store-tansaction.component';
+import { FranchiseTractorDashboardComponent } from './franchise-tractor-dashboard/franchise-tractor-dashboard.component';
 @NgModule({
   declarations: [
 
@@ -21,7 +22,8 @@ import { StoreTansactionComponent } from './store-tansaction/store-tansaction.co
     NewTractorComponent,
     FranchiseFooterComponent,
     StoreTractorComponent,
-    StoreTansactionComponent
+    StoreTansactionComponent,
+    FranchiseTractorDashboardComponent
 
   ],
   imports: [
