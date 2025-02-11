@@ -1,37 +1,146 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Leads</ion-title>  
-   
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Leads</ion-title>
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
-  </ion-toolbar>  
-</ion-header> 
-<ion-content>
-  <ion-accordion-group [multiple]="true" [value]="[]">
-  
+    <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="main_card_block">
+  <div class="main_card_block">
+    <ion-grid class="main_block_details">
+      <ion-label>Today</ion-label>
+      <ion-card>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="globe-outline"></ion-icon>
+          </div>
+          <ion-col>Digital</ion-col>
+          <ion-col class="amount_col">
+            {{counts?.customers_today_digital}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
+          </div>
+          <ion-col>Visitors</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_today_visitors}}</ion-col>
+        </ion-row>
+        <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
+          </div>
+          <ion-col>Online</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_today_ONLINE}}</ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+    <ion-grid class="main_block_details">
+      <ion-label>Yesterday</ion-label>
+      <ion-card>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="globe-outline"></ion-icon>
+          </div>
+          <ion-col>Digital</ion-col>
+          <ion-col class="amount_col">
+            {{counts?.customers_yesterday_digital}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
+          </div>
+          <ion-col>Visitors</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_yesterday_visitors}}</ion-col>
+        </ion-row>
+        <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
+          </div>
+          <ion-col>Online</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_yesterday_ONLINE}}</ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+    <ion-grid class="main_block_details">
+      <ion-label>Last 7 Days</ion-label>
+      <ion-card>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="globe-outline"></ion-icon>
+          </div>
+          <ion-col>Digital</ion-col>
+          <ion-col class="amount_col">
+            {{counts?.customers_last_Seven_days_digital}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
+          </div>
+          <ion-col>Visitors</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_last_Seven_days_visitors}}</ion-col>
+        </ion-row>
+        <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
+          </div>
+          <ion-col>Online</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_last_Seven_days_ONLINE}}</ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+    <ion-grid class="main_block_details">
+      <ion-label>This Month</ion-label>
+      <ion-card>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="globe-outline"></ion-icon>
+          </div>
+          <ion-col>Digital</ion-col>
+          <ion-col class="amount_col">
+            {{counts?.customers_this_month_digital}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
+          </div>
+          <ion-col>Visitors</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_this_month_visitors}}</ion-col>
+        </ion-row>
+        <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
+          <div class="left_icon_block">
+            <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
+          </div>
+          <ion-col>Online</ion-col>
+          <ion-col class="amount_col">₹ {{counts?.customers_this_month_ONLINE}}</ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+  </div>
+  <!-- <ion-accordion-group [multiple]="true" [value]="[]">
+
     <ion-accordion value="first">
       <ion-item slot="header" color="light">
         <ion-label>Today</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row >
+          <ion-row>
             <ion-col>Digital</ion-col>
             <ion-col>{{counts?.customers_today_digital}}</ion-col>
-        
+
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
             <ion-col>{{counts?.customers_today_visitors}}</ion-col>
-        
+
           </ion-row>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
             <ion-col>{{counts?.customers_today_ONLINE}}</ion-col>
-        
+
           </ion-row>
         </ion-grid>
-        </div>
+      </div>
     </ion-accordion>
     <ion-accordion value="second">
       <ion-item slot="header" color="light">
@@ -39,23 +148,23 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row >
+          <ion-row>
             <ion-col>Digital</ion-col>
             <ion-col>{{counts?.customers_yesterday_digital}}</ion-col>
-        
+
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
             <ion-col>{{counts?.customers_yesterday_visitors}}</ion-col>
-        
+
           </ion-row>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
             <ion-col>{{counts?.customers_yesterday_ONLINE}}</ion-col>
-        
+
           </ion-row>
         </ion-grid>
-        </div>
+      </div>
     </ion-accordion>
     <ion-accordion value="third">
       <ion-item slot="header" color="light">
@@ -63,23 +172,23 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row >
+          <ion-row>
             <ion-col>Digital</ion-col>
             <ion-col>{{counts?.customers_last_Seven_days_digital}}</ion-col>
-        
+
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
             <ion-col>{{counts?.customers_last_Seven_days_visitors}}</ion-col>
-        
+
           </ion-row>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
             <ion-col>{{counts?.customers_last_Seven_days_ONLINE}}</ion-col>
-        
+
           </ion-row>
         </ion-grid>
-        </div>
+      </div>
     </ion-accordion>
     <ion-accordion value="fourth">
       <ion-item slot="header" color="light">
@@ -87,23 +196,23 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-grid>
-          <ion-row >
+          <ion-row>
             <ion-col>Digital</ion-col>
             <ion-col>{{counts?.customers_this_month_digital}}</ion-col>
-        
+
           </ion-row>
           <ion-row>
             <ion-col>Visitors</ion-col>
             <ion-col>{{counts?.customers_this_month_visitors}}</ion-col>
-        
+
           </ion-row>
-          <ion-row *ngIf="staff_role=='SUPER_ADMIN'">
+          <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
             <ion-col>Online</ion-col>
             <ion-col>{{counts?.customers_this_month_ONLINE}}</ion-col>
-        
+
           </ion-row>
         </ion-grid>
-        </div>
+      </div>
     </ion-accordion>
-  </ion-accordion-group>
+  </ion-accordion-group> -->
 </ion-content>

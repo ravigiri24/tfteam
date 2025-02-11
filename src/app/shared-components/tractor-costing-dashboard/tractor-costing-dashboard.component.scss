@@ -115,7 +115,10 @@
 
       .ion-padding {
         padding: 5px;
-        font-size: 13px;
+        ion-col {
+          font-size: 12px;
+
+        }
       }
     }
   }
