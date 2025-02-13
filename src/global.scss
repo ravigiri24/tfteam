@@ -72,12 +72,15 @@ ion-icon {
   color: var(--app-primary-color);
 }
 
-.theme-color-background {
+.theme-color-background, .theme-bgcolor-primary {
   // background-color: var(--app-theme-element-color) !important;
   background-color: var(--app-primary-color);
 }
-
-.theme-color-second {
+.theme-bgcolor-secondary {
+  // color: var(--app-theme-element-color-second) !important;
+  background-color: var(--app-secondary-color);
+}
+.theme-color-second{
   // color: var(--app-theme-element-color-second) !important;
   color: var(--app-secondary-color);
 }
@@ -97,7 +100,9 @@ ion-icon {
     color: #666666;
   }
 }
-
+.bottom_img {
+  background-image: url(../src/assets/images/bottom_bg.png);
+}
 .login_main_container {
   background-image: url(../src/assets/images/login_bg.png);
   background-size: 100% 100%;
@@ -155,6 +160,7 @@ ion-icon {
 .icon-size {
   font-size: 24px;
 }
+
 
 // :host {
 //   // .eye_password {

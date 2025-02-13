@@ -7,34 +7,34 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.scss'],
 })
-export class UserManagementComponent  implements OnInit {
+export class UserManagementComponent implements OnInit {
 
-  constructor(private share:ShareService,public alertCtrl: AlertController,private router:Router,private activated:ActivatedRoute) { 
-    activated.url.subscribe((res)=>{
-      console.log("res",res);
-      
+  constructor(private share: ShareService, public alertCtrl: AlertController, private router: Router, private activated: ActivatedRoute) {
+    activated.url.subscribe((res) => {
+      console.log("res", res);
+
     })
   }
-  staffDetails:any
+  staffDetails: any
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
   }
-  async showAlert() {  
-    const alert = await this.alertCtrl.create({  
-      header: 'Logout?',  
-      subHeader: '',  
-      message: 'Are You Sure',  
-      buttons: ['Cancel','Yes']  
-    });  
-    await alert.present();  
-    const result = await alert.onDidDismiss();  
-    if(!result?.role){
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Logout?',
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: ['Cancel', 'Yes']
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (!result?.role) {
       this.share.clearSession()
       this.router.navigate(['/login'])
     }
-    console.log(result);  
-  }  
+    console.log(result);
+  }
 
 }

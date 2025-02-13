@@ -1,20 +1,118 @@
-.avtar-position{
+.top_section {
+    display: flex;
+    width: 100%;
+    height: 125px;
     position: relative;
-    left: 46%;
-    top: 50px;
-    height: 20px;
-    width: 20px;
+
+    div {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .theme-color-primary {
+        z-index: 1;
+    }
+
+    .theme-bgcolor-secondary {
+        z-index: 2;
+        border-radius: 0px 200px 0px 100px;
+    }
 }
-.margin-left{
-    margin-left: 20px;
-}
-.margin-logut{
-  
-    margin-left: 15px;
+
+.inner_container {
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    margin-top: -50px;
+    z-index: 2;
     position: relative;
-    top: -9px;
+
+    .image_card {
+        border-radius: 50%;
+        margin: 0px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        ion-avatar {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+
+
+    .details_line_row {
+        display: flex;
+        align-items: center;
+        margin: 10px 0px;
+
+        .left_icons_block {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--app-secondary-color);
+            color: #ffffff;
+            margin-right: 20px;
+        }
+
+        .right_flex-data {
+            flex-flow: column;
+            display: flex;
+
+            ion-label {
+                font-size: 12px;
+                font-weight: 400;
+                color: #666666;
+                letter-spacing: .5px;
+                line-height: 16px;
+            }
+        }
+    }
+
+    .logout_btn {
+        width: 100%;
+        margin-top: 15px;
+        --background: #dd0000 !important;
+        --border-color: #dd0000 !important;
+        border-radius: 15px;
+
+        .font-icon {
+            margin-right: 8px;
+        }
+    }
 
 }
-.font-icon{
-    font-size: 28px;
-}
+
+// bottom_unused scss
+// .avtar-position {
+//     position: relative;
+//     left: 46%;
+//     top: 50px;
+//     height: 20px;
+//     width: 20px;
+// }
+
+// .margin-left {
+//     margin-left: 20px;
+// }
+
+// .margin-logut {
+
+//     margin-left: 15px;
+//     position: relative;
+//     top: -9px;
+
+// }
+
+// .font-icon {
+//     font-size: 28px;
+// }

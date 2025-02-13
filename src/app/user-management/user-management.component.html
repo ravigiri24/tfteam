@@ -1,26 +1,72 @@
-
-
-<ion-content >
-<ion-item >
-    <ion-avatar >
-      <img alt="User" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-    </ion-avatar>
-    <ion-label class="margin-left">{{staffDetails?.name}} </ion-label>
-  </ion-item>
-
-  <ion-list  >
-    <ion-item >
-      <ion-label>
-       
-       <ion-icon (click)="showAlert()"class="theme-color font-icon" name="log-out-outline"></ion-icon><span class="margin-logut">Logout</span>
-      </ion-label>
+<ion-content>
+  <div class="top_section">
+    <div class="theme-bgcolor-primary"></div>
+    <div class="theme-bgcolor-secondary"></div>
+  </div>
+  <div class="inner_container d-flex">
+    <ion-card class="image_card">
+      <ion-avatar>
+        <img alt="User" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+    </ion-card>
+    <ion-grid>
+      <ion-row class="details_line_row">
+        <ion-card class="left_icons_block">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-card>
+        <div class="right_flex-data">
+          <ion-label class="margin-left"><b>Name</b></ion-label>
+          <ion-label class="margin-left">{{staffDetails?.name}} </ion-label>
+        </div>
+      </ion-row>
+      <ion-row class="details_line_row">
+        <ion-card class="left_icons_block">
+          <ion-icon name="id-card-outline"></ion-icon>
+        </ion-card>
+        <div class="right_flex-data">
+          <ion-label class="margin-left"><b>Staff Role</b></ion-label>
+          <ion-label class="margin-left">{{staffDetails?.staffType}} </ion-label>
+        </div>
+      </ion-row>
+      <ion-row class="details_line_row">
+        <ion-card class="left_icons_block">
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-card>
+        <div class="right_flex-data">
+          <ion-label class="margin-left"><b>Contact No.</b></ion-label>
+          <ion-label class="margin-left">{{staffDetails?.contact1}} </ion-label>
+        </div>
+      </ion-row>
+      <ion-row>
+        <ion-button class="logout_btn" (click)="showAlert()">
+          <ion-icon class="font-icon" name="log-out-outline"></ion-icon>
+          <span>Logout</span>
+        </ion-button>
+      </ion-row>
+      <!-- <ion-row class="details_line_row">
+        <ion-card class="left_icons_block">
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-card>
+        <div class="right_flex-data">
+          <ion-label class="margin-left"><b>Store</b></ion-label>
+          <ion-label class="margin-left">{{staffDetails?.storeId }} </ion-label>
+        </div>
+      </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-item>
+          <ion-label class="margin-left">{{staffDetails?.name}} </ion-label>
         </ion-item>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+            </ion-label>
+          </ion-item>
         </ion-list>
-
-    
-
-      </ion-content>
-  <!-- <ion-buttons slot="start">
+      </ion-row> -->
+    </ion-grid>
+  </div>
+</ion-content>
+<!-- <ion-buttons slot="start">
     <ion-button (click)="cancel()">Cancel</ion-button>
   </ion-buttons> -->
- 
