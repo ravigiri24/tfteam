@@ -216,7 +216,7 @@ export class AddNewArrivalsComponent  implements OnInit {
        brandID: new FormControl(this.data?.brandID || null, [
          Validators.required,
        ]),
-   
+
        
        brandName: new FormControl(this.data?.brandName || null, [
          Validators.required,
@@ -232,6 +232,10 @@ export class AddNewArrivalsComponent  implements OnInit {
        hours: new FormControl(this.data?.hours || null, [
          Validators.required,
        ]),
+       dealerPrice: new FormControl(this.data?.dealerPrice || null, [
+        Validators.required,
+      ]),
+       
        modalName: new FormControl(this.data?.modalName || null, [
          Validators.required,
        ]),

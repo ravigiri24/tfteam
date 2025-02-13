@@ -14,6 +14,10 @@ import { PurchaseFooterComponent } from './purchase-footer/purchase-footer.compo
 import { NewFindingsComponent } from './new-findings/new-findings.component';
 import { AddNewFindingsComponent } from './new-findings/add-new-findings/add-new-findings.component'
 import { CostPredictionComponent } from './cost-prediction/cost-prediction.component';
+import { StorePaymentTransactionComponent } from './store-payment-transaction/store-payment-transaction.component';
+import { TransactionHistoryComponent } from './store-payment-transaction/transaction-history/transaction-history.component';
+import { AddTransactionComponent } from './add-transaction/add-transaction.component';
+import { AddDealerPriceComponent } from './add-dealer-price/add-dealer-price.component';
 @NgModule({
   declarations: [
 
@@ -23,7 +27,11 @@ import { CostPredictionComponent } from './cost-prediction/cost-prediction.compo
     PurchaseFooterComponent,
     NewFindingsComponent,
     AddNewFindingsComponent,
-    CostPredictionComponent
+    CostPredictionComponent,
+    StorePaymentTransactionComponent,
+    TransactionHistoryComponent,
+    AddTransactionComponent,
+    AddDealerPriceComponent
   ],
   imports: [
     PurchaseRoutingModule,

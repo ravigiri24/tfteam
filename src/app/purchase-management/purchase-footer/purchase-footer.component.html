@@ -7,14 +7,19 @@
           Listen Now
         </ion-tab-button> -->
         <ion-tab-button (click)="goToPage('New-findings')" tab="Customer">
-          <ion-icon *ngIf="selectedTab!=='New-findings'" class="theme-color" name="people-outline"></ion-icon>
-          <ion-icon *ngIf="selectedTab=='New-findings'"  class="theme-color" name="people"></ion-icon>
+          <ion-icon *ngIf="selectedTab!=='New-findings'" class="theme-color" name="file-tray-full-outline"></ion-icon>
+          <ion-icon *ngIf="selectedTab=='New-findings'"  class="theme-color" name="file-tray-full"></ion-icon>
           Finding
         </ion-tab-button>
-        <ion-tab-button (click)="goToPage('Cost-prediction')" tab="Customer">
+        <ion-tab-button (click)="goToPage('Cost-prediction')" tab="Prediction">
           <ion-icon *ngIf="selectedTab!=='Cost-prediction'" class="theme-color" name="cash-outline"></ion-icon>
           <ion-icon *ngIf="selectedTab=='Cost-prediction'"  class="theme-color" name="cash"></ion-icon>
            Prediction
+        </ion-tab-button>
+        <ion-tab-button (click)="goToPage('Store-Transaction')" tab="Store">
+          <ion-icon *ngIf="selectedTab!=='Store-Transaction'" class="theme-color" name="storefront-outline"></ion-icon>
+          <ion-icon *ngIf="selectedTab=='Store-Transaction'"  class="theme-color" name="storefront"></ion-icon>
+           Store
         </ion-tab-button>
         
         <!-- <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">

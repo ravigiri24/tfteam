@@ -6,6 +6,7 @@ import { UserManagementComponent } from '../user-management/user-management.comp
 import { PurchaseManagementComponent } from './purchase-management.component';
 import { NewFindingsComponent } from './new-findings/new-findings.component';
 import { CostPredictionComponent } from './cost-prediction/cost-prediction.component';
+import { StorePaymentTransactionComponent } from './store-payment-transaction/store-payment-transaction.component';
 const routes: Routes = [
   {
     path: "", component: PurchaseManagementComponent,
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'new-findings', component: NewFindingsComponent},
       { path: 'user-management', component: UserManagementComponent},
       { path: 'cost-prediction', component: CostPredictionComponent},
+      { path: 'store-Transaction', component: StorePaymentTransactionComponent},
   
       
    

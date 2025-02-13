@@ -3,15 +3,15 @@
     <ion-label class="top_heading">
       <div class="left_text">
         <!-- (ionChange)="getListByBrand()" -->
-        <span class="selected_text">Brand : </span>
-        <ion-select class="selected_ddl" (ionChange)="getListByBrand()" [(ngModel)]="selectedBrand" label-placement="type">
-          <ion-select-option *ngFor="let type of brandList" [value]="type.id"> {{ type?.name }}</ion-select-option>
+        <span class="selected_text">Store : </span>
+        <ion-select class="selected_ddl" (ionChange)="getListByBrand()" [(ngModel)]="selectedStore" label-placement="type">
+          <ion-select-option *ngFor="let type of warehouseList" [value]="type.id"> {{ type?.name }}</ion-select-option>
         </ion-select>
         <b class="total-number">{{alltractorList?.length}}</b>
       </div>
       <div class="right_action">
-        <ion-icon (click)="getListByBrand()" name="create-outline"></ion-icon>
-        <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>
+        <!-- <ion-icon (click)="getListByBrand()" name="create-outline"></ion-icon>
+        <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon> -->
       </div>
     </ion-label>
     <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
@@ -27,7 +27,7 @@
         <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
           date }}</p>
       </ion-label>
-      <ion-icon (click)="tractorDashboard(tractor)" class="right-margine theme-color-second"
+      <ion-icon (click)="openTransaction(tractor)" class="right-margine theme-color-second"
         name="ellipsis-horizontal-circle-outline"></ion-icon>
       <!-- <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
       <ion-icon   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>

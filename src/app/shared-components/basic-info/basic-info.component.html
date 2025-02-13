@@ -28,6 +28,15 @@
       formControlName="hours"
       ></ion-input>
     </ion-item>
+    <ion-item class="bottom-margin">
+      <ion-input
+        label="Dealer Price"
+        labelPlacement="stacked"
+        type="number"
+       
+      formControlName="dealerPrice"
+      ></ion-input>
+    </ion-item>
     <ion-item *ngIf="yearArray?.length" class="bottom-margin">
       <ion-select    formControlName="yearOfManufactoring" label="Manufactoring" label-placement="type">
         <ion-select-option  *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>

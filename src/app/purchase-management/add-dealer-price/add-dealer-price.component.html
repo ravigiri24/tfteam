@@ -1,0 +1,31 @@
+
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Add DealerPrice</ion-title>
+
+    
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form [formGroup]="form">
+  <ion-item class="bottom-margin">
+    <ion-input
+      label="Dealer Price"
+      labelPlacement="stacked"
+      type="text"
+    
+    formControlName="dealerPrice"
+    ></ion-input>
+  </ion-item>
+
+  <div class="login-button">
+
+    <ion-button (click)="savePrice()"  style="text-align: center;" expand="block" >Save</ion-button>
+
+  </div>
+
+</form></ion-content>
