@@ -12,6 +12,7 @@ import { ShareService } from 'src/app/share.service';
 import { IonModal } from '@ionic/angular';
 import { ModalController } from '@ionic/angular'
 import { AddTransactionComponent } from '../../add-transaction/add-transaction.component';
+import { ViewTransactionDetailsComponent } from '../../view-transaction-details/view-transaction-details.component';
 @Component({
   selector: 'app-transaction-history',
   templateUrl: './transaction-history.component.html',
@@ -69,6 +70,23 @@ tractorDetails:any
       this.totalPaymentDone = this.totalPaymentDone + Number(f?.amount);
     });
     this.remainigPayment = this.dealearPrice - this.totalPaymentDone;
+  }
+  async transactionDetails(transaction:any){
+    const modal = await this.modalCtrl.create({
+      component: ViewTransactionDetailsComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+        transaction:transaction,
+        totalPaymentDone:this.totalPaymentDone,
+        remainigPayment:this.remainigPayment,
+        dealearPrice:this.dealearPrice
+
+  
+    
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
   }
   showAdd = true;
   ionViewWillEnter() {

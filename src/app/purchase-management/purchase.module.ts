@@ -18,6 +18,7 @@ import { StorePaymentTransactionComponent } from './store-payment-transaction/st
 import { TransactionHistoryComponent } from './store-payment-transaction/transaction-history/transaction-history.component';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 import { AddDealerPriceComponent } from './add-dealer-price/add-dealer-price.component';
+import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
 @NgModule({
   declarations: [
 
@@ -31,7 +32,8 @@ import { AddDealerPriceComponent } from './add-dealer-price/add-dealer-price.com
     StorePaymentTransactionComponent,
     TransactionHistoryComponent,
     AddTransactionComponent,
-    AddDealerPriceComponent
+    AddDealerPriceComponent,
+    ViewTransactionDetailsComponent
   ],
   imports: [
     PurchaseRoutingModule,

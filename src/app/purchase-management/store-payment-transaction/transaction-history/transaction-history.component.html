@@ -56,7 +56,8 @@
       <h2>{{row?.transaction_head}}</h2>
       <p>{{row?.amount}} | {{row?.transaction_date | date}}</p>
     </ion-label>
-        
+    <ion-icon (click)="transactionDetails(row)" class="right-margine theme-color-second"
+    name="eye"></ion-icon>
     <!-- <ion-icon  (click)="showModal(row)" class="right-margine theme-color" name="create-outline"></ion-icon> -->
       <!-- <ion-icon   (click)="openEdit(tractor,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
       <ion-icon   (click)="showAlert(tractor,in)" class="right-margine theme-color" name="car-outline"></ion-icon> -->

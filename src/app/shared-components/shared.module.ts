@@ -10,6 +10,7 @@ import { CrudPopupComponent } from './crud-popup/crud-popup.component';
 import { TractorCostingListComponent } from './tractor-costing-list/tractor-costing-list.component';
 import { TractorCostingDashboardComponent } from './tractor-costing-dashboard/tractor-costing-dashboard.component';
 import { ViewTractorDetailsComponent } from './view-tractor-details/view-tractor-details.component';
+import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -26,7 +27,8 @@ import { ViewTractorDetailsComponent } from './view-tractor-details/view-tractor
     CrudPopupComponent,
     TractorCostingListComponent,
     TractorCostingDashboardComponent,
-    ViewTractorDetailsComponent
+    ViewTractorDetailsComponent,
+    ViewTransactionDetailsComponent
     
   ],
   schemas: [],

@@ -1,3 +1,96 @@
-<p>
-  view-transaction-details works!
-</p>
+<ion-header>
+    
+  <ion-toolbar>
+    <div class="left-margin">
+    <ion-label >
+   
+      <h2>Summary</h2>
+
+    </ion-label> 
+  
+  </div>
+  <ion-button  class="button-theme" (click)="dismiss()" class="add-button" slot="end"  fill="outline"><ion-icon class="theme-color" name="close-circle-outline" ></ion-icon></ion-button>
+
+  </ion-toolbar>     
+</ion-header>
+<ion-content >
+  <span class="heading-list">Tractor Details</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>Tractor</ion-col>
+      <ion-col>{{tractorDetails?.name}}</ion-col>
+  
+    </ion-row>
+    <ion-row>
+      <ion-col>Brand Name</ion-col>
+      <ion-col>{{tractorDetails?.brandName}}</ion-col>
+  
+    </ion-row>
+    <ion-row>
+      <ion-col>HP</ion-col>
+      <ion-col>{{tractorDetails?.hp}}</ion-col>
+  
+    </ion-row>
+    <ion-row>
+      <ion-col>Year Of Manufac.</ion-col>
+      <ion-col>{{tractorDetails?.yearOfManufactoring}}</ion-col>
+  
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>Total Amount</ion-col>
+      <ion-col>₹ {{dealearPrice}}</ion-col>
+  
+    </ion-row>
+    <ion-row>
+      <ion-col>Payment done</ion-col>
+      <ion-col>₹ {{totalPaymentDone}}</ion-col>
+  
+    </ion-row>
+    <ion-row>
+      <ion-col>Remaining Payment</ion-col>
+      <ion-col>₹ {{remainigPayment}}</ion-col>
+  
+    </ion-row>
+    </ion-grid>
+    <span class="heading-list">Transaction Details</span>
+    <ion-grid>
+      <ion-row>
+        <ion-col>Bill Number</ion-col>
+        <ion-col>{{transaction?.billNumber}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Head</ion-col>
+        <ion-col>{{transaction?.transaction_head}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Amount</ion-col>
+        <ion-col>{{transaction?.amount}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Transaction Date</ion-col>
+        <ion-col>{{transaction?.transaction_date|date}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Created </ion-col>
+        <ion-col>{{transaction?.createdOn | date}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>By </ion-col>
+        <ion-col>{{transaction?.stafffDetails?.name}}</ion-col>
+    
+      </ion-row>
+      <ion-row>
+        <ion-col>Store</ion-col>
+        <ion-col>{{transaction?.storeDetails?.name}}</ion-col>
+    
+      </ion-row>
+      </ion-grid>
+  
+  </ion-content>
+
