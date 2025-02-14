@@ -8,14 +8,4 @@
         --outline-color: var(--app-theme-element-color) !important;
         --color: var(--app-theme-element-color) !important;
     }
-
-    .list_row {
-        .item-native {
-            padding: 0px;
-        }
-        ion-item {
-            border-bottom: dashed 1px #e1dfdf;
-            --inner-border-width: 0px;
-        }
-    }
 }

@@ -1,16 +1,7 @@
-.right-margine{
-    margin-right: 5px;
+.selected_text {
+    margin-right: 8px;
 }
-:host {
-    ion-button {
-     
-       
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:var(--app-theme-element-color) !important;
-       
-        }
-  }
-  .left-margin{
-    position: relative;
-    left:20px
-   }
+.camera_icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
