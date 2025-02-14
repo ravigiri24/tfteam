@@ -29,6 +29,7 @@ export class TransactionHistoryComponent  implements OnInit {
     public modalCtrl: ModalController
   ) {}
 tractorDetails:any
+showAddButton:any=true
   ngOnInit() {
 
 
@@ -65,6 +66,7 @@ tractorDetails:any
   remainigPayment=0
   dealearPrice=0
   countPayment() {
+    this.totalPaymentDone=0
     this.dealearPrice = Number(this?.tractorDetails?.dealerPrice || 0);
     this.listData?.forEach((f: any) => {
       this.totalPaymentDone = this.totalPaymentDone + Number(f?.amount);

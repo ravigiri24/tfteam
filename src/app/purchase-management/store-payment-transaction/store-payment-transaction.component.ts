@@ -86,6 +86,15 @@ alltractorList:any=[]
 
         this.share?.spinner?.dismiss();
         this.backupList = res.data;
+        this.alltractorList?.forEach((f:any)=>{
+          if(f?.transactionDetails?.length>0){
+          this.getTransaction(f?.transactionDetails||[],f)}
+          else{
+            f.remainigPayment=Number(f?.dealerPrice || 10);
+
+          }
+        })
+     
       },
       (error: any) => {}
     );
@@ -112,6 +121,33 @@ this.getTractorList(true)
   }
 
   }
+  getTransaction(transactionData:any,tractorDetails:any) {
+    let listData:any=transactionData||[]
+
+    let totalAmount=0
+    totalAmount = 0;
+    listData?.forEach((f: any) => {
+      totalAmount =
+        Number(totalAmount) + Number(f?.amount);
+    });
+    tractorDetails.listData=listData
+    tractorDetails.totalAmount=totalAmount
+  
+    this.countPayment(tractorDetails)
+  }
+  countPayment(tractorDetails:any) {
+   
+    let dealearPrice = Number(tractorDetails?.dealerPrice || 0);
+    let totalPaymentDone=0
+    tractorDetails.listData?.forEach((f: any) => {
+    totalPaymentDone =totalPaymentDone + Number(f?.amount);
+    });
+    tractorDetails.totalPaymentDone=totalPaymentDone
+    tractorDetails.remainigPayment = dealearPrice - totalPaymentDone;
+    console.log('tractorDetails',tractorDetails);
+    
+  }
+
     async showModal(tractor: any = null) {
       const modal = await this.modalCtrl.create({
         component: TransactionHistoryComponent,

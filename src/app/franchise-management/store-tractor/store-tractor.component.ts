@@ -48,7 +48,14 @@ alltractorList:any=[]
       (res: any) => {
         this.alltractorList = res.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-  
+        this.alltractorList?.forEach((f:any)=>{
+          if(f?.transactionDetails?.length>0){
+          this.getTransaction(f?.transactionDetails||[],f)}
+          else{
+            f.remainigPayment=Number(f?.dealerPrice || 10);
+
+          }
+        })
 
         this.share?.spinner?.dismiss();
       
@@ -83,6 +90,32 @@ alltractorList:any=[]
       console.log('role', role);
   
     //this.getTractorList()
+    }
+    getTransaction(transactionData:any,tractorDetails:any) {
+      let listData:any=transactionData||[]
+  
+      let totalAmount=0
+      totalAmount = 0;
+      listData?.forEach((f: any) => {
+        totalAmount =
+          Number(totalAmount) + Number(f?.amount);
+      });
+      tractorDetails.listData=listData
+      tractorDetails.totalAmount=totalAmount
+    
+      this.countPayment(tractorDetails)
+    }
+    countPayment(tractorDetails:any) {
+     
+      let dealearPrice = Number(tractorDetails?.dealerPrice || 0);
+      let totalPaymentDone=0
+      tractorDetails.listData?.forEach((f: any) => {
+      totalPaymentDone =totalPaymentDone + Number(f?.amount);
+      });
+      tractorDetails.totalPaymentDone=totalPaymentDone
+      tractorDetails.remainigPayment = dealearPrice - totalPaymentDone;
+      console.log('tractorDetails',tractorDetails);
+      
     }
 
 }

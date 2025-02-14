@@ -22,9 +22,9 @@
     <h2>V</h2>
     <p><b class="total-number">{{visitors?.length}}</b></p>
   </ion-label>  -->
-  <ion-button  class="button-theme" class="add-button" slot="end" (click)="getList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
+  <ion-button  class="button-theme" class="add-button right-icon-margin" slot="end" (click)="getList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
   
-    <ion-button *ngIf="remainigPayment>0"  class="button-theme" (click)="showModal()" class="add-button" slot="end"  fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button>
+    <ion-button *ngIf="remainigPayment>0 && showAddButton"  class="button-theme right-icon-margin" (click)="showModal()" class="add-button" slot="end"  fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button>
     <ion-button  class="button-theme" (click)="dismiss()" class="add-button" slot="end"  fill="outline"><ion-icon class="theme-color" name="close-circle-outline" ></ion-icon></ion-button>
   
     <!-- <ion-button class="button-theme btn-right-margin" class="add-button" slot="end" (click)="backToTansport()"  fill="outline"><ion-icon class="theme-color" name="arrow-back-outline" ></ion-icon></ion-button> -->

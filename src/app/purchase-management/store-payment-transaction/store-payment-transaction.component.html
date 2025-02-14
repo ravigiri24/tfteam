@@ -23,9 +23,10 @@
   <ion-list class="list_row" *ngIf="alltractorList?.length">
     <ion-item *ngFor="let tractor of alltractorList;let in=index">
       <ion-label>
-        <h2 class="theme-color">{{tractor?.name}}</h2>
+        <h2 class="theme-color">{{tractor?.name}} <p *ngIf="tractor?.remainigPayment>0" style="color: red;">Pending</p>
+          <p *ngIf="tractor?.remainigPayment==0" style="color: green;">Completed</p></h2>
         <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
-          date }}</p>
+          date }} | </p>
       </ion-label>
       <ion-icon (click)="openTransaction(tractor)" class="right-margine theme-color-second"
         name="ellipsis-horizontal-circle-outline"></ion-icon>

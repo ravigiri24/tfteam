@@ -19,7 +19,7 @@ import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/trac
 import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
 import { SellDocumentComponent } from 'src/app/sell-document/sell-document.component';
 import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expense-list/other-expense-list.component';
-
+import { TransactionHistoryComponent } from 'src/app/purchase-management/store-payment-transaction/transaction-history/transaction-history.component';
 @Component({
   selector: 'app-franchise-tractor-dashboard',
   templateUrl: './franchise-tractor-dashboard.component.html',
@@ -67,6 +67,24 @@ export class FranchiseTractorDashboardComponent  implements OnInit {
   dismiss(){
     this.modalCtrl.dismiss()
   }
+
+     async seePayment(tractor: any = null) {
+        const modal = await this.modalCtrl.create({
+          component: TransactionHistoryComponent,
+          componentProps: {
+      
+            tractorDetails:this.tractorDetails,
+            showAddButton:false
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+   
+        }
+      }
   async addDocument(){
     const modal = await this.modalCtrl.create({
       component: SellDocumentComponent,
