@@ -1,51 +1,49 @@
-<ion-header>
-    
+<!-- <ion-header>
   <ion-toolbar>
     <div class="left-margin">
-    <ion-label >
-   
-      <h2>Total</h2>
-      <p><b class="total-number">{{transportList?.length}}</b></p>
-    </ion-label> 
-  
-  </div>
-  
-  <!-- <ion-label >
-    <h2>D</h2>
-    <p><b class="total-number">{{digital?.length}}</b></p>
-  </ion-label> 
-  <ion-label >
-    <h2>O</h2>
-    <p><b class="total-number">{{online?.length}}</b></p>
-  </ion-label> 
-  <ion-label >
-    <h2>V</h2>
-    <p><b class="total-number">{{visitors?.length}}</b></p>
-  </ion-label>  -->
-  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
-  
-    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="goToNewArival()" id="open-modal" expand="block" fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button> -->
- 
-  </ion-toolbar>     
+      <ion-label>
+        <h2>Total</h2>
+        <p><b class="total-number">{{transportList?.length}}</b></p>
+      </ion-label>
+    </div>
+    <ion-button class="button-theme" class="add-button" slot="end" (click)="refreshList()" fill="outline"><ion-icon
+        class="theme-color" name="refresh-outline"></ion-icon></ion-button>
+  </ion-toolbar>
+</ion-header> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Total Logistic : </span>
+        <b class="total-number">{{transportList?.length}}</b>
+      </div>
+      <div class="right_action">
+        <!-- <ion-icon (click)="goToNewArival()" class="theme-color" name="add-circle-outline"></ion-icon> -->
+        <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
 </ion-header>
-<ion-content >
-  <span class="heading-list">At Logistic</span>
-<ion-list *ngIf="transportList?.length" >
-  <ion-item *ngFor="let tractor of transportList;let in=index">
-    <ion-label>
-    <h2>{{tractor?.name}}</h2>
-    <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn  | date }}</p>
-  </ion-label>
-    <!-- <ion-label>{{cus?.name}}</ion-label>
-    <ion-label>{{cus?.mobileNo}}</ion-label> -->
-    <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
-    <ion-icon  *ngIf="tractor?.transportDestinationId==null"   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
-    <!-- <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color" name="apps-outline"></ion-icon> -->
-    <ion-icon   (click)="showDeliveryModal(tractor)" class="right-margine theme-color" name="storefront-outline"></ion-icon>
-    <ion-icon  *ngIf="tractor?.transportDestinationId!=null" (click)="startRepairing(tractor)"  class="right-margine theme-color" name="construct-outline"></ion-icon>
-
-  </ion-item>
-
-
-</ion-list>
+<ion-content>
+  <!-- <span class="heading-list">At Logistic</span> -->
+  <ion-list class="list_row" *ngIf="transportList?.length">
+    <ion-item *ngFor="let tractor of transportList;let in=index">
+      <ion-label>
+        <h2 class="theme-color">{{tractor?.name}}</h2>
+        <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
+          date }}</p>
+      </ion-label>
+      <div class="list_right_action">
+        <ion-icon (click)="addCost(tractor,in)" class="calulator_icon"
+          name="calculator-outline"></ion-icon>
+        <ion-icon *ngIf="tractor?.transportDestinationId===null" (click)="addStatus(tractor)"
+          class="theme-color" name="bookmarks-outline"></ion-icon>
+        <!-- <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color" name="apps-outline"></ion-icon> -->
+        <ion-icon (click)="showDeliveryModal(tractor)" class="theme-color-second"
+          name="storefront-outline"></ion-icon>
+        <ion-icon *ngIf="tractor?.transportDestinationId!==null" (click)="startRepairing(tractor)"
+          class="theme-color-second" name="construct-outline"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

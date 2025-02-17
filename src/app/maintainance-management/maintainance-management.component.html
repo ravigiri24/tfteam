@@ -14,7 +14,7 @@
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content> 
+<ion-content>
   <span class="inner-heading-list">At Repair Center</span>
   <ion-list class="list_row" *ngIf="repairtractorList?.length">
     <ion-item *ngFor="let tractor of repairtractorList;let in=index">
@@ -23,9 +23,11 @@
         <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
           date }}</p>
       </ion-label>
-      <ion-icon (click)="viewImage(tractor)" class="camera_icon theme-color" name="camera-outline"></ion-icon>
-      <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
-        name="eye-outline"></ion-icon>
+      <div class="list_right_action">
+        <ion-icon (click)="viewImage(tractor)" class="camera_icon theme-color" name="camera-outline"></ion-icon>
+        <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
+          name="eye-outline"></ion-icon>
+      </div>
       <!-- <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color-second" name="apps-outline"></ion-icon> -->
       <!-- <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
       <ion-icon   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
