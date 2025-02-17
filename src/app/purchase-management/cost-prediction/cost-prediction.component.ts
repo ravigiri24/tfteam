@@ -46,6 +46,7 @@ export class CostPredictionComponent implements OnInit {
 
   ngOnInit() {}
   ionViewWillEnter() {
+    this.imageArray=[]
     this.initialize();
     this.getBrandList();
     this.createYearArray();

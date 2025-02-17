@@ -25,29 +25,34 @@
       <ion-col>Brand Name</ion-col>
       <ion-col>{{tractorDetails?.brandName}}</ion-col>
   
-    </ion-row>
+    </ion-row> 
     <ion-row>
+      <ion-col>TF Code</ion-col>
+      <ion-col>{{tractorDetails?.registractionNo}}</ion-col>
+  
+    </ion-row> 
+    <!-- <ion-row>
       <ion-col>HP</ion-col>
       <ion-col>{{tractorDetails?.hp}}</ion-col>
   
-    </ion-row>
+    </ion-row> -->
     <ion-row>
       <ion-col>Year Of Manufac.</ion-col>
       <ion-col>{{tractorDetails?.yearOfManufactoring}}</ion-col>
   
     </ion-row>
     
-    <ion-row>
+    <ion-row *ngIf="showExtraDetails">
       <ion-col>Total Amount</ion-col>
       <ion-col>₹ {{dealearPrice}}</ion-col>
   
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="showExtraDetails">
       <ion-col>Payment done</ion-col>
       <ion-col>₹ {{totalPaymentDone}}</ion-col>
   
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="showExtraDetails">
       <ion-col>Remaining Payment</ion-col>
       <ion-col>₹ {{remainigPayment}}</ion-col>
   

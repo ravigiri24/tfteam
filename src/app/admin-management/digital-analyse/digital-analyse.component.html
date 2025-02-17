@@ -23,14 +23,14 @@
             <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
           </div>
           <ion-col>Visitors</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_today_visitors}}</ion-col>
+          <ion-col class="amount_col"> {{counts?.customers_today_visitors}}</ion-col>
         </ion-row>
         <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
           <div class="left_icon_block">
             <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
           </div>
           <ion-col>Online</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_today_ONLINE}}</ion-col>
+          <ion-col class="amount_col"> {{counts?.customers_today_ONLINE}}</ion-col>
         </ion-row>
       </ion-card>
     </ion-grid>
@@ -50,14 +50,14 @@
             <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
           </div>
           <ion-col>Visitors</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_yesterday_visitors}}</ion-col>
+          <ion-col class="amount_col"> {{counts?.customers_yesterday_visitors}}</ion-col>
         </ion-row>
         <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
           <div class="left_icon_block">
             <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
           </div>
           <ion-col>Online</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_yesterday_ONLINE}}</ion-col>
+          <ion-col class="amount_col">{{counts?.customers_yesterday_ONLINE}}</ion-col>
         </ion-row>
       </ion-card>
     </ion-grid>
@@ -77,14 +77,14 @@
             <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
           </div>
           <ion-col>Visitors</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_last_Seven_days_visitors}}</ion-col>
+          <ion-col class="amount_col">{{counts?.customers_last_Seven_days_visitors}}</ion-col>
         </ion-row>
         <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
           <div class="left_icon_block">
             <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
           </div>
           <ion-col>Online</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_last_Seven_days_ONLINE}}</ion-col>
+          <ion-col class="amount_col">{{counts?.customers_last_Seven_days_ONLINE}}</ion-col>
         </ion-row>
       </ion-card>
     </ion-grid>
@@ -104,14 +104,14 @@
             <ion-icon class="left_card_icons" name="people-outline"></ion-icon>
           </div>
           <ion-col>Visitors</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_this_month_visitors}}</ion-col>
+          <ion-col class="amount_col"> {{counts?.customers_this_month_visitors}}</ion-col>
         </ion-row>
         <ion-row *ngIf="staff_role==='SUPER_ADMIN'">
           <div class="left_icon_block">
             <ion-icon class="left_card_icons" name="id-card-outline"></ion-icon>
           </div>
           <ion-col>Online</ion-col>
-          <ion-col class="amount_col">₹ {{counts?.customers_this_month_ONLINE}}</ion-col>
+          <ion-col class="amount_col">{{counts?.customers_this_month_ONLINE}}</ion-col>
         </ion-row>
       </ion-card>
     </ion-grid>

@@ -31,7 +31,7 @@ export class ViewTransactionDetailsComponent  implements OnInit {
   dealearPrice=0
   tractorDetails:any
   transaction:any
-
+  showExtraDetails=true
 
   ngOnInit() {
     
