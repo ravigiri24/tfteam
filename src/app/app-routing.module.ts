@@ -37,6 +37,10 @@ const routes: Routes = [
     loadChildren: () => import('./franchise-management/franchise.module').then(m => m.FranchiseManagementModule)
   },
   {
+    path: 'repair-management',
+    loadChildren: () => import('./repair-management/repair.module').then(m => m.RepairManagementModule)
+  },
+  {
     path: 'login',
     canActivate: [AuthService],
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)

@@ -101,6 +101,9 @@ this.showFooter=e
         else if(userde?.staff_role=='FRANCHISE'){
           this.router.navigate(['/franchise-management/new-tractor'])
         }
+        else if(userde?.staff_role=='REPAIR'){
+          this.router.navigate(['/repair-management/job-dashboard'])
+        }
       }
     }else{
       this.router.navigate(['/login'])
