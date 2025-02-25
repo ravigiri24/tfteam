@@ -1,6 +1,43 @@
-.fix-position{
-    position: fixed;
+// .fix-position{
+//     position: fixed;
+// }
+// .font-model{
+//     font-size: 20px;
+// }
+.image_card {
+    border-radius: 50%;
+    margin: 0px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-avatar {
+        width: 100%;
+        height: 100%;
+    }
 }
-.font-model{
-    font-size: 20px;
+
+.right_details_block {
+    display: flex;
+    flex-flow: column;
+    font-size: 14px;
+    margin: 0px;
+
+    .model_name {
+        color: #666666;
+    }
+
+    .model_type {
+        font-size: 12px;
+        display: flex;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: var(--app-primary-color);
+    }
+
+    .selected_model {
+        background-color: #f5f5ff;
+    }
 }

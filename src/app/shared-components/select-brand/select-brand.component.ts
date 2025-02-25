@@ -13,6 +13,7 @@ export class SelectBrandComponent  implements OnInit {
 @Output() setModelDetail=new EventEmitter()
   constructor() { }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {
   
   }

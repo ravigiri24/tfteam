@@ -1,18 +1,30 @@
-
-<ion-searchbar  [(ngModel)]="search" ></ion-searchbar>
-
-<!-- <ion-card *ngFor="let model of modelList  | searchItem : ['name'] : search">
+<div class="inner-search-withlist">
+  <span class="search_list">
+    <ion-searchbar [(ngModel)]="search"></ion-searchbar>
+  </span>
+  <!-- <ion-card *ngFor="let model of modelList  | searchItem : ['name'] : search">
   <img alt="model" [src]="model?.logoUrl" />
   <ion-card-header>
     <ion-card-title>{{model?.name}}</ion-card-title>
     <ion-card-subtitle>{{model?.brandName}}</ion-card-subtitle>
   </ion-card-header>
-
 </ion-card> -->
-<ion-list>
-  <ion-item (click)="selectModel(model)" *ngFor="let model of modelList  | searchItem : ['name'] : search">
-    <ion-thumbnail slot="start">
-      <img alt="{{model?.name}}" [src]="model?.logoUrl" />
-    </ion-thumbnail>
-    <ion-label><span [ngClass]="{'theme-color':modelForm.controls['modalID'].value==model?.id,'font-model':modelForm.controls['modalID'].value==model?.id}">{{model?.name}}</span></ion-label>
-  </ion-item>
+  <ion-list class="list_row" *ngFor="let model of modelList  | searchItem : ['name'] : search">
+    <!-- {{modelList[0] | json }} -->
+    <ion-item
+      [ngClass]="{'selected_model':modelForm.controls['modalID'].value===model?.id,'font-model':modelForm.controls['modalID'].value===model?.id}"
+      (click)="selectModel(model)">
+      <ion-thumbnail class="list_imgbox" slot="start">
+        <ion-card class="image_card">
+          <ion-avatar>
+            <img alt="{{model?.name}}" [src]="model?.logoUrl" />
+          </ion-avatar>
+        </ion-card>
+      </ion-thumbnail>
+      <ion-label class="right_details_block">
+        <span class="model_name">{{model?.name}}</span>
+        <span class="model_type">{{model?.brandName}}</span>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>

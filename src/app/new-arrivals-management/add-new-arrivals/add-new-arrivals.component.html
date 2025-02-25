@@ -1,55 +1,54 @@
 <ion-header>
-    
   <ion-toolbar>
-    <div class="left-margin">
-    <ion-label >
-      <h2>Add New Arrivals</h2>
-  
-    </ion-label> 
-  
-  </div>
-  
-
-  
-    <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal" expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline" ></ion-icon></ion-button>
- 
-  </ion-toolbar>     
-</ion-header>
-<ion-content >
-  
-<ion-tabs>
-  <!-- Tab bar -->
-  <ion-tab-bar  slot="top">
-    <ion-tab-button *ngIf="!rowCode"  (click)="goToPage('MODEL')" tab="MODEL">
-   <span [ngClass]="{'theme-color':selectedTab=='MODEL','font-wieght':selectedTab=='MODEL'}" > Select Model</span> 
- 
-    </ion-tab-button>
-    <ion-tab-button (click)="goToPage('BASIC_INFO')" tab="BASIC_INFO">
-    <span [ngClass]="{'theme-color':selectedTab=='BASIC_INFO','font-wieght':selectedTab=='BASIC_INFO'}" >Basic Info</span>
-    </ion-tab-button>
-    <ion-tab-button  (click)="goToPage('PURCHASE_DETAILES')" tab="PURCHASE_DETAILES">
- <span [ngClass]="{'theme-color':selectedTab=='PURCHASE_DETAILES','font-wieght':selectedTab=='PURCHASE_DETAILES'}">Purchase Details</span>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
-
-<div class="body-map">
-<div *ngIf="selectedTab=='MODEL'">
-<app-select-brand  [selectedModel]="selectedModel" [modelForm]="modelForm" (setModelDetail)="setModelDetail($event)" *ngIf="modelList?.length && modelForm" [modelList]="modelList"></app-select-brand>
-  </div>
-  <div class="hieght-body"  *ngIf="selectedTab=='BASIC_INFO'">
-    
-    <ion-content class="ion-padding">
-    <app-basic-info *ngIf="modelForm" [yearArray]="yearArray" [form]="modelForm"></app-basic-info>
-    </ion-content>
-  
-    </div>
-    <div class="hieght-body" *ngIf="selectedTab=='PURCHASE_DETAILES'">
-      <ion-content class="ion-padding">
-      <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()" [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList" [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"  [modelForm]="modelForm" ></app-purchase-details>
-    </ion-content>
-
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Add New Arrivals</span>
       </div>
-    </div>
- 
-  </ion-content>
+      <div class="right_action">
+        <ion-icon (click)="backToNewArrivals()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-tabs class="inner-tabs">
+    <ion-tab-bar slot="top">
+      <ion-tab-button *ngIf="!rowCode" (click)="goToPage('MODEL')" [ngClass]="{'selected_tab':selectedTab==='MODEL'}"
+        tab="MODEL">
+        <span class="tabs"> Select
+          Model</span>
+      </ion-tab-button>
+      <ion-tab-button (click)="goToPage('BASIC_INFO')" [ngClass]="{'selected_tab':selectedTab==='BASIC_INFO'}"
+        tab="BASIC_INFO">
+        <span class="tabs">Basic
+          Info</span>
+      </ion-tab-button>
+      <ion-tab-button (click)="goToPage('PURCHASE_DETAILES')"
+        [ngClass]="{'selected_tab':selectedTab==='PURCHASE_DETAILES'}" tab="PURCHASE_DETAILES">
+        <span class="tabs">Purchase Details</span>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  <div class="tab_withinner_block">
+    <ng-container *ngIf="selectedTab==='MODEL'">
+      <app-select-brand [selectedModel]="selectedModel" [modelForm]="modelForm"
+        (setModelDetail)="setModelDetail($event)" *ngIf="modelList?.length && modelForm"
+        [modelList]="modelList"></app-select-brand>
+    </ng-container>
+    <ng-container class="hieght-body" *ngIf="selectedTab==='BASIC_INFO'">
+      <ion-content class="ion-padding">
+        <app-basic-info *ngIf="modelForm" [yearArray]="yearArray" [form]="modelForm"></app-basic-info>
+      </ion-content>
+    </ng-container>
+    <ng-container class="hieght-body" *ngIf="selectedTab==='PURCHASE_DETAILES'">
+      <ion-content class="ion-padding">
+        <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()"
+          [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList"
+          [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"
+          [modelForm]="modelForm"></app-purchase-details>
+      </ion-content>
+    </ng-container>
+  </div>
+</ion-content>
