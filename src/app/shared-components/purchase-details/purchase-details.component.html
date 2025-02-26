@@ -4,12 +4,18 @@
       <ion-input label="Select Purchase Date" fill="outline" labelPlacement="stacked" type="date"
         formControlName="purchanseDate"></ion-input>
     </div>
-    <div class="global_input_block">
-      <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="refreshList('TYPE_OF_PURCHASE')" name="refresh-outline"></ion-icon>
-      <ion-select formControlName="typeOfPurchase" fill="outline" label="Type Of Purchase" label-placement="type">
+    <div class="global_input_block select_option_with_add">
+      <ion-select formControlName="typeOfPurchase" labelPlacement="stacked" fill="outline" label="Type Of Purchase"
+        label-placement="type">
         <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id"> {{ type?.name }}</ion-select-option>
       </ion-select>
+      <div class="right_action_block add_icon">
+        <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')"
+          name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="refreshList('TYPE_OF_PURCHASE')" name="refresh-outline"></ion-icon>
+      </div>
     </div>
     <div class="global_input_block">
       <ion-input label="Name Of Seller" fill="outline" labelPlacement="stacked" type="text"
@@ -23,12 +29,16 @@
       <ion-input label="Seller Address" fill="outline" labelPlacement="stacked" type="text"
         formControlName="address"></ion-input>
     </div>
-    <div class="global_input_block">
-      <ion-icon (click)="openCrudManagement('CITY')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="refreshList('CITY')" name="refresh-outline"></ion-icon>
-      <ion-select formControlName="city" fill="outline" label="City" label-placement="type">
+    <div class="global_input_block select_option_with_add">
+      <ion-select formControlName="city" labelPlacement="stacked" fill="outline" label="City" label-placement="type">
         <ion-select-option *ngFor="let city of cityList" [value]="city.id"> {{ city?.name }}</ion-select-option>
       </ion-select>
+      <div class="right_action_block add_icon">
+        <ion-icon (click)="openCrudManagement('CITY')" name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="refreshList('CITY')" name="refresh-outline"></ion-icon>
+      </div>
     </div>
     <div class="global_input_block">
       <ion-input label="Seller Contact 1" fill="outline" labelPlacement="stacked" type="text"
@@ -38,14 +48,19 @@
       <ion-input label="Seller Contact 2" fill="outline" labelPlacement="stacked" type="text"
         formControlName="contact2"></ion-input>
     </div>
-    <div class="global_input_block">
-      <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="refreshList('COMPANYREPRESENTATIVE')" name="refresh-outline"></ion-icon>
+    <div class="global_input_block select_option_with_add">
       <ion-select formControlName="companyRepresentative" fill="outline" label="Company Representative"
-        label-placement="type">
+        label-placement="type" labelPlacement="stacked">
         <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id"> {{ comp?.name
           }}</ion-select-option>
       </ion-select>
+      <div class="right_action_block add_icon">
+        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')"
+          name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="refreshList('COMPANYREPRESENTATIVE')" name="refresh-outline"></ion-icon>
+      </div>
     </div>
     <div class="global_input_block">
       <ion-input label="Chasis Number" fill="outline" labelPlacement="stacked" type="text"
@@ -61,7 +76,7 @@
     </div>
   </div>
   <div class="page_submit_btn">
-    <ion-button *ngIf="!data" (click)="saveForm()" expand="block">Save</ion-button>
-    <ion-button *ngIf="data" (click)="saveForm()" expand="block">Update</ion-button>
+    <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
+    <ion-button *ngIf="data" (click)="saveForm()" class="global_submit_button" expand="block">Update</ion-button>
   </div>
 </form>
