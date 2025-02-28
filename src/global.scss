@@ -350,13 +350,6 @@ ion-header {
 
 .inner-tabs {
   background-color: var(--app-bg-color);
-
-  ion-tab-bar,
-  ion-tab-button {
-    // height: 30px !important;
-    // min-height: 30px !important;
-  }
-
   ion-tab-bar {
     display: flex;
     height: 45px;
@@ -386,4 +379,7 @@ ion-header {
       color: #ffffff !important;
     }
   }
+}
+.page_inner_container {
+  padding-top: 25px;
 }

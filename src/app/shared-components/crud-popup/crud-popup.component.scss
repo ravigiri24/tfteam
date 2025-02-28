@@ -1,23 +1,23 @@
-.button-theme{
-    border-color:var(--app-theme-element-color) !important;
-    ion-button {
-        --background: var(--app-theme-element-color) !important;
-        --border-color:var(--app-theme-element-color) !important;
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:white !important;
+// .button-theme{
+//     border-color:var(--app-theme-element-color) !important;
+//     ion-button {
+//         --background: var(--app-theme-element-color) !important;
+//         --border-color:var(--app-theme-element-color) !important;
+//         --outline-color:var(--app-theme-element-color) !important;
+//         --color:white !important;
        
-        }
-  }
-  .add-button{
-    position: relative;
-    right: 10px;
-}
-:host {
-    ion-button {
+//         }
+//   }
+//   .add-button{
+//     position: relative;
+//     right: 10px;
+// }
+// :host {
+//     ion-button {
      
        
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:var(--app-theme-element-color) !important;
+//         --outline-color:var(--app-theme-element-color) !important;
+//         --color:var(--app-theme-element-color) !important;
        
-        }
-  }
+//         }
+//   }

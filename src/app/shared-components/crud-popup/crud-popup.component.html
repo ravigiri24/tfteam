@@ -1,89 +1,68 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>{{ crudDetail?.headerTitle }}</ion-title>
-
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-button
-      class="button-theme"
-      *ngIf="view == 'LIST'"
-      class="add-button"
-      slot="end"
-      (click)="viewAction('FORM')"
-      fill="outline"
-      ><ion-icon class="theme-color" name="add-circle-outline"></ion-icon
-    ></ion-button>
-    <ion-button
-      class="button-theme"
-      *ngIf="view == 'FORM'"
-      class="add-button"
-      slot="end"
-      (click)="viewAction('LIST')"
-      fill="outline"
-      ><ion-icon class="theme-color" name="list-outline"></ion-icon
-    ></ion-button>
+    <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>  
+    <ion-button class="button-theme" *ngIf="view === 'LIST'" class="add-button" slot="end" (click)="viewAction('FORM')"
+      fill="outline"><ion-icon class="theme-color" name="add-circle-outline"></ion-icon></ion-button>
+    <ion-button class="button-theme" *ngIf="view === 'FORM'" class="add-button" slot="end" (click)="viewAction('LIST')"
+      fill="outline"><ion-icon class="theme-color" name="list-outline"></ion-icon></ion-button>
     <ion-buttons slot="end">
-      <ion-icon
-        class="theme-color icon-size"
-        (click)="dismiss()"
-        name="close-circle-outline"
-      ></ion-icon>
+      <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
+</ion-header> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">{{ crudDetail?.headerTitle }}</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="viewAction('FORM')" *ngIf="view === 'LIST'" name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="viewAction('LIST')" *ngIf="view === 'FORM'" name="list-outline"></ion-icon>
+        <ion-icon class="theme-color" (click)="dismiss()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding"> 
-  <div *ngIf="view == 'LIST'">
-    <ion-list *ngIf="listData?.length" >
+<ion-content>
+  <ng-container *ngIf="view === 'LIST'">
+    <ion-list class="list_row" *ngIf="listData?.length">
       <ion-item *ngFor="let row of listData;let in=index">
         <ion-label>
-        <h2>{{row[crudDetail?.colArray[0]]}}</h2>
-        <p *ngFor="let col of crudDetail?.colArray;let i=index">
-          <ng-container *ngIf="i>0">
-            {{ row[col] }}
-        </ng-container>
-      </p>
-      </ion-label>
-      
-        <ion-icon   (click)="editData(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
-
+          <h2>{{row[crudDetail?.colArray[0]]}}</h2>
+          <p *ngFor="let col of crudDetail?.colArray;let i=index">
+            <ng-container *ngIf="i>0">
+              {{ row[col] }}
+            </ng-container>
+          </p>
+        </ion-label>
+        <ion-icon (click)="editData(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
       </ion-item>
-    
-    
     </ion-list>
-  </div>
-  <div *ngIf="view == 'FORM'">
+  </ng-container>
+  <div class="page_inner_container ion-padding" *ngIf="view === 'FORM'">
     <form [formGroup]="form">
-      <ion-item *ngFor="let fields of crudDetail?.data" class="bottom-margin">
-        <ng-container *ngIf="fields?.type=='text'">
-        <ion-input
-          label="{{fields.title}}"
-          labelPlacement="stacked"
-          type="text"
-       
-        formControlName="{{ fields.key }}"
-        ></ion-input>
-      </ng-container>
-      <ng-container *ngIf="fields?.type=='number'">
-        <ion-input
-        label="{{fields.title}}"
-        labelPlacement="stacked"
-        type="number"
-     
-      formControlName="{{ fields.key }}"
-      ></ion-input>
-      </ng-container>
-  </ion-item>
-    </form>
-    <div *ngIf="formAction=='ADD'"  class="login-button">
-
-      <ion-button  (click)="addItem()" style="color:white;"   expand="block" >Save</ion-button>
-
-    </div>
-    <div *ngIf="formAction=='UPDATE'"  class="login-button">
-      <ion-button  (click)="updateItem()" style="color:white;"   expand="block" >Update</ion-button>
+      <div *ngFor="let fields of crudDetail?.data">
+        <ng-container *ngIf="fields?.type==='text'">
+          <div class="global_input_block">
+            <ion-input label="{{fields.title}}" fill="outline" labelPlacement="stacked" type="text"
+              formControlName="{{ fields.key }}"></ion-input>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="fields?.type==='number'">
+          <div class="global_input_block">
+            <ion-input label="{{fields.title}}" fill="outline" labelPlacement="stacked" type="number"
+              formControlName="{{ fields.key }}"></ion-input>
+          </div>
+        </ng-container>
       </div>
-
+    </form>
+    <div class="page_submit_btn">
+      <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_button"
+        expand="block">Save</ion-button>
+      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'" class="global_submit_button"
+        expand="block">Update</ion-button>
     </div>
-
-
-  
+  </div>
 </ion-content>
