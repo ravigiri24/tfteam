@@ -6,7 +6,7 @@
     </div>
     <div class="global_input_block select_option_with_add">
       <ion-select formControlName="typeOfPurchase" labelPlacement="stacked" fill="outline" label="Type Of Purchase"
-        label-placement="type">
+        label-placement="stacked">
         <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id"> {{ type?.name }}</ion-select-option>
       </ion-select>
       <div class="right_action_block add_icon">

@@ -1,105 +1,83 @@
-<ion-header>
-    
+<!-- <ion-header>
   <ion-toolbar>
     <div class="left-margin">
-    <ion-label >
-   
-      <h2>Total</h2>
-      <p><b class="total-number">{{listData?.length}}</b></p>
-    </ion-label> 
-  
-  </div>
-  
-  <!-- <ion-label >
-    <h2>D</h2>
-    <p><b class="total-number">{{digital?.length}}</b></p>
-  </ion-label> 
-  <ion-label >
-    <h2>O</h2>
-    <p><b class="total-number">{{online?.length}}</b></p>
-  </ion-label> 
-  <ion-label >
-    <h2>V</h2>
-    <p><b class="total-number">{{visitors?.length}}</b></p>
-  </ion-label>  -->
-  <ion-button  class="button-theme" class="add-button" slot="end" (click)="getList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
-  
-    <ion-button  class="button-theme" (click)="showModal()" class="add-button" slot="end"  fill="outline"><ion-icon class="theme-color" name="add-circle-outline" ></ion-icon></ion-button>
-    <!-- <ion-button class="button-theme btn-right-margin" class="add-button" slot="end" (click)="backToTansport()"  fill="outline"><ion-icon class="theme-color" name="arrow-back-outline" ></ion-icon></ion-button> -->
-  </ion-toolbar>     
+      <ion-label>
+        <h2>Total</h2>
+        <p><b class="total-number">{{listData?.length}}</b></p>
+      </ion-label>
+    </div>
+    <ion-button class="button-theme" class="add-button" slot="end" (click)="getList()" fill="outline"><ion-icon
+        class="theme-color" name="refresh-outline"></ion-icon></ion-button>
+
+    <ion-button class="button-theme" (click)="showModal()" class="add-button" slot="end" fill="outline"><ion-icon
+        class="theme-color" name="add-circle-outline"></ion-icon></ion-button>
+    <ion-button class="button-theme btn-right-margin" class="add-button" slot="end" (click)="backToTansport()"  fill="outline"><ion-icon class="theme-color" name="arrow-back-outline" ></ion-icon></ion-button>
+  </ion-toolbar>
+</ion-header> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Total : {{listData?.length}}</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="showModal()" name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="getList()" name="refresh-outline"></ion-icon>
+        <ion-icon class="theme-color" (click)="backToTansport()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
 </ion-header>
-<ion-content >
-  <span class="heading-list">Transport Cost ₹ {{totalAmount}}</span>
-<ion-list *ngIf="listData?.length" >
-  <ion-item *ngFor="let row of listData;let in=index">
-    <ion-label>
-    <h2>{{row?.expenseType?.name}}</h2>
-    <p>{{row?.expense_amount}} | {{row?.expense_date}}| {{row?.createdOn}}</p>
-  </ion-label>
-      
-  <ion-icon  (click)="showModal(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
-    <!-- <ion-icon   (click)="openEdit(tractor,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
+<ion-content>
+  <span class="inner-heading-list">Transport Cost ₹ {{totalAmount}}</span>
+  <ion-list class="list_row" *ngIf="listData?.length">
+    <ion-item *ngFor="let row of listData;let in=index">
+      <ion-label>
+        <h2 class="theme-color">{{row?.expenseType?.name}}</h2>
+        <p>{{row?.expense_amount}} | {{row?.expense_date}} | {{row?.createdOn}}</p>
+      </ion-label>
+      <ion-icon (click)="showModal(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
+      <!-- <ion-icon   (click)="openEdit(tractor,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
     <ion-icon   (click)="showAlert(tractor,in)" class="right-margine theme-color" name="car-outline"></ion-icon> -->
-
-  </ion-item>
-
-
-</ion-list>
-
+    </ion-item>
+  </ion-list>
+</ion-content>
 <ion-modal trigger="open-modal-cost" (willDismiss)="onWillDismiss($event)">
-
   <ng-template>
-    <ng-container >
     <ion-header>
       <ion-toolbar>
-        <!-- <ion-buttons slot="start">
-          <ion-button (click)="cancel()">Cancel</ion-button>
-        </ion-buttons> -->
-        <ion-title>Add Expense</ion-title>
-        <ion-buttons slot="end">
-          <ion-icon class="theme-color icon-size"  (click)="cancel()" name="close-circle-outline"></ion-icon>
-        </ion-buttons>
+        <ion-label class="top_heading">
+          <div class="left_text">Add Expense</div>
+          <div class="right_action">
+            <ion-icon class="theme-color" (click)="cancel()" name="close-circle-outline"></ion-icon>
+          </div>
+        </ion-label>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
+    <ion-content>
       <form [formGroup]="form">
-      <ion-item class="bottom-margin">
-        <ion-select    formControlName="expense_id" label="Expense Type" label-placement="type">
-          <ion-select-option *ngFor="let type of expenseTypeList" [value]="type.id">    {{ type?.name }}</ion-select-option>
-  
-        </ion-select>
-      </ion-item>
-      <ion-item class="bottom-margin">
-        <ion-input
-          label="Expense Amount"
-          labelPlacement="stacked"
-          type="number"
-       
-        formControlName="expense_amount"
-        ></ion-input>
-      </ion-item>
-      <ion-item class="bottom-margin">
-        <ion-input
-          label="Expense Date"
-          labelPlacement="stacked"
-          type="date"
-       
-        formControlName="expense_date"
-        ></ion-input>
-      </ion-item>
-      <div class="login-button">
-
-        <ion-button *ngIf="!editData" (click)="saveExpense()"  style="text-align: center;" expand="block" >Save</ion-button>
-        <ion-button *ngIf="editData" (click)="updateItem()"  style="text-align: center;" expand="block" >Update</ion-button>
-      </div>
-    </form>
-   <!-- <app-add-customer *ngIf="showAddComp && staffList?.length" [staffList]="staffList" [editData]="editData" (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer> -->
+        <div class="global_input_block">
+          <ion-select formControlName="expense_id" fill="outline" label="Expense Type" label-placement="type">
+            <ion-select-option *ngFor="let type of expenseTypeList" [value]="type.id"> {{ type?.name
+              }}</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="global_input_block">
+          <ion-input label="Expense Amount" fill="outline" labelPlacement="stacked" type="number"
+            formControlName="expense_amount"></ion-input>
+        </div>
+        <div class="global_input_block">
+          <ion-input label="Expense Date" fill="outline" labelPlacement="stacked" type="date"
+            formControlName="expense_date"></ion-input>
+        </div>
+        <div class="page_submit_btn">
+          <ion-button *ngIf="!editData" (click)="saveExpense()" class="global_submit_button"
+            expand="block">Save</ion-button>
+          <ion-button *ngIf="editData" (click)="updateItem()" class="global_submit_button"
+            expand="block">Update</ion-button>
+        </div>
+      </form>
+      <!-- <app-add-customer *ngIf="showAddComp && staffList?.length" [staffList]="staffList" [editData]="editData" (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer> -->
     </ion-content>
-  </ng-container>
-
-
   </ng-template>
-
 </ion-modal>
-
-</ion-content>

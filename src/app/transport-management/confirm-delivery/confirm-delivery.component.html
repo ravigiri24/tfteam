@@ -1,38 +1,32 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Reach Destination Information</ion-title>  
-   
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>  
-</ion-header>  
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Reach Destination Information</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
-<form class="form_basic_height" [formGroup]="form">
-
-    <ion-item class="bottom-margin">
-      <ion-input
-        label="Delivery Date"
-        labelPlacement="stacked"
-        type="date"
-     
-      formControlName="reachDate"
-      ></ion-input>
-    </ion-item>
-    <ion-item class="bottom-margin">
-  <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
-  <ion-icon (click)="getWareHouseLocationList()" name="refresh-outline"></ion-icon>
-      <ion-select    formControlName="transportDestinationId" label="Warehouse" label-placement="type">
-        <ion-select-option *ngFor="let type of wareHouseLocationList" [value]="type.id">    {{ type?.name }}</ion-select-option>
-
-      </ion-select>
-    </ion-item>
-    <div class="login-button">
-
-      <ion-button  (click)="updateItem()"  style="text-align: center;" expand="block" >Reached</ion-button>
-
+  <form class="form_basic_height" [formGroup]="form">
+    <div class="global_input_block">
+      <ion-input label="Delivery Date" fill="outline" labelPlacement="stacked" type="date" formControlName="reachDate"></ion-input>
     </div>
-    
-</form>
+    <div class="global_input_block select_option_with_add">
+      <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
+      <ion-select formControlName="transportDestinationId" fill="outline" label="Warehouse" label-placement="stacked">
+        <ion-select-option *ngFor="let type of wareHouseLocationList" [value]="type.id"> {{ type?.name
+          }}</ion-select-option>
+      </ion-select>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="getWareHouseLocationList()" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="page_submit_btn">
+      <ion-button (click)="updateItem()" class="global_submit_button" expand="block">Reached</ion-button>
+    </div>
+  </form>
 </ion-content>
