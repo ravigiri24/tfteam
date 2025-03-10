@@ -1,0 +1,26 @@
+.top-position{
+    position: relative;
+    top: 40px;
+}
+.inner-heading{
+    font-size: 16px;
+    // color: var(--app-secondary-color);
+    color: #666666;
+    width: 100%;
+    display: inline-flex;
+    padding: 10px 10px 10px 16px;
+    background: #f5f5ff;
+   margin-bottom: 8px;
+    top: 10px;
+  
+    border-bottom: solid thin #e1e1e17d;
+  }
+  .inventory-issue{
+    position: relative;
+    top:10px;
+    margin-bottom: 15px;
+    
+  }
+  .isItDone{
+    color: green !important;
+  }

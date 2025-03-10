@@ -1,0 +1,39 @@
+<ion-header>  
+    <ion-toolbar>  
+      <ion-title >Tractor Dashboard</ion-title>  
+     
+      <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+      <ion-buttons slot="end">
+        <ion-icon class="theme-color icon-size"  (click)="backToSrcPage()" name="arrow-back-outline"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>  
+  </ion-header>  
+  <ion-content class="ion-padding">
+    <div >
+    <ion-tabs class="inner-tabs ">
+        <ion-tab-bar slot="top">
+          <ion-tab-button  (click)="goToPage('DETAILS')" [ngClass]="{'selected_tab':selectedTab==='DETAILS'}"
+            tab="MODEL">
+            <span class="tabs">Details</span>
+          </ion-tab-button>
+          <ion-tab-button (click)="goToPage('GALLERY')" [ngClass]="{'selected_tab':selectedTab==='GALLERY'}"
+            tab="GALLERY">
+            <span class="tabs">Gallery</span>
+          </ion-tab-button>
+          <ion-tab-button (click)="goToPage('BUILD')"
+            [ngClass]="{'selected_tab':selectedTab==='BUILD'}" tab="BUILD">
+            <span class="tabs">Build Job</span>
+          </ion-tab-button>
+          <ion-tab-button (click)="goToPage('JOB_CARD')"
+          [ngClass]="{'selected_tab':selectedTab==='JOB_CARD'}" tab="JOB_CARD">
+          <span class="tabs">Job Card</span>
+        </ion-tab-button>
+        </ion-tab-bar>
+      </ion-tabs>
+    </div>
+      <div class="tab_withinner_block">
+        <ng-container *ngIf="selectedTab==='DETAILS'">
+      <app-job-detail [inventoryArray]="inventoryArray"  [issueArray]="issueArray" [inventoryList]="inventoryList" [issueList]="issueList" *ngIf="loadAllData" [jobDetails]="jobDetails"></app-job-detail>
+        </ng-container>
+        </div>
+  </ion-content>

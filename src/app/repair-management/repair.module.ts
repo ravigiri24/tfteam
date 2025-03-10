@@ -14,8 +14,9 @@ import { RepairFooterComponent } from './repair-footer/repair-footer.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { AddJobComponent } from './job-list/add-job/add-job.component';
 import { CreateComponent } from './create/create.component';
-
+import { RepairDashboardComponent } from './repair-dashboard/repair-dashboard.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { JobDetailComponent } from './repair-dashboard/job-detail/job-detail.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -23,7 +24,9 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     RepairFooterComponent,
     JobListComponent,
     AddJobComponent,
-    CreateComponent
+    CreateComponent,
+    RepairDashboardComponent,
+    JobDetailComponent
     
   ],
   imports: [

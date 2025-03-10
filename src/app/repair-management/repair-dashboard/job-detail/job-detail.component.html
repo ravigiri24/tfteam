@@ -1,0 +1,79 @@
+<div class="top-position">
+<span class="inner-heading">Customer Details</span>
+<ion-grid class="main_block_details">
+  <ion-card>
+    <ion-row>
+      <ion-col>Customer Name</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.customerDetails ? jobDetails?.customerDetails?.name : '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Contact Number</ion-col>
+      <ion-col class="amount_col">{{ jobDetails?.customerDetails ? jobDetails?.customerDetails?.mobileNo : '-' }}</ion-col>
+    </ion-row>
+    <ion-row *ngIf="jobDetails?.customerDetails?.mobileNo">
+      <ion-col>
+    <ion-button fill="clear">
+      <a  target="_blank"
+      href="https://wa.me/{{jobDetails?.customerDetails?.mobileNo}}/?text=Hello">
+      <ion-icon class="theme-color icon-size" name="logo-whatsapp"></ion-icon>
+  </a>
+</ion-button>
+</ion-col>
+<ion-col>
+  <ion-button fill="clear"><a href="tel:{{jobDetails?.customerDetails?.mobileNo}}" class="book-now-btn"><ion-icon  class="theme-color icon-size" name="call"></ion-icon></a></ion-button>
+  </ion-col>
+
+
+  </ion-row>
+
+  </ion-card>
+  </ion-grid>
+  <span class="inner-heading">Vehicle Details</span>
+<ion-grid class="main_block_details">
+  <ion-card>
+    <ion-row>
+      <ion-col>TF Code</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.tfCode || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Make</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.brandDetails?.name || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Modal</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.modelDetails?.name || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Manufactoring Year</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.yearOfManufactoring || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Registration Number</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.regNumber || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Engine Number</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.engineNumber || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Fuel</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.fuelLevel || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Hours</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.hours || '-' }}</ion-col>
+    </ion-row>
+    
+  </ion-card>
+  </ion-grid>
+  <div class="issue-body">
+  <span class="inner-heading">Issues</span>
+  <ion-chip  [ngClass]="{'isItDone':issue.isCompleted}"  (click)="completeJob(issue)" *ngFor="let issue of issueArray" color="danger">{{issue?.name}}</ion-chip>
+  <ion-chip [ngClass]="{'isItDone':jobDetails?.isOtherIssueDone==1}" (click)="updateOtherStatus()"   color="danger">{{jobDetails?.otherIssues}}(other)</ion-chip>
+</div>
+<div class="inventory-issue">
+  <span class="inner-heading">Inventory</span>
+  <ion-chip *ngFor="let inventory of inventoryArray" class="theme-color">{{inventory?.name}}</ion-chip>
+  <ion-chip class="theme-color">{{jobDetails?.otherInventoryOptions}}(other)</ion-chip>
+</div>
+</div>
