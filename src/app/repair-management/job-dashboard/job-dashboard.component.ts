@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-job-dashboard',
   templateUrl: './job-dashboard.component.html',
@@ -7,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobDashboardComponent  implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {}
-
+  createJob(){
+    this.router.navigate(['/repair-management/create-job','/repair-management/job-dashboard'])
+  }
 }

@@ -16,6 +16,10 @@ export class RepairFooterComponent  implements OnInit {
   if(tab=='Job-dashboard'){
     this.router.navigate(['/repair-management/job-dashboard'])
   }
+  if(tab=='Job-List'){
+    this.router.navigate(['/repair-management/job-list'])
+  }
+
 
   else if(tab=='User'){
     this.router.navigate(['/repair-management/user-management'])

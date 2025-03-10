@@ -5,6 +5,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { RepairManagementComponent } from './repair-management.component';
 import { JobDashboardComponent } from './job-dashboard/job-dashboard.component';
+import { CreateComponent } from './create/create.component';
+import { JobListComponent } from './job-list/job-list.component';
 const routes: Routes = [
   {
     path: "", component: RepairManagementComponent,
@@ -12,6 +14,9 @@ const routes: Routes = [
 
        { path: 'job-dashboard', component: JobDashboardComponent},
        { path: 'user-management', component: UserManagementComponent},
+       { path: 'create-job/:srcPage', component: CreateComponent},
+       { path: 'update-job/:id/:srcPage', component: CreateComponent},
+       { path: 'job-list', component:  JobListComponent   },
     //   { path: 'user-management', component: UserManagementComponent},
     //   { path: 'cost-prediction', component: CostPredictionComponent},
     //   { path: 'store-Transaction', component: StorePaymentTransactionComponent},

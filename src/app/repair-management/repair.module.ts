@@ -7,19 +7,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { RepaireRoutingModule } from './repair-routing.module';
 
 import { RepairManagementComponent } from './repair-management.component';
-// import { SearchpipePipe } from '../searchpipe.pipe';
+
 import { SharedModule } from '../shared-components/shared.module';
 import { JobDashboardComponent } from './job-dashboard/job-dashboard.component';
 import { RepairFooterComponent } from './repair-footer/repair-footer.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { AddJobComponent } from './job-list/add-job/add-job.component';
+import { CreateComponent } from './create/create.component';
+
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   declarations: [
     RepairManagementComponent,
     JobDashboardComponent,
     RepairFooterComponent,
     JobListComponent,
-    AddJobComponent
+    AddJobComponent,
+    CreateComponent
     
   ],
   imports: [
@@ -30,6 +34,9 @@ import { AddJobComponent } from './job-list/add-job/add-job.component';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
+    FilterPipeModule
+    
+    
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 })

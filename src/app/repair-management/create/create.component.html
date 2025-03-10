@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Create Job</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="form" class="ion-padding">
+  <form [formGroup]="form">
+    <span class="inner-heading">Customer Details</span>
+    <div class="global_input_block">
+      <ion-input label="Customer Name*" fill="outline" labelPlacement="stacked" type="text" formControlName="customer_name"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Contact Number*" fill="outline" labelPlacement="stacked" type="text" formControlName="contact_number"></ion-input>
+    </div>
+    <span class="inner-heading">Tractor Details</span>
+  <div class="global_input_block" >
+    <ion-select (ionChange)="getModelsbyBrand()"    formControlName="brand_id" fill="outline" label="Select Brand *" label-placement="type">
+      <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="global_input_block" >
+    <ion-select   formControlName="model_id" fill="outline" label="Select Model *" label-placement="type">
+      <ion-select-option *ngFor="let model of modelList"  [value]="model?.id">{{model?.name}}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Registration Number" fill="outline" labelPlacement="stacked" type="text" formControlName="regNumber"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Hours" fill="outline" labelPlacement="stacked" type="text" formControlName="hours"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text" formControlName="engineNumber"></ion-input>
+  </div>
+  <div class="global_input_block" *ngIf="yearArray?.length">
+    <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">
+      <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
+    </ion-select>
+  </div>
+  <span class="inner-heading">Tractor Condition</span>
+  <div class="global_input_block" >
+    <ion-select formControlName="fuelLevel" fill="outline" label="Fuel Level" label-placement="type">
+      <ion-select-option  value="0-20%">0-20%</ion-select-option>
+      <ion-select-option  value="20-40%">20-40%</ion-select-option>
+      <ion-select-option  value="40-60%">40-60%</ion-select-option>
+      <ion-select-option  value="60-80%">60-80%</ion-select-option>
+      <ion-select-option  value="80-100%">80-100%</ion-select-option>
+    </ion-select>
+  </div>
+  <div >
+    <span class="inner-heading-small">Tractor Inventory
+      <ion-icon  class="theme-color margin-set" (click)="openCrudManagement('TRACTOR_INVENTORY')" name="add-circle-outline"></ion-icon>
+    </span>
+    <div class="inventory-hight">
+      <ion-checkbox *ngFor="let inven of inventoryList" [checked]="inven?.checked" (ionChange)="selectInventory($event,inven)"  labelPlacement="start">{{inven?.name}}</ion-checkbox>
+
+  </div>
+  
+  <div class="global_input_block">
+    <ion-input label="Other Inventory" fill="outline" labelPlacement="stacked" type="text" formControlName="otherInventoryOptions"></ion-input>
+  </div>
+</div>
+<div >
+  <span class="inner-heading-small">Issues
+    <ion-icon  class="theme-color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')" name="add-circle-outline"></ion-icon>
+  </span>
+  <div class="inventory-hight">
+  <ion-checkbox *ngFor="let issue of issueList" [checked]="issue?.checked" (ionChange)="selectIssue($event,issue)"  labelPlacement="start">{{issue?.name}}</ion-checkbox>
+  
+  
+</div>
+
+<div class="global_input_block">
+  <ion-input label="Other Issue" fill="outline" labelPlacement="stacked" type="text" formControlName="otherIssues"></ion-input>
+</div>
+</div>
+<div class="page_submit_btn">
+  <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
+  <ion-button *ngIf="data" (click)="updateForm()" class="global_submit_button" expand="block">Update</ion-button>
+</div>
+</form>
+</ion-content>

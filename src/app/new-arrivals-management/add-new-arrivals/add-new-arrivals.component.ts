@@ -249,7 +249,7 @@ export class AddNewArrivalsComponent  implements OnInit {
  
        registractionNo: new FormControl(this.data?.registractionNo || null, []),
        yearOfManufactoring: new FormControl(
-         this.data?.yearOfManufactoring || null,
+         Number(this.data?.yearOfManufactoring) || null,
          [Validators.required]
        ),
        discount: new FormControl(this.data?.discount || null),

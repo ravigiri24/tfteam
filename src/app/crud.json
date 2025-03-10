@@ -705,6 +705,44 @@
              }
           
         ]
+      },
+      {
+        "key": "TRACTOR_INVENTORY",
+        "src":"tractor_inventory",
+        "headerTitle":"Inventory",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete Inventory?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Inventory Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
+      },
+      {
+        "key": "TRACTOR_ISSUES",
+        "src":"tractor_issue",
+        "headerTitle":"Issues",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete Issue?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Issue Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
       }
     ]
   }

@@ -6,13 +6,13 @@
   </ion-toolbar> 
 </ion-header>  
 <ion-content class="ion-padding">
-  <div >
-  <ion-button class="global_submit_button" expand="block">
+
+  <ion-button (click)="createJob()" class="global_submit_button" expand="block">
     <ion-icon name="add-outline" ></ion-icon>
     Create New Job</ion-button>
-  </div>
+ 
   <div class="row">
-    <div class="col-md-6 col-6">
+    <div class="col-md-6 col-6 block">
   <ion-card >
     <ion-icon class="theme-color icon-size" name="fast-food-outline"></ion-icon>
     <ion-card-header>
@@ -22,7 +22,7 @@
   
   </ion-card>
 </div>
-<div class="col-md-6 col-6">
+<div class="col-md-6 col-6 block">
   <ion-card >
     <ion-icon class="theme-color icon-size" name="cash-outline"></ion-icon>
     <ion-card-header>
@@ -32,7 +32,7 @@
   
   </ion-card>
 </div>
-<div class="col-md-6 col-6">
+<div class="col-md-6 col-6 block">
   <ion-card >
     <ion-icon class="theme-color icon-size" name="checkmark-done-circle-outline"></ion-icon>
     <ion-card-header>
@@ -42,7 +42,7 @@
   
   </ion-card>
 </div>
-<div class="col-md-6 col-6">
+<div class="col-md-6 col-6 block">
   <ion-card >
     <ion-icon class="theme-color icon-size" name="reader-outline"></ion-icon>
     <ion-card-header>

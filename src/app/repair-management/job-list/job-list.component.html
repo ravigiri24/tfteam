@@ -1,3 +1,31 @@
-<p>
-  job-list works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Open Jobs:</span>
+        <b class="total-number">{{jobList?.length}}</b>
+      </div>
+      <div class="right_action">
+
+        <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-searchbar [(ngModel)]="search.tfCode" slot="fixed" placeholder="Search Job"></ion-searchbar>
+  <ion-list class="list_row top-position" *ngIf="jobList?.length">
+    <ion-item *ngFor="let tractor of jobList | filterBy: search ;let in=index">
+      <ion-label>
+        <h2 class="theme-color">{{tractor?.modelDetails?.name}} -{{tractor?.tfCode}}</h2>
+        <p>{{tractor?.regNumber}} | {{tractor?.hours}} | {{tractor?.createdOn |
+          date }}</p>
+      </ion-label>
+
+      <div class="list_right_action">
+        <ion-icon (click)="openEdit(tractor)" class="small_icon20 theme-color" name="create-outline"></ion-icon>
+     
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
