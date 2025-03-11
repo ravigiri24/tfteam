@@ -1,0 +1,104 @@
+
+.right-margin{
+    margin-right: 4px;
+  }
+  .left-margin{
+    position: relative;
+    left:20px
+   }
+   .font-wieght{
+    font-weight: 700;
+   }
+   .body-map{
+    position: relative;
+    top:55px;
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+   }
+
+   .form-height{
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+}
+.hieght-body{
+    height: 100%;
+}
+:host {
+    ion-button {
+     
+       
+        --outline-color:var(--app-theme-element-color) !important;
+        --color:var(--app-theme-element-color) !important;
+       
+        }
+   
+  ion-checkbox{
+    --checkbox-background-checked: var(--app-theme-element-color) !important;
+    --border-color-checked: var(--app-theme-element-color) !important;
+    }
+  }
+  .add-button{
+    position: relative;
+    right: 10px;
+}
+.button-theme{
+    border-color:var(--app-theme-element-color) !important;
+    ion-button {
+        --background: var(--app-theme-element-color) !important;
+        --border-color:var(--app-theme-element-color) !important;
+        --outline-color:var(--app-theme-element-color) !important;
+        --color:white !important;
+       
+        }
+}
+.color-white{
+    color: white !important;
+  }
+  .price-font-size{
+    font-size: 7px;
+  }
+  .searchList{
+    width: 100%;
+    height: 210px;
+    top: 64px;
+    position: absolute;
+    z-index: 10;
+    ;
+    background-color: lightgray;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .top-position{
+position: relative;
+
+top: 118px;
+  }
+  .top-position-search{
+    position: relative;
+
+    top: 25px;
+  }
+  .label-position{
+    position: relative;
+    top: 61px;
+    left: 10px;
+
+  }
+  .text-align{
+    text-align: center;
+    position: relative;
+    top:12px
+  }
+  .inner-heading{
+    font-size: 16px;
+    // color: var(--app-secondary-color);
+    color: #666666;
+    width: 100%;
+    display: inline-flex;
+    padding: 10px 10px 10px 16px;
+    background: #f5f5ff;
+   margin-bottom: 8px;
+    top: 0px;
+  
+    border-bottom: solid thin #e1e1e17d;
+  }

@@ -67,7 +67,9 @@
   </ion-card>
   </ion-grid>
   <div class="issue-body">
-  <span class="inner-heading">Issues</span>
+  <span class="inner-heading">Issues
+    <!-- <ion-icon (click)="openIssuePopup()"  class="small_icon20 theme-color" name="create-outline"></ion-icon> -->
+  </span>
   <ion-chip  [ngClass]="{'isItDone':issue.isCompleted}"  (click)="completeJob(issue)" *ngFor="let issue of issueArray" color="danger">{{issue?.name}}</ion-chip>
   <ion-chip [ngClass]="{'isItDone':jobDetails?.isOtherIssueDone==1}" (click)="updateOtherStatus()"   color="danger">{{jobDetails?.otherIssues}}(other)</ion-chip>
 </div>

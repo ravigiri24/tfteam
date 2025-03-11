@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update Issues</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon  class="theme-color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')" name="add-circle-outline"></ion-icon>
+      <ion-icon
+        class="theme-color icon-size"
+        (click)="dismiss()"
+        name="close-circle-outline"
+      ></ion-icon>
+    </ion-buttons>
+ 
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div >
+ 
+    <div class="inventory-hight">
+    <ion-checkbox *ngFor="let issue of issueList" [checked]="issue?.checked" (ionChange)="selectIssue($event,issue)"  labelPlacement="start">{{issue?.name}}</ion-checkbox>
+    
+    
+  </div>
+  
+  <div class="global_input_block">
+    <ion-input label="Other Issue" fill="outline" labelPlacement="stacked" type="text" formControlName="otherIssues"></ion-input>
+  </div>
+  </div>
+  </ion-content>

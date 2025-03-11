@@ -1,0 +1,28 @@
+
+<div class="top-position hieght-body">
+<ion-tabs class="inner-tabs">
+  <ion-tab-bar slot="top">
+    <ion-tab-button  (click)="goToPage('SERVICE')" [ngClass]="{'selected_tab':selectedTab==='SERVICE'}"
+      tab="MODEL">
+      <span class="tabs">Services</span>
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('PARTS')" [ngClass]="{'selected_tab':selectedTab==='PARTS'}"
+      tab="GALLERY">
+      <span class="tabs">Parts</span>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>
+<div class="tab_withinner_block top-position-body">
+  <ng-container *ngIf="selectedTab==='SERVICE'">
+    <ion-button (click)="addService('EXPENSE')" class="global_submit_button" expand="block">
+      <ion-icon name="add-outline" ></ion-icon>
+      Add Service</ion-button>
+    </ng-container>
+    <ng-container *ngIf="selectedTab==='PARTS'">
+      <ion-button (click)="addParts()" class="global_submit_button" expand="block">
+        <ion-icon name="add-outline" ></ion-icon>
+        Add Parts</ion-button>
+    </ng-container>
+    </div>
+  </div>

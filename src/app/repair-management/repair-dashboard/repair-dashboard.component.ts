@@ -36,6 +36,7 @@ export class RepairDashboardComponent implements OnInit {
         this.jobLoader = false;
         this.getInventory();
         this.getIssueList();
+   
       },
       (error: any) => {}
     );
@@ -83,6 +84,45 @@ export class RepairDashboardComponent implements OnInit {
       this.srcPage = params?.srcPage;
     });
     this.getJobByRowId();
+   this.getRawImages()
+  }
+  beforeService:any=[]
+  afterService:any=[]
+  jobArray:any=[]
+    filterImage(){
+  this.beforeService=this.imageArray.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
+  this.afterService=this.imageArray.filter((f:any)=>f.imageGroup=='AFTER_SERVICE')
+  this.jobArray=this.imageArray.filter((f:any)=>f.imageGroup=='JOB_CARD')
+    }
+  staffDetails:any
+  imageArray:any=[]
+  imageLoader=false
+  getRawImages(loader:any=false){
+    this.imageLoader=true
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+      
+      tractor_id: this.jobId,
+    };
+    if(loader==true){
+      this.share.showLoading("Refreshing Data...")
+    }
+
+    this.api.postapi('getRawImagesRepair', obj).subscribe((res: any) => {
+      console.log("data",res);
+      this.imageArray=res?.data || []
+      //this.imageArray= this.imageArray.filter((f:any)=>f.imageGroup==this.imageGroup)
+      this.filterImage()
+       this.imageLoader=false
+       if(loader==true){
+        this.share.spinner.dismiss()
+      }
+ 
+    },(error:any)=>{
+      this.imageLoader=false
+    });
   }
   inventoryList: any = [];
   invetoryLoader = false;

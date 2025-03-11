@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Service</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon
+        class="theme-color icon-size"
+        (click)="dismiss()"
+        name="close-circle-outline"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  
+    
+    <!-- <ion-item  *ngIf="expense_head!='PREDICTION'" class="bottom-margin">
+      <ion-icon (click)="openCrudManagement('REPAIRINGCENTER')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="getRepairingCenterList(true)" name="refresh-outline"></ion-icon>
+      <ion-select  formControlName="repairing_center"    label="Repairing Center" label-placement="type">
+        <ion-select-option *ngFor="let rep of repairingCenterList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
+    
+      </ion-select>
+    </ion-item> -->
+    <!-- <div class="global_input_block">
+      <ion-input  (ionFocus)="onInputFocus()"   label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
+    </div> -->
+  
+    <ion-searchbar  (ionFocus)="onInputFocus()"  (ionBlur)="focusOut()"  [(ngModel)]="search.name" slot="fixed" placeholder="Search Service"></ion-searchbar>
+    <ion-label class="label-position" *ngIf="selectedItem?.name">
+      <span  class="inner-heading">Selected Service-{{selectedItem?.name}}</span>
+      </ion-label>
+    <!-- <div class="global_input_block top-position-search">
+      <ion-input  label="Search Service" fill="outline" (ionFocus)="onInputFocus()"  (ionBlur)="focusOut()"  [(ngModel)]="search.name"  labelPlacement="stacked" ></ion-input>
+    </div> -->
+    <div  [ngClass]="{'searchList':showSearchList==true}"   >
+      <ion-content>
+      <ion-list *ngIf="showSearchList" class="list_row" >
+        <ion-item (click)="setValue(expense)" *ngFor="let expense of expenseTypeList| filterBy: search ;let in=index">
+          <ion-label>
+            <h2 class="theme-color">{{expense?.name}}</h2>
+          
+          </ion-label>
+          </ion-item>
+        </ion-list>
+        <div class="text-align" *ngIf="(expenseTypeList | filterBy: search).length === 0">
+          <div class="row">
+          <span style="color: red;" >No Service Found</span>
+        </div>
+          <ion-button  (click)="addNewService()"  style="text-align: center;"  ><span class="color-white">Add New</span></ion-button>
+        </div>
+       
+
+      </ion-content>
+      </div>
+
+      <form class="top-position" [formGroup]="form">
+        <div class="global_input_block">
+          <ion-input  label="Amount" fill="outline" labelPlacement="stacked" type="number" formControlName="expense_amount"></ion-input>
+        </div>
+        
+    <div class="login-button ">
+
+      <ion-button *ngIf="!editData"   (click)="saveData()"  style="text-align: center;" expand="block" ><span class="color-white">Add</span></ion-button>
+      <ion-button  *ngIf="editData"  (click)="updateData()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
+    
+    </div> 
+      </form>
+  
+ 
+</ion-content>

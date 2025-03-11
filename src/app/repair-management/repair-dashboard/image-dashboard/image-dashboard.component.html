@@ -1,0 +1,64 @@
+ 
+
+  <div class="top-position">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Before Service</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card>
+  <ion-grid *ngIf="beforeService?.length">
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of beforeService; index as position">
+        <ion-card class="m-0">
+          <img style="height: 100px;width: 100px;" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>After Service</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('AFTER_SERVICE')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card>
+  <ion-grid *ngIf="afterService?.length">
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of afterService; index as position">
+        <ion-card class="m-0">
+          <img style="height: 100px;width: 100px;" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Job Card</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('JOB_CARD')"  >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card>
+  <ion-grid *ngIf="jobArray?.length">
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of jobArray; index as position">
+        <ion-card class="m-0">
+          <img style="height: 100px;width: 100px;" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
-
+import { UpdateIssuesComponent } from '../update-issues/update-issues.component';
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -17,7 +17,8 @@ export class JobDetailComponent implements OnInit {
   constructor(
     private alertCtrl: AlertController,
     private api: ApiService,
-    private share: ShareService
+    private share: ShareService,
+    private modalControl:ModalController
   ) {}
 
   ngOnInit() {}
@@ -157,5 +158,19 @@ export class JobDetailComponent implements OnInit {
         this.issueArray.push(find);
       }
     });
+  }
+  async openIssuePopup(){
+   
+          const modal = await this.modalControl.create({
+            component: UpdateIssuesComponent,
+            componentProps: {
+              otherIssues: this.jobDetails?.otherIssues,
+              issueOptions: this.jobDetails?.issueOptions,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+         
+        
   }
 }

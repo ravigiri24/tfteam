@@ -17,6 +17,11 @@ import { CreateComponent } from './create/create.component';
 import { RepairDashboardComponent } from './repair-dashboard/repair-dashboard.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { JobDetailComponent } from './repair-dashboard/job-detail/job-detail.component';
+import { UpdateIssuesComponent } from './repair-dashboard/update-issues/update-issues.component';
+import { ImageDashboardComponent } from './repair-dashboard/image-dashboard/image-dashboard.component';
+import { ImageViewerComponent } from './repair-dashboard/image-viewer/image-viewer.component';
+import { BuildJobComponent } from './repair-dashboard/build-job/build-job.component';
+import { AddServiceChargeComponent } from './repair-dashboard/build-job/add-service-charge/add-service-charge.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -26,7 +31,12 @@ import { JobDetailComponent } from './repair-dashboard/job-detail/job-detail.com
     AddJobComponent,
     CreateComponent,
     RepairDashboardComponent,
-    JobDetailComponent
+    JobDetailComponent,
+    UpdateIssuesComponent,
+    ImageViewerComponent,
+    ImageDashboardComponent,
+    BuildJobComponent,
+    AddServiceChargeComponent
     
   ],
   imports: [

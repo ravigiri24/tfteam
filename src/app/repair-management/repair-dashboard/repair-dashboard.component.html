@@ -35,5 +35,16 @@
         <ng-container *ngIf="selectedTab==='DETAILS'">
       <app-job-detail [inventoryArray]="inventoryArray"  [issueArray]="issueArray" [inventoryList]="inventoryList" [issueList]="issueList" *ngIf="loadAllData" [jobDetails]="jobDetails"></app-job-detail>
         </ng-container>
+        <ng-container *ngIf="selectedTab==='GALLERY'">
+        <app-image-dashboard [beforeService]="beforeService" (reloadImage)="getRawImages(true)" [afterService]="afterService" [jobArray]="jobArray" *ngIf="!imageLoader" [imageArray]="imageArray" [jobDetails]="jobDetails"></app-image-dashboard>
+        </ng-container>
+        <ng-container  *ngIf="selectedTab==='BUILD'">
+     =
+          <app-build-job ></app-build-job>
+        
+          </ng-container>
+    
         </div>
+
+
   </ion-content>
