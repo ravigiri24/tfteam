@@ -1,5 +1,61 @@
 <ion-header>
   <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Filter Date : </span>
+        <input type="date" class="global_datetextbox" [(ngModel)]="date" (change)="getFollowList()" />
+      </div>
+      <div class="right_action">
+        <ion-button class="button-theme" class="add-button displaynone" slot="end" id="open-modal-follow" expand="block"
+      fill="outline"><ion-icon class="theme-color" name="refresh-outline"></ion-icon></ion-button>
+        <!-- <ion-icon class="theme-color icon-size" (click)="dismiss()" name="refresh-outline"></ion-icon> -->
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="list_row" *ngIf="followUpList?.length && showData">
+    <ion-item *ngFor="let cus of followUpList;let in = index">
+      <ion-label>
+        <h2 class="theme-color">{{ cus?.customerDetails?.name }}</h2>
+        <p>{{ cus?.customerDetails?.mobileNo }}-{{cus?.customerDetails?.customerType}}</p>
+      </ion-label>
+      <ion-icon (click)="addReview(cus, in)" class="right-margine theme-color" name="chatbubbles-outline"></ion-icon>
+      <!--      
+      <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
+      <ion-icon  (click)="addReview(cus,in)"  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
+      <ion-icon (click)="viewDetails(cus,in)"  class="right-margine theme-color-third "name="eye"></ion-icon> -->
+    </ion-item>
+  </ion-list>
+  <ion-modal trigger="open-modal-follow" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ng-container>
+        <ion-header>
+          <ion-toolbar>
+            <!-- <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons> -->
+
+            <form [formGroup]="nextScheduleForm">
+              <ion-label class="remark-side">
+                <span class="remark-color"> Remark </span>&nbsp;&nbsp; NSD:
+                <input type="date" formControlName="next_lead_date" (change)="nextFollowupDate()" />
+              </ion-label>
+            </form>
+            <ion-buttons slot="end">
+              <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <app-add-remark *ngIf="showRemark" [data]="customerSelected"></app-add-remark>
+        </ion-content>
+      </ng-container>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+<!-- <ion-header>
+  <ion-toolbar>
     <div class="left-margin">
       <ion-label>
         Date:<input type="date" [(ngModel)]="date" (change)="getFollowList()" />
@@ -17,8 +73,8 @@
       ><ion-icon class="theme-color" name="refresh-outline"></ion-icon
     ></ion-button>
   </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding">
+</ion-header> -->
+<!-- <ion-content class="ion-padding">
   <ion-list *ngIf="followUpList?.length && showData">
     <ion-item
       *ngFor="
@@ -41,12 +97,6 @@
         class="right-margine theme-color-second"
         name="chatbubbles-outline"
       ></ion-icon>
-  
-      <!--      
-      <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
-    
-      <ion-icon  (click)="addReview(cus,in)"  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
-      <ion-icon (click)="viewDetails(cus,in)"  class="right-margine theme-color-third "name="eye"></ion-icon> -->
     </ion-item>
   </ion-list>
   <ion-modal trigger="open-modal-follow" (willDismiss)="onWillDismiss($event)">
@@ -54,10 +104,6 @@
       <ng-container>
         <ion-header>
           <ion-toolbar>
-            <!-- <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
-          </ion-buttons> -->
-
             <form [formGroup]="nextScheduleForm">
               <ion-label class="remark-side">
                 <span class="remark-color"> Remark </span>&nbsp;&nbsp; NSD:
@@ -83,4 +129,4 @@
       </ng-container>
     </ng-template>
   </ion-modal>
-</ion-content>
+</ion-content> -->
