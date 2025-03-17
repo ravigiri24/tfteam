@@ -22,6 +22,8 @@ import { ImageDashboardComponent } from './repair-dashboard/image-dashboard/imag
 import { ImageViewerComponent } from './repair-dashboard/image-viewer/image-viewer.component';
 import { BuildJobComponent } from './repair-dashboard/build-job/build-job.component';
 import { AddServiceChargeComponent } from './repair-dashboard/build-job/add-service-charge/add-service-charge.component';
+import { AddMaterialExpenseComponent } from './repair-dashboard/build-job/add-material-expense/add-material-expense.component';
+import { JobCardComponent } from './repair-dashboard/job-card/job-card.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -36,7 +38,9 @@ import { AddServiceChargeComponent } from './repair-dashboard/build-job/add-serv
     ImageViewerComponent,
     ImageDashboardComponent,
     BuildJobComponent,
-    AddServiceChargeComponent
+    AddServiceChargeComponent,
+    AddMaterialExpenseComponent,
+    JobCardComponent
     
   ],
   imports: [

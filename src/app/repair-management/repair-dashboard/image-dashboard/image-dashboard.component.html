@@ -9,7 +9,7 @@
   
   
   
-    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+    <ion-button *ngIf="!this.isJobDone" (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
   
   </ion-card>
   <ion-grid *ngIf="beforeService?.length">
@@ -29,7 +29,7 @@
   
   
   
-    <ion-button fill="clear" (click)="viewImage('AFTER_SERVICE')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+    <ion-button *ngIf="!this.isJobDone" fill="clear" (click)="viewImage('AFTER_SERVICE')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
   
   </ion-card>
   <ion-grid *ngIf="afterService?.length">
@@ -49,7 +49,7 @@
   
   
   
-    <ion-button fill="clear" (click)="viewImage('JOB_CARD')"  >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+    <ion-button *ngIf="!this.isJobDone" fill="clear" (click)="viewImage('JOB_CARD')"  >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
   
   </ion-card>
   <ion-grid *ngIf="jobArray?.length">

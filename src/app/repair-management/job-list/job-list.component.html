@@ -2,11 +2,18 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Open Jobs:</span>
-        <b class="total-number">{{jobList?.length}}</b>
+       
+  
+        <ion-select class="selected_ddl" (ionChange)="getJobList()" [(ngModel)]="jobType"
+        label-placement="type">
+        <ion-select-option [value]="false">Open Jobs</ion-select-option>
+        <ion-select-option [value]="true">Close Jobs</ion-select-option>
+      </ion-select>
+      <b class="total-number">{{jobList?.length}}</b>
       </div>
+      
       <div class="right_action">
-
+    
         <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
       </div>
     </ion-label>
@@ -23,7 +30,8 @@
       </ion-label>
 
       <div class="list_right_action">
-        <ion-icon (click)="openEdit(tractor)" class="small_icon20 theme-color" name="create-outline"></ion-icon>
+        <ion-icon *ngIf="tractor?.isCompleted==0" (click)="openEdit(tractor)" class="small_icon20 theme-color" name="create-outline"></ion-icon>
+        <ion-icon *ngIf="tractor?.isCompleted==0" (click)="deleteItem(tractor)" class="small_icon20 theme-color" name="trash-outline"></ion-icon>
         <ion-icon (click)="openRepairDashboard(tractor)" class="small_icon20 theme-color" name="eye-outline"></ion-icon>
      
       </div>

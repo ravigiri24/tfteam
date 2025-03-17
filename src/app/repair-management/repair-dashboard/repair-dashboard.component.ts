@@ -3,7 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
-
+import { AddServiceChargeComponent } from './build-job/add-service-charge/add-service-charge.component';
 @Component({
   selector: 'app-repair-dashboard',
   templateUrl: './repair-dashboard.component.html',
@@ -25,6 +25,7 @@ export class RepairDashboardComponent implements OnInit {
   }
   jobDetails: any;
   jobLoader: any;
+  isJobDone=false
   getJobByRowId() {
     this.share.showLoading('Fetching Data');
     this.jobLoader = true;
@@ -32,10 +33,18 @@ export class RepairDashboardComponent implements OnInit {
     obj.id = this.jobId;
     this.api.postapi('getJobByRowId', obj).subscribe(
       (res: any) => {
+        this.materialLoader=true
+        this.serviceLoader=true
+        if( res?.data?.isCompleted==1){
+          this.isJobDone=true
+        }
         this.jobDetails = res?.data;
         this.jobLoader = false;
+  
+        this.getServiceList()
         this.getInventory();
         this.getIssueList();
+        this.getMaterialList()
    
       },
       (error: any) => {}
@@ -83,6 +92,7 @@ export class RepairDashboardComponent implements OnInit {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
     });
+    this.isJobDone=false
     this.getJobByRowId();
    this.getRawImages()
   }
@@ -123,6 +133,88 @@ export class RepairDashboardComponent implements OnInit {
     },(error:any)=>{
       this.imageLoader=false
     });
+  }
+  expenseMaterialList: any = [];
+  prdeictionMaterialList: any = [];
+  materialLoader:any=false
+  getMaterialList(loader:any=false) {
+    let obj: any = this.share.getListObj('repair_expense_costing', false, [], true);
+    obj.tractor_id = this.jobDetails?.id;
+    if(loader){
+    this.share.showLoading('Fetching Data...');
+    }
+    this.materialLoader=true
+    this.api.postapi('getMaterialExpense_cost', obj).subscribe(
+      (res: any) => {
+        this.expenseMaterialList = res?.data.filter(
+          (f: any) => f?.expense_head == 'EXPENSE'
+        );
+        this.prdeictionMaterialList = res?.data.filter(
+          (f: any) => f?.expense_head == 'PREDICTION'
+        );
+        this.calculateAmount()
+        if(loader){
+        this.share.spinner.dismiss();
+        }
+        this.materialLoader=false
+      
+      },
+      (error: any) => {
+        this.materialLoader=false
+      }
+    );
+  }
+  expenseServiceList: any = [];
+  prdeictionServiceList: any = [];
+  serviceLoader=false
+  getServiceList(loader:any=false) {
+    this.serviceLoader=true
+    let obj: any = this.share.getListObj('repair_expense_costing', false, [], true);
+    obj.tractor_id = this.jobDetails?.id;
+    if(loader){
+      this.share.showLoading('Fetching Data...');
+    }
+   
+    this.api.postapi('getServiceExpense_cost', obj).subscribe(
+      (res: any) => {
+        this.expenseServiceList = res?.data.filter(
+          (f: any) => f?.expense_head == 'EXPENSE'
+        );
+        this.prdeictionServiceList = res?.data.filter(
+          (f: any) => f?.expense_head == 'PREDICTION'
+        );
+        this.calculateAmount()
+        this.serviceLoader=false
+        if(loader){
+        this.share.spinner.dismiss();
+        }
+        console.log('expenseServiceList', this.expenseServiceList);
+     //   this.calculateAmount();
+        // this.share.spinner.dismiss();
+      },
+      (error: any) => {
+        this.serviceLoader=false
+      }
+    );
+  }
+  expenseMaterialCost: any = 0;
+  expenseServiceCost: any = 0;
+
+  calculateAmount() {
+    this.expenseMaterialCost = 0;
+    this.expenseServiceCost = 0;
+  
+    this.expenseMaterialList.forEach((f: any) => {
+      this.expenseMaterialCost =
+        this.expenseMaterialCost + Number(f?.total_expense);
+    });
+    this.expenseServiceList.forEach((f: any) => {
+      this.expenseServiceCost =
+        this.expenseServiceCost + Number(f?.total_expense);
+    });
+
+ 
+   
   }
   inventoryList: any = [];
   invetoryLoader = false;
@@ -176,4 +268,5 @@ export class RepairDashboardComponent implements OnInit {
   backToSrcPage() {
     this.router.navigate([this.srcPage]);
   }
+    
 }

@@ -1,0 +1,74 @@
+<span class="inner-heading">Vehicle Details</span>
+<ion-grid class="main_block_details">
+  <ion-card>
+    <ion-row>
+      <ion-col>TF Code</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.tfCode || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Make</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.brandDetails?.name || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Modal</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.modelDetails?.name || '-' }}</ion-col>
+    </ion-row>
+
+  
+    
+  </ion-card>
+  </ion-grid>
+  <span class="inner-heading">Service Expenses</span>
+  <ion-grid class="main_block_details">
+    <ion-card>
+      <ion-row >
+        <ion-col>Service</ion-col>
+        <ion-col class="amount_col">Amount</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let service of expenseServiceList">
+        <ion-col>{{service?.materialDetail?.name}}</ion-col>
+        <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
+      </ion-row>
+  
+    
+      
+    </ion-card>
+    </ion-grid>
+    <span class="inner-heading">Spare Expenses</span>
+    <ion-grid class="main_block_details">
+      <ion-card>
+        <ion-row >
+          <ion-col>Spare</ion-col>
+          <ion-col>Qty</ion-col>
+          <ion-col class="amount_col">Amount</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let service of expenseMaterialList">
+          <ion-col>{{service?.materialDetail?.name}}</ion-col>
+          <ion-col>{{service?.qty}}</ion-col>
+          <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
+        </ion-row>
+    
+      
+        
+      </ion-card>
+      </ion-grid>
+      <ion-grid class="main_block_details">
+        <ion-card>
+          <ion-row >
+            <ion-col>Sub Total</ion-col>
+          
+            <ion-col class="amount_col">{{expenseMaterialCost+expenseServiceCost}}</ion-col>
+          </ion-row>
+         
+      
+        
+          
+        </ion-card>
+        </ion-grid>
+        <ion-button   *ngIf="!isJobDone" (click)="actionJob('Close Job',true)"  class="global_submit_button" expand="block">
+       
+          Job Complete</ion-button>
+          <ion-button (click)="actionJob('Reopen Job',false)" *ngIf="isJobDone" class="global_submit_button" expand="block">
+       
+            Reopen Job</ion-button>
+    

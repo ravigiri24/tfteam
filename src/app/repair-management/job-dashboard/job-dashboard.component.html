@@ -17,17 +17,7 @@
     <ion-icon class="theme-color icon-size" name="fast-food-outline"></ion-icon>
     <ion-card-header>
       <ion-card-title class="title-style">Open Jobs</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">5</ion-card-subtitle>
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-<div class="col-md-6 col-6 block">
-  <ion-card >
-    <ion-icon class="theme-color icon-size" name="cash-outline"></ion-icon>
-    <ion-card-header>
-      <ion-card-title class="title-style">Payment Due</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">5</ion-card-subtitle>
+      <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle>
     </ion-card-header>
   
   </ion-card>
@@ -36,8 +26,18 @@
   <ion-card >
     <ion-icon class="theme-color icon-size" name="checkmark-done-circle-outline"></ion-icon>
     <ion-card-header>
-      <ion-card-title class="title-style">Closed Jobs</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">5</ion-card-subtitle>
+      <ion-card-title class="title-style">Closed Job</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{jobData?.closeJob}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+<div class="col-md-6 col-6 block">
+  <ion-card >
+    <ion-icon class="theme-color icon-size" name="trash-outline"></ion-icon>
+    <ion-card-header>
+      <ion-card-title class="title-style">Deleted Jobs</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{jobData?.deletedJob}}</ion-card-subtitle>
     </ion-card-header>
   
   </ion-card>
@@ -46,8 +46,8 @@
   <ion-card >
     <ion-icon class="theme-color icon-size" name="reader-outline"></ion-icon>
     <ion-card-header>
-      <ion-card-title class="title-style">View All Jobs</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">5</ion-card-subtitle>
+      <ion-card-title class="title-style"> Total Jobs</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{jobData?.openJob+jobData?.closeJob}}</ion-card-subtitle>
     </ion-card-header>
   
   </ion-card>

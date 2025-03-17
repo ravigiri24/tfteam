@@ -10,11 +10,12 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
 @Component({
-  selector: 'app-add-service-charge',
-  templateUrl: './add-service-charge.component.html',
-  styleUrls: ['./add-service-charge.component.scss'],
+  selector: 'app-add-material-expense',
+  templateUrl: './add-material-expense.component.html',
+  styleUrls: ['./add-material-expense.component.scss'],
 })
-export class AddServiceChargeComponent implements OnInit {
+export class AddMaterialExpenseComponent  implements OnInit {
+
   tractorDetails: any;
   expense_head: any;
   editData: any = null;
@@ -29,7 +30,8 @@ export class AddServiceChargeComponent implements OnInit {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
-    this.getExpense();
+    this.getList();
+    this.getSpareCategory();
     // this.getRepairingCenterList();
     this.initialize(this.editData);
   }
@@ -43,7 +45,9 @@ export class AddServiceChargeComponent implements OnInit {
       action_id: new FormControl(this.staffDetails?.id || null, [
         Validators.required,
       ]),
+      
       expense_amount: new FormControl(data?.expense_amount || null, []),
+      qty: new FormControl(data?.qty || 1, [Validators.required]),
 
       expense_date: new FormControl(data?.expense_date || null, []),
       expense_type: new FormControl('REPAIR'),
@@ -69,38 +73,72 @@ export class AddServiceChargeComponent implements OnInit {
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-    if (type == 'TYPE_OF_REPAIRING_EXPENSE') {
-      this.getExpense();
-    } else if (type == 'REPAIRINGCENTER') {
-      this.getRepairingCenterList(true);
+    if (type == 'MATERIAL_OF_REPAIRING') {
+      this.getList();
+    }
+    else if(type == 'CATEGOEY_OF_MATERIAL'){
+      this.getSpareCategory(true)
     }
     console.log('role', role);
   }
-  expenseTypeList: any = [];
-  expenseTypeListBackup: any = [];
-  getExpense(loader: any = false) {
-    this.share.showLoading('Getting Data...');
-    let obj: any = this.share.getListObj(
-      'repairng_expense_type',
-      false,
-      [],
-      true
-    );
-    obj.tractor_id = this.tractorDetails?.tractor_id;
+
+  materialList:any=[]
+  getList() {
+    this.share.showLoading('Loading...');
+    let obj = this.share.getListObj('repairmateriallist', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
-        this.expenseTypeList = res.data;
-        this.expenseTypeListBackup = res.data;
+        this.materialList = res.data;
+        this.materialList?.forEach((element: any) => {
+          element.checked = false;
+          element.expense_head = this.expense_head;
+          element.qty = 1;
+          element.total_expense = element.qty * element.price;
+        });
         if (this.editData) {
-          let getSelectedExpense = this.expenseTypeList.find(
+          let getSelectedExpense = this.materialList.find(
             (ex: any) => ex.id == this.editData?.expense_id
           );
           if (getSelectedExpense) {
             this.selectedItem = getSelectedExpense;
           }
         }
-
+        // this.materialList?.forEach((element:any) => {
+        //  this.materialList.push(element)
+        // });
+        // this.materialList?.forEach((element:any) => {
+        //   this.materialList.push(element)
+        //  });
+        //  this.materialList?.forEach((element:any) => {
+        //   this.materialList.push(element)
+        //  });
         this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
+  }
+  spareList:any=[]
+  getSpareCategory(loader:any=false) {
+    if(loader){
+    this.share.showLoading('Loading...');
+    }
+    let obj = this.share.getListObj('spare_category', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.spareList = res.data;
+    
+        // this.materialList?.forEach((element:any) => {
+        //  this.materialList.push(element)
+        // });
+        // this.materialList?.forEach((element:any) => {
+        //   this.materialList.push(element)
+        //  });
+        //  this.materialList?.forEach((element:any) => {
+        //   this.materialList.push(element)
+        //  });
+        if(loader){
+        this.share.spinner.dismiss();
+        }
       },
       (error: any) => {}
     );
@@ -125,8 +163,8 @@ export class AddServiceChargeComponent implements OnInit {
   }
   addNewServiceCrud(serviceObj: any,save:any=true) {
     let obj = {
-      src: 'repairng_expense_type',
-      data: { name: this.selectedItem?.name },
+      src: 'repairmateriallist',
+      data: { name: this.selectedItem?.name,category:this.category },
     };
     this.api.postapi('addOpp', obj).subscribe((res: any) => {
       // this.share.spinner.dismiss()
@@ -164,10 +202,10 @@ if(save==true){
 
       objData.expense_head = this.expense_head;
       objData.tractor_id = this.tractorDetails?.id;
-      objData.expense_method = 'SERVICE';
-      objData.total_expense = objData.expense_amount;
+      objData.expense_method = 'MATERIAL';
+      objData.total_expense = Number(objData.expense_amount)*Number(objData?.qty);
       objData.billNumber = 'TF-' + Math.floor(100000 + Math.random() * 900000);
-      objData.qty = 1;
+    //  objData.qty = 1;
       if (this.selectedItem?.id == null) {
         this.addNewServiceCrud(objData);
       } else {
@@ -186,10 +224,10 @@ if(save==true){
 
       objData.expense_head = this.expense_head;
       objData.tractor_id = this.tractorDetails?.id;
-      objData.expense_method = 'SERVICE';
-      objData.total_expense = objData.expense_amount;
-      objData.billNumber = 'TF-' + Math.floor(100000 + Math.random() * 900000);
-      objData.qty = 1;
+      objData.expense_method = 'MATERIAL';
+      objData.total_expense = Number(objData.expense_amount)*Number(objData?.qty);
+      //objData.billNumber = 'TF-' + Math.floor(100000 + Math.random() * 900000);
+    //  objData.qty = 1;
       if (this.selectedItem?.id == null) {
         this.addNewServiceCrud(objData,false);
       } else {
@@ -217,11 +255,7 @@ if(save==true){
   }
   showSearchList = false;
   onInputFocus() {
-    console.log(
-      'onInputFocus',
-      this.expenseTypeList,
-      this.expenseTypeListBackup
-    );
+  
     //  this.expenseTypeList=this.expenseTypeListBackup
 
     this.showSearchList = true;
@@ -231,7 +265,10 @@ if(save==true){
     // this.search.name=null
     // this.search.id=null
     setTimeout(() => {
-      this.showSearchList = false;
+     // if(!this.spareListOpen){
+        this.showSearchList = false;
+     // }
+     
     }, 100);
   }
   search: any = {
@@ -241,6 +278,7 @@ if(save==true){
   selectedItem: any = {
     name: null,
     id: null,
+    category:null
   };
   setValue(val: any) {
     console.log('setValue');
@@ -253,9 +291,22 @@ if(save==true){
     console.log('test', this.search.name);
   }
   addNewService() {
+
     this.selectedItem.name = this.search.name;
     this.selectedItem.id = null;
     this.showSearchList = false;
     this.search.name = null;
+  }
+  spareListOpen=false
+  onInputSpare(){
+this.spareListOpen=true
+  }
+  focusOutSpare(){
+    this.spareListOpen=false
+  }
+  category:any=1
+
+  setSpareCategory(){
+    this.selectedItem.category=false
   }
 }

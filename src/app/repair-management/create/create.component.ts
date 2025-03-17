@@ -300,6 +300,7 @@ export class CreateComponent implements OnInit {
           obj.repair_center = this.staffDetails?.repair_center;
           obj.actionById = this.staffDetails?.id;
           obj.operate = this.staffDetails?.staffCode;
+          obj.billNumber = "TF-"+Math.floor(10000000 + Math.random() * 90000000)
           this.api.postapi('createJob', obj).subscribe(
             (res: any) => {
               this.share.spinner.dismiss()

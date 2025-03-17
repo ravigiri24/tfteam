@@ -14,6 +14,7 @@ export class JobDetailComponent implements OnInit {
   @Input() issueList: any = [];
   @Input() inventoryArray: any = [];
   @Input() issueArray: any = [];
+  @Input() isJobDone: any =false
   constructor(
     private alertCtrl: AlertController,
     private api: ApiService,
@@ -25,6 +26,7 @@ export class JobDetailComponent implements OnInit {
   ionViewWillEnter() {}
 
   async updateOtherStatus() {
+    if(!this.isJobDone){
     if (this.jobDetails.isOtherIssueDone==1) {
       const alert = await this.alertCtrl.create({
         header: 'Reopen Issue?',
@@ -68,8 +70,12 @@ export class JobDetailComponent implements OnInit {
         this.updateOtherIssue(true,1);
       }
     }
+  }else{
+    this.share.presentToast("JOB is Closed")
+  }
   }
   async completeJob(issue: any) {
+    if(!this.isJobDone){
     if (!issue.isCompleted) {
       const alert = await this.alertCtrl.create({
         header: 'Issue Fixed?',
@@ -119,8 +125,12 @@ export class JobDetailComponent implements OnInit {
       }
       console.log('resut', result);
     }
+  }else{
+    this.share.presentToast("JOB is Closed")
+  }
   }
   updateOtherIssue(status: any,number:any) {
+  
     let obj = {
       src: 'repairing_record',
       data: { isOtherIssueDone: status },
@@ -135,6 +145,7 @@ export class JobDetailComponent implements OnInit {
       },
       (error: any) => {}
     );
+    
   }
   taskAction(issue: any, action: any, getTask: any = []) {
     let obj: any = this.share.getListObj('repairing_record', false, [], true);

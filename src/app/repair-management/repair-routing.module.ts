@@ -8,6 +8,7 @@ import { JobDashboardComponent } from './job-dashboard/job-dashboard.component';
 import { CreateComponent } from './create/create.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { RepairDashboardComponent } from './repair-dashboard/repair-dashboard.component';
+
 const routes: Routes = [
   {
     path: "", component: RepairManagementComponent,

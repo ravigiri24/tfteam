@@ -15,6 +15,7 @@ export class ImageDashboardComponent  implements OnInit {
 @Input() beforeService:any=[]
 @Input() afterService:any=[]
 @Input() jobArray:any=[]
+@Input() isJobDone: any =false
 @Output() reloadImage=new EventEmitter()
   ngOnInit() {
     

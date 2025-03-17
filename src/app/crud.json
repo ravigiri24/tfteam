@@ -593,14 +593,7 @@
             "key": "name",
             "errorMsg": "type is required",
             "validation":true
-             },
-             {
-              "title": "Enter Price",
-              "type": "number",
-              "key": "price",
-              "errorMsg": "price is required",
-              "validation":true
-               }
+             }
           
         ]
       },
@@ -628,6 +621,8 @@
         "src":"repairmateriallist",
         "headerTitle":"Material",
          "field":1,
+         "isDynamicList":true,
+         "srcDynamicValue":"spare_category",
          "colArray":["name","price"],
          "deleteHeading":"delete material?",
          "deleteSubHeading":"Are you sure to delete this",
@@ -640,11 +635,13 @@
             "validation":true
              },
              {
-              "title": "Enter Price",
-              "type": "number",
-              "key": "price",
-              "errorMsg": "price is required",
+              "title": "Select Category",
+              "type": "list",
+              
+              "key": "category",
+              "errorMsg": "Category is required",
               "validation":true
+
                }
           
         ]
@@ -736,6 +733,25 @@
          "data": [
           {
             "title": "Issue Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
+      },
+      {
+        "key": "CATEGOEY_OF_MATERIAL",
+        "src":"spare_category",
+        "headerTitle":"Category",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete Category?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Category Name",
             "type": "text",
             "key": "name",
             "errorMsg": "name is required",

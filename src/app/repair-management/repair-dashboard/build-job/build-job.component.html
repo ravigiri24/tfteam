@@ -18,11 +18,48 @@
     <ion-button (click)="addService('EXPENSE')" class="global_submit_button" expand="block">
       <ion-icon name="add-outline" ></ion-icon>
       Add Service</ion-button>
+      <div class="top-position-heading">
+      <ion-item slot="header" color="light">
+        <ion-label>Service Charges</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list  >
+          <ion-item *ngFor="let mat of expenseServiceList;let in=index">
+            <ion-label>
+            <h2>{{mat?.materialDetail?.name}}</h2>
+            <p>{{mat?.total_expense}} | {{mat?.createdOn | date}} </p>
+          </ion-label>
+
+          <ion-icon  (click)="openServiceEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
+          <ion-icon  (click)="deleteItem(mat,'Delete Service')" class="right-margine theme-color" name="trash-outline"></ion-icon>
+          </ion-item>
+        
+        
+        </ion-list>
+        </div>
+      </div>
     </ng-container>
     <ng-container *ngIf="selectedTab==='PARTS'">
-      <ion-button (click)="addParts()" class="global_submit_button" expand="block">
+      <ion-button (click)="addMaterial('EXPENSE')" class="global_submit_button" expand="block">
         <ion-icon name="add-outline" ></ion-icon>
         Add Parts</ion-button>
+        <div class="top-position-heading">
+          <ion-item slot="header" color="light">
+            <ion-label>Spare Charges</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-item *ngFor="let mat of expenseMaterialList;let in=index">
+              <ion-label>
+              <h2>{{mat?.materialDetail?.name}}</h2>
+              <p>{{mat?.expense_amount}}|{{mat?.qty}}  | {{mat?.total_expense}} | {{mat?.createdOn|date}} </p>
+            </ion-label>
+
+            <ion-icon  (click)="openEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
+            <ion-icon  (click)="deleteItem(mat,'Delete Spare')" class="right-margine theme-color" name="trash-outline"></ion-icon>
+          
+            </ion-item>
+            </div>
+          </div>
     </ng-container>
     </div>
   </div>

@@ -56,6 +56,14 @@
               formControlName="{{ fields.key }}"></ion-input>
           </div>
         </ng-container>
+        <ng-container *ngIf="fields?.type==='list'">
+     
+          <div class="global_input_block" >
+            <ion-select     formControlName="{{ fields.key }}" fill="outline"  label="{{fields.title}}"  label-placement="type">
+              <ion-select-option *ngFor="let row of dynamicListData" [value]="row?.id">{{row?.name}}</ion-select-option>
+            </ion-select>
+          </div>
+        </ng-container>
       </div>
     </form>
     <div class="page_submit_btn">

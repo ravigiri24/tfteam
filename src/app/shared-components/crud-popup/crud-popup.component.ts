@@ -24,10 +24,34 @@ type:any
     this.view = view;
     if (view == 'FORM') {
       this.formAction = 'ADD';
+      if(this.crudDetail?.isDynamicList){
+        this.getDynamicList()
+      }
       this.initialize();
     } else if (view == 'LIST') {
       this.getList();
     }
+  }
+  dynamicListData:any=[]
+  getDynamicList() {
+   
+    let obj = this.share.getListObj(
+      this.crudDetail?.srcDynamicValue,
+      false,
+      [],
+      true
+    );
+    this.share.showLoading("Fetching Data...")
+    this.api.postapi('getList', obj).subscribe(
+      (res:any) => {
+      
+        this.dynamicListData = res.data ||[];
+        this.share.spinner.dismiss()
+      },
+      (error:any) => {
+ 
+      }
+    );
   }
   dismiss() {  
     return this.modalCtrl.dismiss(null,'Cancel'); 
@@ -57,6 +81,9 @@ type:any
     this.editRow=data
     this.formAction = 'UPDATE';
     this.view = 'FORM';
+    if(this.crudDetail?.isDynamicList){
+      this.getDynamicList()
+    }
   }
   updateItem(){
     if (this.form.valid) {
@@ -91,6 +118,7 @@ type:any
         new FormControl(data?.[element?.key] || null, [Validators.required])
       );
     });
+    
     // if(data){
     //   this.form.addControl(
     //     'id',
