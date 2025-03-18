@@ -10,7 +10,7 @@ import { ShareService } from 'src/app/share.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 //import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
+
 
 import { jsPDF } from "jspdf";
 pdfMake.fonts = {
@@ -41,7 +41,7 @@ export class JobCardComponent implements OnInit {
     private router: Router,
 
     private inAppBrowser: InAppBrowser,
-    private pdfGenerator: PDFGenerator,
+  
 
     
   ) {
