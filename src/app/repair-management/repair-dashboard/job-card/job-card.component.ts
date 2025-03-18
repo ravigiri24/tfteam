@@ -11,16 +11,18 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 //import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
-
-import { jsPDF } from "jspdf";
+import { jsPDF } from 'jspdf';
 pdfMake.fonts = {
   Roboto: {
-    normal: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+    normal:
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
     bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
-    italics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
-    bolditalics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf'
-  }
-}
+    italics:
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
+    bolditalics:
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf',
+  },
+};
 @Component({
   selector: 'app-job-card',
   templateUrl: './job-card.component.html',
@@ -30,6 +32,9 @@ export class JobCardComponent implements OnInit {
   @Input() jobDetails: any;
   @Input() expenseServiceList: any = [];
   @Input() expenseMaterialList: any = [];
+  @Input() materialList: any = [];
+  @Input() spareList: any = [];
+  @Input() categroyWiseMaterial: any = [];
   @Input() expenseServiceCost: any = 0;
   @Input() isJobDone: any = false;
 
@@ -40,42 +45,35 @@ export class JobCardComponent implements OnInit {
     private api: ApiService,
     private router: Router,
 
-    private inAppBrowser: InAppBrowser,
-  
-
-    
+    private inAppBrowser: InAppBrowser
   ) {
-  
     (window as any).pdfMake.vfs = pdfMake.vfs;
     pdfMake.fonts = {
       Roboto: {
-        normal: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+        normal:
+          'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
         bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
-        italics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
-        bolditalics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf'
-      }
-  
-    }
-   
+        italics:
+          'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
+        bolditalics:
+          'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf',
+      },
+    };
   }
 
-  fileOpen:any
-  fileOpenErro:any
+  fileOpen: any;
+  fileOpenErro: any;
 
+  error: any;
 
- 
-  
-  
-
-
-  error:any
-   
-
- 
-
-
-
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(
+      'materialList',
+      this.materialList,
+      this.spareList,
+      this.expenseMaterialList,"categroyWiseMaterial",this.categroyWiseMaterial
+    );
+  }
 
   async actionJob(msg: any, status: any) {
     const alert = await this.alertCtrl.create({
@@ -115,92 +113,83 @@ export class JobCardComponent implements OnInit {
       this.router.navigate(['/repair-management/job-list']);
     });
   }
-    jsPDF: any;
+  jsPDF: any;
   generatePDF() {
     //const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
 
-    const content :any = document.getElementById('content');
+    const content: any = document.getElementById('content');
 
     // Convert HTML to PDF
-    let pdfBlob:any
-    doc.html(content, {
-        callback: function (doc:any) {
-            // Save the generated PDF
-      //      doc.save('invoice.pdf');
-             pdfBlob = doc.output('blob');
-            console.log("pdfBlob",pdfBlob)
-        
-          
+    let pdfBlob: any;
+    doc
+      .html(content, {
+        callback: function (doc: any) {
+          // Save the generated PDF
+          //      doc.save('invoice.pdf');
+          pdfBlob = doc.output('blob');
+          console.log('pdfBlob', pdfBlob);
         },
-        x: 10,  // X-position of content
-        y: 10,  // Y-position of content
-        width: 180,  // Width of the content to ensure it fits within A4 width (A4 is 210mm)
+        x: 10, // X-position of content
+        y: 10, // Y-position of content
+        width: 180, // Width of the content to ensure it fits within A4 width (A4 is 210mm)
         windowWidth: 800, // Optionally set the window width (scale content)
         margin: [10, 10, 10, 10], // Adjust margins (top, left, bottom, right)
-        autoPaging: true, 
-    }).then((f)=>{
-      this.convertBlobToBase64(pdfBlob)
-    });
-    setTimeout(() => {
-   
-    }, 0);
- 
-// Convert the content and trigger download
+        autoPaging: true,
+      })
+      .then((f) => {
+        this.convertBlobToBase64(pdfBlob);
+      });
+    setTimeout(() => {}, 0);
+
+    // Convert the content and trigger download
   }
 
   async generateAndSharePdf() {
-    const docDefinition:any = {
-      
-        content: [
-            { text: 'S.S. TRACTOR FACTORY PVT LTD', style: 'header' },
-            { text: 'Invoice No: INV-0001', style: 'subheader' },
-            { text: 'Date: 17-Feb-2025', style: 'subheader' },
-            { text: 'Registration No: 123456', style: 'subheader' },
-            // Add more content based on your table structure here
-        ],
-        styles: {
-            header: {
-                fontSize: 18,
-                bold: true,
-                alignment: 'center'
-            },
-            subheader: {
-                fontSize: 14,
-                bold: true
-            },
-            content: {
-                fontSize: 12
-            }
-        }
-    
+    const docDefinition: any = {
+      content: [
+        { text: 'S.S. TRACTOR FACTORY PVT LTD', style: 'header' },
+        { text: 'Invoice No: INV-0001', style: 'subheader' },
+        { text: 'Date: 17-Feb-2025', style: 'subheader' },
+        { text: 'Registration No: 123456', style: 'subheader' },
+        // Add more content based on your table structure here
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+        },
+        content: {
+          fontSize: 12,
+        },
+      },
     };
-//const content:any = document.getElementById('content');
-    
+    //const content:any = document.getElementById('content');
+
     // Convert HTML to PDF
- 
+
     // Get the Blob of the generated PDF
     pdfMake.createPdf(docDefinition).getBlob(async (blob) => {
-     
-
       try {
-    
-   
-        this.convertBlobToBase64(blob)
+        this.convertBlobToBase64(blob);
 
         const blobUrl = URL.createObjectURL(blob);
         // Log the Blob URL (you can use this URL for downloading, previewing, etc.)
         console.log('Blob URL:', blobUrl);
         console.log('PDF shared successfully!');
       } catch (error) {
-        console.error('Error saving or sharing the PDF:', error); 
+        console.error('Error saving or sharing the PDF:', error);
       }
     });
   }
   openPDF(dataUrl: string) {
-
     const browser = this.inAppBrowser.create(dataUrl, '_blank');
-    this.error=dataUrl
+    this.error = dataUrl;
     browser.show();
   }
   private convertBlobToBase64 = (blob: Blob) =>
@@ -209,9 +198,9 @@ export class JobCardComponent implements OnInit {
       reader.onerror = reject;
       reader.onload = () => {
         resolve(reader.result);
-     
+
         this.renderResult = reader.result;
-        this.saveDataTo()
+        this.saveDataTo();
         console.log('reader.result', reader.result);
       };
       reader.readAsDataURL(blob);
@@ -227,21 +216,18 @@ export class JobCardComponent implements OnInit {
       pdfObj: this.renderResult,
       tractor_id: this.jobDetails?.id,
       actionByid: this.staffDetails?.id,
-   
-
     };
-    console.log("convertBlobToBase64",obj);
-    
-    this.share.showLoading('Uploading...',10000);
-    this.api.postapi("saveJobPdf", obj).subscribe((res: any) => {
-      console.log("saveDataTo",res);
-      this.share.spinner.dismiss()
-      if(res?.data?.imageUrlUrl){
-        this.pdfUrl=res?.data?.imageUrlUrl
-        this.openPDF(res?.data?.imageUrlUrl)
+    console.log('convertBlobToBase64', obj);
+
+    this.share.showLoading('Uploading...', 10000);
+    this.api.postapi('saveJobPdf', obj).subscribe((res: any) => {
+      console.log('saveDataTo', res);
+      this.share.spinner.dismiss();
+      if (res?.data?.imageUrlUrl) {
+        this.pdfUrl = res?.data?.imageUrlUrl;
+        this.openPDF(res?.data?.imageUrlUrl);
       }
-   
     });
   }
-  pdfUrl:any
+  pdfUrl: any;
 }

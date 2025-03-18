@@ -92,6 +92,7 @@ export class RepairDashboardComponent implements OnInit {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
     });
+    this.categroyWiseMaterial=[]
     this.isJobDone=false
     this.getJobByRowId();
    this.getRawImages()
@@ -153,16 +154,72 @@ export class RepairDashboardComponent implements OnInit {
           (f: any) => f?.expense_head == 'PREDICTION'
         );
         this.calculateAmount()
-        if(loader){
-        this.share.spinner.dismiss();
-        }
-        this.materialLoader=false
+   
+        //if(!loader){
+          this.getMaterial(loader)
+       // }
+       // this.materialLoader=false
+      
+      
       
       },
       (error: any) => {
         this.materialLoader=false
       }
     );
+  }
+  materialList:any=[]
+  getMaterial(loader:any=false) {
+    
+    let obj = this.share.getListObj('repairmateriallist', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.materialList = res?.data;
+   this.getSpareCategory(loader)
+      
+      },
+      (error: any) => {}
+    );
+  }
+  spareList:any=[]
+  getSpareCategory(loader:any=false) {
+  
+    let obj = this.share.getListObj('spare_category', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.spareList = res?.data;
+        this.categroyWiseMaterial=[]
+        this.setCatWiseMatList()
+        this.materialLoader=false
+      
+        if(loader){
+          this.share.spinner.dismiss();
+      
+          }
+      },
+      (error: any) => {}
+    );
+  }
+  categroyWiseMaterial:any=[]
+  setCatWiseMatList(){
+    this.expenseMaterialList.forEach((expense:any)=>{
+let findinMatList=this.materialList.find((mat:any)=>mat.id==expense?.expense_id)
+let getCat=this.spareList.find((spare:any)=>spare.id==findinMatList?.category)
+if(getCat){
+let findExist=this.categroyWiseMaterial.findIndex((cat:any)=>cat.id==getCat.id)
+if(findExist>-1){
+  this.categroyWiseMaterial[findExist].materialList.push(expense)
+}else{
+  let obj={
+    catName:getCat.name,
+    id:getCat.id,
+    materialList:[expense]
+  }
+  this.categroyWiseMaterial.push(obj)
+
+}
+}
+    })
   }
   expenseServiceList: any = [];
   prdeictionServiceList: any = [];
