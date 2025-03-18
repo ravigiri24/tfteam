@@ -1,54 +1,157 @@
-.text-size{
-    font-size: 17px;
-    font-style:Roboto,sans-serif;
-}
-.date-time{
-    position:absolute;
-    right: 10px;
-}
-.height-list{
-    height: calc(100% - 50px);
-    overflow-y: scroll;
-}
-.overallHigth{
-    height: var(--app-screen-height-global)
-}
-.list-remark{
-height: 90%;
-}
-.chat-box{
-    border-color: var(--app-theme-element-color) !important;
-    margin-top: 10px;
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
-    height: 45px;
-    background-color:var(--app-theme-element-color) !important;
+// .text-size{
+//     font-size: 17px;
+//     font-style:Roboto,sans-serif;
+// }
+// .date-time{
+//     position:absolute;
+//     right: 10px;
+// }
+// .height-list{
+//     height: calc(100% - 50px);
+//     overflow-y: scroll;
+// }
+// .overallHigth{
+//     height: var(--app-screen-height-global)
+// }
+// .list-remark{
+// height: 90%;
+// }
+// .chat-box{
+//     border-color: var(--app-theme-element-color) !important;
+//     margin-top: 10px;
+//     position: fixed;
+//     bottom: 10px;
+//     width: 100%;
+//     height: 45px;
+//     background-color:var(--app-theme-element-color) !important;
  
-.chat-typing{
-    background-color: white;
-    height: 35px;
-    width: 85%;
-    border-color: var(--app-theme-element-color) !important;
-    position: relative;
-    border-radius: 20px;
+// .chat-typing{
+//     background-color: white;
+//     height: 35px;
+//     width: 85%;
+//     border-color: var(--app-theme-element-color) !important;
+//     position: relative;
+//     border-radius: 20px;
 
-    top: 5px;
-    left: 10px;
-    .input-chat{
-        height: 35px;
-        position: relative;
-        bottom: 3px;
-        left: 7px;
-        width: 100%;
-    }
+//     top: 5px;
+//     left: 10px;
+//     .input-chat{
+//         height: 35px;
+//         position: relative;
+//         bottom: 3px;
+//         left: 7px;
+//         width: 100%;
+//     }
    
+// }
+
+// }
+// .send-icon{
+//     position: relative;
+//     margin-left: 17px;
+//     top: 12px;
+//     font-size: 24px;
+// }
+
+.internal_list_data {
+    width: 100%;
+    height: calc(100% - 50px);
+    padding: 5px 10px;
+    position: relative;
+    max-height: calc(100% - 60px);
+    overflow: auto;
+    &:after {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        // background-image: url(https://img.freepik.com/premium-vector/mail-message-pattern-design_260839-465.jpg);
+        background-image: url(../../../assets/images/chatbg.png);
+        background-size: 100%;
+        opacity: .6;
+        content: "";
+    }
+    .list_row {
+        background: transparent;
+        ion-item {
+            border-radius: 10px;
+            border: dashed 1px #e1e1e1;
+            background: #ffffff;
+            margin: 8px 0px;
+        }
+    }
 }
 
+.list_row {
+    .staff_name {
+        display: flex;
+        justify-content: space-between;
+        color: #cdcdcd;
+
+        .date-time {
+            font-size: 12px;
+        }
+    }
 }
-.send-icon{
-    position: relative;
-    margin-left: 17px;
-    top: 12px;
-    font-size: 24px;
+
+.chat_box_bottom {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .button_withtext_block {
+        background: #f5f5ff;
+        border: solid thin #e1e1e1;
+        border-radius: 30px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 5px 0px 15px;
+
+        textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #666666;
+            font-size: 13px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 35px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            resize: none;
+        }
+    }
+
+    .right_action_buttons {
+        min-width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        color: #ffffff;
+        background: var(--app-primary-color);
+        margin-left: 5px;
+        border-radius: 50%;
+
+        mat-icon {
+            font-size: 26px;
+        }
+
+        .send_data_loader {
+            font-size: 22px;
+        }
+    }
 }

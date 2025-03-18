@@ -7,7 +7,7 @@
       </div>
       <div class="right_action">
         <ion-button class="button-theme" class="add-button displaynone" slot="end" id="open-modal-follow" expand="block"
-      fill="outline"><ion-icon class="theme-color" name="refresh-outline"></ion-icon></ion-button>
+          fill="outline"><ion-icon class="theme-color" name="refresh-outline"></ion-icon></ion-button>
         <!-- <ion-icon class="theme-color icon-size" (click)="dismiss()" name="refresh-outline"></ion-icon> -->
       </div>
     </ion-label>
@@ -29,28 +29,25 @@
   </ion-list>
   <ion-modal trigger="open-modal-follow" (willDismiss)="onWillDismiss($event)">
     <ng-template>
-      <ng-container>
-        <ion-header>
-          <ion-toolbar>
-            <!-- <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
-          </ion-buttons> -->
-
-            <form [formGroup]="nextScheduleForm">
-              <ion-label class="remark-side">
-                <span class="remark-color"> Remark </span>&nbsp;&nbsp; NSD:
-                <input type="date" formControlName="next_lead_date" (change)="nextFollowupDate()" />
-              </ion-label>
-            </form>
-            <ion-buttons slot="end">
-              <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding">
-          <app-add-remark *ngIf="showRemark" [data]="customerSelected"></app-add-remark>
-        </ion-content>
-      </ng-container>
+      <ion-header>
+        <ion-toolbar>
+          <form [formGroup]="nextScheduleForm">
+            <ion-label class="top_heading">
+              <div class="left_text">
+                <span class="selected_text"> Remark NSD :</span>
+                <input type="date" class="global_datetextbox" formControlName="next_lead_date"
+                  (change)="nextFollowupDate()" />
+              </div>
+              <div class="right_action">
+                <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+              </div>
+            </ion-label>
+          </form>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <app-add-remark *ngIf="showRemark" [data]="customerSelected"></app-add-remark>
+      </ion-content>
     </ng-template>
   </ion-modal>
 </ion-content>

@@ -1,35 +1,32 @@
-<ion-content >
-<ion-list class="height-list" >
 
-<ion-item *ngFor="let chat of chatHistory" >
-  <ion-label>
- 
-  <p><b>{{chat?.staffDetails?.name}}</b> <span class="date-time">{{chat?.createdOn}}</span></p>
-  <p class="text-size">{{chat?.status}}</p>
- <p>
-</p>
-</ion-label>
-</ion-item>
-
-
-
-</ion-list>
-<form  [formGroup]="form">
-  <div class="chat-box">
-  <div >
-   
-    <input
-  
-   class="chat-typing"
-    type="text"
-  formControlName="status"
-  
-  />
-  <ion-spinner *ngIf="loader" class="send-icon" color="primary"></ion-spinner>
-  
-  <ion-icon *ngIf="!loader"  (click)="onSave()" name="send" class="send-icon"></ion-icon>
+  <div class="internal_list_data">
+    <ion-list class="list_row">
+      <ion-item *ngFor="let chat of chatHistory">
+        <ion-label>
+          <h2 class="staff_name"><span class="theme-color">{{chat?.staffDetails?.name}}</span> <span
+              class="date-time">{{chat?.createdOn}}</span></h2>
+          <p>{{chat?.status}}</p>
+          <!-- <p><b>{{chat?.staffDetails?.name}}</b> <span class="date-time">{{chat?.createdOn}}</span></p>
+          <p class="text-size">{{chat?.status}}</p> -->
+        </ion-label>
+      </ion-item>
+    </ion-list>
   </div>
-  </div>
+  <form [formGroup]="form">
+    <!-- <div class="chat-box">
+      <div>
+        <input class="chat-typing" type="text" formControlName="status" />
+        <ion-spinner *ngIf="loader" class="send-icon" color="primary"></ion-spinner>
+        <ion-icon *ngIf="!loader" (click)="onSave()" name="send" class="send-icon"></ion-icon>
+      </div>
+    </div> -->
+    <div class="chat_box_bottom">
+      <div class="button_withtext_block">
+        <textarea class="chat-typing" type="text" placeholder="Message" formControlName="status"></textarea>
+      </div>
+      <div class="right_action_buttons">
+        <ion-spinner *ngIf="loader" class="send_data_loader" color="white"></ion-spinner>
+        <ion-icon *ngIf="!loader" (click)="onSave()" name="send" class="send-icon"></ion-icon>
+      </div>
+    </div>
   </form>
-</ion-content>
-
