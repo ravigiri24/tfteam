@@ -18,11 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from './shared-components/shared.module';
 import { DigitalPageModule } from './digital/digital.module';
+import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 
+//import { Printer } from '@ionic-native/printer/ngx';
 @NgModule({
   declarations: [AppComponent,],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },PDFGenerator],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

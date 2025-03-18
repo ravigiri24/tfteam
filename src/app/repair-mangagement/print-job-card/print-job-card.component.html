@@ -1,3 +1,165 @@
-<p>
-  print-job-card works!
-</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Invoice</h1>
+    <table style="     width: 100%;
+            border-collapse: collapse;">
+        <tbody>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <th colspan="1">S.S. TRACTOR FACTORY PVT LTD</th>
+                <th>Invoice No.</th>
+                <th>Date</th>
+                <th>Registration No.</th>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <td>JABALPUR<br>Phone no.: 9589499964<br>Email: abhinay@tractorfactory.in<br>GSTIN: 23ABJC50346L129</td>
+                <td>INV-0001</td>
+                <td>17-Feb-2025</td>
+                <td>123456</td>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <th>Odometer reading</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Varient</th>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <td>250</td>
+                <td>Mahindra Tractors</td>
+                <td>Yuvo</td>
+                <td>5</td>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <th colspan="4">Bill To</th>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <td colspan="4">Tractor factory<br>Phone no.: 9589499964<br>GSTIN:</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 style="text-align: center;">Parts</h2>
+    <table style="     width: 100%;
+            border-collapse: collapse;">
+        <tbody>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <th style="text-align: center;">#</th>
+                <th>Name</th>
+                <th style="text-align: center;">Quantity</th>
+                <th>Rate</th>
+                <th>Amount</th>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <td style="text-align: center;">1</td>
+                <td>Engine Oil</td>
+                <td style="text-align: center;">1</td>
+                <td>250.0</td>
+                <td style="text-align: right;">Rs. 250.0</td>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <td style="text-align: center;">2</td>
+                <td>Wheel Bearing Front Left</td>
+                <td style="text-align: center;">1</td>
+                <td> 250.0</td>
+                <td style="text-align: right;">Rs. 250.0</td>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;" class="total-row">
+                <td colspan="2" style="text-align:right">Total :</td>
+                <td style="text-align: center;">2</td>
+                <td>500.0</td>
+                <td style="text-align: right;">Rs. 500.0</td>
+            </tr>
+            <tr style="     border: 1px solid #000;
+            padding: 8px;
+            text-align: left;">
+                <td colspan="2"><b>Invoice Amount in Words </b><br>
+                    <h5><span>Rupees Five Hundred Only</span></h5>
+                </td>
+                <td colspan="3" style="padding: 0px;border: none;">
+                    <table style="border: none;" border="0">
+                        <tbody style="border: none;">
+                            <tr style="     border: 1px solid #000;
+                            padding: 8px;
+                            text-align: left;">
+                                <th>Sub Total :</th>
+                                <td style="text-align: right;">500.0</td>
+                            </tr style="     border: 1px solid #000;
+                            padding: 8px;
+                            text-align: left;">
+                            <tr>
+                                <th>Miscellaneous :</th>
+                                <td style="text-align: right;">0.00</td>
+                            </tr>
+                            <tr>
+                                <th>Remaining :</th>
+                                <td style="text-align: right;">500.00</td>
+                            </tr>
+                            <tr>
+                                <th>Discount :</th>
+                                <td style="text-align: right;">0.00</td>
+                            </tr>
+                            <tr class="total-row">
+                                <th>Total Amount :</th>
+                                <td style="text-align: right;">Rs. 500.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

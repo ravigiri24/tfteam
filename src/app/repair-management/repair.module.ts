@@ -24,6 +24,12 @@ import { BuildJobComponent } from './repair-dashboard/build-job/build-job.compon
 import { AddServiceChargeComponent } from './repair-dashboard/build-job/add-service-charge/add-service-charge.component';
 import { AddMaterialExpenseComponent } from './repair-dashboard/build-job/add-material-expense/add-material-expense.component';
 import { JobCardComponent } from './repair-dashboard/job-card/job-card.component';
+//import { Printer } from '@ionic-native/printer/ngx';
+
+// import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -51,10 +57,11 @@ import { JobCardComponent } from './repair-dashboard/job-card/job-card.component
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    FilterPipeModule
+    FilterPipeModule,
+    
     
     
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },PDFGenerator,InAppBrowser],
 })
 export class RepairManagementModule {}
