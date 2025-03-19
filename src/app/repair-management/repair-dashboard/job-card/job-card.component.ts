@@ -116,6 +116,7 @@ export class JobCardComponent implements OnInit {
   jsPDF: any;
   generatePDF() {
     //const { jsPDF } = window.jspdf;
+    this.share.showLoading('Uploading...', 10000);
     const doc = new jsPDF('p', 'mm', 'a4');
 
     const content: any = document.getElementById('content');
@@ -215,11 +216,12 @@ export class JobCardComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       pdfObj: this.renderResult,
       tractor_id: this.jobDetails?.id,
+      billNumber: this.jobDetails?.billNumber||'',
       actionByid: this.staffDetails?.id,
     };
     console.log('convertBlobToBase64', obj);
 
-    this.share.showLoading('Uploading...', 10000);
+
     this.api.postapi('saveJobPdf', obj).subscribe((res: any) => {
       console.log('saveDataTo', res);
       this.share.spinner.dismiss();
