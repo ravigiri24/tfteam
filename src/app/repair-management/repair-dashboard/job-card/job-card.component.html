@@ -14,175 +14,132 @@
       <ion-col>Modal</ion-col>
       <ion-col class="amount_col"> {{ jobDetails?.modelDetails?.name || '-' }}</ion-col>
     </ion-row>
-
-  
-    
   </ion-card>
-  </ion-grid>
-  <span class="inner-heading">Service Expenses</span>
-  <ion-grid class="main_block_details">
-    <ion-card>
-      <ion-row >
-        <ion-col>Service</ion-col>
-        <ion-col class="amount_col">Amount</ion-col>
-      </ion-row>
-      <ion-row *ngFor="let service of expenseServiceList">
-        <ion-col>{{service?.materialDetail?.name}}</ion-col>
-        <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
-      </ion-row>
-  
-    
-      
-    </ion-card>
-    </ion-grid>
-    <span class="inner-heading">Spare Expenses</span>
-    <ion-grid class="main_block_details">
-      <ion-card>
-        <ion-row >
-          <ion-col>Spare</ion-col>
-          <ion-col>Qty</ion-col>
-          <ion-col class="amount_col">Amount</ion-col>
-        </ion-row>
-        <ion-row *ngFor="let service of expenseMaterialList">
-          <ion-col>{{service?.materialDetail?.name}}</ion-col>
-          <ion-col>{{service?.qty}}</ion-col>
-          <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
-        </ion-row>
-    
-      
-        
-      </ion-card>
-      </ion-grid>
-      <ion-grid class="main_block_details">
-        <ion-card>
-          <ion-row >
-            <ion-col>Sub Total</ion-col>
-          
-            <ion-col class="amount_col">{{expenseMaterialCost+expenseServiceCost}}</ion-col>
-          </ion-row>
-         
-      
-        
-          
-        </ion-card>
-        </ion-grid>
-    
-        <ion-button   *ngIf="!isJobDone" (click)="actionJob('Close Job',true)"  class="global_submit_button" expand="block">
-       
-          Job Complete</ion-button>
-          <ion-button (click)="actionJob('Reopen Job',false)" *ngIf="isJobDone" class="global_submit_button" expand="block">
-       
-            Reopen Job</ion-button>
-       
-              <div id="content" class="top-margin" style="width: 100%;">
-                <h1 style="text-align: center;">Job Card</h1>
-                <table style="     width: 100%;
-                        border-collapse: collapse;">
-                    <tbody>
-                        <tr style="     border: 1px solid #000;
+</ion-grid>
+<span class="inner-heading">Service Expenses</span>
+<ion-grid class="main_block_details">
+  <ion-card>
+    <ion-row>
+      <ion-col>Service</ion-col>
+      <ion-col class="amount_col">Amount</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let service of expenseServiceList">
+      <ion-col>{{service?.materialDetail?.name}}</ion-col>
+      <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
+    </ion-row>
+  </ion-card>
+</ion-grid>
+<span class="inner-heading">Spare Expenses</span>
+<ion-grid class="main_block_details">
+  <ion-card>
+    <ion-row>
+      <ion-col>Spare</ion-col>
+      <ion-col>Qty</ion-col>
+      <ion-col class="amount_col">Amount</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let service of expenseMaterialList">
+      <ion-col>{{service?.materialDetail?.name}}</ion-col>
+      <ion-col>{{service?.qty}}</ion-col>
+      <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
+    </ion-row>
+  </ion-card>
+</ion-grid>
+<ion-grid class="main_block_details">
+  <ion-card>
+    <ion-row>
+      <ion-col>Sub Total</ion-col>
+      <ion-col class="amount_col">{{expenseMaterialCost+expenseServiceCost}}</ion-col>
+    </ion-row>
+  </ion-card>
+</ion-grid>
+<ion-button *ngIf="!isJobDone" (click)="actionJob('Close Job',true)" class="global_submit_button" expand="block">
+  Job Complete</ion-button>
+<ion-button (click)="actionJob('Reopen Job',false)" *ngIf="isJobDone" class="global_submit_button" expand="block">
+  Reopen Job</ion-button>
+<div id="content" class="top-margin" style="width: 100%;">
+  <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img src="https://tractorfactory.in/assets/img/tractor-factory-logo1.png" height="60px" />
+  </div>
+  <h3 style="text-align: center;">Job Card</h3>
+  <table cellpadding="5" cellspacing="5" style="width: 100%;">
+    <tbody>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Repairing Center</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">JABALPUR </td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Job No.</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.billNumber}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.createdOn}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">TF Code</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.tfCode}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Odometer reading</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.fuelLevel}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Make</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.brandDetails?.name}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Model</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.modelDetails?.name}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">15-Mar-2025</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
+        <td>20-Mar-2025</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 style="text-align: center;" *ngIf="expenseServiceList?.length">Service</h2>
+  <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <tbody>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500; text-align: center;">#</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Name</th>
+        <!-- <th style="text-align: center;">Quantity</th> -->
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Rate</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Amount</th>
+      </tr>
+      <tr *ngFor="let service of expenseServiceList;let serviceindex=index"
+        style="border: 1px solid #e1e1e1;text-align: left;">
+        <td style="text-align: center;">{{serviceindex+1}}</td>
+        <td style="padding: 5px 10px;">{{service?.materialDetail?.name}}</td>
+        <!-- <td style="text-align: center;">1</td> -->
+        <td style="padding: 5px 10px;">{{service?.total_expense}}</td>
+        <td style="padding: 5px 10px;">{{service?.total_expense}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngFor="let category of categroyWiseMaterial">
+    <h2 style="text-align: center; text-transform: capitalize;">{{category?.catName}}</h2>
+    <table style="width: 100%;border-collapse: collapse; color: #666666;">
+      <tbody>
+        <tr style="border: 1px solid #e1e1e1;
                         padding: 8px;
                         text-align: left;">
-                            <th colspan="1">S.S. TRACTOR FACTORY PVT LTD</th>
-                            <th>Job No.</th>
-                            <th>Date</th>
-                            <th>TF Code</th>
-                        </tr>
-                        <tr style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <!-- <td>JABALPUR<br>Phone no.: 9589499964<br>Email: <br>GSTIN: 23ABJC50346L129</td> -->
-                           <td></td>
-                            <td >{{jobDetails?.billNumber}}</td>
-                            <td>{{jobDetails?.createdOn}}</td>
-                            <td>{{jobDetails?.tfCode}}</td>
-                        </tr>
-                        <tr style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <th>Odometer reading</th>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th></th>
-                        </tr>
-                        <tr style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <td>{{jobDetails?.fuelLevel}}</td>
-                            <td>{{jobDetails?.brandDetails?.name}}</td>
-                            <td>{{jobDetails?.modelDetails?.name}}</td>
-                            <td></td>
-                        </tr>
-                        <!-- <tr style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <th colspan="4">Bill To</th>
-                        </tr>
-                        <tr style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <td colspan="4">Tractor factory<br>Phone no.: 9589499964<br>GSTIN:</td>
-                        </tr> -->
-                    </tbody>
-                </table>
-                <h2 style="text-align: center;" *ngIf="expenseServiceList?.length">Service</h2>
-                <table style="     width: 100%;
-                        border-collapse: collapse;">
-                    <tbody>
-                        <tr style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <th style="text-align: center;">#</th>
-                            <th>Name</th>
-                            <!-- <th style="text-align: center;">Quantity</th> -->
-                            <th>Rate</th>
-                            <th>Amount</th>
-                        </tr>
-                        <tr *ngFor="let service of expenseServiceList;let serviceindex=index" style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <td style="text-align: center;">{{serviceindex+1}}</td>
-                            <td>{{service?.materialDetail?.name}}</td>
-                            <!-- <td style="text-align: center;">1</td> -->
-                            <td>{{service?.total_expense}}</td>
-                            <td >{{service?.total_expense}}</td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
-                <div *ngFor="let category of categroyWiseMaterial">
+          <th style="text-align: center;">#</th>
+          <th>Name</th>
+          <th style="text-align: center;">Quantity</th>
+          <th>Rate</th>
+          <th>Amount</th>
+        </tr>
+        <tr *ngFor="let material of category?.materialList;let matInd=index" style="border: 1px solid #e1e1e1;">
+          <td style="padding: 5px 10px;text-align: center;">{{matInd+1}}</td>
+          <td>{{material?.materialDetail?.name}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{material?.qty}}</td>
+          <td style="padding: 5px 10px;">{{material?.expense_amount}}</td>
+          <td style="padding: 5px 10px;">{{material?.total_expense}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-           
-                <h2 style="text-align: center;">{{category?.catName}}</h2>
-                <table style="width: 100%;
+  </div>
+  <table style="width: 100%;
                         border-collapse: collapse;">
-                    <tbody>
-                        <tr style="border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <th style="text-align: center;">#</th>
-                            <th>Name</th>
-                            <th style="text-align: center;">Quantity</th>
-                            <th>Rate</th>
-                            <th>Amount</th>
-                        </tr>
-                        <tr *ngFor="let material of category?.materialList;let matInd=index" style="     border: 1px solid #000;
-                        padding: 8px;
-                        text-align: left;">
-                            <td style="text-align: center;">{{matInd+1}}</td>
-                            <td>{{material?.materialDetail?.name}}</td>
-                            <td style="text-align: center;">{{material?.qty}}</td>
-                            <td>{{material?.expense_amount}}</td>
-                            <td>{{material?.total_expense}}</td>
-                        </tr>
-                       
-                    
-                    </tbody>
-                </table>
-                
-              </div>
-              <table style="width: 100%;
-                        border-collapse: collapse;">
-              <!-- <tr style="     border: 1px solid #000;
+    <!-- <tr style="     border: 1px solid #000;
               padding: 8px;
               text-align: left;" class="total-row">
                   <td colspan="2" style="text-align:right">Total :</td>
@@ -190,23 +147,23 @@
                   <td>500.0</td>
                   <td style="text-align: right;">Rs. 500.0</td>
               </tr> -->
-              <tr style="     border: 1px solid #000;
+    <tr style="     border: 1px solid #000;
               padding: 8px;
               text-align: right;">
-                  <td colspan="3">
-                    <!-- <b>Invoice Amount in Words </b><br>
+      <td colspan="3">
+        <!-- <b>Invoice Amount in Words </b><br>
                       <h5><span>Rupees Five Hundred Only</span></h5> -->
-                  </td>
-                  <td colspan="3" style="padding: 0px;border: none;">
-                      <table style="border: none;width:100%;" border="0" >
-                          <tbody style="border: none;">
-                              <tr style="     border: 1px solid #000;
+      </td>
+      <td colspan="3" style="padding: 0px;border: none;">
+        <table style="border: none;width:100%;" border="0">
+          <tbody style="border: none;">
+            <tr style="     border: 1px solid #000;
                               padding: 8px;
                               text-align: right;">
-                                  <th>Sub Total :</th>
-                                  <td style="text-align: center;">{{expenseMaterialCost+expenseServiceCost}}</td>
-                              </tr >
-                              <!-- <tr style="     border: 1px solid #000;
+              <th>Sub Total :</th>
+              <td style="text-align: center;">{{expenseMaterialCost+expenseServiceCost}}</td>
+            </tr>
+            <!-- <tr style="     border: 1px solid #000;
                               padding: 8px;
                               text-align: left;">
                                   <th>Miscellaneous :</th>
@@ -220,20 +177,17 @@
                                   <th>Discount :</th>
                                   <td style="text-align: right;">0.00</td>
                               </tr> -->
-                              <tr class="total-row">
-                                  <th>Total Amount :</th>
-                                  <td style="text-align: center;">{{expenseMaterialCost+expenseServiceCost}}</td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </td>
-              </tr>
-              </table>
-            </div>
-            <ion-button (click)="generatePDF()"  class="global_submit_button" expand="block">
-       
-              Genrate </ion-button>
-              <!-- <ion-button (click)="downloadInvoice()"  class="global_submit_button" expand="block">
+            <tr class="total-row">
+              <th>Total Amount :</th>
+              <td style="text-align: center;">{{expenseMaterialCost+expenseServiceCost}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+<ion-button (click)="generatePDF()" class="global_submit_button" expand="block">Genrate</ion-button>
+<!-- <ion-button (click)="downloadInvoice()"  class="global_submit_button" expand="block">
        
                 Share</ion-button> -->
-    
