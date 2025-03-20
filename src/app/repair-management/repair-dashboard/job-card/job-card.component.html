@@ -64,7 +64,8 @@
   <table cellpadding="5" cellspacing="5" style="width: 100%;">
     <tbody>
       <tr>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Repairing Center</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Repairing
+          Center</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">JABALPUR </td>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Job No.</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.billNumber}}</td>
@@ -76,7 +77,8 @@
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.tfCode}}</td>
       </tr>
       <tr>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Odometer reading</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Odometer
+          reading</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.fuelLevel}}</td>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Make</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.brandDetails?.name}}</td>
@@ -111,6 +113,11 @@
         <td style="padding: 5px 10px;text-align: center;">{{service?.total_expense}}</td>
         <td style="padding: 5px 10px;text-align: right;">{{service?.total_expense}}</td>
       </tr>
+      <tr style="border: 1px solid #e1e1e1;text-align: left;">
+        <td colspan="3" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: right;">
+          Total :</td>
+        <td style="padding: 5px 10px;text-align: right;">1000.00</td>
+      </tr>
     </tbody>
   </table>
   <div *ngFor="let category of categroyWiseMaterial">
@@ -122,16 +129,22 @@
                         text-align: left;">
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align:center;">#</th>
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
-          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Quantity</th>
-          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Rate</th>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Quantity
+          </th>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Rate</th>
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Amount</th>
         </tr>
         <tr *ngFor="let material of category?.materialList;let matInd=index" style="border: 1px solid #e1e1e1;">
           <td style="padding: 5px 10px;text-align: center;">{{matInd+1}}</td>
           <td style="padding: 5px 10px;">{{material?.materialDetail?.name}}</td>
           <td style="padding: 5px 10px;text-align: center;">{{material?.qty}}</td>
-          <td style="padding: 5px 10px;text-align: right;">{{material?.expense_amount}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{material?.expense_amount}}</td>
           <td style="padding: 5px 10px;text-align: right;">{{material?.total_expense}}</td>
+        </tr>
+        <tr style="border: 1px solid #e1e1e1;text-align: left;">
+          <td colspan="4" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: right">
+            Total :</td>
+          <td style="padding: 5px 10px;text-align: right;">10000.00</td>
         </tr>
       </tbody>
     </table>
@@ -142,23 +155,29 @@
       <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Quantity</th>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Rate</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Quantity</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Rate</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Amount</th>
       </tr>
-      <tr *ngFor="let service of expenseServiceList;let serviceindex=index"
-        style="border: 1px solid #e1e1e1;text-align: left;">
-        <td style="text-align: center;">{{serviceindex+1}}</td>
-        <td style="padding: 5px 10px;">{{service?.materialDetail?.name}}</td>
-        <td style="padding: 5px 10px;text-align: right;">{{service?.total_expense}}</td>
-        <td style="padding: 5px 10px;text-align: right;">{{service?.total_expense}}</td>
-      </tr>
+      <ng-container *ngFor="let service of expenseServiceList;let serviceindex=index">
+        <tr style="border: 1px solid #e1e1e1;text-align: left;">
+          <td style="text-align: center;">{{serviceindex+1}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{service?.materialDetail?.name}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{service?.total_expense}}</td>
+          <td style="padding: 5px 10px;text-align: right;">{{service?.total_expense}}</td>
+        </tr>
+        <tr style="border: 1px solid #e1e1e1;text-align: left;">
+          <td style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Remark :</td>
+          <td colspan="4" style="padding: 5px 10px;">remark goes here</td>
+        </tr>
+      </ng-container>
       <tr style="border: 1px solid #e1e1e1;text-align: left;">
-        <td style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Remark :</td>
-        <td colspan="4" style="padding: 5px 10px;">remark goes here</td>
+        <td colspan="4" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: right;">Total Amount :</td>
+        <td style="padding: 5px 10px;">10000.00</td>
       </tr>
     </tbody>
   </table>
+
   <table style="width:100%; text-align: right; margin: 10px 0px;">
     <tbody>
       <tr style="border: 1px solid #e1e1e1;padding: 8px;">
@@ -166,7 +185,15 @@
         <td style="padding: 5px 10px;">{{expenseMaterialCost+expenseServiceCost}}</td>
       </tr>
       <tr style="border: 1px solid #e1e1e1;padding: 8px;">
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Total Amount :</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Total Expense :</th>
+        <td style="padding: 5px 10px;">{{expenseMaterialCost+expenseServiceCost}}</td>
+      </tr>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Reduced Costing :</th>
+        <td style="padding: 5px 10px;">{{expenseMaterialCost+expenseServiceCost}}</td>
+      </tr>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Final Amount :</th>
         <td style="padding: 5px 10px;">{{expenseMaterialCost+expenseServiceCost}}</td>
       </tr>
       <!-- <tr style="     border: 1px solid #000;
@@ -183,9 +210,18 @@
                             <th>Discount :</th>
                             <td style="text-align: right;">0.00</td>
                         </tr> -->
-      
+
     </tbody>
   </table>
+  <div
+    style="font-size: 14px;color: #666666;text-align: right;display: flex;flex-flow: column;justify-content: right;margin: 20px 0px;">
+    <p style="margin: 0px;"> _____________________</p>
+    <p style="margin: 0px;">Signature</p>
+  </div>
+  <div
+    style="font-size: 14px;color: #666666;display: flex;margin: 20px 0px;padding: 10px 10px 70px 15px;border: solid thin #e1e1e1;border-radius: 5px;">
+    <p style="margin: 0px;">Remark</p>
+  </div>
 </div>
 <ion-button (click)="generatePDF()" class="global_submit_button" expand="block">Genrate Job Card</ion-button>
 <!-- <ion-button (click)="downloadInvoice()"  class="global_submit_button" expand="block">
