@@ -58,7 +58,8 @@
   Reopen Job</ion-button>
 <div id="content" class="top-margin" style="width: 100%;">
   <div class="top_header" style="margin: 15px 0px; text-align: center;">
-    <img src="https://tractorfactory.in/assets/img/tractor-factory-logo1.png" height="60px" />
+    <img id="imageLogo" src="././assets/images/loginbanner.png" height="60px" />
+
   </div>
   <h3 style="text-align: center;">Job Card</h3>
   <table cellpadding="5" cellspacing="5" style="width: 100%;">
@@ -71,7 +72,7 @@
       </tr>
       <tr>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Date</th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.createdOn}}</td>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.createdOn|date}}</td>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">TF Code</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.tfCode}}</td>
       </tr>
@@ -85,11 +86,11 @@
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Model</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.modelDetails?.name}}</td>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;">15-Mar-2025</td>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.createdOn|date}}</td>
       </tr>
       <tr>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
-        <td>20-Mar-2025</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

@@ -128,8 +128,13 @@ export class JobCardComponent implements OnInit {
         callback: function (doc: any) {
           // Save the generated PDF
           //      doc.save('invoice.pdf');
+         // const img:any = document.getElementById('imageLogo');
+     
+          //img.onload = function () {
+            //doc.addImage(img, 'JPEG', 20, 40, 180, 160);
           pdfBlob = doc.output('blob');
           console.log('pdfBlob', pdfBlob);
+        //  }
         },
         x: 10, // X-position of content
         y: 10, // Y-position of content
