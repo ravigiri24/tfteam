@@ -25,7 +25,7 @@ export class RepairDashboardComponent implements OnInit {
   }
   jobDetails: any;
   jobLoader: any;
-  isJobDone=false
+  isJobDone = false;
   getJobByRowId() {
     this.share.showLoading('Fetching Data');
     this.jobLoader = true;
@@ -33,19 +33,19 @@ export class RepairDashboardComponent implements OnInit {
     obj.id = this.jobId;
     this.api.postapi('getJobByRowId', obj).subscribe(
       (res: any) => {
-        this.materialLoader=true
-        this.serviceLoader=true
-        if( res?.data?.isCompleted==1){
-          this.isJobDone=true
+        this.materialLoader = true;
+        this.serviceLoader = true;
+        if (res?.data?.isCompleted == 1) {
+          this.isJobDone = true;
         }
         this.jobDetails = res?.data;
         this.jobLoader = false;
-  
-        this.getServiceList()
+
+        this.getServiceList();
+        this.getReduceList();
         this.getInventory();
         this.getIssueList();
-        this.getMaterialList()
-   
+        this.getMaterialList();
       },
       (error: any) => {}
     );
@@ -74,14 +74,16 @@ export class RepairDashboardComponent implements OnInit {
   getIssueName() {
     this.issueArray = [];
     this.jobDetails.issueOptions?.forEach((f: any) => {
-      let find:any = this.issueList.find((inv: any) => inv.id == f);
-  
+      let find: any = this.issueList.find((inv: any) => inv.id == f);
+
       if (find) {
-        let isItDone=this.jobDetails?.completedIssues?.find((com: any) => com == f);
-        if(isItDone){
-          find.isCompleted=true
-        }else{
-          find.isCompleted=false
+        let isItDone = this.jobDetails?.completedIssues?.find(
+          (com: any) => com == f
+        );
+        if (isItDone) {
+          find.isCompleted = true;
+        } else {
+          find.isCompleted = false;
         }
         this.issueArray.push(find);
       }
@@ -92,59 +94,72 @@ export class RepairDashboardComponent implements OnInit {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
     });
-    this.categroyWiseMaterial=[]
-    this.isJobDone=false
+    this.categroyWiseMaterial = [];
+    this.isJobDone = false;
     this.getJobByRowId();
-   this.getRawImages()
+    this.getRawImages();
   }
-  beforeService:any=[]
-  afterService:any=[]
-  jobArray:any=[]
-    filterImage(){
-  this.beforeService=this.imageArray.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
-  this.afterService=this.imageArray.filter((f:any)=>f.imageGroup=='AFTER_SERVICE')
-  this.jobArray=this.imageArray.filter((f:any)=>f.imageGroup=='JOB_CARD')
-    }
-  staffDetails:any
-  imageArray:any=[]
-  imageLoader=false
-  getRawImages(loader:any=false){
-    this.imageLoader=true
+  beforeService: any = [];
+  afterService: any = [];
+  jobArray: any = [];
+  filterImage() {
+    this.beforeService = this.imageArray.filter(
+      (f: any) => f.imageGroup == 'BEFORE_SERVICE'
+    );
+    this.afterService = this.imageArray.filter(
+      (f: any) => f.imageGroup == 'AFTER_SERVICE'
+    );
+    this.jobArray = this.imageArray.filter(
+      (f: any) => f.imageGroup == 'JOB_CARD'
+    );
+  }
+  staffDetails: any;
+  imageArray: any = [];
+  imageLoader = false;
+  getRawImages(loader: any = false) {
+    this.imageLoader = true;
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
     let obj = {
       operate: this.staffDetails?.staffCode,
-      
+
       tractor_id: this.jobId,
     };
-    if(loader==true){
-      this.share.showLoading("Refreshing Data...")
+    if (loader == true) {
+      this.share.showLoading('Refreshing Data...');
     }
 
-    this.api.postapi('getRawImagesRepair', obj).subscribe((res: any) => {
-      console.log("data",res);
-      this.imageArray=res?.data || []
-      //this.imageArray= this.imageArray.filter((f:any)=>f.imageGroup==this.imageGroup)
-      this.filterImage()
-       this.imageLoader=false
-       if(loader==true){
-        this.share.spinner.dismiss()
+    this.api.postapi('getRawImagesRepair', obj).subscribe(
+      (res: any) => {
+        console.log('data', res);
+        this.imageArray = res?.data || [];
+        //this.imageArray= this.imageArray.filter((f:any)=>f.imageGroup==this.imageGroup)
+        this.filterImage();
+        this.imageLoader = false;
+        if (loader == true) {
+          this.share.spinner.dismiss();
+        }
+      },
+      (error: any) => {
+        this.imageLoader = false;
       }
- 
-    },(error:any)=>{
-      this.imageLoader=false
-    });
+    );
   }
   expenseMaterialList: any = [];
   prdeictionMaterialList: any = [];
-  materialLoader:any=false
-  getMaterialList(loader:any=false) {
-    let obj: any = this.share.getListObj('repair_expense_costing', false, [], true);
+  materialLoader: any = false;
+  getMaterialList(loader: any = false) {
+    let obj: any = this.share.getListObj(
+      'repair_expense_costing',
+      false,
+      [],
+      true
+    );
     obj.tractor_id = this.jobDetails?.id;
-    if(loader){
-    this.share.showLoading('Fetching Data...');
+    if (loader) {
+      this.share.showLoading('Fetching Data...');
     }
-    this.materialLoader=true
+    this.materialLoader = true;
     this.api.postapi('getMaterialExpense_cost', obj).subscribe(
       (res: any) => {
         this.expenseMaterialList = res?.data.filter(
@@ -153,85 +168,92 @@ export class RepairDashboardComponent implements OnInit {
         this.prdeictionMaterialList = res?.data.filter(
           (f: any) => f?.expense_head == 'PREDICTION'
         );
-        this.calculateAmount()
-   
+        this.calculateAmount();
+
         //if(!loader){
-          this.getMaterial(loader)
-       // }
-       // this.materialLoader=false
-      
-      
-      
+        this.getMaterial(loader);
+        // }
+        // this.materialLoader=false
       },
       (error: any) => {
-        this.materialLoader=false
+        this.materialLoader = false;
       }
     );
   }
-  materialList:any=[]
-  getMaterial(loader:any=false) {
-    
+  materialList: any = [];
+  getMaterial(loader: any = false) {
     let obj = this.share.getListObj('repairmateriallist', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.materialList = res?.data;
-   this.getSpareCategory(loader)
-      
+        this.getSpareCategory(loader);
       },
       (error: any) => {}
     );
   }
-  spareList:any=[]
-  getSpareCategory(loader:any=false) {
-  
+  spareList: any = [];
+  getSpareCategory(loader: any = false) {
     let obj = this.share.getListObj('spare_category', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.spareList = res?.data;
-        this.categroyWiseMaterial=[]
-        this.setCatWiseMatList()
-        this.materialLoader=false
-      
-        if(loader){
+        this.categroyWiseMaterial = [];
+        this.setCatWiseMatList();
+        this.materialLoader = false;
+
+        if (loader) {
           this.share.spinner.dismiss();
-      
-          }
+        }
       },
       (error: any) => {}
     );
   }
-  categroyWiseMaterial:any=[]
-  setCatWiseMatList(){
-    this.expenseMaterialList.forEach((expense:any)=>{
-let findinMatList=this.materialList.find((mat:any)=>mat.id==expense?.expense_id)
-let getCat=this.spareList.find((spare:any)=>spare.id==findinMatList?.category)
-if(getCat){
-let findExist=this.categroyWiseMaterial.findIndex((cat:any)=>cat.id==getCat.id)
-if(findExist>-1){
-  this.categroyWiseMaterial[findExist].materialList.push(expense)
-}else{
-  let obj={
-    catName:getCat.name,
-    id:getCat.id,
-    materialList:[expense]
-  }
-  this.categroyWiseMaterial.push(obj)
-
-}
-}
-    })
+  categroyWiseMaterial: any = [];
+  setCatWiseMatList() {
+    this.expenseMaterialList.forEach((expense: any) => {
+      let findinMatList = this.materialList.find(
+        (mat: any) => mat.id == expense?.expense_id
+      );
+      let getCat = this.spareList.find(
+        (spare: any) => spare.id == findinMatList?.category
+      );
+      if (getCat) {
+        let findExist = this.categroyWiseMaterial.findIndex(
+          (cat: any) => cat.id == getCat.id
+        );
+        if (findExist > -1) {
+          this.categroyWiseMaterial[findExist].total_amount =
+            Number(this.categroyWiseMaterial[findExist].total_amount) +
+            Number(expense?.total_expense);
+          this.categroyWiseMaterial[findExist].materialList.push(expense);
+        } else {
+          let obj = {
+            catName: getCat.name,
+            id: getCat.id,
+            materialList: [expense],
+            total_amount: expense?.total_expense||0,
+          };
+          this.categroyWiseMaterial.push(obj);
+        }
+      }
+    });
   }
   expenseServiceList: any = [];
   prdeictionServiceList: any = [];
-  serviceLoader=false
-  getServiceList(loader:any=false) {
-    this.serviceLoader=true
-    let obj: any = this.share.getListObj('repair_expense_costing', false, [], true);
+  serviceLoader = false;
+  getServiceList(loader: any = false) {
+    this.serviceLoader = true;
+    let obj: any = this.share.getListObj(
+      'repair_expense_costing',
+      false,
+      [],
+      true
+    );
     obj.tractor_id = this.jobDetails?.id;
-    if(loader){
+    if (loader) {
       this.share.showLoading('Fetching Data...');
     }
-   
+
     this.api.postapi('getServiceExpense_cost', obj).subscribe(
       (res: any) => {
         this.expenseServiceList = res?.data.filter(
@@ -240,27 +262,56 @@ if(findExist>-1){
         this.prdeictionServiceList = res?.data.filter(
           (f: any) => f?.expense_head == 'PREDICTION'
         );
-        this.calculateAmount()
-        this.serviceLoader=false
-        if(loader){
-        this.share.spinner.dismiss();
+        this.calculateAmount();
+        this.serviceLoader = false;
+        if (loader) {
+          this.share.spinner.dismiss();
         }
         console.log('expenseServiceList', this.expenseServiceList);
-     //   this.calculateAmount();
+        //   this.calculateAmount();
         // this.share.spinner.dismiss();
       },
       (error: any) => {
-        this.serviceLoader=false
+        this.serviceLoader = false;
+      }
+    );
+  }
+  reduceItemList: any = [];
+
+  reduceLoader = false;
+  getReduceList(loader: any = false) {
+    this.reduceLoader = true;
+    let obj: any = this.share.getListObj('reduce_costing', false, [], true);
+    obj.job_id = this.jobDetails?.id;
+    if (loader) {
+      this.share.showLoading('Fetching Data...');
+    }
+
+    this.api.postapi('getReduceItemList', obj).subscribe(
+      (res: any) => {
+        this.reduceItemList = res?.data;
+        this.calculateAmount();
+        this.reduceLoader = false;
+        if (loader) {
+          this.share.spinner.dismiss();
+        }
+        console.log('reduceLoader', this.reduceLoader);
+        //   this.calculateAmount();
+        // this.share.spinner.dismiss();
+      },
+      (error: any) => {
+        this.reduceLoader = false;
       }
     );
   }
   expenseMaterialCost: any = 0;
   expenseServiceCost: any = 0;
-
+  reduceItemTotalAmount: any = 0;
   calculateAmount() {
     this.expenseMaterialCost = 0;
     this.expenseServiceCost = 0;
-  
+    this.reduceItemTotalAmount = 0;
+
     this.expenseMaterialList.forEach((f: any) => {
       this.expenseMaterialCost =
         this.expenseMaterialCost + Number(f?.total_expense);
@@ -269,9 +320,10 @@ if(findExist>-1){
       this.expenseServiceCost =
         this.expenseServiceCost + Number(f?.total_expense);
     });
-
- 
-   
+    this.reduceItemList?.forEach((f: any) => {
+      this.reduceItemTotalAmount =
+        this.reduceItemTotalAmount + Number(f?.total_amount);
+    });
   }
   inventoryList: any = [];
   invetoryLoader = false;
@@ -325,5 +377,4 @@ if(findExist>-1){
   backToSrcPage() {
     this.router.navigate([this.srcPage]);
   }
-    
 }

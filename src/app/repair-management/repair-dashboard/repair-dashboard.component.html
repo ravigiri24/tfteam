@@ -76,9 +76,11 @@
       <app-build-job
         (refreshMaterailList)="getMaterialList(true)"
         (refreshServiceList)="getServiceList(true)"
-        *ngIf="jobDetails && !serviceLoader && !materialLoader"
+        (refreshReducelList)="getReduceList(true)"
+        *ngIf="jobDetails && !serviceLoader && !materialLoader  && !reduceLoader"
         [expenseServiceList]="expenseServiceList"
         [jobDetails]="jobDetails"
+        [reduceItemList]="reduceItemList"
         [expenseMaterialList]="expenseMaterialList"
         [prdeictionMaterialList]="prdeictionMaterialList"
         [isJobDone]="isJobDone"
@@ -90,12 +92,14 @@
       [jobDetails]="jobDetails"
       [expenseMaterialList]="expenseMaterialList"
       [expenseMaterialCost]="expenseMaterialCost"
+      [reduceItemTotalAmount]="reduceItemTotalAmount"
+      [reduceItemList]="reduceItemList"
       [isJobDone]="isJobDone"
       [expenseServiceCost]="expenseServiceCost"
       [spareList]="spareList"
       [materialList]="materialList"
       [categroyWiseMaterial]="categroyWiseMaterial"
-        *ngIf="jobDetails && !serviceLoader && !materialLoader"
+        *ngIf="jobDetails && !serviceLoader && !materialLoader && !reduceLoader"
       ></app-job-card>
     </ng-container>
   </div>

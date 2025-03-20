@@ -14,13 +14,13 @@
 </ion-header>
 <ion-content *ngIf="form" class="ion-padding">
   <form [formGroup]="form">
-    <span class="inner-heading">Customer Details</span>
+    <!-- <span class="inner-heading">Customer Details</span>
     <div class="global_input_block">
       <ion-input label="Customer Name*" fill="outline" labelPlacement="stacked" type="text" formControlName="customer_name"></ion-input>
     </div>
     <div class="global_input_block">
       <ion-input label="Contact Number*" fill="outline" labelPlacement="stacked" type="text" formControlName="contact_number"></ion-input>
-    </div>
+    </div> -->
     <span class="inner-heading">Tractor Details</span>
   <div class="global_input_block" >
     <ion-select (ionChange)="getModelsbyBrand()"    formControlName="brand_id" fill="outline" label="Select Brand *" label-placement="type">
@@ -43,6 +43,9 @@
   </div>
   <div class="global_input_block">
     <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text" formControlName="engineNumber"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Cost Estimated" fill="outline" labelPlacement="stacked" type="number" formControlName="costEstimated"></ion-input>
   </div>
   <div class="global_input_block" *ngIf="yearArray?.length">
     <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">

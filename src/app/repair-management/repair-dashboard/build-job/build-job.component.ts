@@ -4,6 +4,7 @@ import { AddServiceChargeComponent } from './add-service-charge/add-service-char
 import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { AddMaterialExpenseComponent } from './add-material-expense/add-material-expense.component';
+import { AddReducePartComponent } from './add-reduce-part/add-reduce-part.component';
 @Component({
   selector: 'app-build-job',
   templateUrl: './build-job.component.html',
@@ -13,10 +14,12 @@ export class BuildJobComponent implements OnInit {
   @Input() jobDetails: any;
   @Input() expenseServiceList: any;
   @Input() expenseMaterialList: any = [];
+  @Input() reduceItemList: any = [];
   @Input() prdeictionMaterialList: any = [];
   @Input() isJobDone: any =false
   @Output() refreshServiceList = new EventEmitter();
   @Output() refreshMaterailList = new EventEmitter();
+  @Output() refreshReducelList = new EventEmitter();
   constructor(
     private alertCtrl: AlertController,
     private modalControl: ModalController,
@@ -75,6 +78,29 @@ export class BuildJobComponent implements OnInit {
     if (role === 'confirm') {
     }
   }
+  async addReduceMaterial( obj: any = null) {
+    const modal = await this.modalControl.create({
+      component: AddReducePartComponent,
+      componentProps: {
+        tractorDetails: this.jobDetails,
+     
+        editData: obj,
+      },
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    //this.getServiceList();
+   // if (type == 'SERVICE') {
+    //  this.refreshServiceList.emit();
+    //} else {
+      this.refreshReducelList.emit();
+  //  }
+    console.log('role', role);
+
+    if (role === 'confirm') {
+    }
+  }
   openServiceEdit(ser: any = null, expense_head: any = null) {
     let obj: any = {};
 
@@ -100,7 +126,21 @@ export class BuildJobComponent implements OnInit {
 
     this.addMaterial(expense_head, obj, 'MATERIAL');
   }
+  openEditReduce(mat: any = null) {
+    let obj: any = {};
 
+    obj.job_id = mat?.job_id;
+    obj.part_id = mat?.part_id;
+    obj.repairing_center = mat?.repairing_center;
+    obj.reduce_amount = mat?.reduce_amount;
+    obj.remark = mat?.remark;
+    obj.id = mat?.id;
+
+    obj.qty = mat?.qty;
+
+
+    this.addReduceMaterial(obj);
+  }
   async deleteItem(mat: any,text:any='Delete Spare') {
     const alert = await this.alertCtrl.create({
       header: text,
@@ -123,6 +163,7 @@ export class BuildJobComponent implements OnInit {
       this.deleteMaterialApi(mat,text);
     }
   }
+  
  
   deleteMaterialApi(mat: any,text:any) {
     let obj = {
@@ -142,6 +183,47 @@ export class BuildJobComponent implements OnInit {
  else{
   this.refreshServiceList.emit();
  }
+    });
+  }
+
+  async deleteReduce(mat: any,) {
+    const alert = await this.alertCtrl.create({
+      header: "Delete Reduced Item",
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.deleteReduceApi(mat);
+    }
+  }
+  
+ 
+  deleteReduceApi(mat: any) {
+    let obj = {
+      src: 'reduce_costing',
+      data: { isDeleted: true },
+      id: mat?.id,
+    };
+
+    this.share.showLoading('Deleting Data...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+
+      this.share.presentToast('Deleted Successfully...');
+      this.refreshReducelList.emit();
+    
     });
   }
 }

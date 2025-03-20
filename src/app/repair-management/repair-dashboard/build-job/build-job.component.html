@@ -10,6 +10,10 @@
       tab="GALLERY">
       <span class="tabs">Parts</span>
     </ion-tab-button>
+    <ion-tab-button (click)="goToPage('REDUCE_ITEMS')" [ngClass]="{'selected_tab':selectedTab==='REDUCE_ITEMS'}"
+    tab="GALLERY">
+    <span class="tabs">Reduce Item</span>
+  </ion-tab-button>
 
   </ion-tab-bar>
 </ion-tabs>
@@ -56,6 +60,28 @@
 
             <ion-icon  (click)="openEdit(mat,'EXPENSE')" class="right-margine theme-color" name="create-outline"></ion-icon>
             <ion-icon  (click)="deleteItem(mat,'Delete Spare')" class="right-margine theme-color" name="trash-outline"></ion-icon>
+          
+            </ion-item>
+            </div>
+          </div>
+    </ng-container>
+    <ng-container *ngIf="selectedTab==='REDUCE_ITEMS'">
+      <ion-button (click)="addReduceMaterial()" class="global_submit_button" expand="block">
+        <ion-icon name="add-outline" ></ion-icon>
+        Add Reduce Items</ion-button>
+        <div class="top-position-heading">
+          <ion-item slot="header" color="light">
+            <ion-label>Reduce Items</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-item *ngFor="let mat of reduceItemList;let in=index">
+              <ion-label>
+              <h2>{{mat?.materialDetail?.name}}</h2>
+              <p>{{mat?.reduce_amount}}|{{mat?.qty}}  | {{mat?.total_amount}} | {{mat?.createdOn|date}} </p>
+            </ion-label>
+
+            <ion-icon  (click)="openEditReduce(mat)" class="right-margine theme-color" name="create-outline"></ion-icon>
+            <ion-icon  (click)="deleteReduce(mat)" class="right-margine theme-color" name="trash-outline"></ion-icon>
           
             </ion-item>
             </div>

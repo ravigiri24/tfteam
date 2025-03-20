@@ -29,7 +29,7 @@ import { JobCardComponent } from './repair-dashboard/job-card/job-card.component
 // import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
+import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-part/add-reduce-part.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -46,7 +46,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     BuildJobComponent,
     AddServiceChargeComponent,
     AddMaterialExpenseComponent,
-    JobCardComponent
+    JobCardComponent,
+    AddReducePartComponent
     
   ],
   imports: [

@@ -181,6 +181,7 @@ export class CreateComponent implements OnInit {
       issueOptions: new FormControl(this.data?.issueOptions || null, []),
       inventoryOptions: new FormControl(this.data?.inventoryOptions || null, []),
       isSelf: new FormControl(this.data?.isSelf || false, []),
+      costEstimated: new FormControl(this.data?.costEstimated || null, []),
     });
   }
   async openCrudManagement(type: any = 'TRACTOR_INVENTORY') {

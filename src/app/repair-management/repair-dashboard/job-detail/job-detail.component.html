@@ -1,5 +1,5 @@
 <div class="top-position">
-<span class="inner-heading">Customer Details</span>
+<!-- <span class="inner-heading">Customer Details</span>
 <ion-grid class="main_block_details">
   <ion-card>
     <ion-row>
@@ -27,7 +27,7 @@
   </ion-row>
 
   </ion-card>
-  </ion-grid>
+  </ion-grid> -->
   <span class="inner-heading">Vehicle Details</span>
 <ion-grid class="main_block_details">
   <ion-card>
@@ -62,6 +62,10 @@
     <ion-row>
       <ion-col>Hours</ion-col>
       <ion-col class="amount_col"> {{ jobDetails?.hours || '-' }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Cost Estimated</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.costEstimated || '-' }}</ion-col>
     </ion-row>
     
   </ion-card>

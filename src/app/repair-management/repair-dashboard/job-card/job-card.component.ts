@@ -32,10 +32,12 @@ export class JobCardComponent implements OnInit {
   @Input() jobDetails: any;
   @Input() expenseServiceList: any = [];
   @Input() expenseMaterialList: any = [];
+  @Input() reduceItemList: any = [];
   @Input() materialList: any = [];
   @Input() spareList: any = [];
   @Input() categroyWiseMaterial: any = [];
   @Input() expenseServiceCost: any = 0;
+  @Input() reduceItemTotalAmount: any = 0;
   @Input() isJobDone: any = false;
 
   @Input() expenseMaterialCost: any = 0;
@@ -97,11 +99,11 @@ export class JobCardComponent implements OnInit {
       this.completeJob(status);
     }
   }
-
+todayDate=new Date()
   completeJob(status: any) {
     let obj = {
       src: 'repairing_record',
-      data: { isCompleted: status },
+      data: { isCompleted: status,completeDate:new Date() },
       id: this.jobDetails?.id,
     };
 
@@ -116,7 +118,7 @@ export class JobCardComponent implements OnInit {
   jsPDF: any;
   generatePDF() {
     //const { jsPDF } = window.jspdf;
-    this.share.showLoading('Uploading...', 10000);
+    this.share.showLoading('Uploading...', 20000);
     const doc = new jsPDF('p', 'mm', 'a4');
 
     const content: any = document.getElementById('content');
