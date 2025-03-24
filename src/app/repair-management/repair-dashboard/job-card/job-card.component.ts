@@ -223,7 +223,7 @@ todayDate=new Date()
       operate: this.staffDetails?.staffCode,
       pdfObj: this.renderResult,
       tractor_id: this.jobDetails?.id,
-      billNumber: this.jobDetails?.billNumber||'',
+      billNumber: this.jobDetails?.tfCode||'',
       actionByid: this.staffDetails?.id,
     };
     console.log('convertBlobToBase64', obj);

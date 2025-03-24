@@ -8,7 +8,7 @@ import { JobDashboardComponent } from './job-dashboard/job-dashboard.component';
 import { CreateComponent } from './create/create.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { RepairDashboardComponent } from './repair-dashboard/repair-dashboard.component';
-
+import { ReportsComponent } from './reports/reports.component';
 const routes: Routes = [
   {
     path: "", component: RepairManagementComponent,
@@ -20,6 +20,7 @@ const routes: Routes = [
        { path: 'update-job/:id/:srcPage', component: CreateComponent},
        { path: 'repair-dashboard/:id/:srcPage', component: RepairDashboardComponent},
        { path: 'job-list', component:  JobListComponent   },
+       { path: 'report-dashboard', component:  ReportsComponent   },
     //   { path: 'user-management', component: UserManagementComponent},
     //   { path: 'cost-prediction', component: CostPredictionComponent},
     //   { path: 'store-Transaction', component: StorePaymentTransactionComponent},

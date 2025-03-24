@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <ion-title>{{reportType}}</ion-title>
+ 
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+   
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+  <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+</form>
+  <div class="row" >
+    <ion-button  (click)="dateValue()" class="global_submit_button" >
+    
+      Generate</ion-button>
+    </div>
+  <hr/>
+  </ion-content>

@@ -54,7 +54,7 @@ export class CreateComponent implements OnInit {
    this.getBrandList()
    this.getInventory();
    this.getIssueList();
-     
+   this.getMechanicList()
       },
       (error: any) => {}
     );
@@ -73,6 +73,7 @@ export class CreateComponent implements OnInit {
          
     this.getInventory();
     this.getIssueList();
+    this.getMechanicList()
     }
   
 
@@ -132,6 +133,23 @@ export class CreateComponent implements OnInit {
       this.form.controls['inventoryOptions'].value
     );
   }
+  mechanicList:any=[]
+  getMechanicList(loader:any=false) {
+    if(loader){
+    this.share.showLoading('Loading...');
+    }
+    let obj = this.share.getListObj('mechanic_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.mechanicList = res?.data;
+  if(loader){
+    this.share.spinner.dismiss()
+  }
+   
+      },
+      (error: any) => {}
+    );
+  }
   getBrandList() {
     this.share.showLoading('Loading...');
     let obj = this.share.getListObj('brand', false, [], true);
@@ -182,6 +200,7 @@ export class CreateComponent implements OnInit {
       inventoryOptions: new FormControl(this.data?.inventoryOptions || null, []),
       isSelf: new FormControl(this.data?.isSelf || false, []),
       costEstimated: new FormControl(this.data?.costEstimated || null, []),
+      mechanicAlloted: new FormControl(this.data?.mechanicAlloted || null, []),
     });
   }
   async openCrudManagement(type: any = 'TRACTOR_INVENTORY') {
@@ -197,6 +216,8 @@ export class CreateComponent implements OnInit {
       this.getInventory();
     } else if (type == 'TRACTOR_ISSUES') {
       this.getIssueList(true);
+    }else if(type=='MECHANIC_LIST'){
+      this.getMechanicList(true)
     }
     console.log('role', role);
   }

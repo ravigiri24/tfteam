@@ -25,10 +25,11 @@ import { AddServiceChargeComponent } from './repair-dashboard/build-job/add-serv
 import { AddMaterialExpenseComponent } from './repair-dashboard/build-job/add-material-expense/add-material-expense.component';
 import { JobCardComponent } from './repair-dashboard/job-card/job-card.component';
 //import { Printer } from '@ionic-native/printer/ngx';
-
+import { ReportsComponent } from './reports/reports.component';
 // import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ReportFilterComponent } from './reports/report-filter/report-filter.component';
 import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-part/add-reduce-part.component';
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-
     AddServiceChargeComponent,
     AddMaterialExpenseComponent,
     JobCardComponent,
-    AddReducePartComponent
+    AddReducePartComponent,
+    ReportsComponent,
+    ReportFilterComponent
     
   ],
   imports: [

@@ -5,14 +5,19 @@
           Listen Now
         </ion-tab-button> -->
     <ion-tab-button (click)="goToPage('Job-dashboard')" tab="Customer">
-      <ion-icon *ngIf="selectedTab!=='Job-dashboard'" class="theme-color" name="document-text-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='Job-dashboard'" class="theme-color" name="document-text"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='Job-dashboard'" class="theme-color" name="cellular-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Job-dashboard'" class="theme-color" name="cellular"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Job-dashboard'}" >Dashboard</label>
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Job-List')" tab="JobList">
-      <ion-icon *ngIf="selectedTab!=='Job-List'" class="theme-color" name="document-text-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='Job-List'" class="theme-color" name="document-text"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='Job-List'" class="theme-color" name="receipt-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Job-List'" class="theme-color" name="receipt"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Job-List'}" >Jobs</label>
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('Reports')" tab="JobList">
+      <ion-icon *ngIf="selectedTab!=='Reports'" class="theme-color" name="document-text-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Reports'" class="theme-color" name="document-text"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Reports'}" >Reports</label>
     </ion-tab-button>
  
   

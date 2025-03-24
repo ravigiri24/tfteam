@@ -759,6 +759,25 @@
              }
           
         ]
+      },
+      {
+        "key": "MECHANIC_LIST",
+        "src":"mechanic_list",
+        "headerTitle":"Mechanic",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"delete Mechanic?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Mechanic Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "name is required",
+            "validation":true
+             }
+          
+        ]
       }
     ]
   }

@@ -47,6 +47,13 @@
   <div class="global_input_block">
     <ion-input label="Cost Estimated" fill="outline" labelPlacement="stacked" type="number" formControlName="costEstimated"></ion-input>
   </div>
+  <div class="global_input_block" >
+    <ion-icon (click)="openCrudManagement('MECHANIC_LIST')" name="add-circle-outline"></ion-icon>
+    <ion-icon (click)="getMechanicList(true)" name="refresh-outline"></ion-icon>
+    <ion-select   formControlName="mechanicAlloted" fill="outline" label="Allot Mechanic" label-placement="type">
+      <ion-select-option *ngFor="let mechanic of mechanicList"  [value]="mechanic?.id">{{mechanic?.name}}</ion-select-option>
+    </ion-select>
+  </div>
   <div class="global_input_block" *ngIf="yearArray?.length">
     <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">
       <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>

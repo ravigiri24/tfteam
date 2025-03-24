@@ -67,7 +67,10 @@
       <ion-col>Cost Estimated</ion-col>
       <ion-col class="amount_col"> {{ jobDetails?.costEstimated || '-' }}</ion-col>
     </ion-row>
-    
+    <ion-row>
+      <ion-col>Mechanic Name</ion-col>
+      <ion-col class="amount_col"> {{ jobDetails?.mechanicDetails?.name || '-' }}</ion-col>
+    </ion-row>
   </ion-card>
   </ion-grid>
   <div class="issue-body">
