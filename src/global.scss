@@ -173,6 +173,9 @@ ion-icon {
 
 
 // }
+.whatsapp-color {
+  color: #25d366;
+}
 .top_heading {
   padding: 0px 0px 0px 10px;
   display: flex;
@@ -213,13 +216,17 @@ ion-icon {
     }
   }
 }
+
 .displaynone {
   display: none;
 }
+
 .icon-size {
   font-size: 24px;
 }
-
+.internal_card_container {
+  --background: #f5f5ff;
+}
 .inner-heading-list {
   font-size: 14px;
   // color: var(--app-secondary-color);
@@ -263,6 +270,21 @@ ion-icon {
   ion-item {
     border-bottom: dashed 1px #e1dfdf;
     --inner-border-width: 0px;
+  }
+  h2 {
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+  }
+  .warning_row {
+    --background: #f4433624;
+
+    h2 {
+      .right_warning_icon {
+        margin-left: 5px;
+        color: #F44336;
+      }
+    }
   }
 
   .selected_model {

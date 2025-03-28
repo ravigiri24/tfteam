@@ -1,44 +1,33 @@
 <form [formGroup]="customerForm">
-<ion-item class="bottom-margin">
-  <ion-input
-    label="Enter Customer name"
-    labelPlacement="stacked"
-    type="text"
-    placeholder="Your name"
-  formControlName="name"
-  ></ion-input>
-</ion-item>
-<ion-item class="bottom-margin">
-  <ion-input
-    label="Enter Mobile Number"
-    labelPlacement="stacked"
-    type="text"
-  [readonly]="editData"
-    placeholder="Your Number"
-    formControlName="mobileNo"
-  ></ion-input>
-</ion-item>
-<ion-item class="bottom-margin">
-  <ion-select    formControlName="customerType" label="Customer Type" label-placement="type">
-    <ion-select-option value="DIGITAL">Digital</ion-select-option>
-    <ion-select-option value="VISITORS">Visitors</ion-select-option>
-  
-
-  </ion-select>
-</ion-item>
-<ion-item *ngIf="!editData" class="bottom-margin">
-  <ion-textarea   formControlName="remark"  label="Remark" placeholder="write remark here..."></ion-textarea>
-</ion-item>
-<!-- <ion-item  *ngIf="!editData"  class="bottom-margin">
+  <div class="global_input_block">
+    <ion-input label="Enter Hours" fill="outline" labelPlacement="stacked" type="text"
+      formControlName="hours"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Enter Customer name" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+      placeholder="Your name" formControlName="name"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Enter Mobile Number" fill="outline" labelPlacement="stacked" type="text" [readonly]="editData"
+      placeholder="Your Number" formControlName="mobileNo"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-select formControlName="customerType" fill="outline" label="Customer Type" label-placement="stacked">
+      <ion-select-option value="DIGITAL">Digital</ion-select-option>
+      <ion-select-option value="VISITORS">Visitors</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="global_input_block" *ngIf="!editData"> 
+    <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
+      placeholder="write remark here..."></ion-textarea>
+  </div>
+  <!-- <ion-item  *ngIf="!editData"  class="bottom-margin">
   <ion-select    formControlName="assigned_staff_id" label="Assign To Staff" label-placement="type">
     <ion-select-option *ngFor="let staff of staffList" [value]="staff?.id">{{staff?.name}}</ion-select-option>
-  
-  
-
   </ion-select>
 </ion-item> -->
 
-<!-- <ion-item>
+  <!-- <ion-item>
   <ion-icon class="right-margine" name="add-circle-outline"></ion-icon>
   <ion-select label="Select State" label-placement="state">
     <ion-select-option value="apple">Jabalpur</ion-select-option>
@@ -86,9 +75,8 @@
 
   </ion-select>
 </ion-item> -->
-<div class="login-button">
-
-  <ion-button *ngIf="!editData" (click)="saveForm()"  style="text-align: center;" expand="block" >Save</ion-button>
-  <ion-button *ngIf="editData" (click)="updateForm()"  style="text-align: center;" expand="block" >Update</ion-button>
-</div>
+  <div class="page_submit_btn">
+    <ion-button *ngIf="!editData" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
+    <ion-button *ngIf="editData" (click)="updateForm()" class="global_submit_button" expand="block">Update</ion-button>
+  </div>
 </form>

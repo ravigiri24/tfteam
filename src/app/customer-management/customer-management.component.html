@@ -1,146 +1,139 @@
 <ion-header>
-    
   <ion-toolbar>
-    <div class="left-margin">
-    <ion-label >
-      <h2>Total</h2>
-      <p><b class="total-number">{{customerList?.length}}</b></p>
-    </ion-label> 
-  
-  </div>
-  
-  <!-- <ion-label >
-    <h2>D</h2>
-    <p><b class="total-number">{{digital?.length}}</b></p>
-  </ion-label> 
-  <ion-label >
-    <h2>O</h2>
-    <p><b class="total-number">{{online?.length}}</b></p>
-  </ion-label> 
-  <ion-label >
-    <h2>V</h2>
-    <p><b class="total-number">{{visitors?.length}}</b></p>
-  </ion-label>  -->
-  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
-  <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="searchCustomer()"  fill="outline"><ion-icon class="theme-color" name="search-outline" ></ion-icon></ion-button> -->
-  
-    <ion-button class="button-theme" class="add-button" slot="end" (click)="dataClear()" id="open-modal" expand="block" fill="outline"><ion-icon class="theme-color" name="person-add-outline" ></ion-icon></ion-button>
-
-  </ion-toolbar>     
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Total Customer : </span>
+        <span>{{customerList?.length}}</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="refreshList()" name="refresh-outline"></ion-icon>
+        <ion-icon class="theme-color-second icon-size" (click)="dataClear()" expand="block" id="open-modal"
+          name="person-add-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
 </ion-header>
-<ion-content >
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+<ion-content>
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content>
-      
     </ion-refresher-content>
-  </ion-refresher>
-  
+  </ion-refresher> -->
   <!-- <ion-searchbar [(ngModel)]="search" slot="fixed" placeholder="Search Customer"></ion-searchbar> -->
-  
-<ion-list *ngIf="customerList?.length && showData" >
-  <ion-item *ngFor="let cus of customerList;let in=index">
-    <ion-label>
-    <h2>{{cus?.name}}</h2>
-    <p>{{cus?.mobileNo}}-{{cus?.customerType}}<ion-icon *ngIf="!cus?.leadsChat?.length" name="warning"></ion-icon></p>
-  </ion-label>
-    <!-- <ion-label>{{cus?.name}}</ion-label>
-    <ion-label>{{cus?.mobileNo}}</ion-label> -->
-   
-    <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
-  
-    <ion-icon  (click)="addReview(cus,in)"  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
-    <ion-icon (click)="viewDetails(cus,in)"  class="right-margine theme-color-third "name="eye"></ion-icon>
-  </ion-item>
-
-
-</ion-list>
-<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll>
-
-<ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
-
-  <ng-template>
-    <ng-container  *ngIf="modelType=='CUSTOMER'">
-    <ion-header>
-      <ion-toolbar>
-        <!-- <ion-buttons slot="start">
-          <ion-button (click)="cancel()">Cancel</ion-button>
-        </ion-buttons> -->
-        <ion-title>Add Customer</ion-title>
-        <ion-buttons slot="end">
-          <ion-icon class="theme-color icon-size"  (click)="cancel()" name="close-circle-outline"></ion-icon>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-   <app-add-customer *ngIf="showAddComp && staffList?.length" [staffList]="staffList" [editData]="editData" (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer>
-    </ion-content>
-  </ng-container>
-  <ng-container  *ngIf="modelType=='REVIEW'">
-    <ion-header>
-      <ion-toolbar>
-        <!-- <ion-buttons slot="start">
-          <ion-button (click)="cancel()">Cancel</ion-button>
-        </ion-buttons> -->
-      
-        <form [formGroup]="nextScheduleForm">
-        <ion-label class="remark-side">
-         <span class="remark-color"> Remark </span>&nbsp;&nbsp;
-            NSD:
-            <input type="date"  formControlName="next_lead_date" (change)="nextFollowupDate()" />
-             
-          
-
+  <ion-list class="list_row" *ngIf="customerList?.length && showData">
+    <ng-container *ngFor="let cus of customerList;let in=index">
+      <ion-item [ngClass]="{'warning_row': !cus?.leadsChat?.length}">
+        <ion-label>
+          <h2 class="theme-color">{{cus?.name}} <ion-icon class="right_warning_icon" *ngIf="!cus?.leadsChat?.length"
+              name="warning"></ion-icon></h2>
+          <p>{{cus?.mobileNo}}-{{cus?.customerType}}</p>
         </ion-label>
-     </form>
-        <ion-buttons slot="end">
-          <ion-icon class="theme-color"  (click)="cancel()" name="close-circle-outline"></ion-icon>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-        <app-add-remark [data]="customerSelected"></app-add-remark>
+        <!-- <ion-label>{{cus?.name}}</ion-label>
+    <ion-label>{{cus?.mobileNo}}</ion-label> -->
+        <div class="list_right_action">
+          <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" name="create-outline"></ion-icon>
+          <ion-icon (click)="addReview(cus,in)" class="theme-color" name="chatbubbles-outline"></ion-icon>
+          <ion-icon (click)="viewDetails(cus,in)" class="right-margine theme-color-second " name="eye"></ion-icon>
+        </div>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ng-container *ngIf="modelType=='CUSTOMER'">
+        <ion-header>
+          <ion-toolbar>
+            <ion-label class="top_heading">
+              <div class="left_text">
+                <span class="selected_text" *ngIf="!editData">Add Customer </span>
+                <span class="selected_text" *ngIf="editData">Edit Customer </span>
+                <!-- <input type="date" class="global_datetextbox" formControlName="next_lead_date"
+                  (change)="nextFollowupDate()" /> -->
+              </div>
+              <div class="right_action">
+                <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+              </div>
+            </ion-label>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <app-add-customer *ngIf="showAddComp && staffList?.length" [staffList]="staffList" [editData]="editData"
+            (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer>
         </ion-content>
-     
-  </ng-container>
-  <ng-container  *ngIf="modelType=='VIEW-DATA'">
-    <ion-header>
-      <ion-toolbar>
-        <!-- <ion-buttons slot="start">
-          <ion-button (click)="cancel()">Cancel</ion-button>
-        </ion-buttons> -->
-        <ion-title>Customer Details</ion-title>
-       
-        <ion-buttons slot="end">
-          <ion-icon class="theme-color icon-size"  (click)="cancel()" name="close-circle-outline"></ion-icon>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content  class="ion-padding">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{customerSelected?.name}}</ion-card-title>
-          <ion-card-subtitle>{{customerSelected?.mobileNo}}      <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
-            <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action Taken</span></ion-card-subtitle>
-        </ion-card-header>
-      
-        <ion-card-content>
-          {{customerSelected?.customerType}} |  {{customerSelected?.createdOn}}  |  {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}}
-        </ion-card-content>
-      
-        <ion-button fill="clear">
-          <a  target="_blank"
-          href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello">
-          <ion-icon class="theme-color icon-size" name="logo-whatsapp"></ion-icon>
-      </a></ion-button>
-        <ion-button fill="clear"><a href="tel:{{customerSelected?.mobileNo}}" class="book-now-btn"><ion-icon  class="theme-color icon-size" name="call"></ion-icon></a></ion-button>
-      </ion-card>
+      </ng-container>
+      <ng-container *ngIf="modelType=='REVIEW'">
+        <ion-header>
+          <ion-toolbar>
+            <form [formGroup]="nextScheduleForm">
+              <ion-label class="top_heading">
+                <div class="left_text">
+                  <span class="selected_text"> Remark NSD :</span>
+                  <input type="date" class="global_datetextbox" formControlName="next_lead_date"
+                    (change)="nextFollowupDate()" />
+                </div>
+                <div class="right_action">
+                  <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+                </div>
+              </ion-label>
+            </form>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <app-add-remark [data]="customerSelected"></app-add-remark>
         </ion-content>
-     
-  </ng-container>
-  </ng-template>
+      </ng-container>
+      <ng-container *ngIf="modelType=='VIEW-DATA'">
+        <ion-header>
+          <ion-toolbar>
+            <ion-label class="top_heading">
+              <div class="left_text">
+                <span class="selected_text">Customer Details </span>
+              </div>
+              <div class="right_action">
+                <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+              </div>
+            </ion-label>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="internal_card_container">
+          <!-- {{customerSelected | json}} -->
+          <ion-card>
+            <ion-card-content>
+              <div class="title_with_contact">
+                <ion-card-title>{{customerSelected?.name}}</ion-card-title>
+                <div class="right_actions">
+                  <!-- <ion-button fill="clear"> -->
+                  <a target="_blank" href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello">
+                    <ion-icon class="whatsapp-color" name="logo-whatsapp"></ion-icon>
+                  </a>
+                  <!-- </ion-button> -->
+                  <a href="tel:{{customerSelected?.mobileNo}}" class="book-now-btn"><ion-icon class="theme-color"
+                      name="call-outline"></ion-icon></a>
+                </div>
+              </div>
+              <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} |
+                <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
+                <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action
+                  Taken</span></ion-card-subtitle>
+              <span class="right_date">{{customerSelected?.createdOn}}</span>
+              <!-- {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}} -->
+              <div class="chat_history_block" *ngIf="customerSelected?.leadsChat?.length">
+                <div class="chat_details_block" *ngFor="let chat of customerSelected?.leadsChat; let i = index;">
+                  <div class="top_row">
+                    <div class="type">{{chat?.chat_type}}</div>
+                    <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div>
+                  </div>
+                  <ion-card-title class="chat_details">{{chat?.status}}</ion-card-title>
+                  <span class="right_date">{{chat?.createdOn}}</span>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+      </ng-container>
+    </ng-template>
 
-</ion-modal>
-
+  </ion-modal>
 </ion-content>
