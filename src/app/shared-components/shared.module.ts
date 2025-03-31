@@ -11,12 +11,15 @@ import { TractorCostingListComponent } from './tractor-costing-list/tractor-cost
 import { TractorCostingDashboardComponent } from './tractor-costing-dashboard/tractor-costing-dashboard.component';
 import { ViewTractorDetailsComponent } from './view-tractor-details/view-tractor-details.component';
 import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
+import { SelectWithSearchComponent } from './select-with-search/select-with-search.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
+    FilterPipeModule,
     
     IonicModule.forRoot({}),
   ],
@@ -28,7 +31,8 @@ import { ViewTransactionDetailsComponent } from './view-transaction-details/view
     TractorCostingListComponent,
     TractorCostingDashboardComponent,
     ViewTractorDetailsComponent,
-    ViewTransactionDetailsComponent
+    ViewTransactionDetailsComponent,
+    SelectWithSearchComponent
     
   ],
   schemas: [],

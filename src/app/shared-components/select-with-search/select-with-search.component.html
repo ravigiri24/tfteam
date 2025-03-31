@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select {{itemName}}</ion-title>
+
+    <ion-buttons slot="end">
+
+      <ion-icon
+        class="theme-color icon-size"
+        (click)="dismiss()"
+        name="close-circle-outline"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+<ion-searchbar  (ionFocus)="onInputFocus()"  (ionBlur)="focusOut()"  [(ngModel)]="search.name" slot="fixed" placeholder="Search {{itemName}}"></ion-searchbar>
+<div class="top-position">
+<ion-radio-group (ionChange)="selectItem($event)" >
+  <div class="row width">
+  <ion-radio  *ngFor="let item of list| filterBy: search ;let in=index" value="{{item?.id}}"><span class="font-display">{{item?.name}}</span></ion-radio><br />
+</div>
+</ion-radio-group>
+<div class="text-align" *ngIf="(list | filterBy: search).length === 0">
+  <div class="row">
+  <span style="color: red;" >No {{itemName}} Found</span>
+</div>
+  <ion-button  (click)="addNewItem()"  style="text-align: center;"  ><span class="color-white">Add New</span></ion-button>
+</div>
+</div>
+</ion-content>

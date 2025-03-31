@@ -10,6 +10,7 @@ import { IonContent } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
 import { SearchCustomerComponent } from './search-customer/search-customer.component';
+import states from 'src/app/cityState.json';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -50,11 +51,44 @@ nextScheduleForm:FormGroup
      
       }
     }
+    cityList:any=[]
+statesFIleter(){
+  this.stateList=[]
+  let statesVal:any=states
+ let ind=1
+  Object.keys(statesVal)?.forEach((state:any)=>{
+    console.log("state",state,statesVal[state],ind);
+
+    this.stateList.push({name:state})
+    statesVal[state].forEach((city:any)=>{
+this.cityList.push({name:city,state_id:ind})
+    })
+ind++
+  })
+  console.log("    this.stateList",    this.stateList);
+  console.log("    this.cityList",    this.cityList);
+
+  setTimeout(() => {
+  //  this.addCityState()
+  }, 0);
+}
+addCityState(){
+  let obj={
+    stateList:this.stateList,
+    cityList:this.cityList,
+  }
+  this.api.postapi('addStateCity', obj).subscribe((res:any) => {
 
 
+
+  });
+}
+stateList:any=[]
   ionViewWillEnter() {
     this.customerList = [];
     this.showData = false;
+    console.log("states",states);
+   // this.statesFIleter()
     setTimeout(() => {
       this.content.scrollToTop(0).then(() => {
         this.getCustomerList();

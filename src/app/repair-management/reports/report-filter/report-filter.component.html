@@ -28,11 +28,118 @@
     </div>
 
   </div>
+  <div *ngIf="reportType=='Job List'" class="row">
+    <div class="global_input_block" >
+ 
+      <ion-select   formControlName="jobType" fill="outline" label="Job Status" label-placement="type">
+        <ion-select-option value="Start">Start</ion-select-option>
+        <ion-select-option value="Closed">Closed</ion-select-option>
+      </ion-select>
+    </div>
+  </div>
 </form>
   <div class="row" >
-    <ion-button  (click)="dateValue()" class="global_submit_button" >
+    <ion-button  (click)="genrateReport()" class="global_submit_button" >
     
       Generate</ion-button>
     </div>
   <hr/>
+  <div *ngIf="allDetails" id="contentReport" class="top-margin" style="width: 100%;">
+    <div class="top_header" style="margin: 15px 0px; text-align: center;">
+      <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+    </div>
+    <h3 style="text-align: center;">{{reportType}} Report</h3>
+    <table cellpadding="5" cellspacing="5" style="width: 100%;">
+      <tbody>
+        <tr>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Repairing
+            Center</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">JABALPUR </td>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.startDate}}</td>
+        </tr>
+        <tr>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.endDate}}</td>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total Jobs</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobList?.length}}</td>
+        </tr>
+        <tr>
+
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+        </tr>
+        <!-- <tr>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Model</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.modelDetails?.name}}</td>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.createdOn|date}}</td>
+        </tr>
+        <tr>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
+          <td style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.completeDate|date}}</td>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Mechanic Name</th>
+          <td colspan="3" style="border: 1px solid #ddd;padding: 5px 10px;">{{jobDetails?.mechanicDetails?.name}}</td>
+          
+        </tr> -->
+      </tbody>
+    </table>
+    <h2 style="text-align: center;margin: 10px 0px;" >Job List</h2>
+    <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+      <tbody>
+        <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">TF Code</th>
+          <!-- <th style="text-align: center;">Quantity</th> -->
+          <th *ngFor="let head of expenseHeader" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">{{head}}</th>
+          <!-- <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Closed Date</th>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Alloted To</th> -->
+        </tr>
+        <tr *ngFor="let service of jobList;let serviceindex=index"
+          style="border: 1px solid #e1e1e1;text-align: left;">
+          <td style="text-align: center;">{{serviceindex+1}}</td>
+          <td style="padding: 5px 10px;">{{service?.tfCode}}</td>
+          <td *ngFor="let head of expenseHeader" style="padding: 5px 10px;">{{service[head]}}</td>
+        
+        </tr>
+        <!-- <tr>
+          <td colspan="3"  style="padding: 5px 10px;">
+            {{catTotal[expenseHeader[0]]}}
+          </td>
+          <div *ngFor="let head of expenseHeader;let indi=index">
+            <div  *ngIf="indi>0" >
+              <td style="padding: 5px 10px;">
+                {{catTotal[expenseHeader[0]]}}
+              </td> 
+
+            </div>
+          </div>
+       
+        </tr> -->
+      
+      </tbody>
+    </table>
+
+  
+
+  
+  
+    <div
+      style="font-size: 14px;color: #666666;text-align: right;display: flex;flex-flow: column;justify-content: right;margin: 20px 0px;">
+      <p style="margin: 0px;"> _____________________</p>
+      <p style="margin: 0px;">Signature</p>
+    </div>
+    <div
+      style="font-size: 14px;color: #666666;display: flex;margin: 20px 0px;padding: 10px 10px 70px 15px;border: solid thin #e1e1e1;border-radius: 5px;">
+      <p style="margin: 0px;">Remark</p>
+    </div>
+  </div>
+  <div *ngIf="allDetails" class="row">
+    <div class="col-6 col-md-6">
+  <ion-button  (click)="generatePDF()" class="global_submit_button" expand="block">Genrate Pdf</ion-button>
+</div>
+<div class="col-6 col-md-6">
+  <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Genrate Excel</ion-button>
+  </div>
+</div>
   </ion-content>
