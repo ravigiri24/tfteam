@@ -1,3 +1,6 @@
 
 For the Pdf used [ 18-03-2025]
 npm install pdfmake --legacy-peer-deps
+
+31-03-2025
+npm install xlsx --save --force

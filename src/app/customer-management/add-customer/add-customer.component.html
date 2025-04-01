@@ -24,7 +24,7 @@
       <ion-select-option value="FACEBOOK">Facebook</ion-select-option>
       <ion-select-option value="JUSTDIAL">JustDial</ion-select-option>
       <ion-select-option value="OTHER">Other</ion-select-option>
-      
+
     </ion-select>
   </div>
   <!-- <ion-item class="bottom-margin">
@@ -35,29 +35,23 @@
   
     </ion-select>
   </ion-item> -->
-  <ion-item class="bottom-margin">
-<span (click)="selectItem(this.stateList,'State','state_list')">State</span>
+  <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
     <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
       <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
-  
-    
-  
     </ion-select> -->
-    <ion-icon (click)="selectItem(this.stateList,'State','state_list')" name="caret-down-outline"></ion-icon>
-    <span (click)="selectItem(this.stateList,'State','state_list')">{{stateName}}</span>
-  </ion-item>
-  <ion-item class="bottom-margin">
-    <span (click)="selectItem(this.cityListFilter,'City','city_list')">City</span>
-        <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+  </div>
+  <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <span class="top_layers">City</span>
+    <span class="name_selected">{{cityName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
           <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
-      
-        
-      
         </ion-select> -->
-        <ion-icon (click)="selectItem(this.cityListFilter,'City','city_list')" name="caret-down-outline"></ion-icon>
-        <span (click)="selectItem(this.cityListFilter,'City','city_list')">{{cityName}}</span>
-      </ion-item>
-  <div class="global_input_block" *ngIf="!editData"> 
+  </div>
+  <div class="global_input_block" *ngIf="!editData">
     <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
       placeholder="write remark here..."></ion-textarea>
   </div>
