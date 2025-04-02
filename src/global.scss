@@ -128,7 +128,8 @@ ion-icon {
   transition: .5s all;
   font-size: 12px;
 
-  .name_selected, .arrow_right {
+  .name_selected,
+  .arrow_right {
     font-size: 12px;
     min-height: 20px;
   }
@@ -349,6 +350,38 @@ ion-icon {
   min-height: 45px;
   width: 100%;
   margin: 0px;
+}
+
+.no_found_text_block {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px 30px 20px;
+  max-width: 300px;
+  border: dashed 1px #e1e1e1;
+  border-radius: 5px;
+  margin: 15px auto;
+  background: #ffffff;
+
+  .no_found_text_block {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    color: #666666;
+    margin-bottom: 25px;
+
+    ion-icon {
+      font-size: 40px;
+      margin-bottom: 5px;
+      color: #F44336;
+    }
+  }
+
+  .global_submit_button {
+    max-width: 150px;
+    min-height: 36px;
+  }
 }
 
 .heading-list {
