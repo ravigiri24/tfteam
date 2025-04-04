@@ -3,6 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import * as XLSX from 'xlsx';
+import { ReviewPageComponent } from '../review-page/review-page.component';
+import { AddCustomerPopUpComponent } from '../add-customer-pop-up/add-customer-pop-up.component';
+import { ViewCustomerDataComponent } from '../view-customer-data/view-customer-data.component';
 import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 @Component({
   selector: 'app-search-customer',
@@ -43,6 +46,15 @@ export class SearchCustomerComponent implements OnInit {
   searchCustomer() {
     if(this.searchBy=='NUMBER'){
       this.serachByNumber()
+    }
+  else  if(this.searchBy=='NAME'){
+      this.getCustomerByName()
+    }
+    else if(this.searchBy=='STATE'){
+      this.getStateWiseList()
+    }
+    else if(this.searchBy=='CITY'){
+      this.getCityWiseList()
     }
   }
   stateList: any = [];
@@ -106,6 +118,7 @@ export class SearchCustomerComponent implements OnInit {
       const { data, role } = await modal.onWillDismiss();
       if (itemName == 'State') {
         if (data) {
+          this.customerList=[]
           this.state_id = data?.id;
           this.city_id = null;
           this.cityName = null;
@@ -113,8 +126,9 @@ export class SearchCustomerComponent implements OnInit {
           this.getCityListFilter();
         }
       } else if (itemName == 'City') {
+        this.customerList=[]
         this.cityName = data?.name;
-        this.city_id = data?.name;
+        this.city_id = data?.id;
       }
       console.log('role', role, data);
 
@@ -134,6 +148,7 @@ export class SearchCustomerComponent implements OnInit {
   isCustomersFound = false;
   staffDetails:any
   serachByNumber() {
+    this.share.showLoading("Searching")
     this.customerData = [];
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -149,8 +164,11 @@ export class SearchCustomerComponent implements OnInit {
         if (res?.status == 1) {
           this.isCustomersFound = true;
           this.customerData = [res?.data];
+         
         } else {
+          
           this.isCustomersFound = false;
+          this.share.presentToast("Not found any customer")
           this.customerData = [];
         }
 
@@ -158,7 +176,187 @@ export class SearchCustomerComponent implements OnInit {
       },
       (error: any) => {
         this.isCustomersFound = false;
+        this.share.spinner.dismiss();
       }
     );
   }
+  getCustomerByName(){
+    this.share.showLoading("Searching")
+    this.customerData = [];
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+     
+      name:this.search.name
+    };
+
+    this.api.postapi('getCustomerByName', obj).subscribe(
+      (res: any) => {
+        if (res?.status == 1) {
+          this.isCustomersFound = true;
+          this.customerData = res?.data;
+         
+        } else {
+          
+          this.isCustomersFound = false;
+          this.share.presentToast("Not found any customer")
+          this.customerData = [];
+        }
+
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {
+        this.isCustomersFound = false;
+        this.share.spinner.dismiss();
+      }
+    );
+  }
+   async addRemark(customer:any=null){
+  
+          const modal = await this.modalControl.create({
+            component: ReviewPageComponent,
+            componentProps: {
+              customer: customer,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+        
+    }
+   async viewCustomer(customer:any=null){
+      const modal = await this.modalControl.create({
+        component: ViewCustomerDataComponent,
+        componentProps: {
+          customerSelected: customer,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+    }
+    editData:any=[]
+    editIndex:any
+    async addCustomer(editData:any=null,editIndex:any=null){
+      this.editIndex = editIndex;
+      this.editData=editData
+          const modal = await this.modalControl.create({
+            component: AddCustomerPopUpComponent,
+            componentProps: {
+             editData: editData,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+          if(data){
+          this.updateList(data)
+          }
+           
+    }
+    updateList(e: any) {
+      if (this.editData) {
+        e.followUpDate=this.editData?.followUpDate
+        e.leadsChat=this.editData?.leadsChat
+        this.customerData[this.editIndex] = e;
+      } else {
+      //  this.customerData.unshift(e);
+      }
+    }
+    customerList:any=[]
+    generatePDF(){
+
+    }
+    generateExcel(){
+
+    }
+    resetData(){
+      this.customerList=[]
+      this.state_id=null;
+      this.city_id=null;
+      this.stateName=null;
+      this.cityName=null;
+      
+    }
+    recordStatename:any=[]
+    getStateWiseList(){
+      if(this.state_id){
+        this.recordStatename=this.stateName
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        state_id:this.state_id
+      };
+  
+      this.api.postapi('getCustomerByState', obj).subscribe(
+        (res: any) => {
+          if (res?.status == 1) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+    }else{
+      this.share.presentToast("Please select state")
+    }
+    }
+    recordCityname:any
+    getCityWiseList(){
+      if(this.city_id){
+        this.recordCityname=this.cityName
+        this.recordStatename=this.stateName
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        city_id:this.city_id
+      };
+  
+      this.api.postapi('getCustomerByCity', obj).subscribe(
+        (res: any) => {
+          if (res?.status == 1) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+    }else{
+      this.share.presentToast("Please select city")
+    }
+    }
 }

@@ -10,7 +10,9 @@ import { IonContent } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
 import { SearchCustomerComponent } from './search-customer/search-customer.component';
-
+import { AddCustomerPopUpComponent } from './add-customer-pop-up/add-customer-pop-up.component';
+import { ReviewPageComponent } from './review-page/review-page.component';
+import { ViewCustomerDataComponent } from './view-customer-data/view-customer-data.component';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -231,8 +233,12 @@ stateList:any=[]
            this.modelType='VIEW-DATA'
   }
   updateList(e: any) {
-    if (this.editData) {
+    if (this.editData) { 
+    e.followUpDate=this.editData?.followUpDate
+    e.leadsChat=this.editData?.leadsChat
+
       this.customerList[this.editIndex] = e;
+      
     } else {
       this.customerList.unshift(e);
     }
@@ -311,7 +317,50 @@ stateList:any=[]
     setTimeout(() => {
       this.showAddComp = true;
     }, 0);
+
   }
+ async addRemark(customer:any=null){
+
+        const modal = await this.modalController.create({
+          component: ReviewPageComponent,
+          componentProps: {
+            customer: customer,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+      
+  }
+ async viewCustomer(customer:any=null){
+    const modal = await this.modalController.create({
+      component: ViewCustomerDataComponent,
+      componentProps: {
+        customerSelected: customer,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+  }
+  async addCustomer(editData:any=null,editIndex:any=null){
+    this.editIndex = editIndex;
+    this.editData=editData
+        const modal = await this.modalController.create({
+          component: AddCustomerPopUpComponent,
+          componentProps: {
+           editData: editData,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+        if(data){
+        this.updateList(data)
+        }
+         
+  }
+  
   cancel() {
     this.modal.dismiss(null, 'cancel');
    

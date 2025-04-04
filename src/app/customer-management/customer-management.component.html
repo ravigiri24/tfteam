@@ -8,7 +8,7 @@
       <div class="right_action">
         <ion-icon class="theme-color icon-size" (click)="searchCustomer()" name="search-outline"></ion-icon>
         <ion-icon class="theme-color icon-size" (click)="refreshList()" name="refresh-outline"></ion-icon>
-        <ion-icon class="theme-color-second icon-size" (click)="dataClear()" expand="block" id="open-modal"
+        <ion-icon class="theme-color-second icon-size" (click)="addCustomer()" expand="block" 
           name="person-add-outline"></ion-icon>
       </div>
     </ion-label>
@@ -31,9 +31,9 @@
         <!-- <ion-label>{{cus?.name}}</ion-label>
     <ion-label>{{cus?.mobileNo}}</ion-label> -->
         <div class="list_right_action">
-          <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" name="create-outline"></ion-icon>
-          <ion-icon (click)="addReview(cus,in)" class="theme-color" name="chatbubbles-outline"></ion-icon>
-          <ion-icon (click)="viewDetails(cus,in)" class="right-margine theme-color-second " name="eye"></ion-icon>
+          <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="addCustomer(cus,in)" name="create-outline"></ion-icon>
+          <ion-icon (click)="addRemark(cus)" class="theme-color" name="chatbubbles-outline"></ion-icon>
+          <ion-icon (click)="viewCustomer(cus)" class="right-margine theme-color-second " name="eye"></ion-icon>
         </div>
       </ion-item>
     </ng-container>

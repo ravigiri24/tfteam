@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text" *ngIf="!editData">Add Customer </span>
+        <span class="selected_text" *ngIf="editData">Edit Customer </span>
+        <!-- <input type="date" class="global_datetextbox" formControlName="next_lead_date"
+          (change)="nextFollowupDate()" /> -->
+      </div>
+      <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <app-add-customer  [staffList]="staffList" [editData]="editData"
+    (updateList)="updateList($event)" (closeModal)="dismiss()"></app-add-customer>
+</ion-content>

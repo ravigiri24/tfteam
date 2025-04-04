@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Customer Details </span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="internal_card_container">
+  <!-- {{customerSelected | json}} -->
+  <ion-card>
+    <ion-card-content>
+      <div class="title_with_contact">
+        <ion-card-title>{{customerSelected?.name}}</ion-card-title>
+        <div class="right_actions">
+          <!-- <ion-button fill="clear"> -->
+          <a target="_blank" href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello">
+            <ion-icon class="whatsapp-color" name="logo-whatsapp"></ion-icon>
+          </a>
+          <!-- </ion-button> -->
+          <a href="tel:{{customerSelected?.mobileNo}}" class="book-now-btn"><ion-icon class="theme-color"
+              name="call-outline"></ion-icon></a>
+        </div>
+      </div>
+      <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} |
+        <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
+        <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action
+          Taken</span></ion-card-subtitle>
+      <span class="right_date">{{customerSelected?.createdOn}}</span>
+      <!-- {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}} -->
+      <ion-grid class="main_block_details">
+        <ion-card>
+          <ion-row>
+            <ion-col>State</ion-col>
+            <ion-col class="amount_col"> {{ customerSelected?.stateDetails?.name || '-' }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>City</ion-col>
+            <ion-col class="amount_col"> {{  customerSelected?.cityDetails?.name || '-' }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Platform</ion-col>
+            <ion-col class="amount_col"> {{ customerSelected?.socialType || '-' }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Next Follw-up Date</ion-col>
+            <ion-col class="amount_col"> {{ customerSelected?.followUpDate?.next_lead_date || '-' }}</ion-col>
+          </ion-row>
+        
+        </ion-card>
+        </ion-grid>
+      <div class="chat_history_block" *ngIf="chatHistory?.length">
+        <div class="chat_details_block" *ngFor="let chat of chatHistory; let i = index;">
+          <div class="top_row">
+            <div class="type">{{chat?.chat_type}}</div>
+            <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div>
+          </div>
+          <ion-card-title class="chat_details">{{chat?.status}}</ion-card-title>
+          <span class="right_date">{{chat?.createdOn}}</span>
+        </div>
+      </div>
+      <div class="chat_history_block" *ngIf="nextFolloupHistory?.length">
+        <div class="chat_details_block" *ngFor="let chat of nextFolloupHistory; let i = index;">
+          <div class="top_row">
+            <div class="type">{{chat?.chat_type}}</div>
+            <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div>
+          </div>
+          <ion-card-title class="chat_details">{{chat?.status}}</ion-card-title>
+          <span class="right_date">{{chat?.createdOn}}</span>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

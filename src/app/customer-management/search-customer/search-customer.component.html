@@ -11,7 +11,7 @@
 </ion-header>  
 <ion-content class="ion-padding">
   <div  class="global_input_block input-position">
-    <ion-select [(ngModel)]="searchBy"  fill="outline" label="Search By" label-placement="stacked">
+    <ion-select (ionChange)="resetData()" [(ngModel)]="searchBy"  fill="outline" label="Search By" label-placement="stacked">
       <ion-select-option value="NUMBER">By Number</ion-select-option>
       <ion-select-option value="NAME">By Name</ion-select-option>
       <ion-select-option value="STATE">By State</ion-select-option>
@@ -47,18 +47,102 @@
   <ng-container *ngFor="let cus of customerData;let in=index">
     <ion-item [ngClass]="{'warning_row': !cus?.leadsChat?.length}">
       <ion-label>
-        <h2 class="theme-color">{{cus?.name}} <ion-icon class="right_warning_icon" *ngIf="!cus?.leadsChat?.length"
-            name="warning"></ion-icon></h2>
+        <h2 class="theme-color">{{cus?.name}}
+           <!-- <ion-icon class="right_warning_icon" *ngIf="!cus?.leadsChat?.length"
+            name="warning"></ion-icon> -->
+          </h2>
         <p>{{cus?.mobileNo}}-{{cus?.customerType}}</p>
       </ion-label>
       <!-- <ion-label>{{cus?.name}}</ion-label>
   <ion-label>{{cus?.mobileNo}}</ion-label> -->
-      <div class="list_right_action">
-        <!-- <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" name="create-outline"></ion-icon>
-        <ion-icon (click)="addReview(cus,in)" class="theme-color" name="chatbubbles-outline"></ion-icon>
-        <ion-icon (click)="viewDetails(cus,in)" class="right-margine theme-color-second " name="eye"></ion-icon> -->
-      </div>
+  <div class="list_right_action">
+    <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="addCustomer(cus,in)" name="create-outline"></ion-icon>
+    <ion-icon (click)="addRemark(cus)" class="theme-color" name="chatbubbles-outline"></ion-icon>
+    <ion-icon (click)="viewCustomer(cus)" class="right-margine theme-color-second " name="eye"></ion-icon>
+  </div>
     </ion-item>
   </ng-container>
 </div>
+<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY' )" class="row">
+  <div class="col-6 col-md-6 ">
+<ion-button   (click)="generatePDF()" class="global_submit_button button-width" expand="block">Genrate Pdf</ion-button>
+</div>
+<div class="col-6 col-md-6">
+<ion-button (click)="generateExcel()" class="global_submit_button button-width" expand="block">Genrate Excel</ion-button>
+</div>
+</div>
+<div *ngIf="(searchBy=='STATE' || searchBy=='CITY' ) && customerList?.length" id="contentReport" class="top-margin" style="width: 100%;">
+  <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div>
+
+
+  <table cellpadding="5" cellspacing="5" style="width: 100%;">
+    <tbody>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">State
+          State</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{recordStatename}} </td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">City</th>
+        <td *ngIf="searchBy=='CITY'" style="border: 1px solid #ddd;padding: 5px 10px;">{{recordCityname}}</td>
+        <td *ngIf="searchBy!='CITY'" style="border: 1px solid #ddd;padding: 5px 10px;">-</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total Customer</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{customerList?.length}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+      
+      </tr>
+
+   
+    </tbody>
+  </table>
+  <h2 style="text-align: center;margin: 10px 0px;" >Customer List</h2>
+  <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <tbody>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Mobile No.</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Type</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Platform</th>
+        <th *ngIf="searchBy=='STATE'" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">City</th>
+    
+
+      </tr>
+      <tr *ngFor="let cus of customerList;let cusInd=index"
+        style="border: 1px solid #e1e1e1;text-align: left;">
+        <td style="text-align: center;">{{cusInd+1}}</td>
+        <td style="padding: 5px 10px;">{{cus?.name}}</td>
+        <td style="padding: 5px 10px;">{{cus?.mobileNo}}</td>
+        <td style="padding: 5px 10px;">{{cus?.customerType}}</td>
+        <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
+        <td *ngIf="searchBy=='STATE'" style="padding: 5px 10px;">{{cus?.cityDetails?.name}}</td>
+     
+      
+      </tr>
+      <!-- <tr>
+        <td colspan="3"  style="padding: 5px 10px;">
+          {{catTotal[expenseHeader[0]]}}
+        </td>
+        <div *ngFor="let head of expenseHeader;let indi=index">
+          <div  *ngIf="indi>0" >
+            <td style="padding: 5px 10px;">
+              {{catTotal[expenseHeader[0]]}}
+            </td> 
+
+          </div>
+        </div>
+     
+      </tr> -->
+    
+    </tbody>
+  </table>
+
+
+
+
+</div>
+
 </ion-content>
