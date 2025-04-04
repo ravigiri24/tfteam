@@ -6,6 +6,7 @@
         <span>{{customerList?.length}}</span>
       </div>
       <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="searchCustomer()" name="search-outline"></ion-icon>
         <ion-icon class="theme-color icon-size" (click)="refreshList()" name="refresh-outline"></ion-icon>
         <ion-icon class="theme-color-second icon-size" (click)="dataClear()" expand="block" id="open-modal"
           name="person-add-outline"></ion-icon>

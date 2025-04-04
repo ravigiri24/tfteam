@@ -1,8 +1,5 @@
 <form [formGroup]="customerForm">
-  <div class="global_input_block">
-    <ion-input label="Enter Hours" fill="outline" labelPlacement="stacked" type="text"
-      formControlName="hours"></ion-input>
-  </div>
+ 
   <div class="global_input_block">
     <ion-input label="Enter Customer name" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
       placeholder="Your name" formControlName="name"></ion-input>
@@ -12,13 +9,13 @@
       placeholder="Your Number" formControlName="mobileNo"></ion-input>
   </div>
   <div class="global_input_block">
-    <ion-select formControlName="customerType" fill="outline" label="Customer Type" label-placement="stacked">
+    <ion-select (ionChange)="clearsocialType()" formControlName="customerType" fill="outline" label="Customer Type" label-placement="stacked">
       <ion-select-option value="DIGITAL">Digital</ion-select-option>
       <ion-select-option value="VISITORS">Visitors</ion-select-option>
     </ion-select>
   </div>
   <div *ngIf="customerForm.controls['customerType'].value=='DIGITAL'" class="global_input_block">
-    <ion-select formControlName="socialType" fill="outline" label="Platform" label-placement="stacked">
+    <ion-select    formControlName="socialType" fill="outline" label="Platform" label-placement="stacked">
       <ion-select-option value="INSTAGRAME">Instagram</ion-select-option>
       <ion-select-option value="YOUTUBE">Youtube</ion-select-option>
       <ion-select-option value="FACEBOOK">Facebook</ion-select-option>

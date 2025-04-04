@@ -74,7 +74,7 @@ export class AddCustomerComponent implements OnInit {
       id: new FormControl(this.editData?.id || null),
       remark: new FormControl(null, []),
       assigned_staff_id: new FormControl(null, []),
-      socialType: new FormControl(null, []),
+      socialType: new FormControl(this.editData?.socialType , []),
       assigining_staff_id: new FormControl(null, []),
     });
   }
@@ -85,10 +85,22 @@ export class AddCustomerComponent implements OnInit {
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.stateList = res?.data;
+        if(this.editData?.state_id){
+
+      let find= this.stateList.find((d:any)=>d.id==this.customerForm.controls['state_id'].value)  
+      if(find){
+        this.stateName = find?.name;
+      } 
+        }
         this.getCityList();
       },
       (error: any) => {}
     );
+  }
+  clearsocialType(){
+    if(this.customerForm.controls['customerType'].value=='VISITORS'){
+this.customerForm.controls['socialType'].setValue(null)
+    }
   }
   cityList: any = [];
   getCityList() {
@@ -96,7 +108,10 @@ export class AddCustomerComponent implements OnInit {
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.cityList = res?.data;
-
+        let find= this.cityList.find((d:any)=>d.id==this.customerForm.controls['city_id'].value)  
+        if(find){
+          this.cityName = find?.name;
+        } 
         this.share.spinner.dismiss();
       },
       (error: any) => {}
@@ -121,7 +136,7 @@ export class AddCustomerComponent implements OnInit {
     console.log(this.customerForm.value);
     if (this.customerForm.valid) {
       this.showLoading();
-      this.api.postapi('addCustomer', obj).subscribe((res: any) => {
+      this.api.postapi('addCustomerLocationWise', obj).subscribe((res: any) => {
         this.spinner?.dismiss();
         this.presentToast(res?.msg);
 
@@ -140,9 +155,16 @@ export class AddCustomerComponent implements OnInit {
       return true;
     } else if (
       itemName == 'City' &&
-      this.customerForm.controls['state_id'].value
+      this.customerForm.controls['state_id'].value 
     ) {
-      return true;
+      if(this.cityListFilter?.length){
+        return true;
+      }else{
+        this.getCityListFilter()
+   
+        return true;
+      }
+   
     } else {
       return false;
     }
@@ -154,6 +176,7 @@ export class AddCustomerComponent implements OnInit {
    
     let otherObjects: any;
     if (itemName == 'City') {
+      list=this.cityListFilter
       otherObjects = {
         state_id: this.customerForm.controls['state_id'].value,
       };
@@ -181,7 +204,7 @@ export class AddCustomerComponent implements OnInit {
       }
     } else if (itemName == 'City') {
       this.cityName = data?.name;
-      this.customerForm.controls['city_id'].setValue(data);
+      this.customerForm.controls['city_id'].setValue(data?.id);
     }
     console.log('role', role, data);
 
@@ -196,7 +219,7 @@ export class AddCustomerComponent implements OnInit {
       let obj: any = this.customerForm.value;
       obj.id = this.editData?.id;
       this.showLoading();
-      this.api.postapi('updateCustomer', obj).subscribe(
+      this.api.postapi('updateCustomerLocationWise', obj).subscribe(
         (res: any) => {
           console.log('$getUpdatedData', res);
 

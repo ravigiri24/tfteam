@@ -9,27 +9,56 @@
 
   </ion-toolbar>  
 </ion-header>  
-<ion-content>
-  <table style="width:100%; border: 1px solid black;" id="table">
-    <tr style="border: 1px solid black;">
-      <th style="border: 1px solid black;">Firstname</th>
-      <th style="border: 1px solid black;">Lastname</th> 
-      <th style="border: 1px solid black;">Age</th>
-    </tr>
-    <tr style="border: 1px solid black;">
-      <td contenteditable='true' style="border: 1px solid black;">Jill</td>
-      <td style="border: 1px solid black;">Smith</td> 
-      <td style="border: 1px solid black;">50</td>
-    </tr>
-    <tr style="border: 1px solid black;">
-      <td style="border: 1px solid black;">Eve</td>
-      <td style="border: 1px solid black;">Jackson</td> 
-      <td style="border: 1px solid black;">94</td>
-    </tr>
-  </table>
-  <div class="login-button">
-
-    <ion-button (click)="salva()"  style="text-align: center;" expand="block" >Download</ion-button>
-  
+<ion-content class="ion-padding">
+  <div  class="global_input_block input-position">
+    <ion-select [(ngModel)]="searchBy"  fill="outline" label="Search By" label-placement="stacked">
+      <ion-select-option value="NUMBER">By Number</ion-select-option>
+      <ion-select-option value="NAME">By Name</ion-select-option>
+      <ion-select-option value="STATE">By State</ion-select-option>
+      <ion-select-option value="CITY">By City</ion-select-option>
+   </ion-select>
   </div>
+  <div *ngIf="searchBy=='NAME' || searchBy=='NUMBER'" class="top-position">
+  <ion-searchbar (ionFocus)="onInputFocus()" (ionBlur)="focusOut()" [(ngModel)]="search.name" slot="fixed"
+  placeholder="Search Customer"></ion-searchbar>
+</div>
+<div *ngIf="searchBy=='STATE' || searchBy=='CITY'" class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+  <span class="top_layers">State</span>
+  <span class="name_selected">{{stateName}}</span>
+  <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+  <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+    <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+  </ion-select> -->
+</div>
+<div *ngIf="searchBy=='CITY'"  class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+  <span class="top_layers">City</span>
+  <span class="name_selected">{{cityName}}</span>
+  <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+  <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+        <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+      </ion-select> -->
+</div>
+<div class="button-style">
+  <ion-button class="button"  (click)="searchCustomer()" expand="block">Search</ion-button>
+
+</div>
+<hr/>
+<div *ngIf="searchBy=='NUMBER' ||searchBy=='NAME' ">
+  <ng-container *ngFor="let cus of customerData;let in=index">
+    <ion-item [ngClass]="{'warning_row': !cus?.leadsChat?.length}">
+      <ion-label>
+        <h2 class="theme-color">{{cus?.name}} <ion-icon class="right_warning_icon" *ngIf="!cus?.leadsChat?.length"
+            name="warning"></ion-icon></h2>
+        <p>{{cus?.mobileNo}}-{{cus?.customerType}}</p>
+      </ion-label>
+      <!-- <ion-label>{{cus?.name}}</ion-label>
+  <ion-label>{{cus?.mobileNo}}</ion-label> -->
+      <div class="list_right_action">
+        <!-- <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" name="create-outline"></ion-icon>
+        <ion-icon (click)="addReview(cus,in)" class="theme-color" name="chatbubbles-outline"></ion-icon>
+        <ion-icon (click)="viewDetails(cus,in)" class="right-margine theme-color-second " name="eye"></ion-icon> -->
+      </div>
+    </ion-item>
+  </ng-container>
+</div>
 </ion-content>

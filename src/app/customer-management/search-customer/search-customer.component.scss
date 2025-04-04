@@ -1,0 +1,20 @@
+.top-position{
+    position: relative;
+    top: -7px;
+}
+.input-position{
+    position: relative;
+    top: 9px;
+}
+.button-style{
+    width: 100%;
+    display: flex;
+  justify-content: center;
+
+}
+.button{
+    --background: var(--app-theme-element-color) !important;
+    --border-color: var(--app-theme-element-color) !important;
+    --color: white !important;
+    width: 50%;
+}
