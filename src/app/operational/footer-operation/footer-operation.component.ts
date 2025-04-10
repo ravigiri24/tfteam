@@ -20,8 +20,8 @@ export class FooterOperationComponent  implements OnInit {
   else if(tab=='Logistic'){
     this.router.navigate(['/operational/transport-management'])
   }
-  else if(tab=='Maintainance'){
-    this.router.navigate(['/operational/maintainance-management'])
+  else if(tab=='BUFFER'){
+    this.router.navigate(['/operational/buffer-stock'])
   }
   else if(tab=='Live'){
     this.router.navigate(['/operational/all-tractor-management'])

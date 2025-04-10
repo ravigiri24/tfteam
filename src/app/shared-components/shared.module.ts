@@ -13,6 +13,7 @@ import { ViewTractorDetailsComponent } from './view-tractor-details/view-tractor
 import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
 import { SelectWithSearchComponent } from './select-with-search/select-with-search.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { SyncTractorWithMaintaninanceComponent } from './sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +33,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     TractorCostingDashboardComponent,
     ViewTractorDetailsComponent,
     ViewTransactionDetailsComponent,
-    SelectWithSearchComponent
+    SelectWithSearchComponent,
+    SyncTractorWithMaintaninanceComponent
     
   ],
   schemas: [],

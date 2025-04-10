@@ -40,6 +40,7 @@ import { TractorFinanceDetailsComponent } from '../tractor-finance-details/tract
 import { SellDocumentComponent } from '../sell-document/sell-document.component';
 import { OtherExpenseListComponent } from '../tractor-dashboard/other-expense-list/other-expense-list.component'
 import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense/add-other-expense.component';
+import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-stock-tractors.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -74,7 +75,8 @@ import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense
     TractorFinanceDetailsComponent,
     SellDocumentComponent,
     OtherExpenseListComponent,
-    AddOtherExpenseComponent
+    AddOtherExpenseComponent,
+    BufferStockTractorsComponent
   ],
   imports: [
     OperationlPageRoutingModule,

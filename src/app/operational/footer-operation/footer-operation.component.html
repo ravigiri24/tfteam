@@ -5,8 +5,8 @@
           Listen Now
         </ion-tab-button> -->
     <ion-tab-button (click)="goToPage('New-arrivals')" tab="Customer">
-      <ion-icon *ngIf="selectedTab!=='New-arrivals'" class="theme-color" name="people-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='New-arrivals'" class="theme-color" name="people"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='New-arrivals'" class="theme-color" name="file-tray-stacked-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='New-arrivals'" class="theme-color" name="file-tray-stacked"></ion-icon>
       Arriavals
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
@@ -14,10 +14,10 @@
       <ion-icon *ngIf="selectedTab!=='Logistic'" class="theme-color" name="bookmarks-outline"></ion-icon>
       Logistic
     </ion-tab-button>
-    <ion-tab-button (click)="goToPage('Maintainance')" tab="Follow-Up">
-      <ion-icon *ngIf="selectedTab==='Maintainance'" class="theme-color" name="construct"></ion-icon>
-      <ion-icon *ngIf="selectedTab!=='Maintainance'" class="theme-color" name="construct-outline"></ion-icon>
-      Repair
+    <ion-tab-button (click)="goToPage('BUFFER')" tab="Follow-Up">
+      <ion-icon *ngIf="selectedTab==='BUFFER'" class="theme-color" name="bag"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='BUFFER'" class="theme-color" name="bag-outline"></ion-icon>
+      Buffer
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Live')" tab="User">
       <ion-icon *ngIf="selectedTab!=='Live'" class="theme-color" name="list-circle-outline"></ion-icon>

@@ -42,6 +42,14 @@ export class ConfirmDeliveryComponent implements OnInit {
       reachDate: new FormControl(data?.reachDate || null, [
         Validators.required,
       ]),
+      tractor_status: new FormControl(null),
+       
+      isLive: new FormControl(true, [
+        Validators.required,
+      ]),
+      isDraft: new FormControl(true, [
+        Validators.required,
+      ]),
     });
 
     // if(data){

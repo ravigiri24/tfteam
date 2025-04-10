@@ -21,10 +21,12 @@ import { AddCustomerPopUpComponent } from '../customer-management/add-customer-p
 import { SearchCustomerComponent } from '../customer-management/search-customer/search-customer.component';
 import { ReviewPageComponent } from '../customer-management/review-page/review-page.component';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
+import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @NgModule({
   declarations: [DigitalComponent,HeaderComponent,FooterComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent,HomeComponent,SearchCustomerComponent,AddCustomerPopUpComponent,ReviewPageComponent,ViewCustomerDataComponent],
   imports: [DigitalPageRoutingModule,CommonModule, IonicModule.forRoot(),FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },InAppBrowser,PDFGenerator],
 
 })
   export class DigitalPageModule {}

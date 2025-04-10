@@ -6,7 +6,25 @@ import * as XLSX from 'xlsx';
 import { ReviewPageComponent } from '../review-page/review-page.component';
 import { AddCustomerPopUpComponent } from '../add-customer-pop-up/add-customer-pop-up.component';
 import { ViewCustomerDataComponent } from '../view-customer-data/view-customer-data.component';
+
 import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
+//import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+pdfMake.fonts = {
+  Roboto: {
+    normal:
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+    bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
+    italics:
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
+    bolditalics:
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf',
+  },
+};
+import { jsPDF } from 'jspdf';
 @Component({
   selector: 'app-search-customer',
   templateUrl: './search-customer.component.html',
@@ -17,7 +35,8 @@ export class SearchCustomerComponent implements OnInit {
   constructor(
     private modalControl: ModalController,
     private share: ShareService,
-    private api: ApiService
+    private api: ApiService,
+    private inAppBrowser: InAppBrowser
   ) {}
   EXCEL_TYPE =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -266,12 +285,124 @@ export class SearchCustomerComponent implements OnInit {
       }
     }
     customerList:any=[]
-    generatePDF(){
-
-    }
-    generateExcel(){
-
-    }
+   
+   
+      generateExcel() {
+        // Get the HTML content of the div you want to export
+        const element = document.getElementById('customerDataReport');
+    
+        // Create a worksheet from the table
+        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    
+        // Create a new workbook with the generated worksheet
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+        // Write the workbook as a binary string
+        const wbout: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    
+        // Create a Blob object from the binary data
+        const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' });
+    
+        // Create a link to trigger the download
+        // const link = document.createElement('a');
+        //    link.href = URL.createObjectURL(blob);
+        //  link.download = 'generated_file.xlsx'; // Name of the file to be downloaded
+        this.convertBlobToBase64(blob, 'xlsx');
+        // Trigger the link click to download the file
+        // link.click();
+      }
+      jsPDF: any;
+      generatePDF() {
+        //const { jsPDF } = window.jspdf;
+        this.share.showLoading('Uploading...', 20000);
+        const doc = new jsPDF('p', 'mm', 'a4');
+    
+        const content: any = document.getElementById('customerDataReport');
+    
+        // Convert HTML to PDF
+        let pdfBlob: any;
+        doc
+          .html(content, {
+            callback: function (doc: any) {
+              // Save the generated PDF
+              //      doc.save('invoice.pdf');
+              // const img:any = document.getElementById('imageLogo');
+    
+              //img.onload = function () {
+              //doc.addImage(img, 'JPEG', 20, 40, 180, 160);
+              pdfBlob = doc.output('blob');
+              console.log('pdfBlob', pdfBlob);
+              //  }
+            },
+            x: 10, // X-position of content
+            y: 10, // Y-position of content
+            width: 180, // Width of the content to ensure it fits within A4 width (A4 is 210mm)
+            windowWidth: 800, // Optionally set the window width (scale content)
+            margin: [10, 10, 10, 10], // Adjust margins (top, left, bottom, right)
+            autoPaging: true,
+          })
+          .then((f) => {
+            this.convertBlobToBase64(pdfBlob, 'pdf');
+          });
+        setTimeout(() => {}, 0);
+    
+        // Convert the content and trigger download
+      }
+      private convertBlobToBase64 = (blob: Blob, extension: any) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = reject;
+          reader.onload = () => {
+            resolve(reader.result);
+    
+            this.renderResult = reader.result;
+            this.saveDataTo(extension);
+            console.log('reader.result', reader.result);
+          };
+          reader.readAsDataURL(blob);
+        });
+    
+      renderResult: any;
+      printData: any;
+      saveDataTo(extension: any) {
+        let name=null
+        if(this.searchBy=='STATE'){
+name=this.stateName
+        }else if(this.searchBy=='CITY'){
+          name=this.cityName
+        }
+        let staffDetails: any = this.share.get_staff();
+        this.staffDetails = JSON.parse(staffDetails);
+    
+        let obj = {
+          operate: this.staffDetails?.staffCode,
+          pdfObj: this.renderResult,
+    
+          actionByid: this.staffDetails?.id,
+          report_type:this.searchBy,
+          extension: extension,
+          name:name
+        
+        };
+        console.log('convertBlobToBase64', obj);
+    
+        this.api.postapi('customer_record_generation', obj).subscribe((res: any) => {
+          console.log('saveDataTo', res);
+          this.share.spinner.dismiss();
+          if (res?.data?.imageUrlUrl) {
+            this.pdfUrl = res?.data?.imageUrlUrl;
+            this.openPDF(res?.data?.imageUrlUrl);
+          }
+        });
+      }
+      pdfUrl:any
+      error: any;
+  openPDF(dataUrl: string) {
+    const browser = this.inAppBrowser.create(dataUrl, '_blank');
+    this.error = dataUrl;
+    browser.show();
+  }
     resetData(){
       this.customerList=[]
       this.state_id=null;

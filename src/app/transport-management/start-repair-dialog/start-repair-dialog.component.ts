@@ -33,12 +33,13 @@ export class StartRepairDialogComponent  implements OnInit {
   initialize(data: any = null) {
     if(this.updateTranctorStatus){
     this.form = this.fb.group({
-      repairing_start_date: new FormControl(
-        data?.repairing_start_date || null,
-        [Validators.required]
-      ),
-
-      tractor_status: new FormControl("AT_REPAIR_CENTER", [
+  
+      tractor_status: new FormControl(null),
+       
+      isLive: new FormControl(true, [
+        Validators.required,
+      ]),
+      isDraft: new FormControl(true, [
         Validators.required,
       ]),
     });

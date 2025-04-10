@@ -11,6 +11,7 @@ import { MaintainanceManagementComponent } from '../maintainance-management/main
 import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.component';
 import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
 import { TractorSellsDetailsComponent } from '../tractor-sells-details/tractor-sells-details.component';
+import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-stock-tractors.component';
 const routes: Routes = [
   {
     path: "", component: OperationalComponent,
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'maintainance-management', component: MaintainanceManagementComponent},
       { path: 'all-tractor-management', component: AllTractorListComponent},
       { path: 'sell-tractor-details', component: TractorSellsDetailsComponent},
+      { path: 'buffer-stock', component: BufferStockTractorsComponent},
       {
         path: 'edit-newarrivals/:id',
         component: AddNewArrivalsComponent,
