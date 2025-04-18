@@ -41,6 +41,7 @@ import { SellDocumentComponent } from '../sell-document/sell-document.component'
 import { OtherExpenseListComponent } from '../tractor-dashboard/other-expense-list/other-expense-list.component'
 import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense/add-other-expense.component';
 import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-stock-tractors.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -86,6 +87,7 @@ import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-st
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
+    FilterPipeModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 })

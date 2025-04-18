@@ -34,7 +34,7 @@ const routes: Routes = [
         component: TransportCostListComponent,
       },
       {
-        path: 'view-dashboard/:id',
+        path: 'view-dashboard/:id/:srcPage',
         component: TractorDashboardComponent,
       },
       

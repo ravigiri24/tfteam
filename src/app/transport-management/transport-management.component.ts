@@ -27,7 +27,9 @@ export class TransportManagementComponent implements OnInit {
     this.transportList = [];
     this.getTractorList();
   }
-
+  search={
+    registractionNo:null
+  }
   startRepairingApi(tractor: any) {
     let obj;
 

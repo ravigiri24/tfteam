@@ -9,62 +9,34 @@
 </ion-header>
 <ion-content class="internal_card_container">
 
-  <ion-button (click)="addJob()" class="global_submit_button" expand="block">
+  <ion-button (click)="addJob()" class="global_submit_button add-job-button" expand="block">
     <ion-icon name="add-outline" ></ion-icon>
     Add Job</ion-button>
     <span class="inner-heading-list">Added Job List</span>
-    <!-- <ion-grid class="main_block_details">
+    <ion-grid *ngIf="savedJobList?.length" class="main_block_details">
       <ion-card>
-        <ion-row>
-          <ion-col>1</ion-col>
+        <ion-row >
+          <ion-col>Sr</ion-col>
+          <ion-col>TF Code</ion-col>
+          <ion-col>Created</ion-col>
+          <ion-col>Action</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let jobs of savedJobList;let i=index">
+          <ion-col>{{i+1}}</ion-col>
+          <ion-col>{{jobs?.tfCode}}</ion-col>
+          <ion-col>{{jobs?.createdOn|date}}</ion-col>
+          <ion-col>
+            <ion-icon class="theme-color icon-size" (click)="deleteItem(jobs)" name="trash-outline"></ion-icon>
+          </ion-col>
+   
 
         </ion-row>
-        <ion-row>
-          
-          <ion-col>TF Code</ion-col>
-          <ion-col class="amount_col"></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Created</ion-col>
-          <ion-col class="amount_col"></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Closed Date</ion-col>
-          <ion-col class="amount_col"></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Bill Amount</ion-col>
-          <ion-col class="amount_col"> </ion-col>
-        </ion-row>
+       
       </ion-card>
       </ion-grid>
 
-      <ion-grid class="main_block_details">
-        <ion-card>
-          <ion-row>
-            <ion-col>2</ion-col>
- 
-          </ion-row>
-          <ion-row>
-          
-            <ion-col>TF Code</ion-col>
-            <ion-col class="amount_col"></ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>Created</ion-col>
-            <ion-col class="amount_col"></ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>Closed Date</ion-col>
-            <ion-col class="amount_col"></ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>Bill Amount</ion-col>
-            <ion-col class="amount_col"> </ion-col>
-          </ion-row>
-        </ion-card>
-        </ion-grid> -->
-<div class="no-data-block">
+   
+<div *ngIf="!savedJobList?.length" class="no-data-block">
         <img class="image-no-data" src="././assets/images/no-data-found.png" />
       </div>
 

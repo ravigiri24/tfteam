@@ -1,0 +1,40 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Search Tractor</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<ion-searchbar [(ngModel)]="search.tfCode" slot="fixed"
+placeholder="Enter TF Code"></ion-searchbar>
+<div class="button-style">
+  <ion-button class="button"  (click)="searchTractor()" expand="block">Search</ion-button>
+
+</div>
+<hr class="line-top-position"/>
+<span class="inner-heading-list top-margin-heading" *ngIf="tractorList?.length">Tractor</span>
+<ion-list class="list_row top-position" *ngIf="tractorList?.length">
+  <ion-item *ngFor="let tractor of tractorList;let in=index">
+    <ion-label>
+      <h2 class="theme-color">{{tractor?.name}}</h2>
+      <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
+        date }}</p>
+    </ion-label>
+    <div class="list_right_action">
+      <!-- <ion-icon (click)="viewImage(tractor)" class="camera_icon theme-color" name="camera-outline"></ion-icon> -->
+      <!-- <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
+        name="eye-outline"></ion-icon> -->
+        <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon>
+        <ion-icon (click)="syncManitainance(tractor)"
+        class="theme-color-second" name="construct-outline"></ion-icon>
+    </div>
+ 
+  </ion-item>
+</ion-list>
+
+</ion-content>

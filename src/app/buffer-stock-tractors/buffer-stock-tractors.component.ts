@@ -76,9 +76,12 @@ buffertractorList:any=[]
 
     this.getTractorList()
   }
+  search={
+    registractionNo:null
+  }
   backupList:any=[]
   tractorDashboard(tractor: any) {
-    this.router.navigate(['/operational/view-dashboard', tractor?.id]);
+    this.router.navigate(['/operational/view-dashboard', tractor?.id,'/operational/buffer-stock']);
   }
 async  syncManitainance(tractor:any){
   

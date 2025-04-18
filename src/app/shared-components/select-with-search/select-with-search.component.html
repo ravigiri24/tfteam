@@ -14,14 +14,14 @@
   <div class="radio_block_container">
     <ion-radio-group (ionChange)="selectItem($event)">
       <ion-radio class="radio_block" *ngFor="let item of list| filterBy: search ;let in=index"
-        value="{{item?.id}}"><span class="radio_name">{{item?.name}}</span></ion-radio>
+        value="{{item?.id}}"><span class="radio_name">{{item[jsonKey]}}</span></ion-radio>
     </ion-radio-group>
     <div class="no_found_text_block" *ngIf="(list | filterBy: search).length === 0">
       <div class="no_found_text">
         <ion-icon name="warning"></ion-icon>
         <span class="no_found_text">No {{itemName}} Found</span>
       </div>
-      <ion-button class="global_submit_button" (click)="addNewItem()">
+      <ion-button *ngIf="showAddButton" class="global_submit_button" (click)="addNewItem()">
         <span class="">Add New</span>
       </ion-button>
     </div>

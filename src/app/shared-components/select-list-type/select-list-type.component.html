@@ -1,0 +1,23 @@
+<ion-content  class="ion-padding ">
+  <div class="border-shape background">
+<div class="global_input_block " >
+  <ion-select (ionChange)="selectList()"  [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
+
+    <ion-select-option value="BRAND_WISE">Brand Wise</ion-select-option>
+    <ion-select-option value="STORE_WISE">Store Wise</ion-select-option>
+    <ion-select-option value="ALL">All</ion-select-option>
+
+  </ion-select>
+</div>
+<div class="global_input_block " >
+  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="filterBy" fill="outline" label="Filter By" label-placement="type">
+     <ion-select-option value="ALL">All</ion-select-option>
+     <ion-select-option value="MAPPED">Mapped</ion-select-option>
+    <ion-select-option value="NOT_MAPPED">Not Mapped</ion-select-option>
+    <ion-select-option value="NOT_SOLD">Not Sold</ion-select-option>
+    <ion-select-option value="SOLD">Sold</ion-select-option>
+ 
+  </ion-select>
+</div>
+</div>
+</ion-content>

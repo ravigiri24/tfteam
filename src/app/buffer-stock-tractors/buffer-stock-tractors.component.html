@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Total Repair :</span>
+        <span class="selected_text">Buffer Stock :</span>
         <b class="total-number">{{buffertractorList?.length}}</b>
       </div>
       <div class="right_action">
@@ -15,9 +15,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <span class="inner-heading-list">Buffer Stock</span>
-  <ion-list class="list_row" *ngIf="buffertractorList?.length">
-    <ion-item *ngFor="let tractor of buffertractorList;let in=index">
+
+  <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
+  placeholder="Enter TF Code"></ion-searchbar>
+  <!-- <span class="inner-heading-list heading-position">Buffer Stock</span> -->
+  <ion-list class="list_row top-position-list" >
+    <ion-item *ngFor="let tractor of buffertractorList |filterBy: search ;let in=index">
       <ion-label>
         <h2 class="theme-color">{{tractor?.name}}</h2>
         <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
@@ -27,6 +30,7 @@
         <!-- <ion-icon (click)="viewImage(tractor)" class="camera_icon theme-color" name="camera-outline"></ion-icon> -->
         <!-- <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
           name="eye-outline"></ion-icon> -->
+          <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon>
           <ion-icon (click)="syncManitainance(tractor)"
           class="theme-color-second" name="construct-outline"></ion-icon>
       </div>

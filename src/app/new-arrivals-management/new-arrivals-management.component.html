@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Total Arrivals :</span>
+        <span class="selected_text">New Arrivals :</span>
         <b class="total-number">{{newArivalsList?.length}}</b>
       </div>
       <div class="right_action">
@@ -13,9 +13,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <span class="inner-heading-list">New Arrivals</span>
-  <ion-list class="list_row" *ngIf="newArivalsList?.length">
-    <ion-item *ngFor="let tractor of newArivalsList;let in=index">
+
+  <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
+  placeholder="Enter TF Code"></ion-searchbar>
+  <ion-list class="list_row top-position-list" *ngIf="newArivalsList?.length">
+    <ion-item *ngFor="let tractor of newArivalsList|filterBy: search ;let in=index">
       <ion-label>
         <h2 class="theme-color">{{tractor?.name}}</h2>
         <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |

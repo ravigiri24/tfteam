@@ -14,6 +14,8 @@ import { ViewTransactionDetailsComponent } from './view-transaction-details/view
 import { SelectWithSearchComponent } from './select-with-search/select-with-search.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { SyncTractorWithMaintaninanceComponent } from './sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
+import { SearchTractorWithTfCodeComponent } from './search-tractor-with-tf-code/search-tractor-with-tf-code.component';
+import { SelectListTypeComponent } from './select-list-type/select-list-type.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +36,9 @@ import { SyncTractorWithMaintaninanceComponent } from './sync-tractor-with-maint
     ViewTractorDetailsComponent,
     ViewTransactionDetailsComponent,
     SelectWithSearchComponent,
-    SyncTractorWithMaintaninanceComponent
+    SyncTractorWithMaintaninanceComponent,
+    SearchTractorWithTfCodeComponent,
+    SelectListTypeComponent
     
   ],
   schemas: [],

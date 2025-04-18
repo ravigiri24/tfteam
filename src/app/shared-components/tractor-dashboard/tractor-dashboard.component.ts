@@ -41,9 +41,11 @@ export class TractorDashboardComponent  implements OnInit {
 
   }
   tractor_id:any
+  srcPage:any
   ionViewWillEnter() {
     this.activatedRoute.params.subscribe((params: any) => {
       this.tractor_id = params?.id;
+      this.srcPage = params?.srcPage;
     });
     this.getTractorDetails()
   }
@@ -235,5 +237,8 @@ export class TractorDashboardComponent  implements OnInit {
         //if (role === 'confirm') {
           this.getTractorDetails('Refreshing Data...');
         //}
+      }
+      backToSrcPage() {
+        this.route.navigate([this.srcPage]);
       }
 }

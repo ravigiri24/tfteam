@@ -1,0 +1,39 @@
+.top-position{
+    margin-top: 10px;
+}
+.margin-body{
+    margin-left: 10px;
+}
+.top-margin{
+position: relative;
+
+}
+.button-width{
+    width: 100% !important;
+
+}
+.line-top-position{
+    position: relative;
+    top: 40px;
+}
+.top-position{
+    position: relative;
+    top:-7px
+}
+.top-margin-heading{
+    margin-top: 5px !important;
+}
+.button{
+    --background: var(--app-theme-element-color) !important;
+    --border-color: var(--app-theme-element-color) !important;
+    --color: white !important;
+    width: 50%;
+}
+.button-style{
+    width: 100%;
+    display: flex;
+  justify-content: center;
+  position: relative;
+  top: 38px;
+
+}

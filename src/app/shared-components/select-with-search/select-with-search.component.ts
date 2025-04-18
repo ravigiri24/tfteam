@@ -13,15 +13,19 @@ export class SelectWithSearchComponent implements OnInit {
   otherObjects: any;
   table_name: any;
   list: any = [];
+  jsonKey:'name'
+  search:any
+  showAddButton:any=true
   constructor(
     private modalController: ModalController,
     private api: ApiService,
     private share: ShareService
   ) {}
-  search: any = {
-    name: null,
-  };
-  ngOnInit() {}
+
+  ngOnInit() {
+    console.log("list",this.list,this.jsonKey);
+    
+  }
   onInputFocus() {}
   focusOut() {}
   dismiss() {

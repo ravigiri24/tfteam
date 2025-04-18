@@ -96,11 +96,14 @@ export class NewArrivalsManagementComponent implements OnInit {
           (f: any) => f?.tractor_status == 'NEW_ARRIVAL'
         );
 
-        this.share.spinner.dismiss();
+        this.share?.spinner?.dismiss();
         this.backupList = res.data;
       },
       (error: any) => {}
     );
+  }
+  search={
+    registractionNo:null
   }
   refreshList() {
     this.getTractorList();

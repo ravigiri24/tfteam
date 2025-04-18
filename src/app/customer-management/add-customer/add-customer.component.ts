@@ -189,6 +189,10 @@ this.customerForm.controls['socialType'].setValue(null)
         itemName: itemName,
         table_name: table_name,
         otherObjects: otherObjects,
+        jsonKey:'name',
+        search:  {
+          name: null,
+        }
       },
     });
     await modal.present();
