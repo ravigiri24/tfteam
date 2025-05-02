@@ -97,8 +97,8 @@
 </div>
 </div>
 <div class="page_submit_btn">
-  <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
-  <ion-button *ngIf="data" (click)="updateForm()" class="global_submit_button" expand="block">Update</ion-button>
+  <ion-button *ngIf="!data" (click)="checkTfCode()" class="global_submit_button" expand="block">Save</ion-button>
+  <ion-button *ngIf="data" (click)="checkTfCodeOnUpdate()" class="global_submit_button" expand="block">Update</ion-button>
 </div>
 </form>
 </ion-content>

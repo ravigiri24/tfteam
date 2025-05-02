@@ -59,7 +59,12 @@ loginForm:FormGroup
         this.loading = false;
         this.spinner?.dismiss()
         this.presentToast('Login Successfully...')
-        this.share.set_staff_detail_session(res.data);
+        let data:any=res?.data
+        if(res?.data?.isMultiRole){
+          data.currentRole=res?.data?.defaultRole
+        }
+    
+        this.share.set_staff_detail_session(data);
         this.share.showFooter=true
       //  this.router.navigate(['/digital/customer-management']);
         this.share.checkLogin()

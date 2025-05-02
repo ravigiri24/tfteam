@@ -90,6 +90,7 @@
         <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">TF Code</th>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Model</th>
           <!-- <th style="text-align: center;">Quantity</th> -->
           <th *ngFor="let head of expenseHeader" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">{{head}}</th>
           <!-- <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Closed Date</th>
@@ -99,6 +100,7 @@
           style="border: 1px solid #e1e1e1;text-align: left;">
           <td style="text-align: center;">{{serviceindex+1}}</td>
           <td style="padding: 5px 10px;">{{service?.tfCode}}</td>
+          <td style="padding: 5px 10px;">{{service?.modelName}}</td>
           <td *ngFor="let head of expenseHeader" style="padding: 5px 10px;">{{service[head]}}</td>
         
         </tr>

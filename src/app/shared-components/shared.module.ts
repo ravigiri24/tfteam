@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddRemarkComponent } from './add-remark/add-remark.component';
 import { ApiService } from '../api.service';
+import { SelectRoleComponent } from '../user-management/select-role/select-role.component';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { SearchpipePipe } from '../searchpipe.pipe';
 import { CrudPopupComponent } from './crud-popup/crud-popup.component';
@@ -38,7 +39,8 @@ import { SelectListTypeComponent } from './select-list-type/select-list-type.com
     SelectWithSearchComponent,
     SyncTractorWithMaintaninanceComponent,
     SearchTractorWithTfCodeComponent,
-    SelectListTypeComponent
+    SelectListTypeComponent,
+    SelectRoleComponent
     
   ],
   schemas: [],

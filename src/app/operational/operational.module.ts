@@ -42,6 +42,7 @@ import { OtherExpenseListComponent } from '../tractor-dashboard/other-expense-li
 import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense/add-other-expense.component';
 import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-stock-tractors.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { FilterByPageComponent } from '../buffer-stock-tractors/filter-by-page/filter-by-page.component';
 @NgModule({
   declarations: [
     OperationalComponent,
@@ -77,7 +78,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     SellDocumentComponent,
     OtherExpenseListComponent,
     AddOtherExpenseComponent,
-    BufferStockTractorsComponent
+    BufferStockTractorsComponent,
+    FilterByPageComponent
   ],
   imports: [
     OperationlPageRoutingModule,

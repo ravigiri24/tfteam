@@ -37,22 +37,22 @@ nextScheduleForm:FormGroup
   }
   showData = true;
   staffDetails: any;
-   async searchCustomer(){
-      const modal = await this.modalController.create({
-        component: SearchCustomerComponent,
-        componentProps: {
-       
-          
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-     
-      }
+  async searchCustomer(){
+    const modal = await this.modalController.create({
+      component: SearchCustomerComponent,
+      componentProps: {
+      
+        
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+    
     }
+  }
     cityList:any=[]
 
 

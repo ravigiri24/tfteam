@@ -85,25 +85,49 @@ this.showFooter=e
     if(user){
       let userde=JSON.parse(user)
       if(userde){
-        if(userde?.staff_role=='DIGITAL'){
-        this.router.navigate(['/digital/customer-management'])
-        }
-        else if(userde?.staff_role=='OPERATIONAL'){
-          this.router.navigate(['/operational/new-arrivals'])
-        }
-        else if(userde?.staff_role=='PURCHASE'){
-          this.router.navigate(['/purchase-management/new-findings'])
+        if(userde?.isMultiRole==0 || !userde?.isMultiRole){
+          if(userde?.staff_role=='DIGITAL'){
+            this.router.navigate(['/digital/customer-management'])
+            }
+            else if(userde?.staff_role=='OPERATIONAL'){
+              this.router.navigate(['/operational/new-arrivals'])
+            }
+            else if(userde?.staff_role=='PURCHASE'){
+              this.router.navigate(['/purchase-management/new-findings'])
+            }
+           
+            else if(userde?.staff_role=='SUPER_ADMIN' || userde?.staff_role=='ADMIN'){
+              this.router.navigate(['/admin-block/digital-analyse'])
+            }
+            else if(userde?.staff_role=='FRANCHISE'){
+              this.router.navigate(['/franchise-management/new-tractor'])
+            }
+            else if(userde?.staff_role=='REPAIR'){
+              this.router.navigate(['/repair-management/job-dashboard'])
+            }
+        }else{
+          if(userde?.currentRole=='DIGITAL'){
+            this.router.navigate(['/digital/customer-management'])
+            }
+            else if(userde?.currentRole=='OPERATIONAL'){
+              this.router.navigate(['/operational/new-arrivals'])
+            }
+            else if(userde?.currentRole=='PURCHASE'){
+              this.router.navigate(['/purchase-management/new-findings'])
+            }
+           
+            else if(userde?.currentRole=='SUPER_ADMIN' || userde?.currentRole=='ADMIN'){
+              this.router.navigate(['/admin-block/digital-analyse'])
+            }
+            else if(userde?.currentRole=='FRANCHISE'){
+              this.router.navigate(['/franchise-management/new-tractor'])
+            }
+            else if(userde?.currentRole=='REPAIR'){
+              this.router.navigate(['/repair-management/job-dashboard'])
+            }
+
         }
        
-        else if(userde?.staff_role=='SUPER_ADMIN' || userde?.staff_role=='ADMIN'){
-          this.router.navigate(['/admin-block/digital-analyse'])
-        }
-        else if(userde?.staff_role=='FRANCHISE'){
-          this.router.navigate(['/franchise-management/new-tractor'])
-        }
-        else if(userde?.staff_role=='REPAIR'){
-          this.router.navigate(['/repair-management/job-dashboard'])
-        }
       }
     }else{
       this.router.navigate(['/login'])

@@ -20,12 +20,20 @@
         </div>
       </ion-row>
       <ion-row class="details_line_row">
-        <ion-card class="left_icons_block">
+        <ion-card  *ngIf="staffDetails?.isMultiRole==0 || !staffDetails?.isMultiRole"   class="left_icons_block">
           <ion-icon name="id-card-outline"></ion-icon>
         </ion-card>
-        <div class="right_flex-data">
+        <div *ngIf="staffDetails?.isMultiRole==0 || !staffDetails?.isMultiRole" class="right_flex-data">
           <ion-label class="margin-left"><b>Staff Role</b></ion-label>
           <ion-label class="margin-left">{{staffDetails?.staff_role}} </ion-label>
+        </div>
+        <ion-card (click)="showRoleModel()"  *ngIf="staffDetails?.isMultiRole==1"   class="left_icons_block">
+          <ion-icon name="id-card-outline"></ion-icon>
+        </ion-card>
+      
+        <div  (click)="showRoleModel()"  *ngIf="staffDetails?.isMultiRole==1" class="right_flex-data">
+          <ion-label class="margin-left"><b>Staff Role</b></ion-label>
+          <ion-label class="margin-left">{{staffDetails?.currentRole}} (MULTIPLE)</ion-label>
         </div>
       </ion-row>
       <ion-row class="details_line_row">

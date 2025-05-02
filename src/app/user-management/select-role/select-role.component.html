@@ -1,0 +1,14 @@
+<ion-content  class="ion-padding ">
+  <div class="border-shape background">
+
+<div class="global_input_block " >
+  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="selectedRole" fill="outline" label="Select Role" label-placement="type">
+   
+     <ion-select-option *ngFor="let role of roles" [value]="role">{{role}}</ion-select-option>
+
+ 
+ 
+  </ion-select>
+</div>
+</div>
+</ion-content>

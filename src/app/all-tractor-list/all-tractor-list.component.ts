@@ -122,9 +122,9 @@ export class AllTractorListComponent implements OnInit {
       isLive: true,
       brandId: this.selectedBrand,
     };
-    if (loader) {
+if(loader){
       this.share.showLoading('Loading...');
-    }
+   }
   
     this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
       (res: any) => {
@@ -145,10 +145,11 @@ export class AllTractorListComponent implements OnInit {
     let obj = {
       operate: this.staffDetails?.staffCode,
       isLive: true,
+ 
     };
-    if (loader) {
+    //if (loader) {
       this.share.showLoading('Loading...');
-    }
+   // }
     this.api.postapi('getTractorListLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -196,7 +197,7 @@ export class AllTractorListComponent implements OnInit {
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
-      this.getTractorList();
+      this.getTractorList(true);
     } else if (this.listBy == 'STORE_WISE') {
       this.getAllTractorListStorewise();
     }
@@ -241,9 +242,9 @@ export class AllTractorListComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       store_id: this.selectedStore,
     };
-    if (loader) {
+    //if (loader) {
       this.share.showLoading('Loading...');
-    }
+    //}
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;

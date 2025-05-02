@@ -176,6 +176,7 @@ export class ReportFilterComponent implements OnInit {
     this.allDetails?.jobList?.forEach((job: any) => {
       let obj: any = {
         tfCode: job?.tfCode,
+        modelName:job?.modelDetails?.name,
         Service: 0,
       };
       this.categoryList?.forEach((cat: any) => {

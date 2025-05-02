@@ -310,8 +310,66 @@ export class CreateComponent implements OnInit {
       this.share.presentToast("Please Fill required fields")
     }
   }
+  checkTfCodeOnUpdate(){
+    if(this.form.valid){
+      let staffDetails: any = this.share.get_staff();
+   
+      this.staffDetails = JSON.parse(staffDetails);
+      let obj={
+      operate : this.staffDetails?.staffCode,
+      tfCode:this.form.value?.tfCode,
+      job_id:this.jobId
+
+      }
+      this.share.showLoading('Checking TF Code...');
+      this.api.postapi('checking_tf_on_update', obj).subscribe(
+        (res: any) => {
+          this.share.spinner.dismiss()
+       if(res?.status){
+        this.updateForm()
+       }else{
+        this.share.presentToast("Error,TF Code Already Exist")
+       }
+         // this.router.navigate([this.srcPage])
+        },
+        (error: any) => {}
+      );
+ 
+    }else{
+      this.share.presentToast("Please Fill required fields")
+    }
+  }
+  checkTfCode(){
+    if(this.form.valid){
+      let staffDetails: any = this.share.get_staff();
+   
+      this.staffDetails = JSON.parse(staffDetails);
+      let obj={
+      operate : this.staffDetails?.staffCode,
+      tfCode:this.form.value?.tfCode
+
+      }
+      this.share.showLoading('Checking TF Code...');
+      this.api.postapi('checking_tf', obj).subscribe(
+        (res: any) => {
+          this.share.spinner.dismiss()
+       if(res?.status){
+        this.saveForm()
+       }else{
+        this.share.presentToast("Error,TF Code Already Exist")
+       }
+         // this.router.navigate([this.srcPage])
+        },
+        (error: any) => {}
+      );
+ 
+    }else{
+      this.share.presentToast("Please Fill required fields")
+    }
+  }
   saveForm() {
     if(this.form.valid){
+ 
       let obj=this.form.value
       let staffDetails: any = this.share.get_staff();
    
@@ -331,6 +389,7 @@ export class CreateComponent implements OnInit {
             },
             (error: any) => {}
           );
+     
 
     }
     else{

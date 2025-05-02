@@ -12,8 +12,9 @@ export class ApiService {
  
    }
    //frontendUrl="https://tractorfactory.in/#"
-  //  rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/'
- rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
+   
+    rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/'
+ //rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
  
    
    postapi(x: any, object: any): any {
