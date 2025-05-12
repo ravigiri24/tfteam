@@ -53,7 +53,11 @@ export class UserManagementComponent implements OnInit {
       const { data, role } = await modal.onWillDismiss();
       if (data && data?.isRoleChange) {
         console.log('data', data);
-   
+        let user:any=this.share.get_staff()
+        let userde=JSON.parse(user)
+        userde.currentRole=data?.selectedRole
+        this.share.set_staff_detail_session(userde)
+   this.share.checkLogin()
       }
      
     }

@@ -105,6 +105,9 @@ this.showFooter=e
             else if(userde?.staff_role=='REPAIR'){
               this.router.navigate(['/repair-management/job-dashboard'])
             }
+            else if(userde?.staff_role=='HR'){
+              this.router.navigate(['/hr-deparment/offer-letter'])
+            }
         }else{
           if(userde?.currentRole=='DIGITAL'){
             this.router.navigate(['/digital/customer-management'])
@@ -124,6 +127,9 @@ this.showFooter=e
             }
             else if(userde?.currentRole=='REPAIR'){
               this.router.navigate(['/repair-management/job-dashboard'])
+            }
+            else if(userde?.currentRole=='HR'){
+              this.router.navigate(['/hr-deparment/offer-letter'])
             }
 
         }

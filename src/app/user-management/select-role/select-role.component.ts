@@ -18,12 +18,12 @@ roles:any=[]
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
     this.selectedRole=this.staffDetails?.currentRole
-    this.roles=Array.from(this.staffDetails?.staff_role)
+    this.roles=JSON.parse(this.staffDetails?.multiroles)
     console.log(" this.roles ", this.roles ,typeof( this.roles));
 
   }
   selectFilter(){
-    this.modalcontrol.dismiss({filterBy:this.selectedRole,isFilterChange:true})
+    this.modalcontrol.dismiss({selectedRole:this.selectedRole,isRoleChange:true})
   }
   
 }
