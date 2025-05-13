@@ -4,7 +4,6 @@
       <div class="left_text">
         <span class="selected_text" *ngIf="!editData">Add Offer Letter</span>
         <span class="selected_text" *ngIf="editData">Update Offer Letter</span>
-     
       </div>
       <div class="right_action">
         <ion-icon (click)="dismiss()" name="close-circle-outline"></ion-icon>
@@ -12,118 +11,151 @@
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-<form [formGroup]="offerLetterForm">
-  <div class="global_input_block">
-    <ion-input label="Date Of Publish" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
-      placeholder="Date Of Publish" formControlName="dateOfPublish"></ion-input>
-  </div>
-  <div class="global_input_block">
-     <ion-input label="Enter Candidate Name" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
-       placeholder="Candidate Name" formControlName="candidateName"></ion-input>
-   </div>
-   
-   <div class="global_input_block">
-     <ion-input label="Enter Position" fill="outline" labelPlacement="stacked" type="text" 
-       placeholder="Enter Position" formControlName="position"></ion-input>
-   </div>
-   <div class="global_input_block">
-    <ion-input label="Annual Income" fill="outline" labelPlacement="stacked" type="text" 
-      placeholder="Annual Income" formControlName="anuual_income"></ion-input>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="Annual Income In Word" fill="outline" labelPlacement="stacked" type="text" 
-      placeholder="Annual Income In Word" formControlName="anuual_income_word"></ion-input>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="Date of Joining" fill="outline" labelPlacement="stacked" type="text" 
-      placeholder="Date of Joining" formControlName="start_date"></ion-input>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="Probation Period" fill="outline" labelPlacement="stacked" type="text"
-      placeholder="Probation Period" formControlName="probation_period"></ion-input>
-  </div>
- 
-  <div class="global_input_block">
-    <ion-input label="Notice Date" fill="outline" labelPlacement="stacked" type="text"
-      placeholder="Notice Date" formControlName="notice_date"></ion-input>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="City" fill="outline" labelPlacement="stacked" type="text" 
-      placeholder="City" formControlName="city"></ion-input>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="State" fill="outline" labelPlacement="stacked" type="text" 
-      placeholder="State" formControlName="state"></ion-input>
-  </div>
- 
- 
+<!-- internal_card_container -->
+<ion-content class="ion-padding ">
+  <form [formGroup]="offerLetterForm">
+    <div class="global_input_block">
+      <ion-input label="Date Of Publish" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+        placeholder="Date Of Publish" formControlName="dateOfPublish"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Enter Candidate Name" fill="outline" labelPlacement="stacked" labelPlacement="stacked"
+        type="text" placeholder="Candidate Name" formControlName="candidateName"></ion-input>
+    </div>
 
-   <div class="page_submit_btn">
-     <ion-button  (click)="saveForm()" class="global_submit_button" expand="block">Generate</ion-button>
+    <div class="global_input_block">
+      <ion-input label="Enter Position" fill="outline" labelPlacement="stacked" type="text" placeholder="Enter Position"
+        formControlName="position"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Annual Income" fill="outline" labelPlacement="stacked" type="text" placeholder="Annual Income"
+        formControlName="anuual_income"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Annual Income In Word" fill="outline" labelPlacement="stacked" type="text"
+        placeholder="Annual Income In Word" formControlName="anuual_income_word"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Date of Joining" fill="outline" labelPlacement="stacked" type="text"
+        placeholder="Date of Joining" formControlName="start_date"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Probation Period" fill="outline" labelPlacement="stacked" type="text"
+        placeholder="Probation Period" formControlName="probation_period"></ion-input>
+    </div>
+
+    <div class="global_input_block">
+      <ion-input label="Notice Date" fill="outline" labelPlacement="stacked" type="text" placeholder="Notice Date"
+        formControlName="notice_date"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="City" fill="outline" labelPlacement="stacked" type="text" placeholder="City"
+        formControlName="city"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="State" fill="outline" labelPlacement="stacked" type="text" placeholder="State"
+        formControlName="state"></ion-input>
+    </div>
 
 
-   </div>
- </form>
- <hr/>
- <div *ngIf="isOfferLetter" id="contentReport" class="top-margin" style="width: 100%;">
-  <div class="top_header" style="margin: 15px 0px; text-align: center;">
-    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+
+    <div class="page_submit_btn">
+      <ion-button (click)="saveForm()" class="global_submit_button" expand="block">Generate</ion-button>
+
+
+    </div>
+  </form>
+  <!-- <hr /> -->
+  <div *ngIf="isOfferLetter" class="offer_letter_container">
+    <ion-icon (click)="closeLetter()" name="close" style="position: absolute;right: 8px;color: #666666;
+    font-size: 24px;"></ion-icon>
+    <div id="contentReport">
+      <div class="top_header" style="text-align: center;border-bottom: dashed thin #e1e1e1;padding-bottom: 20px;margin-bottom: 20px;">
+        <img id="imageLogo" src="././assets/images/tractorLogoHindi.jpg" height="140px;" />
+      </div>
+      <div style="text-align: center;margin: 10px 0px 30px 0px;font-size: 42px;width: auto;">Offer Letter</div>
+      <div style="font-size: 20px;color: #666666;text-align: right;display: flex;flex-flow: column;
+        justify-content: right;margin: 20px 0px 10px 0px;">
+        {{generatedData?.dateOfPublish}}
+      </div>
+      <span style="font-size: 22px">Dear <b style="font-size: 22px">{{generatedData?.candidateName}} ,</b></span>
+      <br />
+      <p style="font-size: 22px">
+        Congratulations! We are pleased to extend you an offer to join <b style="font-size: 22px"> SS Tractor Factory
+          Pvt
+          Ltd (Tractor Factory) </b> as <b style="font-size: 22px">({{generatedData?.position}})</b> to be based in
+        {{generatedData?.city}}, {{generatedData?.state}}, India.
+      </p>
+      <p style="font-size: 22px">
+        Tractor Factory has a very unique culture of integrity, excellence and innovation. We focus our attention in
+        delivering the Economical (used) yet best Tractors that delight our users.
+      </p>
+      <p style="font-size: 22px">
+        <b style="font-size: 22px">Compensation</b>: Your total CTC will be <b style="font-size: 22px">INR
+          {{generatedData?.anuual_income}}/- (INR {{generatedData?.anuual_income_word}})</b> This includes your basic,
+        fixed allowances, variable, bonus and provident fund contributions (if applicable).
+      </p>
+      <p style="font-size: 22px">
+        <b style="font-size: 22px">Start Date and Formalities</b>: We propose a start date of <b
+          style="font-size: 22px">{{generatedData?.start_date}}</b>, contingent on your current engagements. Please
+        ensure
+        that you report for work on the date indicated.
+      </p>
+      <p style="font-size: 22px">
+
+        <b style="font-size: 22px">Probation</b>: Your terms of employment will be applicable after a probation period
+        of
+        <b style="font-size: 22px">{{generatedData?.probation_period}} </b>. If during or at the end of the probation
+        period your profile is found to be in divergence with your skill sets/aptitude, Tractor Factory will have the
+        option to terminate the engagement.
+
+      </p>
+      <p style="font-size: 22px">
+        <b style="font-size: 22px">Notice Period</b> : The notice period post your probation would be <b
+          style="font-size: 22px">{{generatedData?.notice_date}}</b>.
+      </p>
+
+      <p style="font-size: 20px;">
+        We are excited about the possibility of you starting your Tractor Factory career in this position. Please
+        indicate
+        your acceptance of our employment offer by signing a copy of this letter and send a scanned copy to
+        contact&#64;tractorfactory.in or you can reply back to the email with acceptance
+      </p>
+      <p style="font-size: 22px">
+
+        The elements of this offer are personal and specific to you, and accordingly, we do not consider them
+        appropriate
+        to be shared with colleagues or the general public. We describe benefits and conditions currently in force as of
+        today and expected to be ongoing at the time you join.
+
+      </p>
+      <p style="font-size: 22px">
+        If you have any questions about any of the elements of this offer, or would like to discuss the job further,
+        please do not hesitate to call me. We look forward to you joining Tractor Factory and helping Tractor Factory
+        (and
+        you!) to continue to grow and prosper in the future!
+      </p>
+      <div
+        style="font-size: 22px;color: #666666;text-align: right;display: flex;flex-flow: column;justify-content: right;margin: 40px 0px 20px 0px;">
+        <p style="margin: 0px; font-size: 22px">Shailesh Tiwari-<b style="font-size: 22px"> </b>Director</p>
+        <p style="margin: 0px;"><b style="font-size: 20px">SS Tractor Factory Pvt Ltd</b></p>
+        <p style="margin: 0px"> _____________________</p>
+        <p style="margin: 0px;font-size: 22px">Signature</p>
+      </div>
+      <div style="display: flex;flex-flow: column;align-items: center;text-transform: capitalize;">
+        <div><b style="color: #dd0000;font-size: 26px;">SS Tractorfactory</b><b style="font-size: 26px;">Private limited</b></div>
+        <div style="margin: 10px 0px;font-size: 24px;">House No. 67, Shikshak Colony, jabalpur, Madhya Pradesh, India 482002</div>
+        <div style="display: flex;align-items: center;width: 100%;justify-content: space-evenly;border-bottom: dashed thin #dddddd;padding-bottom: 20px;margin-bottom:20px;">
+          <div style="font-size: 24px;">GSTIN - 23ABJCS0346L1Z9</div><span style="font-size: 15px;">|</span>
+          <div style="font-size: 24px;">CIN No. - U50100MP2022PTCO61935</div>
+        </div>
+      </div>
+      <!-- <div style="background: #faf5ae;display: flex;align-items: center;justify-content: space-around;padding: 8px 0px;margin: 15px 0px;">
+        <div style="font-size: 22px">contact&#64;tractorfactory.in</div>
+        <div style="font-size: 22px">07614103373</div>
+        <div style="font-size: 22px">www.tractorfactory.in</div>
+      </div> -->
+    </div>
+    <ion-button (click)="generatePDF()" class="global_submit_button" expand="block">Genrate Pdf</ion-button>
   </div>
-  <hr/>
-  <h2 style="text-align: center;margin: 10px 0px;" >Offer Letter</h2>
-  <div
-  style="font-size: 14px;color: #666666;text-align: right;display: flex;flex-flow: column;justify-content: right;margin: 20px 0px;">
-  <p style="margin: 0px;">{{generatedData?.dateOfPublish}}</p>
- 
-</div>
- <span style="font-size: 20px">Dear <b  style="font-size: 20px">{{generatedData?.candidateName}} ,</b></span> 
- <br/> 
- <p style="font-size: 20px">
-  Congratulations! We are pleased to extend you an offer to join <b style="font-size: 20px"> SS Tractor Factory Pvt Ltd (Tractor Factory) </b> as <b style="font-size: 20px">({{generatedData?.position}})</b> to be based in {{generatedData?.city}}, {{generatedData?.state}}, India.
- </p>
- <p style="font-size: 20px">
-  Tractor Factory has a very unique culture of integrity, excellence and innovation. We focus our attention in delivering the Economical (used) yet best Tractors that delight our users.
- </p>
- <p style="font-size: 20px">
-  <b style="font-size: 20px">Compensation</b>: Your total CTC will be <b style="font-size: 20px">INR {{generatedData?.anuual_income}}/- (INR {{generatedData?.anuual_income_word}})</b> This includes your basic, fixed allowances, variable, bonus and provident fund contributions (if applicable).
- </p>
- <p style="font-size: 20px">
-  <b style="font-size: 20px">Start Date and Formalities</b>: We propose a start date of <b style="font-size: 20px">{{generatedData?.start_date}}</b>, contingent on your current engagements. Please ensure that you report for work on the date indicated.
- </p>
- <p style="font-size: 20px">
-
-  <b style="font-size: 20px">Probation</b>: Your terms of employment will be applicable after a probation period of <b style="font-size: 20px">{{generatedData?.probation_period}} </b>. If during or at the end of the probation period your profile is found to be in divergence with your skill sets/aptitude, Tractor Factory will have the option to terminate the engagement.
-
- </p>
- <p style="font-size: 20px">
- <b style="font-size: 20px">Notice Period</b> : The notice period post your probation would be <b style="font-size: 20px">{{generatedData?.notice_date}}</b>.
- </p>
-
-<p style="font-size: 20px ">
-  We are excited about the possibility of you starting your Tractor Factory career in this position. Please indicate your acceptance of our employment offer by signing a copy of this letter and send a scanned copy to contact&#64;tractorfactory.in or you can reply back to the email with acceptance
-</p>
-<p style="font-size: 20px">
-  
-The elements of this offer are personal and specific to you, and accordingly, we do not consider them appropriate to be shared with colleagues or the general public. We describe benefits and conditions currently in force as of today and expected to be ongoing at the time you join.
-
-</p>
-<p style="font-size: 20px">
-  If you have any questions about any of the elements of this offer, or would like to discuss the job further, please do not hesitate to call me. We look forward to you joining Tractor Factory and helping Tractor Factory (and you!) to continue to grow and prosper in the future!
-</p>
-  <div
-    style="font-size: 14px;color: #666666;text-align: right;display: flex;flex-flow: column;justify-content: right;margin: 20px 0px;">
-    <p style="margin: 0px; font-size: 20px">Shailesh Tiwari-<b style="font-size: 20px">  </b>Director</p>
-    <p style="font-size: 20px" style="margin: 0px;"><b style="font-size: 20px">SS Tractor Factory Pvt Ltd</b></p>
-    <p style="margin: 0px"> _____________________</p>
-    <p style="margin: 0px;font-size: 20px">Signature</p>
-  </div>
- 
-</div>
-<div *ngIf="isOfferLetter" class="row">
-  <div >
-<ion-button  (click)="generatePDF()" class="global_submit_button" expand="block">Genrate Pdf</ion-button>
-</div>
-
-</div>
- </ion-content>
+</ion-content>
