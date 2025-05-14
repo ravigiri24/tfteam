@@ -1,0 +1,13 @@
+
+   <ion-content  class="ion-padding "> 
+      <form [formGroup]="form">
+   <div  class="global_input_block margin-top" >
+  <ion-textarea formControlName="demand" label="Demand" fill="outline" labelPlacement="stacked"
+      placeholder="write Demand here..."></ion-textarea>
+  </div>
+    <div class="page_submit_btn">
+    <ion-button  (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
+
+  </div>
+</form>
+</ion-content>

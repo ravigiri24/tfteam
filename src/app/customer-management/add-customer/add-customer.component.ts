@@ -75,8 +75,13 @@ export class AddCustomerComponent implements OnInit {
       remark: new FormControl(null, []),
       assigned_staff_id: new FormControl(null, []),
       socialType: new FormControl(this.editData?.socialType , []),
-      assigining_staff_id: new FormControl(null, []),
+      demand: new FormControl(null, []),
+      visiting_date:new FormControl(null, []),
+      purchasing_possibility:new FormControl(null, []),
     });
+    if(!this.editData){
+      this.customerForm.controls['purchasing_possibility'].setValue('WILL_VISIT')
+    }
   }
   stateList: any = [];
   getStateList() {

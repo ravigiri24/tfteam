@@ -19,16 +19,19 @@ selectedTab:any='Customer'
 goToPage(tab:any){
 this.selectedTab=tab
 if(tab=='Customer'){
-  this.router.navigate(['/digital//customer-management'])
+  this.router.navigate(['/digital/customer-management'])
 }
 else if(tab=='Follow-Up'){
-  this.router.navigate(['/digital//follow-up-management'])
+  this.router.navigate(['/digital/follow-up-management'])
 }
 else if(tab=='Report'){
-  this.router.navigate(['/digital//report-management'])
+  this.router.navigate(['/digital/report-management'])
 }
 else if(tab=='User'){
-  this.router.navigate(['/digital//user-management'])
+  this.router.navigate(['/digital/user-management'])
+}
+else if(tab=='Visitng'){
+  this.router.navigate(['/digital/visiting-management'])
 }
 
 }

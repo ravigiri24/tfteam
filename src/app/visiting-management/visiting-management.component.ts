@@ -6,11 +6,11 @@ import { IonModal, ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
 @Component({
-  selector: 'app-follow-up-management',
-  templateUrl: './follow-up-management.component.html',
-  styleUrls: ['./follow-up-management.component.scss'],
+  selector: 'app-visiting-management',
+  templateUrl: './visiting-management.component.html',
+  styleUrls: ['./visiting-management.component.scss'],
 })
-export class FollowUpManagementComponent  implements OnInit {
+export class VisitingManagementComponent  implements OnInit {
   @ViewChild(IonModal) modalFollow: IonModal;
   constructor(private api:ApiService,private share:ShareService,private fb:FormBuilder,private modalController:ModalController) {
 
@@ -29,7 +29,7 @@ export class FollowUpManagementComponent  implements OnInit {
 
     this.date = yyyy + '-' + mm + '-' + dd;
 
-    this.getFollowList();
+    this.getVisitorList();
   }
    async viewCustomer(customer:any=null){
     const modal = await this.modalController.create({
@@ -109,7 +109,7 @@ export class FollowUpManagementComponent  implements OnInit {
 followUpList:any=[]
   ngOnInit() {}
   refreshList(){
-    this.getFollowList()
+    this.getVisitorList()
     setTimeout(() => {
       this.cancel()
     }, 0);
@@ -119,13 +119,13 @@ followUpList:any=[]
   search:any
   showData=true
   loader=false
-  getFollowList(){
+  getVisitorList(){
     this.loader = true;
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.date = this.date;
     obj.storeId=this.staffDetails?.storeId
     this.share.showLoading('Loading...')
-    this.api.postapi('getFollowupList', obj).subscribe(
+    this.api.postapi('getVisitorList', obj).subscribe(
       (res:any) => {
         this.followUpList = res.data;
         // this.followUpList?.forEach((f:any)=>{
@@ -143,4 +143,5 @@ followUpList:any=[]
       }
     );
   }
+
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouteReuseStrategy } from '@angular/router';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { HomeComponent } from '../home/home.component';
@@ -23,10 +23,40 @@ import { ReviewPageComponent } from '../customer-management/review-page/review-p
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { AddDemandComponent } from '../customer-management/view-customer-data/add-demand/add-demand.component';
+import { AddVisitngStatusComponent } from '../customer-management/view-customer-data/add-visitng-status/add-visitng-status.component';
+import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
 @NgModule({
-  declarations: [DigitalComponent,HeaderComponent,FooterComponent,FollowUpManagementComponent,CustomerManagementComponent,ReportUpManagementComponent,AddCustomerComponent,HomeComponent,SearchCustomerComponent,AddCustomerPopUpComponent,ReviewPageComponent,ViewCustomerDataComponent],
-  imports: [DigitalPageRoutingModule,CommonModule, IonicModule.forRoot(),FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },InAppBrowser,PDFGenerator],
-
+  declarations: [
+    DigitalComponent,
+    HeaderComponent,
+    FooterComponent,
+    FollowUpManagementComponent,
+    CustomerManagementComponent,
+    ReportUpManagementComponent,
+    AddCustomerComponent,
+    HomeComponent,
+    SearchCustomerComponent,
+    AddCustomerPopUpComponent,
+    ReviewPageComponent,
+    ViewCustomerDataComponent,
+    AddVisitngStatusComponent,
+    AddDemandComponent,
+    VisitingManagementComponent
+  ],
+  imports: [
+    DigitalPageRoutingModule,
+    CommonModule,
+    IonicModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    SharedModule,
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    InAppBrowser,
+    PDFGenerator,
+  ],
 })
-  export class DigitalPageModule {}
+export class DigitalPageModule {}

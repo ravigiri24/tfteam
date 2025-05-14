@@ -52,6 +52,21 @@
     <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
       placeholder="write remark here..."></ion-textarea>
   </div>
+    <div *ngIf="!editData" class="global_input_block" >
+  <ion-textarea formControlName="demand" label="Demand" fill="outline" labelPlacement="stacked"
+      placeholder="write Demand here..."></ion-textarea>
+  </div>
+    <div *ngIf="!editData" class="global_input_block">
+    <ion-select  formControlName="purchasing_possibility" fill="outline" label="Purchasing Possibility" label-placement="stacked">
+      <ion-select-option value="NOT_INTRESTED"><b style="color: red;">Not Intrested</b></ion-select-option>
+      <ion-select-option value="WILL_VISIT"><b style="color: yellow;">Will Visit</b></ion-select-option>
+      <ion-select-option value="VISITED"><b style="color: yellow;">Visited</b></ion-select-option>
+    </ion-select>
+  </div>
+   <div *ngIf="(customerForm.controls['purchasing_possibility'].value=='WILL_VISIT' ||customerForm.controls['purchasing_possibility'].value=='VISITED') && !editData " class="global_input_block">
+    <ion-input label="Select Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
+      placeholder="elect Date" formControlName="visiting_date"></ion-input>
+  </div>
   <!-- <ion-item  *ngIf="!editData"  class="bottom-margin">
   <ion-select    formControlName="assigned_staff_id" label="Assign To Staff" label-placement="type">
     <ion-select-option *ngFor="let staff of staffList" [value]="staff?.id">{{staff?.name}}</ion-select-option>

@@ -14,6 +14,11 @@
       <ion-icon *ngIf="selectedTab!=='Follow-Up'" class="theme-color" name="bookmarks-outline"></ion-icon>
       Follow-Up
     </ion-tab-button>
+       <ion-tab-button (click)="goToPage('Visitng')" tab="Follow-Up">
+      <ion-icon *ngIf="selectedTab==='Visitng'" class="theme-color" name="prism"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='Visitng'" class="theme-color" name="prism-outline"></ion-icon>
+      Visiting
+    </ion-tab-button>
     <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>
           <ion-icon *ngIf="selectedTab!=='Report'"  class="theme-color" name="book-outline"></ion-icon>

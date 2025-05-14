@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { DigitalComponent } from './digital.component'; 
+import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
 const routes: Routes = [
   {
     path: "", component: DigitalComponent,
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent},
       { path: 'user-management', component: UserManagementComponent},
       { path: 'follow-up-management', component: FollowUpManagementComponent},
+      { path: 'visiting-management', component: VisitingManagementComponent},
       { path: 'customer-management', component: CustomerManagementComponent},
     
       { path: 'report-management', component: ReportUpManagementComponent},

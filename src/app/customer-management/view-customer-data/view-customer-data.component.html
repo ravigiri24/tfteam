@@ -50,7 +50,16 @@
             <ion-col>Next Follw-up Date</ion-col>
             <ion-col class="amount_col"> {{ customerSelected?.followUpDate?.next_lead_date || '-' }}</ion-col>
           </ion-row>
-        
+           <ion-row>
+            <ion-col> <ion-button  (click)="addDemand()" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+     Demand
+    </ion-button></ion-col>
+            <ion-col class="amount_col"> <ion-button  (click)="visiting_dates()" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+    Visitng
+    </ion-button></ion-col>
+          </ion-row>
         </ion-card>
         </ion-grid>
       <div class="chat_history_block" *ngIf="chatHistory?.length">
@@ -71,6 +80,26 @@
           </div>
           <ion-card-title class="chat_details">{{chat?.status}}</ion-card-title>
           <span class="right_date">{{chat?.createdOn}}</span>
+        </div>
+      </div>
+        <div class="chat_history_block" *ngIf="demand_history?.length">
+        <div class="chat_details_block" *ngFor="let demand of demand_history; let i = index;">
+          <div class="top_row">
+            <div class="type">Demand</div>
+            <!-- <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div> -->
+          </div>
+          <ion-card-title class="chat_details">{{demand?.demand}}</ion-card-title>
+          <span class="right_date">{{demand?.createdOn}}</span>
+        </div>
+      </div>
+        <div class="chat_history_block" *ngIf="visitng_history?.length">
+        <div class="chat_details_block" *ngFor="let visiting of visitng_history; let i = index;">
+          <div class="top_row">
+            <div class="type">{{visiting?.visitng_type}}</div>
+            <div class="date" ><b>Date</b>{{visiting?.visiting_date}}</div>
+          </div>
+         <ion-card-title class="chat_details">{{visiting?.remark}}</ion-card-title> 
+          <span class="right_date">{{visiting?.createdOn}}</span>
         </div>
       </div>
     </ion-card-content>
