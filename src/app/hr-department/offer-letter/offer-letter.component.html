@@ -3,37 +3,32 @@
     <ion-label class="top_heading">
       <div class="left_text">
         <span class="selected_text">Offer Letters </span>
-     
       </div>
       <div class="right_action">
-
-        <ion-icon class="theme-color-second icon-size" (click)="addOffer()" expand="block" 
+        <ion-icon class="theme-color-second icon-size" (click)="addOffer()" expand="block"
           name="add-circle-outline"></ion-icon>
       </div>
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="internal_card_container">
   <!-- <span class="heading-list">At Logistic</span> -->
   <!-- <span class="inner-heading-list">At Logistic</span> -->
-  <ion-searchbar [(ngModel)]="search.candidateName" slot="fixed"
-  placeholder="Enter Name"></ion-searchbar>
-  <ion-list class="list_row top-position-list" *ngIf="offerList?.length">
-    <ion-item *ngFor="let offer of offerList|filterBy: search ;let in=index">
-      <ion-label>
-        <h2 class="theme-color">{{offer?.candidateName}}</h2>
-        <p>{{offer?.position}} | {{offer?.city}}  | {{offer?.createdOn |
-          date }}</p>
-      </ion-label>
-      <div class="list_right_action">
-       
-          <ion-icon (click)="editOffer(offer)" class="theme-color-second"
-          name="create-outline"></ion-icon>
-          <ion-icon (click)="download(offer)" class="theme-color-second"
-          name="download-outline"></ion-icon>
-          <ion-icon (click)="deleteItem(offer)" class="theme-color-second"
-          name="trash-outline"></ion-icon>
-     </div>
-    </ion-item>
-  </ion-list>
+  <ion-searchbar [(ngModel)]="search.candidateName" slot="fixed" placeholder="Enter Name"></ion-searchbar>
+  <div class="list_block_container">
+    <ion-list class="list_row top-position-list" *ngIf="offerList?.length">
+      <ion-item *ngFor="let offer of offerList|filterBy: search ;let in=index">
+        <ion-label>
+          <h2 class="theme-color">{{offer?.candidateName}}</h2>
+          <p>{{offer?.position}} | {{offer?.city}} | {{offer?.createdOn |
+            date }}</p>
+        </ion-label>
+        <div class="list_right_action">
+          <ion-icon (click)="editOffer(offer)" class="theme-color" name="create-outline"></ion-icon>
+          <ion-icon (click)="download(offer)" class="theme-color-second" name="download-outline"></ion-icon>
+          <ion-icon (click)="deleteItem(offer)" class="theme-color-third" name="trash-outline"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
