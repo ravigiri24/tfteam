@@ -1,0 +1,11 @@
+.center_generate_btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+
+    ion-button {
+        max-width: 250px;
+    }
+}

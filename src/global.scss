@@ -93,7 +93,10 @@ ion-icon {
   // color: var(--app-guest-color) !important;
   color: var(--app-guest-color);
 }
-
+app-salary-slip {
+    background: #f5f5ff;
+    overflow: auto;
+}
 .global_input_block {
   padding-bottom: 20px;
   width: 100%;
