@@ -4,3 +4,6 @@ npm install pdfmake --legacy-peer-deps
 
 31-03-2025
 npm install xlsx --save --force
+
+For Salary Slip, Offer letter 
+sunil@tractor_factory / sunil_head@tractor_factory
