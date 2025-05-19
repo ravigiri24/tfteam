@@ -26,6 +26,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AddDemandComponent } from '../customer-management/view-customer-data/add-demand/add-demand.component';
 import { AddVisitngStatusComponent } from '../customer-management/view-customer-data/add-visitng-status/add-visitng-status.component';
 import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
+
+import { GoogleChartsModule } from 'angular-google-charts';
+import { CustomerDashboardComponent } from '../customer-management/customer-dashboard/customer-dashboard.component';
+import { SoldStatusEntryComponent } from '../customer-management/sold-status-entry/sold-status-entry.component';
 @NgModule({
   declarations: [
     DigitalComponent,
@@ -42,7 +46,9 @@ import { VisitingManagementComponent } from '../visiting-management/visiting-man
     ViewCustomerDataComponent,
     AddVisitngStatusComponent,
     AddDemandComponent,
-    VisitingManagementComponent
+    VisitingManagementComponent,
+    CustomerDashboardComponent,
+    SoldStatusEntryComponent
   ],
   imports: [
     DigitalPageRoutingModule,
@@ -52,6 +58,7 @@ import { VisitingManagementComponent } from '../visiting-management/visiting-man
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
+    GoogleChartsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs class="footer_tabs">
   <ion-tab-bar class="bottom_footer_row" slot="bottom">
     <!-- <ion-tab-button tab="home">
           <ion-icon name="play-circle"></ion-icon>
@@ -12,7 +12,7 @@
     <ion-tab-button (click)="goToPage('Follow-Up')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Follow-Up'" class="theme-color" name="bookmarks"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='Follow-Up'" class="theme-color" name="bookmarks-outline"></ion-icon>
-      Follow-Up
+      Review
     </ion-tab-button>
        <ion-tab-button (click)="goToPage('Visitng')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Visitng'" class="theme-color" name="prism"></ion-icon>

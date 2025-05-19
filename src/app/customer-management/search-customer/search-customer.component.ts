@@ -25,6 +25,12 @@ pdfMake.fonts = {
   },
 };
 import { jsPDF } from 'jspdf';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 @Component({
   selector: 'app-search-customer',
   templateUrl: './search-customer.component.html',
@@ -36,14 +42,25 @@ export class SearchCustomerComponent implements OnInit {
     private modalControl: ModalController,
     private share: ShareService,
     private api: ApiService,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private formBuilder:FormBuilder
   ) {}
   EXCEL_TYPE =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   EXCEL_EXTENSION = '.xlsx';
   ngOnInit() {
     this.getStateList();
+    this.initialize()
   }
+  form:FormGroup
+    initialize() {
+      this.form = this.formBuilder.group({
+        startDate: new FormControl(null, [Validators.required]),
+        endDate: new FormControl(null, [Validators.required]),
+   
+      });
+      console.log('this.dateForm', this.form.value);
+    }
   salva() {
     const worksheet = XLSX.utils.table_to_sheet(
       document.getElementById('table')
@@ -74,6 +91,167 @@ export class SearchCustomerComponent implements OnInit {
     }
     else if(this.searchBy=='CITY'){
       this.getCityWiseList()
+    }
+       else if(this.searchBy=='DATE'){
+      this.getListByDate()
+    }
+        else if(this.searchBy=='VISITORS'){
+      this.getListByVisitors()
+    }
+         else if(this.searchBy=='DEMAND'){
+      this.getListByDemand()
+    }
+  }
+  getListByVisitors(){
+ if (this.form.valid && this.visitType) {
+      if (
+        this.form.controls['startDate']?.value <=
+        this.form.controls['endDate']?.value
+      ) {
+  
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        startDate:  this.form.controls['startDate']?.value,
+        endDate:  this.form.controls['endDate']?.value,
+        visitType:  this.visitType,
+      storeId:this.staffDetails?.storeId
+      };
+  
+      this.api.postapi('getListByVisitorsStartEndDate', obj).subscribe(
+        (res: any) => {
+          if (res?.status == true) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+
+      }else{
+           this.share.presentToast('Error:End Date is less than Start Date');
+      }
+    
+    }
+    else{
+         this.share.presentToast('Error:Please Fill Required(*) Fields');
+    }
+  }
+    getListByDemand(){
+ if (this.form.valid) {
+      if (
+        this.form.controls['startDate']?.value <=
+        this.form.controls['endDate']?.value
+      ) {
+  
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        startDate:  this.form.controls['startDate']?.value,
+        endDate:  this.form.controls['endDate']?.value,
+    
+      storeId:this.staffDetails?.storeId
+      };
+  
+      this.api.postapi('getListByDemandStartEndDate', obj).subscribe(
+        (res: any) => {
+          if (res?.status == true) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+
+      }else{
+           this.share.presentToast('Error:End Date is less than Start Date');
+      }
+    
+    }
+    else{
+         this.share.presentToast('Error:Please Fill Required(*) Fields');
+    }
+  }
+  getListByDate(){
+    if (this.form.valid) {
+      if (
+        this.form.controls['startDate']?.value <=
+        this.form.controls['endDate']?.value
+      ) {
+  
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        startDate:  this.form.controls['startDate']?.value,
+        endDate:  this.form.controls['endDate']?.value,
+              storeId:this.staffDetails?.storeId
+      };
+  
+      this.api.postapi('getCustomerByDate', obj).subscribe(
+        (res: any) => {
+          if (res?.status == true) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+
+      }else{
+           this.share.presentToast('Error:End Date is less than Start Date');
+      }
+    
+    }
+    else{
+         this.share.presentToast('Error:Please Fill Required(*) Fields');
     }
   }
   stateList: any = [];
@@ -130,6 +308,10 @@ export class SearchCustomerComponent implements OnInit {
           itemName: itemName,
           table_name: table_name,
           otherObjects: otherObjects,
+             jsonKey:'name',
+        search:  {
+          name: null,
+        }
         },
       });
       await modal.present();
@@ -175,7 +357,8 @@ export class SearchCustomerComponent implements OnInit {
     let obj = {
       operate: this.staffDetails?.staffCode,
      
-      mobileNo:this.search.name
+      mobileNo:this.search.name,
+     storeId:this.staffDetails?.storeId
     };
 
     this.api.postapi('getCustomerByMobileNumber', obj).subscribe(
@@ -208,7 +391,8 @@ export class SearchCustomerComponent implements OnInit {
     let obj = {
       operate: this.staffDetails?.staffCode,
      
-      name:this.search.name
+      name:this.search.name,
+         storeId:this.staffDetails?.storeId
     };
 
     this.api.postapi('getCustomerByName', obj).subscribe(
@@ -403,13 +587,14 @@ name=this.stateName
     this.error = dataUrl;
     browser.show();
   }
+  visitType:any='WILL_VISIT'
     resetData(){
       this.customerList=[]
       this.state_id=null;
       this.city_id=null;
       this.stateName=null;
       this.cityName=null;
-      
+      this.form.reset()
     }
     recordStatename:any=[]
     getStateWiseList(){
@@ -423,7 +608,8 @@ name=this.stateName
       let obj = {
         operate: this.staffDetails?.staffCode,
        
-        state_id:this.state_id
+        state_id:this.state_id,
+              storeId:this.staffDetails?.storeId
       };
   
       this.api.postapi('getCustomerByState', obj).subscribe(
@@ -463,7 +649,8 @@ name=this.stateName
       let obj = {
         operate: this.staffDetails?.staffCode,
        
-        city_id:this.city_id
+        city_id:this.city_id,
+              storeId:this.staffDetails?.storeId
       };
   
       this.api.postapi('getCustomerByCity', obj).subscribe(

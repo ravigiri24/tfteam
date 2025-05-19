@@ -102,6 +102,26 @@
           <span class="right_date">{{visiting?.createdOn}}</span>
         </div>
       </div>
+         <ion-grid class="main_block_details">
+        <ion-card>
+          <ion-row>
+            <ion-col>is customer buy a tracor</ion-col>
+            <ion-col class="amount_col">{{customerSelected?.soldStatus? "Yes" : "NO"}}</ion-col>
+          </ion-row>
+               <ion-row>
+            <ion-col><ion-button  (click)="sold_status()" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+     Status
+    </ion-button></ion-col>
+            <ion-col class="amount_col">
+              <ion-button *ngIf="customerSelected?.soldStatus"  (click)="removeSoldStatus()" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
+     Remove
+    </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+        </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>

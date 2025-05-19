@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { AddDemandComponent } from './add-demand/add-demand.component';
 import { AddVisitngStatusComponent } from './add-visitng-status/add-visitng-status.component';
+import { SoldStatusEntryComponent } from '../sold-status-entry/sold-status-entry.component';
 @Component({
   selector: 'app-view-customer-data',
   templateUrl: './view-customer-data.component.html',
@@ -14,7 +15,8 @@ export class ViewCustomerDataComponent implements OnInit {
   constructor(
     private modalctr: ModalController,
     private share: ShareService,
-    private api: ApiService
+    private api: ApiService,
+    private alertCtrl:AlertController
   ) {}
   nextFolloupHistory: any = [];
   chatHistory: any = [];
@@ -70,6 +72,8 @@ this.demand_history=res?.data?.demands
     
     }
 async  visiting_dates(){
+  console.log("customerSelected",this.customerSelected);
+  
   const modal = await this.modalctr.create({
         component: AddVisitngStatusComponent,
         breakpoints: [0, 0.4, 1],
@@ -93,4 +97,65 @@ async  visiting_dates(){
       (next: any) => next?.chat_type == 'CHAT'
     );
   }
+ async removeSoldStatus(){
+      
+    const alert = await this.alertCtrl.create({
+      header: 'Remove Sold Status',
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.removeS();
+    }
+  
+  }
+  removeS(){
+  
+    let objData: any = {
+      isDeleted:true,
+    };
+    let obj = {
+      src: 'sold_customer_record',
+      data: objData,
+      id:this.customerSelected?.soldStatus?.id,
+    };
+
+    this.share.showLoading('Removing Status...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+this.customerSelected.soldStatus=null
+      this.share.presentToast('Removed Successfully...');
+    
+    //  this.dismiss();
+    });
+  
+  }
+   async sold_status(){
+      
+          const modal = await this.modalctr.create({
+            component: SoldStatusEntryComponent,
+            componentProps: {
+             customerDetails: this.customerSelected,
+             
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+          if(data){
+      this.getCustomerById()
+          }
+    }
 }

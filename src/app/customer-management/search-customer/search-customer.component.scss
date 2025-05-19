@@ -12,6 +12,10 @@
   justify-content: center;
 
 }
+.scroll{
+    overflow-x: scroll;
+    width: 100%;
+}
 .button{
     --background: var(--app-theme-element-color) !important;
     --border-color: var(--app-theme-element-color) !important;

@@ -13,6 +13,8 @@ import { SearchCustomerComponent } from './search-customer/search-customer.compo
 import { AddCustomerPopUpComponent } from './add-customer-pop-up/add-customer-pop-up.component';
 import { ReviewPageComponent } from './review-page/review-page.component';
 import { ViewCustomerDataComponent } from './view-customer-data/view-customer-data.component';
+import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
+import { SoldStatusEntryComponent } from './sold-status-entry/sold-status-entry.component';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -360,6 +362,25 @@ stateList:any=[]
         }
          
   }
+    async viewDashboard(editData:any=null,editIndex:any=null){
+    this.editIndex = editIndex;
+    this.editData=editData
+        const modal = await this.modalController.create({
+          component: CustomerDashboardComponent,
+          componentProps: {
+           editData: editData,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+        if(data){
+        this.updateList(data)
+        }
+         
+  }
+  
+
   
   cancel() {
     this.modal.dismiss(null, 'cancel');

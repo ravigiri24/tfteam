@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Sold Status</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="dismiss()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="form" class="ion-padding">
+  <form [formGroup]="form">
+    <!-- <span class="inner-heading">Customer Details</span>
+    <div class="global_input_block">
+      <ion-input label="Customer Name*" fill="outline" labelPlacement="stacked" type="text" formControlName="customer_name"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Contact Number*" fill="outline" labelPlacement="stacked" type="text" formControlName="contact_number"></ion-input>
+    </div> -->
+    <span class="inner-heading">Tractor Details</span>
+  <div class="global_input_block" >
+    <ion-select (ionChange)="getModelsbyBrand()"    formControlName="brand_id" fill="outline" label="Select Brand *" label-placement="type">
+      <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="global_input_block" >
+    <ion-select   formControlName="model_id" fill="outline" label="Select Model *" label-placement="type">
+      <ion-select-option *ngFor="let model of modelList"  [value]="model?.id">{{model?.name}}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
+  </div>
+ 
+ <div class="global_input_block">
+    <ion-input label="Date Of Sale*" fill="outline" labelPlacement="stacked" type="date" formControlName="dateOfSale"></ion-input>
+  </div>
+
+  
+
+<div class="page_submit_btn">
+  <ion-button *ngIf="!customerDetails?.soldStatus" (click)="save()" class="global_submit_button" expand="block">Save</ion-button>
+  <ion-button *ngIf="customerDetails?.soldStatus" (click)="update()" class="global_submit_button" expand="block">Update</ion-button>
+</div>
+</form>
+</ion-content>

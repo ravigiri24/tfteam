@@ -33,6 +33,7 @@
     "@ionic-native/pdf-generator": "^5.36.0",
     "@ionic/angular": "^8.0.0",
     "@ionic/cordova-builders": "^12.1.2",
+    "angular-google-charts": "^16.0.2",
     "bootstrap": "^5.3.3",
     "cordova-android": "13.0.0",
     "cordova-plugin-file": "^8.1.3",

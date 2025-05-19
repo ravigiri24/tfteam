@@ -16,6 +16,9 @@
       <ion-select-option value="NAME">By Name</ion-select-option>
       <ion-select-option value="STATE">By State</ion-select-option>
       <ion-select-option value="CITY">By City</ion-select-option>
+      <ion-select-option value="DATE">By Date</ion-select-option>
+      <ion-select-option value="VISITORS">By Visitors</ion-select-option>
+      <ion-select-option value="DEMAND">By Demand</ion-select-option>
    </ion-select>
   </div>
   <div *ngIf="searchBy=='NAME' || searchBy=='NUMBER'" class="top-position">
@@ -37,6 +40,71 @@
   <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
         <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
       </ion-select> -->
+</div>
+<div *ngIf="searchBy=='DATE'"  >
+    <form [formGroup]="form">
+  <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+</div>
+<div *ngIf="searchBy=='VISITORS'"  >
+  <div  class="global_input_block input-position">
+    <ion-select [(ngModel)]="visitType"  fill="outline" label="Visit Type" label-placement="stacked">
+      <ion-select-option value="WILL_VISIT">Will Come</ion-select-option>
+      <ion-select-option value="VISITED">Visited</ion-select-option>
+ 
+   </ion-select>
+  </div>
+      <form [formGroup]="form">
+  <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+</div>
+<div *ngIf="searchBy=='DEMAND'"  >
+
+      <form [formGroup]="form">
+  <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+
+</form>
 </div>
 <div class="button-style">
   <ion-button class="button"  (click)="searchCustomer()" expand="block">Search</ion-button>
@@ -63,18 +131,22 @@
     </ion-item>
   </ng-container>
 </div>
-<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY' )" class="row">
-  <div class="col-6 col-md-6 ">
+<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND')" class="row">
+  <!-- <div class="col-6 col-md-6 ">
 <ion-button   (click)="generatePDF()" class="global_submit_button button-width" expand="block">Genrate Pdf</ion-button>
+</div> -->
+<!-- <div class="col-6 col-md-6">
+
+</div> -->
+<div class="button-style">
+<ion-button class="button" (click)="generateExcel()" class="global_submit_button button-width" expand="block">Genrate Excel</ion-button>
+
 </div>
-<div class="col-6 col-md-6">
-<ion-button (click)="generateExcel()" class="global_submit_button button-width" expand="block">Genrate Excel</ion-button>
 </div>
-</div>
-<div *ngIf="(searchBy=='STATE' || searchBy=='CITY' ) && customerList?.length" id="customerDataReport" class="top-margin" style="width: 100%;">
-  <div class="top_header" style="margin: 15px 0px; text-align: center;">
+<div class="scroll"  *ngIf="(searchBy=='STATE' || searchBy=='CITY' || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND') && customerList?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
+  <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
-  </div>
+  </div> -->
 
 
   <table cellpadding="5" cellspacing="5" style="width: 100%;">
@@ -94,6 +166,20 @@
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
       
       </tr>
+       <tr *ngIf="searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND'">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{form.controls['startDate'].value}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{form.controls['endDate'].value}}</td>
+      
+      </tr>
+         <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr>
 
    
     </tbody>
@@ -103,22 +189,34 @@
     <tbody>
       <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">Date</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Mobile No.</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Type</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Platform</th>
-        <th *ngIf="searchBy=='STATE'" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">City</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Requirement</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Requirement Date</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Visting Status</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Visit Date</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Visit Remark</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">City</th>
     
 
       </tr>
       <tr *ngFor="let cus of customerList;let cusInd=index"
-        style="border: 1px solid #e1e1e1;text-align: left;">
+        style="border: 1px solid #e1e1e1;text-align: left" >
         <td style="text-align: center;">{{cusInd+1}}</td>
+        <td style="text-align: center;">{{cus?.createdOn}}</td>
         <td style="padding: 5px 10px;">{{cus?.name}}</td>
         <td style="padding: 5px 10px;">{{cus?.mobileNo}}</td>
         <td style="padding: 5px 10px;">{{cus?.customerType}}</td>
         <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
-        <td *ngIf="searchBy=='STATE'" style="padding: 5px 10px;">{{cus?.cityDetails?.name}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastDemand?.demand ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastDemand?.createdOn ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.visitng_type ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.visiting_date ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.remark ||'-'}}</td>
+        <td  style="padding: 5px 10px;">{{cus?.cityDetails?.name}}</td>
      
       
       </tr>
