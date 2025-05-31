@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Add New Arrivals</span>
+        <span *ngIf="!data" class="selected_text">Add New Arrivals</span>
+        <span *ngIf="data"  class="selected_text">Update</span>
       </div>
       <div class="right_action">
         <ion-icon (click)="backToNewArrivals()" name="arrow-back-outline"></ion-icon>
@@ -12,7 +13,8 @@
       expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="ion-padding">
+  <div *ngIf="isForm">
   <ion-tabs class="inner-tabs">
     <ion-tab-bar slot="top">
       <ion-tab-button *ngIf="!rowCode" (click)="goToPage('MODEL')" [ngClass]="{'selected_tab':selectedTab==='MODEL'}"
@@ -37,18 +39,55 @@
         (setModelDetail)="setModelDetail($event)" *ngIf="modelList?.length && modelForm"
         [modelList]="modelList"></app-select-brand>
     </ng-container>
-    <ng-container class="hieght-body" *ngIf="selectedTab==='BASIC_INFO'">
-      <ion-content class="ion-padding">
+    <ng-container class="hieght-body"  *ngIf="selectedTab==='BASIC_INFO'">
+<!--       
+      <ion-content class="ion-padding"> -->
+ 
         <app-basic-info *ngIf="modelForm" [yearArray]="yearArray" [form]="modelForm"></app-basic-info>
-      </ion-content>
+ 
+      <!-- </ion-content> -->
     </ng-container>
     <ng-container class="hieght-body" *ngIf="selectedTab==='PURCHASE_DETAILES'">
+      <!-- <ion-content class="ion-padding"> -->
+        <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()"
+          [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList"
+          [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"
+          [modelForm]="modelForm"></app-purchase-details>
+      <!-- </ion-content> -->
+    </ng-container>
+        <!-- <ng-container class="hieght-body" *ngIf="selectedTab==='PURCHASE_DETAILES'">
       <ion-content class="ion-padding">
         <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()"
           [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList"
           [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"
           [modelForm]="modelForm"></app-purchase-details>
       </ion-content>
-    </ng-container>
+    </ng-container> -->
   </div>
+  </div>
+    <div *ngIf="!isForm">
+      <div class="block">
+     <span class="succes-tag-line">Great! You've successfully added a new tractor. </span>
+      </div>
+    <div class=" block">
+
+  
+    <img class="image-style" src="././assets/images/tractorsuccess.png" />
+
+    </div>
+      <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+       <ion-button (click)="goToNewArrivals()"  class="global_submit_button" >
+    
+      {{buttonRouted}}</ion-button>
+    </div>
+    <div class="col-md-6 col-6">
+         <ion-button (click)="goToUplodeSection()"  class="global_submit_button" >
+    
+      Next</ion-button>
+    </div>
+
+  </div>
+    </div>
 </ion-content>

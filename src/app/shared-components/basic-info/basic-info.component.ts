@@ -12,6 +12,9 @@ export class BasicInfoComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    console.log("form",this.form);
+    
   //  this.createYearArray()
   }
 

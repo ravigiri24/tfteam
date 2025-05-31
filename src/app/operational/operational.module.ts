@@ -5,17 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { OperationlPageRoutingModule } from './operational-routing.module';
-import { SelectBrandComponent } from '../shared-components/select-brand/select-brand.component';
-import { BasicInfoComponent } from '../shared-components/basic-info/basic-info.component';
-import { PurchaseDetailsComponent } from '../shared-components/purchase-details/purchase-details.component';
+// import { SelectBrandComponent } from '../shared-components/select-brand/select-brand.component';
+//import { BasicInfoComponent } from '../shared-components/basic-info/basic-info.component';
+//import { PurchaseDetailsComponent } from '../shared-components/purchase-details/purchase-details.component';
 // import { SearchpipePipe } from '../searchpipe.pipe';
 import { SharedModule } from '../shared-components/shared.module';
 import { OperationalComponent } from './operational.component';
 import { HeaderOperationComponent } from './header-operation/header-operation.component';
 import { FooterOperationComponent } from './footer-operation/footer-operation.component';
 import { TransportManagementComponent } from '../transport-management/transport-management.component';
-import { AddNewArrivalsComponent } from '../new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
-import { NewArrivalsManagementComponent } from '../new-arrivals-management/new-arrivals-management.component';
+
 import { TransportCostListComponent } from '../transport-management/transport-cost-list/transport-cost-list.component';
 import { AddCostComponent } from '../transport-management/add-cost/add-cost.component';
 import { AddTransportStatusComponent } from '../transport-management/add-transport-status/add-transport-status.component';
@@ -42,17 +41,18 @@ import { OtherExpenseListComponent } from '../tractor-dashboard/other-expense-li
 import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense/add-other-expense.component';
 import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-stock-tractors.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { TractorOptionsViewComponent } from '../new-arrivals-management/tractor-options-view/tractor-options-view.component';
 import { FilterByPageComponent } from '../buffer-stock-tractors/filter-by-page/filter-by-page.component';
 @NgModule({
   declarations: [
     OperationalComponent,
     HeaderOperationComponent,
     FooterOperationComponent,
-    NewArrivalsManagementComponent,
-    AddNewArrivalsComponent,
-    SelectBrandComponent,
-    BasicInfoComponent,
-    PurchaseDetailsComponent,
+    // NewArrivalsManagementComponent,
+    // AddNewArrivalsComponent,
+   // SelectBrandComponent,
+    //BasicInfoComponent,
+    //PurchaseDetailsComponent,
     TransportManagementComponent,
     TransportCostListComponent,
     AddCostComponent,
@@ -79,7 +79,8 @@ import { FilterByPageComponent } from '../buffer-stock-tractors/filter-by-page/f
     OtherExpenseListComponent,
     AddOtherExpenseComponent,
     BufferStockTractorsComponent,
-    FilterByPageComponent
+    FilterByPageComponent,
+    TractorOptionsViewComponent
   ],
   imports: [
     OperationlPageRoutingModule,

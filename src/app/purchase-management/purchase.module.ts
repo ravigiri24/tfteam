@@ -19,11 +19,18 @@ import { TransactionHistoryComponent } from './store-payment-transaction/transac
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 import { AddDealerPriceComponent } from './add-dealer-price/add-dealer-price.component';
 import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
+import { AddNewArrivalsComponent } from 'src/app/new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
+import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { BasicInfoComponent } from '../shared-components/basic-info/basic-info.component';
+import { PurchaseDetailsComponent } from '../shared-components/purchase-details/purchase-details.component';
+import { UploadScreenShotComponent } from '../new-arrivals-management/upload-screen-shot/upload-screen-shot.component';
+import { ForwardToTransportComponent } from '../new-arrivals-management/forward-to-transport/forward-to-transport.component';
 @NgModule({
   declarations: [
 
     PurchaseManagementComponent,
-
+PurchaseDetailsComponent,
     
     PurchaseFooterComponent,
     NewFindingsComponent,
@@ -33,7 +40,13 @@ import { ViewTransactionDetailsComponent } from './view-transaction-details/view
     TransactionHistoryComponent,
     AddTransactionComponent,
     AddDealerPriceComponent,
-    ViewTransactionDetailsComponent
+    ViewTransactionDetailsComponent,
+    AddNewArrivalsComponent,
+    NewArrivalsManagementComponent,
+    SelectBrandComponent,
+    BasicInfoComponent,
+    UploadScreenShotComponent,
+    ForwardToTransportComponent
   ],
   imports: [
     PurchaseRoutingModule,
@@ -43,6 +56,7 @@ import { ViewTransactionDetailsComponent } from './view-transaction-details/view
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
+    FilterPipeModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 })

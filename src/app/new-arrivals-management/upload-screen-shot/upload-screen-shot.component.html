@@ -1,0 +1,57 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Upload Document</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Before Service</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+    <div class="block">
+     <span class="succes-tag-line">Before Service</span>
+      </div>
+    <div class=" block">
+
+  
+    <img (click)="viewImage('BEFORE_SERVICE')" class="image-style" src="././assets/images/image-upload.png" />
+
+    </div>
+
+     <div class="block margin-body">
+     <span class="succes-tag-line">Pay Screenshot</span>
+      </div>
+    <div class=" block">
+
+  
+    <img (click)="viewImage('PAYMENT_SCREENSHOT')" class="image-style" src="././assets/images/screenshot.png" />
+
+    </div>
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Payment Screenshot</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+</ion-content>

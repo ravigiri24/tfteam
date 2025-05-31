@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <!-- (ionChange)="getListByBrand()" -->
+        <span class="selected_text">New : </span>
+     
+        <b class="total-number">45</b>
+      </div>
+      <div class="right_action">
+    
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <!-- <ion-list class="list_row" *ngIf="alltractorList?.length">
+    <ion-item *ngFor="let tractor of alltractorList;let in=index">
+      <ion-label>
+        <h2 class="theme-color">{{tractor?.name}}</h2>
+        <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
+          date }}</p>
+      </ion-label>
+      <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
+        name="ellipsis-horizontal-circle-outline"></ion-icon>
+
+    </ion-item>
+  </ion-list> -->
+
+ <div class="row">
+    <div class="col-md-6 col-6 block">
+  <ion-card (click)="openAllTractor()" >
+    <img class="image-style" src="././assets/images/all.png" />
+    <ion-card-header>
+      <ion-card-title class="title-style">Not Allotted</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{tractorCounts?.openJob || 0}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+    <div class="col-md-6 col-6 block">
+  <ion-card >
+    <img class="image-style" src="././assets/images/new-arrival-sale.png" />
+    <ion-card-header>
+      <ion-card-title class="title-style">New Arrivals</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{tractorCounts?.openJob || 0}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+<div class="col-md-6 col-6 block">
+  <ion-card >
+    <img class="image-style" src="././assets/images/at_logistic.png" />
+    <ion-card-header>
+      <ion-card-title class="title-style">At Logistics</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{tractorCounts?.closeJob || 0}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+<div class="col-md-6 col-6 block">
+  <ion-card >
+    <img class="image-style" src="././assets/images/buffer_stock.png" />
+    <ion-card-header>
+      <ion-card-title class="title-style">Buffer</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{tractorCounts?.deletedJob || 0}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+<div class="col-md-6 col-6 block">
+  <ion-card >
+    <img class="image-style" src="././assets/images/franchise_store.png" />
+    <ion-card-header>
+      <ion-card-title class="title-style">Store Wise</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{tractorCounts?.openJob+tractorCounts?.closeJob}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+<div class="col-md-6 col-6 block">
+  <ion-card >
+    <img class="image-style" src="././assets/images/launched.png" />
+    <ion-card-header>
+      <ion-card-title class="title-style">Launched</ion-card-title>
+      <ion-card-subtitle class="sub-title-style">{{tractorCounts?.openJob+tractorCounts?.closeJob}}</ion-card-subtitle>
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+</div>
+</ion-content>

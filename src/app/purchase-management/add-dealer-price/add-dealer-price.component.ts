@@ -21,7 +21,7 @@ export class AddDealerPriceComponent  implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initialize()
+    this.initialize(this.tractorDetails)
   }
   dismiss(){
 this.modalCtrl.dismiss()
@@ -54,9 +54,11 @@ this.modalCtrl.dismiss()
       };
       this.share.showLoading('Updating Details...');
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+           this.tractorDetails.dealerPrice=this.form.value.dealerPrice
         this.share.spinner.dismiss();
         this.share.presentToast('Details Saved...');
         this.modalCtrl.dismiss(null, 'confirm');
+     
       });
     } else {
       this.share.presentToast('Please fill all details');

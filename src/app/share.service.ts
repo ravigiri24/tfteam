@@ -108,6 +108,9 @@ this.showFooter=e
             else if(userde?.staff_role=='HR'){
               this.router.navigate(['/hr-deparment/offer-letter'])
             }
+               else if(userde?.staff_role=='FRANCHISE_OPERATIONS'){
+              this.router.navigate(['/franchise-operation-deparment/ready-tractor-sales'])
+            }
         }else{
           if(userde?.currentRole=='DIGITAL'){
             this.router.navigate(['/digital/customer-management'])
@@ -130,6 +133,9 @@ this.showFooter=e
             }
             else if(userde?.currentRole=='HR'){
               this.router.navigate(['/hr-deparment/offer-letter'])
+            }
+            else if(userde?.currentRole=='FRANCHISE_OPERATIONS'){
+              this.router.navigate(['/franchise-operation-deparment/ready-tractor-sales'])
             }
 
         }

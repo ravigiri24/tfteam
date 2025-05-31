@@ -3,6 +3,8 @@ import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import { TractorOptionsViewComponent } from './tractor-options-view/tractor-options-view.component';
+import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
 import { StartTransportDialogComponent } from '../transport-management/start-transport-dialog/start-transport-dialog.component';
 @Component({
   selector: 'app-new-arrivals-management',
@@ -74,11 +76,27 @@ export class NewArrivalsManagementComponent implements OnInit {
   userDetails: any;
   staffDetails: any;
   goToNewArival(data: any = null) {
-    this.route.navigate(['/operational/add-new-arrivals']);
+    this.route.navigate(['/purchase-management/add-new-arrivals']);
   }
-  openEdit(tractor: any, i: any) {
-    this.route.navigate(['/operational/edit-newarrivals', tractor?.rowCode]);
+  openEdit(tractor: any) {
+    this.route.navigate(['/purchase-management/edit-newarrivals', tractor?.rowCode]);
   }
+    async viewImage(image:any){
+      const modal = await this.modalCtrl.create({
+        component: SingleImageShowComponent,
+        componentProps: {
+       
+          image: image,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+     
+      }
+    }
 
   getTractorList(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
@@ -95,7 +113,13 @@ export class NewArrivalsManagementComponent implements OnInit {
         this.newArivalsList = this.newArivalsList.filter(
           (f: any) => f?.tractor_status == 'NEW_ARRIVAL'
         );
-
+ this.newArivalsList?.forEach((tract:any) => {
+  let beforeService=tract?.rawImages?.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
+  tract.beforeServiceImages=beforeService
+  if(tract.beforeServiceImages?.length){
+    tract.imageUrlUrl=tract.beforeServiceImages[0]?.imageUrlUrl
+  }
+ });
         this.share?.spinner?.dismiss();
         this.backupList = res.data;
       },
@@ -109,4 +133,24 @@ export class NewArrivalsManagementComponent implements OnInit {
     this.getTractorList();
   }
   dataClear() {}
+
+  async openOptions(tractor:any){
+    const modal = await this.modalCtrl.create({
+      component: TractorOptionsViewComponent,
+      componentProps: {
+     
+        tractor: tractor,
+   
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+if(data?.isDeleted || data?.isForworded){
+  this.getTractorList('Refreshing Data...')
+}
+    if (role === 'confirm') {
+   
+    }
+  }
 }

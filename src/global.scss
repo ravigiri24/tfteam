@@ -491,3 +491,33 @@ ion-header {
 .page_inner_container {
   padding-top: 25px;
 }
+.custom-fullscreen-modal {
+  --width: 100vw;
+  --height: 100vh;
+
+  &::part(content) {
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    animation: slideInSlightlyFromRight 300ms ease forwards;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+  }
+
+  &::part(backdrop) {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes slideInSlightlyFromRight {
+  from {
+    transform: translateX(10%); // slightly offset
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

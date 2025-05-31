@@ -3,6 +3,8 @@ import { FormGroup,FormControl,Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
+import { UploadScreenShotComponent } from '../upload-screen-shot/upload-screen-shot.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-new-arrivals',
@@ -11,7 +13,7 @@ import { ShareService } from 'src/app/share.service';
 })
 export class AddNewArrivalsComponent  implements OnInit {
 
-  constructor(private activatedRoute:ActivatedRoute,private router:Router,private share:ShareService,private api:ApiService,private fb:FormBuilder) { }
+  constructor(private activatedRoute:ActivatedRoute,private router:Router,private share:ShareService,private api:ApiService,private fb:FormBuilder,private modalCtrl:ModalController) { }
 
   ngOnInit() {
     //this.getModelList()
@@ -67,8 +69,11 @@ export class AddNewArrivalsComponent  implements OnInit {
   }
   staffDetails:any
   rowCode:any
+  isForm=true
   ionViewWillEnter() {
     this.createYearArray()
+    this.isForm=true
+    this.newTractorDetails=null
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
@@ -131,7 +136,7 @@ export class AddNewArrivalsComponent  implements OnInit {
       }
 
   backToNewArrivals(){
-    this.router.navigate(['operational/new-arrivals'])
+    this.router.navigate(['purchase-management/new-arrivals'])
   }
   data:any
   selectedModel:any
@@ -227,14 +232,18 @@ export class AddNewArrivalsComponent  implements OnInit {
        modalID: new FormControl(this.data?.modalID || null, [
          Validators.required,
        ]),
+ 
+         rtoEstimationCost: new FormControl(this.data?.rtoEstimationCost || null, ),
+         inwardEstimationCost: new FormControl(this.data?.inwardEstimationCost || null, ),
+         maintainanceEstimationCost: new FormControl(this.data?.maintainanceEstimationCost || null, ),
    
        
        hours: new FormControl(this.data?.hours || null, [
          Validators.required,
        ]),
-       dealerPrice: new FormControl(this.data?.dealerPrice || null, [
-        Validators.required,
-      ]),
+      //  dealerPrice: new FormControl(this.data?.dealerPrice || null, [
+      //   Validators.required,
+      // ]),
        
        modalName: new FormControl(this.data?.modalName || null, [
          Validators.required,
@@ -247,7 +256,7 @@ export class AddNewArrivalsComponent  implements OnInit {
        //  isActive: new FormControl(this.data?.isActive || false, []),
        city: new FormControl( null, ),
  
-       registractionNo: new FormControl(this.data?.registractionNo || null, []),
+     //  registractionNo: new FormControl(this.data?.registractionNo || null, []),
        yearOfManufactoring: new FormControl(
          Number(this.data?.yearOfManufactoring) || null,
          [Validators.required]
@@ -458,7 +467,7 @@ export class AddNewArrivalsComponent  implements OnInit {
          address: new FormControl(
            this.data?.tractordetailadmin?.address || null
          ),
-         city: new FormControl(this.data?.tractordetailadmin?.city || null),
+        // city: new FormControl(this.data?.tractordetailadmin?.city || null),
          contact1: new FormControl(
            this.data?.tractordetailadmin?.contact1 || null
          ),
@@ -496,7 +505,7 @@ export class AddNewArrivalsComponent  implements OnInit {
          address: new FormControl(
            this.data?.purchasedetail?.address || null
          ),
-         city: new FormControl(this.data?.purchasedetail?.city || null),
+         //city: new FormControl(this.data?.purchasedetail?.city || null),
          purchasePrice: new FormControl(this.data?.purchasedetail?.purchasePrice || null),
          contact1: new FormControl(
            this.data?.purchasedetail?.contact1 || null
@@ -530,6 +539,10 @@ export class AddNewArrivalsComponent  implements OnInit {
          actionByid: new FormControl(this.staffDetails?.staffCode, [
            Validators.required,
          ]),
+          bankNameAuction: new FormControl(this.data?.purchasedetail?.bankNameAuction || null, ),
+         parkLocation: new FormControl(this.data?.purchasedetail?.parkLocation || null, ),
+         expectedDateOfArrival: new FormControl(this.data?.purchasedetail?.expectedDateOfArrival || null, ),
+         amountTransferDate: new FormControl(this.data?.purchasedetail?.amountTransferDate || null, ),
        }),
        inspection: this.fb.group({
          bumper: new FormControl(this.data?.inspection?.bumper || null, []),
@@ -750,6 +763,7 @@ this.share.presentToast("Please Select Model")
     }
     return obj;
   }
+  newTractorDetails:any
   onSave() {
     if (this.checkValidation()) {
       let obj = this.getSensObj();
@@ -762,9 +776,11 @@ this.share.presentToast("Please Select Model")
           (res: any) => {
            // this.loader = false;
     this.share.spinner.dismiss()
-    this.share.presentToast("Saved Successfully...")
+    this.isForm=false
+    this.newTractorDetails=res?.data
+    //this.share.presentToast("Saved Successfully...")
           //  this.share.openSnackbarAddSuccess();
-            this.router.navigate(['/operational/new-arrivals']);
+         
           },
           (error:any) => {
           //  this.loader = false;
@@ -776,7 +792,7 @@ this.share.presentToast("Please Select Model")
           (res: any) => {
             this.share.spinner.dismiss()
             this.share.presentToast("Updated Successfully...")
-            this.router.navigate(['/operational/new-arrivals']);
+            this.router.navigate(['/purchase-management/new-arrivals']);
           },
           (error:any) => {
           //  this.loader = false;
@@ -803,8 +819,8 @@ this.share.presentToast("Please Select Model")
         // this.modelForm.updateValueAndValidity();
         if (
           this.modelForm.controls['name'].valid &&
-          this.modelForm.controls['city'].valid &&
-          this.modelForm.controls['registractionNo'].valid &&
+          //this.modelForm.controls['city'].valid &&
+         // this.modelForm.controls['registractionNo'].valid &&
           this.modelForm.controls['yearOfManufactoring'].valid &&
           this.modelForm.controls['modalID'].valid &&
           this.modelForm.controls['modalName'].valid &&
@@ -830,5 +846,24 @@ this.share.presentToast("Please Select Model")
     }
 
     return status;
+  }
+  buttonRouted='Skip'
+  goToNewArrivals(){
+       this.router.navigate(['/purchase-management/new-arrivals']);
+  }
+  async goToUplodeSection(){
+    this.buttonRouted='Close'
+  let tarctor_id=this.newTractorDetails?.id
+        const modal = await this.modalCtrl.create({
+          component: UploadScreenShotComponent,
+          componentProps: {
+            tarctor_id: tarctor_id,
+          },
+        });
+        await modal.present();
+       
+    
+        const { data, role } = await modal.onWillDismiss();
+      
   }
 }

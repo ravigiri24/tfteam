@@ -24,7 +24,8 @@
 
   <div class="login-button">
 
-    <ion-button (click)="savePrice()"  style="text-align: center;" expand="block" >Save</ion-button>
+    <ion-button *ngIf="!tractorDetails?.dealerPrice" (click)="savePrice()"  style="text-align: center;" expand="block" >Save</ion-button>
+    <ion-button *ngIf="tractorDetails?.dealerPrice" (click)="savePrice()"  style="text-align: center;" expand="block" >Update</ion-button>
 
   </div>
 

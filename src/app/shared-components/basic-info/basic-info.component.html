@@ -1,17 +1,19 @@
-<form [formGroup]="form">
+
+<form class="form_basic_height"  [formGroup]="form">
+  <div >
   <div class="global_input_block">
     <ion-input label="Enter Tractor Name" fill="outline" labelPlacement="stacked" type="text" placeholder="Your name"
     formControlName="name"></ion-input>
   </div>
-  <div class="global_input_block">
+  <!-- <div class="global_input_block">
     <ion-input label="Enter TF Code" fill="outline" labelPlacement="stacked" type="text" formControlName="registractionNo"></ion-input>
-  </div>
+  </div> -->
   <div class="global_input_block">
     <ion-input label="Enter Hours" fill="outline" labelPlacement="stacked" type="text" formControlName="hours"></ion-input>
   </div>
-  <div class="global_input_block">
+  <!-- <div class="global_input_block">
     <ion-input label="Dealer Price" fill="outline" labelPlacement="stacked" type="number" formControlName="dealerPrice"></ion-input>
-  </div>
+  </div> -->
   <div class="global_input_block" *ngIf="yearArray?.length">
     <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">
       <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
@@ -26,4 +28,20 @@
       formControlName="price"
       ></ion-input>
     </ion-item> -->
+      <div formGroupName="purchasedetail">
+      <div class="global_input_block">
+      <ion-input label="Chasis Number" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="chasisNumber"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Registraion Number" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="registrationNumber"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="engineNumber"></ion-input>
+    </div>
+  </div>
+  </div>
 </form>
+

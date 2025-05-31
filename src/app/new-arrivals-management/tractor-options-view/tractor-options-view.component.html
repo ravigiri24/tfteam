@@ -1,0 +1,74 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Dashboard</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Before Service</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+    <div (click)="startTranspotation()" class="block">
+     <span class="succes-tag-line">Forward</span>
+      </div>
+    <div class=" block">
+
+  
+    <img (click)="startTranspotation()" class="image-style" src="././assets/images/fast-forward-button.png" />
+
+    </div>
+  <div (click)="goToUplodeSection()" class="block margin-body">
+     <span class="succes-tag-line">Gallery</span>
+      </div>
+    <div (click)="goToUplodeSection()" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/gallary.png" />
+
+    </div>
+     <!-- <div class="block margin-body">
+     <span class="succes-tag-line">Overview</span>
+      </div>
+    <div class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/list.png" />
+
+    </div> -->
+       <div (click)="deleteItem()" class="block margin-body">
+     <span class="succes-tag-line">Delete</span>
+      </div>
+    <div class=" block">
+
+  
+    <img (click)="deleteItem()" class="image-style" src="././assets/images/deleted.png" />
+
+    </div>
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Payment Screenshot</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+</ion-content>

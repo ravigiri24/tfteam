@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'hr-deparment',
     loadChildren: () => import('./hr-department/hr.module').then(m => m.HrDeparmentModule)
   },
+    {
+    path: 'franchise-operation-deparment',
+    loadChildren: () => import('./franchise-operations-department/franchaise-operation-deparment.module').then(m => m.FranchiseOperationDepartmentModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},
