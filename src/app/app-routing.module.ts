@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'franchise-operation-deparment',
     loadChildren: () => import('./franchise-operations-department/franchaise-operation-deparment.module').then(m => m.FranchiseOperationDepartmentModule)
   },
+    {
+    path: 'transport-department',
+    loadChildren: () => import('./transport-management/transport.module').then(m => m.TransportModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},

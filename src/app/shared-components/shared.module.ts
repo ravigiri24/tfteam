@@ -17,6 +17,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { SyncTractorWithMaintaninanceComponent } from './sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { SearchTractorWithTfCodeComponent } from './search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from './select-list-type/select-list-type.component';
+import { TractorShowAllDataComponent } from './tractor-show-all-data/tractor-show-all-data.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +41,8 @@ import { SelectListTypeComponent } from './select-list-type/select-list-type.com
     SyncTractorWithMaintaninanceComponent,
     SearchTractorWithTfCodeComponent,
     SelectListTypeComponent,
-    SelectRoleComponent
+    SelectRoleComponent,
+    TractorShowAllDataComponent
     
   ],
   schemas: [],

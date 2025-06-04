@@ -21,6 +21,8 @@ export class ImageViewerComponent implements OnInit {
   tarctor_id: any;
   imageGroup: any;
   uploadPhoto: any=true;
+  showHeading:'Available Images'
+  showDeleteButton: any=false;
   apiName:any='saveRawImages'
   getApiName:any='getRawImages'
   callApi: any=true;
@@ -158,14 +160,16 @@ this.share.checkLogin()
     const modal = await this.modalCtrl.create({
       component: SingleImageShowComponent,
       componentProps: {
-     
+     showDeleteButton:this.showDeleteButton,
         image: image,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
-
+if(data?.isDeleted){
+  this.getRawImages()
+}
     if (role === 'confirm') {
    
     }

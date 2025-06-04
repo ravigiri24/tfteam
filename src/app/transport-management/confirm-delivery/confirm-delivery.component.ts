@@ -99,7 +99,7 @@ this.share.showLoading("Updating Details...")
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss()
         this.share.presentToast('Details Saved...');
-        this.modalCtrl.dismiss(null, 'confirm')
+        this.modalCtrl.dismiss({isReached:true})
         
      
       });

@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { ForwardToTransportComponent } from '../forward-to-transport/forward-to-transport.component';
 import { UploadScreenShotComponent } from '../upload-screen-shot/upload-screen-shot.component';
+import { TractorShowAllDataComponent } from 'src/app/shared-components/tractor-show-all-data/tractor-show-all-data.component';
 import { StartTransportDialogComponent } from 'src/app/transport-management/start-transport-dialog/start-transport-dialog.component';
 @Component({
   selector: 'app-tractor-options-view',
@@ -62,6 +63,17 @@ export class TractorOptionsViewComponent implements OnInit {
      this.modalControl.dismiss({isDeleted:true});
       //  this.dismiss();
     });
+  }
+  async tractorShowAllData(){
+    const modal = await this.modalControl.create({
+        component: TractorShowAllDataComponent,
+        componentProps: {
+          tractor: this.tractor,
+      
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
   }
     async startTranspotation() {
         const modal = await this.modalControl.create({

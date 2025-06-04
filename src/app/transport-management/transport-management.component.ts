@@ -5,8 +5,11 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ConfirmDeliveryComponent } from './confirm-delivery/confirm-delivery.component';
 import { ModalController } from '@ionic/angular';
+import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
 import { AddTransportStatusComponent } from './add-transport-status/add-transport-status.component';
 import { StartRepairDialogComponent } from './start-repair-dialog/start-repair-dialog.component';
+import { StartTransportDialogComponent } from './start-transport-dialog/start-transport-dialog.component';
+import { TransportOptionsComponent } from './transport-options/transport-options.component';
 @Component({
   selector: 'app-transport-management',
   templateUrl: './transport-management.component.html',
@@ -30,6 +33,23 @@ export class TransportManagementComponent implements OnInit {
   search={
     registractionNo:null
   }
+      async viewImage(image:any){
+        const modal = await this.modalCtrl.create({
+          component: SingleImageShowComponent,
+          componentProps: {
+         
+            image: image,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+       
+        }
+      }
+
   startRepairingApi(tractor: any) {
     let obj;
 
@@ -56,9 +76,25 @@ export class TransportManagementComponent implements OnInit {
   goToNewArival(data: any = null) {
     this.route.navigate(['/operational/add-new-arrivals']);
   }
-  addCost(tractor: any, i: any) {
+  addCost(tractor: any) {
     this.route.navigate(['/operational/add-cost', tractor?.id]);
   }
+    async startTranspotation(tractor: any) {
+      const modal = await this.modalCtrl.create({
+        component: StartTransportDialogComponent,
+        componentProps: {
+          tractorDetails: tractor,
+      
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+        this.getTractorList('Refreshing Data...');
+      }
+    }
   getTractorList(loadingMsg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -153,4 +189,23 @@ export class TransportManagementComponent implements OnInit {
   tractorDashboard(tractor: any) {
     this.route.navigate(['/operational/view-dashboard', tractor?.id]);
   }
+   async openOptions(tractor:any){
+      const modal = await this.modalCtrl.create({
+        component: TransportOptionsComponent,
+        componentProps: {
+       
+          tractor: tractor,
+     
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  if(data?.isDeleted || data?.isForworded || data?.isReached ){
+    this.getTractorList('Refreshing Data...')
+  }
+      if (role === 'confirm') {
+     
+      }
+    }
 }

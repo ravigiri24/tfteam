@@ -13,10 +13,10 @@ import { SharedModule } from '../shared-components/shared.module';
 import { OperationalComponent } from './operational.component';
 import { HeaderOperationComponent } from './header-operation/header-operation.component';
 import { FooterOperationComponent } from './footer-operation/footer-operation.component';
-import { TransportManagementComponent } from '../transport-management/transport-management.component';
+//import { TransportManagementComponent } from '../transport-management/transport-management.component';
 
 import { TransportCostListComponent } from '../transport-management/transport-cost-list/transport-cost-list.component';
-import { AddCostComponent } from '../transport-management/add-cost/add-cost.component';
+// import { AddCostComponent } from '../transport-management/add-cost/add-cost.component';
 import { AddTransportStatusComponent } from '../transport-management/add-transport-status/add-transport-status.component';
 import { ConfirmDeliveryComponent } from '../transport-management/confirm-delivery/confirm-delivery.component';
 import { MaintainanceManagementComponent } from '../maintainance-management/maintainance-management.component';
@@ -53,9 +53,9 @@ import { FilterByPageComponent } from '../buffer-stock-tractors/filter-by-page/f
    // SelectBrandComponent,
     //BasicInfoComponent,
     //PurchaseDetailsComponent,
-    TransportManagementComponent,
+    //TransportManagementComponent,
     TransportCostListComponent,
-    AddCostComponent,
+    //AddCostComponent,
     AddTransportStatusComponent,
     ConfirmDeliveryComponent,
     MaintainanceManagementComponent,

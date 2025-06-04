@@ -21,7 +21,8 @@ export class UploadScreenShotComponent  implements OnInit {
       componentProps: {
      
         tarctor_id: this.tarctor_id,
-        imageGroup:imageGroup
+        imageGroup:imageGroup,
+        showDeleteButton:true
       },
     });
     await modal.present();

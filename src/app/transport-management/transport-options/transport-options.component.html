@@ -1,6 +1,6 @@
 <ion-header>  
   <ion-toolbar>  
-    <ion-title >Dashboard</ion-title>  
+    <ion-title >Options</ion-title>  
   
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
     <ion-buttons slot="end">
@@ -23,42 +23,43 @@
   
   </ion-card> -->
 
-    <div (click)="startTranspotation()" class="block">
-     <span class="succes-tag-line">Forward</span>
+    <div (click)="arrivalDateActual()" class="block">
+     <span class="succes-tag-line">Arrival Date(Actual)</span>
       </div>
     <div class=" block">
 
   
-    <img (click)="startTranspotation()" class="image-style" src="././assets/images/fast-forward-button.png" />
+    <img (click)="actualDate()" class="image-style" src="././assets/images/schedule.png" />
 
     </div>
-  <div (click)="goToUplodeSection()" class="block margin-body">
-     <span class="succes-tag-line">Gallery</span>
+  <div (click)="goToUplodeSection('RELEASE_LETTERS')" class="block margin-body">
+     <span class="succes-tag-line">Release Letter(Pic)</span>
       </div>
-    <div (click)="tractorShowAllData()" class=" block">
+    <div (click)="goToUplodeSection('RELEASE_LETTERS')" class=" block">
 
   
-    <img  class="image-style" src="././assets/images/gallary.png" />
+    <img  class="image-style" src="././assets/images/envelope.png" />
 
     </div>
-     <div class="block margin-body">
-     <span class="succes-tag-line">Overview</span>
+     <div (click)="goToUplodeSection('NOTARY_LETTERS')" class="block margin-body">
+     <span class="succes-tag-line">Notary(Pic)</span>
       </div>
-    <div class=" block">
+    <div (click)="goToUplodeSection('NOTARY_LETTERS')" class=" block">
 
   
-    <img  class="image-style" src="././assets/images/list.png" />
+    <img  class="image-style" src="././assets/images/contract.png" />
 
     </div>
-       <div (click)="deleteItem()" class="block margin-body">
-     <span class="succes-tag-line">Delete</span>
+      <div (click)="reachDestination()" class="block margin-body">
+     <span class="succes-tag-line">Reached Destination</span>
       </div>
-    <div class=" block">
+    <div (click)="reachDestination()"  class=" block">
 
   
-    <img (click)="deleteItem()" class="image-style" src="././assets/images/deleted.png" />
+    <img  class="image-style" src="././assets/images/location.png" />
 
     </div>
+     
   <!-- <ion-card>
     <ion-card-header>
       <ion-card-title>Payment Screenshot</ion-card-title>
