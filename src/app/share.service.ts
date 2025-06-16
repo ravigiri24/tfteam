@@ -114,6 +114,9 @@ this.showFooter=e
               else if(userde?.staff_role=='TRANSPORT'){
               this.router.navigate(['/transport-department/transport-management'])
             }
+              else if(userde?.staff_role=='SELL_DEPARTMENT'){
+              this.router.navigate(['/sell-department/live-tractor-list'])
+            }
         }else{
           if(userde?.currentRole=='DIGITAL'){
             this.router.navigate(['/digital/customer-management'])
@@ -142,6 +145,9 @@ this.showFooter=e
             }
                 else if(userde?.currentRole=='TRANSPORT'){
               this.router.navigate(['/transport-department/transport-management'])
+            }
+             else if(userde?.currentRole=='SELL_DEPARTMENT'){
+              this.router.navigate(['/sell-department/live-tractor-list'])
             }
 
         }

@@ -58,6 +58,10 @@ const routes: Routes = [
     path: 'transport-department',
     loadChildren: () => import('./transport-management/transport.module').then(m => m.TransportModule)
   },
+     {
+    path: 'sell-department',
+    loadChildren: () => import('./sell-department/sell-depart.module').then(m => m.SellDepartmentModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},
