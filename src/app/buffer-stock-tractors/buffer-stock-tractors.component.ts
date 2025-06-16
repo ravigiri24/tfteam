@@ -14,63 +14,66 @@ import { SyncTractorWithMaintaninanceComponent } from '../shared-components/sync
   templateUrl: './buffer-stock-tractors.component.html',
   styleUrls: ['./buffer-stock-tractors.component.scss'],
 })
-export class BufferStockTractorsComponent  implements OnInit {
-
-
-  constructor(private api:ApiService,private share:ShareService,private modalCtrl:ModalController,private router:Router,private alertCtrl:AlertController) { }
-buffertractorList:any=[]
+export class BufferStockTractorsComponent implements OnInit {
+  constructor(
+    private api: ApiService,
+    private share: ShareService,
+    private modalCtrl: ModalController,
+    private router: Router,
+    private alertCtrl: AlertController
+  ) {}
+  buffertractorList: any = [];
   ngOnInit() {}
   ionViewWillEnter() {
     this.buffertractorList = [];
     this.getTractorList();
-    this.filterBy='ALL'
+    this.filterBy = 'ALL';
   }
-  refreshList(){
-    this.getTractorList()
+  refreshList() {
+    this.getTractorList();
   }
-    filterBy: any = 'ALL';
-    async presentModal() {
-      const modal = await this.modalCtrl.create({
-        component: FilterByPageComponent,
-        breakpoints: [0, 0.4, 1],
-        initialBreakpoint: 0.4,
-        cssClass: 'custom-modal',
-        componentProps: {
-          filterBy: this.filterBy,
-    
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data && data?.isFilterChange) {
-        console.log('data', data);
-        this.filterBy = data?.filterBy;
-        this.sortByFilter()
-      }
-  
+  filterBy: any = 'ALL';
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: FilterByPageComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        filterBy: this.filterBy,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data && data?.isFilterChange) {
+      console.log('data', data);
+      this.filterBy = data?.filterBy;
+      this.sortByFilter();
     }
-    sortByFilter() {
-      if (this.filterBy == 'ALL') {
-           if(this.allTractorsSrcList?.length){
-        this.buffertractorList =JSON.parse( JSON.stringify(this.allTractorsSrcList))}
-        else{
-          this.buffertractorList =[]
-        }
-      }
-      if (this.filterBy == 'MAPPED') {
-        this.buffertractorList = this.allTractorsSrcList.filter(
-          (f: any) => f?.repairMappedData?.length > 0
+  }
+  sortByFilter() {
+    if (this.filterBy == 'ALL') {
+      if (this.allTractorsSrcList?.length) {
+        this.buffertractorList = JSON.parse(
+          JSON.stringify(this.allTractorsSrcList)
         );
+      } else {
+        this.buffertractorList = [];
       }
-      if (this.filterBy == 'NOT_MAPPED') {
-        this.buffertractorList = this.allTractorsSrcList.filter(
-          (f: any) => f?.repairMappedData?.length == 0
-        );
-      }
-   
     }
-  staffDetails:any
-  allTractorsSrcList:any=[]
+    if (this.filterBy == 'MAPPED') {
+      this.buffertractorList = this.allTractorsSrcList.filter(
+        (f: any) => f?.repairMappedData?.length > 0
+      );
+    }
+    if (this.filterBy == 'NOT_MAPPED') {
+      this.buffertractorList = this.allTractorsSrcList.filter(
+        (f: any) => f?.repairMappedData?.length == 0
+      );
+    }
+  }
+  staffDetails: any;
+  allTractorsSrcList: any = [];
   getTractorList() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -84,8 +87,7 @@ buffertractorList:any=[]
       (res: any) => {
         this.buffertractorList = res.data;
         this.allTractorsSrcList = res.data;
-      this.sortByFilter()
-      
+        this.sortByFilter();
 
         this.share.spinner.dismiss();
         this.backupList = res.data;
@@ -93,11 +95,10 @@ buffertractorList:any=[]
       (error: any) => {}
     );
   }
- async viewImage(tractor:any){
+  async viewImage(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: ImageDashboardComponent,
       componentProps: {
-     
         tarctor_id: tractor.id,
       },
     });
@@ -106,14 +107,12 @@ buffertractorList:any=[]
     console.log('role', role);
 
     if (role === 'confirm') {
-   
     }
   }
-  async viewTractorDashboard(tractor:any){
+  async viewTractorDashboard(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: RepairTractorDashboardComponent,
       componentProps: {
-     
         tractorDetails: tractor,
       },
     });
@@ -121,24 +120,27 @@ buffertractorList:any=[]
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
 
-    this.getTractorList()
+    this.getTractorList();
   }
-  search={
-    registractionNo:null
-  }
-  backupList:any=[]
+  search = {
+    registractionNo: null,
+  };
+  backupList: any = [];
   tractorDashboard(tractor: any) {
-    this.router.navigate(['/operational/view-dashboard', tractor?.id,'/operational/buffer-stock']);
+    this.router.navigate([
+      '/operational/view-dashboard',
+      tractor?.id,
+      '/operational/buffer-stock',
+    ]);
   }
-async  syncManitainance(tractor:any){
-  
-        const modal = await this.modalCtrl.create({
-          component: SyncTractorWithMaintaninanceComponent,
-          componentProps: {
-            tractor: tractor,
-          },
-        });
-        await modal.present();
+  async syncManitainance(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: SyncTractorWithMaintaninanceComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
     await modal.present();
 
     const { data, role } = await modal.onWillDismiss();
@@ -165,7 +167,7 @@ async  syncManitainance(tractor:any){
       this.removeJob(tractor);
     }
   }
-  clearMappedJob(tractor:any){
+  clearMappedJob(tractor: any) {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
 
@@ -173,17 +175,14 @@ async  syncManitainance(tractor:any){
       operate: this.staffDetails?.staffCode,
       tractor_id: tractor?.id,
     };
-    
+
     this.api.postapi('clearMappedJob', obj).subscribe((res: any) => {
-
-
-  
-    //  this.dismiss();
+      //  this.dismiss();
     });
   }
-  removeJob(tractor:any){
+  removeJob(tractor: any) {
     let objData: any = {
-      isDeleted:true,
+      isDeleted: true,
     };
     let obj = {
       src: 'tractor',
@@ -194,23 +193,22 @@ async  syncManitainance(tractor:any){
     this.share.showLoading('Updating Data...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
-this.clearMappedJob(tractor)
+      this.clearMappedJob(tractor);
       this.share.presentToast('Deleted Successfully...');
-      this.getTractorList()
-    //  this.dismiss();
+      this.getTractorList();
+      //  this.dismiss();
     });
   }
-    async searchTractor() {
-      const modal = await this.modalCtrl.create({
-        component: SearchTractorWithTfCodeComponent,
-        componentProps: {},
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-      }
-    }
+  async searchTractor() {
+    const modal = await this.modalCtrl.create({
+      component: SearchTractorWithTfCodeComponent,
+      componentProps: {},
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
 
+    if (role === 'confirm') {
+    }
+  }
 }

@@ -12,6 +12,7 @@ import { AllTractorListComponent } from '../all-tractor-list/all-tractor-list.co
 import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
 import { TractorSellsDetailsComponent } from '../tractor-sells-details/tractor-sells-details.component';
 import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-stock-tractors.component';
+import { GenrateTfCodeComponent } from './genrate-tf-code/genrate-tf-code.component';
 const routes: Routes = [
   {
     path: "", component: OperationalComponent,
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'all-tractor-management', component: AllTractorListComponent},
       { path: 'sell-tractor-details', component: TractorSellsDetailsComponent},
       { path: 'buffer-stock', component: BufferStockTractorsComponent},
+      { path: 'generate-tf-code', component: GenrateTfCodeComponent},
       {
         path: 'edit-newarrivals/:id',
         component: AddNewArrivalsComponent,

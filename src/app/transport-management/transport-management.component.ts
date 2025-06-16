@@ -77,7 +77,7 @@ export class TransportManagementComponent implements OnInit {
     this.route.navigate(['/operational/add-new-arrivals']);
   }
   addCost(tractor: any) {
-    this.route.navigate(['/operational/add-cost', tractor?.id]);
+    this.route.navigate(['/transport-department/add-cost', tractor?.id]);
   }
     async startTranspotation(tractor: any) {
       const modal = await this.modalCtrl.create({

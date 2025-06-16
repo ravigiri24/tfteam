@@ -9,16 +9,22 @@
       <ion-icon *ngIf="selectedTab==='New-arrivals'" class="theme-color" name="file-tray-stacked"></ion-icon>
       Arriavals
     </ion-tab-button> -->
-    <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Logistic'" class="theme-color" name="bookmarks"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='Logistic'" class="theme-color" name="bookmarks-outline"></ion-icon>
       Logistic
-    </ion-tab-button>
-    <ion-tab-button (click)="goToPage('BUFFER')" tab="Follow-Up">
+    </ion-tab-button> -->
+    <!-- <ion-tab-button (click)="goToPage('TFCode')" tab="Follow-Up">
+      <ion-icon *ngIf="selectedTab==='TFCode'" class="theme-color" name="stop-circle"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='TFCode'" class="theme-color" name="stop-circle-outline"></ion-icon>
+      TFCode
+    </ion-tab-button> -->
+     <ion-tab-button (click)="goToPage('BUFFER')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='BUFFER'" class="theme-color" name="bag"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='BUFFER'" class="theme-color" name="bag-outline"></ion-icon>
       Buffer
     </ion-tab-button>
+   
     <ion-tab-button (click)="goToPage('Live')" tab="User">
       <ion-icon *ngIf="selectedTab!=='Live'" class="theme-color" name="list-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Live'" class="theme-color" name="list-circle"></ion-icon>

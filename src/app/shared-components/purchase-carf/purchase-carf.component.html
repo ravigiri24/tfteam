@@ -1,0 +1,162 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Purchase Card</ion-title>  
+   
+    <ion-buttons (click)="dismiss()" slot="end">
+      <ion-icon class="theme-color icon-size"   name="arrow-back-outline"></ion-icon>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons> -->
+  </ion-toolbar>  
+</ion-header> 
+<ion-content>
+<div class="scroll-body" >
+<div id="purchase_card" class="top-margin" style="width: 100%;">
+  <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div>
+  <h3 style="text-align: center;">Purchase Card</h3>
+  <table cellpadding="5" cellspacing="5" style="width: 100%;">
+    <tbody>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Brand
+          </th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.brandName}} </td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Model</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.modalName}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">TF Code</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.registractionNo}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Destination</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.transportDestination?.name}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Make Year
+          </th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.yearOfManufactoring}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Purchase Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.purchanseDate}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Reached Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.reachDate}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Repair Estimate</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.maintainanceEstimationCost}}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Price</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.purchasePrice}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Reg Number</th>
+        <td colspan="3" style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.registrationNumber}}</td>
+        
+      </tr>
+         <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Chasis</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.chasisNumber}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Engine</th>
+        <td colspan="3" style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.engineNumber}}</td>
+        
+      </tr>
+         <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Hours</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.hours}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Type Of Purchase</th>
+        <td colspan="3" style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.typeOfPurchaseDetails?.name}}</td>
+        
+      </tr>
+             <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Bank Name</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.bankNameAuction}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Amount Transfer Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.amountTransferDate}}</td>
+        
+      </tr>
+          <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Seller Name</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.nameOfSeller}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Contact Of Seller</th>
+        <td colspan="3" style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.contact1}}</td>
+        
+      </tr>
+        <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Company Representative</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.companyRepresentativeDetails?.name}}</td>
+        <!-- <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Contact Of Seller</th>
+        <td colspan="3" style="border: 1px solid #ddd;padding: 5px 10px;">{{tractor?.purchasedetail?.contact1}}</td> -->
+        
+      </tr>
+   
+    </tbody>
+  </table>
+    <h2 *ngIf="listData?.length" style="text-align: center;margin: 10px 0px;">Transport Expense</h2>
+  <table *ngIf="listData?.length" cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <tbody>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
+
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Amount</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Date</th>
+      </tr>
+      <ng-container *ngFor="let transport of listData;let transindex=index">
+        <tr style="border: 1px solid #e1e1e1;text-align: left;">
+          <td style="text-align: center;">{{transindex+1}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{transport?.expenseType?.name}}</td>
+
+          <td style="padding: 5px 10px;text-align: center;">{{transport?.expense_amount}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{transport?.expense_date|date }}</td>
+        </tr>
+   
+      </ng-container>
+    
+    </tbody>
+  </table>
+     <h2 *ngIf="listDataOtherExpense?.length" style="text-align: center;margin: 10px 0px;">Other Expenses</h2>
+  <table *ngIf="listDataOtherExpense?.length" cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <tbody>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
+
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Amount</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Date</th>
+      </tr>
+      <ng-container *ngFor="let other of listDataOtherExpense;let otherindex=index">
+        <tr style="border: 1px solid #e1e1e1;text-align: left;">
+          <td style="text-align: center;">{{otherindex+1}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{other?.expenseType?.name}}</td>
+
+          <td style="padding: 5px 10px;text-align: center;">{{other?.expense_amount}}</td>
+          <td style="padding: 5px 10px;text-align: center;">{{other?.expense_date|date }}</td>
+        </tr>
+   
+      </ng-container>
+    
+    </tbody>
+  </table>
+ <div>
+    <h2 style="text-align: center;margin: 10px 0px;" >Images</h2>
+<div  *ngFor="let image of beforeServiceImages;let photoInd=index" style="width: 30%;display: inline-block;margin: 10px;">
+
+<img id="dynamic-img" style="width: 200px;height: 150px;"  [src]="image?.imageUrlUrl" />
+
+
+</div>
+
+ </div>
+  <div
+    style="font-size: 14px;color: #666666;text-align: right;display: flex;flex-flow: column;justify-content: right;margin: 20px 0px;">
+    <p style="margin: 0px;"> _____________________</p>
+    <p style="margin: 0px;">Signature</p>
+  </div>
+  <div
+    style="font-size: 14px;color: #666666;display: flex;margin: 20px 0px;padding: 10px 10px 70px 15px;border: solid thin #e1e1e1;border-radius: 5px;">
+    <p style="margin: 0px;">Remark</p>
+  </div>
+</div>
+</div>
+<ion-button (click)="generatePDF()" class="global_submit_button" expand="block">Generate Purchase Card</ion-button>
+
+</ion-content>

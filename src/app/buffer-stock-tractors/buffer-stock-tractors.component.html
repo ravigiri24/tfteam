@@ -23,24 +23,136 @@
   <!-- <span class="inner-heading-list heading-position">Buffer Stock</span> -->
   <ion-list class="list_row top-position-list" >
     <ion-item *ngFor="let tractor of buffertractorList |filterBy: search ;let in=index">
-      <ion-label>
+      <div class="block">
+    <ion-card>
+        <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='./././assets/images/tractor_display.png';"  />
+  <ion-card-header>
+    <ion-card-title><b>{{tractor?.name}}</b></ion-card-title>
+    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+  </ion-card-header>
+
+  <ion-card-content>
+      <ion-grid class="main_block_details">
+          
+            <ion-card>
+             
+                 <ion-row>
+            
+                <ion-col><b>TF Code</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.registractionNo}}</ion-col>
+             
+              </ion-row>
+    
+              <ion-row>
+            
+                <ion-col><b>Transported Place</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.transportDestination?.name}}</ion-col>
+             
+              </ion-row>
+    
+              <ion-row>
+            
+                <ion-col><b>Franchise(Alloted)</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.franchiseDettails?.name}}</ion-col>
+             
+              </ion-row>
+                <ion-row>
+            
+                <ion-col><b>D.O.A(Actual)</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.actualReleaseDate}}</ion-col>
+             
+              </ion-row>
+              
+             
+              <!-- <ion-row>
+            
+                <ion-col><b>Purchase Price</b></ion-col>
+                   <ion-col class="amount_col">
+               {{tractor?.purchasedetail?.purchasePrice}}</ion-col>
+              </ion-row> -->
+              <!-- <ion-row>
+            
+                <ion-col>Is Sold </ion-col>
+                <ion-col *ngIf="tractor?.isSold==1" class="amount_col">
+               <span style="color: green;">Yes</span>  </ion-col>
+                 <ion-col *ngIf="tractor?.isSold==0" class="amount_col">
+               <span  style="color: red;">No</span>   </ion-col>
+              </ion-row> -->
+              <ion-row>
+            
+                <ion-col> <b>Manufactoring</b> </ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.yearOfManufactoring}}</ion-col>
+             
+              </ion-row>
+              <ion-row>
+            
+                <ion-col><b>Hours</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.hours}}</ion-col>
+             
+              </ion-row>
+
+              <ion-row>
+            
+                <ion-col><b>Registered Date</b></ion-col>
+                <ion-col class="amount_col">
+                  {{tractor?.createdOn |
+                    date }}</ion-col>
+             
+              </ion-row>
+                     <ion-row>
+                  <ion-col>
+                     <img (click)="tractorDashboard(tractor)"  class="image-style " style="width: 45px;height: 35px; margin: 11px;" src="./././assets/images/dashboard.png" />
+                        </ion-col>
+                                <ion-col>
+                     <img (click)="syncManitainance(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;position: relative;top:-5px" src="./././assets/images/sync.png" />
+                     </ion-col>
+                    <ion-col>
+                     <img (click)="deleteItem(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;position: relative;top:-5px" src="./././assets/images/deleted.png" />
+                     </ion-col>
+              
+              </ion-row>
+              <!-- <ion-row>
+                  <ion-col>
+                     <img class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="././assets/images/space-exploration.png" />
+             </ion-col>
+                  <ion-col>
+                     <img  class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="././assets/images/settings.png" />
+                  </ion-col>
+              </ion-row> -->
+              
+         
+              <!-- <ion-row>
+            
+                <ion-col>        <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon></ion-col>
+                <ion-col >
+                  <ion-icon (click)="syncManitainance(tractor)"
+                  class="theme-color-second" name="construct-outline"></ion-icon></ion-col>
+             
+              </ion-row> -->
+                </ion-card>
+                </ion-grid>
+  </ion-card-content>
+</ion-card>
+</div>
+      <!-- <ion-label>
         <h2 class="theme-color">{{tractor?.name}}</h2>
         <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
           date }}</p>
       </ion-label>
       <div class="list_right_action">
-        <!-- <ion-icon (click)="viewImage(tractor)" class="camera_icon theme-color" name="camera-outline"></ion-icon> -->
-        <!-- <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
-          name="eye-outline"></ion-icon> -->
+   =
           <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon>
           <ion-icon (click)="syncManitainance(tractor)"
           class="theme-color-second" name="construct-outline"></ion-icon>
           <ion-icon class="theme-color icon-size" (click)="deleteItem(tractor)" name="trash-outline"></ion-icon>
-      </div>
-      <!-- <ion-icon   (click)="tractorDashboard(tractor)" class="right-margine theme-color-second" name="apps-outline"></ion-icon> -->
-      <!-- <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
-      <ion-icon   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
-      <ion-icon   (click)="showDeliveryModal(tractor?.id)" class="right-margine theme-color" name="storefront-outline"></ion-icon> -->
+      </div> -->
+
     </ion-item>
   </ion-list>
   <div *ngIf="(buffertractorList | filterBy: search)?.length === 0" class="no-data-block">

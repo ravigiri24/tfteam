@@ -90,7 +90,7 @@ this.showFooter=e
             this.router.navigate(['/digital/customer-management'])
             }
             else if(userde?.staff_role=='OPERATIONAL'){
-              this.router.navigate(['/operational/new-arrivals'])
+              this.router.navigate(['/operational/buffer-stock'])
             }
             else if(userde?.staff_role=='PURCHASE'){
               this.router.navigate(['/purchase-management/new-findings'])
@@ -119,7 +119,7 @@ this.showFooter=e
             this.router.navigate(['/digital/customer-management'])
             }
             else if(userde?.currentRole=='OPERATIONAL'){
-              this.router.navigate(['/operational/new-arrivals'])
+              this.router.navigate(['/operational/buffer-stock'])
             }
             else if(userde?.currentRole=='PURCHASE'){
               this.router.navigate(['/purchase-management/new-findings'])

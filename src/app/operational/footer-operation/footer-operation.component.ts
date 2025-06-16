@@ -11,7 +11,7 @@ export class FooterOperationComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='New-arrivals'
+  selectedTab:any='BUFFER'
   goToPage(tab:any){
   this.selectedTab=tab
   if(tab=='New-arrivals'){
@@ -20,6 +20,10 @@ export class FooterOperationComponent  implements OnInit {
   else if(tab=='Logistic'){
     this.router.navigate(['/operational/transport-management'])
   }
+    else if(tab=='TFCode'){
+    this.router.navigate(['/operational/generate-tf-code'])
+  }
+  
   else if(tab=='BUFFER'){
     this.router.navigate(['/operational/buffer-stock'])
   }

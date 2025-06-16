@@ -9,7 +9,7 @@ export class TransportFooterComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='New-findings'
+  selectedTab:any='Logistic'
   goToPage(tab:any){
   this.selectedTab=tab
    if(tab=='Logistic'){

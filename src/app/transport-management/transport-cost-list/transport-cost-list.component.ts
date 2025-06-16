@@ -83,7 +83,7 @@ export class TransportCostListComponent implements OnInit {
     this.form.reset();
   }
   backToTansport() {
-    this.router.navigate(['operational/transport-management']);
+    this.router.navigate(['transport-department/transport-management']);
   }
   openEdit(row: any, ind: any) {
     let name = 'open-modal-cost' + this.tarctor_id;

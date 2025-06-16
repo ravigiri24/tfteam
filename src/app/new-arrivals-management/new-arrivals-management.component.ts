@@ -6,6 +6,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { TractorOptionsViewComponent } from './tractor-options-view/tractor-options-view.component';
 import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
 import { StartTransportDialogComponent } from '../transport-management/start-transport-dialog/start-transport-dialog.component';
+import { EnterTfCodeComponent } from '../operational/enter-tf-code/enter-tf-code.component';
 @Component({
   selector: 'app-new-arrivals-management',
   templateUrl: './new-arrivals-management.component.html',
@@ -133,7 +134,23 @@ export class NewArrivalsManagementComponent implements OnInit {
     this.getTractorList();
   }
   dataClear() {}
+ async assignTF(tractor:any){
+  const modal = await this.modalCtrl.create({
+        component: EnterTfCodeComponent,
+        breakpoints: [0, 0.4, 1],
+        initialBreakpoint: 0.4,
+        cssClass: 'custom-modal',
+        componentProps: {
+          tractorDetails: tractor,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data?.isActioned) {
+        this.getTractorList()
+      }
 
+  }
   async openOptions(tractor:any){
     const modal = await this.modalCtrl.create({
       component: TractorOptionsViewComponent,

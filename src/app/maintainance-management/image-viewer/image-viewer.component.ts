@@ -52,6 +52,7 @@ this.share.checkLogin()
   }
   addPhotoToGallery() {
     let image: any = this.addNewToGallery(this.imageArray);
+   // let image: any = this.addNewToGalleryNew(this.imageArray);
 
    
   }
@@ -76,6 +77,136 @@ this.share.checkLogin()
 
     console.log('addNewToGallery', imageArray, savedImageFile);
   }
+    originalImageUrl?: string;
+  compressedImageUrl?: string;
+  originalSizeKB = 0;
+  compressedSizeKB = 0;
+   public async addNewToGalleryNew(imageArray: any = []) {
+    // Take a photo
+    const photo = await Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera,
+      quality: 100,
+    });
+
+     const originalBlob = this.dataURLtoBlob(photo.dataUrl!);
+      this.originalSizeKB = +(originalBlob.size / 1024).toFixed(2);
+      this.originalImageUrl = photo.dataUrl;
+
+      const compressedBlob = await this.compressBase64Image(photo.dataUrl!, 200);
+      this.compressedSizeKB = +(compressedBlob.size / 1024).toFixed(2);
+      this.compressedImageUrl = URL.createObjectURL(compressedBlob);
+console.log("  this.compressedImageUrl",  this.compressedImageUrl,compressedBlob);
+
+    //let file=this.blobToFile(capturedPhoto.webPath,"file")
+  //  const savedImageFile = await this.savePicture(capturedPhoto);
+   // this.capturedPhoto = capturedPhoto;
+
+   // console.log('addNewToGallery', imageArray, savedImageFile);
+  }
+    dataURLtoBlob(dataUrl: string): Blob {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) u8arr[n] = bstr.charCodeAt(n);
+    return new Blob([u8arr], { type: mime });
+  }
+compressBase64Image(base64: string, maxSizeKB: number): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      let { width, height } = img;
+
+      const MAX_WIDTH = 800;
+      if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      let quality = 0.9;
+      const tryCompress = () => {
+        canvas.toBlob((blob: any) => {
+          if (!blob) return reject('Blob generation failed');
+          if (blob.size / 1024 <= maxSizeKB || quality < 0.1) {
+            resolve(blob);
+          } else {
+            quality -= 0.1;
+            tryCompress();
+          }
+        }, 'image/jpeg', quality);
+      };
+
+      tryCompress();
+    };
+
+    img.onerror = (e) => {
+      console.error('Image failed to load', e);
+      reject(e);
+    };
+
+    img.src = base64;
+  });
+}
+  compressImage(blob: Blob, maxSizeKB: number): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        img.src = reader.result as string;
+      };
+      reader.onerror = reject;
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
+        let { width, height } = img;
+
+        const MAX_WIDTH = 800;
+        if (width > MAX_WIDTH) {
+          height = height * (MAX_WIDTH / width);
+          width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        let quality = 0.9;
+
+        const tryCompress = () => {
+          canvas.toBlob(
+            (result) => {
+              if (!result) return reject('Compression failed');
+
+              if (result.size / 1024 <= maxSizeKB || quality < 0.1) {
+                resolve(result);
+              } else {
+                quality -= 0.1;
+                tryCompress();
+              }
+            },
+            'image/jpeg',
+            quality
+          );
+        };
+
+        tryCompress();
+      };
+
+      img.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
   capturedPhoto: any;
   async savePicture(photo: Photo) {
     // Convert photo to base64 format, required by Filesystem API to save
@@ -96,10 +227,16 @@ this.share.checkLogin()
       webviewPath: photo.webPath,
     };
   }
+  imageSize:any
   private async readAsBase64(photo: Photo) {
     // Fetch the photo, read as a blob, then convert to base64 format
+
     const response = await fetch(photo.webPath!);
     const blob = await response.blob();
+    const sizeInBytes = blob.size;
+const sizeInKB = sizeInBytes / 1024;
+this.imageSize=sizeInKB.toFixed(2)
+console.log(`Image size: ${sizeInKB.toFixed(2)} KB`);
 
     return (await this.convertBlobToBase64(blob)) as string;
   }
@@ -112,7 +249,12 @@ this.share.checkLogin()
         resolve(reader.result);
      
         this.renderResult = reader.result;
-        this.saveDataTo()
+        if(this.imageSize<=150){
+     this.saveDataTo()
+        }else{
+          this.share.presentToast("Image is larger than 200 kb")
+        }
+   
         console.log('reader.result', reader.result);
       };
       reader.readAsDataURL(blob);

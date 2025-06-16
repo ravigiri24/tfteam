@@ -43,11 +43,17 @@ import { BufferStockTractorsComponent } from '../buffer-stock-tractors/buffer-st
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { TractorOptionsViewComponent } from '../new-arrivals-management/tractor-options-view/tractor-options-view.component';
 import { FilterByPageComponent } from '../buffer-stock-tractors/filter-by-page/filter-by-page.component';
+import { GenrateTfCodeComponent } from './genrate-tf-code/genrate-tf-code.component';
+import { EnterTfCodeComponent } from './enter-tf-code/enter-tf-code.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @NgModule({
   declarations: [
     OperationalComponent,
     HeaderOperationComponent,
     FooterOperationComponent,
+    GenrateTfCodeComponent,
+    EnterTfCodeComponent,
+    
     // NewArrivalsManagementComponent,
     // AddNewArrivalsComponent,
    // SelectBrandComponent,
@@ -90,8 +96,9 @@ import { FilterByPageComponent } from '../buffer-stock-tractors/filter-by-page/f
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    FilterPipeModule
+    FilterPipeModule,
+    
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },InAppBrowser],
 })
 export class OperationlPageModule {}

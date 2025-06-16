@@ -31,6 +31,34 @@
 
 </ion-card>
 <ion-accordion-group [multiple]="true" [value]="[]">
+    <ion-accordion  value="sixth">
+    <ion-item slot="header" color="light">
+      <ion-label>Purchase Card</ion-label>
+      
+    </ion-item>
+  
+    <div class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item >
+          <ion-button  (click)="openPurchaseCard()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="card-outline"></ion-icon>
+          Generate
+          </ion-button>
+      
+        </ion-item>
+        <ion-item *ngIf="cardHistory?.imageUrlUrl" >
+          <ion-button  (click)="download(cardHistory?.imageUrlUrl)"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="download-outline"></ion-icon>
+     Download
+          </ion-button>
+      
+        </ion-item>
+    
+       
+      </ion-list>
+      </div>
+      
+  </ion-accordion>
   <ion-accordion  value="third">
     <ion-item slot="header" color="light">
       <ion-label>Basic Details</ion-label>

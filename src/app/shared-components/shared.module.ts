@@ -18,6 +18,7 @@ import { SyncTractorWithMaintaninanceComponent } from './sync-tractor-with-maint
 import { SearchTractorWithTfCodeComponent } from './search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from './select-list-type/select-list-type.component';
 import { TractorShowAllDataComponent } from './tractor-show-all-data/tractor-show-all-data.component';
+import { PurchaseCarfComponent } from './purchase-carf/purchase-carf.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +43,8 @@ import { TractorShowAllDataComponent } from './tractor-show-all-data/tractor-sho
     SearchTractorWithTfCodeComponent,
     SelectListTypeComponent,
     SelectRoleComponent,
-    TractorShowAllDataComponent
+    TractorShowAllDataComponent,
+    PurchaseCarfComponent
     
   ],
   schemas: [],

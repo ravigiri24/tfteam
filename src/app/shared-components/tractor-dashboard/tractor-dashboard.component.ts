@@ -19,6 +19,8 @@ import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/trac
 import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
 import { SellDocumentComponent } from 'src/app/sell-document/sell-document.component';
 import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expense-list/other-expense-list.component';
+import { PurchaseCarfComponent } from '../purchase-carf/purchase-carf.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -33,13 +35,45 @@ export class TractorDashboardComponent  implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private route:Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+        private inAppBrowser: InAppBrowser
   ) {}
 
   ngOnInit() {
 
 
   }
+    staffDetails:any
+    cardHistory:any
+  checkPruchaseCard(msg: any = 'Loading...') {
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+      tractor_id: this.tractor_id,
+    };
+   
+    this.api.postapi('getPurchaseCard', obj).subscribe(
+      (res: any) => {
+        this.cardHistory = res?.data;
+    
+    
+     
+      },
+      (error: any) => {
+        console.log("error",error);
+        
+      }
+    );
+  }
+download(dataUrl:any){
+
+    const browser = this.inAppBrowser.create(dataUrl, '_blank');
+ 
+    browser.show();
+  
+}
   tractor_id:any
   srcPage:any
   ionViewWillEnter() {
@@ -47,6 +81,7 @@ export class TractorDashboardComponent  implements OnInit {
       this.tractor_id = params?.id;
       this.srcPage = params?.srcPage;
     });
+    this.checkPruchaseCard()
     this.getTractorDetails()
   }
   dismiss() {
@@ -58,6 +93,18 @@ export class TractorDashboardComponent  implements OnInit {
   openEdit() {
     this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode]);
   }
+    async openPurchaseCard() {
+      const modal = await this.modalCtrl.create({
+        component: PurchaseCarfComponent,
+        componentProps: {
+          tractor: this.tractorDetails,
+        },
+      });
+      await modal.present();
+      //await modal.present();
+  
+      const { data, role } = await modal.onWillDismiss();
+    }
     async startTranspotation() {
       const modal = await this.modalCtrl.create({
         component: StartTransportDialogComponent,
@@ -74,7 +121,7 @@ export class TractorDashboardComponent  implements OnInit {
         this.getTractorDetails('Refreshing Data...');
       //}
     }
-  staffDetails:any
+
   getTractorDetails(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -241,4 +288,5 @@ export class TractorDashboardComponent  implements OnInit {
       backToSrcPage() {
         this.route.navigate([this.srcPage]);
       }
+      
 }

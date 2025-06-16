@@ -5,12 +5,19 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { TransportManagementComponent } from './transport-management.component';
 import { TransportDepartmentComponent } from './transport-department/transport-department.component';
+import { AddCostComponent } from './add-cost/add-cost.component';
+import { TransportCostListComponent } from './transport-cost-list/transport-cost-list.component';
 const routes: Routes = [
   {
     path: "", component: TransportDepartmentComponent,
     children: [
 
        { path: 'transport-management', component: TransportManagementComponent},
+     
+         {
+               path: 'add-cost/:id',
+               component: TransportCostListComponent,
+             },
         { path: 'user-management', component: UserManagementComponent},
     //    { path: 'create-job/:srcPage', component: CreateComponent},
     //    { path: 'update-job/:id/:srcPage', component: CreateComponent},

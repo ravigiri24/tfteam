@@ -2,34 +2,27 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">New Arrivals :</span>
-        <b class="total-number">{{newArivalsList?.length}}</b>
+        <span class="selected_text">UnAssigned Tf Code:</span>
+        <b class="total-number">{{unAssignedTractorList?.length}}</b>
       </div>
       <div class="right_action">
-        <ion-icon (click)="goToNewArival()" class="theme-color" name="add-circle-outline"></ion-icon>
+        <!-- <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon> -->
         <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
+        <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
+        <!-- <ion-button style="margin-right: 10px;" class="button-theme add-button right-margine" slot="end"
+          (click)="refreshList()" fill="outline"><ion-icon class="theme-color"
+            name="refresh-outline"></ion-icon></ion-button> -->
       </div>
     </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 
-  <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
+  <ion-searchbar [(ngModel)]="search.name" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
-  <ion-list class="list_row top-position-list " *ngIf="newArivalsList?.length">
-    <ion-item *ngFor="let tractor of newArivalsList|filterBy: search ;let in=index">
-      <!-- <ion-label>
-        <h2 class="theme-color">{{tractor?.name}}</h2>
-        <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
-          date }}</p>
-      </ion-label>
-   
-      <div class="list_right_action">
-        <ion-icon (click)="openEdit(tractor,in)" class="small_icon20 theme-color" name="create-outline"></ion-icon>
-        <ion-icon (click)="startTranspotation(tractor)" class="right-margine theme-color-second"
-          name="car-outline"></ion-icon>
-
-      </div> -->
+  <!-- <span class="inner-heading-list heading-position">Buffer Stock</span> -->
+   <ion-list class="list_row top-position-list" *ngIf="unAssignedTractorList?.length">
+    <ion-item *ngFor="let tractor of unAssignedTractorList|filterBy: search ;let in=index">
 <div class="block">
     <ion-card>
         <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  />
@@ -44,25 +37,39 @@
             <ion-card>
               <ion-row>
             
-                <ion-col><b>TF Code</b></ion-col>
-                <ion-col class="amount_col">
-               {{tractor?.registractionNo?tractor?.registractionNo : 'Not-Assigned'}}</ion-col>
-             
-              </ion-row>
-              <ion-row>
-            
                 <ion-col><b>Park Location</b></ion-col>
                 <ion-col class="amount_col">
                {{tractor?.purchasedetail?.parkLocation}}</ion-col>
              
               </ion-row>
-       
-              <ion-row>
+         <ion-row>
+            
+                <ion-col><b>D.O.A(Expected)</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.expectedDateOfArrival}}</ion-col>
+             
+              </ion-row>
+                <ion-row>
+            
+                <ion-col><b>D.O.A(Actual)</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.actualReleaseDate}}</ion-col>
+             
+              </ion-row>
+              
+                 <ion-row>
+            
+                <ion-col><b>Inward Estimation</b></ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.inwardEstimationCost}}</ion-col>
+             
+              </ion-row>
+              <!-- <ion-row>
             
                 <ion-col><b>Purchase Price</b></ion-col>
                    <ion-col class="amount_col">
                {{tractor?.purchasedetail?.purchasePrice}}</ion-col>
-              </ion-row>
+              </ion-row> -->
               <!-- <ion-row>
             
                 <ion-col>Is Sold </ion-col>
@@ -95,17 +102,14 @@
              
               </ion-row>
                      <ion-row>
-                           <ion-col>
+                  <ion-col>
                      <img (click)="assignTF(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="./././assets/images/assigntfcode.png" />
                         </ion-col>
-                               
-                  <ion-col>
-                     <img (click)="openEdit(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="././assets/images/edit.png" />
-             </ion-col>
-                  <ion-col>
-                     <img (click)="openOptions(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="././assets/images/settings.png" />
-                  </ion-col>
-
+                                <ion-col>
+                     <img (click)="overview(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;position: relative;top:-5px" src="./././assets/images/summary.png" />
+                     </ion-col>
+          
+              
               </ion-row>
               <!-- <ion-row>
                   <ion-col>
@@ -130,8 +134,9 @@
   </ion-card-content>
 </ion-card>
 </div>
-    </ion-item>
-    
+</ion-item>
   </ion-list>
-  
+  <div *ngIf="(unAssignedTractorList | filterBy: search)?.length === 0" class="no-data-block">
+    <img class="image-no-data" src="././assets/images/no-data-found.png" />
+  </div>
 </ion-content>
