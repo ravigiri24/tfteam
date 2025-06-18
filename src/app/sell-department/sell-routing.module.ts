@@ -6,6 +6,7 @@ import { UserManagementComponent } from '../user-management/user-management.comp
 import { SellDepartmentComponent } from './sell-department.component';
 import { LiveTractorListComponent } from './live-tractor-list/live-tractor-list.component';
 import { SoldTractorListComponent } from './sold-tractor-list/sold-tractor-list.component';
+
 const routes: Routes = [
   {
     path: "", component: SellDepartmentComponent,
@@ -15,6 +16,7 @@ const routes: Routes = [
        { path: 'user-management', component: UserManagementComponent},
        { path: 'live-tractor-list', component: LiveTractorListComponent},
        { path: 'sold-tractor-list', component: SoldTractorListComponent},
+
    
     //   { path: 'user-management', component: UserManagementComponent},
     //   { path: 'cost-prediction', component: CostPredictionComponent},

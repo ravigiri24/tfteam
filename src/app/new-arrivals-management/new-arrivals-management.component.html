@@ -95,7 +95,7 @@
              
               </ion-row>
                      <ion-row>
-                           <ion-col>
+                           <ion-col *ngIf="!tractor?.registractionNo">
                      <img (click)="assignTF(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="./././assets/images/assigntfcode.png" />
                         </ion-col>
                                

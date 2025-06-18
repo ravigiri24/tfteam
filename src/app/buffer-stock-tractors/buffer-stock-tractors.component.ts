@@ -133,6 +133,7 @@ export class BufferStockTractorsComponent implements OnInit {
       '/operational/buffer-stock',
     ]);
   }
+  
   async syncManitainance(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: SyncTractorWithMaintaninanceComponent,

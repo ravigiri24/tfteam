@@ -18,6 +18,7 @@ import { SellDepartRoutingModule } from './sell-routing.module';
 import { LiveTractorListComponent } from './live-tractor-list/live-tractor-list.component';
 import { SoldTractorListComponent } from './sold-tractor-list/sold-tractor-list.component';
 import { FooterSellDepartmentComponent } from './footer-sell-department/footer-sell-department.component';
+
 @NgModule({
   declarations: [
   SellDepartmentComponent,

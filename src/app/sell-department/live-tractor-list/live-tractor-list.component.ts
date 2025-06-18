@@ -5,6 +5,7 @@ import { ShareService } from 'src/app/share.service';
 import { ModalController } from '@ionic/angular';
 import { TractorDashboardComponent } from 'src/app/shared-components/tractor-dashboard/tractor-dashboard.component';
 import { Router } from '@angular/router';
+import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/tractor-sells-details.component';
 import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
@@ -65,6 +66,21 @@ export class LiveTractorListComponent  implements OnInit {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
   }
+    async addSellDetails(tractor:any){
+          const modal = await this.modalCtrl.create({
+            component: TractorSellsDetailsComponent,
+            componentProps: {
+              tractorDetails: tractor,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+      
+          //if (role === 'confirm') {
+            this.callListApi();
+          //}
+        }
   search = {
     registractionNo: null,
   };

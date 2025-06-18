@@ -21,6 +21,7 @@ import { SellDocumentComponent } from 'src/app/sell-document/sell-document.compo
 import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expense-list/other-expense-list.component';
 import { PurchaseCarfComponent } from '../purchase-carf/purchase-carf.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { UploadScreenShotComponent } from 'src/app/new-arrivals-management/upload-screen-shot/upload-screen-shot.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -43,6 +44,21 @@ export class TractorDashboardComponent  implements OnInit {
 
 
   }
+   async goToUplodeSection(){
+      
+        let tarctor_id=this.tractorDetails?.id
+              const modal = await this.modalCtrl.create({
+                component: UploadScreenShotComponent,
+                componentProps: {
+                  tarctor_id: tarctor_id,
+                },
+              });
+              await modal.present();
+             
+          
+              const { data, role } = await modal.onWillDismiss();
+            
+        }
     staffDetails:any
     cardHistory:any
   checkPruchaseCard(msg: any = 'Loading...') {

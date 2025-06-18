@@ -1,3 +1,124 @@
-<p>
-  sold-tractor-list works!
-</p>
+<!-- <ion-header>
+  <ion-toolbar>
+    <div class="left-margin">
+    <ion-label >   
+      <h2>Total</h2>
+      <p><b class="total-number">{{alltractorList?.length}}</b></p>
+    </ion-label> 
+  </div>
+  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
+  </ion-toolbar>     
+</ion-header> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Sold : </span>
+        <ion-select *ngIf="listBy=='BRAND_WISE'" class="selected_ddl" (ionChange)="getListByBrand()" [(ngModel)]="selectedBrand"
+          label-placement="type">
+          <ion-select-option *ngFor="let type of brandList" [value]="type.id"> {{ type?.name }}</ion-select-option>
+        </ion-select>
+        <ion-select *ngIf="listBy=='STORE_WISE'" class="selected_ddl" (ionChange)="getAllTractorListStorewise()" [(ngModel)]="selectedStore"
+        label-placement="type">
+        <ion-select-option *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name }}</ion-select-option>
+      </ion-select>
+        <b class="total-number">{{alltractorList?.length}}</b>
+        
+      </div>
+      <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
+        <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>
+        <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-item class="bottom-margin">
+    <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>   
+  </ion-item> -->
+  <!-- <span class="inner-heading-list">Live Tractor List</span> -->
+  <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
+  placeholder="Enter TF Code"></ion-searchbar>
+  <ion-list class="list_row top-position-list" *ngIf="alltractorList?.length">
+    <ion-item *ngFor="let tractor of alltractorList|filterBy: search ;let in=index">
+      <ion-label>
+        <h2 class="theme-color">{{tractor?.name}}</h2>
+        <!-- <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
+          date }}</p> -->
+          <ion-grid class="main_block_details">
+          
+            <ion-card>
+              <ion-row>
+            
+                <ion-col>TF Code</ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.registractionNo}}</ion-col>
+             
+              </ion-row>
+         
+              <ion-row>
+            
+                <ion-col>Mapped With Repair </ion-col>
+                <ion-col *ngIf="tractor?.repairMappedData?.length" class="amount_col">
+               <span style="color: green;">Yes</span>  </ion-col>
+                 <ion-col *ngIf="!tractor?.repairMappedData?.length" class="amount_col">
+               <span  style="color: red;">No</span>   </ion-col>
+              </ion-row>
+              <ion-row>
+            
+                <ion-col>Is Sold </ion-col>
+                <ion-col *ngIf="tractor?.isSold==1" class="amount_col">
+               <span style="color: green;">Yes</span>  </ion-col>
+                 <ion-col *ngIf="tractor?.isSold==0" class="amount_col">
+               <span  style="color: red;">No</span>   </ion-col>
+              </ion-row>
+              <ion-row>
+            
+                <ion-col>Manufactoring </ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.yearOfManufactoring}}</ion-col>
+             
+              </ion-row>
+              <ion-row>
+            
+                <ion-col>Hours</ion-col>
+                <ion-col class="amount_col">
+               {{tractor?.hours}}</ion-col>
+             
+              </ion-row>
+              <ion-row>
+            
+                <ion-col>Registered Date</ion-col>
+                <ion-col class="amount_col">
+                  {{tractor?.createdOn |
+                    date }}</ion-col>
+             
+              </ion-row>
+              <ion-row>
+            
+                <ion-col>    
+                     <img (click)="addSellDetails(tractor)" class="image-style " style="width: 60px;height: 50px; margin: 11px;" src="./././assets/images/sale-tag.png" />
+                   </ion-col>
+                <ion-col >
+                  <img class="image-style " style="width: 60px;height: 50px; margin: 11px;" src="./././assets/images/documentation.png" />
+                
+                </ion-col>
+             
+              </ion-row>
+                </ion-card>
+                </ion-grid>
+      </ion-label>
+      <!-- <div class="list_right_action">
+        <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon>
+        <ion-icon (click)="syncManitainance(tractor)"
+        class="theme-color-second" name="construct-outline"></ion-icon>
+
+      </div> -->
+    </ion-item>
+
+  </ion-list>
+  <div *ngIf="(alltractorList | filterBy: search)?.length === 0" class="no-data-block">
+    <img class="image-no-data" src="././assets/images/no-data-found.png" />
+  </div>
+</ion-content>

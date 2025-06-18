@@ -111,7 +111,13 @@ export class TransportManagementComponent implements OnInit {
         this.transportList = this.transportList.filter(
           (f: any) => f?.tractor_status == 'AT_TRANSPORT'
         );
-
+ this.transportList?.forEach((tract:any) => {
+  let beforeService=tract?.rawImages?.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
+  tract.beforeServiceImages=beforeService
+  if(tract.beforeServiceImages?.length){
+    tract.imageUrlUrl=tract.beforeServiceImages[0]?.imageUrlUrl
+  }
+ });
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },
