@@ -1,0 +1,38 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Options</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+
+
+  <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class="block margin-body">
+     <span class="succes-tag-line">Finance Documents(Pic)</span>
+      </div>
+    <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/envelope.png" />
+
+    </div>
+   
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Payment Screenshot</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+</ion-content>

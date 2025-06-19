@@ -1,0 +1,26 @@
+<ion-tabs>
+  <ion-tab-bar class="bottom_footer_row" slot="bottom">
+    <!-- <ion-tab-button tab="home">
+          <ion-icon name="play-circle"></ion-icon>
+          Listen Now
+        </ion-tab-button> -->
+    <ion-tab-button (click)="goToPage('Sold')" tab="Customer">
+      <ion-icon *ngIf="selectedTab!=='Sold'" class="theme-color" name="flash-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Sold'" class="theme-color" name="flash"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Sold'}" >Sold</label>
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('Financed')" tab="JobList">
+      <ion-icon *ngIf="selectedTab!=='Financed'" class="theme-color" name="aperture-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Financed'" class="theme-color" name="aperture"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Financed'}" >Financed</label>
+    </ion-tab-button>
+
+  
+    <ion-tab-button (click)="goToPage('User')" tab="User">
+      <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}">User</label>
+    </ion-tab-button>
+   
+  </ion-tab-bar>
+</ion-tabs>

@@ -62,6 +62,10 @@ const routes: Routes = [
     path: 'sell-department',
     loadChildren: () => import('./sell-department/sell-depart.module').then(m => m.SellDepartmentModule)
   },
+     {
+    path: 'finance-department',
+    loadChildren: () => import('./finance-department/finance.module').then(m => m.FinanceDepartmentModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},

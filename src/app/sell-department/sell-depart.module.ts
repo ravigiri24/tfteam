@@ -18,13 +18,14 @@ import { SellDepartRoutingModule } from './sell-routing.module';
 import { LiveTractorListComponent } from './live-tractor-list/live-tractor-list.component';
 import { SoldTractorListComponent } from './sold-tractor-list/sold-tractor-list.component';
 import { FooterSellDepartmentComponent } from './footer-sell-department/footer-sell-department.component';
-
+import { SellOptionsComponent } from './sell-options/sell-options.component';
 @NgModule({
   declarations: [
   SellDepartmentComponent,
   LiveTractorListComponent,
   SoldTractorListComponent,
-  FooterSellDepartmentComponent
+  FooterSellDepartmentComponent,
+  SellOptionsComponent
     
   ],
   imports: [

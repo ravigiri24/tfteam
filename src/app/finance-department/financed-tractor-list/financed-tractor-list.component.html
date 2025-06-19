@@ -13,7 +13,7 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Sold : </span>
+        <span class="selected_text">Live : </span>
         <ion-select *ngIf="listBy=='BRAND_WISE'" class="selected_ddl" (ionChange)="getListByBrand()" [(ngModel)]="selectedBrand"
           label-placement="type">
           <ion-select-option *ngFor="let type of brandList" [value]="type.id"> {{ type?.name }}</ion-select-option>
@@ -98,7 +98,7 @@
               <ion-row>
             
                 <ion-col>    
-                     <img (click)="addSellDetails(tractor)" class="image-style " style="width: 60px;height: 50px; margin: 11px;" src="./././assets/images/sale-tag.png" />
+                     <img (click)="addFinanceDetails(tractor)" class="image-style " style="width: 60px;height: 50px; margin: 11px;" src="./././assets/images/get-money.png" />
                    </ion-col>
                 <ion-col >
                   <img (click)="salesOption(tractor)" class="image-style " style="width: 60px;height: 50px; margin: 11px;" src="./././assets/images/documentation.png" />

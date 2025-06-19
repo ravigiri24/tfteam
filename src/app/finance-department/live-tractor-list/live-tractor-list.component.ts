@@ -9,13 +9,14 @@ import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/trac
 import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
-import { SellOptionsComponent } from '../sell-options/sell-options.component';
+import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
+import { FinanceOptionsComponent } from '../finance-options/finance-options.component';
 @Component({
-  selector: 'app-sold-tractor-list',
-  templateUrl: './sold-tractor-list.component.html',
-  styleUrls: ['./sold-tractor-list.component.scss'],
+  selector: 'app-live-tractor-list',
+  templateUrl: './live-tractor-list.component.html',
+  styleUrls: ['./live-tractor-list.component.scss'],
 })
-export class SoldTractorListComponent  implements OnInit {
+export class LiveTractorListComponent implements OnInit {
   constructor(
     private api: ApiService,
     private share: ShareService,
@@ -28,8 +29,8 @@ export class SoldTractorListComponent  implements OnInit {
     this.alltractorList = [];
     this.getBrandList();
     this.getWareHouseList();
-    this.filterBy="ALL"
-    this.listBy="BRAND_WISE"
+    this.filterBy = 'ALL';
+    this.listBy = 'BRAND_WISE';
     // this.getTractorList();
   }
   filterBy: any = 'ALL';
@@ -42,7 +43,7 @@ export class SoldTractorListComponent  implements OnInit {
       componentProps: {
         filterBy: this.filterBy,
         listBy: this.listBy,
-        showFilter:false
+        showFilter: false,
       },
     });
     await modal.present();
@@ -55,9 +56,8 @@ export class SoldTractorListComponent  implements OnInit {
     if (data && data?.isListChange) {
       console.log('data', data);
       this.listBy = data?.listBy;
-      this.callListApi()
+      this.callListApi();
     }
-    
   }
   listBy = 'BRAND_WISE';
   refreshList() {
@@ -67,21 +67,51 @@ export class SoldTractorListComponent  implements OnInit {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
   }
-    async addSellDetails(tractor:any){
+   async salesOption(tractor:any){
           const modal = await this.modalCtrl.create({
-            component: TractorSellsDetailsComponent,
+            component: FinanceOptionsComponent,
             componentProps: {
-              tractorDetails: tractor,
+              tractor: tractor,
             },
           });
           await modal.present();
           const { data, role } = await modal.onWillDismiss();
           console.log('role', role);
-      
-          //if (role === 'confirm') {
-            this.callListApi();
-          //}
+
         }
+  async addFinanceDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TractorFinanceDetailsComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.callListApi();
+    }
+    //if (role === 'confirm') {
+
+    //   this.getAllTractorList();
+    //}
+  }
+  async addSellDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TractorSellsDetailsComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    //if (role === 'confirm') {
+    this.callListApi();
+    //}
+  }
   search = {
     registractionNo: null,
   };
@@ -133,24 +163,24 @@ export class SoldTractorListComponent  implements OnInit {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
 
-    if(!this.selectedBrand){
-      this.selectedBrand= this.brandList[0]?.id
+    if (!this.selectedBrand) {
+      this.selectedBrand = this.brandList[0]?.id;
     }
     let obj = {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
     };
-if(loader){
+    if (loader) {
       this.share.showLoading('Loading...');
-   }
-  
+    }
+
     this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-         this.sortByFilter()
+        this.sortByFilter();
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },
@@ -164,17 +194,16 @@ if(loader){
     let obj = {
       operate: this.staffDetails?.staffCode,
       isLive: true,
- 
     };
     //if (loader) {
-      this.share.showLoading('Loading...');
-   // }
+    this.share.showLoading('Loading...');
+    // }
     this.api.postapi('getTractorListLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        this.sortByFilter()
+        this.sortByFilter();
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },
@@ -188,7 +217,7 @@ if(loader){
 
     this.staffDetails = JSON.parse(staffDetails);
     //if(loader){
-   // this.share.showLoading('Loading...');
+    // this.share.showLoading('Loading...');
     // }
     let obj: any = this.share.getListObj('warehouselocation', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
@@ -203,7 +232,7 @@ if(loader){
           if (!loader) {
             this.selectedStore = this.warehouseList[0]?.id;
 
-          //  this.getAllTractorListStorewise();
+            //  this.getAllTractorListStorewise();
             //   this.share.spinner?.dismiss();
           }
         },
@@ -212,7 +241,7 @@ if(loader){
     }, 0);
   }
   callListApi() {
-    this.filterBy='ALL'
+    this.filterBy = 'ALL';
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
@@ -220,52 +249,36 @@ if(loader){
     } else if (this.listBy == 'STORE_WISE') {
       this.getAllTractorListStorewise();
     }
-
   }
   sortByFilter() {
-  
-  //  if (this.filterBy == 'NOT_SOLD') {
-      this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.isSold == 1
-      );
-    
+    this.alltractorList = this.allTractorsSrcList.filter(
+      (f: any) =>
+        f?.isSold == 1 &&
+        f?.sellingDetailedId &&
+        f?.sellingDetailedIdDetails?.isFinance == 1 &&
+        !f?.financeDetailedId
+    );
   }
-     async salesOption(tractor:any){
-            const modal = await this.modalCtrl.create({
-              component: SellOptionsComponent,
-              componentProps: {
-                tractor: tractor,
-              },
-            });
-            await modal.present();
-            const { data, role } = await modal.onWillDismiss();
-            console.log('role', role);
-        
-            //if (role === 'confirm') {
-  
-            //}
-          }
-  
   getAllTractorListStorewise(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
-    if(!this.selectedStore){
-      this.selectedStore= this.warehouseList[0]?.id
+    if (!this.selectedStore) {
+      this.selectedStore = this.warehouseList[0]?.id;
     }
     let obj = {
       operate: this.staffDetails?.staffCode,
       store_id: this.selectedStore,
     };
     //if (loader) {
-      this.share.showLoading('Loading...');
+    this.share.showLoading('Loading...');
     //}
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        
-      this.sortByFilter()
+
+        this.sortByFilter();
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },

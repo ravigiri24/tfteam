@@ -9,6 +9,7 @@ import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/trac
 import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
+import { SellOptionsComponent } from '../sell-options/sell-options.component';
 @Component({
   selector: 'app-live-tractor-list',
   templateUrl: './live-tractor-list.component.html',
@@ -66,6 +67,22 @@ export class LiveTractorListComponent  implements OnInit {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
   }
+   async salesOption(tractor:any){
+          const modal = await this.modalCtrl.create({
+            component: SellOptionsComponent,
+            componentProps: {
+              tractor: tractor,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+      
+          //if (role === 'confirm') {
+
+          //}
+        }
+
     async addSellDetails(tractor:any){
           const modal = await this.modalCtrl.create({
             component: TractorSellsDetailsComponent,

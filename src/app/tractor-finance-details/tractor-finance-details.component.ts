@@ -118,7 +118,7 @@ financeData:any
            this.share.spinner.dismiss()
            
           this.share.presentToast("Saved Succssfully...");
-          this.dismiss()
+          this.modalControl.dismiss(true)
         },
         (error:any) => {
          
@@ -154,8 +154,7 @@ financeData:any
 
         this.share.spinner.dismiss()
         this.share.presentToast("Updated Successfully...")
-        this.dismiss()
-     
+        this.modalControl.dismiss(true)
       },
       (error:any) => {
         this.share.spinner.dismiss()
