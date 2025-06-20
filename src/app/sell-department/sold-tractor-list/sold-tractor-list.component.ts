@@ -318,4 +318,33 @@ if(loader){
     if (role === 'confirm') {
     }
   }
+    keyList: any = [
+    { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
+    { key: 'Is Sold ', value: 'isSold', type: 'CONDITIONAL' },
+        { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
+        { key: 'Hours', value: 'hours', type: 'INPUT' },
+        { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
+ 
+  ];
+  buttonArray: any = [
+    {
+      name: 'Sell Details',
+      action: 'addSellDetails',
+      image: './././assets/images/sale-tag.png',
+    },
+    {
+      name: 'Sale Options',
+      action: 'salesOption',
+      image: './././assets/images/documentation.png',
+    },
+  ];
+
+    actionEventCall(e: any) {
+    console.log('actionEventCall', e);
+    if (e?.button?.name == 'Sell Details') {
+      this.addSellDetails(e?.tractor);
+    } else if (e?.button?.name == 'Sale Options') {
+      this.salesOption(e?.tractor);
+    }
+  }
 }

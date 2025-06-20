@@ -19,6 +19,7 @@ import { SearchTractorWithTfCodeComponent } from './search-tractor-with-tf-code/
 import { SelectListTypeComponent } from './select-list-type/select-list-type.component';
 import { TractorShowAllDataComponent } from './tractor-show-all-data/tractor-show-all-data.component';
 import { PurchaseCarfComponent } from './purchase-carf/purchase-carf.component';
+import { ViewListComponent } from './view-list/view-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +45,8 @@ import { PurchaseCarfComponent } from './purchase-carf/purchase-carf.component';
     SelectListTypeComponent,
     SelectRoleComponent,
     TractorShowAllDataComponent,
-    PurchaseCarfComponent
+    PurchaseCarfComponent,
+    ViewListComponent
     
   ],
   schemas: [],
@@ -53,6 +55,7 @@ import { PurchaseCarfComponent } from './purchase-carf/purchase-carf.component';
     UserManagementComponent,
     SearchpipePipe,
     CrudPopupComponent,
+    ViewListComponent
   ],
   providers: [ApiService],
 })

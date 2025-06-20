@@ -342,5 +342,33 @@ if(data){
     if (role === 'confirm') {
     }
   }
+    keyList: any = [
+    { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
+    { key: 'Is Sold ', value: 'isSold', type: 'CONDITIONAL' },
+        { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
+        { key: 'Hours', value: 'hours', type: 'INPUT' },
+        { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
+ 
+  ];
+  buttonArray: any = [
+    {
+      name: 'Add FinanceDetails',
+      action: 'addFinanceDetails',
+      image: './././assets/images/get-money.png',
+    },
+    {
+      name: 'Sales Option',
+      action: 'salesOption',
+      image: './././assets/images/documentation.png',
+    },
+  ];
 
+  actionEventCall(e: any) {
+    console.log('actionEventCall', e);
+    if (e?.button?.name == 'Add FinanceDetails') {
+      this.addFinanceDetails(e?.tractor);
+    } else if (e?.button?.name == 'Sales Option') {
+      this.salesOption(e?.tractor);
+    }
+  }
 }

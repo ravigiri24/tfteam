@@ -34,18 +34,14 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <!-- <ion-item class="bottom-margin">
-    <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>   
-  </ion-item> -->
-  <!-- <span class="inner-heading-list">Live Tractor List</span> -->
-  <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
+        <app-view-list [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+  <!-- <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
   <ion-list class="list_row top-position-list" *ngIf="alltractorList?.length">
     <ion-item *ngFor="let tractor of alltractorList|filterBy: search ;let in=index">
       <ion-label>
         <h2 class="theme-color">{{tractor?.name}}</h2>
-        <!-- <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
-          date }}</p> -->
+       
           <ion-grid class="main_block_details">
           
             <ion-card>
@@ -109,16 +105,11 @@
                 </ion-card>
                 </ion-grid>
       </ion-label>
-      <!-- <div class="list_right_action">
-        <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon>
-        <ion-icon (click)="syncManitainance(tractor)"
-        class="theme-color-second" name="construct-outline"></ion-icon>
-
-      </div> -->
+  
     </ion-item>
 
   </ion-list>
   <div *ngIf="(alltractorList | filterBy: search)?.length === 0" class="no-data-block">
     <img class="image-no-data" src="././assets/images/no-data-found.png" />
-  </div>
+  </div> -->
 </ion-content>
