@@ -11,6 +11,7 @@ import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/sear
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
 import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
 import { FinanceOptionsComponent } from '../finance-options/finance-options.component';
+import { ShowSalesDetailsComponent } from '../show-sales-details/show-sales-details.component';
 @Component({
   selector: 'app-live-tractor-list',
   templateUrl: './live-tractor-list.component.html',
@@ -350,6 +351,11 @@ export class LiveTractorListComponent implements OnInit {
       action: 'salesOption',
       image: './././assets/images/documentation.png',
     },
+      {
+      name: 'Sales Details',
+      action: 'salesDetails',
+      image: './././assets/images/resume.png',
+    },
   ];
 
   actionEventCall(e: any) {
@@ -359,5 +365,20 @@ export class LiveTractorListComponent implements OnInit {
     } else if (e?.button?.name == 'Sales Option') {
       this.salesOption(e?.tractor);
     }
+    else if (e?.button?.name == 'Sales Details') {
+      this.salesDetails(e?.tractor);
+    }
   }
+     async salesDetails(tractor:any){
+          const modal = await this.modalCtrl.create({
+            component: ShowSalesDetailsComponent,
+            componentProps: {
+              tractor: tractor,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+
+        }
 }

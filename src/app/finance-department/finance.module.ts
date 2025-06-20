@@ -14,13 +14,15 @@ import { FinanceDepartmentComponent } from './finance-department.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FinancedTractorListComponent } from './financed-tractor-list/financed-tractor-list.component';
 import { FinanceOptionsComponent } from './finance-options/finance-options.component';
+import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-details.component';
 @NgModule({
   declarations: [
   LiveTractorListComponent,
   FinancedTractorListComponent,
   FinanceFooterComponent,
   FinanceDepartmentComponent,
-  FinanceOptionsComponent
+  FinanceOptionsComponent,
+  ShowSalesDetailsComponent
   ],
   imports: [
     FinanceRoutingModule,

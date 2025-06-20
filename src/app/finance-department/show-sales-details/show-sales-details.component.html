@@ -1,0 +1,130 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Sales Details</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+
+            <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Customer Details</span>
+    </div>
+              <ion-row>
+             
+                <ion-col>Customer Name</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.nameOfCustomer}}</ion-col>
+              </ion-row>
+            <ion-row  >
+             
+                <ion-col>Mobile Number</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.mobileNo}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+             
+                <ion-col>Address</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.address}}</ion-col>
+              </ion-row>
+                  <ion-row  >
+             
+                <ion-col>City</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.cityDetails?.name}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+             
+                <ion-col>State</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.stateDetails?.name}}</ion-col>
+              </ion-row>
+                  
+                </ion-card>
+
+            <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Sales Details</span>
+    </div>
+              <ion-row>
+             
+                <ion-col>Selling Amount</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.sellingPrice}}</ion-col>
+               </ion-row>
+                  <ion-row  >
+             
+                <ion-col>Selling Date</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.sellingDate}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+              </ion-row>
+            <ion-row  >
+             
+                <ion-col>Margin Money</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.marginMoney}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+             
+                <ion-col>Remark</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.remark}}</ion-col>
+              </ion-row>
+            
+                  
+                </ion-card>
+                          <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Person </span>
+    </div>
+              <ion-row>
+             
+                <ion-col>Broker</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.brokerDetails?.name}}</ion-col>
+               </ion-row>
+                  <ion-row  >
+             
+                <ion-col>Company Representative</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.companyRepresentativeDetails?.name}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+              </ion-row>
+              <ion-row  >
+             
+                <ion-col>Entry Fill By</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.staffName}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+              </ion-row>
+         
+            
+                  
+                </ion-card>
+                        <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Location </span>
+    </div>
+              <ion-row>
+             
+                <ion-col>Store</ion-col>
+                <ion-col class="amount_col">
+               {{sellingData?.wareHouseLocationDetails?.name}}</ion-col>
+               </ion-row>
+               
+         
+            
+                  
+                </ion-card>
+</ion-content>
