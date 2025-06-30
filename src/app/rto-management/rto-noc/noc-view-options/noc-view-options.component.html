@@ -1,0 +1,64 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >View Details</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+
+
+  <div (click)="salesDetails()" class="block margin-body">
+     <span class="succes-tag-line">Sales Details</span>
+      </div>
+    <div (click)="salesDetails()" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/sale-tag.png" />
+
+    </div>
+    <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class="block margin-body">
+     <span class="succes-tag-line">Finance Details</span>
+      </div>
+    <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/get-money.png" />
+
+    </div>
+     <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class="block margin-body">
+     <span class="succes-tag-line">Adhar Card</span>
+      </div>
+    <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/envelope.png" />
+
+    </div>
+      <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class="block margin-body">
+     <span class="succes-tag-line">Pan Card</span>
+      </div>
+    <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/envelope.png" />
+
+    </div>
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Payment Screenshot</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+</ion-content>

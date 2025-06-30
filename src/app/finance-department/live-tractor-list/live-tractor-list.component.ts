@@ -171,6 +171,7 @@ export class LiveTractorListComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
+         isDraft:true
     };
     if (loader) {
       this.share.showLoading('Loading...');

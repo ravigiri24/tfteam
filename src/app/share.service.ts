@@ -120,6 +120,10 @@ this.showFooter=e
                else if(userde?.staff_role=='FINANCE_DEPARTMENT'){
               this.router.navigate(['/finance-department/sold-tractor'])
             }
+                   else if(userde?.staff_role=='RTO_DEPARTMENT'){
+              this.router.navigate(['/rto-department/rto-noc'])
+            }
+            
         }else{
           if(userde?.currentRole=='DIGITAL'){
             this.router.navigate(['/digital/customer-management'])
@@ -155,6 +159,10 @@ this.showFooter=e
                  else if(userde?.currentRole=='FINANCE_DEPARTMENT'){
               this.router.navigate(['/finance-department/sold-tractor'])
             }
+                else if(userde?.currentRole=='RTO_DEPARTMENT'){
+              this.router.navigate(['/rto-department/rto-noc'])
+            }
+            
 
         }
        

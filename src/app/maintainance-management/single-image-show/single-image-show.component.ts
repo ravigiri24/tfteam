@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-single-image-show',
@@ -15,12 +16,21 @@ export class SingleImageShowComponent implements OnInit {
     private modalControl: ModalController,
     private alertCtrl: AlertController,
     private share: ShareService,
-    private api:ApiService
+    private api:ApiService,
+     private inAppBrowser: InAppBrowser
   ) {}
 
   ngOnInit() {
 
     
+  }
+    openPDF(dataUrl: string) {
+    const browser = this.inAppBrowser.create(dataUrl, '_blank');
+    
+    browser.show();
+  }
+  downloadItem(){
+
   }
   dismiss() {
     this.modalControl.dismiss();

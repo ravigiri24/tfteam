@@ -29,7 +29,11 @@
                <span style="color: green;">Yes</span>  </ion-col>
                  <ion-col *ngIf="tractor[keyValue?.value]==0" class="amount_col">
                <span  style="color: red;">No</span>   </ion-col>
+                    <ion-col *ngIf="tractor[keyValue?.value]==null" class="amount_col">
+               <span  style="color: red;">Not Availaible</span>  </ion-col>
                </ng-container>
+              
+               
               </ion-row>
          
               <ion-row *ngIf="buttonArray?.length">

@@ -155,6 +155,7 @@ export class LiveTractorListComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
+         isDraft:true
     };
     if (loader) {
       this.share.showLoading('Loading...');
@@ -316,6 +317,7 @@ export class LiveTractorListComponent implements OnInit {
   keyList: any = [
     { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
     { key: 'Is Sold ', value: 'isSold', type: 'CONDITIONAL' },
+    { key: 'Noc Availaible ', value: 'isNoc', type: 'CONDITIONAL' },
         { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
         { key: 'Hours', value: 'hours', type: 'INPUT' },
         { key: 'Registered Date', value: 'createdOn', type: 'DATE' },

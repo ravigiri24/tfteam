@@ -10,12 +10,12 @@
   </ion-select>
 </div>
 <div *ngIf="showFilter" class="global_input_block " >
-  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="filterBy" fill="outline" label="Filter By" label-placement="type">
-     <ion-select-option value="ALL">All</ion-select-option>
-     <ion-select-option value="MAPPED">Mapped</ion-select-option>
+  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="filterBy" fill="outline" label="{{filterByTitle}}" label-placement="type">
+     <ion-select-option *ngFor="let options of optionsArray" [value]="options?.value">{{options?.displayName}}</ion-select-option>
+     <!-- <ion-select-option value="MAPPED">Mapped</ion-select-option>
     <ion-select-option value="NOT_MAPPED">Not Mapped</ion-select-option>
     <ion-select-option value="NOT_SOLD">Not Sold</ion-select-option>
-    <ion-select-option value="SOLD">Sold</ion-select-option>
+    <ion-select-option value="SOLD">Sold</ion-select-option> -->
  
   </ion-select>
 </div>

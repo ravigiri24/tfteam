@@ -121,12 +121,13 @@ export class AllTractorListComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
+      isDraft:false
     };
 if(loader){
       this.share.showLoading('Loading...');
    }
   
-    this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
+    this.api.postapi('getTractorListBranchWiseisLiveNotDraft', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;

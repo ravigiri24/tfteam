@@ -1,0 +1,63 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Options</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+
+    <div (click)="goToUplodeSection('DOCUMENT_RTO')" class="block margin-body">
+     <span class="succes-tag-line">Upload Documents</span>
+      </div>
+    <div (click)="goToUplodeSection('DOCUMENT_RTO')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/google-docs.png" />
+
+    </div>
+     <div (click)="goToUplodeSection('INSURANCE_RTO')" class="block margin-body">
+     <span class="succes-tag-line">Upload Insurance</span>
+      </div>
+    <div (click)="goToUplodeSection('INSURANCE_RTO')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/insurance.png" />
+
+    </div>
+        <div (click)="goToUplodeSection('RC_OLD_RTO')" class="block margin-body">
+     <span class="succes-tag-line">Upload RC (Before Transfer)</span>
+      </div>
+    <div (click)="goToUplodeSection('RC_OLD_RTO')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/credit-card.png" />
+
+    </div>
+        <div (click)="goToUplodeSection('RC_NEW_RTO')" class="block margin-body">
+     <span class="succes-tag-line">Upload RC (After Transfer)</span>
+      </div>
+    <div (click)="goToUplodeSection('RC_NEW_RTO')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/money.png" />
+
+    </div>
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Payment Screenshot</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+</ion-content>

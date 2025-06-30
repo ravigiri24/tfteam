@@ -66,6 +66,10 @@ const routes: Routes = [
     path: 'finance-department',
     loadChildren: () => import('./finance-department/finance.module').then(m => m.FinanceDepartmentModule)
   },
+    {
+    path: 'rto-department',
+    loadChildren: () => import('./rto-management/rtomanagement.module').then(m => m.RtoModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},

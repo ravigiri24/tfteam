@@ -1,0 +1,109 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Finance Details</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+
+            <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >CFinance Details</span>
+    </div>
+              <ion-row>
+             
+                <ion-col>Bank Name</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.bankDetails?.name}}</ion-col>
+              </ion-row>
+            <ion-row  >
+             
+                <ion-col>Finance Amount</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.financeAmount}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+             
+                <ion-col>Down Payment</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.downPayment}}</ion-col>
+              </ion-row>
+              
+                
+                  
+                </ion-card>
+
+            <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Disbursal Details</span>
+    </div>
+              <ion-row>
+             
+                <ion-col>First Disbursal</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.first_disbursal}}</ion-col>
+               </ion-row>
+                  <ion-row  >
+             
+                <ion-col>First Disbursal Date</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.first_disbursal_date}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+              </ion-row>
+            <ion-row  >
+             
+                <ion-col>Second Disbursal</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.second_disbursal}}</ion-col>
+              </ion-row>
+                    <ion-row  >
+             
+                <ion-col>Second Disbursal Date</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.second_disbursal_date}}</ion-col>
+              </ion-row>
+            
+                  
+                </ion-card>
+                          <ion-card>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Other </span>
+    </div>
+       <ion-row  >
+             
+                <ion-col>Net Market</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.net_market}}</ion-col>
+              </ion-row>
+                 <ion-row  >
+             
+                <ion-col>OutStanding</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.outstanding}}</ion-col>
+              </ion-row>
+                <ion-row  >
+             
+                <ion-col>FI Done</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.isFIDone}}</ion-col>
+              </ion-row>
+              <ion-row  >
+             
+                <ion-col>Entry Fill By</ion-col>
+                <ion-col class="amount_col">
+               {{financeData?.staffName}}</ion-col>
+              </ion-row>
+                
+         
+            
+                  
+                </ion-card>
+                 
+</ion-content>

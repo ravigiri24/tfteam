@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>RTO Details</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon
+        class="theme-color icon-size"
+        (click)="dismiss()"
+        name="close-circle-outline"
+      ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" *ngIf="soldStatusForm">
+  <div >
+  <form   [formGroup]="soldStatusForm">
+
+   
+      <div class="margin-bottom-headline position-head">
+    <span class="heading-list" >Details</span>
+    </div>
+  
+     <div class="global_input_block select_option_with_add">
+      <ion-select
+        formControlName="brokerId"
+        labelPlacement="stacked"
+        fill="outline"
+        label="Agent"
+        label-placement="stacked"
+      >
+        <ion-select-option *ngFor="let fin of brokerList" [value]="fin.id">
+          {{ fin?.name }}</ion-select-option
+        >
+      </ion-select>
+      <div class="right_action_block add_icon">
+        <ion-icon
+          (click)="openCrudManagement('BROKER')"
+          name="add-circle-outline"
+        ></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon
+          (click)="getBrokerList(true)"
+          name="refresh-outline"
+        ></ion-icon>
+      </div>
+    </div>
+         <div class="global_input_block">
+      <ion-input    label="RTO Cost" fill="outline" labelPlacement="stacked"     type="number"
+     formControlName="rto_cost"></ion-input>
+    </div>
+       <div class="global_input_block">
+      <ion-input      label="Insurance Cost" fill="outline" labelPlacement="stacked"    type="number"
+     formControlName="insurance_cost"></ion-input>
+    </div>
+        <div class="global_input_block">
+      <ion-input     label="Date Of Transfer" fill="outline" labelPlacement="stacked"       type="date"
+     formControlName="date_of_transfer"></ion-input>
+    </div>
+         <div class="global_input_block">
+      <ion-input       label="Remark" fill="outline" labelPlacement="stacked"    type="text"
+     formControlName="remark"></ion-input>
+    </div>
+    
+
+    
+        
+    <div class="login-button bottom-margin-button">
+
+      <ion-button *ngIf="!rtoData"   (click)="save()"  style="text-align: center;" expand="block" ><span class="color-white">Save</span></ion-button>
+      <ion-button  *ngIf="rtoData"  (click)="updateRtoDetails()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
+    
+    </div>
+  </form>
+  </div>
+  
+  </ion-content>

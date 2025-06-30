@@ -62,7 +62,7 @@ financeData:any
       second_disbursal_date: new FormControl(this?.financeData?.second_disbursal_date || null),
       net_market: new FormControl(this?.financeData?.net_market || null),
       outstanding: new FormControl(this?.financeData?.outstanding || null),
-       actionByid: new FormControl(this.staffDetails?.staffCode, [
+       actionByid: new FormControl(this.staffDetails?.id, [
         Validators.required,
       ]),
     

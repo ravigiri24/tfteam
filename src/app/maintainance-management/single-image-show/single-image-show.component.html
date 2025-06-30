@@ -4,6 +4,9 @@
     <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon> 
   </ion-toolbar>
 </ion-header> -->
+<ion-buttons  class="right_close_delete" slot="end">
+<ion-icon class="theme-color icon-size" (click)="openPDF(image?.imageUrlUrl)"  name="download-outline"></ion-icon> 
+</ion-buttons>
 <ion-buttons *ngIf="showDeleteButton" class="right_close_delete" slot="end">
   <ion-icon class="theme-color icon-size" (click)="deleteItem()" name="trash-outline"></ion-icon>
 </ion-buttons>

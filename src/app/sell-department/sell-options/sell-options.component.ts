@@ -22,6 +22,18 @@ tractor:any
     if (imageGroup == 'SALE_DEAD') {
       showHeading = 'Upload Sale Dead';
     } 
+  else if(imageGroup =='ADHAR_CARD'){
+      showHeading = ' Upload Adhar Card';
+  }
+    else if(imageGroup =='PAN_CARD'){
+      showHeading = ' Upload Pan Card';
+  }
+      else if(imageGroup =='BAHI_KHATA'){
+      showHeading = ' Upload Bahi kHATA';
+  }
+      else if(imageGroup =='FORM_34'){
+      showHeading = ' Upload Form 34';
+  }
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
       componentProps: {

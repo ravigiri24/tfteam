@@ -1,0 +1,14 @@
+<ion-content  class="ion-padding ">
+  <div class="border-shape background">
+<div class="global_input_block " >
+  <ion-select (ionChange)="updateNoc()"  [(ngModel)]="isNoc" fill="outline" label="Noc Availaible" label-placement="type">
+
+    <ion-select-option [value]="true">Yes</ion-select-option>
+    <ion-select-option [value]="false">No</ion-select-option>
+
+
+  </ion-select>
+</div>
+
+</div>
+</ion-content>
