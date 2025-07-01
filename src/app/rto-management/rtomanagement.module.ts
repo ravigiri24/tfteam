@@ -28,6 +28,7 @@ import { RtoDetailsFormComponent } from './rto-details-form/rto-details-form.com
 import { DocsOptionsComponent } from './rto-sold-process/docs-options/docs-options.component';
 import { RtoDocsDetailsComponent } from './rto-docs-details/rto-docs-details.component';
 import { FinanceDetailsComponent } from './rto-docs-details/finance-details/finance-details.component';
+import { SearchRtoNocComponent } from './rto-noc/search-rto-noc/search-rto-noc.component';
 @NgModule({
   declarations: [
   RtoManagementComponent,
@@ -40,7 +41,8 @@ import { FinanceDetailsComponent } from './rto-docs-details/finance-details/fina
  RtoDetailsFormComponent,
  DocsOptionsComponent,
  RtoDocsDetailsComponent,
- FinanceDetailsComponent
+ FinanceDetailsComponent,
+ SearchRtoNocComponent
     
   ],
   imports: [

@@ -17,6 +17,7 @@ import { RtoOptionsComponent } from '../rto-options/rto-options.component';
 import { RtoDetailsFormComponent } from '../rto-details-form/rto-details-form.component';
 import { DocsOptionsComponent } from './docs-options/docs-options.component';
 import { RtoDocsDetailsComponent } from '../rto-docs-details/rto-docs-details.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-rto-sold-process',
   templateUrl: './rto-sold-process.component.html',
@@ -28,7 +29,8 @@ export class RtoSoldProcessComponent  implements OnInit {
      private api: ApiService,
      private share: ShareService,
      private modalCtrl: ModalController,
-     private router: Router
+     private router: Router,
+     private commonMethod:CommonMethodService
    ) {}
    alltractorList: any = [];
    optionsArray = [
@@ -74,39 +76,9 @@ export class RtoSoldProcessComponent  implements OnInit {
        this.callListApi();
      }
    }
-     async addRTODetails(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: RtoDetailsFormComponent,
-      componentProps: {
-        tractorDetails: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-
-    //if (role === 'confirm') {
-    this.callListApi();
-    //}
-  }
    
-     async viewDetails(tractor: any) {
-    
-     const modal = await this.modalCtrl.create({
-       component: DocsOptionsComponent,
-    
-       cssClass: 'custom-modal',
-       componentProps: {
-         tractor: tractor,
-        
-       },
-     });
-     await modal.present();
-     const { data, role } = await modal.onWillDismiss();
-     if (data) {
-       this.callListApi();
-     }
-   }
+   
+     
    listBy = 'BRAND_WISE';
    refreshList() {
      this.getTractorList();
@@ -334,7 +306,15 @@ export class RtoSoldProcessComponent  implements OnInit {
    async searchTractor() {
      const modal = await this.modalCtrl.create({
        component: SearchTractorWithTfCodeComponent,
-       componentProps: {},
+       componentProps: {
+        componentProps: {
+       buttonArray: this.buttonArray,
+       keyList:this.keyList,
+       searchFilter:this.search,
+       searchKey:'registractionNo',
+     
+      },
+       },
      });
      await modal.present();
      const { data, role } = await modal.onWillDismiss();
@@ -359,8 +339,8 @@ export class RtoSoldProcessComponent  implements OnInit {
        image: './././assets/images/log-in.png',
      },
        {
-       name: 'View Details',
-       action: 'viewDetails',
+       name: 'View Details RTO',
+       action: 'viewDetailsRtoSales',
        image: './././assets/images/online-survey.png',
      },
         {
@@ -370,36 +350,26 @@ export class RtoSoldProcessComponent  implements OnInit {
      },
    ];
  
-   actionEventCall(e: any) {
+  async actionEventCall(e: any) {
      console.log('actionEventCall', e);
-     if (e?.button?.name == 'Add RTO Details') {
-       this.addRTODetails(e?.tractor);
-     }
-     if (e?.button?.name == 'View Details') {
-       this.viewDetails(e?.tractor);
-     }
-          if (e?.button?.name == 'Download Docs') {
-       this.downLoadDocs(e?.tractor);
-     }
+       await  this.commonMethod.actionEventCall(e)
+    
+  if(this.commonMethod.reloadMethod){
+    this.callListApi()
+  }
+    //  if (e?.button?.name == 'Add RTO Details') {
+    //    this.addRTODetails(e?.tractor);
+    //  }
+    //  if (e?.button?.name == 'View Details') {
+    //    this.viewDetails(e?.tractor);
+    //  }
+    //       if (e?.button?.name == 'Download Docs') {
+    //    this.downLoadDocs(e?.tractor);
+    //  }
      
    }
 
-   async downLoadDocs(tractor:any){
-   const modal = await this.modalCtrl.create({
-       component: RtoDocsDetailsComponent,
-    
-       cssClass: 'custom-modal',
-       componentProps: {
-         tractor: tractor,
-        
-       },
-     });
-     await modal.present();
-     const { data, role } = await modal.onWillDismiss();
-     if (data) {
-    //   this.callListApi();
-     }
-   }
+   
    async salesDetails(tractor: any) {
      const modal = await this.modalCtrl.create({
        component: ShowSalesDetailsComponent,

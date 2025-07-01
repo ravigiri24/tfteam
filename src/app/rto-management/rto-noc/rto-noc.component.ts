@@ -14,6 +14,8 @@ import { NocUpdateComponent } from './noc-update/noc-update.component';
 import { NocViewOptionsComponent } from './noc-view-options/noc-view-options.component';
 import { ShowSalesDetailsComponent } from 'src/app/finance-department/show-sales-details/show-sales-details.component';
 import { RtoOptionsComponent } from '../rto-options/rto-options.component';
+import { SearchRtoNocComponent } from './search-rto-noc/search-rto-noc.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-rto-noc',
   templateUrl: './rto-noc.component.html',
@@ -24,7 +26,8 @@ export class RtoNocComponent implements OnInit {
     private api: ApiService,
     private share: ShareService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private commonMethod:CommonMethodService
   ) {}
   alltractorList: any = [];
   optionsArray = [
@@ -70,48 +73,8 @@ export class RtoNocComponent implements OnInit {
       this.callListApi();
     }
   }
-  async nocUpdate(tractor: any) {
-    let isNoc;
-    if (tractor?.isNoc == null) {
-      isNoc = null;
-    } else if (tractor?.isNoc == 1) {
-      isNoc = true;
-    } else if (tractor?.isNoc == 0) {
-      isNoc = false;
-    }
-    const modal = await this.modalCtrl.create({
-      component: NocUpdateComponent,
-      breakpoints: [0, 0.4, 1],
-      initialBreakpoint: 0.4,
-      cssClass: 'custom-modal',
-      componentProps: {
-        tractor: tractor,
-        isNoc:isNoc
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (data) {
-      this.callListApi();
-    }
-  }
-    async viewDetails(tractor: any) {
-   
-    const modal = await this.modalCtrl.create({
-      component: RtoOptionsComponent,
-   
-      cssClass: 'custom-modal',
-      componentProps: {
-        tractor: tractor,
-       
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (data) {
-      this.callListApi();
-    }
-  }
+
+
   listBy = 'BRAND_WISE';
   refreshList() {
     this.getTractorList();
@@ -387,7 +350,13 @@ export class RtoNocComponent implements OnInit {
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
-      componentProps: {},
+      componentProps: {
+       buttonArray: this.buttonArray,
+       keyList:this.keyList,
+       searchFilter:this.search,
+       searchKey:'registractionNo',
+     
+      },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -418,14 +387,19 @@ export class RtoNocComponent implements OnInit {
     },
   ];
 
-  actionEventCall(e: any) {
+ async actionEventCall(e: any) {
+  await  this.commonMethod.actionEventCall(e)
+    
+  if(this.commonMethod.reloadMethod){
+    this.callListApi()
+  }
     console.log('actionEventCall', e);
-    if (e?.button?.name == 'IS Noc') {
-      this.nocUpdate(e?.tractor);
-    }
-    if (e?.button?.name == 'View Details') {
-      this.viewDetails(e?.tractor);
-    }
+    // if (e?.button?.name == 'IS Noc') {
+    //   this.nocUpdate(e?.tractor);
+    // }
+    // if (e?.button?.name == 'View Details') {
+    //   this.viewDetails(e?.tractor);
+    // }
     
   }
   async salesDetails(tractor: any) {

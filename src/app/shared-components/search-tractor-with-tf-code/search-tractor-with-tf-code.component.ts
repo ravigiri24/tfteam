@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { SyncTractorWithMaintaninanceComponent } from '../sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-search-tractor-with-tf-code',
   templateUrl: './search-tractor-with-tf-code.component.html',
@@ -14,13 +15,30 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
     private modalControl: ModalController,
     private share: ShareService,
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private commonMethod:CommonMethodService
   ) {}
 
+buttonArray:any=[]
+keyList:any=[]
+
+registractionNo='registractionNo'
   ngOnInit() {}
   tractorList: any = [];
   staffDetails: any;
   isTractorFound: any;
+  async actionEvent(e:any){
+    e.comp=this
+await this.commonMethod.actionEventCall(e)
+  if(this.commonMethod.reloadMethod){
+    this.searchTractor()
+  }
+  // this.actionEventCall.emit({tractor,button})
+}
+refreshList(){
+  this.searchTractor()
+}
+searchKey:any
   searchTractor() {
     this.share.showLoading('Searching');
     if (this.search?.tfCode) {
@@ -55,11 +73,13 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
       this.share.presentToast('Please Enter TFCode');
     }
   }
-  search: any = {
-    tfCode: null,
-  };
+  searchFilter:any
+  search: any ={
+    tfCode:null
+  }
   dismiss() {
-    this.modalControl.dismiss();
+   // this.dismissPopup.emit()
+   this.modalControl.dismiss();
   }
   tractorDashboard(tractor: any) {
     this.modalControl.dismiss()

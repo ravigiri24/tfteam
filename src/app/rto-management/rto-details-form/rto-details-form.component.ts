@@ -239,7 +239,7 @@ if(loader){
            this.share.spinner.dismiss()
            
           this.share.presentToast("Saved Succssfully...");
-          this.dismiss()
+          this.modalControl.dismiss(true)
         },
         (error:any) => {
          
@@ -275,7 +275,7 @@ if(loader){
 
         this.share.spinner.dismiss()
         this.share.presentToast("Updated Successfully...")
-        this.dismiss()
+        this.modalControl.dismiss(true)
      
       },
       (error:any) => {

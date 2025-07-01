@@ -55,7 +55,8 @@ import { ViewListComponent } from './view-list/view-list.component';
     UserManagementComponent,
     SearchpipePipe,
     CrudPopupComponent,
-    ViewListComponent
+    ViewListComponent,
+    SearchTractorWithTfCodeComponent
   ],
   providers: [ApiService],
 })

@@ -18,23 +18,27 @@ placeholder="Enter TF Code"></ion-searchbar>
 </div>
 <hr class="line-top-position"/>
 <span class="inner-heading-list top-margin-heading" *ngIf="tractorList?.length">Tractor</span>
-<ion-list class="list_row top-position" *ngIf="tractorList?.length">
+    <app-view-list *ngIf="tractorList?.length" [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="searchFilter" (actionEventCall)="actionEvent($event)" [searchKey]="searchKey"></app-view-list>
+<!-- <ion-list class="list_row top-position scroll-body" *ngIf="tractorList?.length">
+
   <ion-item *ngFor="let tractor of tractorList;let in=index">
+      <ion-row>
     <ion-label>
       <h2 class="theme-color">{{tractor?.name}}</h2>
       <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
         date }}</p>
     </ion-label>
-    <div class="list_right_action">
-      <!-- <ion-icon (click)="viewImage(tractor)" class="camera_icon theme-color" name="camera-outline"></ion-icon> -->
-      <!-- <ion-icon (click)="viewTractorDashboard(tractor)" class="right-margine theme-color-second"
-        name="eye-outline"></ion-icon> -->
-        <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon>
-        <ion-icon (click)="syncManitainance(tractor)"
-        class="theme-color-second" name="construct-outline"></ion-icon>
-    </div>
- 
+    </ion-row>
+   
+              <ion-row *ngIf="buttonArray?.length">
+            
+                <ion-col *ngFor="let button of buttonArray">    
+                     <img (click)="actionEvent(tractor,button)" class="image-style " style="width: 60px;height: 50px; margin: 11px;" [src]="button?.image" />
+                   </ion-col>
+            
+             
+              </ion-row>
   </ion-item>
-</ion-list>
+</ion-list> -->
 
 </ion-content>
