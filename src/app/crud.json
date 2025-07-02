@@ -778,6 +778,25 @@
              }
           
         ]
+      },
+          {
+        "key": "TYPE_OF_RTO_EXPENSE",
+        "src":"expense_rto",
+        "headerTitle":"Type of RTO Expense",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Expense Type",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             }
+          
+        ]
       }
     ]
   }

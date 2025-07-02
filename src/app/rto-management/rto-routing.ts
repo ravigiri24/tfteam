@@ -8,6 +8,7 @@ import { RtoManagementComponent } from './rto-management.component';
 
 import { RtoNocComponent } from './rto-noc/rto-noc.component';
 import { RtoSoldProcessComponent } from './rto-sold-process/rto-sold-process.component';
+import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-list/add-rto-costing-list.component';
 const routes: Routes = [
   {
     path: "", component: RtoManagementComponent,
@@ -18,7 +19,11 @@ const routes: Routes = [
        { path: 'rto-noc', component: RtoNocComponent},
        { path: 'rto-sold-process', component: RtoSoldProcessComponent},
   
-
+ 
+         {
+               path: 'add-rto-cost/:id',
+               component: AddRtoCostingListComponent,
+             },
    
     //   { path: 'user-management', component: UserManagementComponent},
     //   { path: 'cost-prediction', component: CostPredictionComponent},

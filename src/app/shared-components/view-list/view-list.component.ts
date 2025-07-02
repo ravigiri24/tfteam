@@ -8,6 +8,7 @@ import { Component, OnInit,Input, EventEmitter,Output } from '@angular/core';
 export class ViewListComponent  implements OnInit {
 @Input() search:any
 @Input() searchKey:any
+@Input() width:any=60
 @Input() list:any=[]
 @Input() keyList:any=[]
 @Input() buttonArray:any=[]

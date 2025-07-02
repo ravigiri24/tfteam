@@ -21,28 +21,32 @@ import { RtoRoutingModule } from './rto-routing';
 import { RtoFooterComponent } from './rto-footer/rto-footer.component';
 import { RtoNocComponent } from './rto-noc/rto-noc.component';
 import { RtoSoldProcessComponent } from './rto-sold-process/rto-sold-process.component';
-import { NocUpdateComponent } from './rto-noc/noc-update/noc-update.component';
+// import { NocUpdateComponent } from './rto-noc/noc-update/noc-update.component';
 import { NocViewOptionsComponent } from './rto-noc/noc-view-options/noc-view-options.component';
-import { RtoOptionsComponent } from './rto-options/rto-options.component';
-import { RtoDetailsFormComponent } from './rto-details-form/rto-details-form.component';
-import { DocsOptionsComponent } from './rto-sold-process/docs-options/docs-options.component';
-import { RtoDocsDetailsComponent } from './rto-docs-details/rto-docs-details.component';
+// import { RtoOptionsComponent } from './rto-options/rto-options.component';
+// import { RtoDetailsFormComponent } from './rto-details-form/rto-details-form.component';
+// import { DocsOptionsComponent } from './rto-sold-process/docs-options/docs-options.component';
+// import { RtoDocsDetailsComponent } from './rto-docs-details/rto-docs-details.component';
 import { FinanceDetailsComponent } from './rto-docs-details/finance-details/finance-details.component';
 import { SearchRtoNocComponent } from './rto-noc/search-rto-noc/search-rto-noc.component';
+import { AddRtoCostingComponent } from './rto-sold-process/add-rto-costing/add-rto-costing.component';
+import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-list/add-rto-costing-list.component';
 @NgModule({
   declarations: [
   RtoManagementComponent,
  RtoSoldProcessComponent,
  RtoFooterComponent,
  RtoNocComponent,
- NocUpdateComponent,
+ //NocUpdateComponent,
  NocViewOptionsComponent,
- RtoOptionsComponent,
- RtoDetailsFormComponent,
- DocsOptionsComponent,
- RtoDocsDetailsComponent,
+//  RtoOptionsComponent,
+ //RtoDetailsFormComponent,
+ //DocsOptionsComponent,
+//RtoDocsDetailsComponent,
  FinanceDetailsComponent,
- SearchRtoNocComponent
+ SearchRtoNocComponent,
+ AddRtoCostingComponent,
+ AddRtoCostingListComponent
     
   ],
   imports: [

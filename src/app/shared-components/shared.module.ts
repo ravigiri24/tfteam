@@ -20,6 +20,11 @@ import { SelectListTypeComponent } from './select-list-type/select-list-type.com
 import { TractorShowAllDataComponent } from './tractor-show-all-data/tractor-show-all-data.component';
 import { PurchaseCarfComponent } from './purchase-carf/purchase-carf.component';
 import { ViewListComponent } from './view-list/view-list.component';
+import { NocUpdateComponent } from '../rto-management/rto-noc/noc-update/noc-update.component';
+import { RtoDetailsFormComponent } from '../rto-management/rto-details-form/rto-details-form.component';
+import { DocsOptionsComponent } from '../rto-management/rto-sold-process/docs-options/docs-options.component';
+import { RtoDocsDetailsComponent } from '../rto-management/rto-docs-details/rto-docs-details.component';
+import { RtoOptionsComponent } from '../rto-management/rto-options/rto-options.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +51,12 @@ import { ViewListComponent } from './view-list/view-list.component';
     SelectRoleComponent,
     TractorShowAllDataComponent,
     PurchaseCarfComponent,
-    ViewListComponent
+    ViewListComponent,
+    NocUpdateComponent,
+    RtoDetailsFormComponent,
+    DocsOptionsComponent,
+    RtoDocsDetailsComponent,
+    RtoOptionsComponent
     
   ],
   schemas: [],

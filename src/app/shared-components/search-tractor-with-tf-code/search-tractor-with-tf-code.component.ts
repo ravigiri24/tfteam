@@ -16,29 +16,31 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private router: Router,
-    private commonMethod:CommonMethodService
+    private commonMethod: CommonMethodService
   ) {}
 
-buttonArray:any=[]
-keyList:any=[]
+  buttonArray: any = [];
+  keyList: any = [];
 
-registractionNo='registractionNo'
+  registractionNo = 'registractionNo';
   ngOnInit() {}
   tractorList: any = [];
   staffDetails: any;
   isTractorFound: any;
-  async actionEvent(e:any){
-    e.comp=this
-await this.commonMethod.actionEventCall(e)
-  if(this.commonMethod.reloadMethod){
-    this.searchTractor()
+  async actionEvent(e: any) {
+    if (e?.button?.closeCurrentPopUP) {
+      this.modalControl.dismiss();
+    }
+    await this.commonMethod.actionEventCall(e);
+    if (this.commonMethod.reloadMethod) {
+      this.searchTractor();
+    }
+    // this.actionEventCall.emit({tractor,button})
   }
-  // this.actionEventCall.emit({tractor,button})
-}
-refreshList(){
-  this.searchTractor()
-}
-searchKey:any
+  refreshList() {
+    this.searchTractor();
+  }
+  searchKey: any;
   searchTractor() {
     this.share.showLoading('Searching');
     if (this.search?.tfCode) {
@@ -73,16 +75,16 @@ searchKey:any
       this.share.presentToast('Please Enter TFCode');
     }
   }
-  searchFilter:any
-  search: any ={
-    tfCode:null
-  }
+  searchFilter: any;
+  search: any = {
+    tfCode: null,
+  };
   dismiss() {
-   // this.dismissPopup.emit()
-   this.modalControl.dismiss();
+    // this.dismissPopup.emit()
+    this.modalControl.dismiss();
   }
   tractorDashboard(tractor: any) {
-    this.modalControl.dismiss()
+    this.modalControl.dismiss();
     this.router.navigate([
       '/operational/view-dashboard',
       tractor?.id,
@@ -97,7 +99,6 @@ searchKey:any
       },
     });
     await modal.present();
-  
 
     const { data, role } = await modal.onWillDismiss();
   }

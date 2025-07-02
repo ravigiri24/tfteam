@@ -30,7 +30,8 @@ export class RtoSoldProcessComponent  implements OnInit {
      private share: ShareService,
      private modalCtrl: ModalController,
      private router: Router,
-     private commonMethod:CommonMethodService
+     private commonMethod:CommonMethodService,
+     private route:Router
    ) {}
    alltractorList: any = [];
    optionsArray = [
@@ -239,8 +240,8 @@ export class RtoSoldProcessComponent  implements OnInit {
      }
    }
    sortByFilter() {
-     let date = new Date('06/01/2025');
-     console.log('New', new Date('06/01/2025'));
+     let date = new Date('04/01/2025');
+     console.log('New', new Date('01/01/2022'));
      if (this.filterBy == 'ALL') {
        this.alltractorList = this.allTractorsSrcList.filter(
          (f: any) => new Date(f?.createdOn) >= date && f?.isSold==1
@@ -307,13 +308,13 @@ export class RtoSoldProcessComponent  implements OnInit {
      const modal = await this.modalCtrl.create({
        component: SearchTractorWithTfCodeComponent,
        componentProps: {
-        componentProps: {
-       buttonArray: this.buttonArray,
+     
+     buttonArray: this.buttonArray,
        keyList:this.keyList,
        searchFilter:this.search,
        searchKey:'registractionNo',
      
-      },
+      
        },
      });
      await modal.present();
@@ -338,6 +339,12 @@ export class RtoSoldProcessComponent  implements OnInit {
        action: 'addRTODetails',
        image: './././assets/images/log-in.png',
      },
+          {
+       name: 'RTO Expense',
+       action: 'addRTOExpense',
+       closeCurrentPopUP:true,
+       image: './././assets/images/accounting.png',
+     },
        {
        name: 'View Details RTO',
        action: 'viewDetailsRtoSales',
@@ -348,11 +355,18 @@ export class RtoSoldProcessComponent  implements OnInit {
        action: 'downloadDocs',
        image: './././assets/images/visual.png',
      },
+     
    ];
  
   async actionEventCall(e: any) {
      console.log('actionEventCall', e);
-       await  this.commonMethod.actionEventCall(e)
+          await  this.commonMethod.actionEventCall(e)
+//        if (e?.button?.name != 'RTO Expense') {
+//      await  this.commonMethod.actionEventCall(e)
+//     }else if(e?.button?.name == 'RTO Expense'){
+// this.addRTOExpense(e?.tractor)
+//     }
+  
     
   if(this.commonMethod.reloadMethod){
     this.callListApi()
@@ -369,7 +383,11 @@ export class RtoSoldProcessComponent  implements OnInit {
      
    }
 
+  async addRTOExpense(tractor:any){
    
+    this.route.navigate(['/rto-department/add-rto-cost', tractor?.id]);
+  
+  }
    async salesDetails(tractor: any) {
      const modal = await this.modalCtrl.create({
        component: ShowSalesDetailsComponent,

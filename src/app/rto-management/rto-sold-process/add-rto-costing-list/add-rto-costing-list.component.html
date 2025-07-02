@@ -1,0 +1,68 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Total : {{listData?.length}}</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="showModal()" name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="getList()" name="refresh-outline"></ion-icon>
+        <ion-icon class="theme-color" (click)="backToTansport()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <span class="inner-heading-list">RTO Expense Cost ₹ {{totalAmount}}</span>
+  <ion-list class="list_row" *ngIf="listData?.length">
+    <ion-item *ngFor="let row of listData;let in=index">
+      <ion-label>
+        <h2 class="theme-color">{{row?.expenseType?.name}}</h2>
+        <p>{{row?.expense_amount}} | {{row?.expense_date}} | {{row?.createdOn}}</p>
+      </ion-label>
+      <ion-icon (click)="showModal(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
+      <!-- <ion-icon   (click)="openEdit(tractor,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
+    <ion-icon   (click)="showAlert(tractor,in)" class="right-margine theme-color" name="car-outline"></ion-icon> -->
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-modal trigger="open-modal-cost" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-label class="top_heading">
+          <div class="left_text">Add Expense</div>
+          <div class="right_action">
+            <ion-icon class="theme-color" (click)="cancel()" name="close-circle-outline"></ion-icon>
+          </div>
+        </ion-label>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <form [formGroup]="form">
+        <div class="global_input_block">
+          <ion-select formControlName="expense_id" fill="outline" label="Expense Type" label-placement="type">
+            <ion-select-option *ngFor="let type of expenseTypeList" [value]="type.id"> {{ type?.name
+              }}</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="global_input_block">
+          <ion-input label="Expense Amount" fill="outline" labelPlacement="stacked" type="number"
+            formControlName="expense_amount"></ion-input>
+        </div>
+        <div class="global_input_block">
+          <ion-input label="Expense Date" fill="outline" labelPlacement="stacked" type="date"
+            formControlName="expense_date"></ion-input>
+        </div>
+        <div class="page_submit_btn">
+          <ion-button *ngIf="!editData" (click)="saveExpense()" class="global_submit_button"
+            expand="block">Save</ion-button>
+          <ion-button *ngIf="editData" (click)="updateItem()" class="global_submit_button"
+            expand="block">Update</ion-button>
+        </div>
+      </form>
+      <!-- <app-add-customer *ngIf="showAddComp && staffList?.length" [staffList]="staffList" [editData]="editData" (updateList)="updateList($event)" (closeModal)="cancel()"></app-add-customer> -->
+    </ion-content>
+  </ng-template>
+</ion-modal>

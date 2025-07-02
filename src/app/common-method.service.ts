@@ -5,12 +5,13 @@ import { NocUpdateComponent } from './rto-management/rto-noc/noc-update/noc-upda
 import { RtoDetailsFormComponent } from './rto-management/rto-details-form/rto-details-form.component';
 import { DocsOptionsComponent } from './rto-management/rto-sold-process/docs-options/docs-options.component';
 import { RtoDocsDetailsComponent } from './rto-management/rto-docs-details/rto-docs-details.component';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class CommonMethodService {
 
-  constructor(private modalCtrl:ModalController) { }
+  constructor(private modalCtrl:ModalController,private router:Router) { }
 
     async nocUpdate(tractor: any) {
         let isNoc;
@@ -44,21 +45,28 @@ export class CommonMethodService {
     if (e?.button?.name == 'IS Noc') {
      await this.nocUpdate(e?.tractor)
     }
-    if (e?.button?.name == 'View Details') {
-      this.viewDetails(e?.tractor);
+  else  if (e?.button?.name == 'View Details') {
+    await  this.viewDetails(e?.tractor);
     }
-        console.log('actionEventCall', e);
-     if (e?.button?.name == 'Add RTO Details') {
-       this.addRTODetails(e?.tractor);
+     
+   else if (e?.button?.name == 'Add RTO Details') {
+    await   this.addRTODetails(e?.tractor);
      }
-     if (e?.button?.name == 'View Details RTO') {
-       this.viewDetailsRtoSales(e?.tractor);
+    else if (e?.button?.name == 'View Details RTO') {
+    await   this.viewDetailsRtoSales(e?.tractor);
      }
-          if (e?.button?.name == 'Download Docs') {
-       this.downLoadDocs(e?.tractor);
+       else   if (e?.button?.name == 'Download Docs') {
+      await this.downLoadDocs(e?.tractor);
      }
+     else if(e?.button?.name == 'RTO Expense'){
+     this.addRTOExpense(e?.tractor)
+    }
      
     
+  }
+    async addRTOExpense(tractor:any){
+    this.router.navigate(['/rto-department/add-rto-cost', tractor?.id]);
+  
   }
     async addRTODetails(tractor: any) {
       const modal = await this.modalCtrl.create({
