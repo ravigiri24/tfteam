@@ -14,7 +14,7 @@ import { FinanceDepartmentComponent } from './finance-department.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FinancedTractorListComponent } from './financed-tractor-list/financed-tractor-list.component';
 import { FinanceOptionsComponent } from './finance-options/finance-options.component';
-import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-details.component';
+// import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-details.component';
 @NgModule({
   declarations: [
   LiveTractorListComponent,
@@ -22,7 +22,7 @@ import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-detai
   FinanceFooterComponent,
   FinanceDepartmentComponent,
   FinanceOptionsComponent,
-  ShowSalesDetailsComponent
+  //ShowSalesDetailsComponent
   ],
   imports: [
     FinanceRoutingModule,

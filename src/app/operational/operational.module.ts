@@ -21,7 +21,7 @@ import { AddTransportStatusComponent } from '../transport-management/add-transpo
 import { ConfirmDeliveryComponent } from '../transport-management/confirm-delivery/confirm-delivery.component';
 import { MaintainanceManagementComponent } from '../maintainance-management/maintainance-management.component';
 import { ImageViewerComponent } from '../maintainance-management/image-viewer/image-viewer.component';
-import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
+// import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
 import { RepairTractorDashboardComponent } from '../maintainance-management/repair-tractor-dashboard/repair-tractor-dashboard.component';
 import { MaterialListComponent } from '../maintainance-management/material-list/material-list.component';
 import { AddMaterialComponent } from '../maintainance-management/add-material/add-material.component';
@@ -66,7 +66,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     ConfirmDeliveryComponent,
     MaintainanceManagementComponent,
     ImageViewerComponent,
-    SingleImageShowComponent,
+  //  SingleImageShowComponent,
     RepairTractorDashboardComponent,
     MaterialListComponent,
     AddMaterialComponent,

@@ -27,11 +27,12 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
   tractorList: any = [];
   staffDetails: any;
   isTractorFound: any;
+  obj:any
   async actionEvent(e: any) {
     if (e?.button?.closeCurrentPopUP) {
       this.modalControl.dismiss();
     }
-    await this.commonMethod.actionEventCall(e);
+    await this.commonMethod.actionEventCall(e,this.obj);
     if (this.commonMethod.reloadMethod) {
       this.searchTractor();
     }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddRemarkComponent } from './add-remark/add-remark.component';
 import { ApiService } from '../api.service';
@@ -25,6 +26,12 @@ import { RtoDetailsFormComponent } from '../rto-management/rto-details-form/rto-
 import { DocsOptionsComponent } from '../rto-management/rto-sold-process/docs-options/docs-options.component';
 import { RtoDocsDetailsComponent } from '../rto-management/rto-docs-details/rto-docs-details.component';
 import { RtoOptionsComponent } from '../rto-management/rto-options/rto-options.component';
+import { CommonOptionsPlatformComponent } from './common-options-platform/common-options-platform.component';
+import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
+import { ShowSalesDetailsComponent } from '../finance-department/show-sales-details/show-sales-details.component';
+import { FinanceDetailsComponent } from '../rto-management/rto-docs-details/finance-details/finance-details.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +39,7 @@ import { RtoOptionsComponent } from '../rto-management/rto-options/rto-options.c
     FormsModule,
     IonicModule,
     FilterPipeModule,
+
     
     IonicModule.forRoot({}),
   ],
@@ -56,7 +64,11 @@ import { RtoOptionsComponent } from '../rto-management/rto-options/rto-options.c
     RtoDetailsFormComponent,
     DocsOptionsComponent,
     RtoDocsDetailsComponent,
-    RtoOptionsComponent
+    RtoOptionsComponent,
+    CommonOptionsPlatformComponent,
+    SingleImageShowComponent,
+    ShowSalesDetailsComponent,
+    FinanceDetailsComponent
     
   ],
   schemas: [],
@@ -68,6 +80,6 @@ import { RtoOptionsComponent } from '../rto-management/rto-options/rto-options.c
     ViewListComponent,
     SearchTractorWithTfCodeComponent
   ],
-  providers: [ApiService],
+  providers: [ApiService,    InAppBrowser,],
 })
 export class SharedModule {}

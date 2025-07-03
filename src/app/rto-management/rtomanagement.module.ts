@@ -27,7 +27,7 @@ import { NocViewOptionsComponent } from './rto-noc/noc-view-options/noc-view-opt
 // import { RtoDetailsFormComponent } from './rto-details-form/rto-details-form.component';
 // import { DocsOptionsComponent } from './rto-sold-process/docs-options/docs-options.component';
 // import { RtoDocsDetailsComponent } from './rto-docs-details/rto-docs-details.component';
-import { FinanceDetailsComponent } from './rto-docs-details/finance-details/finance-details.component';
+// import { FinanceDetailsComponent } from './rto-docs-details/finance-details/finance-details.component';
 import { SearchRtoNocComponent } from './rto-noc/search-rto-noc/search-rto-noc.component';
 import { AddRtoCostingComponent } from './rto-sold-process/add-rto-costing/add-rto-costing.component';
 import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-list/add-rto-costing-list.component';
@@ -43,7 +43,7 @@ import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-l
  //RtoDetailsFormComponent,
  //DocsOptionsComponent,
 //RtoDocsDetailsComponent,
- FinanceDetailsComponent,
+// FinanceDetailsComponent,
  SearchRtoNocComponent,
  AddRtoCostingComponent,
  AddRtoCostingListComponent

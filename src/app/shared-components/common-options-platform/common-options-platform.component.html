@@ -1,0 +1,112 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Details</ion-title>  
+  
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+
+   
+    <div *ngFor="let option of optionsArray">
+<div (click)="actionEvent(option)" class="block margin-body">
+     <span class="succes-tag-line">{{option?.optionsName}}</span>
+      </div>
+    <div (click)="actionEvent(option)" class=" block">
+
+  
+    <img  class="image-style" [src]="option?.icon" />
+
+    </div>
+    </div>
+     <!-- <div (click)="seeSellDetails()" class="block margin-body">
+     <span class="succes-tag-line">Sales Details</span>
+      </div>
+    <div (click)="seeSellDetails()" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/sale-tag.png" />
+
+    </div>
+        <div (click)="seeFinanceDetails()" class="block margin-body">
+     <span class="succes-tag-line">Finance Details</span>
+      </div>
+    <div (click)="seeFinanceDetails()" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/get-money.png" />
+
+    </div>
+   <div (click)="goToUplodeSection('SALE_DEAD')" class="block margin-body">
+     <span class="succes-tag-line">Sale Dead(Pic)</span>
+      </div>
+    <div (click)="goToUplodeSection('SALE_DEAD')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/envelope.png" />
+
+    </div>
+        <div (click)="goToUplodeSection('ADHAR_CARD')" class="block margin-body">
+     <span class="succes-tag-line">Adhar Card(Pic)</span>
+      </div>
+    <div (click)="goToUplodeSection('ADHAR_CARD')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/identity-card.png" />
+
+    </div>
+    <div (click)="goToUplodeSection('PAN_CARD')" class="block margin-body">
+     <span class="succes-tag-line">Pan Card(Pic)</span>
+      </div>
+    <div (click)="goToUplodeSection('PAN_CARD')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/pass.png" />
+
+    </div>
+      <div (click)="goToUplodeSection('BAHI_KHATA')" class="block margin-body">
+     <span class="succes-tag-line">Bahi Khata(Pic)</span>
+      </div>
+    <div (click)="goToUplodeSection('BAHI_KHATA')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/identification-card.png" />
+
+    </div>
+      <div (click)="goToUplodeSection('FORM_34')" class="block margin-body">
+     <span class="succes-tag-line">Form 34</span>
+      </div>
+    <div (click)="goToUplodeSection('FORM_34')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/online-survey.png" />
+
+    </div>
+      <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class="block margin-body">
+     <span class="succes-tag-line">Finance Documents(Pic)</span>
+      </div>
+    <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class=" block">
+
+  
+    <img  class="image-style" src="././assets/images/envelope.png" />
+
+    </div> -->
+  
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title>Payment Screenshot</ion-card-title>
+     
+    </ion-card-header>
+  
+  
+  
+    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+  
+  </ion-card> -->
+
+</ion-content>

@@ -313,7 +313,7 @@ export class RtoSoldProcessComponent  implements OnInit {
        keyList:this.keyList,
        searchFilter:this.search,
        searchKey:'registractionNo',
-     
+     obj:{optionsArray:this.optionsButtonArray,optionsUploadButtonArray:this.optionsUploadButtonArray}
       
        },
      });
@@ -357,10 +357,130 @@ export class RtoSoldProcessComponent  implements OnInit {
      },
      
    ];
- 
+     optionsUploadButtonArray: any = [
+   
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Upload Documents',
+      showHeading: 'Upload Documents',
+      param: 'DOCUMENT_RTO',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/google-docs.png',
+    },
+     {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Upload Insurance',
+      showHeading: 'Upload Insurance',
+      param: 'INSURANCE_RTO',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/insurance.png',
+    },
+     {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Upload RC (Before Transfer)',
+      showHeading: 'Upload RC (Before Transfer)',
+      param: 'RC_OLD_RTO',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/credit-card.png',
+    },
+      {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Upload RC (After Transfer)',
+      showHeading: 'Upload RC (After Transfer)',
+      param: 'RC_NEW_RTO',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/money.png',
+    },
+   
+  ];
+  optionsButtonArray: any = [
+    {
+      functionName: 'seeSellDetails',
+      optionsName: 'Sales Details',
+      type: 'FUNCTION_CALL',
+   
+      funcName : 'seeSellDetails',
+      icon: '././assets/images/sale-tag.png',
+    },
+    {
+      functionName: 'seeFinanceDetails',
+      optionsName: 'Finance Details',
+      type: 'FUNCTION_CALL',
+         funcName : 'seeFinanceDetails',
+      icon: '././assets/images/get-money.png',
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Sale Dead(Pic)',
+      showHeading: 'View Sale Dead',
+      param: 'SALE_DEAD',
+      showDeleteButton: false,
+      uploadPhoto: false,
+      type: 'IMAGE',
+      icon: '././assets/images/envelope.png',
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Adhar Card(Pic)',
+      showHeading: 'View  Adhar Card',
+      param: 'ADHAR_CARD',
+      type: 'IMAGE',
+      icon: '././assets/images/identity-card.png',
+      showDeleteButton: false,
+      uploadPhoto: false,
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Pan Card(Pic)',
+      showHeading: 'View Pan Card',
+      param: 'PAN_CARD',
+      type: 'IMAGE',
+      icon: '././assets/images/pass.png',
+      showDeleteButton: false,
+      uploadPhoto: false,
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Bahi Khata(Pic)',
+      showHeading: 'View Bahi Khata',
+      param: 'BAHI_KHATA',
+      type: 'IMAGE',
+      icon: '././assets/images/identification-card.png',
+      showDeleteButton: false,
+      uploadPhoto: false,
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Form 34',
+      showHeading: 'View Form 34',
+      param: 'FORM_34',
+      type: 'IMAGE',
+      icon: '././assets/images/online-survey.png',
+      showDeleteButton: false,
+      uploadPhoto: false,
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Finance Documents(Pic)',
+      showHeading: 'View Finance Documents',
+      param: 'FINANCE_DOCUMENTS',
+      type: 'IMAGE',
+      icon: '././assets/images/envelope.png',
+      showDeleteButton: false,
+      uploadPhoto: false,
+    },
+  ];
   async actionEventCall(e: any) {
      console.log('actionEventCall', e);
-          await  this.commonMethod.actionEventCall(e)
+          await  this.commonMethod.actionEventCall(e,{optionsArray:this.optionsButtonArray,optionsUploadButtonArray:this.optionsUploadButtonArray})
 //        if (e?.button?.name != 'RTO Expense') {
 //      await  this.commonMethod.actionEventCall(e)
 //     }else if(e?.button?.name == 'RTO Expense'){

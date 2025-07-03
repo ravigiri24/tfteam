@@ -6,6 +6,9 @@ import { RtoDetailsFormComponent } from './rto-management/rto-details-form/rto-d
 import { DocsOptionsComponent } from './rto-management/rto-sold-process/docs-options/docs-options.component';
 import { RtoDocsDetailsComponent } from './rto-management/rto-docs-details/rto-docs-details.component';
 import { Router } from '@angular/router';
+import { CommonOptionsPlatformComponent } from './shared-components/common-options-platform/common-options-platform.component';
+import { FinanceDetailsComponent } from './rto-management/rto-docs-details/finance-details/finance-details.component';
+import { ShowSalesDetailsComponent } from './finance-department/show-sales-details/show-sales-details.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -39,24 +42,24 @@ export class CommonMethodService {
         }
       }
       reloadMethod=false
-    async  actionEventCall(e: any) {
+    async  actionEventCall(e: any,obj:any=null) {
     console.log('actionEventCall', e);
     this.reloadMethod=false
     if (e?.button?.name == 'IS Noc') {
      await this.nocUpdate(e?.tractor)
     }
   else  if (e?.button?.name == 'View Details') {
-    await  this.viewDetails(e?.tractor);
+    await  this.viewDetails(e?.tractor,obj);
     }
      
    else if (e?.button?.name == 'Add RTO Details') {
     await   this.addRTODetails(e?.tractor);
      }
     else if (e?.button?.name == 'View Details RTO') {
-    await   this.viewDetailsRtoSales(e?.tractor);
+    await   this.viewDetailsRtoSales(e?.tractor,obj);
      }
        else   if (e?.button?.name == 'Download Docs') {
-      await this.downLoadDocs(e?.tractor);
+      await this.downLoadDocs(e?.tractor,obj);
      }
      else if(e?.button?.name == 'RTO Expense'){
      this.addRTOExpense(e?.tractor)
@@ -64,6 +67,37 @@ export class CommonMethodService {
      
     
   }
+ async functionCall(obj:any){
+      this.reloadMethod=false
+    if (obj?.funcName == 'seeFinanceDetails') {
+     await this.seeFinanceDetails(obj)
+    }
+     if (obj?.funcName == 'seeSellDetails') {
+     await this.seeSellDetails(obj)
+    }
+  }
+   async seeSellDetails(obj:any) {
+      const modal = await this.modalCtrl.create({
+        component: ShowSalesDetailsComponent,
+        componentProps: {
+          tractor: obj?.tractor,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+    }
+    async seeFinanceDetails(obj:any) {
+      const modal = await this.modalCtrl.create({
+        component: FinanceDetailsComponent,
+        componentProps: {
+          tractor: obj.tractor,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+    }
     async addRTOExpense(tractor:any){
     this.router.navigate(['/rto-department/add-rto-cost', tractor?.id]);
   
@@ -83,15 +117,15 @@ export class CommonMethodService {
        this.reloadMethod=true
         }
     }
-       async viewDetailsRtoSales(tractor: any) {
+       async viewDetailsRtoSales(tractor: any,obj:any) {
         
          const modal = await this.modalCtrl.create({
-           component: DocsOptionsComponent,
+           component: CommonOptionsPlatformComponent,
         
            cssClass: 'custom-modal',
            componentProps: {
              tractor: tractor,
-            
+                 optionsArray:obj?.optionsUploadButtonArray
            },
          });
          await modal.present();
@@ -100,13 +134,14 @@ export class CommonMethodService {
           this.reloadMethod=true
          }
        }
-        async downLoadDocs(tractor:any){
+        async downLoadDocs(tractor:any,obj:any){
           const modal = await this.modalCtrl.create({
-              component: RtoDocsDetailsComponent,
+              component: CommonOptionsPlatformComponent,
            
               cssClass: 'custom-modal',
               componentProps: {
                 tractor: tractor,
+                optionsArray:obj?.optionsArray
                
               },
             });
@@ -116,15 +151,15 @@ export class CommonMethodService {
            //   this.callListApi();
             }
           }
-     async viewDetails(tractor: any) {
+     async viewDetails(tractor: any,obj:any) {
        
         const modal = await this.modalCtrl.create({
-          component: RtoOptionsComponent,
+          component: CommonOptionsPlatformComponent,
        
           cssClass: 'custom-modal',
           componentProps: {
             tractor: tractor,
-           
+        optionsArray:obj?.optionsUploadButtonArray
           },
         });
         await modal.present();

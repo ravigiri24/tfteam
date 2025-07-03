@@ -355,7 +355,7 @@ export class RtoNocComponent implements OnInit {
        keyList:this.keyList,
        searchFilter:this.search,
        searchKey:'registractionNo',
-     
+     obj:{optionsUploadButtonArray:this.optionsUploadButtonArray}
       },
     });
     await modal.present();
@@ -373,7 +373,21 @@ export class RtoNocComponent implements OnInit {
     { key: 'Hours', value: 'hours', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
-
+    optionsUploadButtonArray: any = [
+   
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Upload NOC',
+      showHeading: 'Upload NOC',
+      param: 'NOC_DOCUMENT_RTO',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/documentation.png',
+    }
+     
+   
+  ];
   buttonArray: any = [
     {
       name: 'IS Noc',
@@ -388,7 +402,7 @@ export class RtoNocComponent implements OnInit {
   ];
 
  async actionEventCall(e: any) {
-  await  this.commonMethod.actionEventCall(e)
+  await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:this.optionsUploadButtonArray})
     
   if(this.commonMethod.reloadMethod){
     this.callListApi()
