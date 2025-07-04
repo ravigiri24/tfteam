@@ -9,11 +9,17 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { DigitalAnalyseComponent } from './digital-analyse/digital-analyse.component';
 import { AdminManagementComponent } from './admin-management.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { ReportsTractorComponent } from './reports-tractor/reports-tractor.component';
+import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
+import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
     DigitalAnalyseComponent,
-    AdminManagementComponent
+    AdminManagementComponent,
+    ReportsTractorComponent,
+    DashboardOverviewComponent,
+    MasterSheetsComponent
   ],
   imports: [
    

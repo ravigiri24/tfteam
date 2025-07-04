@@ -97,7 +97,7 @@ this.showFooter=e
             }
            
             else if(userde?.staff_role=='SUPER_ADMIN' || userde?.staff_role=='ADMIN'){
-              this.router.navigate(['/admin-block/digital-analyse'])
+              this.router.navigate(['/admin-block/dashboard-overview'])
             }
             else if(userde?.staff_role=='FRANCHISE'){
               this.router.navigate(['/franchise-management/new-tractor'])
@@ -136,7 +136,7 @@ this.showFooter=e
             }
            
             else if(userde?.currentRole=='SUPER_ADMIN' || userde?.currentRole=='ADMIN'){
-              this.router.navigate(['/admin-block/digital-analyse'])
+              this.router.navigate(['/admin-block/dashboard-overview'])
             }
             else if(userde?.currentRole=='FRANCHISE'){
               this.router.navigate(['/franchise-management/new-tractor'])

@@ -4,15 +4,15 @@
           <ion-icon name="play-circle"></ion-icon>
           Listen Now
         </ion-tab-button> -->
-    <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
-      <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='Digital-analyse'" class="theme-color" name="people"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Digital-analyse'}" >Dashboard</label>
+    <ion-tab-button (click)="goToPage('Dashboard')" tab="Customer">
+      <ion-icon *ngIf="selectedTab!=='Dashboard'" class="theme-color" name="bar-chart-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Dashboard'" class="theme-color" name="bar-chart"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Dashboard'}" >Dashboard</label>
     </ion-tab-button>
-        <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
-      <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='Digital-analyse'" class="theme-color" name="people"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Digital-analyse'}" >Reports</label>
+        <ion-tab-button (click)="goToPage('Reports')" tab="Customer">
+      <ion-icon *ngIf="selectedTab!=='Reports'" class="theme-color" name="newspaper-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Reports'" class="theme-color" name="newspaper"></ion-icon>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Reports'}" >Reports</label>
     </ion-tab-button>
        <!-- <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Digital-analyse'" class="theme-color" name="people-outline"></ion-icon>
@@ -20,8 +20,8 @@
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Digital-analyse'}" >Leads</label>
     </ion-tab-button> -->
     <ion-tab-button (click)="goToPage('tractor-costing-list')" tab="Costing">
-      <ion-icon *ngIf="selectedTab!=='tractor-costing-list'" class="theme-color" name="bus-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='tractor-costing-list'" class="theme-color" name="bus"></ion-icon>
+      <ion-icon *ngIf="selectedTab!=='tractor-costing-list'" class="theme-color" name="list-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='tractor-costing-list'" class="theme-color" name="list"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'tractor-costing-list'}">Tractors</label>
     </ion-tab-button>
     <!-- <ion-tab-button (click)="goToPage('Digital-analyse')" tab="Customer">

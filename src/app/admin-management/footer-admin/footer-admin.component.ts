@@ -10,14 +10,22 @@ export class FooterAdminComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='Digital-analyse'
+  selectedTab:any='Dashboard'
   goToPage(tab:any){
+    
+    
   this.selectedTab=tab
   if(tab=='Digital-analyse'){
     this.router.navigate(['/admin-block/digital-analyse'])
   }
   else if(tab=='tractor-costing-list'){
     this.router.navigate(['/admin-block/tractor-costing'])
+  }
+    else if(tab=='Dashboard'){
+    this.router.navigate(['/admin-block/dashboard-overview'])
+  }
+      else if(tab=='Reports'){
+    this.router.navigate(['/admin-block/reports-tractor'])
   }
   else if(tab=='Maintainance'){
     this.router.navigate(['/operational/maintainance-management'])

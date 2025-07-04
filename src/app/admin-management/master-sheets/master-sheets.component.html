@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Master Sheet</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form *ngIf="form" [formGroup]="form">
+  <div class="row top-position-body">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+  
+</form>
+  <div class="row" >
+    <ion-button  (click)="genrateReport()" class="global_submit_button" >
+    
+      Generate</ion-button>
+    </div>
+  <hr/>
+  <div class="scroll"  *ngIf="tractorArray?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
+  <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+
+
+  <table cellpadding="5" cellspacing="5" style="width: 100%;">
+    <tbody>
+    
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total Tractor</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{allDetails?.length}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+      
+      </tr>
+       <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.startDate}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.endDate}}</td>
+      
+      </tr>
+         <!-- <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr> -->
+
+   
+    </tbody>
+  </table>
+  <h2 style="text-align: center;margin: 10px 0px;" >Master Sheet</h2>
+  <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <tbody>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">Inventory Code</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">INVENTORY LOCATION</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Tractor OEM</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Tractor Model</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Auction /Exchange/Dealer</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Status</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Registration No.</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Engine No.</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Chasis No.</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Operating Hours</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Year of Mfg</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Owner</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Bank name</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Park Location</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 1</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Date of Auction/Deal</th>
+        <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Purchase Amount</th>
+        <th *ngFor="let expenseTransport of logisticExpenseTypeList"  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">{{expenseTransport?.name}}</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Insurance Cost</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO Expense</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Amount Paid</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Date Of Payment </th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">NOC Status</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO Status</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark</th>
+    
+
+      </tr>
+      <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
+        style="border: 1px solid #e1e1e1;text-align: left" >
+        <td style="text-align: center;">{{tracIndex+1}}</td>
+        <td style="text-align: center;">{{tractor?.registractionNo}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.franchiseDettails?.name}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.brandName}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.modalName}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.typeOfPurchaseDetails?.name}}</td>
+        <td style="padding: 5px 10px;"><span *ngIf="tractor?.isSold==1">Sold</span><span *ngIf="tractor?.isSold==0 || tractor?.isSold==null">Un-Sold</span></td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.registrationNumber}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.engineNumber}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.chasisNumber}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.hours}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.yearOfManufactoring}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.nameOfSeller}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.bankNameAuction}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.parkLocation}}</td>
+          <td style="padding: 5px 10px;"></td>
+          <td style="padding: 5px 10px;"></td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchanseDate}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchasePrice}}</td>
+          <td *ngFor="let expenseTransport of logisticExpenseTypeList"  style="padding: 5px 10px;">{{tractor?.logisticExpense[expenseTransport?.name]}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.rtoDetails?.insurance_cost}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.rtoDetails?.rto_cost}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.totalAmountBreakup}}</td>
+        <!-- <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastDemand?.demand ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastDemand?.createdOn ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.visitng_type ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.visiting_date ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.remark ||'-'}}</td>
+        <td  style="padding: 5px 10px;">{{cus?.cityDetails?.name}}</td> -->
+     
+      
+      </tr>
+      <!-- <tr>
+        <td colspan="3"  style="padding: 5px 10px;">
+          {{catTotal[expenseHeader[0]]}}
+        </td>
+        <div *ngFor="let head of expenseHeader;let indi=index">
+          <div  *ngIf="indi>0" >
+            <td style="padding: 5px 10px;">
+              {{catTotal[expenseHeader[0]]}}
+            </td> 
+
+          </div>
+        </div>
+     
+      </tr> -->
+    
+    </tbody>
+  </table>
+
+
+
+
+</div>
+  </ion-content>

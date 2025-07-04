@@ -1,0 +1,51 @@
+.top-position{
+    margin-top: 10px;
+}
+.margin-body{
+    margin-left: 10px;
+}
+.top-margin{
+position: relative;
+
+}
+.top-position{
+    position: relative;
+    top: -7px;
+}
+.input-position{
+    position: relative;
+    top: 9px;
+}
+.button-style{
+    width: 100%;
+    display: flex;
+  justify-content: center;
+
+}
+.scroll{
+    overflow-x: scroll;
+    width: 100%;
+}
+// .button{
+//     --background: var(--app-theme-element-color) !important;
+//     --border-color: var(--app-theme-element-color) !important;
+//     --color: white !important;
+//     width: 50%;
+// }
+.top-position{
+    margin-top: 10px;
+}
+.top-position-body{
+    margin-top: 15px;
+}
+.margin-body{
+    margin-left: 10px;
+}
+.top-margin{
+position: relative;
+
+}
+.button-width{
+    width: 100% !important;
+
+}
