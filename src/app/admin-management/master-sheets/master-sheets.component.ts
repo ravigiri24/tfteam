@@ -55,7 +55,7 @@ export class MasterSheetsComponent implements OnInit {
   }
   generateExcel() {
     // Get the HTML content of the div you want to export
-    const element = document.getElementById('contentReport');
+    const element = document.getElementById('master-sheet-report');
 
     // Create a worksheet from the table
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -93,7 +93,9 @@ export class MasterSheetsComponent implements OnInit {
   }
   allDetails: any;
   tractorArray: any;
+  showData=false
   genrateReport() {
+    this.showData=false
     if (this.form.valid) {
       if (
         this.form.controls['startDate']?.value <=
@@ -114,6 +116,7 @@ export class MasterSheetsComponent implements OnInit {
         this.api.postapi('getTractorSheetByDate', obj).subscribe(
           (res: any) => {
             this.allDetails = res?.data;
+             this.allDetails.spareList= this.allDetails.spareList.reverse()
             this.tractorArray = res?.data?.tractorList;
             this.tractorArray?.forEach((tractor: any) => {
               let logisticExpense: any = {};
@@ -132,8 +135,9 @@ export class MasterSheetsComponent implements OnInit {
                   logisticExpense[log?.name] = 0;
                 }
               
-                tractor.logisticExpense = logisticExpense;
+              
               });
+                tractor.logisticExpense = logisticExpense;
                 console.log('logisticExpense', logisticExpense);
                 if(tractor?.purchasedetail?.purchasePrice>0){
                totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.purchasedetail?.purchasePrice)
@@ -147,9 +151,16 @@ export class MasterSheetsComponent implements OnInit {
                 } 
                 }
                 tractor.totalAmountBreakup=totalAmountBreakup
+                //need to call at last for all calculation
+                this.calculateRepairCost(tractor)
             });
             // this.createReport();
+            console.log("tractorArray",this.tractorArray);
+            
             this.share.spinner.dismiss();
+            setTimeout(() => {
+              this.showData=true
+            }, 0);
           },
           (error: any) => {}
         );
@@ -159,6 +170,104 @@ export class MasterSheetsComponent implements OnInit {
     } else {
       this.share.presentToast('Error:Please Fill Required(*) Fields');
     }
+  }
+  calculateRepairCost(tractor:any){
+    //service 
+        let expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
+          (f: any) => f?.expense_head == 'EXPENSE'
+        );
+      let  expenseServiceCost=0
+        expenseServiceList?.forEach((f: any) => {
+        expenseServiceCost =
+        expenseServiceCost + Number(f?.total_expense);
+       
+    });
+     tractor.expenseServiceCost=expenseServiceCost
+   let expenseMaterialList = tractor?.repairMaterialExpenseCost?.filter(
+          (f: any) => f?.expense_head == 'EXPENSE'
+        );
+
+     // material   
+       let expenseMaterialCost=0
+  expenseMaterialList?.forEach((f: any) => {
+      expenseMaterialCost =
+        expenseMaterialCost + Number(f?.total_expense);
+    });
+
+    //category wise 
+   let  categroyWiseMaterial:any=[]   
+   this.allDetails?.spareList?.forEach((spare:any)=>{
+  let obj = {
+            catName: spare.name,
+            id: spare.id,
+            materialList: [],
+            total_amount: 0,
+          };
+            categroyWiseMaterial.push(obj)
+   })
+       expenseMaterialList?.forEach((expense: any) => {
+      let findinMatList = this.allDetails?.materialList?.find(
+        (mat: any) => mat.id == expense?.expense_id
+      );
+      let getCat = this.allDetails?.spareList?.find(
+        (spare: any) => spare.id == findinMatList?.category
+      );
+      if (getCat) {
+        let findExist = categroyWiseMaterial?.findIndex(
+          (cat: any) => cat.id == getCat.id
+        );
+        if (findExist > -1) {
+          categroyWiseMaterial[findExist].total_amount =
+            Number(categroyWiseMaterial[findExist]?.total_amount) +
+            Number(expense?.total_expense);
+          categroyWiseMaterial[findExist]?.materialList.push(expense);
+        } else {
+          let obj = {
+            catName: getCat?.name,
+            id: getCat?.id,
+            materialList: [expense],
+            total_amount: expense?.total_expense||0,
+          };
+          categroyWiseMaterial.push(obj);
+        }
+      }
+    });
+    // let catMaterialTotal=0
+    // categroyWiseMaterial?.forEach((catM:any)=>{
+    //   catMaterialTotal=catMaterialTotal+Number(catM?.total_amount)
+    // })
+     tractor.categroyWiseMaterial=categroyWiseMaterial
+     //reduce
+   let reduceItemTotalAmount=0
+  tractor?.reduceItemList?.forEach((f: any) => {
+      reduceItemTotalAmount =
+        reduceItemTotalAmount + Number(f?.total_amount);
+    });
+
+//total
+    tractor.reduceItemTotalAmount=reduceItemTotalAmount
+      let totalRepairExpense= Number(expenseMaterialCost)+Number(expenseServiceCost)
+      tractor.totalRepairExpense=totalRepairExpense
+tractor.workshopTotalExpense=Number(totalRepairExpense)-Number(reduceItemTotalAmount)
+
+//totalExpense
+tractor.totalExpenseT=Number(tractor.workshopTotalExpense)+Number(tractor?.totalAmountBreakup)
+if(tractor?.sellingDetailedIdDetails){
+  tractor.netSellingPrice=tractor?.sellingDetailedIdDetails?.sellingPrice
+  tractor.gm=Number(tractor?.sellingDetailedIdDetails?.sellingPrice)-Number(tractor.totalExpenseT)
+  if( tractor.gm){
+    tractor.gstAmount=Number(tractor.gm)*12/112
+  }
+  tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
+
+}else{
+   tractor.netSellingPrice=null
+   tractor.gm=null
+   tractor.gstAmount=null
+  tractor.billingAmountWithoutGst=null
+}
+
+tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
   }
 
   logisticExpenseTypeList: any = [];
@@ -209,8 +318,8 @@ export class MasterSheetsComponent implements OnInit {
       endDate: this.reportDatesRecord?.endDate,
     };
     console.log('convertBlobToBase64', obj);
-
-    this.api.postapi('saveReportPdf', obj).subscribe((res: any) => {
+this.share.showLoading("Generating Excel",20000)
+    this.api.postapi('savemastersheet', obj).subscribe((res: any) => {
       console.log('saveDataTo', res);
       this.share.spinner.dismiss();
       if (res?.data?.imageUrlUrl) {

@@ -13,7 +13,10 @@ import { CommonMethodService } from 'src/app/common-method.service';
   styleUrls: ['./common-options-platform.component.scss'],
 })
 export class CommonOptionsPlatformComponent implements OnInit {
-  constructor(private modalCtrl: ModalController,private commonService:CommonMethodService) {}
+  constructor(
+    private modalCtrl: ModalController,
+    private commonService: CommonMethodService
+  ) {}
   tractor: any;
   ngOnInit() {}
   dismiss() {
@@ -30,58 +33,33 @@ export class CommonOptionsPlatformComponent implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
   }
-  optionsArray: any = []
-  async actionEvent(option:any) {
-   if(option?.type=='IMAGE'){
-    this.goToUplodeSectionDynamic(option)
-   }else if(option?.type=='FUNCTION_CALL'){
-    this.commonService.functionCall({funcName:option?.funcName,tractor:this.tractor})
-   }
-  
-   
+  optionsArray: any = [];
+  async actionEvent(option: any) {
+    if (option?.type == 'IMAGE') {
+      this.goToUplodeSectionDynamic(option);
+    } else if (option?.type == 'FUNCTION_CALL') {
+    await  this.commonService.functionCall({
+        funcName: option?.funcName,
+        tractor: this.tractor,
+        closePopUp: option?.closePopUp,
+      });
+      setTimeout(() => {
+        if(option?.closePopUp){
+       
+          this.commonService.reloadMethod=true
+        }
+      }, 0);
+    }
   }
-    async goToUplodeSectionDynamic(option: any) {
- const modal = await this.modalCtrl.create({
-      component: ImageViewerComponent,
-      componentProps: {
-        tarctor_id: this.tractor?.id,
-        imageGroup: option?.param,
-        showDeleteButton:  option?.showDeleteButton,
-        showHeading:  option?.showHeading,
-        uploadPhoto:  option?.uploadPhoto,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-
-    if (role === 'confirm') {
-    }
-
-    }
-  async goToUplodeSection(imageGroup: any) {
-    let showHeading = null;
-    if (imageGroup == 'SALE_DEAD') {
-      showHeading = 'View Sale Dead';
-    } else if (imageGroup == 'ADHAR_CARD') {
-      showHeading = ' View Adhar Card';
-    } else if (imageGroup == 'PAN_CARD') {
-      showHeading = ' View Pan Card';
-    } else if (imageGroup == 'BAHI_KHATA') {
-      showHeading = ' View Bahi kHATA';
-    } else if (imageGroup == 'FORM_34') {
-      showHeading = ' View Form 34';
-    } else if (imageGroup == 'FINANCE_DOCUMENTS') {
-      showHeading = 'View Finance Documents';
-    }
+  async goToUplodeSectionDynamic(option: any) {
     const modal = await this.modalCtrl.create({
       component: ImageViewerComponent,
       componentProps: {
         tarctor_id: this.tractor?.id,
-        imageGroup: imageGroup,
-        showDeleteButton: false,
-        showHeading: showHeading,
-        uploadPhoto: false,
+        imageGroup: option?.param,
+        showDeleteButton: option?.showDeleteButton,
+        showHeading: option?.showHeading,
+        uploadPhoto: option?.uploadPhoto,
       },
     });
     await modal.present();
@@ -91,5 +69,4 @@ export class CommonOptionsPlatformComponent implements OnInit {
     if (role === 'confirm') {
     }
   }
- 
 }

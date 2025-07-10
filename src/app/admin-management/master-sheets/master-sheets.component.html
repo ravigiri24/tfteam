@@ -36,7 +36,10 @@
       Generate</ion-button>
     </div>
   <hr/>
-  <div class="scroll"  *ngIf="tractorArray?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
+  <div class="margin-top">
+  <ion-button *ngIf="tractorArray?.length && showData" (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
+  </div>
+  <div class="scroll"  *ngIf="tractorArray?.length && showData" id="master-sheet-report" class="top-margin scroll" style="width: 100%;">
   <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
   </div> -->
@@ -47,7 +50,7 @@
     
       <tr>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total Tractor</th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{allDetails?.length}}</td>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
       
@@ -101,6 +104,46 @@
              <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">NOC Status</th>
              <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO Status</th>
              <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 2</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Workshop Estimation</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Inward Estimation</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO  Estimation</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 3</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Service</th>
+             <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;" *ngFor="let spare of allDetails?.spareList">{{spare?.name}}</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Total</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Reduce Costing</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">WORKSHOP TOTAL</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 4</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Total Expense</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Net Selling Price</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">GST Applicable</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">GM</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">P/L Amount</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">P/L Margin(%) without GST</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">without gst amount for billing</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">DLP BASED ON ESTIMATION</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Customer Name</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Mobile Number</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Address</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">City</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">State</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Selling Price</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Margin Money</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Financed</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">FI Done</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Finance Amount</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Financer Name</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">1st Disbursal</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">1st Disbursal Date</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">2nd Disbursal</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">2nd Disbursal Date</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Net Market</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Outstanding</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Delivery Date</th>
+                     
+
     
 
       </tr>
@@ -129,6 +172,64 @@
           <td style="padding: 5px 10px;">{{tractor?.rtoDetails?.insurance_cost}}</td>
           <td style="padding: 5px 10px;">{{tractor?.rtoDetails?.rto_cost}}</td>
           <td style="padding: 5px 10px;">{{tractor?.totalAmountBreakup}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.amountTransferDate}}</td>
+          <td style="padding: 5px 10px;">
+            <span *ngIf="tractor?.isNoc==null">Not Assign</span>
+            <span *ngIf="tractor?.isNoc==1">Yes</span>
+            <span *ngIf="tractor?.isNoc==0">No</span>
+          </td>
+             <td style="padding: 5px 10px;">
+            <span *ngIf="tractor?.rtoDetails?.isrtoDone==null">Not Assign</span>
+            <span *ngIf="tractor?.rtoDetails?.isrtoDone==1">Yes</span>
+            <span *ngIf="tractor?.rtoDetails?.isrtoDone==0">No</span>
+          </td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;">{{tractor?.maintainanceEstimationCost}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.inwardEstimationCost}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.rtoEstimationCost}}</td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;">{{tractor?.expenseServiceCost}}</td>
+            <td style="padding: 5px 10px;" *ngFor="let catvalue of tractor?.categroyWiseMaterial">{{catvalue?.total_amount}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.totalRepairExpense}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.reduceItemTotalAmount}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.workshopTotalExpense}}</td>
+                      <td style="padding: 5px 10px;"></td>
+                      <td style="padding: 5px 10px;"></td>
+                      <td style="padding: 5px 10px;">{{tractor?.totalExpenseT}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.netSellingPrice}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.gstAmount | number : '1.2-2'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.gm | number : '1.2-2'}}</td>
+                      <td style="padding: 5px 10px;"></td>
+                      <td style="padding: 5px 10px;"></td>
+                      <td style="padding: 5px 10px;">{{tractor?.billingAmountWithoutGst| number : '1.2-2'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.dlpBasedEstimation| number : '1.2-2'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.customerDetails?.name||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.customerDetails?.mobileNo||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.address||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.stateDetails?.name||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.cityDetails?.name||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.sellingPrice||0}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.marginMoney||0}}</td>
+                       <td style="padding: 5px 10px;">
+                  <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinance==null">Not Assign</span>
+                            <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinance==1">Yes</span>
+                             <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinancee==0">No</span>
+          </td>
+                      <td style="padding: 5px 10px;">
+                 {{tractor?.financeDetails?.isFIDone||''}}
+          </td>
+           
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.financeAmount||0}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.bankDetails?.name||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.first_disbursal||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.first_disbursal_date||''}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.second_disbursal||'0'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.second_disbursal_date||'0'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.net_market||'0'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.financeDetails?.outstanding ||'0'}}</td>
+                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.sellingDate||''}}</td>
+            
         <!-- <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
         <td style="padding: 5px 10px;">{{cus?.lastDemand?.demand ||'-'}}</td>
         <td style="padding: 5px 10px;">{{cus?.lastDemand?.createdOn ||'-'}}</td>

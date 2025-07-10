@@ -328,6 +328,7 @@ export class RtoSoldProcessComponent  implements OnInit {
      { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
          { key: 'Noc Availaible ', value: 'isNoc', type: 'CONDITIONAL' },
      { key: 'Is Sold ', value: 'isSold', type: 'CONDITIONAL' },
+     { key: 'New RC Done ', value: 'isrtoDone',getFromObj:true,objName:'rtoDetailsIdDetails', type: 'CONDITIONAL' },
      { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
      { key: 'Hours', value: 'hours', type: 'INPUT' },
      { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
@@ -358,7 +359,14 @@ export class RtoSoldProcessComponent  implements OnInit {
      
    ];
      optionsUploadButtonArray: any = [
-   
+     {
+      functionName: 'rcUpdate',
+      optionsName: 'RC Update',
+      type: 'FUNCTION_CALL',
+   closePopUp:true,
+      funcName : 'rcUpdate',
+      icon: '././assets/images/identity-card.png',
+    },
     {
       functionName: 'goToUplodeSection',
       optionsName: 'Upload Documents',

@@ -30,7 +30,7 @@ import { CommonOptionsPlatformComponent } from './common-options-platform/common
 import { SingleImageShowComponent } from '../maintainance-management/single-image-show/single-image-show.component';
 import { ShowSalesDetailsComponent } from '../finance-department/show-sales-details/show-sales-details.component';
 import { FinanceDetailsComponent } from '../rto-management/rto-docs-details/finance-details/finance-details.component';
-
+import { RcUpdateComponent } from './rc-update/rc-update.component';
 
 @NgModule({
   imports: [
@@ -68,7 +68,8 @@ import { FinanceDetailsComponent } from '../rto-management/rto-docs-details/fina
     CommonOptionsPlatformComponent,
     SingleImageShowComponent,
     ShowSalesDetailsComponent,
-    FinanceDetailsComponent
+    FinanceDetailsComponent,
+    RcUpdateComponent
     
   ],
   schemas: [],

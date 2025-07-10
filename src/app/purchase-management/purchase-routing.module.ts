@@ -15,14 +15,14 @@ const routes: Routes = [
     children: [
 
       { path: 'new-findings', component: NewFindingsComponent},
-            { path: 'add-new-arrivals', component: AddNewArrivalsComponent},
+      { path: 'add-new-arrivals/:srcPage', component: AddNewArrivalsComponent},
       { path: 'user-management', component: UserManagementComponent},
       { path: 'cost-prediction', component: CostPredictionComponent},
       { path: 'store-Transaction', component: StorePaymentTransactionComponent},
           { path: 'new-arrivals', component: NewArrivalsManagementComponent},
     
     
-        { path: 'new-arrivals', component: NewArrivalsManagementComponent},
+     
           {
         path: 'edit-newarrivals/:id',
         component: AddNewArrivalsComponent,

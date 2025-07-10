@@ -249,10 +249,10 @@ console.log(`Image size: ${sizeInKB.toFixed(2)} KB`);
         resolve(reader.result);
      
         this.renderResult = reader.result;
-        if(this.imageSize<=150){
+        if(this.imageSize<=400){
      this.saveDataTo()
         }else{
-          this.share.presentToast("Image is larger than 200 kb")
+          this.share.presentToast("Image is larger than 400 kb")
         }
    
         console.log('reader.result', reader.result);

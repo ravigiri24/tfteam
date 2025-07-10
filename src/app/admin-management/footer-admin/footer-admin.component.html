@@ -4,11 +4,11 @@
           <ion-icon name="play-circle"></ion-icon>
           Listen Now
         </ion-tab-button> -->
-    <ion-tab-button (click)="goToPage('Dashboard')" tab="Customer">
+    <!-- <ion-tab-button (click)="goToPage('Dashboard')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Dashboard'" class="theme-color" name="bar-chart-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Dashboard'" class="theme-color" name="bar-chart"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Dashboard'}" >Dashboard</label>
-    </ion-tab-button>
+    </ion-tab-button> -->
         <ion-tab-button (click)="goToPage('Reports')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Reports'" class="theme-color" name="newspaper-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Reports'" class="theme-color" name="newspaper"></ion-icon>

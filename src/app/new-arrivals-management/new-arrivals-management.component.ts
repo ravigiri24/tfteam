@@ -77,7 +77,8 @@ export class NewArrivalsManagementComponent implements OnInit {
   userDetails: any;
   staffDetails: any;
   goToNewArival(data: any = null) {
-    this.route.navigate(['/purchase-management/add-new-arrivals']);
+    let rand=Math.random()
+    this.route.navigate(['/purchase-management/add-new-arrivals',rand]);
   }
   openEdit(tractor: any) {
     this.route.navigate(['/purchase-management/edit-newarrivals', tractor?.rowCode]);

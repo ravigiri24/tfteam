@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { RtoOptionsComponent } from './rto-management/rto-options/rto-options.component';
 import { NocUpdateComponent } from './rto-management/rto-noc/noc-update/noc-update.component';
 import { RtoDetailsFormComponent } from './rto-management/rto-details-form/rto-details-form.component';
@@ -9,12 +9,14 @@ import { Router } from '@angular/router';
 import { CommonOptionsPlatformComponent } from './shared-components/common-options-platform/common-options-platform.component';
 import { FinanceDetailsComponent } from './rto-management/rto-docs-details/finance-details/finance-details.component';
 import { ShowSalesDetailsComponent } from './finance-department/show-sales-details/show-sales-details.component';
+import { TractorSellsDetailsComponent } from './tractor-sells-details/tractor-sells-details.component';
+import { RcUpdateComponent } from './shared-components/rc-update/rc-update.component';
 @Injectable({
   providedIn: 'root'
 })
 export class CommonMethodService {
 
-  constructor(private modalCtrl:ModalController,private router:Router) { }
+  constructor(private modalCtrl:ModalController,private router:Router,private toastController:ToastController) { }
 
     async nocUpdate(tractor: any) {
         let isNoc;
@@ -64,7 +66,13 @@ export class CommonMethodService {
      else if(e?.button?.name == 'RTO Expense'){
      this.addRTOExpense(e?.tractor)
     }
-     
+    else   if (e?.button?.name == 'Sell Details') {
+    await  this.addSellDetails(e?.tractor);
+    } else if (e?.button?.name == 'Sale Options') {
+      obj.buttonArray=obj?.optionsUploadButtonArray
+     await this.commonOptionsPlatform(e?.tractor,obj);
+    }
+    
     
   }
  async functionCall(obj:any){
@@ -72,6 +80,9 @@ export class CommonMethodService {
     if (obj?.funcName == 'seeFinanceDetails') {
      await this.seeFinanceDetails(obj)
     }
+     else if(obj?.funcName == 'rcUpdate'){
+        await this.rcUpdate(obj);
+     }
      if (obj?.funcName == 'seeSellDetails') {
      await this.seeSellDetails(obj)
     }
@@ -87,6 +98,47 @@ export class CommonMethodService {
       const { data, role } = await modal.onWillDismiss();
       console.log('role', role);
     }
+     async rcUpdate(obj:any) {
+      if(obj?.tractor?.rtoDetailsIdDetails){
+          let isrtoDone;
+        if (obj?.tractor?.rtoDetailsIdDetails?.isrtoDone == null) {
+          isrtoDone = null;
+        } else if (obj?.tractor?.rtoDetailsIdDetails?.isrtoDone == 1) {
+          isrtoDone = true;
+        } else if (obj?.tractor?.rtoDetailsIdDetails?.isrtoDone == 0) {
+          isrtoDone = false;
+        }
+      const modal = await this.modalCtrl.create({
+        breakpoints: [0, 0.4, 1],
+          initialBreakpoint: 0.4,
+          cssClass: 'custom-modal',
+        component: RcUpdateComponent,
+        componentProps: {
+          tractor: obj?.tractor,
+          isrtoDone:isrtoDone
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+          if (data) {
+       this.reloadMethod=true
+        }
+      }else{
+       this.presentToast("Please Fill RTO Details First")
+   
+      }
+    
+    }
+      async presentToast(msg: any) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 1500,
+      position: 'bottom',
+    });
+
+    await toast.present();
+  }
+
     async seeFinanceDetails(obj:any) {
       const modal = await this.modalCtrl.create({
         component: FinanceDetailsComponent,
@@ -165,7 +217,43 @@ export class CommonMethodService {
         await modal.present();
         const { data, role } = await modal.onWillDismiss();
         if (data) {
+          this.modalCtrl.dismiss(true)
           //this.callListApi();
         }
       }
+        async addSellDetails(tractor: any) {
+          const modal = await this.modalCtrl.create({
+            component: TractorSellsDetailsComponent,
+            componentProps: {
+              tractorDetails: tractor,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+       if (data) {
+          this.reloadMethod=true
+         }
+          //if (role === 'confirm') {
+         
+          //}
+        }
+     
+          async commonOptionsPlatform(tractor: any,obj:any) {
+        
+         const modal = await this.modalCtrl.create({
+           component: CommonOptionsPlatformComponent,
+        
+           cssClass: 'custom-modal',
+           componentProps: {
+             tractor: tractor,
+            optionsArray:obj?.buttonArray
+           },
+         });
+         await modal.present();
+         const { data, role } = await modal.onWillDismiss();
+         if (data) {
+          this.reloadMethod=true
+         }
+       }
 }

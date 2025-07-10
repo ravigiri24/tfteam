@@ -10,7 +10,7 @@ export class FooterAdminComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='Dashboard'
+  selectedTab:any='Reports'
   goToPage(tab:any){
     
     

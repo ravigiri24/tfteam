@@ -23,7 +23,7 @@
              
                </ng-container>
                       <ng-container *ngIf="keyValue?.type=='CONDITIONAL'">
-             
+            <ng-container *ngIf="!keyValue?.getFromObj">
                 <ion-col>{{keyValue?.key}} </ion-col>
                 <ion-col *ngIf="tractor[keyValue?.value]==1" class="amount_col">
                <span style="color: green;">Yes</span>  </ion-col>
@@ -32,7 +32,22 @@
                     <ion-col *ngIf="tractor[keyValue?.value]==null" class="amount_col">
                <span  style="color: red;">Not Availaible</span>  </ion-col>
                </ng-container>
-              
+                   <ng-container *ngIf="keyValue?.getFromObj">
+                <ion-col>{{keyValue?.key}} </ion-col>
+                 <ng-container *ngIf="tractor[keyValue?.objName]">
+                <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==1" class="amount_col">
+               <span style="color: green;">Yes</span>  </ion-col>
+                 <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==0" class="amount_col">
+               <span  style="color: red;">No</span>   </ion-col>
+                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==null" class="amount_col">
+               <span  style="color: red;">Not Availaible</span>  </ion-col>
+               </ng-container>
+                 <ng-container *ngIf="!tractor[keyValue?.objName]">
+                    <ion-col  class="amount_col">
+               <span  style="color: red;">Not Availaible</span>  </ion-col>
+                 </ng-container>
+               </ng-container>
+              </ng-container>
                
               </ion-row>
          

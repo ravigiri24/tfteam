@@ -70,7 +70,12 @@ export class AddNewArrivalsComponent  implements OnInit {
   staffDetails:any
   rowCode:any
   isForm=true
+  refreshDisplay=true
   ionViewWillEnter() {
+this.refreshDisplay=false
+setTimeout(() => {
+  this.refreshDisplay=true
+}, 0);
     this.createYearArray()
     this.isForm=true
     this.newTractorDetails=null
@@ -135,9 +140,7 @@ export class AddNewArrivalsComponent  implements OnInit {
     }
       }
 
-  backToNewArrivals(){
-    this.router.navigate(['purchase-management/new-arrivals'])
-  }
+
   data:any
   selectedModel:any
   modelForm:FormGroup
@@ -850,6 +853,9 @@ this.share.presentToast("Please Select Model")
   buttonRouted='Skip'
   goToNewArrivals(){
        this.router.navigate(['/purchase-management/new-arrivals']);
+  }
+    backToNewArrivals(){
+    this.router.navigate(['/purchase-management/new-arrivals'])
   }
   async goToUplodeSection(){
     this.buttonRouted='Close'

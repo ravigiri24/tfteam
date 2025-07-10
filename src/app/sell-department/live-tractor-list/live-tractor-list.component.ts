@@ -10,6 +10,7 @@ import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
 import { SellOptionsComponent } from '../sell-options/sell-options.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-live-tractor-list',
   templateUrl: './live-tractor-list.component.html',
@@ -20,7 +21,8 @@ export class LiveTractorListComponent implements OnInit {
     private api: ApiService,
     private share: ShareService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private commonMethod: CommonMethodService
   ) {}
   alltractorList: any = [];
   ngOnInit() {}
@@ -65,6 +67,69 @@ export class LiveTractorListComponent implements OnInit {
   getListByBrand() {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
+  }
+  optionsUploadButtonArray: any = [
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Sale Dead(Pic)',
+      showHeading: 'Upload Sale Dead(Pic)',
+      param: 'SALE_DEAD',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/envelope.png',
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Adhar Card(Pic)',
+      showHeading: 'Upload Adhar Card(Pic)',
+      param: 'ADHAR_CARD',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/identity-card.png',
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Pan Card(Pic)',
+      showHeading: 'Upload Pan Card(Pic)',
+      param: 'PAN_CARD',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/pass.png',
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Bahi Khata(Pic)',
+      showHeading: 'Upload Bahi Khata(Pic)',
+      param: 'BAHI_KHATA',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/identification-card.png',
+    },
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Form 34',
+      showHeading: 'Upload Form 34',
+      param: 'FORM_34',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/online-survey.png',
+    },
+  ];
+  async actionEventCall(e: any) {
+    console.log('actionEventCall', e);
+    await this.commonMethod.actionEventCall(e, {
+      optionsUploadButtonArray: this.optionsUploadButtonArray,
+    });
+
+    if (this.commonMethod.reloadMethod) {
+      this.callListApi();
+    }
+ 
   }
   async salesOption(tractor: any) {
     const modal = await this.modalCtrl.create({
@@ -155,7 +220,7 @@ export class LiveTractorListComponent implements OnInit {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
-         isDraft:true
+      isDraft: true,
     };
     if (loader) {
       this.share.showLoading('Loading...');
@@ -305,7 +370,14 @@ export class LiveTractorListComponent implements OnInit {
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
-      componentProps: {},
+      componentProps: {
+            
+     buttonArray: this.buttonArray,
+       keyList:this.keyList,
+       searchFilter:this.search,
+       searchKey:'registractionNo',
+        obj: { optionsUploadButtonArray: this.optionsUploadButtonArray },
+      },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -318,10 +390,9 @@ export class LiveTractorListComponent implements OnInit {
     { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
     { key: 'Is Sold ', value: 'isSold', type: 'CONDITIONAL' },
     { key: 'Noc Availaible ', value: 'isNoc', type: 'CONDITIONAL' },
-        { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
-        { key: 'Hours', value: 'hours', type: 'INPUT' },
-        { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
- 
+    { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
+    { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
   buttonArray: any = [
     {
@@ -336,12 +407,12 @@ export class LiveTractorListComponent implements OnInit {
     },
   ];
 
-  actionEventCall(e: any) {
-    console.log('actionEventCall', e);
-    if (e?.button?.name == 'Sell Details') {
-      this.addSellDetails(e?.tractor);
-    } else if (e?.button?.name == 'Sale Options') {
-      this.salesOption(e?.tractor);
-    }
-  }
+  // actionEventCall(e: any) {
+  //   console.log('actionEventCall', e);
+  //   if (e?.button?.name == 'Sell Details') {
+  //     this.addSellDetails(e?.tractor);
+  //   } else if (e?.button?.name == 'Sale Options') {
+  //     this.salesOption(e?.tractor);
+  //   }
+  // }
 }
