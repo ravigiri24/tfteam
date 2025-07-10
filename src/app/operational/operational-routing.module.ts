@@ -18,7 +18,7 @@ const routes: Routes = [
     path: "", component: OperationalComponent,
     children: [
 
-      { path: 'new-arrivals', component: NewArrivalsManagementComponent},
+      // { path: 'new-arrivals', component: NewArrivalsManagementComponent},
       { path: 'user-management', component: UserManagementComponent},
       { path: 'add-new-arrivals', component: AddNewArrivalsComponent},
       { path: 'transport-management', component: TransportManagementComponent},

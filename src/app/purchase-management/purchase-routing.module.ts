@@ -19,7 +19,7 @@ const routes: Routes = [
       { path: 'user-management', component: UserManagementComponent},
       { path: 'cost-prediction', component: CostPredictionComponent},
       { path: 'store-Transaction', component: StorePaymentTransactionComponent},
-          { path: 'new-arrivals', component: NewArrivalsManagementComponent},
+      { path: 'new-arrivals', component: NewArrivalsManagementComponent},
     
     
      
