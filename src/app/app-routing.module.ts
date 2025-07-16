@@ -70,6 +70,10 @@ const routes: Routes = [
     path: 'rto-department',
     loadChildren: () => import('./rto-management/rtomanagement.module').then(m => m.RtoModule)
   },
+    {
+    path: 'inventory-receive-department',
+    loadChildren: () => import('./inventory-receive-department/inventory-receive.module').then(m => m.InventoryReceiveModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},

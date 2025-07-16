@@ -1,8 +1,10 @@
   <ion-searchbar [(ngModel)]="search[searchKey]" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
   <ion-list class="list_row top-position-list" *ngIf="list?.length">
+
     <ion-item *ngFor="let tractor of list|filterBy: search ;let in=index">
-   
+              <!-- <ion-card>
+        <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  /> -->
       <ion-label>
         <h2 class="theme-color">{{tractor?.name}}</h2>
       
@@ -62,7 +64,7 @@
                 </ion-card>
                 </ion-grid>
       </ion-label>
-  
+  <!-- </ion-card> -->
     </ion-item>
 
   </ion-list>

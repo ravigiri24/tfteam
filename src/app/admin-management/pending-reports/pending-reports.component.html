@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Work Sheet</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form *ngIf="form" [formGroup]="form">
+  <div class="row top-position-body">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+  
+</form>
+  <div class="row" >
+    <ion-button  (click)="genrateReport()" class="global_submit_button" >
+    
+      Generate</ion-button>
+    </div>
+  <hr/>
+  <div class="margin-top">
+  <ion-button *ngIf="tractorArray?.length && showData" (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
+  </div>
+  <div class="scroll"  *ngIf="tractorArray?.length && showData" id="work-sheet-report" class="top-margin scroll" style="width: 100%;">
+  <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+
+
+  <table cellpadding="5" cellspacing="5" style="width: 100%;">
+    <tbody>
+    
+      <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total Tractor</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">TF Code Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tfAvailaible}}</td>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">TF Code Not Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tfNotAvailaible}}</td>
+          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Purhcase Price Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{purchasePriceAvaialible}}</td>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Purhcase Price Not Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{purchasePriceNotAvaialible}}</td>
+                   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Sold</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{salesDetailsAvailaivle}}</td>
+                       <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Not Sold</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{salesDetailsNotAvailaivle}}</td>
+      </tr>
+       <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.startDate | date}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.endDate | date}}</td>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">New Arrivals</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{newArrivals}}</td>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">At Transport</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{logistic}}</td>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Buffer</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{buffer}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Live</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{live}}</td>
+                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Finance Details Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{financed}}</td>
+                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Finance Details Not Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{notFinanced}}</td>
+                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Finance Details Not Required</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{financedNotRequired}}</td>
+      </tr>
+         <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Location Alloted</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{locationAlloted}}</td>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Location Not Alloted</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{locationNotAlloted}}</td>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Logistic Cost Entered</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{transportCostingEntered}}</td>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Logistic Cost Not Entered</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{transportCostingNotEntered}}</td>
+                       <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Mapped With Repair</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{mappedWIthRepair}}</td>
+                       <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Not Mapped With Repair</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{notMappedWithRepair}}</td>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">RTO Details Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{rtodetailsAvail}}</td>
+                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">RTO Details Not Availaible</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{rtoDetailsNotAvail}}</td>
+
+
+        
+      </tr>
+         <!-- <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr> -->
+
+   
+    </tbody>
+  </table>
+  <h2 style="text-align: center;margin: 10px 0px;" >Work Sheet</h2>
+  <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <tbody>
+      <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">Status</th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">Inventory Code</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">INVENTORY LOCATION</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Tractor OEM</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Tractor Model</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Purchase Price</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Logistic Costing</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Mapped With Repair</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Sold Status</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Finance Details</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO Details</th>
+        
+
+      </tr>
+      <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
+        style="border: 1px solid #e1e1e1;text-align: left" >
+        <td style="text-align: center;">{{tracIndex+1}}</td>
+        <td style="text-align: center;">{{tractor?.tractor_position}}</td>
+         <td style="text-align: center;">{{tractor?.registractionNo ? tractor?.registractionNo : 'NOT_AVAILAIBLE'}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.franchiseDettails?.name ? tractor?.franchiseDettails?.name : 'NOT_AVAILAIBLE' }}</td>
+        <td style="padding: 5px 10px;">{{tractor?.brandName}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.modalName}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchasePrice>0 ? 'YES' : 'NO'}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.transportCosting?.length>0 ? 'Availaible' : 'NOT_AVAILAIBLE'}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.mapStatus}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.sellingDetailedId>0 ? 'SOLD' : 'NOT_SOLD'}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.financeStatus}}</td>
+        <td style="padding: 5px 10px;">{{tractor?.rtoStatus}}</td>
+
+     
+      </tr>
+      
+    
+    </tbody>
+  </table>
+
+
+
+
+</div>
+  </ion-content>

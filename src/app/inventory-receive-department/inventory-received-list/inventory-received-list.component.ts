@@ -1,33 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { ShareService } from '../share.service';
+import { ApiService } from 'src/app/api.service';
+import { ShareService } from 'src/app/share.service';
 
 import { ModalController } from '@ionic/angular';
-import { TractorDashboardComponent } from '../shared-components/tractor-dashboard/tractor-dashboard.component';
+import { TractorDashboardComponent } from 'src/app/shared-components/tractor-dashboard/tractor-dashboard.component';
 import { Router } from '@angular/router';
-import { SyncTractorWithMaintaninanceComponent } from '../shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
-import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
-import { SelectListTypeComponent } from '../shared-components/select-list-type/select-list-type.component';
+import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/tractor-sells-details.component';
+import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
+import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
+import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
+import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
+
+import { ShowSalesDetailsComponent } from 'src/app/finance-department/show-sales-details/show-sales-details.component';
+
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
-  selector: 'app-all-tractor-list',
-  templateUrl: './all-tractor-list.component.html',
-  styleUrls: ['./all-tractor-list.component.scss'],
+  selector: 'app-inventory-received-list',
+  templateUrl: './inventory-received-list.component.html',
+  styleUrls: ['./inventory-received-list.component.scss'],
 })
-export class AllTractorListComponent implements OnInit {
+export class InventoryReceivedListComponent  implements OnInit {
+
   constructor(
     private api: ApiService,
     private share: ShareService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private commonMethod:CommonMethodService,
+  private route:Router
   ) {}
   alltractorList: any = [];
+  optionsArray = [
+    { displayName: 'All', value: 'ALL' },
+    { displayName: 'Not Assigned', value: 'NOT_ASSIGNED' },
+    { displayName: 'Yes', value: 'YES' },
+    { displayName: 'No', value: 'NO' },
+  ];
   ngOnInit() {}
   ionViewWillEnter() {
     this.alltractorList = [];
     this.getBrandList();
     this.getWareHouseList();
-    this.filterBy="ALL"
-    this.listBy="BRAND_WISE"
+    this.getAllTractorList()
+    this.filterBy = 'ALL';
+    this.listBy = 'ALL';
     // this.getTractorList();
   }
   filterBy: any = 'ALL';
@@ -39,7 +55,10 @@ export class AllTractorListComponent implements OnInit {
       cssClass: 'custom-modal',
       componentProps: {
         filterBy: this.filterBy,
+        filterByTitle: 'Is NOC',
         listBy: this.listBy,
+        showFilter: true,
+        optionsArray: this.optionsArray,
       },
     });
     await modal.present();
@@ -47,14 +66,16 @@ export class AllTractorListComponent implements OnInit {
     if (data && data?.isFilterChange) {
       console.log('data', data);
       this.filterBy = data?.filterBy;
-      this.sortByFilter()
+      this.sortByFilter();
     }
     if (data && data?.isListChange) {
       console.log('data', data);
       this.listBy = data?.listBy;
-      this.callListApi()
+      this.callListApi();
     }
   }
+
+
   listBy = 'BRAND_WISE';
   refreshList() {
     this.getTractorList();
@@ -63,6 +84,18 @@ export class AllTractorListComponent implements OnInit {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
   }
+  async salesOption(tractor: any) {
+    // const modal = await this.modalCtrl.create({
+    //   component: FinanceOptionsComponent,
+    //   componentProps: {
+    //     tractor: tractor,
+    //   },
+    // });
+    // await modal.present();
+    // const { data, role } = await modal.onWillDismiss();
+    // console.log('role', role);
+  }
+
   search = {
     registractionNo: null,
   };
@@ -73,7 +106,7 @@ export class AllTractorListComponent implements OnInit {
 
     this.staffDetails = JSON.parse(staffDetails);
     //if(loader){
-    this.share.showLoading('Loading...');
+   // this.share.showLoading('Loading...');
     // }
     let obj: any = this.share.getListObj('brand', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
@@ -88,8 +121,8 @@ export class AllTractorListComponent implements OnInit {
           if (!loader) {
             this.selectedBrand = this.brandList[0]?.id;
 
-            this.getTractorList();
-            //   this.share.spinner?.dismiss();
+            //this.getTractorList();
+   
           }
         },
         (error: any) => {}
@@ -109,30 +142,31 @@ export class AllTractorListComponent implements OnInit {
 
     const { data, role } = await modal.onWillDismiss();
   }
+   
   allTractorsSrcList: any = [];
   getTractorList(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
 
-    if(!this.selectedBrand){
-      this.selectedBrand= this.brandList[0]?.id
+    if (!this.selectedBrand) {
+      this.selectedBrand = this.brandList[0]?.id;
     }
     let obj = {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
-      isDraft:false
+         isDraft:true
     };
-if(loader){
+    if (loader) {
       this.share.showLoading('Loading...');
-   }
-  
-    this.api.postapi('getTractorListBranchWiseisLiveNotDraft', obj).subscribe(
+    }
+
+    this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-         this.sortByFilter()
+        this.sortByFilter();
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },
@@ -146,17 +180,16 @@ if(loader){
     let obj = {
       operate: this.staffDetails?.staffCode,
       isLive: true,
- 
     };
     //if (loader) {
-      this.share.showLoading('Loading...');
-   // }
-    this.api.postapi('getTractorListLiveNotDraft', obj).subscribe(
+    this.share.showLoading('Loading...');
+    // }
+    this.api.postapi('getTractorListAll_Inventory_Store', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        this.sortByFilter()
+        this.sortByFilter();
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },
@@ -170,7 +203,7 @@ if(loader){
 
     this.staffDetails = JSON.parse(staffDetails);
     //if(loader){
-   // this.share.showLoading('Loading...');
+    // this.share.showLoading('Loading...');
     // }
     let obj: any = this.share.getListObj('warehouselocation', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
@@ -185,7 +218,7 @@ if(loader){
           if (!loader) {
             this.selectedStore = this.warehouseList[0]?.id;
 
-          //  this.getAllTractorListStorewise();
+            //  this.getAllTractorListStorewise();
             //   this.share.spinner?.dismiss();
           }
         },
@@ -194,7 +227,7 @@ if(loader){
     }, 0);
   }
   callListApi() {
-    this.filterBy='ALL'
+    this.filterBy = 'ALL';
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
@@ -202,57 +235,48 @@ if(loader){
     } else if (this.listBy == 'STORE_WISE') {
       this.getAllTractorListStorewise();
     }
-
   }
   sortByFilter() {
+    let date =new Date('04/01/2022');
+    console.log('New', new Date('06/01/2025'));
     if (this.filterBy == 'ALL') {
-         if(this.allTractorsSrcList?.length){
-      this.alltractorList =JSON.parse( JSON.stringify(this.allTractorsSrcList))}
-      else{
-        this.alltractorList =[]
-      }
-    }
-    if (this.filterBy == 'MAPPED') {
       this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.repairMappedData?.length > 0
+        (f: any) => new Date(f?.createdOn) >= date
       );
-    }
-    if (this.filterBy == 'NOT_MAPPED') {
+    } else if (this.filterBy == 'NOT_ASSIGNED') {
       this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.repairMappedData?.length == 0
+        (f: any) => new Date(f?.createdOn) >= date && f?.isNoc == null
       );
-    }
-    if (this.filterBy == 'SOLD') {
+    } else if (this.filterBy == 'YES') {
       this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.isSold == 1
+        (f: any) => new Date(f?.createdOn) >= date && f?.isNoc == 1
       );
-    }
-    if (this.filterBy == 'NOT_SOLD') {
+    } else if (this.filterBy == 'NO') {
       this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.isSold == 0
+        (f: any) => new Date(f?.createdOn) >= date && f?.isNoc == 0
       );
     }
   }
   getAllTractorListStorewise(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
-    if(!this.selectedStore){
-      this.selectedStore= this.warehouseList[0]?.id
+    if (!this.selectedStore) {
+      this.selectedStore = this.warehouseList[0]?.id;
     }
     let obj = {
       operate: this.staffDetails?.staffCode,
       store_id: this.selectedStore,
     };
     //if (loader) {
-      this.share.showLoading('Loading...');
+    this.share.showLoading('Loading...');
     //}
-    this.api.postapi('getTractorsListStoreWiseNotDraft', obj).subscribe(
+    this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        
-      this.sortByFilter()
+
+        this.sortByFilter();
         this.share.spinner.dismiss();
         this.backupList = res.data;
       },
@@ -296,7 +320,13 @@ if(loader){
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
-      componentProps: {},
+      componentProps: {
+       buttonArray: this.buttonArray,
+       keyList:this.keyList,
+       searchFilter:this.search,
+       searchKey:'registractionNo',
+     obj:{optionsUploadButtonArray:this.optionsUploadButtonArray}
+      },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -305,4 +335,100 @@ if(loader){
     if (role === 'confirm') {
     }
   }
+  keyList: any = [
+
+    { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
+    { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
+  ];
+    optionsUploadButtonArray: any = [
+ 
+    {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Before Service',
+      showHeading: 'Upload Before Service',
+      param: 'BEFORE_SERVICE',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/image-upload.png',
+    },
+       {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Engine Number Image',
+      showHeading: 'Upload Engine Number Image',
+      param: 'ENGINE_NUMBER',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/search-engine.png',
+    },
+          {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Chasis Number Image',
+      showHeading: 'Upload Chasis Number Image',
+      param: 'CHASIS_NUMBER',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/case.png',
+    },
+    {
+      functionName: 'deleteTractor',
+      optionsName: 'Delete',
+      type: 'FUNCTION_CALL',
+      closeOptionAndRefresh: true,
+      funcName : 'deleteTractor',
+      icon: '././assets/images/deleted.png',
+    },
+   
+  ];
+  buttonArray: any = [
+    {
+      name: 'new-arrival-edit',
+      action: 'newArrivalEdit',
+      image: './././assets/images/edit.png',
+      goToPage:'/inventory-receive-department/edit-newarrivals',
+      srcPage:'/inventory-receive-department/inven-received-list',
+    },
+      {
+      name: 'New Arrival Settings',
+      action: 'newArrivalSettings',
+      image: './././assets/images/settings.png',
+    },
+  ];
+   goToNewArival(data: any = null) {
+   let rand=Math.random()
+  
+     
+    this.route.navigate(['/inventory-receive-department/add-new-arrivals',rand,'/inventory-receive-department/inven-received-list']);
+  }
+
+ async actionEventCall(e: any) {
+  await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:this.optionsUploadButtonArray})
+    
+  if(this.commonMethod.reloadMethod){
+    this.callListApi()
+  }
+    console.log('actionEventCall', e);
+    // if (e?.button?.name == 'IS Noc') {
+    //   this.nocUpdate(e?.tractor);
+    // }
+    // if (e?.button?.name == 'View Details') {
+    //   this.viewDetails(e?.tractor);
+    // }
+    
+  }
+  async salesDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ShowSalesDetailsComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+  }
+
 }

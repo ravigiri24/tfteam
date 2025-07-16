@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
 
       { path: 'new-findings', component: NewFindingsComponent},
-      { path: 'add-new-arrivals/:srcPage', component: AddNewArrivalsComponent},
+      { path: 'add-new-arrivals/:random_number/:srcPage', component: AddNewArrivalsComponent},
       { path: 'user-management', component: UserManagementComponent},
       { path: 'cost-prediction', component: CostPredictionComponent},
       { path: 'store-Transaction', component: StorePaymentTransactionComponent},
@@ -24,7 +24,7 @@ const routes: Routes = [
     
      
           {
-        path: 'edit-newarrivals/:id',
+        path: 'edit-newarrivals/:id/:srcPage',
         component: AddNewArrivalsComponent,
       },
       

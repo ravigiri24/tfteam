@@ -71,11 +71,17 @@ export class AddNewArrivalsComponent  implements OnInit {
   rowCode:any
   isForm=true
   refreshDisplay=true
+  srcPage:any
+  isStockEntry=false
   ionViewWillEnter() {
-this.refreshDisplay=false
+    this.isStockEntry=false
+    this.tractor_status='NEW_ARRIVAL'
+    this.isInventoryStock=false
+    this.refreshDisplay=false
 setTimeout(() => {
   this.refreshDisplay=true
 }, 0);
+
     this.createYearArray()
     this.isForm=true
     this.newTractorDetails=null
@@ -84,6 +90,10 @@ setTimeout(() => {
     this.staffDetails = JSON.parse(staffDetails);
     this.activatedRoute.params.subscribe((params:any) => {
       this.rowCode = params?.id;
+      this.srcPage = params?.srcPage;
+      if(this.srcPage=='/inventory-receive-department/inven-received-list'){
+        this.isStockEntry=true
+      }
     });
     if (this.rowCode != undefined) {
       this.getDataByRowCode(this.rowCode);
@@ -217,9 +227,14 @@ setTimeout(() => {
   this.selectedTab='BASIC_INFO'
     
   }
+  tractor_status:any='NEW_ARRIVAL'
+  isInventoryStock=false
   initialize() {
     // console.log("this.data",this.data.purchasedetail);
-     
+     if(this.isStockEntry){
+this.tractor_status='IN_ARRIVAL_STOCK'
+this.isInventoryStock=true
+     }
      this.modelForm = this.fb.group({
        brandID: new FormControl(this.data?.brandID || null, [
          Validators.required,
@@ -229,7 +244,7 @@ setTimeout(() => {
        brandName: new FormControl(this.data?.brandName || null, [
          Validators.required,
        ]),
-       tractor_status: new FormControl("NEW_ARRIVAL", [
+       tractor_status: new FormControl(this.tractor_status||this.data?.tractor_status , [
          Validators.required,
        ]),
        modalID: new FormControl(this.data?.modalID || null, [
@@ -255,6 +270,7 @@ setTimeout(() => {
        isNewArrival: new FormControl(true, [Validators.required]),
        isLive: new FormControl(false, [Validators.required]),
        hindiTranslation: new FormControl(this.data?.hindiTranslation || null),
+       isInventoryStock: new FormControl(this.data?.isInventoryStock ||this.isInventoryStock),
        
        //  isActive: new FormControl(this.data?.isActive || false, []),
        city: new FormControl( null, ),
@@ -795,7 +811,7 @@ this.share.presentToast("Please Select Model")
           (res: any) => {
             this.share.spinner.dismiss()
             this.share.presentToast("Updated Successfully...")
-            this.router.navigate(['/purchase-management/new-arrivals']);
+            this.router.navigate([this.srcPage]);
           },
           (error:any) => {
           //  this.loader = false;
@@ -852,10 +868,10 @@ this.share.presentToast("Please Select Model")
   }
   buttonRouted='Skip'
   goToNewArrivals(){
-       this.router.navigate(['/purchase-management/new-arrivals']);
+       this.router.navigate([this.srcPage]);
   }
     backToNewArrivals(){
-    this.router.navigate(['/purchase-management/new-arrivals'])
+    this.router.navigate([this.srcPage])
   }
   async goToUplodeSection(){
     this.buttonRouted='Close'

@@ -1,0 +1,19 @@
+<ion-tabs class="footer_tabs">
+  <ion-tab-bar class="bottom_footer_row" slot="bottom">
+    <!-- <ion-tab-button tab="home">
+          <ion-icon name="play-circle"></ion-icon>
+          Listen Now
+        </ion-tab-button> -->
+    <ion-tab-button (click)="goToPage('Received Inventory')" tab="Customer">
+      <ion-icon *ngIf="selectedTab!=='Received Inventory'" class="theme-color" name="file-tray-stacked-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='Received Inventory'" class="theme-color" name="file-tray-stacked"></ion-icon>
+ Inventory
+    </ion-tab-button>
+
+    <ion-tab-button (click)="goToPage('User')" tab="User">
+      <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
+      <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
+      User
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

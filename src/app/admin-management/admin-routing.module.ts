@@ -8,6 +8,7 @@ import { TractorCostingDashboardComponent } from '../shared-components/tractor-c
 import { ReportsTractorComponent } from './reports-tractor/reports-tractor.component';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
+import { PendingReportsComponent } from './pending-reports/pending-reports.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -18,6 +19,7 @@ const routes: Routes = [
          { path: 'dashboard-overview', component: DashboardOverviewComponent},
        
          { path: 'master-sheet/:srcPage', component: MasterSheetsComponent},
+         { path: 'work-sheet/:srcPage', component: PendingReportsComponent},
          { path: 'reports-tractor', component: ReportsTractorComponent},
          { path: 'user-management', component: UserManagementComponent},
          { path: 'tractor-costing', component: TractorCostingListComponent},

@@ -15,7 +15,8 @@ import { CommonMethodService } from 'src/app/common-method.service';
 export class CommonOptionsPlatformComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
-    private commonService: CommonMethodService
+    private commonService: CommonMethodService,
+    private share:ShareService
   ) {}
   tractor: any;
   ngOnInit() {}
@@ -48,7 +49,17 @@ export class CommonOptionsPlatformComponent implements OnInit {
        
           this.commonService.reloadMethod=true
         }
-      }, 0);
+     
+      },0);
+         if(option?.closeOptionAndRefresh && this.commonService.reloadMethod==true){
+            
+              this.share.showLoading("Refreshing Data")
+           setTimeout(() => {
+                this.share.spinner.dismiss()
+                  this.modalCtrl.dismiss(true)
+              }, 500);
+            
+        }
     }
   }
   async goToUplodeSectionDynamic(option: any) {

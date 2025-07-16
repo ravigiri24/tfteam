@@ -31,7 +31,8 @@ import { SingleImageShowComponent } from '../maintainance-management/single-imag
 import { ShowSalesDetailsComponent } from '../finance-department/show-sales-details/show-sales-details.component';
 import { FinanceDetailsComponent } from '../rto-management/rto-docs-details/finance-details/finance-details.component';
 import { RcUpdateComponent } from './rc-update/rc-update.component';
-
+import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
+import { DeleteTractorComponent } from './delete-tractor/delete-tractor.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -69,7 +70,9 @@ import { RcUpdateComponent } from './rc-update/rc-update.component';
     SingleImageShowComponent,
     ShowSalesDetailsComponent,
     FinanceDetailsComponent,
-    RcUpdateComponent
+    RcUpdateComponent,
+    NewArrivalsManagementComponent,
+    DeleteTractorComponent
     
   ],
   schemas: [],

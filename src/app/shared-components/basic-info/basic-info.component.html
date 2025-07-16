@@ -42,6 +42,10 @@
         formControlName="engineNumber"></ion-input>
     </div>
   </div>
+    <div *ngIf="isStockEntry" class="page_submit_btn">
+    <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
+    <ion-button *ngIf="data" (click)="saveForm()" class="global_submit_button" expand="block">Update</ion-button>
+  </div>
   </div>
 </form>
 

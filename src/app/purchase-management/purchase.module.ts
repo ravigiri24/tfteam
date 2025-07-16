@@ -20,7 +20,7 @@ import { AddTransactionComponent } from './add-transaction/add-transaction.compo
 import { AddDealerPriceComponent } from './add-dealer-price/add-dealer-price.component';
 import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
 import { AddNewArrivalsComponent } from 'src/app/new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
-import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
+
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { BasicInfoComponent } from '../shared-components/basic-info/basic-info.component';
 import { PurchaseDetailsComponent } from '../shared-components/purchase-details/purchase-details.component';
@@ -42,7 +42,7 @@ PurchaseDetailsComponent,
     AddDealerPriceComponent,
     ViewTransactionDetailsComponent,
     AddNewArrivalsComponent,
-    NewArrivalsManagementComponent,
+  
     SelectBrandComponent,
     BasicInfoComponent,
     UploadScreenShotComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, EventEmitter,Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,9 @@ import { FormGroup } from '@angular/forms';
 export class BasicInfoComponent  implements OnInit {
 @Input() form:FormGroup
 @Input() yearArray:any=[]
+@Input() data:any
+@Input() isStockEntry:any=false
+@Output() saveFormEvent=new EventEmitter()
   constructor() { }
 
   ngOnInit() {
@@ -17,6 +20,8 @@ export class BasicInfoComponent  implements OnInit {
     
   //  this.createYearArray()
   }
-
+  saveForm(){
+    this.saveFormEvent.emit()
+  }
 
 }

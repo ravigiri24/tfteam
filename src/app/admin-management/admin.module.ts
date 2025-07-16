@@ -12,6 +12,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { ReportsTractorComponent } from './reports-tractor/reports-tractor.component';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
+import { PendingReportsComponent } from './pending-reports/pending-reports.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -19,7 +20,8 @@ import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
     AdminManagementComponent,
     ReportsTractorComponent,
     DashboardOverviewComponent,
-    MasterSheetsComponent
+    MasterSheetsComponent,
+    PendingReportsComponent
   ],
   imports: [
    

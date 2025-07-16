@@ -85,6 +85,9 @@ export class MasterSheetsComponent implements OnInit {
     if (this.form) {
       this.form.reset();
     }
+    this.allDetails=null
+    this.tractorArray=[]
+    this.showData=false
     this.getLogisticExpense();
     this.activatedRoute.params.subscribe((params: any) => {
       this.srcPage = params?.srcPage;

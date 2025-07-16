@@ -123,6 +123,10 @@ this.showFooter=e
                    else if(userde?.staff_role=='RTO_DEPARTMENT'){
               this.router.navigate(['/rto-department/rto-noc'])
             }
+                else if(userde?.staff_role=='INVENTORY_RECEIVED'){
+              this.router.navigate(['/inventory-receive-department/inven-received-list'])
+            }
+            
             
         }else{
           if(userde?.currentRole=='DIGITAL'){
@@ -161,6 +165,9 @@ this.showFooter=e
             }
                 else if(userde?.currentRole=='RTO_DEPARTMENT'){
               this.router.navigate(['/rto-department/rto-noc'])
+            }
+                  else if(userde?.currentRole=='INVENTORY_RECEIVED'){
+              this.router.navigate(['/inventory-receive-department/inven-received-list'])
             }
             
 

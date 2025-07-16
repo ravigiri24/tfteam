@@ -27,7 +27,7 @@
         <span class="tabs">Basic
           Info</span>
       </ion-tab-button>
-      <ion-tab-button (click)="goToPage('PURCHASE_DETAILES')"
+      <ion-tab-button *ngIf="!isStockEntry" (click)="goToPage('PURCHASE_DETAILES')"
         [ngClass]="{'selected_tab':selectedTab==='PURCHASE_DETAILES'}" tab="PURCHASE_DETAILES">
         <span class="tabs">Purchase Details</span>
       </ion-tab-button>
@@ -43,11 +43,11 @@
 <!--       
       <ion-content class="ion-padding"> -->
  
-        <app-basic-info *ngIf="modelForm" [yearArray]="yearArray" [form]="modelForm"></app-basic-info>
+        <app-basic-info *ngIf="modelForm"  [data]="data" (saveFormEvent)="onSave()" [isStockEntry]="isStockEntry" [yearArray]="yearArray" [form]="modelForm"></app-basic-info>
  
       <!-- </ion-content> -->
     </ng-container>
-    <ng-container class="hieght-body" *ngIf="selectedTab==='PURCHASE_DETAILES'">
+    <ng-container  class="hieght-body" *ngIf="selectedTab==='PURCHASE_DETAILES' && !isStockEntry">
       <!-- <ion-content class="ion-padding"> -->
         <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()"
           [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList"

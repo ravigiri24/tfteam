@@ -78,10 +78,10 @@ export class NewArrivalsManagementComponent implements OnInit {
   staffDetails: any;
   goToNewArival(data: any = null) {
     let rand=Math.random()
-    this.route.navigate(['/purchase-management/add-new-arrivals',rand]);
+    this.route.navigate(['/purchase-management/add-new-arrivals',rand,'/purchase-management/new-arrivals']);
   }
   openEdit(tractor: any) {
-    this.route.navigate(['/purchase-management/edit-newarrivals', tractor?.rowCode]);
+    this.route.navigate(['/purchase-management/edit-newarrivals', tractor?.rowCode,'/purchase-management/new-arrivals']);
   }
     async viewImage(image:any){
       const modal = await this.modalCtrl.create({
