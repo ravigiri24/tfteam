@@ -1,4 +1,4 @@
-  <ion-searchbar [(ngModel)]="search[searchKey]" slot="fixed"
+  <ion-searchbar *ngIf="showSearch" [(ngModel)]="search[searchKey]" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
   <ion-list class="list_row top-position-list" *ngIf="list?.length">
 
@@ -12,10 +12,16 @@
           
             <ion-card>
               <ion-row  *ngFor="let keyValue of keyList">
-              <ng-container *ngIf="keyValue?.type=='INPUT'">
+              <ng-container *ngIf="keyValue?.type=='INPUT' && !keyValue?.getFromObj">
                 <ion-col>{{keyValue?.key}}</ion-col>
                 <ion-col class="amount_col">
                {{tractor[keyValue?.value]}}</ion-col>
+             
+               </ng-container>
+                 <ng-container *ngIf="keyValue?.type=='INPUT' && keyValue?.getFromObj">
+                <ion-col>{{keyValue?.key}}</ion-col>
+                <ion-col *ngIf="tractor[keyValue?.objName]" class="amount_col">
+               {{tractor[keyValue?.objName][keyValue?.value] || ""}}</ion-col>
              
                </ng-container>
                    <ng-container *ngIf="keyValue?.type=='DATE'">

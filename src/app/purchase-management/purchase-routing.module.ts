@@ -9,6 +9,7 @@ import { CostPredictionComponent } from './cost-prediction/cost-prediction.compo
 import { StorePaymentTransactionComponent } from './store-payment-transaction/store-payment-transaction.component';
 import { AddNewArrivalsComponent } from 'src/app/new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
 import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
+import { InventoryListComponent } from './inventory-list/inventory-list.component';
 const routes: Routes = [
   {
     path: "", component: PurchaseManagementComponent,
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'cost-prediction', component: CostPredictionComponent},
       { path: 'store-Transaction', component: StorePaymentTransactionComponent},
       { path: 'new-arrivals', component: NewArrivalsManagementComponent},
+      { path: 'inventory-list', component: InventoryListComponent},
     
     
      

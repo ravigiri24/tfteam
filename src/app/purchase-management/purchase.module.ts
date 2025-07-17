@@ -26,6 +26,7 @@ import { BasicInfoComponent } from '../shared-components/basic-info/basic-info.c
 import { PurchaseDetailsComponent } from '../shared-components/purchase-details/purchase-details.component';
 import { UploadScreenShotComponent } from '../new-arrivals-management/upload-screen-shot/upload-screen-shot.component';
 import { ForwardToTransportComponent } from '../new-arrivals-management/forward-to-transport/forward-to-transport.component';
+import { InventoryListComponent } from './inventory-list/inventory-list.component';
 @NgModule({
   declarations: [
 
@@ -46,7 +47,8 @@ PurchaseDetailsComponent,
     SelectBrandComponent,
     BasicInfoComponent,
     UploadScreenShotComponent,
-    ForwardToTransportComponent
+    ForwardToTransportComponent,
+    InventoryListComponent
   ],
   imports: [
     PurchaseRoutingModule,

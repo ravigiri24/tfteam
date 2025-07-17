@@ -78,6 +78,7 @@ export class AddNewArrivalsComponent  implements OnInit {
     this.tractor_status='NEW_ARRIVAL'
     this.isInventoryStock=false
     this.refreshDisplay=false
+    this.inventoryStoreId=null
 setTimeout(() => {
   this.refreshDisplay=true
 }, 0);
@@ -127,7 +128,10 @@ setTimeout(() => {
     this.api.postapi('getTractorDataByRowCode', obj).subscribe(
       (res:any) => {
       
-        this.data = res.data;
+        this.data = res?.data;
+        if(this.srcPage=='/purchase-management/inventory-list'){
+          this.data.tractor_status='NEW_ARRIVAL'
+        }
         if (this.data?.isDraft) {
           this.initialize();
      this.selectedTab='BASIC_INFO'
@@ -229,11 +233,13 @@ setTimeout(() => {
   }
   tractor_status:any='NEW_ARRIVAL'
   isInventoryStock=false
+  inventoryStoreId:any=null
   initialize() {
     // console.log("this.data",this.data.purchasedetail);
      if(this.isStockEntry){
 this.tractor_status='IN_ARRIVAL_STOCK'
 this.isInventoryStock=true
+this.inventoryStoreId= this.staffDetails?.storeId
      }
      this.modelForm = this.fb.group({
        brandID: new FormControl(this.data?.brandID || null, [
@@ -244,7 +250,7 @@ this.isInventoryStock=true
        brandName: new FormControl(this.data?.brandName || null, [
          Validators.required,
        ]),
-       tractor_status: new FormControl(this.tractor_status||this.data?.tractor_status , [
+       tractor_status: new FormControl(this.data?.tractor_status ||this.tractor_status, [
          Validators.required,
        ]),
        modalID: new FormControl(this.data?.modalID || null, [
@@ -271,6 +277,7 @@ this.isInventoryStock=true
        isLive: new FormControl(false, [Validators.required]),
        hindiTranslation: new FormControl(this.data?.hindiTranslation || null),
        isInventoryStock: new FormControl(this.data?.isInventoryStock ||this.isInventoryStock),
+       inventoryStoreId: new FormControl(this.data?.inventoryStoreId ||this.inventoryStoreId),
        
        //  isActive: new FormControl(this.data?.isActive || false, []),
        city: new FormControl( null, ),
@@ -820,6 +827,7 @@ this.share.presentToast("Please Select Model")
       }
     } else {
       //this.share.openSnackbarValidationError();
+      this.share.presentToast("Please Fill Required Fields")
     }
   }
   checkValidation() {

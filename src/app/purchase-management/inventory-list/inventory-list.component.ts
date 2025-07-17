@@ -15,19 +15,18 @@ import { ShowSalesDetailsComponent } from 'src/app/finance-department/show-sales
 
 import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
-  selector: 'app-inventory-received-list',
-  templateUrl: './inventory-received-list.component.html',
-  styleUrls: ['./inventory-received-list.component.scss'],
+  selector: 'app-inventory-list',
+  templateUrl: './inventory-list.component.html',
+  styleUrls: ['./inventory-list.component.scss'],
 })
-export class InventoryReceivedListComponent  implements OnInit {
-
+export class InventoryListComponent implements OnInit {
   constructor(
     private api: ApiService,
     private share: ShareService,
     private modalCtrl: ModalController,
     private router: Router,
-    private commonMethod:CommonMethodService,
-  private route:Router
+    private commonMethod: CommonMethodService,
+    private route: Router
   ) {}
   alltractorList: any = [];
   optionsArray = [
@@ -39,13 +38,15 @@ export class InventoryReceivedListComponent  implements OnInit {
   ngOnInit() {}
   storeId:any
   ionViewWillEnter() {
-        let staffDetails: any = this.share.get_staff();
+     let staffDetails: any = this.share.get_staff();
+
     this.staffDetails = JSON.parse(staffDetails);
     this.storeId= this.staffDetails?.storeId
+
     this.alltractorList = [];
     this.getBrandList();
     this.getWareHouseList();
-    this.getAllTractorList()
+    this.getAllTractorList();
     this.filterBy = 'ALL';
     this.listBy = 'ALL';
     // this.getTractorList();
@@ -61,7 +62,6 @@ export class InventoryReceivedListComponent  implements OnInit {
         filterBy: this.filterBy,
         filterByTitle: 'Is NOC',
         listBy: this.listBy,
-        showStoreWiseOptions:false,
         showFilter: false,
         optionsArray: this.optionsArray,
       },
@@ -79,7 +79,6 @@ export class InventoryReceivedListComponent  implements OnInit {
       this.callListApi();
     }
   }
-
 
   listBy = 'BRAND_WISE';
   refreshList() {
@@ -111,7 +110,7 @@ export class InventoryReceivedListComponent  implements OnInit {
 
     this.staffDetails = JSON.parse(staffDetails);
     //if(loader){
-   // this.share.showLoading('Loading...');
+    // this.share.showLoading('Loading...');
     // }
     let obj: any = this.share.getListObj('brand', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
@@ -127,7 +126,6 @@ export class InventoryReceivedListComponent  implements OnInit {
             this.selectedBrand = this.brandList[0]?.id;
 
             //this.getTractorList();
-   
           }
         },
         (error: any) => {}
@@ -147,7 +145,7 @@ export class InventoryReceivedListComponent  implements OnInit {
 
     const { data, role } = await modal.onWillDismiss();
   }
-   
+
   allTractorsSrcList: any = [];
   getTractorList(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
@@ -160,7 +158,7 @@ export class InventoryReceivedListComponent  implements OnInit {
       operate: this.staffDetails?.staffCode,
       isLive: true,
       brandId: this.selectedBrand,
-         isDraft:true
+      isDraft: true,
     };
     if (loader) {
       this.share.showLoading('Loading...');
@@ -242,8 +240,8 @@ export class InventoryReceivedListComponent  implements OnInit {
     }
   }
   sortByFilter() {
-       this.alltractorList = this.alltractorList.filter(
-      (f: any) => f.tractor_status == 'IN_ARRIVAL_STOCK' && f?.inventoryStoreId==this?.storeId
+    this.alltractorList = this.alltractorList.filter(
+      (f: any) => f.tractor_status == 'IN_ARRIVAL_STOCK'
     );
   }
   getAllTractorListStorewise(loader: any = false) {
@@ -259,10 +257,11 @@ export class InventoryReceivedListComponent  implements OnInit {
     //if (loader) {
     this.share.showLoading('Loading...');
     //}
-    this.api.postapi('getTractorsListStoreWise', obj).subscribe(
+    this.api.postapi('getTractorListAll_Inventory_Store', obj).subscribe(
       (res: any) => {
-        this.alltractorList = res?.data;
-        this.allTractorsSrcList = res?.data;
+        this.alltractorList = res?.data?.filter((inv:any)=>inv?.inventoryStoreId==this.selectedStore);
+        this.allTractorsSrcList = res?.data?.filter((inv:any)=>inv?.inventoryStoreId==this.selectedStore);;
+
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
 
         this.sortByFilter();
@@ -310,11 +309,11 @@ export class InventoryReceivedListComponent  implements OnInit {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
       componentProps: {
-       buttonArray: this.buttonArray,
-       keyList:this.keyList,
-       searchFilter:this.search,
-       searchKey:'registractionNo',
-     obj:{optionsUploadButtonArray:this.optionsUploadButtonArray}
+        buttonArray: this.buttonArray,
+        keyList: this.keyList,
+        searchFilter: this.search,
+        searchKey: 'registractionNo',
+        obj: { optionsUploadButtonArray: this.optionsUploadButtonArray },
       },
     });
     await modal.present();
@@ -325,40 +324,39 @@ export class InventoryReceivedListComponent  implements OnInit {
     }
   }
   keyList: any = [
-
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
     { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Store', value: 'name',getFromObj:true,objName:'inventoryStoreDetails', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
-    optionsUploadButtonArray: any = [
- 
+  optionsUploadButtonArray: any = [
     {
       functionName: 'goToUplodeSection',
       optionsName: 'Before Service',
       showHeading: 'Upload Before Service',
       param: 'BEFORE_SERVICE',
-      showDeleteButton: true,
-      uploadPhoto: true,
+      showDeleteButton: false,
+      uploadPhoto: false,
       type: 'IMAGE',
       icon: '././assets/images/image-upload.png',
     },
-       {
+    {
       functionName: 'goToUplodeSection',
       optionsName: 'Engine Number Image',
       showHeading: 'Upload Engine Number Image',
       param: 'ENGINE_NUMBER',
-      showDeleteButton: true,
-      uploadPhoto: true,
+      showDeleteButton: false,
+      uploadPhoto: false,
       type: 'IMAGE',
       icon: '././assets/images/search-engine.png',
     },
-          {
+    {
       functionName: 'goToUplodeSection',
       optionsName: 'Chasis Number Image',
       showHeading: 'Upload Chasis Number Image',
       param: 'CHASIS_NUMBER',
-      showDeleteButton: true,
-      uploadPhoto: true,
+      showDeleteButton: false,
+      uploadPhoto: false,
       type: 'IMAGE',
       icon: '././assets/images/case.png',
     },
@@ -367,38 +365,47 @@ export class InventoryReceivedListComponent  implements OnInit {
       optionsName: 'Delete',
       type: 'FUNCTION_CALL',
       closeOptionAndRefresh: true,
-      funcName : 'deleteTractor',
+      funcName: 'deleteTractor',
       icon: '././assets/images/deleted.png',
     },
-   
   ];
   buttonArray: any = [
     {
-      name: 'new-arrival-edit',
-      action: 'newArrivalEdit',
-      image: './././assets/images/edit.png',
-      goToPage:'/inventory-receive-department/edit-newarrivals',
-      srcPage:'/inventory-receive-department/inven-received-list',
+      name: 'Inventory-to-new',
+      action: 'inventoryToNewArrivals',
+      image: './././assets/images/log-in.png',
+      goToPage: '/purchase-management/edit-newarrivals',
+      srcPage: '/purchase-management/inventory-list',
     },
-      {
+        {
       name: 'New Arrival Settings',
       action: 'newArrivalSettings',
-      image: './././assets/images/settings.png',
+      image: './././assets/images/visual.png',
     },
+    //   {
+    //   name: 'New Arrival Settings',
+    //   action: 'newArrivalSettings',
+    //   image: './././assets/images/settings.png',
+    // },
   ];
-   goToNewArival(data: any = null) {
-   let rand=Math.random()
-  
-     
-    this.route.navigate(['/inventory-receive-department/add-new-arrivals',rand,'/inventory-receive-department/inven-received-list']);
+  goToNewArival(data: any = null) {
+    let rand = Math.random();
+
+    this.route.navigate([
+      '/inventory-receive-department/add-new-arrivals',
+      rand,
+      '/inventory-receive-department/inven-received-list',
+    ]);
   }
 
- async actionEventCall(e: any) {
-  await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:this.optionsUploadButtonArray})
-    
-  if(this.commonMethod.reloadMethod){
-    this.callListApi()
-  }
+  async actionEventCall(e: any) {
+    await this.commonMethod.actionEventCall(e, {
+      optionsUploadButtonArray: this.optionsUploadButtonArray,
+    });
+
+    if (this.commonMethod.reloadMethod) {
+      this.callListApi();
+    }
     console.log('actionEventCall', e);
     // if (e?.button?.name == 'IS Noc') {
     //   this.nocUpdate(e?.tractor);
@@ -406,7 +413,6 @@ export class InventoryReceivedListComponent  implements OnInit {
     // if (e?.button?.name == 'View Details') {
     //   this.viewDetails(e?.tractor);
     // }
-    
   }
   async salesDetails(tractor: any) {
     const modal = await this.modalCtrl.create({
@@ -419,5 +425,4 @@ export class InventoryReceivedListComponent  implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
   }
-
 }
