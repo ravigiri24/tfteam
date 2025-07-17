@@ -18,6 +18,16 @@
   --app-brand-shadow: 0px 11px 19px rgba(0, 0, 0, .2);
   --app-brand-shadow-small: 0px 5px 5px rgba(0, 0, 0, .2);
   --ion-default-font: 'Poppins', sans-serif;
+  --gradian-color-primary: linear-gradient(90deg, #92e2ff 0%, #1dbef9 100%);
+  --gradian-color-secondary: linear-gradient(90deg, #FFD099 0%, #FE9B4B 100%);
+  --gradian-color-third: linear-gradient(90deg, #7395CF 0%, #3C5073 100%);
+  --gradian-color-fourth: linear-gradient(90deg, #4c6ef5 0%, #45597A 100%);
+  --gradian-color-mixed1: linear-gradient(90deg, #92e2ff 0%, #FFD099 100%);
+  --gradian-color-mixed2: linear-gradient(90deg, #7395CF 0%, #FE9B4B 100%);
+  --gradian-color-mixed3: linear-gradient(90deg, #1dbef9 0%, #FFD099 100%);
+  --gradian-color-mixed4: linear-gradient(90deg, #92e2ff 0%, #92e2ff 100%);
+  --gradian-brand-shadow: 0px 11px 19px rgba(0, 0, 0, .8);
+  --gradian-brand-shadow-small: 0px 5px 5px rgba(0, 0, 0, .5);
 }
 
 * {
@@ -93,10 +103,12 @@ ion-icon {
   // color: var(--app-guest-color) !important;
   color: var(--app-guest-color);
 }
+
 app-salary-slip {
-    background: #f5f5ff;
-    overflow: auto;
+  background: #f5f5ff;
+  overflow: auto;
 }
+
 .global_input_block {
   padding-bottom: 20px;
   width: 100%;
@@ -491,6 +503,7 @@ ion-header {
 .page_inner_container {
   padding-top: 25px;
 }
+
 .custom-fullscreen-modal {
   --width: 100vw;
   --height: 100vh;
@@ -516,6 +529,7 @@ ion-header {
     transform: translateX(10%); // slightly offset
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;

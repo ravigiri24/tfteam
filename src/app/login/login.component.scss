@@ -19,6 +19,18 @@
             }
         }
     }
+
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background: var(--gradian-color-mixed1);
+        width: 100%;
+        height: 100%;
+        opacity: .2;
+        z-index: 1;
+    }
 }
 
 
