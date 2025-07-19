@@ -10,7 +10,7 @@ export class PurchaseFooterComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='New-findings'
+  selectedTab:any='Inventory-list'
   goToPage(tab:any){
   this.selectedTab=tab
   if(tab=='New-findings'){
@@ -25,7 +25,9 @@ export class PurchaseFooterComponent  implements OnInit {
   else if(tab=='Store-Transaction'){
     this.router.navigate(['/purchase-management/store-Transaction'])
   }
-
+else if(tab=='Inventory-list'){
+  this.router.navigate(['/purchase-management/inventory-list'])
+}
 
   // else if(tab=='Report'){
   //   this.router.navigate(['/digital//report-management'])

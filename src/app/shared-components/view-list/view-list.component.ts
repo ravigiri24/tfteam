@@ -9,6 +9,7 @@ import { SingleImageShowComponent } from 'src/app/maintainance-management/single
 export class ViewListComponent  implements OnInit {
 @Input() search:any
 @Input() searchKey:any
+@Input() showSearch:any=true
 @Input() width:any=60
 @Input() list:any=[]
 @Input() keyList:any=[]

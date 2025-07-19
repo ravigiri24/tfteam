@@ -4,7 +4,7 @@
   <ion-select (ionChange)="selectList()"  [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
 
     <ion-select-option value="BRAND_WISE">Brand Wise</ion-select-option>
-    <ion-select-option value="STORE_WISE">Store Wise</ion-select-option>
+    <ion-select-option *ngIf="showStoreWiseOptions" value="STORE_WISE">Store Wise</ion-select-option>
     <ion-select-option value="ALL">All</ion-select-option>
 
   </ion-select>

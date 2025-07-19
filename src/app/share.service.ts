@@ -93,7 +93,7 @@ this.showFooter=e
               this.router.navigate(['/operational/buffer-stock'])
             }
             else if(userde?.staff_role=='PURCHASE'){
-              this.router.navigate(['/purchase-management/new-findings'])
+              this.router.navigate(['/purchase-management/inventory-list'])
             }
            
             else if(userde?.staff_role=='SUPER_ADMIN' || userde?.staff_role=='ADMIN'){
@@ -136,7 +136,7 @@ this.showFooter=e
               this.router.navigate(['/operational/buffer-stock'])
             }
             else if(userde?.currentRole=='PURCHASE'){
-              this.router.navigate(['/purchase-management/new-findings'])
+              this.router.navigate(['/purchase-management/inventory-list'])
             }
            
             else if(userde?.currentRole=='SUPER_ADMIN' || userde?.currentRole=='ADMIN'){

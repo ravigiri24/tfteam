@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 export class SelectListTypeComponent implements OnInit {
   filterBy = 'ALL';
   listBy = 'ALL';
+  showStoreWiseOptions=true
   filterByTitle="Filter By"
   optionsArray= [
     { displayName: 'All', value: 'ALL' },

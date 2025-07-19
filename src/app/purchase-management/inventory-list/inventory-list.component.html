@@ -26,7 +26,7 @@
         
       </div>
       <div class="right_action">
-            <ion-icon (click)="goToNewArival()" class="theme-color" name="add-circle-outline"></ion-icon>
+            <!-- <ion-icon (click)="goToNewArival()" class="theme-color" name="add-circle-outline"></ion-icon> -->
         <!-- <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon> -->
         <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>
         <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
@@ -35,7 +35,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-        <app-view-list [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+        <app-view-list [showSearch]="false" [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
   <!-- <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
   <ion-list class="list_row top-position-list" *ngIf="alltractorList?.length">
