@@ -1,10 +1,5 @@
 /*
  * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
@@ -194,6 +189,24 @@ app-salary-slip {
   background-size: 100% 100%;
   background-position: top center;
   background-repeat: no-repeat;
+  background-image: url(https://colorlib.com/etc/lf/Login_v4/images/bg-01.jpg);
+
+  .global_input_block {
+    padding-bottom: 30px;
+
+    ion-input {
+      border-radius: 6px;
+    }
+
+    .label-text-wrapper {
+      background: #ffffff;
+      padding: 3px 10px 0px 10px;
+      border-radius: 5px 5px 0px 0px;
+      border-top: solid 2px #141414;
+
+
+    }
+  }
 }
 
 // .eye_password {
