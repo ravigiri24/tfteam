@@ -25,17 +25,103 @@
         }
     }
 
-    &:after {
-        content: "";
+    // &:after {
+    //     content: "";
+    //     position: absolute;
+    //     left: 0px;
+    //     top: 0px;
+    //     background: var(--gradian-color-mixed1);
+    //     width: 100%;
+    //     height: 100%;
+    //     opacity: .2;
+    //     z-index: 1;
+    // } 
+
+    .box {
         position: absolute;
-        left: 0px;
-        top: 0px;
-        background: var(--gradian-color-mixed1);
-        width: 100%;
-        height: 100%;
-        opacity: .2;
-        z-index: 1;
+        margin: auto;
+        right: 50px;
+        bottom: 40px;
+        width: 50px;
+        height: 45px;
+        transform: rotate(80deg);
+        // animation: spin 2s linear infinite;
+        animation: spin 2s linear 2;
+
+        &::before,
+        &::after,
+        i::before,
+        i::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            transform-origin: bottom;
+            transition: 0.5s all;
+        }
+
+        &::before {
+            background: #f62fed9c;
+            box-shadow: 0px -20px #eb32b28c, 0px -40px #edb3d36b;
+            transform: skewX(-30deg);
+            border-bottom-right-radius: 0;
+            animation: shadow-toggle 2s linear infinite;
+        }
+
+        &::after {
+            transform: skewX(30deg);
+            border-top-right-radius: 0;
+            background: #76a3ee;
+            box-shadow: -20px 0 #eb32b28c, -40px 0 #edb3d36b;
+            animation: shadow-toggle 2s linear infinite;
+        }
+
+        i::before {
+            background: #714ffe;
+            box-shadow: 0px -20px #7c6ade, 0px -40px #c7bee9;
+            transform: translateY(50%) rotate(120deg) skewX(-30deg);
+            transform-origin: center;
+            border-bottom-right-radius: 0;
+            animation: shadow-toggle 2s linear infinite;
+        }
+
+        i::after {
+            background: #fff;
+            z-index: 1;
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+            border-radius: 0;
+            opacity: 0.2;
+            animation: shadow-toggle 2s linear infinite;
+        }
     }
+    @keyframes spin {
+        0% {
+            transform: rotate(80deg);
+        }
+
+        50% {
+            transform: rotate(220deg);
+        }
+
+        100% {
+            transform: rotate(440deg);
+        }
+    }
+    @keyframes shadow-toggle {
+
+        0%,
+        100% {
+            box-shadow: 0px -20px #eb32b28c, 0px -40px #edb3d36b;
+        }
+
+        50% {
+            box-shadow: 0 0 transparent, 0 0 transparent;
+        }
+    }
+
 }
 
 
