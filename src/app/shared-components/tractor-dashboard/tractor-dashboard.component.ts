@@ -107,7 +107,7 @@ download(dataUrl:any){
     this.route.navigate(['/operational/all-tractor-management'])
   }
   openEdit() {
-    this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode]);
+    this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode,this.srcPage]);
   }
     async openPurchaseCard() {
       const modal = await this.modalCtrl.create({

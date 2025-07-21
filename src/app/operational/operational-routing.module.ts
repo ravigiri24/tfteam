@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'buffer-stock', component: BufferStockTractorsComponent},
       { path: 'generate-tf-code', component: GenrateTfCodeComponent},
       {
-        path: 'edit-newarrivals/:id',
+        path: 'edit-newarrivals/:id/:srcPage',
         component: AddNewArrivalsComponent,
       },
       {

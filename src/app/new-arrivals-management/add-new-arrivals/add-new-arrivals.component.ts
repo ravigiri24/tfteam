@@ -758,7 +758,7 @@ this.share.presentToast("Please Select Model")
       obj.isDraft = isDraft;
     } else if (this.data) {
       obj.id = this.data?.id;
-      obj.isDraft = isDraft;
+        obj.isDraft =this.data?.isDraft||isDraft;
       obj.tractorImages = this.upload;
       obj.loadedImages = this.loadedImages;
       if (getLeftImage.controls['file'].value != null) {

@@ -115,7 +115,7 @@ export class ViewTractorDetailsComponent  implements OnInit {
     this.route.navigate(['/operational/all-tractor-management'])
   }
   openEdit() {
-    this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode]);
+    this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode,'/operational/all-tractor-management']);
   }
     async startTranspotation() {
       const modal = await this.modalCtrl.create({
