@@ -41,6 +41,7 @@ export class BufferStockTractorsComponent implements OnInit {
       cssClass: 'custom-modal',
       componentProps: {
         filterBy: this.filterBy,
+        listBy: this.listBy,
       },
     });
     await modal.present();
@@ -48,10 +49,20 @@ export class BufferStockTractorsComponent implements OnInit {
     if (data && data?.isFilterChange) {
       console.log('data', data);
       this.filterBy = data?.filterBy;
+      this.listBy = data?.listBy;
       this.sortByFilter();
     }
   }
+  listBy='BUFFER'
+  selectLiSTYPE(){
+    if(this.listBy=='BUFFER'){
+  this.buffertractorList=  this.buffertractorList.filter((f:any)=>f.tractor_status!='ARCHIVED')
+    }else if(this.listBy=='ARCHIVED'){
+  this.buffertractorList=  this.buffertractorList.filter((f:any)=>f.tractor_status=='ARCHIVED')
+    }
+  }
   sortByFilter() {
+
     if (this.filterBy == 'ALL') {
       if (this.allTractorsSrcList?.length) {
         this.buffertractorList = JSON.parse(
@@ -71,6 +82,7 @@ export class BufferStockTractorsComponent implements OnInit {
         (f: any) => f?.repairMappedData?.length == 0
       );
     }
+    this.selectLiSTYPE()
   }
   staffDetails: any;
   allTractorsSrcList: any = [];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import {
   FormGroup,
   FormControl,
@@ -37,7 +37,8 @@ export class TractorDashboardComponent  implements OnInit {
     private api: ApiService,
     private route:Router,
     private activatedRoute:ActivatedRoute,
-        private inAppBrowser: InAppBrowser
+        private inAppBrowser: InAppBrowser,
+        private alertCtrl:AlertController
   ) {}
 
   ngOnInit() {
@@ -183,6 +184,7 @@ download(dataUrl:any){
       component: ConfirmDeliveryComponent,
       componentProps: {
         tractorDetails: this.tractorDetails,
+            updateTranctorStatus:false
       },
     });
     await modal.present();
@@ -304,5 +306,87 @@ download(dataUrl:any){
       backToSrcPage() {
         this.route.navigate([this.srcPage]);
       }
-      
+      doArchive(){
+    let objData: any = {
+      tractor_status: 'ARCHIVED',
+    };
+    let obj = {
+      src: 'tractor',
+      data: objData,
+      id: this.tractorDetails?.id,
+    };
+
+    this.share.showLoading('Updating Data...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+
+      this.share.presentToast('Archived Successfully...');
+  
+      //  this.dismiss();
+    });
+      }
+        async archivedAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Send To Archived',
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.doArchive();
+    }
+  }
+
+ async sendDraftAlert(){
+     const alert = await this.alertCtrl.create({
+      header: 'Send To Draft',
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.doDraft();
+    }
+  }
+        doDraft(){
+    let objData: any = {
+      tractor_status:null,
+    };
+    let obj = {
+      src: 'tractor',
+      data: objData,
+      id: this.tractorDetails?.id,
+    };
+
+    this.share.showLoading('Updating Data...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+
+      this.share.presentToast('Archived Successfully...');
+  
+      //  this.dismiss();
+    });
+      }
 }

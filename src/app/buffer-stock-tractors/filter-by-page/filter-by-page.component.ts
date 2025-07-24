@@ -8,12 +8,12 @@ import { ModalController } from '@ionic/angular';
 })
 export class FilterByPageComponent  implements OnInit {
  filterBy='ALL'
- listBy='ALL'
+ listBy='BUFFER'
   constructor(private modalcontrol:ModalController) { }
 
   ngOnInit() {}
 selectFilter(){
-  this.modalcontrol.dismiss({filterBy:this.filterBy,isFilterChange:true})
+  this.modalcontrol.dismiss({filterBy:this.filterBy,isFilterChange:true,listBy:this.listBy})
 }
 
 

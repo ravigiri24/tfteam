@@ -139,13 +139,13 @@
           </ion-button>
       
         </ion-item>
-        <ion-item  *ngIf="tractorDetails?.transportDestinationId!=null" >
+        <!-- <ion-item  *ngIf="tractorDetails?.transportDestinationId!=null" >
           <ion-button  (click)="startRepairing()"  fill="clear">
             <ion-icon   class="right-margine theme-color"  name="construct-outline"></ion-icon>
           Start Reparing Details
           </ion-button>
       
-        </ion-item>
+        </ion-item> -->
        
       </ion-list>
       </div>
@@ -183,16 +183,19 @@
   </ion-accordion> -->
   <ion-accordion   value="fourth">
     <ion-item slot="header" color="light">
-      <ion-label>Sell Details</ion-label>
+      <ion-label>Archived</ion-label>
     </ion-item>
     <div   class="ion-padding" slot="content">
       <ion-list  >
         <ion-item >
-          <ion-button  (click)="addSellDetails()"  fill="clear">
+          <ion-button *ngIf="tractorDetails?.tractor_status==null"  (click)="archivedAlert()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
-          Sell Details
+        Send To Archived
           </ion-button>
-      
+        <ion-button *ngIf="tractorDetails?.tractor_status=='ARCHIVED'"  (click)="sendDraftAlert()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
+         Send To Buffer
+          </ion-button>
         </ion-item>
       
         <ion-item  *ngIf="tractorDetails?.sellingDetailedId" >

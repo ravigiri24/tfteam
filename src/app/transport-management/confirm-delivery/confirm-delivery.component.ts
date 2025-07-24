@@ -30,9 +30,10 @@ export class ConfirmDeliveryComponent implements OnInit {
   dismiss() {
     return this.modalCtrl.dismiss(null, 'Cancel');
   }
-
+  updateTranctorStatus:any=true
   form: FormGroup;
   initialize(data: any = null) {
+      if(this.updateTranctorStatus){
     this.form = this.fb.group({
       transportDestinationId: new FormControl(
         data?.transportDestinationId || null,
@@ -51,7 +52,19 @@ export class ConfirmDeliveryComponent implements OnInit {
         Validators.required,
       ]),
     });
+  }else{
+    this.form = this.fb.group({
+      transportDestinationId: new FormControl(
+        data?.transportDestinationId || null,
+        [Validators.required]
+      ),
 
+      reachDate: new FormControl(data?.reachDate || null, [
+        Validators.required,
+      ]),
+   
+    });
+  }
     // if(data){
     //   this.form.addControl(
     //     'id',
