@@ -7,17 +7,20 @@
     <ion-tab-button (click)="goToPage('Offer-letter')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Offer-letter'" class="theme-color" name="file-tray-stacked-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Offer-letter'" class="theme-color" name="file-tray-stacked"></ion-icon>
-      Offer Letter
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Offer-letter'}"><span
+          class="inner_text">Offer Letter</span></label>
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Salary-Slips')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Salary-Slips'" class="theme-color" name="list-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Salary-Slips'" class="theme-color" name="list-circle"></ion-icon>
-  Salary Slips
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Salary-Slips'}"><span
+          class="inner_text">Salary Slips</span></label>
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('User')" tab="User">
       <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
-      User
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}"><span
+          class="inner_text">User</span></label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

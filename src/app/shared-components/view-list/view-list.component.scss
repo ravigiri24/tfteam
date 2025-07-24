@@ -1,14 +1,22 @@
-.top-position-list{
+.top-position-list {
     position: relative;
-    top:20px
+    top: 20px
 }
-.image-no-data{    
+
+.image-no-data {
     width: 50%;
     /* padding: 20px; */
     height: 200px;
 }
-.no-data-block{
+
+.no-data-block {
     text-align: center;
     position: relative;
-    top:44px;
+    top: 44px;
+}
+
+.main_block_details {
+    ion-card {
+        margin: 5px;
+    }
 }

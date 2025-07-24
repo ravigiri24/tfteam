@@ -7,25 +7,26 @@
     <ion-tab-button (click)="goToPage('Job-dashboard')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Job-dashboard'" class="theme-color" name="cellular-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Job-dashboard'" class="theme-color" name="cellular"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Job-dashboard'}" >Dashboard</label>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Job-dashboard'}">
+        <span class="inner_text">Dashboard</span></label>
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Job-List')" tab="JobList">
       <ion-icon *ngIf="selectedTab!=='Job-List'" class="theme-color" name="receipt-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Job-List'" class="theme-color" name="receipt"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Job-List'}" >Jobs</label>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Job-List'}"><span
+          class="inner_text">Jobs</span></label>
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Reports')" tab="JobList">
       <ion-icon *ngIf="selectedTab!=='Reports'" class="theme-color" name="document-text-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Reports'" class="theme-color" name="document-text"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Reports'}" >Reports</label>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Reports'}"><span
+          class="inner_text">Reports</span></label>
     </ion-tab-button>
- 
-  
     <ion-tab-button (click)="goToPage('User')" tab="User">
       <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}">User</label>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}"><span
+          class="inner_text">User</span></label>
     </ion-tab-button>
-   
   </ion-tab-bar>
 </ion-tabs>

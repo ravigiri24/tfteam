@@ -1,79 +1,74 @@
-  <ion-searchbar *ngIf="showSearch" [(ngModel)]="search[searchKey]" slot="fixed"
+<ion-searchbar *ngIf="showSearch" [(ngModel)]="search[searchKey]" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
-  <ion-list class="list_row top-position-list" *ngIf="list?.length">
-
-    <ion-item *ngFor="let tractor of list|filterBy: search ;let in=index">
-              <!-- <ion-card>
+<ion-list class="list_row top-position-list" *ngIf="list?.length">
+  <ion-item *ngFor="let tractor of list|filterBy: search ;let in=index">
+    <!-- <ion-card>
         <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  /> -->
-      <ion-label>
-        <h2 class="theme-color">{{tractor?.name}}</h2>
-      
-          <ion-grid class="main_block_details">
-          
-            <ion-card>
-              <ion-row  *ngFor="let keyValue of keyList">
-              <ng-container *ngIf="keyValue?.type=='INPUT' && !keyValue?.getFromObj">
-                <ion-col>{{keyValue?.key}}</ion-col>
-                <ion-col class="amount_col">
-               {{tractor[keyValue?.value]}}</ion-col>
-             
-               </ng-container>
-                 <ng-container *ngIf="keyValue?.type=='INPUT' && keyValue?.getFromObj">
-                <ion-col>{{keyValue?.key}}</ion-col>
-                <ion-col *ngIf="tractor[keyValue?.objName]" class="amount_col">
-               {{tractor[keyValue?.objName][keyValue?.value] || ""}}</ion-col>
-             
-               </ng-container>
-                   <ng-container *ngIf="keyValue?.type=='DATE'">
-                <ion-col>{{keyValue?.key}}</ion-col>
-                <ion-col class="amount_col">
-               {{tractor[keyValue?.value]  | date }}</ion-col>
-             
-               </ng-container>
-                      <ng-container *ngIf="keyValue?.type=='CONDITIONAL'">
-            <ng-container *ngIf="!keyValue?.getFromObj">
+    <ion-label>
+      <h2 class="theme-color">{{tractor?.name}}</h2>
+      <ion-grid class="main_block_details">
+        <ion-card>
+          <ion-row *ngFor="let keyValue of keyList">
+            <ng-container *ngIf="keyValue?.type==='INPUT' && !keyValue?.getFromObj">
+              <ion-col>{{keyValue?.key}}</ion-col>
+              <ion-col class="amount_col">
+                {{tractor[keyValue?.value]}}</ion-col>
+            </ng-container>
+            <ng-container *ngIf="keyValue?.type==='INPUT' && keyValue?.getFromObj">
+              <ion-col>{{keyValue?.key}}</ion-col>
+              <ion-col *ngIf="tractor[keyValue?.objName]" class="amount_col">
+                {{tractor[keyValue?.objName][keyValue?.value] || ""}}</ion-col>
+            </ng-container>
+            <ng-container *ngIf="keyValue?.type==='DATE'">
+              <ion-col>{{keyValue?.key}}</ion-col>
+              <ion-col class="amount_col">
+                {{tractor[keyValue?.value] | date }}</ion-col>
+            </ng-container>
+            <ng-container *ngIf="keyValue?.type==='CONDITIONAL'">
+              <ng-container *ngIf="!keyValue?.getFromObj">
                 <ion-col>{{keyValue?.key}} </ion-col>
-                <ion-col *ngIf="tractor[keyValue?.value]==1" class="amount_col">
-               <span style="color: green;">Yes</span>  </ion-col>
-                 <ion-col *ngIf="tractor[keyValue?.value]==0" class="amount_col">
-               <span  style="color: red;">No</span>   </ion-col>
-                    <ion-col *ngIf="tractor[keyValue?.value]==null" class="amount_col">
-               <span  style="color: red;">Not Availaible</span>  </ion-col>
-               </ng-container>
-                   <ng-container *ngIf="keyValue?.getFromObj">
-                <ion-col>{{keyValue?.key}} </ion-col>
-                 <ng-container *ngIf="tractor[keyValue?.objName]">
-                <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==1" class="amount_col">
-               <span style="color: green;">Yes</span>  </ion-col>
-                 <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==0" class="amount_col">
-               <span  style="color: red;">No</span>   </ion-col>
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==null" class="amount_col">
-               <span  style="color: red;">Not Availaible</span>  </ion-col>
-               </ng-container>
-                 <ng-container *ngIf="!tractor[keyValue?.objName]">
-                    <ion-col  class="amount_col">
-               <span  style="color: red;">Not Availaible</span>  </ion-col>
-                 </ng-container>
-               </ng-container>
+                <ion-col *ngIf="tractor[keyValue?.value]===1" class="amount_col">
+                  <span style="color: green;">Yes</span> </ion-col>
+                <ion-col *ngIf="tractor[keyValue?.value]===0" class="amount_col">
+                  <span style="color: red;">No</span> </ion-col>
+                <ion-col *ngIf="tractor[keyValue?.value]===null" class="amount_col">
+                  <span style="color: red;">Not Availaible</span> </ion-col>
               </ng-container>
-               
-              </ion-row>
-         
-              <ion-row *ngIf="buttonArray?.length">
-            
-                <ion-col *ngFor="let button of buttonArray">    
-                     <img (click)="actionEvent(tractor,button)" class="image-style " style="width: 50px;height: 50px; margin: 11px;" [src]="button?.image" />
-                   </ion-col>
-            
-             
-              </ion-row>
-                </ion-card>
-                </ion-grid>
-      </ion-label>
-  <!-- </ion-card> -->
-    </ion-item>
+              <ng-container *ngIf="keyValue?.getFromObj">
+                <ion-col>{{keyValue?.key}} </ion-col>
+                <ng-container *ngIf="tractor[keyValue?.objName]">
+                  <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]===1" class="amount_col">
+                    <span style="color: green;">Yes</span> </ion-col>
+                  <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]===0" class="amount_col">
+                    <span style="color: red;">No</span> </ion-col>
+                  <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]===null" class="amount_col">
+                    <span style="color: red;">Not Availaible</span> </ion-col>
+                </ng-container>
+                <ng-container *ngIf="!tractor[keyValue?.objName]">
+                  <ion-col class="amount_col">
+                    <span style="color: red;">Not Availaible</span> </ion-col>
+                </ng-container>
+              </ng-container>
+            </ng-container>
 
-  </ion-list>
-  <div *ngIf="(list | filterBy: search)?.length === 0" class="no-data-block">
-    <img class="image-no-data" src="././assets/images/no-data-found.png" />
-  </div>
+          </ion-row>
+
+          <ion-row *ngIf="buttonArray?.length">
+
+            <ion-col *ngFor="let button of buttonArray">
+              <img (click)="actionEvent(tractor,button)" class="image-style "
+                style="width: 50px;height: 50px; margin: 11px;" [src]="button?.image" />
+            </ion-col>
+
+
+          </ion-row>
+        </ion-card>
+      </ion-grid>
+    </ion-label>
+    <!-- </ion-card> -->
+  </ion-item>
+
+</ion-list>
+<div *ngIf="(list | filterBy: search)?.length === 0" class="no-data-block">
+  <img class="image-no-data" src="././assets/images/no-data-found.png" />
+</div>

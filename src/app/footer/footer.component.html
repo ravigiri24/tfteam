@@ -7,17 +7,21 @@
     <ion-tab-button (click)="goToPage('Customer')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Customer'" class="theme-color" name="people-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Customer'" class="theme-color" name="people"></ion-icon>
-      Customer
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Customer'}">
+        <span class="inner_text">Customer</span></label>
     </ion-tab-button>
     <ion-tab-button (click)="goToPage('Follow-Up')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Follow-Up'" class="theme-color" name="bookmarks"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='Follow-Up'" class="theme-color" name="bookmarks-outline"></ion-icon>
-      Review
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Follow-Up'}">
+        <span class="inner_text">Review</span></label>
     </ion-tab-button>
-       <ion-tab-button (click)="goToPage('Visitng')" tab="Follow-Up">
+    <ion-tab-button (click)="goToPage('Visitng')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Visitng'" class="theme-color" name="prism"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='Visitng'" class="theme-color" name="prism-outline"></ion-icon>
-      Visiting
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Follow-Up'}">
+        <span class="inner_text">Review</span></label>
+      
     </ion-tab-button>
     <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>
@@ -27,7 +31,8 @@
     <ion-tab-button (click)="goToPage('User')" tab="User">
       <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
-      User
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}">
+        <span class="inner_text">User</span></label>      
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
