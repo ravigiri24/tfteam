@@ -382,6 +382,11 @@ export class InventoryListComponent implements OnInit {
       action: 'newArrivalSettings',
       image: './././assets/images/visual.png',
     },
+      {
+      name: 'Transfer TO New Arrivals',
+      action: 'transferToNew',
+      image: './././assets/images/transfer.png',
+    },
     //   {
     //   name: 'New Arrival Settings',
     //   action: 'newArrivalSettings',

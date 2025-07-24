@@ -27,12 +27,13 @@ import { PurchaseDetailsComponent } from '../shared-components/purchase-details/
 import { UploadScreenShotComponent } from '../new-arrivals-management/upload-screen-shot/upload-screen-shot.component';
 import { ForwardToTransportComponent } from '../new-arrivals-management/forward-to-transport/forward-to-transport.component';
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
+import { TransferToNewArrivalsComponent } from './transfer-to-new-arrivals/transfer-to-new-arrivals.component';
 @NgModule({
   declarations: [
 
     PurchaseManagementComponent,
 PurchaseDetailsComponent,
-    
+    TransferToNewArrivalsComponent,
     PurchaseFooterComponent,
     NewFindingsComponent,
     AddNewFindingsComponent,

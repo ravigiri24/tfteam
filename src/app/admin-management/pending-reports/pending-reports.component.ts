@@ -181,6 +181,7 @@ export class PendingReportsComponent implements OnInit {
   newArrivals = 0;
   logistic = 0;
   buffer = 0;
+  archvied = 0;
   live = 0;
   locationAlloted: any = 0;
   locationNotAlloted: any = 0;
@@ -230,6 +231,7 @@ export class PendingReportsComponent implements OnInit {
     this.newArrivals = 0;
     this.logistic = 0;
     this.buffer = 0;
+    this.archvied = 0;
     this.live = 0;
     this.locationAlloted = 0;
 
@@ -242,7 +244,10 @@ export class PendingReportsComponent implements OnInit {
       (tractor: any) => tractor?.tractor_status == 'AT_TRANSPORT'
     )?.length;
     this.buffer = this.tractorArray.filter(
-      (tractor: any) => tractor?.isDraft == 1 && tractor?.tractor_status == null
+      (tractor: any) => tractor?.isDraft == 1 &&  tractor?.isLive == 1 && tractor?.tractor_status == null
+    )?.length;
+        this.archvied = this.tractorArray.filter(
+      (tractor: any) => tractor?.isDraft == 1  &&  tractor?.isLive == 1 && tractor?.tractor_status == 'ARCHIVED'
     )?.length;
     this.live = this.tractorArray.filter(
       (tractor: any) =>

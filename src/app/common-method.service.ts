@@ -16,6 +16,7 @@ import { ShowSalesDetailsComponent } from './finance-department/show-sales-detai
 import { TractorSellsDetailsComponent } from './tractor-sells-details/tractor-sells-details.component';
 import { RcUpdateComponent } from './shared-components/rc-update/rc-update.component';
 import { DeleteTractorComponent } from './shared-components/delete-tractor/delete-tractor.component';
+import { TransferToNewArrivalsComponent } from './purchase-management/transfer-to-new-arrivals/transfer-to-new-arrivals.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -79,9 +80,28 @@ export class CommonMethodService {
       obj.buttonArray = obj?.optionsUploadButtonArray;
       await this.commonOptionsPlatform(e?.tractor, obj);
     }
+    else if(e?.button?.name == 'Transfer TO New Arrivals'){
+        await this.transerToNewArrivals(e?.tractor, obj);
+    }
     else if (e?.button?.name == 'Inventory-to-new') {
  
       this.inventoryToNewArrivals(e?.tractor, e?.button);
+    }
+  }
+ async transerToNewArrivals(tractor: any, button: any){
+ const modal = await this.modalCtrl.create({
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      component: TransferToNewArrivalsComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
     }
   }
 inventoryToNewArrivals(tractor: any, button: any){

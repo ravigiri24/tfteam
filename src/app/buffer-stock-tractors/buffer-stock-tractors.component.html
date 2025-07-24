@@ -2,7 +2,9 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Buffer Stock :</span>
+ 
+        <span *ngIf="listBy=='BUFFER'" class="selected_text">Buffer Stock :</span>
+        <span *ngIf="listBy=='ARCHIVED'" class="selected_text">Archived:</span>
         <b class="total-number">{{buffertractorList?.length}}</b>
       </div>
       <div class="right_action">

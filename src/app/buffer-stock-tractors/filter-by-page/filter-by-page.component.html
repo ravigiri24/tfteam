@@ -1,6 +1,14 @@
 <ion-content  class="ion-padding ">
   <div class="border-shape background">
-
+    <div class="global_input_block " >
+ <ion-select (ionChange)="selectFilter()"  [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
+     <ion-select-option value="BUFFER">Buffer</ion-select-option>
+     <ion-select-option value="ARCHIVED">Archived</ion-select-option>
+  
+ 
+ 
+  </ion-select>
+  </div>
 <div class="global_input_block " >
   <ion-select (ionChange)="selectFilter()"  [(ngModel)]="filterBy" fill="outline" label="Filter By" label-placement="type">
      <ion-select-option value="ALL">All</ion-select-option>

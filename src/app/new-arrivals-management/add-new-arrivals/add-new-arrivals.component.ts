@@ -814,7 +814,7 @@ this.share.presentToast("Please Select Model")
         );
       } else if (this.data) {
         this.share.showLoading('Updating...')
-        this.api.postapi('updateTractor', obj).subscribe(
+        this.api.postapi('updateTractorAPP', obj).subscribe(
           (res: any) => {
             this.share.spinner.dismiss()
             this.share.presentToast("Updated Successfully...")
