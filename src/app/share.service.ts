@@ -64,7 +64,7 @@ this.showFooter=e
       this.activeCurrent='active_page active_six'
       setTimeout(() => {
             this.globalLoading=false
-      }, 1000);
+      }, 1500);
    
       // You can put your logic here (e.g., hiding loader UI)
     }}
