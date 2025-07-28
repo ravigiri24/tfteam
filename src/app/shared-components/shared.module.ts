@@ -33,6 +33,7 @@ import { FinanceDetailsComponent } from '../rto-management/rto-docs-details/fina
 import { RcUpdateComponent } from './rc-update/rc-update.component';
 import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
 import { DeleteTractorComponent } from './delete-tractor/delete-tractor.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +41,6 @@ import { DeleteTractorComponent } from './delete-tractor/delete-tractor.componen
     FormsModule,
     IonicModule,
     FilterPipeModule,
-
     
     IonicModule.forRoot({}),
   ],

@@ -412,9 +412,22 @@ app-salary-slip {
     min-height: 36px;
   }
 }
+
 ion-header {
   box-shadow: none !important;
 }
+
+.page_loader {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.3);
+}
+
 .heading-list {
   font-size: 14px;
   font-weight: 600;
@@ -432,13 +445,14 @@ ion-header {
   border-radius: 15px 15px 0px 0px;
   box-shadow: #0003 0 3px 3px -2px, #00000024 0 3px 4px, #0000001f 0 1px 8px;
   height: 70px;
+
   .footer_text {
     // font-size: 16px;
     color: #666666;
   }
 
   ion-icon {
-    font-size:28px;
+    font-size: 28px;
   }
 
   .selected_tabs {

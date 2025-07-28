@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 // import { HomeComponent } from './home/home.component';
 
@@ -19,12 +19,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared-components/shared.module';
 import { DigitalPageModule } from './digital/digital.module';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
+import { LoaderColorfullComponent } from './shared-components/loader-colorfull/loader-colorfull.component';
 
 //import { Printer } from '@ionic-native/printer/ngx';
 @NgModule({
-  declarations: [AppComponent,],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,SharedModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },PDFGenerator],
+  declarations: [AppComponent,
+    LoaderColorfullComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, SharedModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, PDFGenerator],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
