@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loader-colorfull.component.scss'],
 })
 export class LoaderColorfullComponent implements OnInit {
-
+  activeCurrent = '';
   constructor() { }
   loader = false;
   ngOnInit() {
