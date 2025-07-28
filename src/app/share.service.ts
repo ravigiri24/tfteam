@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -59,6 +60,7 @@ this.showFooter=e
   }
   spinner: any;
   async showLoading(message:any,duration:any=5000) {
+
     this.spinner = await this.loadingCtrl.create({
       message: message,
       duration: duration,
