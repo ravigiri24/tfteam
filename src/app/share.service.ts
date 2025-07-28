@@ -58,15 +58,26 @@ this.showFooter=e
     };
     return obj
   }
-  spinner: any;
+  spinner = {
+    dismiss: () => {
+       this.globalLoading=false
+      // You can put your logic here (e.g., hiding loader UI)
+    }}
+  globalLoading=false
   async showLoading(message:any,duration:any=5000) {
 
-    this.spinner = await this.loadingCtrl.create({
-      message: message,
-      duration: duration,
-    });
+    // this.spinner = await this.loadingCtrl.create({
+    //   message: message,
+    //   duration: duration,
+    // });
+    //    this.spinner.present();
 
-    this.spinner.present();
+       this.globalLoading=true
+    setTimeout(() => {
+      this.globalLoading=false
+    }, duration);
+
+ 
   }
   getDataRowObj(src:any, isImage:any, images:any,rowCode:any){
     let staffDetails: any = this.get_staff();
