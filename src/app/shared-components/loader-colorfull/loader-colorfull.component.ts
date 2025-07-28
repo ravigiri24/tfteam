@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShareService } from 'src/app/share.service';
 
 @Component({
   selector: 'app-loader-colorfull',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loader-colorfull.component.scss'],
 })
 export class LoaderColorfullComponent implements OnInit {
-  activeCurrent = '';
-  constructor() { }
+  activeCurrent = 'active_page active_six';
+  constructor(public share:ShareService) { }
   loader = false;
   ngOnInit() {
     this.loader = true;

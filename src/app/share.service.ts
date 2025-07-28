@@ -8,6 +8,7 @@ import { AlertController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class ShareService {
+    activeCurrent:any = null;
  showFooter=true
   constructor(private router:Router,    private loadingCtrl: LoadingController,private toastController: ToastController,private alertController: AlertController) { }
   set_staff_detail_session(data:any){
@@ -60,12 +61,16 @@ this.showFooter=e
   }
   spinner = {
     dismiss: () => {
-       this.globalLoading=false
+      this.activeCurrent='active_page active_six'
+      setTimeout(() => {
+            this.globalLoading=false
+      }, 1000);
+   
       // You can put your logic here (e.g., hiding loader UI)
     }}
   globalLoading=false
   async showLoading(message:any,duration:any=5000) {
-
+ this.activeCurrent=null
     // this.spinner = await this.loadingCtrl.create({
     //   message: message,
     //   duration: duration,
