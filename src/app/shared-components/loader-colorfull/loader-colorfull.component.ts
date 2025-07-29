@@ -7,7 +7,6 @@ import { ShareService } from 'src/app/share.service';
   styleUrls: ['./loader-colorfull.component.scss'],
 })
 export class LoaderColorfullComponent implements OnInit {
-  activeCurrent = 'active_page active_six';
   constructor(public share:ShareService) { }
   loader = false;
   ngOnInit() {

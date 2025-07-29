@@ -61,7 +61,7 @@ this.showFooter=e
   }
   spinner = {
     dismiss: () => {
-      this.activeCurrent='active_page active_six'
+      this.activeCurrent='active_page active_seven' // active_one to active_seven
       setTimeout(() => {
             this.globalLoading=false
       }, 1000);
@@ -69,7 +69,7 @@ this.showFooter=e
       // You can put your logic here (e.g., hiding loader UI)
     }}
   globalLoading=false
-  async showLoading(message:any,duration:any=5000) {
+  async showLoading(message:any,duration:any=7000) {
  this.activeCurrent=null
     // this.spinner = await this.loadingCtrl.create({
     //   message: message,

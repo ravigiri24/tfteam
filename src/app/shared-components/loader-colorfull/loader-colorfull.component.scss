@@ -166,14 +166,32 @@
     }
 }
 
-.active_six {
-    .center_spin {
-        .six {
-            transition: 1s all;
-            transform: scale(5);
-        }
-    }
+.active_one .center_spin .one,
+.active_two .center_spin .two,
+.active_three .center_spin .three,
+.active_four .center_spin .four,
+.active_five .center_spin .five,
+.active_six .center_spin .six,
+.active_seven .center_spin .seven {
+    transform: scale(20);
 }
+
+// @for $i from 1 through 7 {
+//   .active_#{$i} {
+//     .center_spin {
+//       .#{$i} {
+//         transform: scale(20);
+//       }
+//     }
+//   }
+// }
+// .active_four {
+//     .center_spin {
+//         .four {
+//             transform: scale(20);
+//         }
+//     }
+// }
 
 @keyframes spin {
     0% {
