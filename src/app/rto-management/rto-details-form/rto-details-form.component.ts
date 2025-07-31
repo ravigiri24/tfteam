@@ -169,8 +169,8 @@ export class RtoDetailsFormComponent  implements OnInit {
     this.soldStatusForm = this.formBuilder.group({
       tractorID: new FormControl(this?.tractorDetails?.id || null, [Validators.required]),
       brokerId: new FormControl(this?.rtoData?.brokerId || null, []),
-      rto_cost: new FormControl(this?.rtoData?.rto_cost || null, [Validators.required]),
-      insurance_cost: new FormControl(this?.rtoData?.insurance_cost  || null, [Validators.required]),
+      rto_cost: new FormControl(this?.rtoData?.rto_cost || null),
+      insurance_cost: new FormControl(this?.rtoData?.insurance_cost  || null),
       date_of_transfer: new FormControl(this?.rtoData?.date_of_transfer || null, []),
        remark: new FormControl(this?.rtoData?.remark || null),
        actionByid: new FormControl(this.staffDetails?.id, [

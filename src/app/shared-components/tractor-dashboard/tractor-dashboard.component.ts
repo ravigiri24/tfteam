@@ -22,46 +22,41 @@ import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expen
 import { PurchaseCarfComponent } from '../purchase-carf/purchase-carf.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UploadScreenShotComponent } from 'src/app/new-arrivals-management/upload-screen-shot/upload-screen-shot.component';
+import { AddDealerPriceComponent } from 'src/app/purchase-management/add-dealer-price/add-dealer-price.component';
+import { AddRtoInsuranceCostComponent } from '../add-rto-insurance-cost/add-rto-insurance-cost.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
   styleUrls: ['./tractor-dashboard.component.scss'],
 })
-export class TractorDashboardComponent  implements OnInit {
-  
+export class TractorDashboardComponent implements OnInit {
   tractorDetails: any;
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
     private share: ShareService,
     private api: ApiService,
-    private route:Router,
-    private activatedRoute:ActivatedRoute,
-        private inAppBrowser: InAppBrowser,
-        private alertCtrl:AlertController
+    private route: Router,
+    private activatedRoute: ActivatedRoute,
+    private inAppBrowser: InAppBrowser,
+    private alertCtrl: AlertController
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  async goToUplodeSection() {
+    let tarctor_id = this.tractorDetails?.id;
+    const modal = await this.modalCtrl.create({
+      component: UploadScreenShotComponent,
+      componentProps: {
+        tarctor_id: tarctor_id,
+      },
+    });
+    await modal.present();
 
-
+    const { data, role } = await modal.onWillDismiss();
   }
-   async goToUplodeSection(){
-      
-        let tarctor_id=this.tractorDetails?.id
-              const modal = await this.modalCtrl.create({
-                component: UploadScreenShotComponent,
-                componentProps: {
-                  tarctor_id: tarctor_id,
-                },
-              });
-              await modal.present();
-             
-          
-              const { data, role } = await modal.onWillDismiss();
-            
-        }
-    staffDetails:any
-    cardHistory:any
+  staffDetails: any;
+  cardHistory: any;
   checkPruchaseCard(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -70,74 +65,72 @@ export class TractorDashboardComponent  implements OnInit {
       operate: this.staffDetails?.staffCode,
       tractor_id: this.tractor_id,
     };
-   
+
     this.api.postapi('getPurchaseCard', obj).subscribe(
       (res: any) => {
         this.cardHistory = res?.data;
-    
-    
-     
       },
       (error: any) => {
-        console.log("error",error);
-        
+        console.log('error', error);
       }
     );
   }
-download(dataUrl:any){
-
+  download(dataUrl: any) {
     const browser = this.inAppBrowser.create(dataUrl, '_blank');
- 
+
     browser.show();
-  
-}
-  tractor_id:any
-  srcPage:any
+  }
+  tractor_id: any;
+  srcPage: any;
   ionViewWillEnter() {
     this.activatedRoute.params.subscribe((params: any) => {
       this.tractor_id = params?.id;
       this.srcPage = params?.srcPage;
     });
-    this.checkPruchaseCard()
-    this.getTractorDetails()
+    this.checkPruchaseCard();
+    this.getTractorDetails();
   }
   dismiss() {
     return this.modalCtrl.dismiss(null, 'Cancel');
   }
-  backToList(){
-    this.route.navigate(['/operational/all-tractor-management'])
+  backToList() {
+    this.route.navigate(['/operational/all-tractor-management']);
   }
   openEdit() {
-    this.route.navigate(['/operational/edit-newarrivals', this.tractorDetails.rowCode,this.srcPage]);
+    this.route.navigate([
+      '/operational/edit-newarrivals',
+      this.tractorDetails.rowCode,
+      this.srcPage,
+    ]);
   }
-    async openPurchaseCard() {
-      const modal = await this.modalCtrl.create({
-        component: PurchaseCarfComponent,
-        componentProps: {
-          tractor: this.tractorDetails,
-        },
-      });
-      await modal.present();
-      //await modal.present();
-  
-      const { data, role } = await modal.onWillDismiss();
-    }
-    async startTranspotation() {
-      const modal = await this.modalCtrl.create({
-        component: StartTransportDialogComponent,
-        componentProps: {
-          tractorDetails: this.tractorDetails,
-          updateTranctorStatus:false
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-     // if (role === 'confirm') {
-        this.getTractorDetails('Refreshing Data...');
-      //}
-    }
+  async openPurchaseCard() {
+    const modal = await this.modalCtrl.create({
+      component: PurchaseCarfComponent,
+      componentProps: {
+        tractor: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    //await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+  }
+  async startTranspotation() {
+    const modal = await this.modalCtrl.create({
+      component: StartTransportDialogComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+        updateTranctorStatus: false,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    // if (role === 'confirm') {
+    this.getTractorDetails('Refreshing Data...');
+    //}
+  }
 
   getTractorDetails(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
@@ -151,9 +144,8 @@ download(dataUrl:any){
     this.api.postapi('getTractorById', obj).subscribe(
       (res: any) => {
         this.tractorDetails = res?.data;
-    
+
         this.share.spinner.dismiss();
-     
       },
       (error: any) => {}
     );
@@ -164,27 +156,27 @@ download(dataUrl:any){
   addStatusTransport() {
     this.showModal(this.tractorDetails?.id);
   }
-    async showModal(tractor_id: any = null) {
-      const modal = await this.modalCtrl.create({
-        component: AddTransportStatusComponent,
-        componentProps: {
-          tractor_id: tractor_id,
-        },
-      });
-      await modal.present();
-      // const { data, role } = await modal.onWillDismiss();
-      // console.log('role', role);
-  
-      // if (role === 'confirm') {
-  
-      // }
-    }
+  async showModal(tractor_id: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: AddTransportStatusComponent,
+      componentProps: {
+        tractor_id: tractor_id,
+      },
+    });
+    await modal.present();
+    // const { data, role } = await modal.onWillDismiss();
+    // console.log('role', role);
+
+    // if (role === 'confirm') {
+
+    // }
+  }
   async showDeliveryModal() {
     const modal = await this.modalCtrl.create({
       component: ConfirmDeliveryComponent,
       componentProps: {
         tractorDetails: this.tractorDetails,
-            updateTranctorStatus:false
+        updateTranctorStatus: false,
       },
     });
     await modal.present();
@@ -192,121 +184,120 @@ download(dataUrl:any){
     console.log('role', role);
 
     if (role === 'confirm') {
-     this.getTractorDetails('Refreshing Data...');
+      this.getTractorDetails('Refreshing Data...');
     }
   }
-    async viewTractorDashboard(){
-      const modal = await this.modalCtrl.create({
-        component: RepairTractorDashboardComponent,
-        componentProps: {
-          updateTranctorStatus:false,
-          tractorDetails: this.tractorDetails
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  //    if (role === 'confirm') {
-      this.getTractorDetails('Refreshing Data...')
+  async viewTractorDashboard() {
+    const modal = await this.modalCtrl.create({
+      component: RepairTractorDashboardComponent,
+      componentProps: {
+        updateTranctorStatus: false,
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    //    if (role === 'confirm') {
+    this.getTractorDetails('Refreshing Data...');
     //  }
-    }
-   async viewImage(){
-      const modal = await this.modalCtrl.create({
-        component: ImageDashboardComponent,
-        componentProps: {
-       
-          tarctor_id: this.tractorDetails.id,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-        this.getTractorDetails('Refreshing Data...')
-      }
-    }
-      async startRepairing() {
-        const modal = await this.modalCtrl.create({
-          component: StartRepairDialogComponent,
-          componentProps: {
-            tractorDetails: this.tractorDetails,
-            updateTranctorStatus:false
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-    
-        if (role === 'confirm') {
-          this.getTractorDetails('Refreshing Data...');
-        }
-      }
-     async addSellDetails(){
-        const modal = await this.modalCtrl.create({
-          component: TractorSellsDetailsComponent,
-          componentProps: {
-            tractorDetails: this.tractorDetails,
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-    
-        //if (role === 'confirm') {
-          this.getTractorDetails('Refreshing Data...');
-        //}
-      }
-      async addFinanceDetails(){
-        const modal = await this.modalCtrl.create({
-          component: TractorFinanceDetailsComponent,
-          componentProps: {
-            tractorDetails: this.tractorDetails,
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-    
-        //if (role === 'confirm') {
+  }
+  async viewImage() {
+    const modal = await this.modalCtrl.create({
+      component: ImageDashboardComponent,
+      componentProps: {
+        tarctor_id: this.tractorDetails.id,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
 
-          this.getTractorDetails('Refreshing Data...');
-        //}
-      }
-      async addDocument(){
-        const modal = await this.modalCtrl.create({
-          component: SellDocumentComponent,
-          componentProps: {
-            tractorDetail: this.tractorDetails,
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-    
-        //if (role === 'confirm') {
-          this.getTractorDetails('Refreshing Data...');
-        //}
-      }
-      async AddOtherExpense(){
-        const modal = await this.modalCtrl.create({
-          component: OtherExpenseListComponent,
-          componentProps: {
-            tarctor_id: this.tractorDetails?.id,
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-    
-        //if (role === 'confirm') {
-          this.getTractorDetails('Refreshing Data...');
-        //}
-      }
-      backToSrcPage() {
-        this.route.navigate([this.srcPage]);
-      }
-      doArchive(){
+    if (role === 'confirm') {
+      this.getTractorDetails('Refreshing Data...');
+    }
+  }
+  async startRepairing() {
+    const modal = await this.modalCtrl.create({
+      component: StartRepairDialogComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+        updateTranctorStatus: false,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+      this.getTractorDetails('Refreshing Data...');
+    }
+  }
+  async addSellDetails() {
+    const modal = await this.modalCtrl.create({
+      component: TractorSellsDetailsComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    //if (role === 'confirm') {
+    this.getTractorDetails('Refreshing Data...');
+    //}
+  }
+  async addFinanceDetails() {
+    const modal = await this.modalCtrl.create({
+      component: TractorFinanceDetailsComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    //if (role === 'confirm') {
+
+    this.getTractorDetails('Refreshing Data...');
+    //}
+  }
+  async addDocument() {
+    const modal = await this.modalCtrl.create({
+      component: SellDocumentComponent,
+      componentProps: {
+        tractorDetail: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    //if (role === 'confirm') {
+    this.getTractorDetails('Refreshing Data...');
+    //}
+  }
+  async AddOtherExpense() {
+    const modal = await this.modalCtrl.create({
+      component: OtherExpenseListComponent,
+      componentProps: {
+        tarctor_id: this.tractorDetails?.id,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    //if (role === 'confirm') {
+    this.getTractorDetails('Refreshing Data...');
+    //}
+  }
+  backToSrcPage() {
+    this.route.navigate([this.srcPage]);
+  }
+  doArchive() {
     let objData: any = {
       tractor_status: 'ARCHIVED',
     };
@@ -321,11 +312,11 @@ download(dataUrl:any){
       this.share.spinner.dismiss();
 
       this.share.presentToast('Archived Successfully...');
-  
+
       //  this.dismiss();
     });
-      }
-        async archivedAlert() {
+  }
+  async archivedAlert() {
     const alert = await this.alertCtrl.create({
       header: 'Send To Archived',
       subHeader: '',
@@ -348,8 +339,8 @@ download(dataUrl:any){
     }
   }
 
- async sendDraftAlert(){
-     const alert = await this.alertCtrl.create({
+  async sendDraftAlert() {
+    const alert = await this.alertCtrl.create({
       header: 'Send To Draft',
       subHeader: '',
       message: 'Are You Sure',
@@ -370,9 +361,9 @@ download(dataUrl:any){
       this.doDraft();
     }
   }
-        doDraft(){
+  doDraft() {
     let objData: any = {
-      tractor_status:null,
+      tractor_status: null,
     };
     let obj = {
       src: 'tractor',
@@ -385,8 +376,46 @@ download(dataUrl:any){
       this.share.spinner.dismiss();
 
       this.share.presentToast('Archived Successfully...');
-  
+
       //  this.dismiss();
     });
-      }
+  }
+  async openDealerPrice() {
+    const modal = await this.modalCtrl.create({
+      component: AddDealerPriceComponent,
+   
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.dataEnterd) {
+      // this.tractorDetails.dealerPrice = data?.dealerPrice;
+      // this.tractorDetails.isSoldToDealer = true;
+      // this.tractorDetails.tractordetailadmin.wareHouseLocation =
+      //   data?.wareHouseLocation;
+        this.getTractorDetails('Refreshing Data...')
+    }
+  }
+    async addRtoCost() {
+    const modal = await this.modalCtrl.create({
+      component: AddRtoInsuranceCostComponent,
+    
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.dataEnterd) {
+      // this.tractorDetails.dealerPrice = data?.dealerPrice;
+      // this.tractorDetails.isSoldToDealer = true;
+      // this.tractorDetails.tractordetailadmin.wareHouseLocation =
+      //   data?.wareHouseLocation;
+        this.getTractorDetails('Refreshing Data...')
+    }
+  }
 }

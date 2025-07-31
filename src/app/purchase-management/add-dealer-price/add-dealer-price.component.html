@@ -1,7 +1,7 @@
 
 <ion-header>  
   <ion-toolbar>  
-    <ion-title >Add DealerPrice</ion-title>
+    <ion-title >Price Of Sell</ion-title>
 
     
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
@@ -12,6 +12,16 @@
 </ion-header>  
 <ion-content class="ion-padding">
 <form [formGroup]="form">
+   <div class="global_input_block select_option_with_add">
+      <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
+      <ion-select formControlName="wareHouseLocation" fill="outline" label="Franchaise" label-placement="stacked">
+        <ion-select-option *ngFor="let type of wareHouseLocationList" [value]="type.id"> {{ type?.name
+          }}</ion-select-option>
+      </ion-select>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="getWareHouseLocationList()" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
   <ion-item class="bottom-margin">
     <ion-input
       label="Dealer Price"

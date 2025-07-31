@@ -30,6 +30,7 @@
       </ion-label>
 
       <div class="list_right_action">
+        <!-- <ion-icon *ngIf="!tractor?.tfCode"  (click)="geneateTFCode(tractor)" class="small_icon20 theme-color" name="medkit-outline"></ion-icon> -->
         <ion-icon *ngIf="tractor?.isCompleted==0" (click)="openEdit(tractor)" class="small_icon20 theme-color" name="create-outline"></ion-icon>
         <ion-icon *ngIf="tractor?.isCompleted==0" (click)="deleteItem(tractor)" class="small_icon20 theme-color" name="trash-outline"></ion-icon>
         <ion-icon (click)="openRepairDashboard(tractor)" class="small_icon20 theme-color" name="eye-outline"></ion-icon>

@@ -20,6 +20,7 @@ import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
+import { EnterTfCodeComponent } from 'src/app/operational/enter-tf-code/enter-tf-code.component';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -34,48 +35,44 @@ export class CreateComponent implements OnInit {
     private toastController: ToastController,
     private modalCntrol: ModalController,
     private router: Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {}
   brandList: any = [];
   data: any;
-  jobId:any
-  ngOnInit() {
+  jobId: any;
+  ngOnInit() {}
 
-  }
-
-  getJobByRowId(id:any){
-
-    let obj:any = this.share.getListObj('repairing_record', false, [], true);
-    obj.id=this.jobId
+  getJobByRowId(id: any) {
+    let obj: any = this.share.getListObj('repairing_record', false, [], true);
+    obj.id = this.jobId;
     this.api.postapi('getJobByRowId', obj).subscribe(
       (res: any) => {
-        this.data=res?.data
-     this.initialize()
-   this.getBrandList()
-   this.getInventory();
-   this.getIssueList();
-   this.getMechanicList()
+        this.data = res?.data;
+        this.initialize();
+        this.getBrandList();
+        this.getInventory();
+        this.getIssueList();
+        this.getMechanicList();
       },
       (error: any) => {}
     );
   }
-  srcPage:any
+  srcPage: any;
   ionViewWillEnter() {
-    this.activatedRoute.params.subscribe((params:any) => {
+    this.activatedRoute.params.subscribe((params: any) => {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
     });
     if (this.jobId != undefined) {
       this.getJobByRowId(this.jobId);
-    }else{
-      this.initialize()
+    } else {
+      this.initialize();
       this.getBrandList();
-         
-    this.getInventory();
-    this.getIssueList();
-    this.getMechanicList()
+
+      this.getInventory();
+      this.getIssueList();
+      this.getMechanicList();
     }
-  
 
     this.createYearArray();
   }
@@ -99,7 +96,6 @@ export class CreateComponent implements OnInit {
         value = value?.filter((f: any) => f !== issue.id);
         this.form.controls['issueOptions'].setValue(value);
       }
-  
     }
     console.log(
       " this.form.controls['issueOptions'].value",
@@ -126,26 +122,24 @@ export class CreateComponent implements OnInit {
         value = value?.filter((f: any) => f !== inventory.id);
         this.form.controls['inventoryOptions'].setValue(value);
       }
-  
     }
     console.log(
       " this.form.controls['inventoryOptions'].value",
       this.form.controls['inventoryOptions'].value
     );
   }
-  mechanicList:any=[]
-  getMechanicList(loader:any=false) {
-    if(loader){
-    this.share.showLoading('Loading...');
+  mechanicList: any = [];
+  getMechanicList(loader: any = false) {
+    if (loader) {
+      this.share.showLoading('Loading...');
     }
     let obj = this.share.getListObj('mechanic_list', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.mechanicList = res?.data;
-  if(loader){
-    this.share.spinner.dismiss()
-  }
-   
+        if (loader) {
+          this.share.spinner.dismiss();
+        }
       },
       (error: any) => {}
     );
@@ -166,8 +160,33 @@ export class CreateComponent implements OnInit {
       (error: any) => {}
     );
   }
+  geneateTFCode() {}
+  async assignTF() {
+    const modal = await this.modalCntrol.create({
+      component: EnterTfCodeComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: null,
+        generateTFNow:false
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.isActioned) {
+      this.form.controls['tfCode'].setValue(data?.tfCode)
+    }
+  }
+  clearTfCode(){
+       this.form.controls['tfCode'].setValue(null)
+  }
   staffDetails: any;
   initialize() {
+    let isTfCode = null;
+    if (!this.data?.isTfCode && this.data) {
+      isTfCode = 'YES';
+    }
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
@@ -181,6 +200,9 @@ export class CreateComponent implements OnInit {
         Validators.required,
       ]),
       tfCode: new FormControl(this.data?.tfCode || null, [Validators.required]),
+      // isTfCode: new FormControl(this.data?.isTfCode || isTfCode, [
+      //   Validators.required,
+      // ]),
       yearOfManufactoring: new FormControl(
         Number(this.data?.yearOfManufactoring) || null,
         []
@@ -197,10 +219,14 @@ export class CreateComponent implements OnInit {
       customer_name: new FormControl(this.data?.customer_name || null, []),
       contact_number: new FormControl(this.data?.contact_number || null, []),
       issueOptions: new FormControl(this.data?.issueOptions || null, []),
-      inventoryOptions: new FormControl(this.data?.inventoryOptions || null, []),
+      inventoryOptions: new FormControl(
+        this.data?.inventoryOptions || null,
+        []
+      ),
       isSelf: new FormControl(this.data?.isSelf || false, []),
       costEstimated: new FormControl(this.data?.costEstimated || null, []),
       mechanicAlloted: new FormControl(this.data?.mechanicAlloted || null, []),
+      chassisNumber: new FormControl(this.data?.chassisNumber || null,[]),
     });
   }
   async openCrudManagement(type: any = 'TRACTOR_INVENTORY') {
@@ -216,8 +242,8 @@ export class CreateComponent implements OnInit {
       this.getInventory();
     } else if (type == 'TRACTOR_ISSUES') {
       this.getIssueList(true);
-    }else if(type=='MECHANIC_LIST'){
-      this.getMechanicList(true)
+    } else if (type == 'MECHANIC_LIST') {
+      this.getMechanicList(true);
     }
     console.log('role', role);
   }
@@ -232,7 +258,7 @@ export class CreateComponent implements OnInit {
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.inventoryList = res.data;
-    
+
         this.inventoryList?.forEach((f: any) => {
           f.checked = false;
         });
@@ -283,119 +309,115 @@ export class CreateComponent implements OnInit {
       }
     });
   }
-  updateForm(){
-    if(this.form.valid){
-      let obj:any=this.form.value
+  updateForm() {
+    if (this.form.valid) {
+      let obj: any = this.form.value;
       let staffDetails: any = this.share.get_staff();
-   
-      this.staffDetails = JSON.parse(staffDetails);
-       
-          this.share.showLoading('Updating...');
-      
-          obj.repair_center = this.staffDetails?.repair_center;
-          obj.actionById = this.staffDetails?.id;
-          obj.operate = this.staffDetails?.staffCode;
-          obj.id = this.jobId;
-          this.api.postapi('updateJob', obj).subscribe(
-            (res: any) => {
-              this.share.spinner.dismiss()
-              this.share.presentToast("Updated Successfully...")
-              this.router.navigate(['/repair-management/job-list'])
-            },
-            (error: any) => {}
-          );
 
-    }
-    else{
-      this.share.presentToast("Please Fill required fields")
+      this.staffDetails = JSON.parse(staffDetails);
+
+      this.share.showLoading('Updating...');
+
+      obj.repair_center = this.staffDetails?.repair_center;
+      obj.actionById = this.staffDetails?.id;
+      obj.operate = this.staffDetails?.staffCode;
+      obj.id = this.jobId;
+       obj.tfCode=obj?.tfCode?.trim()
+      obj.chassisNumber=obj?.chassisNumber?.trim()
+      this.api.postapi('updateJob', obj).subscribe(
+        (res: any) => {
+          this.share.spinner.dismiss();
+          this.share.presentToast('Updated Successfully...');
+          this.router.navigate(['/repair-management/job-list']);
+        },
+        (error: any) => {}
+      );
+    } else {
+      this.share.presentToast('Please Fill required fields');
     }
   }
-  checkTfCodeOnUpdate(){
-    if(this.form.valid){
+  checkTfCodeOnUpdate() {
+    if (this.form.valid) {
       let staffDetails: any = this.share.get_staff();
-   
-      this.staffDetails = JSON.parse(staffDetails);
-      let obj={
-      operate : this.staffDetails?.staffCode,
-      tfCode:this.form.value?.tfCode,
-      job_id:this.jobId
 
-      }
+      this.staffDetails = JSON.parse(staffDetails);
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+        tfCode: this.form.value?.tfCode?.trim(),
+        chassisNumber: this.form.value?.chassisNumber?.trim(),
+        job_id: this.jobId,
+      };
       this.share.showLoading('Checking TF Code...');
       this.api.postapi('checking_tf_on_update', obj).subscribe(
         (res: any) => {
-          this.share.spinner.dismiss()
-       if(res?.status){
-        this.updateForm()
-       }else{
-        this.share.presentToast("Error,TF Code Already Exist")
-       }
-         // this.router.navigate([this.srcPage])
+          this.share.spinner.dismiss();
+          if (res?.status) {
+            this.updateForm();
+          } else {
+            this.share.presentToast(res?.msg);
+          }
+          // this.router.navigate([this.srcPage])
         },
         (error: any) => {}
       );
- 
-    }else{
-      this.share.presentToast("Please Fill required fields")
+    } else {
+      this.share.presentToast('Please Fill required fields');
     }
   }
-  checkTfCode(){
-    if(this.form.valid){
+  checkTfCode() {
+    if (this.form.valid) {
       let staffDetails: any = this.share.get_staff();
-   
-      this.staffDetails = JSON.parse(staffDetails);
-      let obj={
-      operate : this.staffDetails?.staffCode,
-      tfCode:this.form.value?.tfCode
 
-      }
+      this.staffDetails = JSON.parse(staffDetails);
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+        tfCode: this.form.value?.tfCode,
+        chassisNumber: this.form.value?.chassisNumber?.trim(),
+      };
       this.share.showLoading('Checking TF Code...');
       this.api.postapi('checking_tf', obj).subscribe(
         (res: any) => {
-          this.share.spinner.dismiss()
-       if(res?.status){
-        this.saveForm()
-       }else{
-        this.share.presentToast("Error,TF Code Already Exist")
-       }
-         // this.router.navigate([this.srcPage])
+          this.share.spinner.dismiss();
+          if (res?.status) {
+            this.saveForm();
+          } else {
+            this.share.presentToast(res?.msg);
+          }
+          // this.router.navigate([this.srcPage])
         },
         (error: any) => {}
       );
- 
-    }else{
-      this.share.presentToast("Please Fill required fields")
+    } else {
+      this.share.presentToast('Please Fill required fields');
     }
   }
   saveForm() {
-    if(this.form.valid){
- 
-      let obj=this.form.value
+    if (this.form.valid) {
+      let obj = this.form.value;
       let staffDetails: any = this.share.get_staff();
-   
-      this.staffDetails = JSON.parse(staffDetails);
-       
-          this.share.showLoading('Creating...');
-      
-          obj.repair_center = this.staffDetails?.repair_center;
-          obj.actionById = this.staffDetails?.id;
-          obj.operate = this.staffDetails?.staffCode;
-          obj.billNumber = "TF-"+Math.floor(10000000 + Math.random() * 90000000)
-          this.api.postapi('createJob', obj).subscribe(
-            (res: any) => {
-              this.share.spinner.dismiss()
-              this.share.presentToast("Created Successfully...")
-              this.router.navigate([this.srcPage])
-            },
-            (error: any) => {}
-          );
-     
 
+      this.staffDetails = JSON.parse(staffDetails);
+
+      this.share.showLoading('Creating...');
+
+      obj.repair_center = this.staffDetails?.repair_center;
+      obj.actionById = this.staffDetails?.id;
+      obj.operate = this.staffDetails?.staffCode;
+      obj.billNumber = 'TF-' + Math.floor(10000000 + Math.random() * 90000000);
+      //trimming
+      obj.tfCode=obj.tfCode?.trim()
+      obj.chassisNumber=obj.chassisNumber?.trim()
+      this.api.postapi('createJob', obj).subscribe(
+        (res: any) => {
+          this.share.spinner.dismiss();
+          this.share.presentToast('Created Successfully...');
+          this.router.navigate([this.srcPage]);
+        },
+        (error: any) => {}
+      );
+    } else {
+      this.share.presentToast('Please Fill required fields');
     }
-    else{
-      this.share.presentToast("Please Fill required fields")
-    }
- 
   }
   yearArray: any = [];
   createYearArray() {

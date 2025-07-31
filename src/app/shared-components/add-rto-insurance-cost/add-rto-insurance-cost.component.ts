@@ -10,11 +10,11 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 
 @Component({
-  selector: 'app-add-dealer-price',
-  templateUrl: './add-dealer-price.component.html',
-  styleUrls: ['./add-dealer-price.component.scss'],
+  selector: 'app-add-rto-insurance-cost',
+  templateUrl: './add-rto-insurance-cost.component.html',
+  styleUrls: ['./add-rto-insurance-cost.component.scss'],
 })
-export class AddDealerPriceComponent implements OnInit {
+export class AddRtoInsuranceCostComponent implements OnInit {
   tractorDetails: any;
   data: any;
   constructor(
@@ -47,12 +47,11 @@ export class AddDealerPriceComponent implements OnInit {
   formWarehouse: FormGroup;
   initialize(data: any = null) {
     this.form = this.formBuilder.group({
-      dealerPrice: new FormControl(data?.dealerPrice,   [Validators.required]),
+      insurance_cost: new FormControl(data?.insurance_cost, [
+        Validators.required,
+      ]),
 
-      wareHouseLocation: new FormControl(
-        this.tractorDetails?.tractordetailadmin?.wareHouseLocation || null,
-        [Validators.required]
-      ),
+      rto_cost: new FormControl(data?.rto_cost || null, [Validators.required]),
     });
 
     console.log(' this.form', this.form);
@@ -67,47 +66,16 @@ export class AddDealerPriceComponent implements OnInit {
 
   savePrice() {
     if (this.form.valid) {
-      let dataTractor: any = {
-        dealerPrice: this.form.value.dealerPrice,
-        isSoldToDealer: true,
-      };
       let obj = {
         src: 'tractor',
-        data: dataTractor,
+        data: this.form.value,
         id: this.tractorDetails?.id,
       };
       this.share.showLoading('Updating Details...');
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-
-        this.updateWarehouseAllotement();
-    
-      });
-    } else {
-      this.share.presentToast('Please fill all details');
-
-      this.form.markAllAsTouched();
-    }
-  }
-  updateWarehouseAllotement() {
-    if (this.form.valid) {
-      let dataWarehouse: any = {
-        wareHouseLocation: this.form.value.wareHouseLocation,
-      };
-      let obj = {
-        src: 'tractordetailadmin',
-        data: dataWarehouse,
-        id: this.tractorDetails?.tractordetailadmin?.id,
-      };
-
-      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-        this.tractorDetails.dealerPrice = this.form.value.dealerPrice;
-   
         this.share.spinner.dismiss();
         this.share.presentToast('Details Saved...');
-        this.modalCtrl.dismiss(
-          { dataEnterd: true, dealerPrice: this.form.value.dealerPrice,wareHouseLocation: this.form.value.wareHouseLocation },
-          'confirm'
-        );
+        this.modalCtrl.dismiss({ dataEnterd: true }, 'confirm');
       });
     } else {
       this.share.presentToast('Please fill all details');

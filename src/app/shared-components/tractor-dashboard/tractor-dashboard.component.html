@@ -198,7 +198,7 @@
           </ion-button>
         </ion-item>
       
-        <ion-item  *ngIf="tractorDetails?.sellingDetailedId" >
+        <!-- <ion-item  *ngIf="tractorDetails?.sellingDetailedId" >
           <ion-button  (click)="addFinanceDetails()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="document-text-outline"></ion-icon>
         Finance Details
@@ -209,9 +209,64 @@
           <ion-button  (click)="addDocument()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="document-text-outline"></ion-icon>
        Upload Documents
-          </ion-button>
+          </ion-button> -->
       
+    
+   
+    
+    
+    
+    </ion-list>
+      </div>
+  </ion-accordion>
+    <ion-accordion   value="six">
+    <ion-item slot="header" color="light">
+      <ion-label>Sell To Franchise</ion-label>
+    </ion-item>
+    <div   class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item *ngIf="tractorDetails?.isSold==0" >
+          <ion-button   (click)="openDealerPrice()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
+    <span >Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To {{tractorDetails?.franchiseDettails?.name}} Franchise At {{tractorDetails?.dealerPrice}})</span></span>
+          </ion-button>
+     
         </ion-item>
+             <ion-item *ngIf="tractorDetails?.isSold==1" >
+<h3>Tractor Sold To Customer</h3>
+             </ion-item>
+      
+   
+    
+   
+    
+    
+    
+    </ion-list>
+      </div>
+  </ion-accordion>
+      <ion-accordion   value="Seven">
+    <ion-item slot="header" color="light">
+      <ion-label>RTO And Insurance</ion-label>
+    </ion-item>
+    <div   class="ion-padding" slot="content">
+      <ion-list  >
+        <ion-item  >
+          <ion-button   (click)="addRtoCost()"  fill="clear">
+            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
+    <span >Update Cost</span>
+          </ion-button>
+
+        </ion-item>
+           <ion-item  >
+     <ul>
+      <li>RTO Cost-<b>{{tractorDetails?.rto_cost}}</b></li>
+      <li>Insurance Cost-<b>{{tractorDetails?.insurance_cost}}</b></li>
+     </ul>
+           </ion-item>
+          
+      
+   
     
    
     

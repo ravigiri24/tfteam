@@ -20,7 +20,8 @@ export class EnterTfCodeComponent  implements OnInit {
     private api: ApiService,
     private modalCtrl: ModalController
   ) {}
-  tractorDetails: any;
+  tractorDetails: any=null;
+  generateTFNow:any=true
   ngOnInit() {
     this.getLastTFCode()
     this.initialize(this.tractorDetails);
@@ -72,6 +73,7 @@ newOne='0'+newOne
   }
   updateItem() {
     if (this.form.valid) {
+      if(this.generateTFNow){
       let obj = {
         src: 'tractor',
         data: this.form.value,
@@ -85,6 +87,9 @@ newOne='0'+newOne
    
      
       });
+    }else{
+      this.modalCtrl.dismiss({isActioned:true,tfCode:this.form.controls['registractionNo'].value});
+    }
     } else {
       this.share.presentToast('Please fill all details');
 

@@ -33,7 +33,7 @@ import { FinanceDetailsComponent } from '../rto-management/rto-docs-details/fina
 import { RcUpdateComponent } from './rc-update/rc-update.component';
 import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
 import { DeleteTractorComponent } from './delete-tractor/delete-tractor.component';
-
+import { AddRtoInsuranceCostComponent } from './add-rto-insurance-cost/add-rto-insurance-cost.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -72,7 +72,8 @@ import { DeleteTractorComponent } from './delete-tractor/delete-tractor.componen
     FinanceDetailsComponent,
     RcUpdateComponent,
     NewArrivalsManagementComponent,
-    DeleteTractorComponent
+    DeleteTractorComponent,
+    AddRtoInsuranceCostComponent
     
   ],
   schemas: [],

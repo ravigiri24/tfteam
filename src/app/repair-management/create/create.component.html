@@ -32,14 +32,33 @@
       <ion-select-option *ngFor="let model of modelList"  [value]="model?.id">{{model?.name}}</ion-select-option>
     </ion-select>
   </div>
-  <div class="global_input_block">
+    <!-- <div class="global_input_block" >
+    <ion-select (ionChange)="clearTfCode()"   formControlName="isTfCode" fill="outline" label="TF Code Availaible ?*" label-placement="type">
+      <ion-select-option   value="YES">Yes</ion-select-option>
+      <ion-select-option   value="NO">No</ion-select-option>
+    </ion-select>
+  </div>
+    <span *ngIf="form.controls['isTfCode'].value=='NO'" class="inner-heading">Generate TF Code -
+          <ion-icon  (click)="assignTF()" class="small_icon20 theme-color icon-position" name="medkit-outline"></ion-icon>-
+ <span class="tfCOde">{{form.controls['tfCode'].value}}</span>
+    </span>
+  <div *ngIf="form.controls['isTfCode'].value=='YES'" class="global_input_block">
+    <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
+  </div> -->
+
+
+  <div  class="global_input_block">
     <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
   </div>
+
   <div class="global_input_block">
     <ion-input label="Registration Number" fill="outline" labelPlacement="stacked" type="text" formControlName="regNumber"></ion-input>
   </div>
   <div class="global_input_block">
     <ion-input label="Hours" fill="outline" labelPlacement="stacked" type="text" formControlName="hours"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Chasis Number" fill="outline" labelPlacement="stacked" type="text" formControlName="chassisNumber"></ion-input>
   </div>
   <div class="global_input_block">
     <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text" formControlName="engineNumber"></ion-input>

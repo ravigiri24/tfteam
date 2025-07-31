@@ -1,0 +1,32 @@
+
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >RTO/Insurance Cost</ion-title>
+
+    
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form [formGroup]="form">
+    <div class="global_input_block">
+      <ion-input label="Insurance Cost" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="insurance_cost"></ion-input>
+    </div>
+       <div class="global_input_block">
+      <ion-input label="RTO Cost" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="rto_cost"></ion-input>
+    </div>
+  
+
+  <div class="login-button">
+
+    <ion-button  (click)="savePrice()"  style="text-align: center;" expand="block" >Save</ion-button>
+ 
+
+  </div>
+
+</form></ion-content>

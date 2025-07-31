@@ -45,7 +45,9 @@ export class JobListComponent implements OnInit {
       this.deleteJobApi(job);
     }
   }
- 
+ geneateTFCode(job:any){
+
+ }
   deleteJobApi(job: any) {
     let obj = {
       src: 'repairing_record',
