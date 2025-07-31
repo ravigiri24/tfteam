@@ -1,9 +1,5 @@
-<ion-tabs>
+<!-- <ion-tabs>
   <ion-tab-bar class="bottom_footer_row" slot="bottom">
-    <!-- <ion-tab-button tab="home">
-          <ion-icon name="play-circle"></ion-icon>
-          Listen Now
-        </ion-tab-button> -->
     <ion-tab-button (click)="goToPage('NOC')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='NOC'" class="theme-color" name="list-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='NOC'" class="theme-color" name="list-circle"></ion-icon>
@@ -19,9 +15,67 @@
     <ion-tab-button (click)="goToPage('User')" tab="User">
       <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}"><span
-          class="inner_text">User</span></label>
+      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}">
+        <span class="inner_text">User</span></label>
     </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs> -->
 
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar {{activeTabsColor}}">
+    <ion-tab-button tab="Customer" (click)="goToPage('NOC')" [class.active]="selectedTab === 'NOC'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'NOC'">
+        <ion-icon name="home-outline" *ngIf="selectedTab !== 'NOC'"></ion-icon>
+        <ion-icon name="home" *ngIf="selectedTab === 'NOC'"></ion-icon>
+      </div>
+      <span class="inner_text">Noc</span>
+    </ion-tab-button>
+    <ion-tab-button tab="JobList" (click)="goToPage('Sold_Process')" [class.active]="selectedTab === 'Sold_Process'">
+      <div class="icon-wrapper center-icon" [class.selected]="selectedTab === 'Sold_Process'">
+        <ion-icon name="flame-outline" *ngIf="selectedTab !== 'Sold_Process'"></ion-icon>
+        <ion-icon name="flame" *ngIf="selectedTab === 'Sold_Process'"></ion-icon>
+      </div>
+      <span class="inner_text">Sold</span>
+    </ion-tab-button>
+    <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'User'">
+        <ion-icon name="settings-outline" *ngIf="selectedTab !== 'User'"></ion-icon>
+        <ion-icon name="settings" *ngIf="selectedTab === 'User'"></ion-icon>
+      </div>
+      <span class="inner_text">User</span>
+    </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
+
+
+<!-- <ion-tabs>
+  <ion-tab-bar class="custom-tab-bar" slot="bottom">
+    <ion-tab-button (click)="goToPage('NOC')" [class.active]="selectedTab === 'NOC'">
+      <div class="tab-content">
+        <div class="noc-status-indicator" [class.available]="isNocAvailable" *ngIf="selectedTab === 'NOC'">
+          {{ isNocAvailable ? 'Available' : 'Not Available' }}
+        </div>
+        <ion-icon name="list-circle-outline" *ngIf="selectedTab !== 'NOC'"></ion-icon>
+        <ion-icon name="list-circle" *ngIf="selectedTab === 'NOC'"></ion-icon>
+        <span class="tab-label">NOC</span>
+      </div>
+      <div class="tab-indicator" *ngIf="selectedTab === 'NOC'"></div>
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('Sold_Process')" [class.active]="selectedTab === 'Sold_Process'">
+      <div class="tab-content">
+        <ion-icon name="flash-outline" *ngIf="selectedTab !== 'Sold_Process'"></ion-icon>
+        <ion-icon name="flash" *ngIf="selectedTab === 'Sold_Process'"></ion-icon>
+        <span class="tab-label">Sold</span>
+      </div>
+      <div class="tab-indicator" *ngIf="selectedTab === 'Sold_Process'"></div>
+    </ion-tab-button>
+    <ion-tab-button (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
+      <div class="tab-content">
+        <ion-icon name="person-circle-outline" *ngIf="selectedTab !== 'User'"></ion-icon>
+        <ion-icon name="person-circle" *ngIf="selectedTab === 'User'"></ion-icon>
+        <span class="tab-label">User</span>
+      </div>
+      <div class="tab-indicator" *ngIf="selectedTab === 'User'"></div>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs> -->

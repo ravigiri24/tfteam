@@ -510,6 +510,66 @@ ion-header {
   }
 }
 
+
+.inner_text {
+  color: #ffffff;
+  z-index: 2;
+  position: relative;
+}
+
+.active {
+  .inner_text {
+    display: none;
+  }
+}
+
+.firstColor {
+  // background: #9c4de2;
+
+  &:after {
+    background: #9c4de2;
+    content: "";
+    width: 100%;
+    height: calc(100% - 20px);
+    left: 0px;
+    position: absolute;
+  }
+
+  .selected {
+    background: #9c4de2;
+  }
+}
+
+.secondColor {
+  &:after {
+    background: #FE9B4B;
+    content: "";
+    width: 100%;
+    height: calc(100% - 20px);
+    left: 0px;
+    position: absolute;
+  }
+
+  .selected {
+    background: #FE9B4B;
+  }
+}
+
+.thirdColor {
+  &:after {
+    background: #07d;
+    content: "";
+    width: 100%;
+    height: calc(100% - 20px);
+    left: 0px;
+    position: absolute;
+  }
+
+  .selected {
+    background: #07d;
+  }
+}
+
 ion-header {
   ion-title {
     font-size: 16px;
@@ -625,4 +685,7 @@ ion-header {
     transform: translateX(0);
     opacity: 1;
   }
+}
+ion-tab-button::part(native) {
+  overflow: visible !important;
 }
