@@ -1,38 +1,60 @@
-<ion-tabs class="footer_tabs">
-  <ion-tab-bar class="bottom_footer_row" slot="bottom">
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar {{activeTabsColor}}">
     <!-- <ion-tab-button tab="home">
           <ion-icon name="play-circle"></ion-icon>
           Listen Now
         </ion-tab-button> -->
-    <ion-tab-button (click)="goToPage('Customer')" tab="Customer">
+    <!-- <ion-tab-button (click)="goToPage('Customer')" tab="Customer">
       <ion-icon *ngIf="selectedTab!=='Customer'" class="theme-color" name="people-outline"></ion-icon>
       <ion-icon *ngIf="selectedTab==='Customer'" class="theme-color" name="people"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Customer'}">
         <span class="inner_text">Customer</span></label>
+    </ion-tab-button> -->
+       <ion-tab-button tab="Customer" (click)="goToPage('Customer')"  [class.active]="selectedTab === 'Customer'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'Customer'">
+        <ion-icon name="people-outline" *ngIf="selectedTab !== 'Customer'"></ion-icon>
+        <ion-icon name="people" *ngIf="selectedTab === 'Customer'"></ion-icon>
+      </div>
+      <span class="inner_text">Customer</span>
     </ion-tab-button>
-    <ion-tab-button (click)="goToPage('Follow-Up')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('Follow-Up')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Follow-Up'" class="theme-color" name="bookmarks"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='Follow-Up'" class="theme-color" name="bookmarks-outline"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Follow-Up'}">
         <span class="inner_text">Review</span></label>
+    </ion-tab-button> -->
+        <ion-tab-button tab="Review" (click)="goToPage('Follow-Up')"  [class.active]="selectedTab === 'Follow-Up'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'Follow-Up'">
+        <ion-icon name="bookmarks-outline" *ngIf="selectedTab !== 'Follow-Up'"></ion-icon>
+        <ion-icon name="bookmarks" *ngIf="selectedTab === 'Follow-Up'"></ion-icon>
+      </div>
+      <span class="inner_text">Review</span>
     </ion-tab-button>
-    <ion-tab-button (click)="goToPage('Visitng')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('Visitng')" tab="Follow-Up">
       <ion-icon *ngIf="selectedTab==='Visitng'" class="theme-color" name="prism"></ion-icon>
       <ion-icon *ngIf="selectedTab!=='Visitng'" class="theme-color" name="prism-outline"></ion-icon>
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Visitng'}">
         <span class="inner_text">Visitng</span></label>
       
+    </ion-tab-button> -->
+      <ion-tab-button tab="Review" (click)="goToPage('Visitng')"  [class.active]="selectedTab === 'Visitng'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'Visitng'">
+        <ion-icon name="prism-outline" *ngIf="selectedTab !== 'Visitng'"></ion-icon>
+        <ion-icon name="prism" *ngIf="selectedTab === 'Visitng'"></ion-icon>
+      </div>
+      <span class="inner_text">Visitng</span>
     </ion-tab-button>
     <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>
           <ion-icon *ngIf="selectedTab!=='Report'"  class="theme-color" name="book-outline"></ion-icon>
       Reports
         </ion-tab-button> -->
-    <ion-tab-button (click)="goToPage('User')" tab="User">
-      <ion-icon *ngIf="selectedTab!=='User'" class="theme-color" name="person-circle-outline"></ion-icon>
-      <ion-icon *ngIf="selectedTab==='User'" class="theme-color" name="person-circle"></ion-icon>
-      <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'User'}">
-        <span class="inner_text">User</span></label>      
+    <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'User'">
+        <ion-icon name="person-circle-outline" *ngIf="selectedTab !== 'User'"></ion-icon>
+        <ion-icon name="person-circle" *ngIf="selectedTab === 'User'"></ion-icon>
+      </div>
+      <span class="inner_text">User</span>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

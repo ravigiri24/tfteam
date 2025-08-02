@@ -70,7 +70,7 @@ export class FollowUpManagementComponent  implements OnInit {
      this.share.showLoading('Scheduling ...')
      this.api.postapi('addOpp', obj).subscribe((res:any) => {
        this.followLoader = false;
-       this.share.spinner?.dismiss();
+       this.share.spinner?.dismiss('active_two');
      this.share.presentToast("Scheduled Successfully...")
        this.nextScheduleForm.controls['status'].reset();
    
@@ -135,7 +135,7 @@ followUpList:any=[]
         //   this.followUpList.push(f)
         // })
         console.log("followUpList",this.followUpList);
-        this.share?.spinner?.dismiss()
+        this.share?.spinner?.dismiss('active_two')
         this.loader = false;
       },
       (error:any) => {

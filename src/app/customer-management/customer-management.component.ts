@@ -269,7 +269,7 @@ stateList:any=[]
   ) {
     console.log(e, firstIndex, lastIndex, loading, doBlank);
 
-    this.showLoading('Loading...');
+    this.share.showLoading('Loading...');
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
     obj.firstIndex = firstIndex;
@@ -299,7 +299,7 @@ stateList:any=[]
           // this.digital=this.customerList.filter((f:any)=>f?.customerType=='DIGITAL')?.length
           // this.online=this.customerList.filter((f:any)=>f?.customerType=='ONLINE')?.length
           // this.visitors=this.customerList.filter((f:any)=>f?.customerType=='VISITORS')?.length
-          this.spinner?.dismiss();
+          this.share.spinner?.dismiss('active_one');
           e?.target?.complete();
           setTimeout(() => {
             (loading as InfiniteScrollCustomEvent)?.target?.complete();

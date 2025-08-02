@@ -76,8 +76,8 @@ export class ShareService {
     return obj;
   }
   spinner = {
-    dismiss: () => {
-      this.activeCurrent = 'active_page active_seven'; // active_one to active_seven
+    dismiss: (param:any="active_seven") => {
+      this.activeCurrent = `active_page ${param}`; // active_one to active_seven
       setTimeout(() => {
         this.globalLoading = false;
       }, 1000);

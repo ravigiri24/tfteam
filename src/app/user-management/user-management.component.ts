@@ -42,7 +42,7 @@ export class UserManagementComponent implements OnInit {
 this.share.showLoading("Getting Data")
     this.api.postapi('checkAuthenticationAndRoleList', obj).subscribe(
       (res: any) => {
-        this.share.spinner.dismiss()
+        this.share.spinner.dismiss('active_three')
         if (res?.data?.status == false) {
           this.share.clearSession();
           this.share.presentToast('Invalid Access');
