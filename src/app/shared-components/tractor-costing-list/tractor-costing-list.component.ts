@@ -8,7 +8,7 @@ import { ModalController } from '@ionic/angular';
 import { TractorDashboardComponent } from '../tractor-dashboard/tractor-dashboard.component';
 
 import { Router } from '@angular/router';
-
+import { TractorCostingDashboardComponent } from '../tractor-costing-dashboard/tractor-costing-dashboard.component';
 @Component({
   selector: 'app-tractor-costing-list',
   templateUrl: './tractor-costing-list.component.html',
@@ -120,8 +120,18 @@ alltractorList:any=[]
   this.getTractorList()
   }
   backupList:any=[]
-  tractorDashboard(tractor: any) {
-    this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+ async tractorDashboard(tractor: any) {
+        const modal = await this.modalCtrl.create({
+      component: TractorCostingDashboardComponent,
+      componentProps: {
+     
+        tractor_id: tractor?.id,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+ //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
   }
   backToList(){
     this.router.navigate(['/operational/all-tractor-management'])
