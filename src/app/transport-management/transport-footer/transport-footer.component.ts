@@ -10,9 +10,11 @@ export class TransportFooterComponent  implements OnInit {
 
   ngOnInit() {}
   selectedTab:any='Logistic'
+  activeTabsColor='sixColor'
   goToPage(tab:any){
   this.selectedTab=tab
    if(tab=='Logistic'){
+      this.activeTabsColor='sixColor'
     this.router.navigate(['/transport-department/transport-management'])
   }
 
@@ -20,6 +22,7 @@ export class TransportFooterComponent  implements OnInit {
   //   this.router.navigate(['/digital//report-management'])
   // }
   else if(tab=='User'){
+          this.activeTabsColor='thirdColor'
     this.router.navigate(['/transport-department/user-management'])
   }
   

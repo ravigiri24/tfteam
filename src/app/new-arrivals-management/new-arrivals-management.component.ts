@@ -122,7 +122,7 @@ export class NewArrivalsManagementComponent implements OnInit {
     tract.imageUrlUrl=tract.beforeServiceImages[0]?.imageUrlUrl
   }
  });
-        this.share?.spinner?.dismiss();
+        this.share?.spinner?.dismiss('active_seven');
         this.backupList = res.data;
       },
       (error: any) => {}

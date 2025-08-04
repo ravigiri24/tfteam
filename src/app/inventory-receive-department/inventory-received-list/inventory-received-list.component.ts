@@ -172,7 +172,7 @@ export class InventoryReceivedListComponent  implements OnInit {
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
         this.sortByFilter();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_six');
         this.backupList = res.data;
       },
       (error: any) => {}
@@ -195,7 +195,7 @@ export class InventoryReceivedListComponent  implements OnInit {
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
         this.sortByFilter();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_six');
         this.backupList = res.data;
       },
       (error: any) => {}
@@ -266,7 +266,7 @@ export class InventoryReceivedListComponent  implements OnInit {
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
 
         this.sortByFilter();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_six');
         this.backupList = res.data;
       },
       (error: any) => {}

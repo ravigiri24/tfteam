@@ -12,9 +12,11 @@ export class InventoryFooterComponent  implements OnInit {
  
    ngOnInit() {}
    selectedTab:any='Received Inventory'
+   activeTabsColor='sixColor'
    goToPage(tab:any){
    this.selectedTab=tab
    if(tab=='Received Inventory'){
+    this.activeTabsColor='sixColor'
      this.router.navigate(['/inventory-receive-department/inven-received-list'])
    }
 
@@ -24,6 +26,7 @@ export class InventoryFooterComponent  implements OnInit {
    //   this.router.navigate(['/digital//report-management'])
    // }
    else if(tab=='User'){
+    this.activeTabsColor='thirdColor'
      this.router.navigate(['/inventory-receive-department/user-management'])
    }
    

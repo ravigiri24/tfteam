@@ -11,12 +11,15 @@ export class PurchaseFooterComponent  implements OnInit {
 
   ngOnInit() {}
   selectedTab:any='Inventory-list'
+    activeTabsColor = "secondColor";
   goToPage(tab:any){
   this.selectedTab=tab
   if(tab=='New-findings'){
+   
     this.router.navigate(['/purchase-management/new-findings'])
   }
     if(tab=='New-arrivals'){
+           this.activeTabsColor = "sevenColor";
     this.router.navigate(['/purchase-management/new-arrivals'])
   }
   else if(tab=='Cost-prediction'){
@@ -26,6 +29,7 @@ export class PurchaseFooterComponent  implements OnInit {
     this.router.navigate(['/purchase-management/store-Transaction'])
   }
 else if(tab=='Inventory-list'){
+       this.activeTabsColor = "secondColor";
   this.router.navigate(['/purchase-management/inventory-list'])
 }
 
@@ -33,6 +37,7 @@ else if(tab=='Inventory-list'){
   //   this.router.navigate(['/digital//report-management'])
   // }
   else if(tab=='User'){
+           this.activeTabsColor = "thirdColor";
     this.router.navigate(['/purchase-management/user-management'])
   }
   

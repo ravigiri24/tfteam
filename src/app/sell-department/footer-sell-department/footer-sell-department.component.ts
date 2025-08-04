@@ -10,17 +10,21 @@ export class FooterSellDepartmentComponent  implements OnInit {
 
   ngOnInit() {}
   selectedTab:any='Live'
+  activeTabsColor='firstColor'
   goToPage(tab:any){
   this.selectedTab=tab
   if(tab=='Live'){
+    this.activeTabsColor='firstColor'
     this.router.navigate(['/sell-department/live-tractor-list'])
   }
 
   else if(tab=='Sold'){
+        this.activeTabsColor='secondColor'
     this.router.navigate(['/sell-department/sold-tractor-list'])
   }
 
   else if(tab=='User'){
+           this.activeTabsColor='thirdColor'
     this.router.navigate(['/sell-department/user-management'])
   }
   

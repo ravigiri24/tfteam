@@ -63,7 +63,7 @@ export class TransportManagementComponent implements OnInit {
     this.api.postapi('updateOpp', obj).subscribe(
       (res: any) => {
         this.getTractorList();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_six');
         this.share.presentToast('Updated Successfully...');
       },
       (error: any) => {}
@@ -118,7 +118,7 @@ export class TransportManagementComponent implements OnInit {
     tract.imageUrlUrl=tract.beforeServiceImages[0]?.imageUrlUrl
   }
  });
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_six');
         this.backupList = res.data;
       },
       (error: any) => {}

@@ -184,7 +184,7 @@ if(data){
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
         this.sortByFilter();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_seven');
         this.backupList = res.data;
       },
       (error: any) => {}
@@ -207,7 +207,7 @@ if(data){
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
         this.sortByFilter();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_seven');
         this.backupList = res.data;
       },
       (error: any) => {}
@@ -292,7 +292,7 @@ if(data){
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
 
         this.sortByFilter();
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_seven');
         this.backupList = res.data;
       },
       (error: any) => {}

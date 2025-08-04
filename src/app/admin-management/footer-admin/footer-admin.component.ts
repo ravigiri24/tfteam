@@ -11,6 +11,7 @@ export class FooterAdminComponent  implements OnInit {
 
   ngOnInit() {}
   selectedTab:any='Reports'
+  activeTabsColor='firstColor'
   goToPage(tab:any){
     
     
@@ -19,12 +20,14 @@ export class FooterAdminComponent  implements OnInit {
     this.router.navigate(['/admin-block/digital-analyse'])
   }
   else if(tab=='tractor-costing-list'){
+            this.activeTabsColor='secondColor'
     this.router.navigate(['/admin-block/tractor-costing'])
   }
     else if(tab=='Dashboard'){
     this.router.navigate(['/admin-block/dashboard-overview'])
   }
       else if(tab=='Reports'){
+        this.activeTabsColor='firstColor'
     this.router.navigate(['/admin-block/reports-tractor'])
   }
   else if(tab=='Maintainance'){
@@ -38,6 +41,7 @@ export class FooterAdminComponent  implements OnInit {
   //   this.router.navigate(['/digital//report-management'])
   // }
   else if(tab=='User'){
+        this.activeTabsColor='thirdColor'
     this.router.navigate(['/admin-block/user-management'])
   }
   

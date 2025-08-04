@@ -11,17 +11,22 @@ export class FinanceFooterComponent  implements OnInit {
 
   ngOnInit() {}
   selectedTab:any='Sold'
+   activeTabsColor='fourthColor'
   goToPage(tab:any){
   this.selectedTab=tab
+ 
   if(tab=='Sold'){
+    this.activeTabsColor='fourthColor'
     this.router.navigate(['/finance-department/sold-tractor'])
   }
 
   else if(tab=='Financed'){
+       this.activeTabsColor='sevenColor'
     this.router.navigate(['/finance-department/financed-tractor'])
   }
 
   else if(tab=='User'){
+          this.activeTabsColor='thirdColor'
     this.router.navigate(['/finance-department/user-management'])
   }
   

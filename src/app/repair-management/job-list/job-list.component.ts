@@ -57,7 +57,7 @@ export class JobListComponent implements OnInit {
 
     this.share.showLoading('Deleting Data...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
+      this.share.spinner.dismiss('active_two');
 
       this.share.presentToast('Deleted Successfully...');
       this.getJobList()
@@ -94,7 +94,7 @@ export class JobListComponent implements OnInit {
         this.jobList = res.data;
         console.log('jobList', this.jobList);
 
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_two');
       },
       (error: any) => {}
     );
