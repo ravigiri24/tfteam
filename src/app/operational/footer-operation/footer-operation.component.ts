@@ -12,9 +12,12 @@ export class FooterOperationComponent  implements OnInit {
 
   ngOnInit() {}
   selectedTab:any='BUFFER'
+    activeTabsColor = "fifthColor";
   goToPage(tab:any){
   this.selectedTab=tab
+  
   if(tab=='New-arrivals'){
+
     this.router.navigate(['/operational/new-arrivals'])
   }
   else if(tab=='Logistic'){
@@ -25,9 +28,11 @@ export class FooterOperationComponent  implements OnInit {
   }
   
   else if(tab=='BUFFER'){
+              this.activeTabsColor = "fifthColor";
     this.router.navigate(['/operational/buffer-stock'])
   }
   else if(tab=='Live'){
+           this.activeTabsColor = "sixColor";
     this.router.navigate(['/operational/all-tractor-management'])
   }
   
@@ -35,6 +40,7 @@ export class FooterOperationComponent  implements OnInit {
   //   this.router.navigate(['/digital//report-management'])
   // }
   else if(tab=='User'){
+         this.activeTabsColor = "thirdColor";
     this.router.navigate(['/operational/user-management'])
   }
   

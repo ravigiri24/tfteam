@@ -101,7 +101,7 @@ export class BufferStockTractorsComponent implements OnInit {
         this.allTractorsSrcList = res.data;
         this.sortByFilter();
 
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_five');
         this.backupList = res.data;
       },
       (error: any) => {}
@@ -205,7 +205,7 @@ export class BufferStockTractorsComponent implements OnInit {
 
     this.share.showLoading('Updating Data...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
+      this.share.spinner.dismiss('active_five');
       this.clearMappedJob(tractor);
       this.share.presentToast('Deleted Successfully...');
       this.getTractorList();
