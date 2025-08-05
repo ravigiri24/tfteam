@@ -130,6 +130,7 @@
                           <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">City</th>
                           <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">State</th>
                           <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Selling Price</th>
+                          <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Sell To</th>
                           <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Margin Money</th>
                           <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Financed</th>
                           <th  style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">FI Done</th>
@@ -169,8 +170,8 @@
           <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchanseDate}}</td>
           <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchasePrice}}</td>
           <td *ngFor="let expenseTransport of logisticExpenseTypeList"  style="padding: 5px 10px;">{{tractor?.logisticExpense[expenseTransport?.name]}}</td>
-          <td style="padding: 5px 10px;">{{tractor?.rtoDetails?.insurance_cost}}</td>
-          <td style="padding: 5px 10px;">{{tractor?.rtoDetails?.rto_cost}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.insurance_cost}}</td>
+          <td style="padding: 5px 10px;">{{tractor?.rto_cost}}</td>
           <td style="padding: 5px 10px;">{{tractor?.totalAmountBreakup}}</td>
           <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.amountTransferDate}}</td>
           <td style="padding: 5px 10px;">
@@ -209,7 +210,15 @@
                       <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.address||''}}</td>
                       <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.stateDetails?.name||''}}</td>
                       <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.cityDetails?.name||''}}</td>
-                      <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.sellingPrice||0}}</td>
+                      <td style="padding: 5px 10px;">
+                        <span *ngIf="tractor?.isSoldToDealer==0">{{tractor?.sellingDetailedIdDetails?.sellingPrice||0}}</span>
+                        <span *ngIf="tractor?.isSoldToDealer==1">{{tractor?.dealerPrice||0}}</span>
+                      </td>
+                          <td style="padding: 5px 10px;">
+                              <span *ngIf="tractor?.isSoldToDealer==0 && tractor?.sellingDetailedIdDetails?.sellingPrice">Sold To Customer</span>
+                              <span *ngIf="tractor?.isSoldToDealer==0 && !tractor?.sellingDetailedIdDetails?.sellingPrice">Not Sold</span>
+                              <span *ngIf="tractor?.isSoldToDealer==1">Sold To Dealer</span>
+                          </td>
                       <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.marginMoney||0}}</td>
                        <td style="padding: 5px 10px;">
                   <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinance==null">Not Assign</span>

@@ -24,9 +24,11 @@
         <ion-card-subtitle>
           <span class="theme-color-second"><b>{{ tractorDetails?.registractionNo }} -<span
                 *ngIf="tractorDetails?.tractor_status">&nbsp;{{ tractorDetails?.tractor_status }} </span>
-              <span *ngIf="!tractorDetails?.tractor_status">Live</span>
-              <span *ngIf="tractorDetails?.isSold===1">- Sold</span>
-              <span *ngIf="tractorDetails?.isSold===0">- Not Sold</span>
+              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0 ">Live</span>
+              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1 ">Draft</span>
+              <span *ngIf="tractorDetails?.isSold==1">-Sold To Customer</span>
+              <span *ngIf="tractorDetails?.isSoldToDealer==1">- Sold To Dealer</span>
+              <span *ngIf="tractorDetails?.isSold==0 && tractorDetails?.isSoldToDealer==0">- Not Sold</span>
             </b>
           </span>
         </ion-card-subtitle>
@@ -398,6 +400,12 @@
 
           <div class="ion-padding" slot="content">
             <ion-grid class="secondartColor">
+                        <ion-row>
+                 <ion-col>Sell To</ion-col>
+              <ion-col  *ngIf="tractorDetails?.isSold==1 && sellingData">Sold To Customer</ion-col>
+                <ion-col *ngIf="tractorDetails?.isSoldToDealer==1">Sold To {{tractorDetails?.franchiseDettails?.name}} Franchise</ion-col>
+                <ion-col *ngIf="(tractorDetails?.isSoldToDealer==0 && tractorDetails?.isSold==0) &&  !sellingData">Not Sold</ion-col>
+              </ion-row>
               <ion-row>
                 <ion-col>Customer Name </ion-col>
                 <ion-col>{{sellingData?.nameOfCustomer || '-'}}</ion-col>
@@ -413,7 +421,8 @@
               </ion-row>
                  <ion-row>
                 <ion-col>Selling Price</ion-col>
-                <ion-col>{{sellingData?.sellingPrice||'-'}}</ion-col>
+              <ion-col  *ngIf="tractorDetails?.isSoldToDealer==0 && tractorDetails?.sellingDetailedIdDetails?.sellingPrice">{{sellingData?.sellingPrice||'-'}}</ion-col>
+                <ion-col *ngIf="tractorDetails?.isSoldToDealer==1">{{tractorDetails?.dealerPrice||'-'}}</ion-col>
               </ion-row>
                 <ion-row>
                 <ion-col>Margin Money</ion-col>

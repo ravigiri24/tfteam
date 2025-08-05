@@ -7,6 +7,7 @@ import { ImageDashboardComponent } from '../maintainance-management/image-dashbo
 import { RepairTractorDashboardComponent } from '../maintainance-management/repair-tractor-dashboard/repair-tractor-dashboard.component';
 import { Router } from '@angular/router';
 import { FilterByPageComponent } from './filter-by-page/filter-by-page.component';
+import { TractorCostingDashboardComponent } from '../shared-components/tractor-costing-dashboard/tractor-costing-dashboard.component';
 import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SyncTractorWithMaintaninanceComponent } from '../shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 @Component({
@@ -107,6 +108,19 @@ export class BufferStockTractorsComponent implements OnInit {
       (error: any) => {}
     );
   }
+   async tractorViewDetail(tractor: any) {
+          const modal = await this.modalCtrl.create({
+        component: TractorCostingDashboardComponent,
+        componentProps: {
+       
+          tractor_id: tractor?.id,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+   //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+    }
   async viewImage(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: ImageDashboardComponent,

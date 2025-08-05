@@ -8,7 +8,7 @@
         <b class="total-number">{{buffertractorList?.length}}</b>
       </div>
       <div class="right_action">
-        <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
+        <!-- <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon> -->
         <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
         <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
         <!-- <ion-button style="margin-right: 10px;" class="button-theme add-button right-margine" slot="end"
@@ -113,6 +113,9 @@
                         </ion-col>
                                 <ion-col>
                      <img (click)="syncManitainance(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;position: relative;top:-5px" src="./././assets/images/sync.png" />
+                     </ion-col>
+                            <ion-col>
+                     <img (click)="tractorViewDetail(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;position: relative;top:-5px" src="./././assets/images/visual.png" />
                      </ion-col>
                     <ion-col>
                      <img (click)="deleteItem(tractor)" class="image-style " style="width: 50px;height: 40px; margin: 11px;position: relative;top:-5px" src="./././assets/images/deleted.png" />

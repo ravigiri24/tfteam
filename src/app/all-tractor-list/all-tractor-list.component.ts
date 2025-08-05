@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SyncTractorWithMaintaninanceComponent } from '../shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from '../shared-components/select-list-type/select-list-type.component';
+import { TractorCostingDashboardComponent } from '../shared-components/tractor-costing-dashboard/tractor-costing-dashboard.component';
 @Component({
   selector: 'app-all-tractor-list',
   templateUrl: './all-tractor-list.component.html',
@@ -163,6 +164,19 @@ if(loader){
       (error: any) => {}
     );
   }
+     async tractorViewDetail(tractor: any){
+            const modal = await this.modalCtrl.create({
+          component: TractorCostingDashboardComponent,
+          componentProps: {
+         
+            tractor_id: tractor?.id,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+     //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+      }
   selectedStore: any;
   warehouseList: any = [];
   getWareHouseList(loader: any = false) {

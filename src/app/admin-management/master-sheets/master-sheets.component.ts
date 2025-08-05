@@ -145,14 +145,14 @@ export class MasterSheetsComponent implements OnInit {
                 if(tractor?.purchasedetail?.purchasePrice>0){
                totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.purchasedetail?.purchasePrice)
                 }
-                if(tractor?.rtoDetails){
-                if(tractor?.rtoDetails?.rto_cost>0){
-                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.rtoDetails?.rto_cost)
+               // if(tractor?.rtoDetails){
+                if(tractor?.rto_cost>0){
+                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.rto_cost)
                 }
-                   if(tractor?.rtoDetails?.insurance_cost>0){
-                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.rtoDetails?.insurance_cost)
+                   if(tractor?.insurance_cost>0){
+                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.insurance_cost)
                 } 
-                }
+                //}
                 tractor.totalAmountBreakup=totalAmountBreakup
                 //need to call at last for all calculation
                 this.calculateRepairCost(tractor)
@@ -256,6 +256,7 @@ tractor.workshopTotalExpense=Number(totalRepairExpense)-Number(reduceItemTotalAm
 //totalExpense
 tractor.totalExpenseT=Number(tractor.workshopTotalExpense)+Number(tractor?.totalAmountBreakup)
 if(tractor?.sellingDetailedIdDetails){
+
   tractor.netSellingPrice=tractor?.sellingDetailedIdDetails?.sellingPrice
   tractor.gm=Number(tractor?.sellingDetailedIdDetails?.sellingPrice)-Number(tractor.totalExpenseT)
   if( tractor.gm){
@@ -264,10 +265,20 @@ if(tractor?.sellingDetailedIdDetails){
   tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
 
 }else{
-   tractor.netSellingPrice=null
+    if(tractor?.isSoldToDealer==1){
+  tractor.netSellingPrice=Number(tractor?.dealerPrice)
+    tractor.gm=Number(tractor?.dealerPrice)-Number(tractor.totalExpenseT)
+      if( tractor.gm){
+    tractor.gstAmount=Number(tractor.gm)*12/112
+  }
+  tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
+  }else{
+       tractor.netSellingPrice=null
    tractor.gm=null
    tractor.gstAmount=null
   tractor.billingAmountWithoutGst=null
+  }
+
 }
 
 tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000

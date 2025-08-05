@@ -32,7 +32,7 @@ export class JobDashboardComponent  implements OnInit {
         this.jobData = res.data;
         console.log('jobData', this.jobData);
 
-        this.share.spinner.dismiss();
+        this.share.spinner.dismiss('active_one');
       },
       (error: any) => {}
     );
