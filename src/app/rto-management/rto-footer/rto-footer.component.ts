@@ -38,5 +38,10 @@ export class RtoFooterComponent implements OnInit {
       this.activeTabsColor = "thirdColor";
       this.router.navigate(['/rto-department/user-management']);
     }
+    else if(tab=='Doc_Status'){
+      this.activeTabsColor = "fourthColor";
+      this.router.navigate(['/rto-department/rto-docs-status']);
+      
+    }
   }
 }

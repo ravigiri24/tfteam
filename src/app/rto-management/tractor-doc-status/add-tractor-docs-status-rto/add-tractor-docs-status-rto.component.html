@@ -1,0 +1,25 @@
+<ion-header>  
+  <ion-toolbar>  
+        <ion-label class="top_heading">
+    <ion-title *ngIf="!editData" >Add {{title}}</ion-title>  
+    <ion-title *ngIf="editData" >Update {{title}}</ion-title>  
+ 
+      <div class="right_action">
+
+            <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content class="ion-padding">
+   <form *ngIf="form" [formGroup]="form">
+      <div  class="global_input_block " >
+  <ion-textarea formControlName="note" class="hieght-area" label="Note" fill="outline" labelPlacement="stacked"
+      placeholder="write Notes here..."></ion-textarea>
+  </div>
+   <ion-button (click)="save()" class="global_submit_button" >
+    
+      Save</ion-button>
+      </form>
+  </ion-content>

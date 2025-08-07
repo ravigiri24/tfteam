@@ -37,6 +37,13 @@
       </div>
       <span class="inner_text">Sold</span>
     </ion-tab-button>
+      <ion-tab-button tab="Status" (click)="goToPage('Doc_Status')" [class.active]="selectedTab === 'Doc_Status'">
+      <div class="icon-wrapper center-icon" [class.selected]="selectedTab === 'Doc_Status'">
+        <ion-icon name="briefcase-outline" *ngIf="selectedTab !== 'Doc_Status'"></ion-icon>
+        <ion-icon name="briefcase" *ngIf="selectedTab === 'Doc_Status'"></ion-icon>
+      </div>
+      <span class="inner_text">Status</span>
+    </ion-tab-button>
     <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'User'">
         <ion-icon name="person-circle-outline" *ngIf="selectedTab !== 'User'"></ion-icon>

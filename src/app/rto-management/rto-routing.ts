@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { RtoManagementComponent } from './rto-management.component';
-
+import { TractorDocStatusComponent } from './tractor-doc-status/tractor-doc-status.component';
 import { RtoNocComponent } from './rto-noc/rto-noc.component';
 import { RtoSoldProcessComponent } from './rto-sold-process/rto-sold-process.component';
 import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-list/add-rto-costing-list.component';
@@ -18,6 +18,7 @@ const routes: Routes = [
        { path: 'user-management', component: UserManagementComponent},
        { path: 'rto-noc', component: RtoNocComponent},
        { path: 'rto-sold-process', component: RtoSoldProcessComponent},
+       { path: 'rto-docs-status', component: TractorDocStatusComponent},
   
  
          {

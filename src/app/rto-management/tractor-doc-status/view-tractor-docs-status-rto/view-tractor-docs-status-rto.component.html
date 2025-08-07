@@ -1,0 +1,49 @@
+<ion-header>  
+  <ion-toolbar>  
+        <ion-label class="top_heading">
+    <ion-title >Notes</ion-title>  
+ 
+      <div class="right_action">
+          <ion-icon (click)="getNotList()" name="refresh-outline"></ion-icon>
+        <ion-icon (click)="addNewNotes()" class="theme-color" name="add-circle-outline"></ion-icon>
+            <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>  
+
+</ion-header>  
+<ion-content>
+<ion-list class="list_row top-position-list" *ngIf="note_list?.length">
+  <!-- <ion-item *ngFor="let tractor of list|filterBy: search ;let in=index"> -->
+    <ion-row>
+      <ion-col *ngFor="let note of note_list ; let in=index" size="12" size-md="6">
+        <!-- <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  /> -->
+        <ion-grid class="main_block_details" [ngClass]="listColorClass">
+          <ion-card>
+            <ion-label class="main_title">{{note?.note?.createdOn | date}}</ion-label>
+            <ion-row >
+              <ng-container >
+                <ion-col (click)="addNewNotes(note?.note)" class="left_row_title">{{note?.note?.note}}</ion-col>
+             
+              </ng-container>
+            
+            </ion-row>
+             <ion-row >
+               <ion-col>Status</ion-col>
+               <ion-col>Complete</ion-col>
+             </ion-row>
+            <ion-row >
+              <ion-col class="action_col" >
+                <img  src="./././assets/images/question-and-answer.png" />
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  <!-- </ion-item> -->
+</ion-list>
+<div *ngIf="note_list?.length ==0" class="no-data-block">
+  <img class="image-no-data" src="././assets/images/no-data-found.png" />
+</div>
+</ion-content>

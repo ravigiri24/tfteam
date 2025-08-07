@@ -34,6 +34,8 @@ import { RcUpdateComponent } from './rc-update/rc-update.component';
 import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
 import { DeleteTractorComponent } from './delete-tractor/delete-tractor.component';
 import { AddRtoInsuranceCostComponent } from './add-rto-insurance-cost/add-rto-insurance-cost.component';
+import { ViewTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/view-tractor-docs-status-rto/view-tractor-docs-status-rto.component';
+import { AddTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -73,7 +75,9 @@ import { AddRtoInsuranceCostComponent } from './add-rto-insurance-cost/add-rto-i
     RcUpdateComponent,
     NewArrivalsManagementComponent,
     DeleteTractorComponent,
-    AddRtoInsuranceCostComponent
+    AddRtoInsuranceCostComponent,
+    ViewTractorDocsStatusRtoComponent,
+    AddTractorDocsStatusRtoComponent
     
   ],
   schemas: [],

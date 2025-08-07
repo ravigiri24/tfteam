@@ -10,18 +10,19 @@ import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
 import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
-import { NocUpdateComponent } from './noc-update/noc-update.component';
-import { NocViewOptionsComponent } from './noc-view-options/noc-view-options.component';
+
 import { ShowSalesDetailsComponent } from 'src/app/finance-department/show-sales-details/show-sales-details.component';
 import { RtoOptionsComponent } from '../rto-options/rto-options.component';
-import { SearchRtoNocComponent } from './search-rto-noc/search-rto-noc.component';
+import { SearchRtoNocComponent } from '../rto-noc/search-rto-noc/search-rto-noc.component';
 import { CommonMethodService } from 'src/app/common-method.service';
+
 @Component({
-  selector: 'app-rto-noc',
-  templateUrl: './rto-noc.component.html',
-  styleUrls: ['./rto-noc.component.scss'],
+  selector: 'app-tractor-doc-status',
+  templateUrl: './tractor-doc-status.component.html',
+  styleUrls: ['./tractor-doc-status.component.scss'],
 })
-export class RtoNocComponent implements OnInit {
+export class TractorDocStatusComponent  implements OnInit {
+
   constructor(
     private api: ApiService,
     private share: ShareService,
@@ -191,7 +192,7 @@ export class RtoNocComponent implements OnInit {
       this.share.showLoading('Loading...');
     }
 
-    this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
+    this.api.postapi('getTractorListBranchWiseisAll', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
@@ -375,25 +376,35 @@ export class RtoNocComponent implements OnInit {
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
     optionsUploadButtonArray: any = [
-   
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Upload NOC',
-      showHeading: 'Upload NOC',
-      param: 'NOC_DOCUMENT_RTO',
+      optionsName: 'Upload RC (Before Transfer)',
+      showHeading: 'Upload RC (Before Transfer)',
+      param: 'RC_OLD_RTO',
+      showDeleteButton: true,
+      uploadPhoto: true,
+      type: 'IMAGE',
+      icon: '././assets/images/credit-card.png',
+    },
+      {
+      functionName: 'goToUplodeSection',
+      optionsName: 'Upload Application',
+      showHeading: 'Upload Application',
+      param: 'RC_OLD_APPLICATION_FORM',
       showDeleteButton: true,
       uploadPhoto: true,
       type: 'IMAGE',
       icon: '././assets/images/documentation.png',
     }
+    
      
    
   ];
   buttonArray: any = [
     {
-      name: 'IS Noc',
-      action: 'nocUpdate',
-      image: './././assets/images/stamp.png',
+      name: 'RTO Tractor Docs Status',
+      action: 'rto-tractor-docs-status',
+      image: './././assets/images/clipboard.png',
     },
       {
       name: 'View Details',

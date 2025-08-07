@@ -17,6 +17,8 @@ import { TractorSellsDetailsComponent } from './tractor-sells-details/tractor-se
 import { RcUpdateComponent } from './shared-components/rc-update/rc-update.component';
 import { DeleteTractorComponent } from './shared-components/delete-tractor/delete-tractor.component';
 import { TransferToNewArrivalsComponent } from './purchase-management/transfer-to-new-arrivals/transfer-to-new-arrivals.component';
+import { ViewTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-status/view-tractor-docs-status-rto/view-tractor-docs-status-rto.component';
+import { AddTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -86,6 +88,9 @@ export class CommonMethodService {
     else if (e?.button?.name == 'Inventory-to-new') {
  
       this.inventoryToNewArrivals(e?.tractor, e?.button);
+    }
+    else if(e?.button?.name == 'RTO Tractor Docs Status'){
+      this.viewrtoTractorStatus(e?.tractor)
     }
   }
  async transerToNewArrivals(tractor: any, button: any){
@@ -296,6 +301,21 @@ inventoryToNewArrivals(tractor: any, button: any){
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+    async viewrtoTractorStatus(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ViewTractorDocsStatusRtoComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
     if (data) {
       this.reloadMethod = true;
     }

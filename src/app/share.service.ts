@@ -99,6 +99,17 @@ export class ShareService {
       this.globalLoading = false;
     }, duration);
   }
+  spinnerPopup:any
+    async showLoadingCrud(message: any, duration: any = 7000) {
+  
+    this.spinner = await this.loadingCtrl.create({
+      message: message,
+      duration: duration,
+    });
+       this.spinnerPopup.present();
+
+   
+  }
   getDataRowObj(src: any, isImage: any, images: any, rowCode: any) {
     let staffDetails: any = this.get_staff();
     //console.log('staffDetails', staffDetails);

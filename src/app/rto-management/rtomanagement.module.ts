@@ -7,7 +7,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
-
+import { TractorDocStatusComponent } from './tractor-doc-status/tractor-doc-status.component';
 
 import { SharedModule } from '../shared-components/shared.module';
 
@@ -31,6 +31,7 @@ import { NocViewOptionsComponent } from './rto-noc/noc-view-options/noc-view-opt
 import { SearchRtoNocComponent } from './rto-noc/search-rto-noc/search-rto-noc.component';
 import { AddRtoCostingComponent } from './rto-sold-process/add-rto-costing/add-rto-costing.component';
 import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-list/add-rto-costing-list.component';
+
 @NgModule({
   declarations: [
   RtoManagementComponent,
@@ -46,7 +47,9 @@ import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-l
 // FinanceDetailsComponent,
  SearchRtoNocComponent,
  AddRtoCostingComponent,
- AddRtoCostingListComponent
+ AddRtoCostingListComponent,
+ TractorDocStatusComponent,
+
     
   ],
   imports: [
