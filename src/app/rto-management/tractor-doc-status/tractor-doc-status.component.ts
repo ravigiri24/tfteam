@@ -288,7 +288,7 @@ export class TractorDocStatusComponent  implements OnInit {
     // console.log('New', new Date('06/01/2025'));
     if (this.listBy == 'BY_DATE') {
       this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => new Date(f?.createdOn) >= new Date(this.startDate)&& new Date(f?.createdOn) <= new Date(this.endDate )
+        (f: any) => new Date(f?.createdOn) >= new Date(this.startDate) && new Date(f?.createdOn) <= new Date(this.endDate )
       );
     }
   }
