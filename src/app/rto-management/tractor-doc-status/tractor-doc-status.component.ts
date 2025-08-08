@@ -328,27 +328,9 @@ export class TractorDocStatusComponent  implements OnInit {
     // if (role === 'confirm') {
     // }
   }
-  async viewTractorDashboard(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: TractorDashboardComponent,
-      componentProps: {
-        tractorDetails: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-
-    this.getTractorList();
-  }
+  
   backupList: any = [];
-  tractorDashboard(tractor: any) {
-    this.router.navigate([
-      '/operational/view-dashboard',
-      tractor?.id,
-      '/operational/all-tractor-management',
-    ]);
-  }
+
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
@@ -428,15 +410,5 @@ export class TractorDocStatusComponent  implements OnInit {
     // }
     
   }
-  async salesDetails(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: ShowSalesDetailsComponent,
-      componentProps: {
-        tractor: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-  }
+
 }

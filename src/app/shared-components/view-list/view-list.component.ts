@@ -22,6 +22,7 @@ export class ViewListComponent implements OnInit {
     console.log("ViewListComponent", this.list, this.search, this.searchKey);
 
   }
+  
   actionEvent(tractor: any, button: any) {
     this.actionEventCall.emit({ tractor, button })
   }
