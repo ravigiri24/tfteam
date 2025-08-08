@@ -15,14 +15,24 @@ export class ViewListComponent implements OnInit {
   @Input() keyList: any = []
   @Input() buttonArray: any = []
   @Input() listColorClass: any;
-  @Output() actionEventCall = new EventEmitter()
+  @Output() actionEventCall = new EventEmitter();
+  photoCount = 2;
+  showOverlay = false;
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
     console.log("ViewListComponent", this.list, this.search, this.searchKey);
-
   }
-  
+
+  triggerOverlayAnimation() {
+    this.showOverlay = true;
+    // this.photoCount++;
+  }
+
+  onOverlayAnimationEnd() {
+    this.showOverlay = false;
+  }
+
   actionEvent(tractor: any, button: any) {
     this.actionEventCall.emit({ tractor, button })
   }

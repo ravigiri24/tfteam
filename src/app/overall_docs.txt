@@ -3,3 +3,7 @@ https://ionicframework.com/docs/api/input
 
 ionic framework components
 https://ionicframework.com/docs/components
+
+ionic icons list
+https://ionic.io/ionicons
+https://ionicframework.com/docs/ionicons

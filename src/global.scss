@@ -428,7 +428,7 @@ ion-header {
 .page_loader {
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 100000;
   position: fixed;
   left: 0px;
   top: 0px;
@@ -596,7 +596,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #9c4de2;
     background: var(--app-dynamic-color-first);
   }
@@ -618,7 +618,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-second);
   }
@@ -640,7 +640,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #07d;
     background: var(--app-dynamic-color-third);
   }
@@ -662,7 +662,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #9c4de2;
     background: var(--app-dynamic-color-fourth);
   }
@@ -684,7 +684,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-fifth);
   }
@@ -706,7 +706,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #07d;
     background: var(--app-dynamic-color-six);
   }
@@ -728,7 +728,7 @@ ion-header {
   }
 
   &:after,
-  .selected {
+  .selected, .camera-counter  {
     // background: #07d;
     background: var(--app-dynamic-color-seven);
   }
@@ -880,3 +880,16 @@ ion-header {
 //     border-image: repeating-linear-gradient(90deg, #007bff 20px 30px, transparent 30px 40px) 1;
 //   }
 // }
+@keyframes expandOverlay {
+  0% {
+    width: 0;
+    height: 0;
+    transform: translate(0, 0) scale(0);
+  }
+
+  100% {
+    width: 200%;
+    height: 200%;
+    transform: translate(-100%, 100%) scale(1);
+  }
+}
