@@ -23,17 +23,18 @@
             <ion-label class="main_title">{{note?.note?.createdOn | date}}</ion-label>
             <ion-row >
               <ng-container >
-                <ion-col (click)="addNewNotes(note?.note)" class="left_row_title">{{note?.note?.note}}</ion-col>
+                <ion-col (click)="addNewNotes(note?.note,in)" class="left_row_title">{{note?.note?.note}}</ion-col>
              
               </ng-container>
             
             </ion-row>
              <ion-row >
-               <ion-col>Status</ion-col>
-               <ion-col>Complete</ion-col>
+             
+               <ion-col>Status: <span (click)="enterStatus(note,in,note)" *ngIf="note?.status?.note">{{note?.status?.note}}({{note?.status?.updatedOn ? note?.status?.updatedOn  : note?.status?.createdOn | date}})</span></ion-col>
              </ion-row>
             <ion-row >
-              <ion-col class="action_col" >
+              <ion-col (click)="enterStatus(note,in,note)" class="action_col" >
+                     <span class="camera-counter">2</span>
                 <img  src="./././assets/images/question-and-answer.png" />
               </ion-col>
             </ion-row>

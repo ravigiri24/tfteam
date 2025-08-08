@@ -24,7 +24,25 @@ note_list:any=[
   {note:"Application mai naam galat likha hua hai Application mai naam galat likha hua hai Application mai naam galat likha hua hai Application mai naam galat likha hua hai Application mai naam galat likha hua hai Application mai naam galat likha hua hai"}
 
 ]
-  async addNewNotes(note:any=null) {
+async enterStatus(note_data:any=null,ind:any=null,note:any=null){
+   const modal = await this.modalCtrl.create({
+      component: AddTractorDocsStatusRtoComponent,
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+        type:'STATUS',
+        editData:note?.status||null,
+        title:'Status',
+        note_id:note_data?.note?.id
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if(data?.row){
+      this.note_list[ind].status=data?.row
+    }
+}
+  async addNewNotes(note:any=null,ind:any=null) {
     const modal = await this.modalCtrl.create({
       component: AddTractorDocsStatusRtoComponent,
       componentProps: {
@@ -38,7 +56,12 @@ note_list:any=[
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
     if(data?.row){
-      this.note_list.unshift(data?.row)
+      if(!note){
+   this.note_list.unshift({note:data?.row,status:null})
+      }else{
+   this.note_list[ind].note=data?.row
+      }
+   
     }
   }
     stateList: any = [];
@@ -56,9 +79,9 @@ note_list:any=[
         this.allData = res?.data
             this.notes_raw?.forEach((note:any)=>{
               let findStatus= this.allData?.find((status:any)=>status?.type=='STATUS' && status?.note_id==note?.id) 
-              this.note_list.push({note:note,status:findStatus})
+              this.note_list.push({note:note,status:findStatus||null})
             }) 
-     
+     this.share.spinner.dismiss('active_four')
       },
       (error: any) => {}
     );

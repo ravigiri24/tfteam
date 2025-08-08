@@ -57,7 +57,9 @@
             </ng-container>
           </ion-row>
           <ion-row *ngIf="buttonArray?.length">
+                  
             <ion-col class="action_col" *ngFor="let button of buttonArray">
+        
               <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
             </ion-col>
           </ion-row>

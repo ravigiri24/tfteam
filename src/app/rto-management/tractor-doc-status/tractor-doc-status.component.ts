@@ -47,6 +47,9 @@ export class TractorDocStatusComponent  implements OnInit {
     // this.getTractorList();
   }
   filterBy: any = 'ALL';
+          startDate: any
+          endDate:any
+
   async presentModal() {
     const modal = await this.modalCtrl.create({
       component: SelectListTypeComponent,
@@ -57,7 +60,10 @@ export class TractorDocStatusComponent  implements OnInit {
         filterBy: this.filterBy,
         filterByTitle: 'Is NOC',
         listBy: this.listBy,
-        showFilter: true,
+       startDate: this.startDate,
+       endDate: this.endDate,
+        showDate:true,
+        showFilter: false,
         optionsArray: this.optionsArray,
       },
     });
@@ -71,6 +77,13 @@ export class TractorDocStatusComponent  implements OnInit {
     if (data && data?.isListChange) {
       console.log('data', data);
       this.listBy = data?.listBy;
+      if(this.listBy=='BY_DATE'){
+        this.startDate=data?.startDate
+        this.endDate=data?.endDate
+      }else{
+          this.startDate=null
+          this.endDate=null
+      }
       this.callListApi();
     }
   }
@@ -266,26 +279,16 @@ export class TractorDocStatusComponent  implements OnInit {
       this.getTractorList(true);
     } else if (this.listBy == 'STORE_WISE') {
       this.getAllTractorListStorewise();
+    }else if(this.listBy == 'BY_DATE'){
+      this.getAllTractorList();
     }
   }
   sortByFilter() {
-    let date =new Date('04/01/2022');
-    console.log('New', new Date('06/01/2025'));
-    if (this.filterBy == 'ALL') {
+    // let date =new Date('04/01/2022');
+    // console.log('New', new Date('06/01/2025'));
+    if (this.listBy == 'BY_DATE') {
       this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => new Date(f?.createdOn) >= date
-      );
-    } else if (this.filterBy == 'NOT_ASSIGNED') {
-      this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => new Date(f?.createdOn) >= date && f?.isNoc == null
-      );
-    } else if (this.filterBy == 'YES') {
-      this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => new Date(f?.createdOn) >= date && f?.isNoc == 1
-      );
-    } else if (this.filterBy == 'NO') {
-      this.alltractorList = this.allTractorsSrcList.filter(
-        (f: any) => new Date(f?.createdOn) >= date && f?.isNoc == 0
+        (f: any) => new Date(f?.createdOn) >= new Date(this.startDate)&& new Date(f?.createdOn) <= new Date(this.endDate )
       );
     }
   }

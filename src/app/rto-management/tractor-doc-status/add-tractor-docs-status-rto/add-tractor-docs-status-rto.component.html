@@ -18,8 +18,11 @@
   <ion-textarea formControlName="note" class="hieght-area" label="Note" fill="outline" labelPlacement="stacked"
       placeholder="write Notes here..."></ion-textarea>
   </div>
-   <ion-button (click)="save()" class="global_submit_button" >
+   <ion-button *ngIf="!editData" (click)="save()" class="global_submit_button" >
     
       Save</ion-button>
+         <ion-button *ngIf="editData" (click)="update()" class="global_submit_button" >
+    
+      Update</ion-button>
       </form>
   </ion-content>

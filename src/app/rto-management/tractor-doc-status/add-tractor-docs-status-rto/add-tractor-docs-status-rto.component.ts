@@ -31,11 +31,12 @@ title='Note'
   staffDetails:any
   tractorDetails:any
   type:any
+  note_id:any=null
   initialize() {
   this.form = this.fb.group({
-      note: new FormControl(this.editData?.note, [Validators.required]),
-      id: new FormControl(this.editData?.id, []),
-      note_id: new FormControl(this.editData?.note_id||null, []),
+      note: new FormControl(this.editData?.note||null, [Validators.required]),
+  
+      note_id: new FormControl(this.editData?.note_id||this.note_id, []),
       type: new FormControl(this.editData?.type||this.type, [Validators.required]),
       tractor_id: new FormControl(this.editData?.tractor_id || this.tractorDetails?.id, [
         Validators.required,
@@ -48,6 +49,7 @@ title='Note'
 
   }
   save(){
+    
         if (this.form.valid) {
      
         let obj = {
@@ -60,6 +62,29 @@ title='Note'
     
           this.share.spinner?.dismiss('active_four');
         this.share.presentToast("Added Successfully...")
+
+   this.modalCtrl.dismiss({row:res?.rowData})
+      
+        });
+      }else{
+        this.share.presentToast("Please Add Note")
+      }
+  }
+  update(){
+    
+        if (this.form.valid) {
+     
+        let obj = {
+          src: 'rto_notes_list',
+          data: this.form.value,
+          id: this.editData?.id
+        };
+        this.share.showLoading('updating ...')
+        this.api.postapi('updateOpp', obj).subscribe((res:any) => {
+    console.log("res",res);
+    
+          this.share.spinner?.dismiss('active_four');
+        this.share.presentToast("Updated Successfully...")
 
    this.modalCtrl.dismiss({row:res?.rowData})
       
