@@ -596,7 +596,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #9c4de2;
     background: var(--app-dynamic-color-first);
   }
@@ -618,7 +618,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-second);
   }
@@ -640,7 +640,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #07d;
     background: var(--app-dynamic-color-third);
   }
@@ -662,7 +662,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #9c4de2;
     background: var(--app-dynamic-color-fourth);
   }
@@ -684,7 +684,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-fifth);
   }
@@ -706,7 +706,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #07d;
     background: var(--app-dynamic-color-six);
   }
@@ -728,7 +728,7 @@ ion-header {
   }
 
   &:after,
-  .selected, .camera-counter  {
+  .selected, .camera-counter, .top_right_close_box {
     // background: #07d;
     background: var(--app-dynamic-color-seven);
   }

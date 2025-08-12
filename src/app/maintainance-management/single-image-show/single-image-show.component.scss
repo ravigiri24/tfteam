@@ -1,32 +1,50 @@
-.right_close_delete {
-    position: absolute;
-    right: 40px;
-    top: 10px;
-    z-index: 10;
-    background: #ffffff;
-    border-radius: 50%;
-}
-.right_close_download{
-    position: absolute;
-    right: 71px;
-    top: 10px;
-    z-index: 10;
-    background: #ffffff;
-    border-radius: 50%;
-}
-.right_close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 10;
-    background: #ffffff;
-    border-radius: 50%;
-}
-ion-img {
+// .right_close_delete {
+//     position: absolute;
+//     right: 40px;
+//     top: 10px;
+//     z-index: 10;
+//     background: #ffffff;
+//     border-radius: 50%;
+// }
+
+// .right_close_download {
+//     position: absolute;
+//     right: 71px;
+//     top: 10px;
+//     z-index: 10;
+//     background: #ffffff;
+//     border-radius: 50%;
+// }
+
+// .right_close {
+//     position: absolute;
+//     right: 10px;
+//     top: 10px;
+//     z-index: 10;
+//     background: #ffffff;
+//     border-radius: 50%;
+// }
+
+
+
+.single_image_content {
     width: 100%;
     height: 100%;
+
+    ion-img {
+        width: 100%;
+        height: 100%;
+    }
 }
-.single_image_content{
-       width: 100%;
-    height: 100%;
+
+.main_header {
+    ion-toolbar {
+        ion-buttons {
+            margin: 0px 5px;
+        }
+    }
+
+    ion-icon {
+        font-size: 28px;
+    }
 }

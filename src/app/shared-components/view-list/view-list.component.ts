@@ -18,18 +18,25 @@ export class ViewListComponent implements OnInit {
   @Output() actionEventCall = new EventEmitter();
   photoCount = 2;
   showOverlay = false;
+  activeCardIndex: number | null = null;
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
     console.log("ViewListComponent", this.list, this.search, this.searchKey);
   }
-
-  triggerOverlayAnimation() {
-    this.showOverlay = true;
+  triggerOverlayAnimation(index: number) {
+    this.activeCardIndex = null;
+    this.activeCardIndex = index;
+    setTimeout(() => {
+      this.showOverlay = true;
+    }, 500);
     // this.photoCount++;
   }
 
   onOverlayAnimationEnd() {
+    setTimeout(() => {
+      this.activeCardIndex = null;
+    }, 800);
     this.showOverlay = false;
   }
 
@@ -40,7 +47,6 @@ export class ViewListComponent implements OnInit {
     const modal = await this.modalCtrl.create({
       component: SingleImageShowComponent,
       componentProps: {
-
         image: image,
       },
     });

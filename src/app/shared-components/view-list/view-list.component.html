@@ -3,14 +3,24 @@
 <ion-list class="list_row top-position-list" *ngIf="list?.length">
   <!-- <ion-item *ngFor="let tractor of list|filterBy: search ;let in=index"> -->
   <ion-row>
-    <ion-col *ngFor="let tractor of list | filterBy: search; let in=index" size="12" size-md="6">
+    <ion-col *ngFor="let tractor of list | filterBy: search; let i=index" size="12" size-md="6">
       <!-- <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  /> -->
       <ion-grid class="main_block_details" [ngClass]="listColorClass">
         <ion-card>
-          <div class="overlay" [class.animate]="showOverlay" (animationend)="onOverlayAnimationEnd()"></div>
-          <div class="camera-icon-container" (click)="triggerOverlayAnimation()">
+          <div class="custom-overlay" *ngIf="activeCardIndex === i" [ngClass]="{'show': showOverlay}">
+            <div class="top_right_close_box"><ion-icon name="close-circle-outline" class="close_icon"
+                (click)="onOverlayAnimationEnd()"></ion-icon></div>
+            <div class="middle-image-section">
+              <ng-container *ngFor="let innerImages of tractor?.rawImages; let j=index;">
+                <img (click)="viewImage(innerImages)" [src]="innerImages?.imageUrlUrl"
+                  onerror="this.src='././assets/images/tractor_display.png';" />
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="camera-icon-container" (click)="triggerOverlayAnimation(i)">
             <ion-icon name="camera-outline"></ion-icon>
-            <span class="camera-counter">{{ photoCount }}</span>
+            <span class="camera-counter">{{ tractor?.rawImages.length }}</span>
           </div>
           <ion-label class="main_title">{{tractor?.name}}</ion-label>
           <ion-row *ngFor="let keyValue of keyList">
@@ -57,9 +67,9 @@
             </ng-container>
           </ion-row>
           <ion-row *ngIf="buttonArray?.length">
-                  
+
             <ion-col class="action_col" *ngFor="let button of buttonArray">
-        
+
               <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
             </ion-col>
           </ion-row>
