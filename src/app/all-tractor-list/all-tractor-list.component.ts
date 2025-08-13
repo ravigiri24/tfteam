@@ -9,6 +9,7 @@ import { SyncTractorWithMaintaninanceComponent } from '../shared-components/sync
 import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from '../shared-components/select-list-type/select-list-type.component';
 import { TractorCostingDashboardComponent } from '../shared-components/tractor-costing-dashboard/tractor-costing-dashboard.component';
+import { CommonMethodService } from '../common-method.service';
 @Component({
   selector: 'app-all-tractor-list',
   templateUrl: './all-tractor-list.component.html',
@@ -17,11 +18,13 @@ import { TractorCostingDashboardComponent } from '../shared-components/tractor-c
 export class AllTractorListComponent implements OnInit {
   constructor(
     private api: ApiService,
-    private share: ShareService,
+    public share: ShareService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private commonMethod:CommonMethodService
   ) {}
   alltractorList: any = [];
+    listColorClass = 'sixColor';
   ngOnInit() {}
   ionViewWillEnter() {
     this.alltractorList = [];
@@ -30,6 +33,20 @@ export class AllTractorListComponent implements OnInit {
     this.filterBy="ALL"
     this.listBy="BRAND_WISE"
     // this.getTractorList();
+  }
+    async actionEventCall(e: any) {
+      await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
+    
+  if(this.commonMethod.reloadMethod){
+    this.getTractorList()
+  }
+
+
+    if (this.commonMethod.reloadMethod) {
+      this.refreshList();
+    }
+    console.log('actionEventCall', e);
+    
   }
   filterBy: any = 'ALL';
   async presentModal() {
@@ -56,6 +73,41 @@ export class AllTractorListComponent implements OnInit {
       this.callListApi()
     }
   }
+        buttonArray: any = [
+ {
+      name: 'Tractor Dashboard',
+      action: 'tractorDashboard',
+            closeCurrentPopUP:true,
+    srcPage:'/operational/all-tractor-management',
+      image: './././assets/images/layout.png',
+    },
+     {
+      name: 'Sync Mainatainance',
+      action: 'syncMainatinance',
+      image: './././assets/images/sync.png',
+    },
+      {
+      name: 'Tractor Summary',
+      action: 'tractorSummary',
+      image: './././assets/images/data-analysis.png',
+    },
+        
+  ];
+    keyList: any = [
+    { key: 'Model', value: 'name', type: 'INPUT' },
+        { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
+    { key: 'Engine Number', value: 'engineNumber', type: 'INPUT' },
+    // { key: 'Staus', value: 'tractor_status', type: 'INPUT' },
+    { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
+    { key: 'D.O.A(Actual)', value: 'actualReleaseDate', type: 'INPUT' },
+    { key: 'Is Sold', value: 'isSold', type: 'CONDITIONAL' },
+
+
+    { key: 'Hours', value: 'hours', type: 'INPUT' },
+        { key: 'Transported Place', getFromObj:true,objName:'transportDestination',value: 'name', type: 'INPUT' },
+        { key: 'Franchise(Alloted)', getFromObj:true,objName:'franchiseDettails',value: 'name', type: 'INPUT' },
+    { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
+  ];
   listBy = 'BRAND_WISE';
   refreshList() {
     this.getTractorList();
@@ -152,6 +204,7 @@ if(loader){
     //if (loader) {
       this.share.showLoading('Loading...');
    // }
+ 
     this.api.postapi('getTractorListLiveNotDraft', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -219,7 +272,9 @@ if(loader){
 
   }
   sortByFilter() {
-    if (this.filterBy == 'ALL') {
+      this.alltractorList=[]
+      setTimeout(() => {
+         if (this.filterBy == 'ALL') {
          if(this.allTractorsSrcList?.length){
       this.alltractorList =JSON.parse( JSON.stringify(this.allTractorsSrcList))}
       else{
@@ -246,6 +301,8 @@ if(loader){
         (f: any) => f?.isSold == 0
       );
     }
+      }, 0);
+   
   }
   getAllTractorListStorewise(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
@@ -307,10 +364,17 @@ if(loader){
       '/operational/all-tractor-management',
     ]);
   }
-  async searchTractor() {
+      async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
-      componentProps: {},
+      componentProps: {
+       buttonArray: this.buttonArray,
+       listColorClass:this.listColorClass,
+       keyList:this.keyList,
+       searchFilter:this.search,
+       searchKey:'registractionNo',
+     obj:{optionsUploadButtonArray:[]}
+      },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -319,4 +383,5 @@ if(loader){
     if (role === 'confirm') {
     }
   }
+
 }

@@ -418,4 +418,69 @@ export class TractorDashboardComponent implements OnInit {
         this.getTractorDetails('Refreshing Data...')
     }
   }
+async  changeSoldAlert(){
+  const alert = await this.alertCtrl.create({
+      header: 'Revert Sale',
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.deleteSalesDetails();
+    }
+  }
+
+  deleteSalesDetails(){
+       let objData: any = {
+      isDeleted: 1,
+ 
+    };
+    let obj = {
+      src: 'tractorsellingdetails',
+      data: objData,
+      id: this.tractorDetails?.sellingDetailedId,
+    };
+
+    this.share.showLoading('Reverting Sales...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+ 
+     this.removeSellId()
+
+
+      //  this.dismiss();
+    });
+  }
+    removeSellId(){
+        let objData: any = {
+          isSold: 0,
+      sellingDetailedId:null
+    };
+    let obj = {
+      src: 'tractor',
+      data: objData,
+      id: this.tractorDetails?.id,
+    };
+
+  
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.tractorDetails.isSold=0
+      this.tractorDetails.sellingDetailedId=null
+    this.share.spinner.dismiss()
+      this.share.presentToast('Revert Successfully...');
+
+
+      //  this.dismiss();
+    });
+  }
 }

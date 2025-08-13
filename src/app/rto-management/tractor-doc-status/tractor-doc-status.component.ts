@@ -37,6 +37,7 @@ export class TractorDocStatusComponent  implements OnInit {
     { displayName: 'Yes', value: 'YES' },
     { displayName: 'No', value: 'NO' },
   ];
+  listColorClass='fourthColor'
   ngOnInit() {}
   ionViewWillEnter() {
     this.alltractorList = [];
@@ -355,7 +356,8 @@ export class TractorDocStatusComponent  implements OnInit {
   keyList: any = [
     { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
         { key: 'Noc Availaible ', value: 'isNoc', type: 'CONDITIONAL' },
-    { key: 'Is Sold ', value: 'isSold', type: 'CONDITIONAL' },
+    { key: 'Is Sold', value: 'isSold', type: 'CONDITIONAL' },
+    // { key: 'Staus', value: 'tractor_status', type: 'INPUT' },
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
     { key: 'Hours', value: 'hours', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },

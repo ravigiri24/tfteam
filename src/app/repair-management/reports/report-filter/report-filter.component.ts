@@ -78,7 +78,7 @@ export class ReportFilterComponent implements OnInit {
     this.expenseHeader = [];
     this.expenseHeader.push('Service');
     let obj: any = this.share.getListObj('spare_category', false, [], true);
-    this.catTotal.Service=0
+    this.catTotal.Service = 0;
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.categoryList = res?.data || [];
@@ -176,8 +176,9 @@ export class ReportFilterComponent implements OnInit {
     this.allDetails?.jobList?.forEach((job: any) => {
       let obj: any = {
         tfCode: job?.tfCode,
-        modelName:job?.modelDetails?.name,
+        modelName: job?.modelDetails?.name,
         Service: 0,
+        reduceItemTotalAmount: 0,
       };
       this.categoryList?.forEach((cat: any) => {
         if (!obj[cat?.name]) {
@@ -185,6 +186,11 @@ export class ReportFilterComponent implements OnInit {
         }
       });
       this.getExpenseCost(job?.job_expenses, obj);
+
+      job?.reducedItemList?.forEach((reduce: any) => {
+        obj.reduceItemTotalAmount =
+          obj.reduceItemTotalAmount + Number(reduce?.total_amount);
+      });
       this.jobList.push(obj);
     });
     console.log('jobList', this.jobList);
@@ -193,15 +199,15 @@ export class ReportFilterComponent implements OnInit {
     let getServiceList = expenses?.filter(
       (ex: any) => ex?.expense_method == 'SERVICE'
     );
-    Object.keys(this.catTotal)?.forEach((cat:any)=>{
-      this.catTotal[cat]=0
-    })
+    Object.keys(this.catTotal)?.forEach((cat: any) => {
+      this.catTotal[cat] = 0;
+    });
     let serviceCost: any = 0;
     getServiceList?.forEach((ser: any) => {
       serviceCost = Number(serviceCost) + Number(ser?.total_expense);
     });
     obj.Service = serviceCost;
-    this.catTotal.Service=serviceCost
+    this.catTotal.Service = serviceCost;
     let getMaterialList = expenses?.filter(
       (ex: any) => ex?.expense_method == 'MATERIAL'
     );
@@ -219,8 +225,7 @@ export class ReportFilterComponent implements OnInit {
         this.catTotal[getCategory?.name] + Number(material?.total_expense);
       // }
     });
-    console.log("  this.catTotal",  this.catTotal);
-    
+    console.log('  this.catTotal', this.catTotal);
   }
   jsPDF: any;
   generatePDF() {

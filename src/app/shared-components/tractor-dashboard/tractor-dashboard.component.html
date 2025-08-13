@@ -225,15 +225,15 @@
     </ion-item>
     <div   class="ion-padding" slot="content">
       <ion-list  >
-        <ion-item *ngIf="tractorDetails?.isSold==0" >
+        <ion-item *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1" >
           <ion-button   (click)="openDealerPrice()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
     <span >Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To {{tractorDetails?.franchiseDettails?.name}} Franchise At {{tractorDetails?.dealerPrice}})</span></span>
           </ion-button>
      
         </ion-item>
-             <ion-item *ngIf="tractorDetails?.isSold==1" >
-<h3>Tractor Sold To Customer</h3>
+             <ion-item *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0" >
+<h3>Tractor Sold To Customer   <ion-icon (click)="changeSoldAlert()" class="left_card_icons" name="enter-outline"></ion-icon></h3>
              </ion-item>
       
    

@@ -85,6 +85,18 @@ export class ShareService {
       // You can put your logic here (e.g., hiding loader UI)
     },
   };
+getImagesToShow(tractor:any){
+let imagesToShow=  tractor?.rawImages?.filter(
+      (img: any) =>
+        img?.imageGroup == 'BEFORE_SERVICE' ||
+        img?.imageGroup == 'AFTER_SERVICE'
+    ) 
+
+  tractor.imagesToShow=imagesToShow
+  tractor.imageslength=imagesToShow?.length
+  
+}
+
   globalLoading = false;
   async showLoading(message: any, duration: any = 7000) {
     this.activeCurrent = null;

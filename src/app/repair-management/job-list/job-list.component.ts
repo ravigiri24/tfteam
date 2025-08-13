@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { RepairDashboardComponent } from '../repair-dashboard/repair-dashboard.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
@@ -15,13 +16,34 @@ export class JobListComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private modalControl: ModalController,
-    private alertCtrl:AlertController
+    private alertCtrl:AlertController,
+    private commonMethod:CommonMethodService
   ) {}
   search: any = { tfCode: '', regNumber: '' };
   ngOnInit() {}
   jobList: any = [];
   refreshList() {
     this.getJobList();
+  }
+   async actionEventCall(e: any) {
+    if(e?.button?.name!='Delete Job'){
+  await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
+    }else{
+this.deleteItem(e?.tractor)
+    }
+
+    
+  if(this.commonMethod.reloadMethod){
+    this.refreshList()
+  }
+    console.log('actionEventCall', e);
+    // if (e?.button?.name == 'IS Noc') {
+    //   this.nocUpdate(e?.tractor);
+    // }
+    // if (e?.button?.name == 'View Details') {
+    //   this.viewDetails(e?.tractor);
+    // }
+    
   }
   async deleteItem(job: any) {
     const alert = await this.alertCtrl.create({
@@ -64,6 +86,29 @@ export class JobListComponent implements OnInit {
    
     });
   }
+  editobj= {
+      name: 'Edit JOb',
+      action: 'edit-job',
+      image: './././assets/images/edit.png',
+    }
+  deleteObj=   {
+      name: 'Delete Job',
+      action: 'deleteJob',
+      image: './././assets/images/deleted.png',
+    }
+    dashboardObj={
+      name: 'View Job Detail',
+      action: 'viewJob',
+      image: './././assets/images/layout.png',
+    }
+    buttonArray: any = [
+ {
+      name: 'View Job Detail',
+      action: 'viewJob',
+      image: './././assets/images/layout.png',
+    }
+  ];
+  listColorClass='secondColor'
   async openRepairDashboard(job:any) {
     this.router.navigate([
       '/repair-management/repair-dashboard',
@@ -73,6 +118,16 @@ export class JobListComponent implements OnInit {
 
 
   }
+  keyList: any = [
+    { key: 'Modal Name', value: 'modalName', type: 'INPUT' },
+        { key: 'TF Code', value: 'tfCode', type: 'INPUT' },
+    { key: 'Engine Number', value: 'engineNumber', type: 'INPUT' },
+    // { key: 'Staus', value: 'tractor_status', type: 'INPUT' },
+    { key: 'Registration Number', value: 'regNumber', type: 'INPUT' },
+    { key: 'Chasis Number', value: 'chassisNumber', type: 'INPUT' },
+    { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
+  ];
   ionViewWillEnter() {
     this.jobList = [];
     this.jobType=false
@@ -83,17 +138,29 @@ export class JobListComponent implements OnInit {
   getJobList() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
-
+  this.buttonArray=[]
     let obj = {
       operate: this.staffDetails?.staffCode,
       isCompleted: this.jobType,
     };
     this.share.showLoading('Loading');
+         this.jobList=[]
     this.api.postapi('jobList', obj).subscribe(
       (res: any) => {
+
         this.jobList = res.data;
         console.log('jobList', this.jobList);
-
+       this.jobList?.forEach((job:any)=>{
+job.modalName=job?.modelDetails?.name
+       })
+       if(this.jobType){
+        this.buttonArray.push(this.dashboardObj)
+       
+       }else{
+        this.buttonArray.unshift(this.dashboardObj)
+        this.buttonArray.unshift(this.deleteObj)
+        this.buttonArray.unshift(this.editobj)
+       }
         this.share.spinner.dismiss('active_two');
       },
       (error: any) => {}

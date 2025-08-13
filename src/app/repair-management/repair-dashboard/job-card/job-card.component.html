@@ -57,7 +57,7 @@
   <ion-card>
     <ion-row>
       <ion-col>Item</ion-col>
-      <ion-col>Qty</ion-col>
+      <ion-col>Rate</ion-col>
       <ion-col class="amount_col">Amount</ion-col>
     </ion-row>
     <ion-row *ngFor="let service of reduceItemList">
@@ -182,8 +182,10 @@
         <tr style="border: 1px solid #e1e1e1;text-align: left;">
           <td style="text-align: center;">{{reduceindex+1}}</td>
           <td style="padding: 5px 10px;text-align: center;">{{reduce?.materialDetail?.name}}</td>
-          <td style="padding: 5px 10px;text-align: center;">{{reduce?.qty}}</td>
-          <td style="padding: 5px 10px;text-align: right;">{{reduce?.reduce_amount}}</td>
+          <!-- <td style="padding: 5px 10px;text-align: center;">{{reduce?.qty}}</td> -->
+          <td style="padding: 5px 10px;text-align: center;">{{reduce?.reduce_amount}}</td>
+          <td style="padding: 5px 10px;text-align: right;">{{reduce?.qty}}</td>
+          <!-- <td style="padding: 5px 10px;text-align: right;">{{reduce?.reduce_amount}}</td> -->
           <td style="padding: 5px 10px;text-align: right;">{{reduce?.total_amount}}</td>
         </tr>
         <tr  style="border: 1px solid #e1e1e1;text-align: left;">

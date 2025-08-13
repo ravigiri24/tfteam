@@ -14,7 +14,7 @@ export class ViewTractorDocsStatusRtoComponent  implements OnInit {
   dismiss(){
 this.modalCtrl.dismiss()
   }
-listColorClass='firstColor'
+listColorClass='fourthColor'
 tractorDetails:any
   ngOnInit() {
     this.getNotList()

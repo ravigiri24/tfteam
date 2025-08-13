@@ -255,7 +255,7 @@ tractor.workshopTotalExpense=Number(totalRepairExpense)-Number(reduceItemTotalAm
 
 //totalExpense
 tractor.totalExpenseT=Number(tractor.workshopTotalExpense)+Number(tractor?.totalAmountBreakup)
-if(tractor?.sellingDetailedIdDetails){
+if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
 
   tractor.netSellingPrice=tractor?.sellingDetailedIdDetails?.sellingPrice
   tractor.gm=Number(tractor?.sellingDetailedIdDetails?.sellingPrice)-Number(tractor.totalExpenseT)

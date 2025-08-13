@@ -19,6 +19,8 @@ import { DeleteTractorComponent } from './shared-components/delete-tractor/delet
 import { TransferToNewArrivalsComponent } from './purchase-management/transfer-to-new-arrivals/transfer-to-new-arrivals.component';
 import { ViewTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-status/view-tractor-docs-status-rto/view-tractor-docs-status-rto.component';
 import { AddTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
+import { SyncTractorWithMaintaninanceComponent } from './shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
+import { TractorCostingDashboardComponent } from './shared-components/tractor-costing-dashboard/tractor-costing-dashboard.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -81,20 +83,77 @@ export class CommonMethodService {
     } else if (e?.button?.name == 'New Arrival Settings') {
       obj.buttonArray = obj?.optionsUploadButtonArray;
       await this.commonOptionsPlatform(e?.tractor, obj);
-    }
-    else if(e?.button?.name == 'Transfer TO New Arrivals'){
-        await this.transerToNewArrivals(e?.tractor, obj);
-    }
-    else if (e?.button?.name == 'Inventory-to-new') {
- 
+    } else if (e?.button?.name == 'Transfer TO New Arrivals') {
+      await this.transerToNewArrivals(e?.tractor, obj);
+    } else if (e?.button?.name == 'Inventory-to-new') {
       this.inventoryToNewArrivals(e?.tractor, e?.button);
+    } else if (e?.button?.name == 'RTO Tractor Docs Status') {
+      this.viewrtoTractorStatus(e?.tractor);
+    } else if (e?.button?.name == 'Edit JOb') {
+      this.editJobRepair(e?.tractor);
+    } else if (e?.button?.name == 'View Job Detail') {
+      this.openRepairDashboard(e?.tractor);
+    } 
+     else if (e?.button?.name == 'Tractor Dashboard') {
+      this.tractorDashboard(e);
     }
-    else if(e?.button?.name == 'RTO Tractor Docs Status'){
-      this.viewrtoTractorStatus(e?.tractor)
+    else if (e?.button?.name == 'Sync Mainatainance') {
+      this.syncManitainance(e?.tractor);
+    }
+     else if (e?.button?.name == 'Tractor Summary') {
+      this.tractorSummaryDetails(e?.tractor);
+    }
+     else if (e?.button?.name == 'Delete Tractor') {
+    await  this.deleteTractor(e);
     }
   }
- async transerToNewArrivals(tractor: any, button: any){
- const modal = await this.modalCtrl.create({
+    async tractorSummaryDetails(tractor: any) {
+      const modal = await this.modalCtrl.create({
+        component: TractorCostingDashboardComponent,
+        componentProps: {
+          tractor_id: tractor?.id,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+      //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+    }
+  tractorDashboard(e: any) {
+    this.router.navigate([
+      '/operational/view-dashboard',
+      e?.tractor?.id,
+    e?.button?.srcPage
+    ]);
+  }
+    async syncManitainance(tractor: any) {
+      const modal = await this.modalCtrl.create({
+        component: SyncTractorWithMaintaninanceComponent,
+        componentProps: {
+          tractor: tractor,
+        },
+      });
+      await modal.present();
+
+  
+      const { data, role } = await modal.onWillDismiss();
+    }
+  editJobRepair(job: any) {
+    this.router.navigate([
+      '/repair-management/update-job',
+      job?.id,
+      '/repair-management/job-list',
+    ]);
+  }
+  openRepairDashboard(job: any) {
+    this.router.navigate([
+      '/repair-management/repair-dashboard',
+      job?.id,
+      '/repair-management/job-list',
+    ]);
+  }
+  async transerToNewArrivals(tractor: any, button: any) {
+    const modal = await this.modalCtrl.create({
       breakpoints: [0, 0.4, 1],
       initialBreakpoint: 0.4,
       cssClass: 'custom-modal',
@@ -109,10 +168,10 @@ export class CommonMethodService {
       this.reloadMethod = true;
     }
   }
-inventoryToNewArrivals(tractor: any, button: any){
-  tractor.tractor_status='NEW_ARRIVAL'
- this.router.navigate([button?.goToPage, tractor?.rowCode, button?.srcPage]);
-}
+  inventoryToNewArrivals(tractor: any, button: any) {
+    tractor.tractor_status = 'NEW_ARRIVAL';
+    this.router.navigate([button?.goToPage, tractor?.rowCode, button?.srcPage]);
+  }
   newArrivalEdit(tractor: any, button: any) {
     this.router.navigate([button?.goToPage, tractor?.rowCode, button?.srcPage]);
   }
@@ -305,7 +364,7 @@ inventoryToNewArrivals(tractor: any, button: any){
       this.reloadMethod = true;
     }
   }
-    async viewrtoTractorStatus(tractor: any) {
+  async viewrtoTractorStatus(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: ViewTractorDocsStatusRtoComponent,
       componentProps: {

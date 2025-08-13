@@ -36,6 +36,7 @@ import { DeleteTractorComponent } from './delete-tractor/delete-tractor.componen
 import { AddRtoInsuranceCostComponent } from './add-rto-insurance-cost/add-rto-insurance-cost.component';
 import { ViewTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/view-tractor-docs-status-rto/view-tractor-docs-status-rto.component';
 import { AddTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
+import { NoDataViewComponent } from './no-data-view/no-data-view.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -77,7 +78,8 @@ import { AddTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-
     DeleteTractorComponent,
     AddRtoInsuranceCostComponent,
     ViewTractorDocsStatusRtoComponent,
-    AddTractorDocsStatusRtoComponent
+    AddTractorDocsStatusRtoComponent,
+    NoDataViewComponent
     
   ],
   schemas: [],
@@ -87,7 +89,8 @@ import { AddTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-
     SearchpipePipe,
     CrudPopupComponent,
     ViewListComponent,
-    SearchTractorWithTfCodeComponent
+    SearchTractorWithTfCodeComponent,
+    NoDataViewComponent
   ],
   providers: [ApiService,    InAppBrowser,],
 })

@@ -18,7 +18,7 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
     private router: Router,
     private commonMethod: CommonMethodService
   ) {}
-
+listColorClass='sevenColor'
   buttonArray: any = [];
   keyList: any = [];
 
@@ -53,7 +53,7 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
 
         tfCode: this.search.tfCode,
       };
-
+this.tractorList=[]
       this.api.postapi('searchTractorByTfCode', obj).subscribe(
         (res: any) => {
           if (res?.data?.length) {
