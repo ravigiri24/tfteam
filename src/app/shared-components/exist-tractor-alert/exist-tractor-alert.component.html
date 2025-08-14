@@ -1,0 +1,90 @@
+    <ion-content class="ion-padding">
+    <div >
+      <div class="block">
+     <span class="succes-tag-line">Oops ! We Seen That this modal registered in between last 20 days.please check duplicacy</span>
+      </div>
+    <div class=" block">
+
+  
+    <img class="image-style" src="././assets/images/warning.png" />
+
+    </div>
+        <app-view-list class="view-postition" *ngIf="tractorList?.length" [listColorClass]="listColorClass" [buttonArray]="[]" [keyList]="keyList" [list]="tractorList"  [search]="search" [searchKey]="'registractionNo'"></app-view-list>
+    <!-- <ion-list class="list_row top-position-list" >
+
+    <ion-row >
+      <ion-col *ngFor="let tractor of tractorList;let in=index" size="12" size-md="6">
+ 
+        <ion-grid class="main_block_details" [ngClass]="listColorClass">
+     
+              <ion-card>
+            <ion-label class="main_title">{{tractor?.name}} </ion-label>
+                   <ion-row >
+              <ng-container >
+                <ion-col  class="left_row_title">TF Code</ion-col>
+                <ion-col  class="left_row_title">{{tractor?.registractionNo}} </ion-col>
+             
+              </ng-container>
+            
+            </ion-row>
+                      <ion-row >
+              <ng-container >
+                <ion-col  class="left_row_title">Year Of Manufactoring</ion-col>
+                <ion-col  class="left_row_title">{{tractor?.yearOfManufactoring}} </ion-col>
+             
+              </ng-container>
+            
+            </ion-row>
+            <ion-row >
+              <ng-container >
+                <ion-col  class="left_row_title">Engine Number  </ion-col>
+                <ion-col  class="left_row_title">{{tractor?.purchasedetail?.engineNumber}} </ion-col>
+             
+              </ng-container>
+            
+            </ion-row>
+              <ion-row >
+              <ng-container >
+                <ion-col  class="left_row_title">Chasis Number  </ion-col>
+                <ion-col  class="left_row_title">{{tractor?.purchasedetail?.chasisNumber}}  </ion-col>
+             
+              </ng-container>
+                    </ion-row>
+                         <ion-row >
+                  <ng-container >
+                <ion-col  class="left_row_title">Hours </ion-col>
+                <ion-col  class="left_row_title">{{tractor?.hours}} </ion-col>
+             
+              </ng-container>
+      </ion-row>
+             <ion-row >
+                  <ng-container >
+                <ion-col  class="left_row_title">Registraion Number </ion-col>
+                <ion-col  class="left_row_title">{{tractor?.purchasedetail?.registrationNumber}}  </ion-col>
+             
+              </ng-container>
+      </ion-row>
+     
+          </ion-card>
+         
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+ 
+</ion-list> -->
+
+      <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+       <ion-button (click)="grantPermission()"  class="global_submit_button" >
+     Create New One</ion-button>
+    </div>
+    <div class="col-md-6 col-6">
+         <ion-button (click)="cancelAllotTF()"  class="global_submit_button" >
+    
+      Cancel</ion-button>
+    </div>
+
+  </div>
+    </div>
+    </ion-content>

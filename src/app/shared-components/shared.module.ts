@@ -37,6 +37,7 @@ import { AddRtoInsuranceCostComponent } from './add-rto-insurance-cost/add-rto-i
 import { ViewTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/view-tractor-docs-status-rto/view-tractor-docs-status-rto.component';
 import { AddTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
 import { NoDataViewComponent } from './no-data-view/no-data-view.component';
+import { ExistTractorAlertComponent } from './exist-tractor-alert/exist-tractor-alert.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -79,7 +80,8 @@ import { NoDataViewComponent } from './no-data-view/no-data-view.component';
     AddRtoInsuranceCostComponent,
     ViewTractorDocsStatusRtoComponent,
     AddTractorDocsStatusRtoComponent,
-    NoDataViewComponent
+    NoDataViewComponent,
+    ExistTractorAlertComponent
     
   ],
   schemas: [],

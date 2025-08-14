@@ -31,6 +31,7 @@ import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ReportFilterComponent } from './reports/report-filter/report-filter.component';
 import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-part/add-reduce-part.component';
+import { AddNewTractorAlertComponent } from './create/add-new-tractor-alert/add-new-tractor-alert.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -50,7 +51,8 @@ import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-
     JobCardComponent,
     AddReducePartComponent,
     ReportsComponent,
-    ReportFilterComponent
+    ReportFilterComponent,
+    AddNewTractorAlertComponent
     
   ],
   imports: [

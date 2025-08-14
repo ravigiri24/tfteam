@@ -21,6 +21,8 @@ import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
 import { EnterTfCodeComponent } from 'src/app/operational/enter-tf-code/enter-tf-code.component';
+import { AddNewTractorAlertComponent } from './add-new-tractor-alert/add-new-tractor-alert.component';
+import { ExistTractorAlertComponent } from 'src/app/shared-components/exist-tractor-alert/exist-tractor-alert.component';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -169,17 +171,17 @@ export class CreateComponent implements OnInit {
       cssClass: 'custom-modal',
       componentProps: {
         tractorDetails: null,
-        generateTFNow:false
+        generateTFNow: false,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (data?.isActioned) {
-      this.form.controls['tfCode'].setValue(data?.tfCode)
+      this.form.controls['tfCode'].setValue(data?.tfCode);
     }
   }
-  clearTfCode(){
-       this.form.controls['tfCode'].setValue(null)
+  clearTfCode() {
+    this.form.controls['tfCode'].setValue(null);
   }
   staffDetails: any;
   initialize() {
@@ -200,9 +202,9 @@ export class CreateComponent implements OnInit {
         Validators.required,
       ]),
       tfCode: new FormControl(this.data?.tfCode || null, [Validators.required]),
-      // isTfCode: new FormControl(this.data?.isTfCode || isTfCode, [
-      //   Validators.required,
-      // ]),
+      isTfCode: new FormControl(this.data?.isTfCode || isTfCode, [
+        Validators.required,
+      ]),
       yearOfManufactoring: new FormControl(
         Number(this.data?.yearOfManufactoring) || null,
         []
@@ -226,7 +228,7 @@ export class CreateComponent implements OnInit {
       isSelf: new FormControl(this.data?.isSelf || false, []),
       costEstimated: new FormControl(this.data?.costEstimated || null, []),
       mechanicAlloted: new FormControl(this.data?.mechanicAlloted || null, []),
-      chassisNumber: new FormControl(this.data?.chassisNumber || null,[]),
+      chassisNumber: new FormControl(this.data?.chassisNumber || null, []),
     });
   }
   async openCrudManagement(type: any = 'TRACTOR_INVENTORY') {
@@ -322,8 +324,8 @@ export class CreateComponent implements OnInit {
       obj.actionById = this.staffDetails?.id;
       obj.operate = this.staffDetails?.staffCode;
       obj.id = this.jobId;
-       obj.tfCode=obj?.tfCode?.trim()
-      obj.chassisNumber=obj?.chassisNumber?.trim()
+      obj.tfCode = obj?.tfCode?.trim();
+      obj.chassisNumber = obj?.chassisNumber?.trim();
       this.api.postapi('updateJob', obj).subscribe(
         (res: any) => {
           this.share.spinner.dismiss();
@@ -391,33 +393,96 @@ export class CreateComponent implements OnInit {
       this.share.presentToast('Please Fill required fields');
     }
   }
-  saveForm() {
-    if (this.form.valid) {
-      let obj = this.form.value;
-      let staffDetails: any = this.share.get_staff();
+  createJob() {
+    let obj = this.form.value;
+    let staffDetails: any = this.share.get_staff();
 
-      this.staffDetails = JSON.parse(staffDetails);
+    this.staffDetails = JSON.parse(staffDetails);
 
-      this.share.showLoading('Creating...');
+    this.share.showLoading('Creating...');
 
-      obj.repair_center = this.staffDetails?.repair_center;
-      obj.actionById = this.staffDetails?.id;
-      obj.operate = this.staffDetails?.staffCode;
-      obj.billNumber = 'TF-' + Math.floor(10000000 + Math.random() * 90000000);
-      //trimming
-      obj.tfCode=obj.tfCode?.trim()
-      obj.chassisNumber=obj.chassisNumber?.trim()
-      this.api.postapi('createJob', obj).subscribe(
-        (res: any) => {
-          this.share.spinner.dismiss();
-          this.share.presentToast('Created Successfully...');
-          this.router.navigate([this.srcPage]);
-        },
-        (error: any) => {}
-      );
-    } else {
-      this.share.presentToast('Please Fill required fields');
+    obj.repair_center = this.staffDetails?.repair_center;
+    obj.actionById = this.staffDetails?.id;
+    obj.operate = this.staffDetails?.staffCode;
+    obj.billNumber = 'TF-' + Math.floor(10000000 + Math.random() * 90000000);
+    //trimming
+    obj.tfCode = obj.tfCode?.trim();
+    obj.chassisNumber = obj.chassisNumber?.trim();
+    this.api.postapi('createJob', obj).subscribe(
+      (res: any) => {
+        this.share.spinner.dismiss();
+        this.share.presentToast('Created Successfully...');
+        this.router.navigate([this.srcPage]);
+      },
+      (error: any) => {}
+    );
+  }
+  async askForNewTractor() {
+    const modal = await this.modalCntrol.create({
+      component: AddNewTractorAlertComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 1,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: null,
+        generateTFNow: false,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.checkDuplicacy();
     }
+  }
+    async duplicacyFound(list:any=[]) {
+    const modal = await this.modalCntrol.create({
+      component: ExistTractorAlertComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 1,
+      cssClass: 'custom-modal',
+      componentProps: {
+     tractorList:list
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      //this.checkDuplicacy();
+    }
+  }
+  checkDuplicacy() {
+    let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
+    let obj = {
+      model_id: this.form.value.model_id,
+      operate: this.staffDetails?.staffCode,
+    };
+
+    this.api.postapi('checkTractorDuplicacy', obj).subscribe(
+      (res: any) => {
+        this.share.spinner.dismiss();
+        console.log('checkTractorDuplicacy', res);
+        if(res?.data?.length){
+this.duplicacyFound(res?.data)
+        }else{
+
+        }
+        this.router.navigate([this.srcPage]);
+      },
+      (error: any) => {}
+    );
+  }
+  saveForm() {
+    //if (this.form.valid) {
+    if (this.form.controls['isTfCode'].value == 'NO') {
+      this.askForNewTractor();
+    } else {
+      this.createJob();
+    }
+    // } else {
+    //   this.share.presentToast('Please Fill required fields');
+    // }
   }
   yearArray: any = [];
   createYearArray() {
