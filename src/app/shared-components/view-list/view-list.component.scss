@@ -63,6 +63,14 @@
             }
         }
 
+        .show_more_block {
+            width: 100%;
+            display: flex;
+            text-align: right;
+            justify-content: right;
+            font-size: 12px;
+        }
+
         .custom-overlay {
             position: absolute;
             top: 0;

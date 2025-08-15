@@ -2,10 +2,19 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SingleImageShowComponent } from 'src/app/maintainance-management/single-image-show/single-image-show.component';
 import { ShareService } from 'src/app/share.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],
+    animations: [
+    trigger('showMoreDetails', [
+      state('false', style({ maxHeight: 0 })),
+      state('true', style({ maxHeight: '500px' })),
+      transition('false => true', animate('500ms ease-in-out')),
+      transition('true => false', animate('500ms ease-in-out')),
+    ]),
+  ],
 })
 export class ViewListComponent implements OnInit {
   @Input() search: any;
@@ -14,20 +23,22 @@ export class ViewListComponent implements OnInit {
   @Input() width: any = 60;
   @Input() list: any = [];
   @Input() keyList: any = [];
+  @Input() rowLineCount= 3;
   @Input() buttonArray: any = [];
   @Input() listColorClass: any;
   @Output() actionEventCall = new EventEmitter();
   photoCount = 2;
   showOverlay = false;
+  showMoreDetails: { [index: number]: any }
   activeCardIndex: number | null = null;
-  constructor(private modalCtrl: ModalController,private share:ShareService) {}
+  constructor(private modalCtrl: ModalController, private share: ShareService) { }
 
   ngOnInit() {
     console.log('ViewListComponent', this.list, this.search, this.searchKey);
-    this.list?.forEach((tractor:any)=>{
-    this.share.getImagesToShow(tractor)
+    this.list?.forEach((tractor: any) => {
+      this.share.getImagesToShow(tractor)
     })
- 
+
   }
   triggerOverlayAnimation(index: number, tractor: any) {
     this.getImageOFTractor(tractor);
@@ -53,7 +64,12 @@ export class ViewListComponent implements OnInit {
     );
     tractor.imagesToShow = imagesToShow;
   }
+  
 
+showMore(index: number, keyValue: any) {
+  this.showMoreDetails[index] = !this.showMoreDetails[index];
+  // You can add animation logic here if needed
+}
   actionEvent(tractor: any, button: any) {
     this.actionEventCall.emit({ tractor, button });
   }
