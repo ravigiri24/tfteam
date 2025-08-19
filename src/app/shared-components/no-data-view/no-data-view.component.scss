@@ -1,5 +1,133 @@
-.no-data-block{
+.no-data-block {
     text-align: center;
     position: relative;
-    top:44px;
+    top: 44px;
+}
+
+
+/* Container */
+.empty {
+    // --fg: #5b6372;
+    // color: var(--fg);
+    --shadow: 0 10px 30px rgba(0, 0, 0, .06);
+    --muted: #8c94a4;
+    display: grid;
+    place-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1rem 1rem;
+    text-align: center;
+    border: 1px dashed #e4e7ee;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    background: #fff;
+    max-width: 350px;
+    margin: 50px auto 0px auto;
+}
+
+/* Icon */
+.empty__icon {
+    width: 72px;
+    height: 72px;
+    display: block;
+    animation: float 3.2s ease-in-out infinite;
+}
+
+/* Static ring + animated sweep */
+.ring {
+    opacity: .5
+}
+
+.sweep {
+    stroke-dasharray: 88;
+    stroke-dashoffset: 88;
+    animation: sweep 2.2s ease-in-out infinite;
+}
+
+/* Title + hint */
+.empty__title {
+    font: 600 1.1rem/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    letter-spacing: .2px;
+}
+
+.empty__hint {
+    font: 400 .9rem/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--muted);
+}
+
+/* Keyframes */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-6px)
+    }
+}
+
+@keyframes sweep {
+    0% {
+        stroke-dashoffset: 88;
+        opacity: 0
+    }
+
+    10% {
+        opacity: .9
+    }
+
+    50% {
+        stroke-dashoffset: 0;
+        opacity: .9
+    }
+
+    90% {
+        opacity: 0
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0
+    }
+}
+
+/* Optional: shimmering text accent */
+.empty__title {
+    position: relative;
+    overflow: hidden;
+}
+
+.empty__title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, .6) 50%, transparent 100%);
+    transform: translateX(-120%);
+    animation: shine 2.6s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-120%)
+    }
+
+    60% {
+        transform: translateX(120%)
+    }
+
+    100% {
+        transform: translateX(120%)
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .empty__icon,
+    .sweep,
+    .empty__title::after {
+        animation: none
+    }
 }

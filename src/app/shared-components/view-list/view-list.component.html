@@ -129,6 +129,7 @@
   </ion-row>
   <!-- </ion-item> -->
 </ion-list>
-<div *ngIf="(list | filterBy: search)?.length === 0" class="no-data-block">
+<!-- <div *ngIf="(list | filterBy: search)?.length === 0" class="no-data-block">
   <img class="image-no-data" src="././assets/images/no-data-found.png" />
-</div>
+</div> -->
+<app-no-data-view [ngClass]="listColorClass" *ngIf="(list | filterBy: search)?.length === 0"></app-no-data-view>
