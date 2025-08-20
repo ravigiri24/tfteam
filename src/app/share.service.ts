@@ -310,7 +310,7 @@ let imagesToShow=  tractor?.rawImages?.filter(
     otherinformation.controls['warranty'].setValue(
       data?.otherinformation?.warranty
     );
-    console.log('modelForm', modelForm.value);
+    console.log('setModelDetail', modelForm.value);
   }
   staffDetails: any;
   initialize(
@@ -745,8 +745,9 @@ let imagesToShow=  tractor?.rawImages?.filter(
         ]),
       }),
     });
+       console.log('modelForm', modelForm.value);
     return modelForm
-        console.log('modelForm', modelForm.value);
+     
     //  if (this.data?.images?.length) {
     //    this.loadedImages = this.data?.images;
     //  }

@@ -23,6 +23,7 @@ import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-po
 import { EnterTfCodeComponent } from 'src/app/operational/enter-tf-code/enter-tf-code.component';
 import { AddNewTractorAlertComponent } from './add-new-tractor-alert/add-new-tractor-alert.component';
 import { ExistTractorAlertComponent } from 'src/app/shared-components/exist-tractor-alert/exist-tractor-alert.component';
+import { values } from 'pdf-lib';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -61,6 +62,11 @@ export class CreateComponent implements OnInit {
   }
   srcPage: any;
   ionViewWillEnter() {
+    this.createdJobDetails=null
+    if(this.newTractorForm){
+    this.newTractorForm.reset()
+    }
+    this.newTractorDetails=null
     this.activatedRoute.params.subscribe((params: any) => {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
@@ -207,10 +213,10 @@ export class CreateComponent implements OnInit {
       ]),
       yearOfManufactoring: new FormControl(
         Number(this.data?.yearOfManufactoring) || null,
-        []
+        [Validators.required]
       ),
       regNumber: new FormControl(this.data?.regNumber || null, []),
-      hours: new FormControl(this.data?.hours || null, []),
+      hours: new FormControl(this.data?.hours || null, [Validators.required]),
       engineNumber: new FormControl(this.data?.engineNumber || null, []),
       fuelLevel: new FormControl(this.data?.fuelLevel || null, []),
       otherInventoryOptions: new FormControl(
@@ -228,7 +234,7 @@ export class CreateComponent implements OnInit {
       isSelf: new FormControl(this.data?.isSelf || false, []),
       costEstimated: new FormControl(this.data?.costEstimated || null, []),
       mechanicAlloted: new FormControl(this.data?.mechanicAlloted || null, []),
-      chassisNumber: new FormControl(this.data?.chassisNumber || null, []),
+      chassisNumber: new FormControl(this.data?.chassisNumber || null, [Validators.required]),
     });
   }
   async openCrudManagement(type: any = 'TRACTOR_INVENTORY') {
@@ -350,7 +356,7 @@ export class CreateComponent implements OnInit {
         job_id: this.jobId,
       };
       this.share.showLoading('Checking TF Code...');
-      this.api.postapi('checking_tf_on_update', obj).subscribe(
+      this.api.postapi('checking_tf_on_update_new', obj).subscribe(
         (res: any) => {
           this.share.spinner.dismiss();
           if (res?.status) {
@@ -377,7 +383,7 @@ export class CreateComponent implements OnInit {
         chassisNumber: this.form.value?.chassisNumber?.trim(),
       };
       this.share.showLoading('Checking TF Code...');
-      this.api.postapi('checking_tf', obj).subscribe(
+      this.api.postapi('checking_tf_new', obj).subscribe(
         (res: any) => {
           this.share.spinner.dismiss();
           if (res?.status) {
@@ -393,7 +399,151 @@ export class CreateComponent implements OnInit {
       this.share.presentToast('Please Fill required fields');
     }
   }
-  createJob() {
+  newTractorForm: FormGroup;
+  createNewOne() {
+   this.newTractorForm= this.share.initialize(null, this.newTractorForm);
+    setTimeout(() => {
+       console.log('this.newTractorForm', this.newTractorForm.value);
+    let model = this.modelList.find(
+      (f: any) => f.id == this.form.value.model_id
+    );
+    this.share.setModelDetail(model, this.newTractorForm);
+
+    this.newTractorForm?.controls['hours'].setValue(this.form.value.hours);
+    this.newTractorForm?.controls['yearOfManufactoring'].setValue(
+      this.form.value.yearOfManufactoring
+    );
+    let purchasedetail = this.newTractorForm?.controls[
+      'purchasedetail'
+    ] as FormGroup;
+    purchasedetail.controls['registrationNumber'].setValue(
+      this.form.value.regNumber
+    );
+    purchasedetail.controls['engineNumber'].setValue(
+      this.form.value.engineNumber
+    );
+    purchasedetail.controls['chasisNumber'].setValue(
+      this.form.value.chassisNumber
+    );
+    purchasedetail.updateValueAndValidity();
+    this.newTractorForm.updateValueAndValidity();
+    if(this.form.valid && this.checkValidation()){
+    this.createJob(true)
+    }else{
+      this.share.presentToast("Please Fill Required Fields")
+    }
+
+
+    }, 0);
+   
+  }
+
+    
+  getSensObj(isDraft: any = true) {
+    let obj:any;
+    obj = this.newTractorForm.value;
+       obj.leftImage =null
+      obj.rightImage = null
+      obj.frontImage = null
+      obj.backImage =null
+      obj.displayImage =null
+      obj.tractorImages = []
+ 
+      obj.isDraft = isDraft;
+    
+    return obj;
+  }
+
+    checkValidation() {
+    let status = false;
+ 
+      if (this.newTractorForm.valid) {
+        status = true;
+      } else {
+        status = false;
+      }
+  
+
+    return status;
+  }
+  newTractorDetails:any
+  onSaveNewTractor() {
+    if (this.checkValidation()) {
+      let obj = this.getSensObj();
+      console.log('onSave', obj);
+
+        this.api.postapi('addTractor', obj).subscribe(
+          (res: any) => {
+      
+       
+            this.newTractorDetails = res?.data;
+            this.updateTF()
+            //this.share.presentToast("Saved Successfully...")
+            //  this.share.openSnackbarAddSuccess();
+          },
+          (error: any) => {
+            //  this.loader = false;
+          }
+        );
+    
+    } else {
+      //this.share.openSnackbarValidationError();
+      this.share.presentToast('Please Fill Required Fields');
+    }
+  }
+  updateMappedId(){
+            let obj = {
+        src: 'repairing_record',
+        data: {mappedTractorId:this.newTractorDetails?.id},
+        id: this.createdJobDetails?.id,
+      };
+   
+      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+        if(res?.status){
+              this.share.spinner.dismiss();
+    this.share.presentToast('Created Successfully...');
+        this.router.navigate([this.srcPage]);
+        }
+   
+  })
+  }
+  updateTF(){
+          let obj = {
+        src: 'tractor',
+        data: {registractionNo:this.form.value.tfCode},
+        id: this.newTractorDetails?.id,
+      };
+   
+      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+        if(res?.status){
+          this.addGenerateRecord()
+          this.updateMappedId()
+    //           this.share.spinner.dismiss();
+    // this.share.presentToast('Created Successfully...');
+    //     this.router.navigate([this.srcPage]);
+        }
+   
+  })
+}
+  addGenerateRecord(){
+      let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+       let obj = {
+        src: 'tfcodegenerationrecord',
+        data: {
+          tractor_id:this.newTractorDetails?.id,
+          tfCode:this.form.value.tfCode,
+          actionByid:this.staffDetails?.id
+        },
+        id: this.newTractorDetails?.id,
+      };
+    
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+  
+      });
+  }
+createdJobDetails:any
+  createJob(saveNewTractor=false) {
     let obj = this.form.value;
     let staffDetails: any = this.share.get_staff();
 
@@ -410,14 +560,22 @@ export class CreateComponent implements OnInit {
     obj.chassisNumber = obj.chassisNumber?.trim();
     this.api.postapi('createJob', obj).subscribe(
       (res: any) => {
-        this.share.spinner.dismiss();
+        this.createdJobDetails=res?.rowData
+        if(saveNewTractor){
+    this.onSaveNewTractor()
+        }else{
+      this.share.spinner.dismiss();
+    
         this.share.presentToast('Created Successfully...');
         this.router.navigate([this.srcPage]);
+        }
+  
       },
       (error: any) => {}
     );
   }
   async askForNewTractor() {
+    if(this.form.valid){
     const modal = await this.modalCntrol.create({
       component: AddNewTractorAlertComponent,
       breakpoints: [0, 0.4, 1],
@@ -433,21 +591,24 @@ export class CreateComponent implements OnInit {
     if (data) {
       this.checkDuplicacy();
     }
+  }else{
+    this.share.presentToast("Please Fill All Required Fields")
   }
-    async duplicacyFound(list:any=[]) {
+  }
+  async duplicacyFound(list: any = []) {
     const modal = await this.modalCntrol.create({
       component: ExistTractorAlertComponent,
       breakpoints: [0, 0.4, 1],
       initialBreakpoint: 1,
       cssClass: 'custom-modal',
       componentProps: {
-     tractorList:list
+        tractorList: list,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (data) {
-      //this.checkDuplicacy();
+      this.createNewOne();
     }
   }
   checkDuplicacy() {
@@ -463,26 +624,26 @@ export class CreateComponent implements OnInit {
       (res: any) => {
         this.share.spinner.dismiss();
         console.log('checkTractorDuplicacy', res);
-        if(res?.data?.length){
-this.duplicacyFound(res?.data)
-        }else{
-
+        if (res?.data?.length) {
+          this.duplicacyFound(res?.data);
+        } else {
+          this.createNewOne()
         }
-        this.router.navigate([this.srcPage]);
+      //  this.router.navigate([this.srcPage]);
       },
       (error: any) => {}
     );
   }
   saveForm() {
-    //if (this.form.valid) {
+    if (this.form.valid) {
     if (this.form.controls['isTfCode'].value == 'NO') {
       this.askForNewTractor();
     } else {
-      this.createJob();
+      this.createJob(false);
     }
-    // } else {
-    //   this.share.presentToast('Please Fill required fields');
-    // }
+    } else {
+      this.share.presentToast('Please Fill required fields');
+    }
   }
   yearArray: any = [];
   createYearArray() {
@@ -512,12 +673,29 @@ this.duplicacyFound(res?.data)
   modelList: any = [];
   modelListAll: any = [];
   getModelList() {
+    // this.modelList = [];
+    // let obj = this.share.getListObj('model', false, [], false);
+
+    // this.api.postapi('getList', obj).subscribe(
+    //   (res: any) => {
+    //     this.modelListAll = res.data;
+    //     if (!this.data) {
+    //       this.getModelsbyBrand();
+    //     } else {
+    //       this.getModelsbyBrand(false);
+    //     }
+    //     this.share?.spinner?.dismiss();
+    //   },
+    //   (error: any) => {}
+    // );
+
     this.modelList = [];
-    let obj = this.share.getListObj('model', false, [], false);
-    // this.share.showLoading('Loading...')
-    this.api.postapi('getList', obj).subscribe(
+    let obj = this.share.getListObj('model', true, ['logo'], false);
+    this.share.showLoading('Loading...');
+    this.api.postapi('getModelDataSanitized', obj).subscribe(
       (res: any) => {
-        this.modelListAll = res.data;
+        this.modelListAll = res?.data;
+        this.modelList = res.data;
         if (!this.data) {
           this.getModelsbyBrand();
         } else {

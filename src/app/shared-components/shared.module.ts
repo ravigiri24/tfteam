@@ -38,6 +38,7 @@ import { ViewTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc
 import { AddTractorDocsStatusRtoComponent } from '../rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
 import { NoDataViewComponent } from './no-data-view/no-data-view.component';
 import { ExistTractorAlertComponent } from './exist-tractor-alert/exist-tractor-alert.component';
+import { UpdateVersionAlertComponent } from './update-version-alert/update-version-alert.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -81,7 +82,8 @@ import { ExistTractorAlertComponent } from './exist-tractor-alert/exist-tractor-
     ViewTractorDocsStatusRtoComponent,
     AddTractorDocsStatusRtoComponent,
     NoDataViewComponent,
-    ExistTractorAlertComponent
+    ExistTractorAlertComponent,
+    UpdateVersionAlertComponent
     
   ],
   schemas: [],
