@@ -21,6 +21,7 @@ import { ViewTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-
 import { AddTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-status/add-tractor-docs-status-rto/add-tractor-docs-status-rto.component';
 import { SyncTractorWithMaintaninanceComponent } from './shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { TractorCostingDashboardComponent } from './shared-components/tractor-costing-dashboard/tractor-costing-dashboard.component';
+import { TractorPriceFranchiseComponent } from './franchise-operations-department/tractor-price-franchise/tractor-price-franchise.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -106,6 +107,9 @@ export class CommonMethodService {
      else if (e?.button?.name == 'Delete Tractor') {
     await  this.deleteTractor(e);
     }
+       if (e?.button?.name == 'Tractor Price') {
+      await this.tractorPriceUpdate(e?.tractor);
+    } 
   }
     async tractorSummaryDetails(tractor: any) {
       const modal = await this.modalCtrl.create({
@@ -375,6 +379,24 @@ export class CommonMethodService {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
 
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+    async tractorPriceUpdate(tractor: any) {
+ 
+    const modal = await this.modalCtrl.create({
+      component: TractorPriceFranchiseComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.7,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractor: tractor,
+      
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
     if (data) {
       this.reloadMethod = true;
     }

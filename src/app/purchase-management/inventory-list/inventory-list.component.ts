@@ -36,6 +36,7 @@ export class InventoryListComponent implements OnInit {
     { displayName: 'No', value: 'NO' },
   ];
   ngOnInit() {}
+    listColorClass = 'secondColor';
   storeId:any
   ionViewWillEnter() {
      let staffDetails: any = this.share.get_staff();

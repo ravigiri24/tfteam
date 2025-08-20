@@ -1,0 +1,36 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <div class="left-margin">
+    <ion-label >   
+      <h2>Total</h2>
+      <p><b class="total-number">{{alltractorList?.length}}</b></p>
+    </ion-label> 
+  </div>
+  <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
+  </ion-toolbar>     
+</ion-header> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Branch Wise : </span>
+ 
+        <ion-select  class="selected_ddl" (ionChange)="getAllTractorListStorewise(true)" [(ngModel)]="selectedStore"
+        label-placement="type">
+        <ion-select-option *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name }}</ion-select-option>
+      </ion-select>
+        <b class="total-number">{{alltractorList?.length}}</b>
+        
+      </div>
+      <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
+        <ion-icon (click)="getWareHouseList(true)" name="refresh-outline"></ion-icon>
+        <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+        <app-view-list *ngIf="alltractorList?.length"  [listColorClass]="'firstColor'" [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+    <app-no-data-view [ngClass]="listColorClass"   *ngIf="!alltractorList?.length && !share?.globalLoading"></app-no-data-view>
+</ion-content>

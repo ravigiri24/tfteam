@@ -160,7 +160,7 @@ let imagesToShow=  tractor?.rawImages?.filter(
             this.router.navigate(['/hr-deparment/offer-letter']);
           } else if (userde?.staff_role == 'FRANCHISE_OPERATIONS') {
             this.router.navigate([
-              '/franchise-operation-deparment/ready-tractor-sales',
+              '/franchise-operation-deparment/branchwise-tractor-list',
             ]);
           } else if (userde?.staff_role == 'TRANSPORT') {
             this.router.navigate([
@@ -197,7 +197,7 @@ let imagesToShow=  tractor?.rawImages?.filter(
             this.router.navigate(['/hr-deparment/offer-letter']);
           } else if (userde?.currentRole == 'FRANCHISE_OPERATIONS') {
             this.router.navigate([
-              '/franchise-operation-deparment/ready-tractor-sales',
+              '/franchise-operation-deparment/branchwise-tractor-list',
             ]);
           } else if (userde?.currentRole == 'TRANSPORT') {
             this.router.navigate([

@@ -5,12 +5,14 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { FranchiseOperationsDepartmentComponent } from './franchise-operations-department.component';
 import { ReadyTractorListSalesComponent } from './ready-tractor-list-sales/ready-tractor-list-sales.component';
+import { BranchwiseTractorListComponent } from './branchwise-tractor-list/branchwise-tractor-list.component';
 const routes: Routes = [
   {
     path: "", component: FranchiseOperationsDepartmentComponent,
     children: [
 
       { path: 'ready-tractor-sales', component: ReadyTractorListSalesComponent},
+      { path: 'branchwise-tractor-list', component: BranchwiseTractorListComponent},
            { path: 'user-management', component: UserManagementComponent},
   
       

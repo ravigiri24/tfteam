@@ -16,6 +16,8 @@ import { FranchiseOperationHeaderComponent } from './franchise-operation-header/
 import { TracotorListDisplayComponent } from './tracotor-list-display/tracotor-list-display.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { TracotorSettingsComponent } from './tracotor-settings/tracotor-settings.component';
+import { BranchwiseTractorListComponent } from './branchwise-tractor-list/branchwise-tractor-list.component';
+
 @NgModule({
   declarations: [
 FranchiseOperationFooterComponent,
@@ -24,7 +26,9 @@ FranchiseOperationsDepartmentComponent,
 ReadyTractorListSalesComponent,
 FranchiseOperationHeaderComponent,
 TracotorListDisplayComponent,
-TracotorSettingsComponent
+TracotorSettingsComponent,
+BranchwiseTractorListComponent,
+
   ],
   imports: [
     FranchiseOerationDeparmentRoutingModule,
