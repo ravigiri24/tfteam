@@ -591,7 +591,7 @@ ion-header {
 
 
 .firstColor {
-  .main_title, .show_more_block, .empty {
+  .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-first);
   }
 
@@ -613,7 +613,7 @@ ion-header {
 }
 
 .secondColor {
-   .main_title, .show_more_block, .empty {
+   .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-second);
   }
 
@@ -635,7 +635,7 @@ ion-header {
 }
 
 .thirdColor {
-   .main_title, .show_more_block, .empty {
+   .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-third);
   }
 
@@ -657,7 +657,7 @@ ion-header {
 }
 
 .fourthColor {
-   .main_title, .show_more_block, .empty {
+   .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-fourth);
   }
 
@@ -679,7 +679,7 @@ ion-header {
 }
 
 .fifthColor {
-   .main_title, .show_more_block, .empty {
+   .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-fifth);
   }
 
@@ -701,7 +701,7 @@ ion-header {
 }
 
 .sixColor {
-   .main_title, .show_more_block, .empty {
+   .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-six);
   }
 
@@ -723,7 +723,7 @@ ion-header {
 }
 
 .sevenColor {
-   .main_title, .show_more_block, .empty {
+   .main_title, .show_more_block, .empty, .close_color {
     color: var(--app-dynamic-color-seven);
   }
 

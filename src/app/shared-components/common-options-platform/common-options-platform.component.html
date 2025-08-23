@@ -1,30 +1,38 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Details</ion-title>  
-  
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Details</ion-title>
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    <ion-buttons [ngClass]="listColorClass" slot="end">
+      <ion-icon class="close_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
-
-  </ion-toolbar>  
-
-</ion-header>  
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-
-   
-    <div *ngFor="let option of optionsArray">
-<div (click)="actionEvent(option)" class="block margin-body">
-     <span class="succes-tag-line">{{option?.optionsName}}</span>
-      </div>
+  <ion-row>
+    <!-- {{optionsArray | json}} -->
+    <ng-container *ngFor="let option of optionsArray;let i=index">
+      <ion-col [ngClass]="listColorClass" (click)="actionEvent(option)" class="section_col" size="6" size-md="6">
+         <div class="camera-icon-container">
+            <ion-icon name="camera-outline"></ion-icon>
+            <span class="camera-counter">{{ optionsArray?.uploadPhoto?.length }}</span>
+          </div>
+        <div class="image_block"><img class="image-style" [src]="option?.icon" /></div>
+        <div class="middle_border"></div>
+        <ion-card class="global_image_upload_card">
+          <ion-title class="title">{{option?.optionsName}}</ion-title>
+        </ion-card>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+  <!-- <div *ngFor="let option of optionsArray">
+    <div (click)="actionEvent(option)" class="block margin-body">
+      <span class="succes-tag-line">{{option?.optionsName}}</span>
+    </div>
     <div (click)="actionEvent(option)" class=" block">
-
-  
-    <img  class="image-style" [src]="option?.icon" />
-
+      <img class="image-style" [src]="option?.icon" />
     </div>
-    </div>
-     <!-- <div (click)="seeSellDetails()" class="block margin-body">
+  </div> -->
+  <!-- <div (click)="seeSellDetails()" class="block margin-body">
      <span class="succes-tag-line">Sales Details</span>
       </div>
     <div (click)="seeSellDetails()" class=" block">
@@ -96,7 +104,7 @@
     <img  class="image-style" src="././assets/images/envelope.png" />
 
     </div> -->
-  
+
   <!-- <ion-card>
     <ion-card-header>
       <ion-card-title>Payment Screenshot</ion-card-title>

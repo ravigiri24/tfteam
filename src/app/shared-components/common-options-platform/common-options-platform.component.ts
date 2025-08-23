@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
@@ -16,10 +16,11 @@ export class CommonOptionsPlatformComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private commonService: CommonMethodService,
-    private share:ShareService
-  ) {}
+    private share: ShareService
+  ) { }
   tractor: any;
-  ngOnInit() {}
+  @Input() listColorClass: any = 'secondColor';
+  ngOnInit() { }
   dismiss() {
     this.modalCtrl.dismiss();
   }
@@ -39,27 +40,27 @@ export class CommonOptionsPlatformComponent implements OnInit {
     if (option?.type == 'IMAGE') {
       this.goToUplodeSectionDynamic(option);
     } else if (option?.type == 'FUNCTION_CALL') {
-    await  this.commonService.functionCall({
+      await this.commonService.functionCall({
         funcName: option?.funcName,
         tractor: this.tractor,
         closePopUp: option?.closePopUp,
       });
       setTimeout(() => {
-        if(option?.closePopUp){
-       
-          this.commonService.reloadMethod=true
+        if (option?.closePopUp) {
+
+          this.commonService.reloadMethod = true
         }
-     
-      },0);
-         if(option?.closeOptionAndRefresh && this.commonService.reloadMethod==true){
-            
-              this.share.showLoading("Refreshing Data")
-           setTimeout(() => {
-                this.share.spinner.dismiss()
-                  this.modalCtrl.dismiss(true)
-              }, 500);
-            
-        }
+
+      }, 0);
+      if (option?.closeOptionAndRefresh && this.commonService.reloadMethod == true) {
+
+        this.share.showLoading("Refreshing Data")
+        setTimeout(() => {
+          this.share.spinner.dismiss()
+          this.modalCtrl.dismiss(true)
+        }, 500);
+
+      }
     }
   }
   async goToUplodeSectionDynamic(option: any) {
