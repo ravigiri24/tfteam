@@ -45,8 +45,8 @@ export class ViewListComponent implements OnInit {
     this.activeCardIndex = null;
     this.activeCardIndex = index;
     setTimeout(() => {
-      this.showOverlay = true;
-    }, 500);
+      this.showOverlay = true; 
+    }, 100);
     // this.photoCount++;
   }
 
