@@ -1,0 +1,21 @@
+<ion-content  class="ion-padding ">
+  <div class="top-position-body">
+
+     <span class="heading-list">District Will Add In {{stateName}}</span>
+  <div class="row top-position" >
+ <div class="global_input_block">
+        <ion-input label="Enter Name" fill="outline" [(ngModel)]="name" labelPlacement="stacked"  ></ion-input>
+      </div>
+      </div>
+  <div class="row" >
+    <ion-button *ngIf="!district?.name"  (click)="checkDistrictName()" class="global_submit_button" >
+    
+      Add</ion-button>
+          <ion-button *ngIf="district?.name"  (click)="checkDistrictNameOnUpdate()" class="global_submit_button" >
+    
+      Update</ion-button>
+    </div>
+
+</div>
+</ion-content>
+  

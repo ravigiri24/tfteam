@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-update-version-alert',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateVersionAlertComponent  implements OnInit {
 
-  constructor() { }
+  constructor(private api:ApiService) {
 
-  ngOnInit() {}
+   }
+versionNameNew:any
+  ngOnInit() {
+    this.versionNameNew="TFTeam_1.0."+this.api.version
+  }
 
 }

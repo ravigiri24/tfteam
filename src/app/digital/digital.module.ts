@@ -30,6 +30,8 @@ import { VisitingManagementComponent } from '../visiting-management/visiting-man
 import { GoogleChartsModule } from 'angular-google-charts';
 import { CustomerDashboardComponent } from '../customer-management/customer-dashboard/customer-dashboard.component';
 import { SoldStatusEntryComponent } from '../customer-management/sold-status-entry/sold-status-entry.component';
+import { DistrictManagementComponent } from '../shared-components/district-management/district-management.component';
+import { AddDistrictComponent } from '../shared-components/district-management/add-district/add-district.component';
 @NgModule({
   declarations: [
     DigitalComponent,
@@ -48,7 +50,9 @@ import { SoldStatusEntryComponent } from '../customer-management/sold-status-ent
     AddDemandComponent,
     VisitingManagementComponent,
     CustomerDashboardComponent,
-    SoldStatusEntryComponent
+    SoldStatusEntryComponent,
+    DistrictManagementComponent,
+    AddDistrictComponent
   ],
   imports: [
     DigitalPageRoutingModule,

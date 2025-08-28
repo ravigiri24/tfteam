@@ -6,6 +6,7 @@
         <span>{{customerList?.length}}</span>
       </div>
       <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="districtmgmt()" name="chevron-up-circle-outline"></ion-icon>
         <ion-icon class="theme-color icon-size" (click)="searchCustomer()" name="search-outline"></ion-icon>
         <ion-icon class="theme-color icon-size" (click)="refreshList()" name="refresh-outline"></ion-icon>
         <ion-icon class="theme-color-second icon-size" (click)="addCustomer()" expand="block" 
@@ -17,11 +18,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <!-- <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content>
-    </ion-refresher-content>
-  </ion-refresher> -->
-  <!-- <ion-searchbar [(ngModel)]="search" slot="fixed" placeholder="Search Customer"></ion-searchbar> -->
+<!-- 
   <ion-list class="list_row" *ngIf="customerList?.length && showData">
     <ng-container *ngFor="let cus of customerList;let in=index">
       <ion-item [ngClass]="{'warning_row': !cus?.leadsChat?.length}">
@@ -30,8 +27,7 @@
               name="warning"></ion-icon></h2>
           <p>{{cus?.mobileNo}}-{{cus?.customerType}}</p>
         </ion-label>
-        <!-- <ion-label>{{cus?.name}}</ion-label>
-    <ion-label>{{cus?.mobileNo}}</ion-label> -->
+   
         <div class="list_right_action">
           <ion-icon *ngIf="cus?.customerType!=='ONLINE'" (click)="addCustomer(cus,in)" name="create-outline"></ion-icon>
           <ion-icon (click)="addRemark(cus)" class="theme-color" name="chatbubbles-outline"></ion-icon>
@@ -39,7 +35,8 @@
         </div>
       </ion-item>
     </ng-container>
-  </ion-list>
+  </ion-list> -->
+  <app-view-customer-list *ngIf="customerList?.length && showData" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="customerList"></app-view-customer-list>
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

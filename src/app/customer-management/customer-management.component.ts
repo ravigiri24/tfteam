@@ -15,6 +15,7 @@ import { ReviewPageComponent } from './review-page/review-page.component';
 import { ViewCustomerDataComponent } from './view-customer-data/view-customer-data.component';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { SoldStatusEntryComponent } from './sold-status-entry/sold-status-entry.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -29,7 +30,8 @@ export class CustomerManagementComponent implements OnInit {
     private fb:FormBuilder,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private router:Router
   ) {}
 
   @ViewChild(IonContent) content: IonContent;
@@ -79,6 +81,9 @@ stateList:any=[]
     console.log('CustomerManagementComponent');
  
     //this.getCustomerList()
+  }
+  districtmgmt(){
+    this.router.navigate(['/digital/district-mgmt','/digital/customer-management']);
   }
   followLoader:any=false
   nextFollowupDate() {
@@ -245,6 +250,7 @@ stateList:any=[]
       this.customerList.unshift(e);
     }
   }
+  listColorClass='firstColor'
   showRemark:any=true
   staffList:any=[]
   getStaffList(){
@@ -311,6 +317,23 @@ stateList:any=[]
       );
     }, 0);
   }
+   buttonArray: any = [
+    {
+      name: 'Edit Customer',
+      action: 'editCustomer',
+      image: './././assets/images/edit.png',
+    },
+      {
+      name: 'Customer Remark',
+      action: 'customer_review',
+      image: './././assets/images/comments.png',
+    },
+      {
+      name: 'Customer View',
+      action: 'customer_view',
+      image: './././assets/images/data.png',
+    },
+  ];
   editData: any;
   dataClear() {
        this.modelType='CUSTOMER'

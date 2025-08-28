@@ -40,6 +40,10 @@ import { NoDataViewComponent } from './no-data-view/no-data-view.component';
 import { ExistTractorAlertComponent } from './exist-tractor-alert/exist-tractor-alert.component';
 import { UpdateVersionAlertComponent } from './update-version-alert/update-version-alert.component';
 import { TractorPriceFranchiseComponent } from '../franchise-operations-department/tractor-price-franchise/tractor-price-franchise.component';
+import { CustomerListingComponent } from './customer-listing/customer-listing.component';
+import { HeadListingComponent } from './head-listing/head-listing.component';
+import { AddCityComponent } from './district-management/add-city/add-city.component';
+import { ViewCustomerListComponent } from './view-customer-list/view-customer-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -85,7 +89,11 @@ import { TractorPriceFranchiseComponent } from '../franchise-operations-departme
     NoDataViewComponent,
     ExistTractorAlertComponent,
     UpdateVersionAlertComponent,
-    TractorPriceFranchiseComponent
+    TractorPriceFranchiseComponent,
+    CustomerListingComponent,
+    HeadListingComponent,
+    AddCityComponent,
+    ViewCustomerListComponent
     
   ],
   schemas: [],
@@ -96,7 +104,10 @@ import { TractorPriceFranchiseComponent } from '../franchise-operations-departme
     CrudPopupComponent,
     ViewListComponent,
     SearchTractorWithTfCodeComponent,
-    NoDataViewComponent
+    NoDataViewComponent,
+        CustomerListingComponent,
+    HeadListingComponent,
+    ViewCustomerListComponent
   ],
   providers: [ApiService,    InAppBrowser,],
 })

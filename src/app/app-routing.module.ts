@@ -74,6 +74,10 @@ const routes: Routes = [
     path: 'inventory-receive-department',
     loadChildren: () => import('./inventory-receive-department/inventory-receive.module').then(m => m.InventoryReceiveModule)
   },
+     {
+    path: 'lead-management',
+    loadChildren: () => import('./lead-department/lead-department.module').then(m => m.LeadDepartmentModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},

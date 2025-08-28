@@ -1,0 +1,36 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+<!--       
+          <div class="left_text">
+        <span class="selected_text">State Wise : </span>
+ 
+        <ion-select  class="selected_ddl" (ionChange)="districtWiseFIlter()" [(ngModel)]="selectedState"
+        label-placement="type">
+        <ion-select-option *ngFor="let state of stateList" [value]="state.id"> {{ state?.name }}</ion-select-option>
+      </ion-select>
+    
+        
+      </div> -->
+
+    <!-- <span class="top_layers">State</span> -->
+    <span  (click)="selectItem(this.stateList,'State','state_list')" class="name_selected"><b>{{stateName}}</b></span>
+    
+    <!-- <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon> -->
+
+
+      </div>
+      <div class="right_action">
+             <ion-icon class="theme-color-second icon-size" (click)="addDistrict()" expand="block" 
+          name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="backToNewArrivals()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+<app-head-listing [listColorClass]="listColorClass"  *ngIf="districtList?.length" [buttonArray]="buttonArray" [list]="districtList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'name'"></app-head-listing>
+  <app-no-data-view  [ngClass]="listColorClass" *ngIf="!districtList?.length && !share?.globalLoading"></app-no-data-view>
+</ion-content>

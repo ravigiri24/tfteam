@@ -16,6 +16,7 @@
       <ion-select-option value="NAME">By Name</ion-select-option>
       <ion-select-option value="STATE">By State</ion-select-option>
       <ion-select-option value="CITY">By City</ion-select-option>
+      <ion-select-option value="DISTRICT">By District</ion-select-option>
       <ion-select-option value="DATE">By Date</ion-select-option>
       <ion-select-option value="VISITORS">By Visitors</ion-select-option>
       <ion-select-option value="DEMAND">By Demand</ion-select-option>
@@ -25,7 +26,7 @@
   <ion-searchbar (ionFocus)="onInputFocus()" (ionBlur)="focusOut()" [(ngModel)]="search.name" slot="fixed"
   placeholder="Search Customer"></ion-searchbar>
 </div>
-<div *ngIf="searchBy=='STATE' || searchBy=='CITY'" class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+<div *ngIf="searchBy=='STATE' || searchBy=='CITY' || searchBy=='DISTRICT'" class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
   <span class="top_layers">State</span>
   <span class="name_selected">{{stateName}}</span>
   <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
@@ -36,6 +37,14 @@
 <div *ngIf="searchBy=='CITY'"  class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
   <span class="top_layers">City</span>
   <span class="name_selected">{{cityName}}</span>
+  <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+  <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+        <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+      </ion-select> -->
+</div>
+<div *ngIf="searchBy=='DISTRICT'"  class="global_input_block global_location_block" (click)="selectItem(this.districtListFilter,'District','district_list')">
+  <span class="top_layers">District</span>
+  <span class="name_selected">{{districtName}}</span>
   <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
   <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
         <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
@@ -131,7 +140,7 @@
     </ion-item>
   </ng-container>
 </div>
-<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND')" class="row">
+<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND')" class="row">
   <!-- <div class="col-6 col-md-6 ">
 <ion-button   (click)="generatePDF()" class="global_submit_button button-width" expand="block">Genrate Pdf</ion-button>
 </div> -->
@@ -143,7 +152,7 @@
 
 </div>
 </div>
-<div class="scroll"  *ngIf="(searchBy=='STATE' || searchBy=='CITY' || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND') && customerList?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
+<div class="scroll"  *ngIf="(searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND') && customerList?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
   <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
   </div> -->
@@ -152,9 +161,13 @@
   <table cellpadding="5" cellspacing="5" style="width: 100%;">
     <tbody>
       <tr>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">State
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">
           State</th>
         <td style="border: 1px solid #ddd;padding: 5px 10px;">{{recordStatename}} </td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">
+          District </th>
+        <td  *ngIf="searchBy=='DISTRICT'" style="border: 1px solid #ddd;padding: 5px 10px;">{{recordDistrictname}} </td>
+        <td  *ngIf="searchBy!='DISTRICT'" style="border: 1px solid #ddd;padding: 5px 10px;">- </td>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">City</th>
         <td *ngIf="searchBy=='CITY'" style="border: 1px solid #ddd;padding: 5px 10px;">{{recordCityname}}</td>
         <td *ngIf="searchBy!='CITY'" style="border: 1px solid #ddd;padding: 5px 10px;">-</td>

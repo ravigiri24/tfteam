@@ -1,0 +1,27 @@
+<ion-searchbar class="search_bar_row" *ngIf="showSearch" [(ngModel)]="search[searchKey]" slot="fixed"
+  placeholder="Search..."></ion-searchbar>
+<ion-list class="list_row top-position-list" *ngIf="list?.length">
+
+  <ion-row>
+    <ion-col *ngFor="let item of list | filterBy: search; let i=index" size="12" size-md="6">
+    
+      <ion-grid class="main_block_details" [ngClass]="listColorClass">
+        <ion-card>
+       
+          <ion-label class="main_title">{{item?.name}}</ion-label>
+      
+          <ion-row *ngIf="buttonArray?.length">
+            <ion-col class="action_col" *ngFor="let button of buttonArray">
+              <img (click)="actionEvent(item,button,i)" [src]="button?.image" />
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+  <!-- </ion-item> -->
+</ion-list>
+<!-- <div *ngIf="(list | filterBy: search)?.length === 0" class="no-data-block">
+  <img class="image-no-data" src="././assets/images/no-data-found.png" />
+</div> -->
+<app-no-data-view [ngClass]="listColorClass" *ngIf="(list | filterBy: search)?.length === 0"></app-no-data-view>

@@ -81,50 +81,9 @@ export class BranchwiseTractorListComponent  implements OnInit {
     this.getWareHouseList();
   }
 
-  async salesOption(tractor: any) {
-    // const modal = await this.modalCtrl.create({
-    //   component: FinanceOptionsComponent,
-    //   componentProps: {
-    //     tractor: tractor,
-    //   },
-    // });
-    // await modal.present();
-    // const { data, role } = await modal.onWillDismiss();
-    // console.log('role', role);
-  }
-  async addFinanceDetails(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: TractorFinanceDetailsComponent,
-      componentProps: {
-        tractorDetails: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-    if (data) {
-      this.callListApi();
-    }
-    //if (role === 'confirm') {
 
-    //   this.getAllTractorList();
-    //}
-  }
-  async addSellDetails(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: TractorSellsDetailsComponent,
-      componentProps: {
-        tractorDetails: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
 
-    //if (role === 'confirm') {
-    this.callListApi();
-    //}
-  }
+ 
   search = {
     registractionNo: null,
   };
@@ -200,40 +159,10 @@ this.share.showLoading('Loading...');
       (error: any) => {}
     );
   }
-  async viewImage(tractor: any) {
-    // const modal = await this.modalCtrl.create({
-    //   component: ImageViewerComponent,
-    //   componentProps: {
-    //     tarctor_id: tractor.id,
-    //   },
-    // });
-    // await modal.present();
-    // const { data, role } = await modal.onWillDismiss();
-    // console.log('role', role);
-    // if (role === 'confirm') {
-    // }
-  }
-  async viewTractorDashboard(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: TractorDashboardComponent,
-      componentProps: {
-        tractorDetails: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
 
-    this.getAllTractorListStorewise();
-  }
+
   backupList: any = [];
-  tractorDashboard(tractor: any) {
-    this.router.navigate([
-      '/operational/view-dashboard',
-      tractor?.id,
-      '/operational/all-tractor-management',
-    ]);
-  }
+
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
@@ -300,16 +229,6 @@ this.share.showLoading('Loading...');
     // }
     
   }
-  async salesDetails(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: ShowSalesDetailsComponent,
-      componentProps: {
-        tractor: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-  }
+
 
 }

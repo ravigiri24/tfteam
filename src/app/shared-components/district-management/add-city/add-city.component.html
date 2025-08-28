@@ -1,0 +1,21 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+
+Cities List
+  
+      </div>
+      <div class="right_action">
+    <ion-icon class="theme-color-second icon-size" (click)="selectItem(cityList,'City','city_list')" expand="block" 
+          name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+<app-head-listing [listColorClass]="listColorClass"  *ngIf="selectedCityList?.length" [buttonArray]="buttonArray" [list]="selectedCityList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'name'"></app-head-listing>
+  <app-no-data-view  [ngClass]="listColorClass" *ngIf="!selectedCityList?.length && !share?.globalLoading"></app-no-data-view>
+</ion-content>

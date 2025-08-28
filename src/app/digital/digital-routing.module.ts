@@ -8,6 +8,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { DigitalComponent } from './digital.component'; 
 import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
+import { DistrictManagementComponent } from '../shared-components/district-management/district-management.component';
+
 const routes: Routes = [
   {
     path: "", component: DigitalComponent,
@@ -19,6 +21,8 @@ const routes: Routes = [
       { path: 'customer-management', component: CustomerManagementComponent},
     
       { path: 'report-management', component: ReportUpManagementComponent},
+      { path: 'district-mgmt', component: DistrictManagementComponent},
+    { path: 'district-mgmt/:srcPage', component: DistrictManagementComponent},
     ],
 
   }

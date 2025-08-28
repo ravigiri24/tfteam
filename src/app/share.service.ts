@@ -177,6 +177,11 @@ let imagesToShow=  tractor?.rawImages?.filter(
               '/inventory-receive-department/inven-received-list',
             ]);
           }
+           else if (userde?.staff_role == 'LEAD_MANAGEMENT') {
+            this.router.navigate([
+              '/lead-management/customer-management',
+            ]);
+          }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
@@ -212,6 +217,11 @@ let imagesToShow=  tractor?.rawImages?.filter(
           } else if (userde?.currentRole == 'INVENTORY_RECEIVED') {
             this.router.navigate([
               '/inventory-receive-department/inven-received-list',
+            ]);
+          }
+             else if (userde?.currentRole == 'LEAD_MANAGEMENT') {
+            this.router.navigate([
+              '/lead-management/customer-management',
             ]);
           }
         }

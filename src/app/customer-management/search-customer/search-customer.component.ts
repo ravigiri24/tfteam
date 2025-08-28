@@ -50,7 +50,22 @@ export class SearchCustomerComponent implements OnInit {
   EXCEL_EXTENSION = '.xlsx';
   ngOnInit() {
     this.getStateList();
+    this.getDistrictList()
     this.initialize()
+  }
+    districtList:any=[]
+    districtListSrc:any=[]
+    getDistrictList() {
+    let obj = this.share.getListObj('district_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.districtList = res?.data;
+        this.districtListSrc = res?.data;
+     
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
   }
   form:FormGroup
     initialize() {
@@ -79,6 +94,7 @@ export class SearchCustomerComponent implements OnInit {
   onInputFocus() {}
   focusOut() {}
   searchBy: any = 'NUMBER';
+  districtName:any
   searchCustomer() {
     if(this.searchBy=='NUMBER'){
       this.serachByNumber()
@@ -91,6 +107,9 @@ export class SearchCustomerComponent implements OnInit {
     }
     else if(this.searchBy=='CITY'){
       this.getCityWiseList()
+    }
+       else if(this.searchBy=='DISTRICT'){
+      this.getDistrictWiseList()
     }
        else if(this.searchBy=='DATE'){
       this.getListByDate()
@@ -285,17 +304,18 @@ export class SearchCustomerComponent implements OnInit {
   checkOpenCon(itemName: any) {
     if (itemName == 'State') {
       return true;
-    } else if (itemName == 'City' && this.state_id) {
+    } else if (itemName == 'City' ||(itemName == 'District') && this.state_id) {
       return true;
     } else {
       return false;
     }
   }
+  district_id:any
   async selectItem(list: any, itemName: any, table_name: any) {
     let openStatus = this.checkOpenCon(itemName);
     if (openStatus) {
       let otherObjects: any;
-      if (itemName == 'City') {
+      if (itemName == 'City' || itemName == 'District' ) {
         otherObjects = {
           state_id: this.state_id,
         };
@@ -324,12 +344,20 @@ export class SearchCustomerComponent implements OnInit {
           this.city_id = null;
           this.cityName = null;
           this.stateName = data?.name;
+          this.district_id = null;
+          this.districtName = null;
           this.getCityListFilter();
+          this.getDistrrictListFilter()
         }
       } else if (itemName == 'City') {
         this.customerList=[]
         this.cityName = data?.name;
         this.city_id = data?.id;
+      }
+       else if (itemName == 'District') {
+        this.customerList=[]
+        this.districtName = data?.name;
+        this.district_id = data?.id;
       }
       console.log('role', role, data);
 
@@ -344,6 +372,12 @@ export class SearchCustomerComponent implements OnInit {
     let getStateId = this.state_id;
     let cityList = this.cityList.filter((f: any) => f.state_id == getStateId);
     this.cityListFilter = cityList;
+  }
+    districtListFilter: any = [];
+  getDistrrictListFilter() {
+    let getStateId = this.state_id;
+    let districtList = this.districtListSrc.filter((f: any) => f.state_id == getStateId);
+    this.districtListFilter = districtList;
   }
   customerData: any = [];
   isCustomersFound = false;
@@ -592,8 +626,10 @@ name=this.stateName
       this.customerList=[]
       this.state_id=null;
       this.city_id=null;
+      this.district_id=null
       this.stateName=null;
       this.cityName=null;
+      this.districtName=null;
       this.form.reset()
     }
     recordStatename:any=[]
@@ -675,6 +711,48 @@ name=this.stateName
       );
     }else{
       this.share.presentToast("Please select city")
+    }
+    }
+     recordDistrictname:any
+  
+    getDistrictWiseList(){
+      if(this.district_id){
+        this.recordDistrictname=this.districtName
+        this.recordStatename=this.stateName
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        district_id:this.district_id,
+        storeId:this.staffDetails?.storeId
+      };
+  
+      this.api.postapi('getCustomerByDistrict', obj).subscribe(
+        (res: any) => {
+          if (res?.status == 1) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+    }else{
+      this.share.presentToast("Please select district")
     }
     }
 }
