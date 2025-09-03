@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list class="list_row" *ngIf="followUpList?.length && showData">
+  <!-- <ion-list class="list_row" *ngIf="followUpList?.length && showData">
     <ion-item *ngFor="let cus of followUpList;let in = index">
       <ion-label>
         <h2 class="theme-color">{{ cus?.customerDetails?.name }}</h2>
@@ -22,12 +22,11 @@
       </ion-label>
       <ion-icon (click)="addReview(cus, in)" class="right-margine theme-color" name="chatbubbles-outline"></ion-icon>
             <ion-icon (click)="viewCustomer(cus?.customerDetails)" class="right-margine theme-color-second " name="eye"></ion-icon>
-      <!--      
-      <ion-icon  *ngIf="cus?.customerType!=='ONLINE'" (click)="openEdit(cus,in)" class="right-margine theme-color" name="create-outline"></ion-icon>
-      <ion-icon  (click)="addReview(cus,in)"  class="right-margine theme-color-second"name="chatbubbles-outline"></ion-icon>
-      <ion-icon (click)="viewDetails(cus,in)"  class="right-margine theme-color-third "name="eye"></ion-icon> -->
+
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+   <app-view-customer-list *ngIf="customerList?.length" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="customerList"></app-view-customer-list>  
+    <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!customerList?.length && !share?.globalLoading"></app-no-data-view>
   <ion-modal trigger="open-modal-follow" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>

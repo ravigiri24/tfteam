@@ -4,11 +4,11 @@ import { SingleImageShowComponent } from 'src/app/maintainance-management/single
 import { ShareService } from 'src/app/share.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
-  selector: 'app-view-customer-list',
-  templateUrl: './view-customer-list.component.html',
-  styleUrls: ['./view-customer-list.component.scss'],
+  selector: 'app-view-staff-list',
+  templateUrl: './view-staff-list.component.html',
+  styleUrls: ['./view-staff-list.component.scss'],
 })
-export class ViewCustomerListComponent  implements OnInit {
+export class ViewStaffListComponent  implements OnInit {
   @Input() search: any;
   @Input() searchKey: any;
   @Input() showSearch: any = true;
@@ -37,9 +37,8 @@ showMore(index: number, keyValue: any) {
   this.showMoreDetails[index] = !this.showMoreDetails[index];
   // You can add animation logic here if needed
 }
-  actionEvent(customer: any, button: any,index:any) {
-    this.actionEventCall.emit({ customer, button,index });
+  actionEvent(staff: any, button: any,index:any) {
+    this.actionEventCall.emit({ staff, button,index });
   }
  
-
 }

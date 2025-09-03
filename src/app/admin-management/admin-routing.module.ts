@@ -9,6 +9,7 @@ import { ReportsTractorComponent } from './reports-tractor/reports-tractor.compo
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
 import { PendingReportsComponent } from './pending-reports/pending-reports.component';
+import { LeadEmployeeMgmtComponent } from './lead-employee-mgmt/lead-employee-mgmt.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -23,6 +24,7 @@ const routes: Routes = [
          { path: 'reports-tractor', component: ReportsTractorComponent},
          { path: 'user-management', component: UserManagementComponent},
          { path: 'tractor-costing', component: TractorCostingListComponent},
+         { path: 'lead-mgmt-employee/:srcPage', component: LeadEmployeeMgmtComponent},
          {
               path: 'view-costing-dashboard/:id',
               component: TractorCostingDashboardComponent,

@@ -1,6 +1,6 @@
 <ion-header>  
   <ion-toolbar>
-    <ion-title>Reports</ion-title>
+    <ion-title>Heads</ion-title>
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
     <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
   </ion-toolbar> 
@@ -25,6 +25,16 @@
     <img (click)="workSheet()" class="image-style" src="././assets/images/document.png" />
     <ion-card-header >
       <ion-card-title (click)="workSheet()" class="title-style">Work Report</ion-card-title>
+      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+    <div class="col-md-6 col-6 block">
+  <ion-card >
+    <img (click)="leadManagement()" class="image-style" src="././assets/images/lead-generation.png" />
+    <ion-card-header >
+      <ion-card-title (click)="leadManagement()" class="title-style">Lead Management</ion-card-title>
       <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
     </ion-card-header>
   

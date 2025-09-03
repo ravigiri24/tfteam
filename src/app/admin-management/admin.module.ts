@@ -13,6 +13,9 @@ import { ReportsTractorComponent } from './reports-tractor/reports-tractor.compo
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
 import { PendingReportsComponent } from './pending-reports/pending-reports.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { LeadEmployeeMgmtComponent } from './lead-employee-mgmt/lead-employee-mgmt.component';
+import { AddLeadStaffComponent } from './lead-employee-mgmt/add-lead-staff/add-lead-staff.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -21,7 +24,10 @@ import { PendingReportsComponent } from './pending-reports/pending-reports.compo
     ReportsTractorComponent,
     DashboardOverviewComponent,
     MasterSheetsComponent,
-    PendingReportsComponent
+    PendingReportsComponent,
+    AdminHeaderComponent,
+    LeadEmployeeMgmtComponent,
+    AddLeadStaffComponent
   ],
   imports: [
    

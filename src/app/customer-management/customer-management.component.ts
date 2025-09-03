@@ -16,6 +16,7 @@ import { ViewCustomerDataComponent } from './view-customer-data/view-customer-da
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { SoldStatusEntryComponent } from './sold-status-entry/sold-status-entry.component';
 import { Router } from '@angular/router';
+import { CommonMethodService } from '../common-method.service';
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -31,7 +32,8 @@ export class CustomerManagementComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private modalController: ModalController,
-    private router:Router
+    private router:Router,
+    private commonMethod:CommonMethodService
   ) {}
 
   @ViewChild(IonContent) content: IonContent;
@@ -45,7 +47,7 @@ nextScheduleForm:FormGroup
     const modal = await this.modalController.create({
       component: SearchCustomerComponent,
       componentProps: {
-      
+      buttonArray:this.buttonArray
         
       },
     });
@@ -249,6 +251,13 @@ stateList:any=[]
     } else {
       this.customerList.unshift(e);
     }
+  }
+async  actionEventCall(e:any){
+if(e?.button?.name=='Edit Customer'){
+  this.addCustomer(e?.customer,e?.index)
+}else{
+    await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
+}
   }
   listColorClass='firstColor'
   showRemark:any=true

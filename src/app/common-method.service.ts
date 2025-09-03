@@ -22,6 +22,8 @@ import { AddTractorDocsStatusRtoComponent } from './rto-management/tractor-doc-s
 import { SyncTractorWithMaintaninanceComponent } from './shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { TractorCostingDashboardComponent } from './shared-components/tractor-costing-dashboard/tractor-costing-dashboard.component';
 import { TractorPriceFranchiseComponent } from './franchise-operations-department/tractor-price-franchise/tractor-price-franchise.component';
+import { ReviewPageComponent } from './customer-management/review-page/review-page.component';
+import { ViewCustomerDataComponent } from './customer-management/view-customer-data/view-customer-data.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -94,54 +96,80 @@ export class CommonMethodService {
       this.editJobRepair(e?.tractor);
     } else if (e?.button?.name == 'View Job Detail') {
       this.openRepairDashboard(e?.tractor);
-    } 
-     else if (e?.button?.name == 'Tractor Dashboard') {
+    } else if (e?.button?.name == 'Tractor Dashboard') {
       this.tractorDashboard(e);
-    }
-    else if (e?.button?.name == 'Sync Mainatainance') {
+    } else if (e?.button?.name == 'Sync Mainatainance') {
       this.syncManitainance(e?.tractor);
-    }
-     else if (e?.button?.name == 'Tractor Summary') {
+    } else if (e?.button?.name == 'Tractor Summary') {
       this.tractorSummaryDetails(e?.tractor);
+    } else if (e?.button?.name == 'Delete Tractor') {
+      await this.deleteTractor(e);
     }
-     else if (e?.button?.name == 'Delete Tractor') {
-    await  this.deleteTractor(e);
-    }
-       if (e?.button?.name == 'Tractor Price') {
+    if (e?.button?.name == 'Tractor Price') {
       await this.tractorPriceUpdate(e?.tractor);
-    } 
-  }
-    async tractorSummaryDetails(tractor: any) {
-      const modal = await this.modalCtrl.create({
-        component: TractorCostingDashboardComponent,
-        componentProps: {
-          tractor_id: tractor?.id,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-      //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
     }
+    if (e?.button?.name == 'Edit Customer') {
+      await this.tractorPriceUpdate(e?.tractor);
+    }
+    if (e?.button?.name == 'Customer Remark') {
+      this.addRemark(e?.customer);
+    }
+    if (e?.button?.name == 'Customer View') {
+      this.viewCustomer(e?.customer);
+    }
+  }
+  async addRemark(customer: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: ReviewPageComponent,
+      componentProps: {
+        customer: customer,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+  }
+  async viewCustomer(customer: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: ViewCustomerDataComponent,
+      componentProps: {
+        customerSelected: customer,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+  }
+  async tractorSummaryDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TractorCostingDashboardComponent,
+      componentProps: {
+        tractor_id: tractor?.id,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+  }
   tractorDashboard(e: any) {
     this.router.navigate([
       '/operational/view-dashboard',
       e?.tractor?.id,
-    e?.button?.srcPage
+      e?.button?.srcPage,
     ]);
   }
-    async syncManitainance(tractor: any) {
-      const modal = await this.modalCtrl.create({
-        component: SyncTractorWithMaintaninanceComponent,
-        componentProps: {
-          tractor: tractor,
-        },
-      });
-      await modal.present();
+  async syncManitainance(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: SyncTractorWithMaintaninanceComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
 
-  
-      const { data, role } = await modal.onWillDismiss();
-    }
+    const { data, role } = await modal.onWillDismiss();
+  }
   editJobRepair(job: any) {
     this.router.navigate([
       '/repair-management/update-job',
@@ -383,8 +411,7 @@ export class CommonMethodService {
       this.reloadMethod = true;
     }
   }
-    async tractorPriceUpdate(tractor: any) {
- 
+  async tractorPriceUpdate(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: TractorPriceFranchiseComponent,
       breakpoints: [0, 0.4, 1],
@@ -392,7 +419,6 @@ export class CommonMethodService {
       cssClass: 'custom-modal',
       componentProps: {
         tractor: tractor,
-      
       },
     });
     await modal.present();

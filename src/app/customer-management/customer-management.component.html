@@ -36,7 +36,7 @@
       </ion-item>
     </ng-container>
   </ion-list> -->
-  <app-view-customer-list *ngIf="customerList?.length && showData" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="customerList"></app-view-customer-list>
+  <app-view-customer-list *ngIf="customerList?.length && showData" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="customerList"></app-view-customer-list>
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

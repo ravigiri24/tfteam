@@ -31,6 +31,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-search-customer',
   templateUrl: './search-customer.component.html',
@@ -40,10 +41,11 @@ export class SearchCustomerComponent implements OnInit {
   tractor_id: any;
   constructor(
     private modalControl: ModalController,
-    private share: ShareService,
+    public share: ShareService,
     private api: ApiService,
     private inAppBrowser: InAppBrowser,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private commonMethod:CommonMethodService
   ) {}
   EXCEL_TYPE =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -121,6 +123,17 @@ export class SearchCustomerComponent implements OnInit {
       this.getListByDemand()
     }
   }
+  async  actionEventCall(e:any){
+if(e?.button?.name=='Edit Customer'){
+  this.addCustomer(e?.customer,e?.index)
+}else{
+    await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
+}
+  }
+     buttonArray: any = [
+ 
+  ];
+    listColorClass='firstColor'
   getListByVisitors(){
  if (this.form.valid && this.visitType) {
       if (

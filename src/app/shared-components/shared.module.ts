@@ -44,6 +44,9 @@ import { CustomerListingComponent } from './customer-listing/customer-listing.co
 import { HeadListingComponent } from './head-listing/head-listing.component';
 import { AddCityComponent } from './district-management/add-city/add-city.component';
 import { ViewCustomerListComponent } from './view-customer-list/view-customer-list.component';
+import { ReviewPageComponent } from '../customer-management/review-page/review-page.component';
+import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
+import { ViewStaffListComponent } from './view-staff-list/view-staff-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -93,7 +96,10 @@ import { ViewCustomerListComponent } from './view-customer-list/view-customer-li
     CustomerListingComponent,
     HeadListingComponent,
     AddCityComponent,
-    ViewCustomerListComponent
+    ViewCustomerListComponent,
+    ReviewPageComponent,
+    ViewCustomerDataComponent,
+    ViewStaffListComponent
     
   ],
   schemas: [],
@@ -107,7 +113,8 @@ import { ViewCustomerListComponent } from './view-customer-list/view-customer-li
     NoDataViewComponent,
         CustomerListingComponent,
     HeadListingComponent,
-    ViewCustomerListComponent
+    ViewCustomerListComponent,
+    ViewStaffListComponent
   ],
   providers: [ApiService,    InAppBrowser,],
 })

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
 import { IonModal, ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
+import { CommonMethodService } from '../common-method.service';
 @Component({
   selector: 'app-visiting-management',
   templateUrl: './visiting-management.component.html',
@@ -12,7 +13,7 @@ import { ViewCustomerDataComponent } from '../customer-management/view-customer-
 })
 export class VisitingManagementComponent  implements OnInit {
   @ViewChild(IonModal) modalFollow: IonModal;
-  constructor(private api:ApiService,private share:ShareService,private fb:FormBuilder,private modalController:ModalController) {
+  constructor(private api:ApiService,public share:ShareService,private fb:FormBuilder,private modalController:ModalController,private commonMethod:CommonMethodService) {
 
   
    }
@@ -30,6 +31,11 @@ export class VisitingManagementComponent  implements OnInit {
     this.date = yyyy + '-' + mm + '-' + dd;
 
     this.getVisitorList();
+  }
+  async  actionEventCall(e:any){
+
+    await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
+
   }
    async viewCustomer(customer:any=null){
     const modal = await this.modalController.create({
@@ -59,6 +65,20 @@ export class VisitingManagementComponent  implements OnInit {
       document.getElementById('open-modal-follow')?.click();
   
  }
+   listColorClass='sixColor'
+  buttonArray: any = [
+
+      {
+      name: 'Customer Remark',
+      action: 'customer_review',
+      image: './././assets/images/comments.png',
+    },
+      {
+      name: 'Customer View',
+      action: 'customer_view',
+      image: './././assets/images/data.png',
+    },
+  ];
  followLoader:any=false
  nextFollowupDate() {
    if (this.nextScheduleForm.valid) {
@@ -119,15 +139,21 @@ followUpList:any=[]
   search:any
   showData=true
   loader=false
+  customerList:any=[]
   getVisitorList(){
     this.loader = true;
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.date = this.date;
     obj.storeId=this.staffDetails?.storeId
     this.share.showLoading('Loading...')
+      this.customerList=[]
     this.api.postapi('getVisitorList', obj).subscribe(
       (res:any) => {
         this.followUpList = res.data;
+        res?.data?.forEach((f:any)=>{
+     this.customerList.push(f?.customerDetails)
+        })
+   
         // this.followUpList?.forEach((f:any)=>{
         //   this.followUpList.push(f)
         // })
