@@ -6,14 +6,14 @@ import { ApiService } from 'src/app/api.service';
   templateUrl: './update-version-alert.component.html',
   styleUrls: ['./update-version-alert.component.scss'],
 })
-export class UpdateVersionAlertComponent  implements OnInit {
+export class UpdateVersionAlertComponent implements OnInit {
 
-  constructor(private api:ApiService) {
+  constructor(private api: ApiService) {
 
-   }
-versionNameNew:any
+  }
+  versionNameNew: any;
   ngOnInit() {
-    this.versionNameNew="TFTeam_1.0."+this.api.version
+    this.versionNameNew = "TFTeam_1.0." + this.api.version
   }
 
 }

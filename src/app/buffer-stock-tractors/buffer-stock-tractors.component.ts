@@ -206,6 +206,7 @@ export class BufferStockTractorsComponent implements OnInit {
       component: TractorCostingDashboardComponent,
       componentProps: {
         tractor_id: tractor?.id,
+        
       },
     });
     await modal.present();

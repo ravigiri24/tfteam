@@ -71,7 +71,7 @@ showMore(index: number, keyValue: any) {
   // You can add animation logic here if needed
 }
   actionEvent(tractor: any, button: any) {
-    this.actionEventCall.emit({ tractor, button });
+    this.actionEventCall.emit({ tractor, button, listColorClass: this.listColorClass });
   }
   async viewImage(image: any) {
     const modal = await this.modalCtrl.create({

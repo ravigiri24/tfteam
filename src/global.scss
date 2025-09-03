@@ -591,18 +591,33 @@ ion-header {
 
 
 .firstColor {
-  .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-first);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
-    // background: #9c4de2;
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
+    // background: #FE9B4B;
     background: var(--app-dynamic-color-first);
+
+    .item-native {
+      background: var(--app-dynamic-color-first);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-first) !important;
 
     &:after,
@@ -610,21 +625,60 @@ ion-header {
       background: var(--app-dynamic-color-first);
     }
   }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-first) !important;
+      color: var(--app-dynamic-color-first) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-first) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-first) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-first) !important;
+  }
 }
 
 .secondColor {
-   .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-second);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-second);
+
+    .item-native {
+      background: var(--app-dynamic-color-second);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-second) !important;
 
     &:after,
@@ -632,21 +686,60 @@ ion-header {
       background: var(--app-dynamic-color-second);
     }
   }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-second) !important;
+      color: var(--app-dynamic-color-second) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-second) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-second) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-second) !important;
+  }
 }
 
 .thirdColor {
-   .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-third);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
-    // background: #07d;
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
+    // background: #FE9B4B;
     background: var(--app-dynamic-color-third);
+
+    .item-native {
+      background: var(--app-dynamic-color-third);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-third) !important;
 
     &:after,
@@ -654,21 +747,60 @@ ion-header {
       background: var(--app-dynamic-color-third);
     }
   }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-third) !important;
+      color: var(--app-dynamic-color-third) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-third) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-third) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-third) !important;
+  }
 }
 
 .fourthColor {
-   .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-fourth);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
-    // background: #9c4de2;
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
+    // background: #FE9B4B;
     background: var(--app-dynamic-color-fourth);
+
+    .item-native {
+      background: var(--app-dynamic-color-fourth);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-fourth) !important;
 
     &:after,
@@ -676,21 +808,60 @@ ion-header {
       background: var(--app-dynamic-color-fourth);
     }
   }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-fourth) !important;
+      color: var(--app-dynamic-color-fourth) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-fourth) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-fourth) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-fourth) !important;
+  }
 }
 
 .fifthColor {
-   .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-fifth);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-fifth);
+
+    .item-native {
+      background: var(--app-dynamic-color-fifth);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-fifth) !important;
 
     &:after,
@@ -698,21 +869,60 @@ ion-header {
       background: var(--app-dynamic-color-fifth);
     }
   }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-fifth) !important;
+      color: var(--app-dynamic-color-fifth) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-fifth) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-fifth) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-fifth) !important;
+  }
 }
 
 .sixColor {
-   .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-six);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
-    // background: #07d;
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
+    // background: #FE9B4B;
     background: var(--app-dynamic-color-six);
+
+    .item-native {
+      background: var(--app-dynamic-color-six);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-six) !important;
 
     &:after,
@@ -720,27 +930,90 @@ ion-header {
       background: var(--app-dynamic-color-six);
     }
   }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-six) !important;
+      color: var(--app-dynamic-color-six) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-six) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-six) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-six) !important;
+  }
 }
 
 .sevenColor {
-   .main_title, .show_more_block, .empty, .close_color {
+
+  .main_title,
+  .show_more_block,
+  .empty,
+  .close_color,
+  .dynamic_color {
     color: var(--app-dynamic-color-seven);
   }
 
   &:after,
-  .selected, .camera-counter, .top_right_close_box {
-    // background: #07d;
+  .selected,
+  .camera-counter,
+  .top_right_close_box,
+  .dynamic_bgcolor {
+    // background: #FE9B4B;
     background: var(--app-dynamic-color-seven);
+
+    .item-native {
+      background: var(--app-dynamic-color-seven);
+    }
   }
 
   ion-card,
-  .action_col, .empty {
+  .action_col,
+  .empty,
+  .amount_col,
+  .middle_border {
     border-color: var(--app-dynamic-color-seven) !important;
 
     &:after,
     &:before {
       background: var(--app-dynamic-color-seven);
     }
+  }
+
+  .selected_tab {
+    .tab_icon {
+      border-color: var(--app-dynamic-color-seven) !important;
+      color: var(--app-dynamic-color-seven) !important;
+    }
+
+    .tabs {
+      color: var(--app-dynamic-color-seven) !important;
+    }
+
+    &:before,
+    &:after {
+      border-color: var(--app-dynamic-color-seven) !important;
+    }
+  }
+
+  .accordian_card ion-accordion ion-item ion-icon {
+    color: #ffffff !important;
+  }
+
+  .accordian_card ion-accordion ion-item {
+    --background: var(--app-dynamic-color-seven) !important;
   }
 }
 

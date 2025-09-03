@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import {
   FormGroup,
@@ -28,6 +28,8 @@ import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expen
 })
 export class TractorCostingDashboardComponent implements OnInit {
   tractorDetails: any;
+  @Input() listColorClass: any = "fifthColor";
+  imageDummyUrl="../assets/images/gallary.png";
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
@@ -35,7 +37,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     private api: ApiService,
     private route: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
   dismiss() {
     this.modalCtrl.dismiss();
   }
@@ -46,7 +48,12 @@ export class TractorCostingDashboardComponent implements OnInit {
     this.getMaintanance();
     this.getListOther();
   }
-
+  selectedTab = 'DETAILS';
+  DETAILS = 'DETAILS';
+  IMAGES = 'IMAGES';
+  selectTab(tab: any) {
+    this.selectedTab = tab;
+  }
   tractor_id: any;
   ionViewWillEnter() {
     // this.activatedRoute.params.subscribe((params: any) => {
@@ -70,11 +77,11 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.financeData = res?.data;
         console.log('financeData', this.financeData);
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  rtoCost:any=0
-  insuranceCost:any=0
+  rtoCost: any = 0
+  insuranceCost: any = 0
   sellingData: any;
   getDataByIDSellData() {
     let obj = this.share.getDataId(
@@ -89,7 +96,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.sellingPrice = Number(res?.data?.sellingPrice || 0);
         console.log('sellingData', this.sellingData);
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   getMaintanance() {
@@ -123,7 +130,7 @@ export class TractorCostingDashboardComponent implements OnInit {
           console.log('savedJobList', this.savedJobList);
         }, 0);
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   reduceItemList: any = [];
@@ -138,7 +145,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.calculateAmountMaintainance();
         this.combinedMaintainance();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   expenseMaterialList: any = [];
@@ -166,7 +173,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.calculateAmountMaintainance();
         this.combinedMaintainance();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   // getMaterialList() {
@@ -214,7 +221,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.otherExpenseCost = this.totalAmountOther;
         //    this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   expenseMaterialCost: any = 0;
@@ -263,7 +270,7 @@ export class TractorCostingDashboardComponent implements OnInit {
       savedJob.job_reduceItemTotalAmount = job_reduceItemTotalAmount;
       savedJob.finalCost =
         Number(savedJob.totalcost) - Number(job_reduceItemTotalAmount);
-      let allMaintainance :any= [];
+      let allMaintainance: any = [];
       savedJob?.expenseMaterialList?.forEach((f2: any) => {
         allMaintainance?.push(f2);
       });
@@ -309,7 +316,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         //   this.calculateAmount();
         // this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   expenseServiceList: any = [];
@@ -354,7 +361,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.calculateAmountMaintainance();
         this.combinedMaintainance();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   allMaintainance: any = [];
@@ -438,30 +445,30 @@ export class TractorCostingDashboardComponent implements OnInit {
             this.tractorDetails?.purchasedetail?.purchasePrice
           );
         }
-      this.rtoCost=Number(this.tractorDetails?.rto_cost||0) 
-      this.insuranceCost=Number(this.tractorDetails?.insurance_cost||0) 
-      this.getRTODataByID()
+        this.rtoCost = Number(this.tractorDetails?.rto_cost || 0)
+        this.insuranceCost = Number(this.tractorDetails?.insurance_cost || 0)
+        this.getRTODataByID()
         this.getDataByIDSellData();
         this.getDataByIDFinance();
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  rtoData:any
-   getRTODataByID(){
- 
+  rtoData: any
+  getRTODataByID() {
+
     let obj = this.share.getDataId(null, false, [], this.tractorDetails?.rtoDetailsId);
     this.api.postapi('getRTODetailsByID', obj).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.rtoData = res?.data;
-    
-   console.log("rtoData",this.rtoData);
-   
-    
-      
+
+        console.log("rtoData", this.rtoData);
+
+
+
       },
-      (error:any) => {
+      (error: any) => {
         this.share.spinner.dismiss()
       }
     );
@@ -486,7 +493,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         }
         // this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   backToList() {
