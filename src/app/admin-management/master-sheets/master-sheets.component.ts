@@ -260,7 +260,7 @@ if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
   tractor.netSellingPrice=tractor?.sellingDetailedIdDetails?.sellingPrice
   tractor.gm=Number(tractor?.sellingDetailedIdDetails?.sellingPrice)-Number(tractor.totalExpenseT)
   if( tractor.gm){
-    tractor.gstAmount=Number(tractor.gm)*12/112
+    tractor.gstAmount=Number(tractor.gm)*18/118
   }
   tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
 
@@ -269,7 +269,7 @@ if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
   tractor.netSellingPrice=Number(tractor?.dealerPrice)
     tractor.gm=Number(tractor?.dealerPrice)-Number(tractor.totalExpenseT)
       if( tractor.gm){
-    tractor.gstAmount=Number(tractor.gm)*12/112
+    tractor.gstAmount=Number(tractor.gm)*18/118
   }
   tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
   }else{

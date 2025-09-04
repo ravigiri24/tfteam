@@ -93,7 +93,12 @@ export class TractorCostingDashboardComponent implements OnInit {
     this.api.postapi('getSellingDetailsByID', obj).subscribe(
       (res: any) => {
         this.sellingData = res?.data;
-        this.sellingPrice = Number(res?.data?.sellingPrice || 0);
+        if(this.tractorDetails?.isSoldToDealer==0){
+   this.sellingPrice = Number(res?.data?.sellingPrice || 0);
+        }else if(this.tractorDetails?.isSoldToDealer==1){
+            this.sellingPrice = Number(this.tractorDetails?.dealerPrice || 0); 
+        }
+     
         console.log('sellingData', this.sellingData);
       },
       (error: any) => { }
@@ -390,7 +395,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
 
-    if (role === 'confirm') {
+    if (role == 'confirm') {
     }
   }
   async viewImageLive() {
@@ -423,7 +428,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
 
-    if (role === 'confirm') {
+    if (role == 'confirm') {
     }
   }
   staffDetails: any;
@@ -447,6 +452,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         }
         this.rtoCost = Number(this.tractorDetails?.rto_cost || 0)
         this.insuranceCost = Number(this.tractorDetails?.insurance_cost || 0)
+        this.getRawImagesCount()
         this.getRTODataByID()
         this.getDataByIDSellData();
         this.getDataByIDFinance();
@@ -454,6 +460,28 @@ export class TractorCostingDashboardComponent implements OnInit {
       },
       (error: any) => { }
     );
+  }
+  imagesCount:any={
+    rc_new_rto:0
+  }
+  getRawImagesCount(){
+   this.imagesCount.rc_new_rto= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RC_NEW_RTO')?.length || 0
+   this.imagesCount.rto_aplication_form= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RC_OLD_APPLICATION_FORM')?.length || 0
+   this.imagesCount.rc_old_rto= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RC_OLD_RTO')?.length ||0
+   this.imagesCount.insurance_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='INSURANCE_RTO')?.length ||0
+   this.imagesCount.rto_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='DOCUMENT_RTO')?.length ||0
+   this.imagesCount.rto_noc_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='NOC_DOCUMENT_RTO')?.length ||0
+   this.imagesCount.finance_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='FINANCE_DOCUMENTS')?.length ||0
+   this.imagesCount.form_34= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='FORM_34')?.length ||0
+   this.imagesCount.bahi_khata= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='BAHI_KHATA')?.length ||0
+   this.imagesCount.pan_card= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='PAN_CARD')?.length ||0
+   this.imagesCount.adhar_card= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='ADHAR_CARD')?.length ||0
+   this.imagesCount.sales_dead= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='SALE_DEAD')?.length ||0
+   this.imagesCount.notary_letters= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='NOTARY_LETTERS')?.length ||0
+   this.imagesCount.release_letters= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RELEASE_LETTERS')?.length ||0
+   this.imagesCount.payment_screenshot= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='PAYMENT_SCREENSHOT')?.length ||0
+   this.imagesCount.before_service= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='BEFORE_SERVICE')?.length ||0
+
   }
   rtoData: any
   getRTODataByID() {
@@ -523,7 +551,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     // const { data, role } = await modal.onWillDismiss();
     // console.log('role', role);
 
-    // if (role === 'confirm') {
+    // if (role == 'confirm') {
 
     // }
   }
@@ -541,7 +569,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
 
-    if (role === 'confirm') {
+    if (role == 'confirm') {
       this.getTractorDetails('Refreshing Data...');
     }
   }

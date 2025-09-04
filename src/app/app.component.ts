@@ -9,9 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent {
   currentUrl:any
+  showSplash=true
   constructor(public share:ShareService,private router:Router,private activated:ActivatedRoute) {
     console.log("share",this.share.showFooter);
-    
+       setTimeout(() => {
+      this.showSplash = false;
+    }, 4000);
     this.share.checkLogin()
     document.documentElement.style.setProperty(
       `--app-theme-element-color`,
@@ -39,6 +42,7 @@ export class AppComponent {
       console.log("res",res);
     this.currentUrl==res[0]?.path
     })
+    
   }
   sreenWidth
   sreenHeight

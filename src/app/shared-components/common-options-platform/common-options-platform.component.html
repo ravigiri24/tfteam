@@ -12,10 +12,10 @@
     <!-- {{optionsArray | json}} -->
     <ng-container *ngFor="let option of optionsArray;let i=index">
       <ion-col [ngClass]="listColorClass" (click)="actionEvent(option)" class="section_col" size="6" size-md="6">
-         <div class="camera-icon-container">
+         <!-- <div class="camera-icon-container">
             <ion-icon name="camera-outline"></ion-icon>
             <span class="camera-counter">{{ optionsArray?.uploadPhoto?.length }}</span>
-          </div>
+          </div> -->
         <div class="image_block"><img class="image-style" [src]="option?.icon" /></div>
         <div class="middle_border"></div>
         <ion-card class="global_image_upload_card">

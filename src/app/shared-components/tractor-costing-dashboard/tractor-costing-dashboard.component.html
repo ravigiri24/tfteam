@@ -22,13 +22,13 @@
         <!-- <ion-card-header> -->
         <ion-card-title><span class="dynamic_color">{{tractorDetails?.name}}</span></ion-card-title>
         <ion-card-subtitle>
-          <span><b>{{ tractorDetails?.registractionNo }} -<span *ngIf="tractorDetails?.tractor_status">&nbsp;{{
+          <span><b>{{ tractorDetails?.registractionNo }} <span *ngIf="tractorDetails?.tractor_status">-&nbsp; {{
                 tractorDetails?.tractor_status }} </span>
-              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft===0 ">Live</span>
-              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft===1 ">Draft</span>
-              <span *ngIf="tractorDetails?.isSold===1">-Sold To Customer</span>
-              <span *ngIf="tractorDetails?.isSoldToDealer===1">- Sold To Dealer</span>
-              <span *ngIf="tractorDetails?.isSold===0 && tractorDetails?.isSoldToDealer===0">- Not Sold</span>
+              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0 ">-Live</span>
+              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1 ">-Draft</span>
+              <span *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">-Sold To Customer</span>
+              <span *ngIf="tractorDetails?.isSoldToDealer==1">- Sold To Dealer</span>
+              <span *ngIf="tractorDetails?.isSold==0 && tractorDetails?.isSoldToDealer==0">- Not Sold</span>
             </b>
           </span>
         </ion-card-subtitle>
@@ -49,12 +49,12 @@
     <!-- </ion-card> -->
     <div class="tab_withinner_block">
       <div class="tab_main_block">
-        <div class="tab_block" [ngClass]="{'details_tab selected_tab':selectedTab==='DETAILS'}"
+        <div class="tab_block" [ngClass]="{'details_tab selected_tab':selectedTab=='DETAILS'}"
           (click)="selectTab('DETAILS')">
           <div class="tab_icon"><ion-icon name="information-circle-outline"></ion-icon></div>
           <span class="tabs">Details</span>
         </div>
-        <div class="tab_block" [ngClass]="{'images_tab selected_tab':selectedTab==='IMAGES'}"
+        <div class="tab_block" [ngClass]="{'images_tab selected_tab':selectedTab=='IMAGES'}"
           (click)="selectTab('IMAGES')">
           <div class="tab_icon"><ion-icon name="images-outline"></ion-icon></div>
           <span class="tabs">Images</span>
@@ -62,18 +62,18 @@
       </div>
       <!-- <ion-tabs>
         <ion-tab-bar slot="top">
-          <ion-tab-button (click)="selectTab('DETAILS')" [ngClass]="{'selected_tab':selectedTab==='DETAILS'}"
+          <ion-tab-button (click)="selectTab('DETAILS')" [ngClass]="{'selected_tab':selectedTab=='DETAILS'}"
             tab="DETAILS">
             <span class="tabs">Details</span>
           </ion-tab-button>
-          <ion-tab-button (click)="selectTab('IMAGES')" [ngClass]="{'selected_tab':selectedTab==='IMAGES'}"
+          <ion-tab-button (click)="selectTab('IMAGES')" [ngClass]="{'selected_tab':selectedTab=='IMAGES'}"
             tab="IMAGES">
             <span class="tabs">Images</span>
           </ion-tab-button>
         </ion-tab-bar>
       </ion-tabs> -->
 
-      <ng-container *ngIf="selectedTab==='DETAILS'">
+      <ng-container *ngIf="selectedTab=='DETAILS'">
         <ion-grid class="main_block_details">
           <ion-card>
             <ion-row>
@@ -139,7 +139,7 @@
             <ion-row
               *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost+ rtoCost +insuranceCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
               <ion-col>Loss</ion-col>
-              <ion-col class="amount_col">₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost )-
+              <ion-col class="amount_col">₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost +  rtoCost +insuranceCost )-
                 sellingPrice
                 }}</ion-col>
             </ion-row>
@@ -363,8 +363,8 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>Completed</ion-col>
-                    <ion-col *ngIf="job?.isCompleted===1">Yes</ion-col>
-                    <ion-col *ngIf="job?.isCompleted===0">No</ion-col>
+                    <ion-col *ngIf="job?.isCompleted==1">Yes</ion-col>
+                    <ion-col *ngIf="job?.isCompleted==0">No</ion-col>
                   </ion-row>
                 </ion-grid>
                 <ion-accordion-group [multiple]="true" [value]="[]">
@@ -449,12 +449,12 @@
                 <ion-grid class="secondartColor">
                   <ion-row>
                     <ion-col>Sell To</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isSold===1 && sellingData">Sold To Customer</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isSoldToDealer===1">Sold To
+                    <ion-col *ngIf="tractorDetails?.isSold==1 && sellingData && tractorDetails?.isSoldToDealer==0">Sold To Customer</ion-col>
+                    <ion-col *ngIf="tractorDetails?.isSoldToDealer==1">Sold To
                       {{tractorDetails?.franchiseDettails?.name}}
                       Franchise</ion-col>
                     <ion-col
-                      *ngIf="(tractorDetails?.isSoldToDealer===0 && tractorDetails?.isSold===0) &&  !sellingData">Not
+                      *ngIf="(tractorDetails?.isSoldToDealer==0 && tractorDetails?.isSold==0) &&  !sellingData">Not
                       Sold</ion-col>
                   </ion-row>
                   <ion-row>
@@ -473,8 +473,8 @@
                   <ion-row>
                     <ion-col>Selling Price</ion-col>
                     <ion-col
-                      *ngIf="tractorDetails?.isSoldToDealer===0 && tractorDetails?.sellingDetailedIdDetails?.sellingPrice">{{sellingData?.sellingPrice||'-'}}</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isSoldToDealer===1">{{tractorDetails?.dealerPrice||'-'}}</ion-col>
+                      >{{sellingPrice||'-'}}</ion-col>
+  
                   </ion-row>
                   <ion-row>
                     <ion-col>Margin Money</ion-col>
@@ -499,9 +499,9 @@
 
                   <ion-row>
                     <ion-col>Finance</ion-col>
-                    <ion-col *ngIf="sellingData?.isFinance===1">Yes</ion-col>
-                    <ion-col *ngIf="sellingData?.isFinance===0">No</ion-col>
-                    <ion-col *ngIf="sellingData?.isFinance===null">Not Available</ion-col>
+                    <ion-col *ngIf="sellingData?.isFinance==1">Yes</ion-col>
+                    <ion-col *ngIf="sellingData?.isFinance==0">No</ion-col>
+                    <ion-col *ngIf="sellingData?.isFinance==null">Not Available</ion-col>
                   </ion-row>
 
                   <ion-row>
@@ -577,9 +577,9 @@
                 <ion-grid class="secondartColor">
                   <ion-row>
                     <ion-col>Noc Available</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isNoc===1">Yes</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isNoc===0">No</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isNoc===null">Not Available</ion-col>
+                    <ion-col *ngIf="tractorDetails?.isNoc==1">Yes</ion-col>
+                    <ion-col *ngIf="tractorDetails?.isNoc==0">No</ion-col>
+                    <ion-col *ngIf="tractorDetails?.isNoc==null">Not Available</ion-col>
                   </ion-row>
                   <ion-row>
                     <ion-col>Date Of Transfer </ion-col>
@@ -596,9 +596,9 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>Is RTO Done</ion-col>
-                    <ion-col *ngIf="rtoData?.isrtoDone===1">Yes</ion-col>
-                    <ion-col *ngIf="rtoData?.isrtoDone===0">No</ion-col>
-                    <ion-col *ngIf="rtoData?.isrtoDone===null">Not Available</ion-col>
+                    <ion-col *ngIf="rtoData?.isrtoDone==1">Yes</ion-col>
+                    <ion-col *ngIf="rtoData?.isrtoDone==0">No</ion-col>
+                    <ion-col *ngIf="rtoData?.isrtoDone==null">Not Available</ion-col>
                   </ion-row>
                   <ion-row>
                     <ion-col>By</ion-col>
@@ -650,45 +650,206 @@
           </ion-card> -->
         </ion-accordion-group>
       </ng-container>
-      <ng-container *ngIf="selectedTab==='IMAGES'">
+      <ng-container *ngIf="selectedTab=='IMAGES'">
         <ion-grid class="main_block_details image_tab_block">
           <ion-row>
-            <ion-col [ngClass]="listColorClass" (click)="viewImageLive()" class="section_col" size="6" size-md="6">
-              <div class="camera-icon-container">
-                <ion-icon name="camera-outline"></ion-icon>
-                <span class="camera-counter dynamic_bgcolor">0</span>
-              </div>
-              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
-              <div class="middle_border"></div>
-              <ion-card class="global_image_upload_card">
-                <ion-title class="title">Live Images</ion-title>
-              </ion-card> 
-            </ion-col>
+          
             <ion-col [ngClass]="listColorClass" (click)="viewImage('BEFORE_SERVICE')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
-                <span class="camera-counter dynamic_bgcolor">0</span>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.before_service}}</span>
               </div>
               <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
               <div class="middle_border"></div>
               <ion-card class="global_image_upload_card">
-                <ion-title class="title">Before Maintainance</ion-title>
+                <ion-title class="title">Tractor Images</ion-title>
               </ion-card>
             </ion-col>
-            <ion-col [ngClass]="listColorClass" (click)="viewImage('AFTER_SERVICE')" class="section_col" size="6"
+
+              <ion-col [ngClass]="listColorClass" (click)="viewImage('PAYMENT_SCREENSHOT')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
-                <span class="camera-counter dynamic_bgcolor">0</span>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.payment_screenshot}}</span>
               </div>
               <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
               <div class="middle_border"></div>
               <ion-card class="global_image_upload_card">
-                <ion-title class="title">After Maintainance</ion-title>
+                <ion-title class="title">Pay Screenshot</ion-title>
+              </ion-card>
+            </ion-col>
+             <ion-col [ngClass]="listColorClass" (click)="viewImage('RELEASE_LETTERS')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.release_letters}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Release Letter</ion-title>
+              </ion-card>
+            </ion-col>
+               <ion-col [ngClass]="listColorClass" (click)="viewImage('NOTARY_LETTERS')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.notary_letters}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Notary</ion-title>
+              </ion-card>
+            </ion-col>
+                  <ion-col [ngClass]="listColorClass" (click)="viewImage('SALE_DEAD')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.sales_dead}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Sales Dead</ion-title>
+              </ion-card>
+            </ion-col>
+                  <ion-col [ngClass]="listColorClass" (click)="viewImage('ADHAR_CARD')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.adhar_card}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Adhar Card</ion-title>
+              </ion-card>
+            </ion-col>
+                  <ion-col [ngClass]="listColorClass" (click)="viewImage('PAN_CARD')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.pan_card}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Pan Card</ion-title>
+              </ion-card>
+            </ion-col>
+                  <ion-col [ngClass]="listColorClass" (click)="viewImage('BAHI_KHATA')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.bahi_khata}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Bahi Khata</ion-title>
+              </ion-card>
+            </ion-col>
+                  <ion-col [ngClass]="listColorClass" (click)="viewImage('FORM_34')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.form_34}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Form 34</ion-title>
+              </ion-card>
+            </ion-col>
+                  <ion-col [ngClass]="listColorClass" (click)="viewImage('FINANCE_DOCUMENTS')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.finance_doc}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Finance Document</ion-title>
+              </ion-card>
+            </ion-col>
+                 <ion-col [ngClass]="listColorClass" (click)="viewImage('NOC_DOCUMENT_RTO')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.rto_noc_doc}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title"> NOC</ion-title>
+              </ion-card>
+            </ion-col>
+                 <ion-col [ngClass]="listColorClass" (click)="viewImage('DOCUMENT_RTO')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.rto_doc}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">RTO Document</ion-title>
+              </ion-card>
+            </ion-col>
+                 <ion-col [ngClass]="listColorClass" (click)="viewImage('INSURANCE_RTO')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.insurance_doc}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">Insurance</ion-title>
+              </ion-card>
+            </ion-col>
+           
+                 <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_OLD_RTO')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.rc_old_rto}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">RC (Before Transfer)</ion-title>
+              </ion-card>
+            </ion-col>
+                 <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_NEW_RTO')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.rc_new_rto}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">RC (After Transfer)  </ion-title>
+              </ion-card>
+            </ion-col>
+                 <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_OLD_APPLICATION_FORM')" class="section_col" size="6"
+              size-md="6">
+              <div class="camera-icon-container">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{imagesCount.rto_aplication_form}}</span>
+              </div>
+              <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
+              <div class="middle_border"></div>
+              <ion-card class="global_image_upload_card">
+                <ion-title class="title">RTO Application Form</ion-title>
               </ion-card>
             </ion-col>
           </ion-row>
+          
           <!-- <div class="ion-padding" slot="content">
             <ion-list>
               <ion-item>
