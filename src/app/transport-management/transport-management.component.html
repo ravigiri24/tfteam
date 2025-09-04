@@ -18,15 +18,14 @@
         <b class="total-number">{{transportList?.length}}</b>
       </div>
       <div class="right_action">
-        <!-- <ion-icon (click)="goToNewArival()" class="theme-color" name="add-circle-outline"></ion-icon> -->
+                  <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
         <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
       </div>
     </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <!-- <span class="heading-list">At Logistic</span> -->
-  <!-- <span class="inner-heading-list">At Logistic</span> -->
+<!-- 
   <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
   <ion-list class="list_row top-position-list" *ngIf="transportList?.length">
@@ -36,7 +35,7 @@
         <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  />
   <ion-card-header>
     <ion-card-title><b>{{tractor?.name}}</b></ion-card-title>
-    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+
   </ion-card-header>
 
   <ion-card-content>
@@ -79,20 +78,7 @@
                {{tractor?.inwardEstimationCost}}</ion-col>
              
               </ion-row>
-              <!-- <ion-row>
             
-                <ion-col><b>Purchase Price</b></ion-col>
-                   <ion-col class="amount_col">
-               {{tractor?.purchasedetail?.purchasePrice}}</ion-col>
-              </ion-row> -->
-              <!-- <ion-row>
-            
-                <ion-col>Is Sold </ion-col>
-                <ion-col *ngIf="tractor?.isSold==1" class="amount_col">
-               <span style="color: green;">Yes</span>  </ion-col>
-                 <ion-col *ngIf="tractor?.isSold==0" class="amount_col">
-               <span  style="color: red;">No</span>   </ion-col>
-              </ion-row> -->
               <ion-row>
             
                 <ion-col> <b>Manufactoring</b> </ion-col>
@@ -128,29 +114,14 @@
                      <img (click)="openOptions(tractor)" class="image-style " style="width: 35px;height: 40px; margin: 11px;position: relative;top:-5px" src="././assets/images/laptop.png" />
                   </ion-col>
               </ion-row>
-              <!-- <ion-row>
-                  <ion-col>
-                     <img class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="././assets/images/space-exploration.png" />
-             </ion-col>
-                  <ion-col>
-                     <img  class="image-style " style="width: 50px;height: 40px; margin: 11px;" src="././assets/images/settings.png" />
-                  </ion-col>
-              </ion-row> -->
-              
-         
-              <!-- <ion-row>
-            
-                <ion-col>        <ion-icon (click)="tractorDashboard(tractor)" class="theme-color-second" name="apps-outline"></ion-icon></ion-col>
-                <ion-col >
-                  <ion-icon (click)="syncManitainance(tractor)"
-                  class="theme-color-second" name="construct-outline"></ion-icon></ion-col>
-             
-              </ion-row> -->
+        
                 </ion-card>
                 </ion-grid>
   </ion-card-content>
 </ion-card>
 </div>
 </ion-item>
-  </ion-list>
+  </ion-list> -->
+        <app-view-list *ngIf="transportList?.length" [rowLineCount]="4" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="transportList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+    <app-no-data-view [ngClass]="listColorClass"  *ngIf="!transportList?.length && !share?.globalLoading"></app-no-data-view>
 </ion-content>

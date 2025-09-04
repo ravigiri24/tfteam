@@ -10,6 +10,7 @@
         <b class="total-number">{{alltractorList?.length}}</b>
       </div>
       <div class="right_action">
+                <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
         <!-- <ion-icon (click)="getListByBrand()" name="create-outline"></ion-icon> -->
         <!-- <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon> -->
       </div>
@@ -20,7 +21,7 @@
 <ion-content>
   <!-- <ion-item class="bottom-margin">   
   </ion-item> -->
-  <ion-list class="list_row" *ngIf="alltractorList?.length">
+  <!-- <ion-list class="list_row" *ngIf="alltractorList?.length">
     <ion-item *ngFor="let tractor of alltractorList;let in=index">
       <ion-label>
         <h2 class="theme-color">{{tractor?.name}}</h2>
@@ -29,9 +30,10 @@
       </ion-label>
       <ion-icon (click)="tractorDashboard(tractor)" class="right-margine theme-color-second"
         name="ellipsis-horizontal-circle-outline"></ion-icon>
-      <!-- <ion-icon   (click)="addCost(tractor,in)" class="right-margine theme-color" name="calculator-outline"></ion-icon>
-      <ion-icon   (click)="addStatus(tractor)" class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
-      <ion-icon   (click)="showDeliveryModal(tractor?.id)" class="right-margine theme-color" name="storefront-outline"></ion-icon> -->
+
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+    
+      <app-view-list *ngIf="alltractorList?.length" [rowLineCount]="4" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+    <app-no-data-view [ngClass]="listColorClass"  *ngIf="!alltractorList?.length && !share?.globalLoading"></app-no-data-view>
 </ion-content>

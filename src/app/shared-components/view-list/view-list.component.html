@@ -120,9 +120,18 @@
             </div> -->
           </ng-container>
           <ion-row *ngIf="buttonArray?.length">
-            <ion-col class="action_col" *ngFor="let button of buttonArray">
+            <ng-container  *ngFor="let button of buttonArray">
+              <ng-container *ngIf="!button?.showOnCondition">
+            <ion-col class="action_col">
               <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
             </ion-col>
+            </ng-container>
+                <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==tractor?.[button?.obVal]">
+            <ion-col class="action_col">
+              <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
+            </ion-col>
+            </ng-container>
+            </ng-container>
           </ion-row>
         </ion-card>
       </ion-grid>

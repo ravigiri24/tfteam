@@ -10,6 +10,8 @@ import { AddTransportStatusComponent } from './add-transport-status/add-transpor
 import { StartRepairDialogComponent } from './start-repair-dialog/start-repair-dialog.component';
 import { StartTransportDialogComponent } from './start-transport-dialog/start-transport-dialog.component';
 import { TransportOptionsComponent } from './transport-options/transport-options.component';
+import { CommonMethodService } from '../common-method.service';
+import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 @Component({
   selector: 'app-transport-management',
   templateUrl: './transport-management.component.html',
@@ -18,20 +20,90 @@ import { TransportOptionsComponent } from './transport-options/transport-options
 export class TransportManagementComponent implements OnInit {
   constructor(
     private alertCtrl: AlertController,
-    private share: ShareService,
+    public share: ShareService,
     private api: ApiService,
     private route: Router,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private commonMethod:CommonMethodService
   ) {}
 
   ngOnInit() {}
+  listColorClass='sixColor'
   transportList: any = [];
+    async searchTractor() {
+        const modal = await this.modalCtrl.create({
+          component: SearchTractorWithTfCodeComponent,
+          componentProps: {
+           buttonArray: this.buttonArray,
+           listColorClass:this.listColorClass,
+           keyList:this.keyList,
+           searchFilter:this.search,
+           searchKey:'registractionNo',
+         obj:{optionsUploadButtonArray:[]}
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+        }
+      }
   ionViewWillEnter() {
     this.transportList = [];
     this.getTractorList();
   }
+        buttonArray: any = [
+ {
+      name: 'Add Transport Cost',
+      action: 'addTransportCost',
+      closeCurrentPopUP:true,
+
+      image: './././assets/images/rupee-sign.png',
+    },
+     {
+      name: 'Start Transport',
+      action: 'startTransport',
+ 
+
+      image: './././assets/images/delivery-truck.png',
+    },
+      {
+      name: 'More option Transport',
+      action: 'moreOptionTransport',
+ 
+
+      image: './././assets/images/laptop.png',
+    },
+    {
+      name: 'Delete Tractor',
+      action: 'deleteTractor',
+      image: './././assets/images/deleted.png',
+    },
+  ];
+     keyList: any = [
+    { key: 'Model', value: 'name', type: 'INPUT' },
+        { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
+
+    { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
+
+    { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Engine Number', getFromObj:true,objName:'purchasedetail',value: 'engineNumber', type: 'INPUT' },
+    { key: 'Chassis Number', getFromObj:true,objName:'purchasedetail',value: 'chasisNumber', type: 'INPUT' },
+    { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
+  ];
   search={
     registractionNo:null
+  }
+    async actionEventCall(e: any) {
+      await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
+    
+  if(this.commonMethod.reloadMethod){
+    this.getTractorList()
+  }
+
+    console.log('actionEventCall', e);
+    
   }
       async viewImage(image:any){
         const modal = await this.modalCtrl.create({
@@ -104,6 +176,7 @@ export class TransportManagementComponent implements OnInit {
       isLive: false,
     };
     this.share.showLoading(loadingMsg);
+       this.transportList =[]
     this.api.postapi('getTractorList', obj).subscribe(
       (res: any) => {
         this.transportList = res.data;

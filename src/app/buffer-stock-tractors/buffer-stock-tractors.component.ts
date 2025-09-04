@@ -103,7 +103,8 @@ export class BufferStockTractorsComponent implements OnInit {
     keyList: any = [
     { key: 'Model', value: 'name', type: 'INPUT' },
         { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
-    { key: 'Engine Number', value: 'engineNumber', type: 'INPUT' },
+    { key: 'Engine Number', getFromObj:true,objName:'purchasedetail',value: 'engineNumber', type: 'INPUT' },
+    { key: 'Chassis Number', getFromObj:true,objName:'purchasedetail',value: 'chasisNumber', type: 'INPUT' },
     // { key: 'Staus', value: 'tractor_status', type: 'INPUT' },
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
     { key: 'D.O.A(Actual)', value: 'actualReleaseDate', type: 'INPUT' },
