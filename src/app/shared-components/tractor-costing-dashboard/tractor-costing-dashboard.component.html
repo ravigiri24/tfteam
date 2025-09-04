@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-title class="dynamic_color">Dashboard</ion-title>
@@ -22,8 +23,9 @@
         <!-- <ion-card-header> -->
         <ion-card-title><span class="dynamic_color">{{tractorDetails?.name}}</span></ion-card-title>
         <ion-card-subtitle>
-          <span><b>{{ tractorDetails?.registractionNo }} <span *ngIf="tractorDetails?.tractor_status">-&nbsp; {{
-                tractorDetails?.tractor_status }} </span>
+          <span><b>
+              <span>{{ tractorDetails?.registractionNo }}</span>
+              <span *ngIf="tractorDetails?.tractor_status">-&nbsp; {{tractorDetails?.tractor_status }}</span>
               <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0 ">-Live</span>
               <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1 ">-Draft</span>
               <span *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">-Sold To Customer</span>
@@ -35,8 +37,8 @@
         <!-- </ion-card-header> -->
 
         <span class="main_title_text">
-          {{ tractorDetails?.yearOfManufactoring }} |
-          {{ tractorDetails?.createdOn | date }} | {{ tractorDetails?.hours }}
+          {{ tractorDetails?.yearOfManufactoring }} | {{ tractorDetails?.createdOn | date }} | {{ tractorDetails?.hours
+          }}
         </span>
       </div>
     </div>
@@ -139,7 +141,8 @@
             <ion-row
               *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost+ rtoCost +insuranceCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
               <ion-col>Loss</ion-col>
-              <ion-col class="amount_col">₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost +  rtoCost +insuranceCost )-
+              <ion-col class="amount_col">₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
+                +insuranceCost )-
                 sellingPrice
                 }}</ion-col>
             </ion-row>
@@ -449,7 +452,8 @@
                 <ion-grid class="secondartColor">
                   <ion-row>
                     <ion-col>Sell To</ion-col>
-                    <ion-col *ngIf="tractorDetails?.isSold==1 && sellingData && tractorDetails?.isSoldToDealer==0">Sold To Customer</ion-col>
+                    <ion-col *ngIf="tractorDetails?.isSold==1 && sellingData && tractorDetails?.isSoldToDealer==0">Sold
+                      To Customer</ion-col>
                     <ion-col *ngIf="tractorDetails?.isSoldToDealer==1">Sold To
                       {{tractorDetails?.franchiseDettails?.name}}
                       Franchise</ion-col>
@@ -472,9 +476,8 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>Selling Price</ion-col>
-                    <ion-col
-                      >{{sellingPrice||'-'}}</ion-col>
-  
+                    <ion-col>{{sellingPrice||'-'}}</ion-col>
+
                   </ion-row>
                   <ion-row>
                     <ion-col>Margin Money</ion-col>
@@ -653,7 +656,7 @@
       <ng-container *ngIf="selectedTab=='IMAGES'">
         <ion-grid class="main_block_details image_tab_block">
           <ion-row>
-          
+
             <ion-col [ngClass]="listColorClass" (click)="viewImage('BEFORE_SERVICE')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
@@ -667,7 +670,7 @@
               </ion-card>
             </ion-col>
 
-              <ion-col [ngClass]="listColorClass" (click)="viewImage('PAYMENT_SCREENSHOT')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('PAYMENT_SCREENSHOT')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -679,7 +682,7 @@
                 <ion-title class="title">Pay Screenshot</ion-title>
               </ion-card>
             </ion-col>
-             <ion-col [ngClass]="listColorClass" (click)="viewImage('RELEASE_LETTERS')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('RELEASE_LETTERS')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -691,7 +694,7 @@
                 <ion-title class="title">Release Letter</ion-title>
               </ion-card>
             </ion-col>
-               <ion-col [ngClass]="listColorClass" (click)="viewImage('NOTARY_LETTERS')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('NOTARY_LETTERS')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -703,7 +706,7 @@
                 <ion-title class="title">Notary</ion-title>
               </ion-card>
             </ion-col>
-                  <ion-col [ngClass]="listColorClass" (click)="viewImage('SALE_DEAD')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('SALE_DEAD')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -715,7 +718,7 @@
                 <ion-title class="title">Sales Dead</ion-title>
               </ion-card>
             </ion-col>
-                  <ion-col [ngClass]="listColorClass" (click)="viewImage('ADHAR_CARD')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('ADHAR_CARD')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -727,7 +730,7 @@
                 <ion-title class="title">Adhar Card</ion-title>
               </ion-card>
             </ion-col>
-                  <ion-col [ngClass]="listColorClass" (click)="viewImage('PAN_CARD')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('PAN_CARD')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -739,7 +742,7 @@
                 <ion-title class="title">Pan Card</ion-title>
               </ion-card>
             </ion-col>
-                  <ion-col [ngClass]="listColorClass" (click)="viewImage('BAHI_KHATA')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('BAHI_KHATA')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -751,8 +754,7 @@
                 <ion-title class="title">Bahi Khata</ion-title>
               </ion-card>
             </ion-col>
-                  <ion-col [ngClass]="listColorClass" (click)="viewImage('FORM_34')" class="section_col" size="6"
-              size-md="6">
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('FORM_34')" class="section_col" size="6" size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
                 <span class="camera-counter dynamic_bgcolor">{{imagesCount.form_34}}</span>
@@ -763,7 +765,7 @@
                 <ion-title class="title">Form 34</ion-title>
               </ion-card>
             </ion-col>
-                  <ion-col [ngClass]="listColorClass" (click)="viewImage('FINANCE_DOCUMENTS')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('FINANCE_DOCUMENTS')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -775,7 +777,7 @@
                 <ion-title class="title">Finance Document</ion-title>
               </ion-card>
             </ion-col>
-                 <ion-col [ngClass]="listColorClass" (click)="viewImage('NOC_DOCUMENT_RTO')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('NOC_DOCUMENT_RTO')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -787,7 +789,7 @@
                 <ion-title class="title"> NOC</ion-title>
               </ion-card>
             </ion-col>
-                 <ion-col [ngClass]="listColorClass" (click)="viewImage('DOCUMENT_RTO')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('DOCUMENT_RTO')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -799,7 +801,7 @@
                 <ion-title class="title">RTO Document</ion-title>
               </ion-card>
             </ion-col>
-                 <ion-col [ngClass]="listColorClass" (click)="viewImage('INSURANCE_RTO')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('INSURANCE_RTO')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -811,8 +813,8 @@
                 <ion-title class="title">Insurance</ion-title>
               </ion-card>
             </ion-col>
-           
-                 <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_OLD_RTO')" class="section_col" size="6"
+
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_OLD_RTO')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -824,7 +826,7 @@
                 <ion-title class="title">RC (Before Transfer)</ion-title>
               </ion-card>
             </ion-col>
-                 <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_NEW_RTO')" class="section_col" size="6"
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_NEW_RTO')" class="section_col" size="6"
               size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
@@ -833,11 +835,11 @@
               <div class="image_block"><img class="image-style" [src]="imageDummyUrl" /></div>
               <div class="middle_border"></div>
               <ion-card class="global_image_upload_card">
-                <ion-title class="title">RC (After Transfer)  </ion-title>
+                <ion-title class="title">RC (After Transfer) </ion-title>
               </ion-card>
             </ion-col>
-                 <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_OLD_APPLICATION_FORM')" class="section_col" size="6"
-              size-md="6">
+            <ion-col [ngClass]="listColorClass" (click)="viewImage('RC_OLD_APPLICATION_FORM')" class="section_col"
+              size="6" size-md="6">
               <div class="camera-icon-container">
                 <ion-icon name="camera-outline"></ion-icon>
                 <span class="camera-counter dynamic_bgcolor">{{imagesCount.rto_aplication_form}}</span>
@@ -849,7 +851,7 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          
+
           <!-- <div class="ion-padding" slot="content">
             <ion-list>
               <ion-item>

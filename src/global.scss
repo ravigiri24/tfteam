@@ -617,7 +617,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-first) !important;
 
     &:after,
@@ -678,7 +678,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-second) !important;
 
     &:after,
@@ -739,7 +739,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-third) !important;
 
     &:after,
@@ -800,7 +800,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-fourth) !important;
 
     &:after,
@@ -861,7 +861,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-fifth) !important;
 
     &:after,
@@ -922,7 +922,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-six) !important;
 
     &:after,
@@ -983,7 +983,7 @@ ion-header {
   .action_col,
   .empty,
   .amount_col,
-  .middle_border {
+  .middle_border, .right_details_block {
     border-color: var(--app-dynamic-color-seven) !important;
 
     &:after,
@@ -1164,5 +1164,28 @@ ion-header {
     width: 200%;
     height: 200%;
     transform: translate(-100%, 100%) scale(1);
+  }
+}
+
+// Media Query added in below
+@media (min-width: 768px) {
+  ion-modal.midium-model {
+    --width: 80%;
+    --max-width: 1000px;
+    --border-radius: 10px;
+    --background: white;
+    --height: calc(100vh - 40px);
+    --max-height: calc(100vh - 40px);
+  }
+}
+
+@media (min-width: 1200px) {
+  ion-modal.midium-model {
+    --width: 60%;
+    --max-width: 1200px;
+    --border-radius: 10px;
+    --background: white;
+    --height: calc(100vh - 40px);
+    --max-height: calc(100vh - 40px);
   }
 }

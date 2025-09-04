@@ -545,7 +545,7 @@ export class TractorCostingDashboardComponent implements OnInit {
       component: AddTransportStatusComponent,
       componentProps: {
         tractor_id: tractor_id,
-      },
+      },      
     });
     await modal.present();
     // const { data, role } = await modal.onWillDismiss();
