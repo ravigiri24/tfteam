@@ -8,6 +8,7 @@ import {
 import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { ModalController } from '@ionic/angular';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-enter-tf-code',
   templateUrl: './enter-tf-code.component.html',
@@ -18,7 +19,8 @@ export class EnterTfCodeComponent  implements OnInit {
     private fb: FormBuilder,
     private share: ShareService,
     private api: ApiService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private commonS:CommonMethodService
   ) {}
   tractorDetails: any=null;
   generateTFNow:any=true
@@ -112,6 +114,7 @@ newOne='0'+newOne
       this.api.postapi('addOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
       this.share.presentToast('Details Saved...');
+      this.commonS.reloadMethod=true
       this.modalCtrl.dismiss({isActioned:true});
       });
   }

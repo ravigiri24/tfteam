@@ -24,6 +24,10 @@ import { TractorCostingDashboardComponent } from './shared-components/tractor-co
 import { TractorPriceFranchiseComponent } from './franchise-operations-department/tractor-price-franchise/tractor-price-franchise.component';
 import { ReviewPageComponent } from './customer-management/review-page/review-page.component';
 import { ViewCustomerDataComponent } from './customer-management/view-customer-data/view-customer-data.component';
+import { EnterTfCodeComponent } from './operational/enter-tf-code/enter-tf-code.component';
+import { TractorOptionsViewComponent } from './new-arrivals-management/tractor-options-view/tractor-options-view.component';
+import { StartTransportDialogComponent } from './transport-management/start-transport-dialog/start-transport-dialog.component';
+import { TransportOptionsComponent } from './transport-management/transport-options/transport-options.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -116,8 +120,23 @@ export class CommonMethodService {
     }
     if (e?.button?.name == 'Customer View') {
       this.viewCustomer(e?.customer);
+    } else if (e?.button?.name == 'Edit Tractors New Arrivals') {
+      this.editTractorsNewArrivals(e?.tractor);
+    } else if (e?.button?.name == 'Assign TF') {
+      await this.assignTF(e?.tractor);
+    } else if (e?.button?.name == 'Open Options New Arrivals') {
+      await this.openOptionsnewArriwals(e?.tractor);
+    }else if(e?.button?.name == 'Add Transport Cost'){
+            this.addCostTransport(e?.tractor);
+    }
+    else if(e?.button?.name == 'Start Transport'){
+          await  this.startTranspotation(e?.tractor);
+    }
+    else if(e?.button?.name == 'More option Transport'){
+    await  this.openOptionsTransport(e?.tractor)
     }
   }
+
   async addRemark(customer: any = null) {
     const modal = await this.modalCtrl.create({
       component: ReviewPageComponent,
@@ -146,7 +165,7 @@ export class CommonMethodService {
       componentProps: {
         tractor_id: tractor?.id,
       },
-       cssClass: 'midium-model',
+      cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -428,4 +447,81 @@ export class CommonMethodService {
       this.reloadMethod = true;
     }
   }
+  editTractorsNewArrivals(tractor: any) {
+    this.router.navigate([
+      '/purchase-management/edit-newarrivals',
+      tractor?.rowCode,
+      '/purchase-management/new-arrivals',
+    ]);
+  }
+  async assignTF(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: EnterTfCodeComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.isActioned) {
+      this.reloadMethod = true;
+    }
+  }
+  async openOptionsnewArriwals(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TractorOptionsViewComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data?.isDeleted || data?.isForworded) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+  }
+    addCostTransport(tractor: any) {
+    this.router.navigate(['/transport-department/add-cost', tractor?.id]);
+  }
+     async startTranspotation(tractor: any) {
+        const modal = await this.modalCtrl.create({
+          component: StartTransportDialogComponent,
+          componentProps: {
+            tractorDetails: tractor,
+        
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+          this.reloadMethod=true
+        }
+      }
+        async openOptionsTransport(tractor:any){
+            const modal = await this.modalCtrl.create({
+              component: TransportOptionsComponent,
+              componentProps: {
+             
+                tractor: tractor,
+           
+              },
+            });
+            await modal.present();
+            const { data, role } = await modal.onWillDismiss();
+            console.log('role', role);
+        if(data?.isDeleted || data?.isForworded || data?.isReached ){
+          this.reloadMethod=true
+        }
+            if (role === 'confirm') {
+           
+            }
+          }
 }
