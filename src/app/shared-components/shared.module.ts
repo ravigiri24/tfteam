@@ -47,6 +47,7 @@ import { ViewCustomerListComponent } from './view-customer-list/view-customer-li
 import { ReviewPageComponent } from '../customer-management/review-page/review-page.component';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
 import { ViewStaffListComponent } from './view-staff-list/view-staff-list.component';
+import { CommonHeaderComponent } from './common-header/common-header.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -54,10 +55,11 @@ import { ViewStaffListComponent } from './view-staff-list/view-staff-list.compon
     FormsModule,
     IonicModule,
     FilterPipeModule,
-    
+
     IonicModule.forRoot({}),
   ],
   declarations: [
+    CommonHeaderComponent,
     AddRemarkComponent,
     UserManagementComponent,
     SearchpipePipe,
@@ -100,7 +102,7 @@ import { ViewStaffListComponent } from './view-staff-list/view-staff-list.compon
     ReviewPageComponent,
     ViewCustomerDataComponent,
     ViewStaffListComponent
-    
+
   ],
   schemas: [],
   exports: [
@@ -111,11 +113,12 @@ import { ViewStaffListComponent } from './view-staff-list/view-staff-list.compon
     ViewListComponent,
     SearchTractorWithTfCodeComponent,
     NoDataViewComponent,
-        CustomerListingComponent,
+    CustomerListingComponent,
     HeadListingComponent,
     ViewCustomerListComponent,
-    ViewStaffListComponent
+    ViewStaffListComponent,
+    CommonHeaderComponent
   ],
-  providers: [ApiService,    InAppBrowser,],
+  providers: [ApiService, InAppBrowser,],
 })
-export class SharedModule {}
+export class SharedModule { }

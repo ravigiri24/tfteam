@@ -26,85 +26,85 @@ export class BufferStockTractorsComponent implements OnInit {
     private router: Router,
     private alertCtrl: AlertController,
     private commonMethod: CommonMethodService
-  ) {}
+  ) { }
   buffertractorList: any = [];
-  ngOnInit() {}
+  ngOnInit() { }
   ionViewWillEnter() {
     this.buffertractorList = [];
     this.getTractorList();
     this.filterBy = 'ALL';
   }
-    async deleteTractor(tractor: any) {
-      const modal = await this.modalCtrl.create({
-        breakpoints: [0, 0.4, 1],
-        initialBreakpoint: 0.4,
-        cssClass: 'custom-modal',
-        component: DeleteTractorComponent,
-        componentProps: {
-          tractor:tractor,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data) {
-    this.refreshList()
-      }
+  async deleteTractor(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      component: DeleteTractorComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.refreshList()
     }
-  async actionEventCall(e: any) {
-      await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
-    
-  if(this.commonMethod.reloadMethod){
-    this.getTractorList()
   }
-  //   if(e?.button?.name == 'Tractor Dashboard') {
-  //     this.tractorDashboard(e?.tractor);
-  //   } 
-  //   else if(e?.button?.name == 'Sync Mainatainance') {
-  //     this.syncManitainance(e?.tractor);
-  //   }
-  //    else if(e?.button?.name == 'Tractor Summary') {
-  //     this.tractorViewDetail(e?.tractor);
-  //   }
-  // else if(e?.button?.name == 'Delete Tractor') {
-  //     this.deleteTractor(e?.tractor);
-  //   }
+  async actionEventCall(e: any) {
+    await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
+
+    if (this.commonMethod.reloadMethod) {
+      this.getTractorList()
+    }
+    //   if(e?.button?.name == 'Tractor Dashboard') {
+    //     this.tractorDashboard(e?.tractor);
+    //   } 
+    //   else if(e?.button?.name == 'Sync Mainatainance') {
+    //     this.syncManitainance(e?.tractor);
+    //   }
+    //    else if(e?.button?.name == 'Tractor Summary') {
+    //     this.tractorViewDetail(e?.tractor);
+    //   }
+    // else if(e?.button?.name == 'Delete Tractor') {
+    //     this.deleteTractor(e?.tractor);
+    //   }
 
 
     if (this.commonMethod.reloadMethod) {
       this.refreshList();
     }
     console.log('actionEventCall', e);
-    
+
   }
-      buttonArray: any = [
- {
+  buttonArray: any = [
+    {
       name: 'Tractor Dashboard',
       action: 'tractorDashboard',
-            closeCurrentPopUP:true,
-    srcPage:'/operational/buffer-stock',
+      closeCurrentPopUP: true,
+      srcPage: '/operational/buffer-stock',
       image: './././assets/images/layout.png',
     },
-     {
+    {
       name: 'Sync Mainatainance',
       action: 'syncMainatinance',
       image: './././assets/images/sync.png',
     },
-      {
+    {
       name: 'Tractor Summary',
       action: 'tractorSummary',
       image: './././assets/images/data-analysis.png',
     },
-          {
+    {
       name: 'Delete Tractor',
       action: 'deleteTractor',
       image: './././assets/images/deleted.png',
     },
   ];
-    keyList: any = [
+  keyList: any = [
     { key: 'Model', value: 'name', type: 'INPUT' },
-        { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
-    { key: 'Engine Number', getFromObj:true,objName:'purchasedetail',value: 'engineNumber', type: 'INPUT' },
-    { key: 'Chassis Number', getFromObj:true,objName:'purchasedetail',value: 'chasisNumber', type: 'INPUT' },
+    { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
+    { key: 'Engine Number', getFromObj: true, objName: 'purchasedetail', value: 'engineNumber', type: 'INPUT' },
+    { key: 'Chassis Number', getFromObj: true, objName: 'purchasedetail', value: 'chasisNumber', type: 'INPUT' },
     // { key: 'Staus', value: 'tractor_status', type: 'INPUT' },
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
     { key: 'D.O.A(Actual)', value: 'actualReleaseDate', type: 'INPUT' },
@@ -112,8 +112,8 @@ export class BufferStockTractorsComponent implements OnInit {
     { key: 'Is Sold', value: 'isSold', type: 'CONDITIONAL' },
 
     { key: 'Hours', value: 'hours', type: 'INPUT' },
-        { key: 'Transported Place', getFromObj:true,objName:'transportDestination',value: 'name', type: 'INPUT' },
-        { key: 'Franchise(Alloted)', getFromObj:true,objName:'franchiseDettails',value: 'name', type: 'INPUT' },
+    { key: 'Transported Place', getFromObj: true, objName: 'transportDestination', value: 'name', type: 'INPUT' },
+    { key: 'Franchise(Alloted)', getFromObj: true, objName: 'franchiseDettails', value: 'name', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
   refreshList() {
@@ -153,30 +153,30 @@ export class BufferStockTractorsComponent implements OnInit {
     }
   }
   sortByFilter() {
-        this.buffertractorList=[]
-        setTimeout(() => {
-           if (this.filterBy == 'ALL') {
-      if (this.allTractorsSrcList?.length) {
-        this.buffertractorList = JSON.parse(
-          JSON.stringify(this.allTractorsSrcList)
-        );
-      } else {
-        this.buffertractorList = [];
+    this.buffertractorList = []
+    setTimeout(() => {
+      if (this.filterBy == 'ALL') {
+        if (this.allTractorsSrcList?.length) {
+          this.buffertractorList = JSON.parse(
+            JSON.stringify(this.allTractorsSrcList)
+          );
+        } else {
+          this.buffertractorList = [];
+        }
       }
-    }
-    if (this.filterBy == 'MAPPED') {
-      this.buffertractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.repairMappedData?.length > 0
-      );
-    }
-    if (this.filterBy == 'NOT_MAPPED') {
-      this.buffertractorList = this.allTractorsSrcList.filter(
-        (f: any) => f?.repairMappedData?.length == 0
-      );
-    }
-    this.selectLiSTYPE();
-        }, 0);
-   
+      if (this.filterBy == 'MAPPED') {
+        this.buffertractorList = this.allTractorsSrcList.filter(
+          (f: any) => f?.repairMappedData?.length > 0
+        );
+      }
+      if (this.filterBy == 'NOT_MAPPED') {
+        this.buffertractorList = this.allTractorsSrcList.filter(
+          (f: any) => f?.repairMappedData?.length == 0
+        );
+      }
+      this.selectLiSTYPE();
+    }, 0);
+
   }
   staffDetails: any;
   allTractorsSrcList: any = [];
@@ -189,7 +189,7 @@ export class BufferStockTractorsComponent implements OnInit {
       isLive: false,
     };
     this.share.showLoading('Loading...');
-    this.buffertractorList=[]
+    this.buffertractorList = []
     this.api.postapi('getBufferTractorList', obj).subscribe(
       (res: any) => {
         this.buffertractorList = res?.data;
@@ -199,7 +199,7 @@ export class BufferStockTractorsComponent implements OnInit {
         this.share.spinner.dismiss('active_five');
         this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   async tractorViewDetail(tractor: any) {
@@ -207,7 +207,7 @@ export class BufferStockTractorsComponent implements OnInit {
       component: TractorCostingDashboardComponent,
       componentProps: {
         tractor_id: tractor?.id,
-        
+
       },
     });
     await modal.present();
@@ -320,16 +320,16 @@ export class BufferStockTractorsComponent implements OnInit {
       //  this.dismiss();
     });
   }
-    async searchTractor() {
+  async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
       componentProps: {
-       buttonArray: this.buttonArray,
-       listColorClass:this.listColorClass,
-       keyList:this.keyList,
-       searchFilter:this.search,
-       searchKey:'registractionNo',
-     obj:{optionsUploadButtonArray:[]}
+        buttonArray: this.buttonArray,
+        listColorClass: this.listColorClass,
+        keyList: this.keyList,
+        searchFilter: this.search,
+        searchKey: 'registractionNo',
+        obj: { optionsUploadButtonArray: [] }
       },
     });
     await modal.present();

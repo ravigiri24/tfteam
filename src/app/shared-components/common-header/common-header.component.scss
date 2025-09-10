@@ -1,0 +1,107 @@
+.global_top_header {
+    position: relative;
+
+    &:before {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        bottom: 0px;
+        right: -4%;
+        z-index: 0;
+        opacity: 0.1;
+        border-radius: 50%;
+        border: solid 7px;
+        animation: headerMovement 5s infinite linear;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        width: 160px;
+        height: 100%;
+        bottom: 0px;
+        left: -5%;
+        transform: rotate(150deg);
+        z-index: 0;
+        opacity: 0.1;
+    }
+}
+
+.theme_btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    border: solid 2px;
+    box-shadow: 0 6px 18px rgba(37, 117, 252, 0.12);
+    margin-right: 50px;
+
+    .btn_icons {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        ion-icon {
+            font-size: 22px;
+            padding: 10px 12px;
+            pointer-events: auto;
+        }
+    }
+
+    .wave {
+        position: absolute;
+        bottom: -50%;
+        height: 150%;
+        z-index: 1;
+        pointer-events: none;
+        will-change: transform, opacity;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        animation: waveUp 2400ms cubic-bezier(.4, .0, .2, 1) infinite;
+    }
+}
+
+.two_button {
+    .wave {
+        width: 50%;
+    }
+
+    .wave:nth-of-type(1) {
+        left: 0%;
+        animation-delay: 0ms;
+    }
+
+    .wave:nth-of-type(2) {
+        left: 50%;
+        animation-delay: 420ms;
+    }
+}
+
+.three_button {
+    .wave {
+        width: 33.3%;
+    }
+
+    .wave:nth-of-type(1) {
+        left: 0%;
+        animation-delay: 0ms;
+    }
+
+    .wave:nth-of-type(2) {
+        left: 33.3%;
+        animation-delay: 420ms;
+    }
+
+    .wave:nth-of-type(3) {
+        left: 66.6%;
+        animation-delay: 840ms;
+    }
+}

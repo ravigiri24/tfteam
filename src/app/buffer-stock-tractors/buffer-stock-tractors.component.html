@@ -2,7 +2,6 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
- 
         <span *ngIf="listBy==='BUFFER'" class="selected_text">Buffer Stock :</span>
         <span *ngIf="listBy==='ARCHIVED'" class="selected_text">Archived:</span>
         <b class="total-number">{{buffertractorList?.length}}</b>
@@ -18,8 +17,12 @@
     </ion-label>
   </ion-toolbar>
 </ion-header>
+<app-common-header [listColorClass]="listColorClass" [listBy]="listBy" [buffertractorList]="buffertractorList" ></app-common-header>
 <ion-content>
-
+  <app-view-list *ngIf="buffertractorList?.length" [rowLineCount]="4" [listColorClass]="listColorClass"
+    [buttonArray]="buttonArray" [keyList]="keyList" [list]="buffertractorList" [search]="search"
+    (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+  <app-no-data-view *ngIf="!buffertractorList?.length && !share?.globalLoading"></app-no-data-view>
   <!-- <ion-searchbar [(ngModel)]="search.registractionNo" slot="fixed"
   placeholder="Enter TF Code"></ion-searchbar>
 
@@ -120,6 +123,5 @@
   <div *ngIf="(buffertractorList | filterBy: search)?.length === 0" class="no-data-block">
     <img class="image-no-data" src="././assets/images/no-data-found.png" />
   </div> -->
-    <app-view-list *ngIf="buffertractorList?.length" [rowLineCount]="4" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="buffertractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
-    <app-no-data-view  *ngIf="!buffertractorList?.length && !share?.globalLoading"></app-no-data-view>
+
 </ion-content>
