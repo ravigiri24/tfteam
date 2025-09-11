@@ -6,15 +6,20 @@
         <span *ngIf="listBy==='ARCHIVED'" class="selected_text dynamic_color">Archived:</span>
         <b class="total-number">{{buffertractorList?.length}}</b>
       </div>
-      <div class="right_color_actions theme_btn dynamic_color three_button">
-        <div class="btn_icons">
-          <ion-icon class="icon-size" name="search-outline"></ion-icon>
-          <ion-icon class="icon-size" name="refresh-outline"></ion-icon>
-          <ion-icon class="icon-size" name="cog-outline"></ion-icon>
+      <div class="right_action_collections">
+        <div class="right_color_actions theme_btn dynamic_color three_button">
+          <div class="btn_icons">
+            <ion-icon class="icon-size" name="search-outline"></ion-icon>
+            <ion-icon class="icon-size" name="refresh-outline"></ion-icon>
+            <ion-icon class="icon-size" name="cog-outline"></ion-icon>
+          </div>
+          <span class="wave dynamic_bgcolor"></span>
+          <span class="wave dynamic_bgcolor"></span>
+          <span class="wave dynamic_bgcolor"></span>
         </div>
-        <span class="wave dynamic_bgcolor"></span>
-        <span class="wave dynamic_bgcolor"></span>
-        <span class="wave dynamic_bgcolor"></span>    
+        <div class="right_more_action">
+          <ion-icon class="dynamic_color menu_icons" name="list-outline"></ion-icon>
+        </div>
       </div>
     </ion-label>
   </ion-toolbar>

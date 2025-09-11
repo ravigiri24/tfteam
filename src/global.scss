@@ -1252,13 +1252,13 @@ ion-header {
 @keyframes headerMovement {
   0% {
     transform: translate(-50%) rotate(-180deg);
-    border-color: var(--app-primary-color) !important;
     opacity: .3;
     border-radius: 20%;
   }
 
   100% {
     transform: translate(-50%) rotate(360deg);
+    border-color: var(--app-primary-color) !important;
   }
 }
 

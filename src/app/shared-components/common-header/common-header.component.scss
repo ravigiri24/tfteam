@@ -4,10 +4,10 @@
     &:before {
         content: "";
         position: absolute;
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         bottom: 0px;
-        right: -4%;
+        right: calc(50% - 25px);
         z-index: 0;
         opacity: 0.1;
         border-radius: 50%;
@@ -28,6 +28,18 @@
     }
 }
 
+.right_action_collections {
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+    .right_more_action {
+        .dynamic_color {
+            margin: 0px 10px;
+            font-size: 28px;
+        }
+    }
+}
+
 .theme_btn {
     position: relative;
     display: inline-flex;
@@ -38,7 +50,7 @@
     z-index: 1;
     border: solid 2px;
     box-shadow: 0 6px 18px rgba(37, 117, 252, 0.12);
-    margin-right: 50px;
+    margin-right: 10px;
 
     .btn_icons {
         position: relative;
