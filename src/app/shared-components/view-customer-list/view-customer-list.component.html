@@ -8,7 +8,7 @@
       <ion-grid class="main_block_details" [ngClass]="listColorClass">
         <ion-card>
    
-          <ion-label class="main_title">{{customer?.name}}</ion-label>
+          <ion-label class="main_title">{{customer?.name}}    <ion-col class="left_row_title">   <img *ngIf="customer?.isHOTDeal" class="hot-deal" src="./././assets/images/hot-deal.png" /></ion-col></ion-label>
           <ng-container >
             <!-- <ng-container *ngIf="i < rowLineCount"> -->
               <ion-row>
@@ -35,6 +35,8 @@
                 </ng-container>
               
               </ion-row>
+         
+             
           </ng-container>
           <ion-row *ngIf="buttonArray?.length">
             <ion-col class="action_col" *ngFor="let button of buttonArray">

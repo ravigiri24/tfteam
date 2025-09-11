@@ -55,7 +55,16 @@ export class ShareService {
 
     await toast.present();
   }
-
+  getStaffObj() {
+    let getStaffDetail: any = this.get_staff();
+    let getStaff: any = JSON.parse(getStaffDetail);
+    let obj = {
+    
+      operate: getStaff?.staffCode,
+  
+    };
+    return obj;
+  }
   getListObj(
     src: any,
     isImage: any = false,

@@ -19,6 +19,7 @@ import { ApiService } from 'src/app/api.service';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
+import { FilterByPageComponent } from 'src/app/buffer-stock-tractors/filter-by-page/filter-by-page.component';
 @Component({
   selector: 'app-add-customer',
   templateUrl: './add-customer.component.html',
@@ -78,6 +79,7 @@ export class AddCustomerComponent implements OnInit {
       demand: new FormControl(null, []),
       visiting_date:new FormControl(null, []),
       purchasing_possibility:new FormControl(null, []),
+      ishotDeal:new FormControl(true, []),
     });
     if(!this.editData){
       this.customerForm.controls['purchasing_possibility'].setValue('WILL_VISIT')
@@ -134,17 +136,40 @@ this.customerForm.controls['socialType'].setValue(null)
       this.message = `Hello, ${ev.detail.data}!`;
     }
   }
+    async presentModal() {
+      const modal = await this.modalCtrl.create({
+        component: FilterByPageComponent,
+        breakpoints: [0, 0.4, 1],
+        initialBreakpoint: 0.4,
+        cssClass: 'custom-modal',
+        componentProps: {
+          // filterBy: this.filterBy,
+          // listBy: this.listBy,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data && data?.isFilterChange) {
+        // console.log('data', data);
+        // this.filterBy = data?.filterBy;
+        // this.listBy = data?.listBy;
+        // this.sortByFilter();
+      }
+    }
   loader = false;
   getListOfStaff() {}
   saveForm() {
     let obj = this.customerForm.value;
     console.log(this.customerForm.value);
     if (this.customerForm.valid) {
-      this.showLoading();
+      this.share.showLoading("Saving Data");
       this.api.postapi('addCustomerLocationWise', obj).subscribe((res: any) => {
-        this.spinner?.dismiss();
+    //    this.spinner?.dismiss();
+    if(this.customerForm.value?.ishotDeal==true){
+      this.considerAs(res?.data)
+    }
         this.presentToast(res?.msg);
-
+          this.share.spinner.dismiss();
         this.loader = false;
         this.updateList.emit(res?.data);
         this.closeModal.emit();
@@ -152,6 +177,26 @@ this.customerForm.controls['socialType'].setValue(null)
     } else {
       this.presentToast('Please Fill All Fields');
     }
+  }
+    considerAs(customer:any){
+        let objVal={
+      customer_id:customer?.id,
+    
+      actionByid:this.staffDetails?.id
+    }
+    let obj = {
+        src: 'hotcustomer',
+        data: objVal,
+      };
+
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+   
+
+      
+
+
+        //  this.dismiss();
+      });
   }
   stateName: any;
   cityName: any;

@@ -67,6 +67,9 @@
     <ion-input label="Select Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
       placeholder="elect Date" formControlName="visiting_date"></ion-input>
   </div>
+    <div class="global_input_block" >
+  <ion-toggle formControlName="ishotDeal" [checked]="true">Checked Toggle</ion-toggle>
+  </div>
   <!-- <ion-item  *ngIf="!editData"  class="bottom-margin">
   <ion-select    formControlName="assigned_staff_id" label="Assign To Staff" label-placement="type">
     <ion-select-option *ngFor="let staff of staffList" [value]="staff?.id">{{staff?.name}}</ion-select-option>

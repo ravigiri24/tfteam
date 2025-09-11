@@ -122,6 +122,9 @@ export class SearchCustomerComponent implements OnInit {
          else if(this.searchBy=='DEMAND'){
       this.getListByDemand()
     }
+           else if(this.searchBy=='HOT_DEAL'){
+      this.getListByHotDeal()
+    }
   }
   async  actionEventCall(e:any){
 if(e?.button?.name=='Edit Customer'){
@@ -285,6 +288,45 @@ if(e?.button?.name=='Edit Customer'){
     else{
          this.share.presentToast('Error:Please Fill Required(*) Fields');
     }
+  }
+    getListByHotDeal(){
+   
+  
+      this.share.showLoading("Searching")
+      this.customerList = [];
+      let staffDetails: any = this.share.get_staff();
+      this.staffDetails = JSON.parse(staffDetails);
+  
+      let obj = {
+        operate: this.staffDetails?.staffCode,
+       
+        storeId:this.staffDetails?.storeId
+      };
+  
+      this.api.postapi('getCustomerByHotDeal', obj).subscribe(
+        (res: any) => {
+          if (res?.status == true) {
+            this.isCustomersFound = true;
+            this.customerList = res?.data;
+           
+          } else {
+            
+            this.isCustomersFound = false;
+            this.share.presentToast("Not found any customer")
+            this.customerData = [];
+          }
+  
+          this.share.spinner.dismiss();
+        },
+        (error: any) => {
+          this.isCustomersFound = false;
+          this.share.spinner.dismiss();
+        }
+      );
+
+      
+    
+  
   }
   stateList: any = [];
   getStateList() {

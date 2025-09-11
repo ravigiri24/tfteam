@@ -2,12 +2,15 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Total Customer : </span>
+       <ion-select class="selected_ddl" (ionChange)="getAllTractorListDistricwise()" [(ngModel)]="selectedDistrict"
+        label-placement="type">
+        <ion-select-option *ngFor="let district of districtList" [value]="district.district_id"> {{ district?.name }}</ion-select-option>
+      </ion-select>
         <span>{{customerList?.length}}</span>
       </div>
       <div class="right_action">
         <!-- <ion-icon class="theme-color icon-size" (click)="districtmgmt()" name="chevron-up-circle-outline"></ion-icon> -->
-        <ion-icon class="theme-color icon-size" (click)="searchCustomer()" name="search-outline"></ion-icon>
+        <!-- <ion-icon class="theme-color icon-size" (click)="searchCustomer()" name="search-outline"></ion-icon> -->
         <ion-icon class="theme-color icon-size" (click)="refreshList()" name="refresh-outline"></ion-icon>
         <!-- <ion-icon class="theme-color-second icon-size" (click)="addCustomer()" expand="block" 
           name="person-add-outline"></ion-icon> -->

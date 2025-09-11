@@ -5,6 +5,7 @@ import { AddLeadStaffComponent } from './add-lead-staff/add-lead-staff.component
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { CommonMethodService } from 'src/app/common-method.service';
+import { AddDistrictInStaffComponent } from './add-district-in-staff/add-district-in-staff.component';
 @Component({
   selector: 'app-lead-employee-mgmt',
   templateUrl: './lead-employee-mgmt.component.html',
@@ -62,8 +63,8 @@ listColorClass='firstColor'
       image: './././assets/images/edit.png',
     },
       {
-      name: 'Customer View',
-      action: 'customer_view',
+      name: 'District-list-alloted',
+      action: 'districtListAlloted',
       image: './././assets/images/location-pin.png',
     },
   ];
@@ -84,10 +85,30 @@ if(data){
     if (role === 'confirm') {
     }
   }
+    async addDistrict(staff:any=null) {
+    const modal = await this.modalCTrl.create({
+      component: AddDistrictInStaffComponent,
+      componentProps: {
+        staff:staff
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+if(data){
+  this.getStaffList()
+}
+    if (role === 'confirm') {
+    }
+  }
     async actionEventCall(e: any) {
       if(e?.button?.name=='Edit Staff'){
 this.addStaff(e?.staff)
       }
+          if(e?.button?.name=='District-list-alloted'){
+this.addDistrict(e?.staff)
+      }
+ 
  
   }
   backToDashboard() {

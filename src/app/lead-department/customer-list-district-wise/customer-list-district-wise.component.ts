@@ -8,7 +8,12 @@ import { ToastController } from '@ionic/angular';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { IonContent } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { SearchCustomerComponent } from 'src/app/customer-management/search-customer/search-customer.component';
 
 import { ReviewPageComponent } from 'src/app/customer-management/review-page/review-page.component';
@@ -22,33 +27,32 @@ import { CommonMethodService } from 'src/app/common-method.service';
   templateUrl: './customer-list-district-wise.component.html',
   styleUrls: ['./customer-list-district-wise.component.scss'],
 })
-export class CustomerListDistrictWiseComponent  implements OnInit {
+export class CustomerListDistrictWiseComponent implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
-  
+
   constructor(
     private share: ShareService,
     private api: ApiService,
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private modalController: ModalController,
-    private router:Router,
-    private commonMethod:CommonMethodService
+    private router: Router,
+    private commonMethod: CommonMethodService
   ) {}
 
   @ViewChild(IonContent) content: IonContent;
-nextScheduleForm:FormGroup
+  nextScheduleForm: FormGroup;
   scrollToTop() {
     this.content.scrollToTop(0);
   }
   showData = true;
   staffDetails: any;
-  async searchCustomer(){
+  async searchCustomer() {
     const modal = await this.modalController.create({
       component: SearchCustomerComponent,
       componentProps: {
-      buttonArray:this.buttonArray
-        
+        buttonArray: this.buttonArray,
       },
     });
     await modal.present();
@@ -56,38 +60,67 @@ nextScheduleForm:FormGroup
     console.log('role', role);
 
     if (role === 'confirm') {
-    
     }
   }
-    cityList:any=[]
+  selectedDistrict: any;
+  cityList: any = [];
+  getAllTractorListDistricwise() {
+    this.getCustomerList();
+  }
 
-
-stateList:any=[]
+  stateList: any = [];
   ionViewWillEnter() {
+    let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
     this.customerList = [];
     this.showData = false;
-
+    this.selectedDistrict = null;
     setTimeout(() => {
       this.content.scrollToTop(0).then(() => {
-        this.getCustomerList();
-        this.getStaffList()
+        this.getDistrictList(true);
+
+        this.getStaffList();
       });
     }, 0);
 
     setTimeout(() => {}, 0);
+  }
+  districtList: any = [];
+  districtListSrc: any = [];
+  getDistrictList(selectDistrict: any = false) {
+    this.districtList = [];
+    let obj: any = this.share.getStaffObj();
+    obj.staff_id = this.staffDetails?.id;
+    this.share.showLoading("Loading Data...")
+    this.api.postapi('getAllotedDistrictList', obj).subscribe(
+      (res: any) => {
+        this.districtList = res?.data;
+        if (selectDistrict) {
+          this.selectedDistrict = this.districtList[0]?.district_id;
+        }
+        this.getCustomerList(false);
+
+        //    this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
   }
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
     console.log('CustomerManagementComponent');
- 
+
     //this.getCustomerList()
   }
-  districtmgmt(){
-    this.router.navigate(['/digital/district-mgmt','/digital/customer-management']);
+  districtmgmt() {
+    this.router.navigate([
+      '/digital/district-mgmt',
+      '/digital/customer-management',
+    ]);
   }
-  followLoader:any=false
+  followLoader: any = false;
   nextFollowupDate() {
     if (this.nextScheduleForm.valid) {
       this.followLoader = true;
@@ -95,25 +128,20 @@ stateList:any=[]
         src: 'customer_lead_chats',
         data: this.nextScheduleForm.value,
       };
-      this.showLoading('Scheduling ...')
-      this.api.postapi('addOpp', obj).subscribe((res:any) => {
+      this.showLoading('Scheduling ...');
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
         this.followLoader = false;
         this.spinner?.dismiss();
-      this.presentToast("Scheduled Successfully...")
+        this.presentToast('Scheduled Successfully...');
         this.nextScheduleForm.controls['status'].reset();
-    
       });
     }
   }
-  initializeNextDate(customer:any) {
+  initializeNextDate(customer: any) {
     this.nextScheduleForm = this.fb.group({
-      next_lead_date: new FormControl( null, [Validators.required]),
-      customer_id: new FormControl(customer?.id || null, [
-        Validators.required,
-      ]),
-      chat_type: new FormControl("FOLLOW_UP_DATE", [
-        Validators.required,
-      ]),
+      next_lead_date: new FormControl(null, [Validators.required]),
+      customer_id: new FormControl(customer?.id || null, [Validators.required]),
+      chat_type: new FormControl('FOLLOW_UP_DATE', [Validators.required]),
       employeId: new FormControl(this.staffDetails?.staffCode || null, [
         Validators.required,
       ]),
@@ -148,7 +176,7 @@ stateList:any=[]
     if (this.showData) {
       let firstIndex = this.customerList.length;
       let lastIndex = firstIndex + 51;
-      this.getCustomerList(null, firstIndex, lastIndex, ev);
+      this.getCustomerList();
     } else {
       setTimeout(() => {
         (ev as InfiniteScrollCustomEvent)?.target?.complete();
@@ -165,7 +193,7 @@ stateList:any=[]
   }
   search: any;
   spinner: any;
-  async showLoading(message:any) {
+  async showLoading(message: any) {
     this.spinner = await this.loadingCtrl.create({
       message: message,
       duration: 5000,
@@ -173,8 +201,8 @@ stateList:any=[]
 
     this.spinner.present();
   }
-  
-  modelType='CUSTOMER'
+
+  modelType = 'CUSTOMER';
   customerList: any = [];
   showAddComp = true;
   handleRefresh(e: any) {
@@ -185,7 +213,7 @@ stateList:any=[]
     this.showData = false;
     setTimeout(() => {
       this.content.scrollToTop(0).then(() => {
-        this.getCustomerList(e, 0, 50, null, true);
+        this.getCustomerList();
       });
     }, 0);
   }
@@ -193,13 +221,13 @@ stateList:any=[]
     this.showData = false;
     setTimeout(() => {
       this.content.scrollToTop(0).then(() => {
-        this.getCustomerList(null, 0, 50, null, true);
+        this.getCustomerList();
       });
     }, 0);
   }
   editIndex: any;
   openEdit(cus: any, editIndex: any) {
-      this.modelType='CUSTOMER'
+    this.modelType = 'CUSTOMER';
     this.editIndex = editIndex;
     document.getElementById('open-modal')?.click();
     this.editData = cus;
@@ -208,136 +236,118 @@ stateList:any=[]
       this.showAddComp = true;
     }, 0);
   }
-  customerSelected:any
-  nextScheduleDate:any
-  setDate(v:any){
-    console.log("setDate",this.nextScheduleForm.value,v);
-    
+  customerSelected: any;
+  nextScheduleDate: any;
+  setDate(v: any) {
+    console.log('setDate', this.nextScheduleForm.value, v);
   }
-  nextSchedule(){
-    console.log("nextSchedule",this.nextScheduleForm.value);
-    
+  nextSchedule() {
+    console.log('nextSchedule', this.nextScheduleForm.value);
   }
 
-  addReview(cus: any, editIndex: any){
-     this.customerSelected=cus
-     this.showRemark=false
-     setTimeout(() => {
-      this.showRemark=true
-     }, 0);
-     this.initializeNextDate(cus)
-       document.getElementById('open-modal')?.click();
-         this.modelType='REVIEW'
+  addReview(cus: any, editIndex: any) {
+    this.customerSelected = cus;
+    this.showRemark = false;
+    setTimeout(() => {
+      this.showRemark = true;
+    }, 0);
+    this.initializeNextDate(cus);
+    document.getElementById('open-modal')?.click();
+    this.modelType = 'REVIEW';
   }
-  nextFollowup(cus: any, editIndex: any){
-    this.initializeNextDate(cus)
-    this.customerSelected=cus
-       
-         document.getElementById('open-modal')?.click();
-           this.modelType='FOLLOW-UP'
+  nextFollowup(cus: any, editIndex: any) {
+    this.initializeNextDate(cus);
+    this.customerSelected = cus;
+
+    document.getElementById('open-modal')?.click();
+    this.modelType = 'FOLLOW-UP';
   }
-  viewDetails(cus: any, editIndex: any){
-      this.customerSelected=cus
-       document.getElementById('open-modal')?.click();
-           this.modelType='VIEW-DATA'
+  viewDetails(cus: any, editIndex: any) {
+    this.customerSelected = cus;
+    document.getElementById('open-modal')?.click();
+    this.modelType = 'VIEW-DATA';
   }
   updateList(e: any) {
-    if (this.editData) { 
-    e.followUpDate=this.editData?.followUpDate
-    e.leadsChat=this.editData?.leadsChat
+    if (this.editData) {
+      e.followUpDate = this.editData?.followUpDate;
+      e.leadsChat = this.editData?.leadsChat;
 
       this.customerList[this.editIndex] = e;
-      
     } else {
       this.customerList.unshift(e);
     }
   }
-async  actionEventCall(e:any){
-// if(e?.button?.name=='Edit Customer'){
-//   this.addCustomer(e?.customer,e?.index)
-// }else{
-    await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
-//}
+  async actionEventCall(e: any) {
+    // if(e?.button?.name=='Edit Customer'){
+    //   this.addCustomer(e?.customer,e?.index)
+    // }else{
+    await this.commonMethod.actionEventCall(e, {
+      optionsUploadButtonArray: [],
+    });
+    //}
   }
-  listColorClass='firstColor'
-  showRemark:any=true
-  staffList:any=[]
-  getStaffList(){
+  listColorClass = 'firstColor';
+  showRemark: any = true;
+  staffList: any = [];
+  getStaffList() {
     let obj: any = this.share.getListObj('staffdetails', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
 
-    this.api.postapi('getStaffByStoreId', obj).subscribe(
-      (res: any) => {
-     this.staffList=res?.data
-    })
+    this.api.postapi('getStaffByStoreId', obj).subscribe((res: any) => {
+      this.staffList = res?.data;
+    });
   }
   digital: any = 0;
   online: any = 0;
   visitors: any = 0;
   customerListOrg: any = [];
-  getCustomerList(
-    e: any = null,
-    firstIndex: any = 0,
-    lastIndex: any = 50,
-    loading: any = null,
-    doBlank: any = false
-  ) {
-    console.log(e, firstIndex, lastIndex, loading, doBlank);
+  getCustomerList(loader: any = true) {
+    let obj: any = this.share.getStaffObj();
+    obj.district_id = this.selectedDistrict;
+    this.customerList = [];
+    if (loader) {
+      this.share.showLoading('Loading Data');
+    }
 
-    this.share.showLoading('Loading...');
-    let obj: any = this.share.getListObj('customerdetails', false, [], true);
-    obj.storeId = this.staffDetails?.storeId;
-    obj.firstIndex = firstIndex;
-    obj.lastIndex = lastIndex;
-    setTimeout(() => {
-      this.api.postapi('getCustomerListByStoreByIndex', obj).subscribe(
-        (res: any) => {
-          this.showData = true;
-          if (doBlank) {
-            this.customerList = [];
-          }
+    this.api.postapi('getCustomerListByDistrict', obj).subscribe(
+      (res: any) => {
+        this.showData = true;
 
-          console.log('res', res, firstIndex, lastIndex);
+        res?.data?.forEach((element: any) => {
+          this.customerList.push(element);
+        });
 
-          res?.data?.forEach((element: any) => {
-            this.customerList.push(element);
-          });
+        this.customerList.sort(function (a: any, b: any) {
+          return b.id - a.id;
+        });
+        this.share.spinner.dismiss();
+        console.log('  this.customerList', this.customerList);
+        // this.customerListOrg = JSON.parse(JSON.stringify(res.data));
+        // this.customerList = JSON.parse(JSON.stringify(res.data))
+        // this.customerList.splice(50);
 
-          this.customerList.sort(function (a: any, b: any) {
-            return b.id - a.id;
-          });
-          console.log('  this.customerList', this.customerList);
-          // this.customerListOrg = JSON.parse(JSON.stringify(res.data));
-          // this.customerList = JSON.parse(JSON.stringify(res.data))
-          // this.customerList.splice(50);
+        // this.digital=this.customerList.filter((f:any)=>f?.customerType=='DIGITAL')?.length
+        // this.online=this.customerList.filter((f:any)=>f?.customerType=='ONLINE')?.length
+        // this.visitors=this.customerList.filter((f:any)=>f?.customerType=='VISITORS')?.length
+        this.share.spinner?.dismiss('active_one');
 
-          // this.digital=this.customerList.filter((f:any)=>f?.customerType=='DIGITAL')?.length
-          // this.online=this.customerList.filter((f:any)=>f?.customerType=='ONLINE')?.length
-          // this.visitors=this.customerList.filter((f:any)=>f?.customerType=='VISITORS')?.length
-          this.share.spinner?.dismiss('active_one');
-          e?.target?.complete();
-          setTimeout(() => {
-            (loading as InfiniteScrollCustomEvent)?.target?.complete();
-          }, 0);
-
-          console.log('getCustomerListByStore', this.customerList);
-        },
-        (error: any) => {}
-      );
-    }, 0);
+        console.log('getCustomerListByStore', this.customerList);
+      },
+      (error: any) => {}
+    );
   }
-   buttonArray: any = [
+  buttonArray: any = [
     {
       name: 'Edit Customer',
       action: 'editCustomer',
       image: './././assets/images/edit.png',
     },
-      {
+    {
       name: 'Customer Remark',
       action: 'customer_review',
       image: './././assets/images/comments.png',
     },
-      {
+    {
       name: 'Customer View',
       action: 'customer_view',
       image: './././assets/images/data.png',
@@ -345,28 +355,25 @@ async  actionEventCall(e:any){
   ];
   editData: any;
   dataClear() {
-       this.modelType='CUSTOMER'
+    this.modelType = 'CUSTOMER';
     this.editData = null;
     this.showAddComp = false;
     setTimeout(() => {
       this.showAddComp = true;
     }, 0);
-
   }
- async addRemark(customer:any=null){
-
-        const modal = await this.modalController.create({
-          component: ReviewPageComponent,
-          componentProps: {
-            customer: customer,
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-      
+  async addRemark(customer: any = null) {
+    const modal = await this.modalController.create({
+      component: ReviewPageComponent,
+      componentProps: {
+        customer: customer,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
   }
- async viewCustomer(customer:any=null){
+  async viewCustomer(customer: any = null) {
     const modal = await this.modalController.create({
       component: ViewCustomerDataComponent,
       componentProps: {
@@ -392,31 +399,27 @@ async  actionEventCall(e:any){
   //       if(data){
   //       this.updateList(data)
   //       }
-         
-  // }
-    async viewDashboard(editData:any=null,editIndex:any=null){
-    this.editIndex = editIndex;
-    this.editData=editData
-        const modal = await this.modalController.create({
-          component: CustomerDashboardComponent,
-          componentProps: {
-           editData: editData,
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-        if(data){
-        this.updateList(data)
-        }
-         
-  }
-  
 
-  
+  // }
+  async viewDashboard(editData: any = null, editIndex: any = null) {
+    this.editIndex = editIndex;
+    this.editData = editData;
+    const modal = await this.modalController.create({
+      component: CustomerDashboardComponent,
+      componentProps: {
+        editData: editData,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.updateList(data);
+    }
+  }
+
   cancel() {
     this.modal.dismiss(null, 'cancel');
-   
   }
   name: any;
   message: any;
@@ -430,5 +433,4 @@ async  actionEventCall(e:any){
       this.message = `Hello, ${ev.detail.data}!`;
     }
   }
-
 }

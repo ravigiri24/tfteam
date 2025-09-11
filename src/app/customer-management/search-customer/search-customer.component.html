@@ -20,6 +20,7 @@
       <ion-select-option value="DATE">By Date</ion-select-option>
       <ion-select-option value="VISITORS">By Visitors</ion-select-option>
       <ion-select-option value="DEMAND">By Demand</ion-select-option>
+      <ion-select-option value="HOT_DEAL">By Hot Deal</ion-select-option>
    </ion-select>
   </div>
   <div *ngIf="searchBy=='NAME' || searchBy=='NUMBER'" class="top-position">
@@ -69,6 +70,25 @@
 
 </form>
 </div>
+<!-- <div *ngIf="searchBy=='HOT_DEAL'"  >
+    <form [formGroup]="form">
+  <div class="row top-position">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+</div> -->
 <div *ngIf="searchBy=='VISITORS'"  >
   <div  class="global_input_block input-position">
     <ion-select [(ngModel)]="visitType"  fill="outline" label="Visit Type" label-placement="stacked">
@@ -140,7 +160,7 @@
  <app-view-customer-list *ngIf="customerData?.length" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="customerData"></app-view-customer-list>  
     <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!customerData?.length && !share?.globalLoading"></app-no-data-view>
 </div>
-<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND')" class="row">
+<div *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND' || searchBy=='HOT_DEAL')" class="row">
   <!-- <div class="col-6 col-md-6 ">
 <ion-button   (click)="generatePDF()" class="global_submit_button button-width" expand="block">Genrate Pdf</ion-button>
 </div> -->
@@ -152,7 +172,7 @@
 
 </div>
 </div>
-<div class="scroll"  *ngIf="(searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND') && customerList?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
+<div class="scroll"  *ngIf="(searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND' || searchBy=='HOT_DEAL') && customerList?.length" id="customerDataReport" class="top-margin scroll" style="width: 100%;">
   <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
   </div> -->
@@ -205,6 +225,7 @@
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">Date</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Name</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Mobile No.</th>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Hot Deal</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Type</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Platform</th>
         <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Requirement</th>
@@ -222,6 +243,8 @@
         <td style="text-align: center;">{{cus?.createdOn}}</td>
         <td style="padding: 5px 10px;">{{cus?.name}}</td>
         <td style="padding: 5px 10px;">{{cus?.mobileNo}}</td>
+        <td style="padding: 5px 10px;" *ngIf="!cus?.isHOTDeal">No</td>
+        <td style="padding: 5px 10px;" *ngIf="cus?.isHOTDeal">Yes</td>
         <td style="padding: 5px 10px;">{{cus?.customerType}}</td>
         <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
         <td style="padding: 5px 10px;">{{cus?.lastDemand?.demand ||'-'}}</td>

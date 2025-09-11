@@ -48,6 +48,8 @@ import { ReviewPageComponent } from '../customer-management/review-page/review-p
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
 import { ViewStaffListComponent } from './view-staff-list/view-staff-list.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
+import { SelectCityModelComponent } from './select-city-model/select-city-model.component';
+import { SelectDistrictModelComponent } from './select-district-model/select-district-model.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -101,8 +103,11 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
     ViewCustomerListComponent,
     ReviewPageComponent,
     ViewCustomerDataComponent,
-    ViewStaffListComponent
+    ViewStaffListComponent,
 
+    SelectCityModelComponent,
+    SelectDistrictModelComponent
+    
   ],
   schemas: [],
   exports: [

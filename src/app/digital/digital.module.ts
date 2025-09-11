@@ -32,6 +32,7 @@ import { CustomerDashboardComponent } from '../customer-management/customer-dash
 import { SoldStatusEntryComponent } from '../customer-management/sold-status-entry/sold-status-entry.component';
 import { DistrictManagementComponent } from '../shared-components/district-management/district-management.component';
 import { AddDistrictComponent } from '../shared-components/district-management/add-district/add-district.component';
+import { CloseHotDealComponent } from '../customer-management/view-customer-data/close-hot-deal/close-hot-deal.component';
 @NgModule({
   declarations: [
     DigitalComponent,
@@ -52,7 +53,8 @@ import { AddDistrictComponent } from '../shared-components/district-management/a
     CustomerDashboardComponent,
     SoldStatusEntryComponent,
     DistrictManagementComponent,
-    AddDistrictComponent
+    AddDistrictComponent,
+    CloseHotDealComponent
   ],
   imports: [
     DigitalPageRoutingModule,

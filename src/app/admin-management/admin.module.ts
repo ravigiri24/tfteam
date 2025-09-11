@@ -16,6 +16,7 @@ import { PendingReportsComponent } from './pending-reports/pending-reports.compo
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LeadEmployeeMgmtComponent } from './lead-employee-mgmt/lead-employee-mgmt.component';
 import { AddLeadStaffComponent } from './lead-employee-mgmt/add-lead-staff/add-lead-staff.component';
+import { AddDistrictInStaffComponent } from './lead-employee-mgmt/add-district-in-staff/add-district-in-staff.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -27,7 +28,8 @@ import { AddLeadStaffComponent } from './lead-employee-mgmt/add-lead-staff/add-l
     PendingReportsComponent,
     AdminHeaderComponent,
     LeadEmployeeMgmtComponent,
-    AddLeadStaffComponent
+    AddLeadStaffComponent,
+    AddDistrictInStaffComponent
   ],
   imports: [
    

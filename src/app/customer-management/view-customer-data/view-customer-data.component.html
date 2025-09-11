@@ -34,6 +34,7 @@
       <!-- {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}} -->
       <ion-grid class="main_block_details">
         <ion-card>
+         
           <ion-row>
             <ion-col>State</ion-col>
             <ion-col class="amount_col"> {{ customerSelected?.stateDetails?.name || '-' }}</ion-col>
@@ -61,7 +62,33 @@
     </ion-button></ion-col>
           </ion-row>
         </ion-card>
+               <ion-card>
+                <ion-row>
+              <ion-col>Mark Hot Deal</ion-col>
+              <ion-col *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen" class="amount_col">      <ion-col class="amount_col"> <ion-button  (click)="considerAsHotDeal()" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+    Start
+    </ion-button></ion-col></ion-col>
+      <ion-col *ngIf="lastHotDeal?.isDealOpen==1" class="amount_col">      <ion-col class="amount_col"> <ion-button  (click)="closeHotDeal()" fill="clear">
+      <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
+    Remove
+    </ion-button></ion-col></ion-col>
+            </ion-row>
+            </ion-card>
         </ion-grid>
+              <div class="chat_history_block" *ngIf="hotDeal_history?.length">
+        <div class="chat_details_block" *ngFor="let deal of hotDeal_history; let i = index;">
+          <div class="top_row">
+            <div *ngIf="deal?.isDealOpen==1" class="type">Hot Deal Running</div>
+            <div *ngIf="deal?.isDealOpen==0" class="type">Hot Deal Closed</div>
+          <div class="date" ><b>Start Date</b>{{deal?.createdOn | date}}</div>
+          </div>
+  
+          <ion-card-title *ngIf="deal?.isDealOpen==0"  class="chat_details">{{deal?.close_remark}}</ion-card-title>
+            <span class="right_date" *ngIf="deal?.isDealOpen==0" >Close Date: {{deal?.closeHotDealDate | date}}</span>
+    
+        </div>
+      </div>
       <div class="chat_history_block" *ngIf="chatHistory?.length">
         <div class="chat_details_block" *ngFor="let chat of chatHistory; let i = index;">
           <div class="top_row">

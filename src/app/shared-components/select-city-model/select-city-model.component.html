@@ -1,0 +1,39 @@
+  <ion-header >
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      Select City
+      <div class="left_text">
+
+
+      </div>
+      <div class="right_action">
+          
+        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+  </div>
+  <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <span class="top_layers">City</span>
+    <span class="name_selected">{{cityName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+        </ion-select> -->
+  </div>
+    <div class="row" >
+      <ion-button  (click)="addCity()" class="global_submit_button" >
+    
+      Add</ion-button>
+      </div>
+  </ion-content>
