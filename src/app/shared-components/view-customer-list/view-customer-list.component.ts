@@ -9,8 +9,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrls: ['./view-customer-list.component.scss'],
 })
 export class ViewCustomerListComponent  implements OnInit {
-  @Input() search: any;
-  @Input() searchKey: any;
+  @Input() search: any={mobileNo:null};
+  @Input() searchKey: any='mobileNo';
   @Input() showSearch: any = true;
   @Input() width: any = 60;
   @Input() list: any = [];

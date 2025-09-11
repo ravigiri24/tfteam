@@ -92,7 +92,7 @@ export class CustomerListDistrictWiseComponent implements OnInit {
     this.districtList = [];
     let obj: any = this.share.getStaffObj();
     obj.staff_id = this.staffDetails?.id;
-    this.share.showLoading("Loading Data...")
+    this.share.showLoading("Loading")
     this.api.postapi('getAllotedDistrictList', obj).subscribe(
       (res: any) => {
         this.districtList = res?.data;

@@ -14,13 +14,15 @@ import { LeadDepartmentComponent } from './lead-department.component';
 import { CustomerListVisitngComponent } from './customer-list-visitng/customer-list-visitng.component';
 import { CustomerListDistrictWiseComponent } from './customer-list-district-wise/customer-list-district-wise.component';
 import { CustomerListFollowUpComponent } from './customer-list-follow-up/customer-list-follow-up.component';
+import { SearchCustomerComponent } from './search-customer/search-customer.component';
 @NgModule({
   declarations: [
 LeadFooterComponent,
 LeadDepartmentComponent,
 CustomerListVisitngComponent,
 CustomerListDistrictWiseComponent,
-CustomerListFollowUpComponent
+CustomerListFollowUpComponent,
+SearchCustomerComponent
   ],
   imports: [
         CommonModule,

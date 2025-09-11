@@ -38,7 +38,7 @@ export class CustomerListFollowUpComponent  implements OnInit {
 
     this.date = yyyy + '-' + mm + '-' + dd;
 
-    this.getFollowList();
+    this.getDistrictList();
   }
   async viewCustomer(customer: any = null) {
     const modal = await this.modalController.create({
@@ -135,18 +135,40 @@ export class CustomerListFollowUpComponent  implements OnInit {
       image: './././assets/images/data.png',
     },
   ];
+    districtList: any = [];
+  districtListSrc: any = [];
+  getDistrictList(selectDistrict: any = false) {
+    this.districtList = [];
+    let obj: any = this.share.getStaffObj();
+    obj.staff_id = this.staffDetails?.id;
+    this.share.showLoading("Loading")
+    this.district_ids=[]
+    this.api.postapi('getAllotedDistrictList', obj).subscribe(
+      (res: any) => {
+        this.districtList = res?.data;
+      this.districtList.forEach((f:any)=>{
+        this.district_ids.push(Number(f?.district_id))
+      })
+        this.getFollowList();
+
+        //    this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
+  }
   search: any;
   showData = true;
   loader = false;
   customerList: any = [];
+  district_ids: any = [];
   getFollowList() {
     this.loader = true;
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.date = this.date;
-    obj.storeId = this.staffDetails?.storeId;
-    this.share.showLoading('Loading...');
+    obj.district_ids = this.district_ids;
+    //this.share.showLoading('Loading...');
     this.customerList = [];
-    this.api.postapi('getFollowupList', obj).subscribe(
+    this.api.postapi('getFollowupListDistrictWise', obj).subscribe(
       (res: any) => {
         this.followUpList = res.data;
         res?.data?.forEach((f: any) => {
