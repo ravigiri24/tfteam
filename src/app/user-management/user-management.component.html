@@ -11,11 +11,11 @@
     </ion-card>
     <ion-grid>
       <ion-row class="details_line_row">
-        <ion-card class="left_icons_block">
+        <ion-card (click)="updatePassword()" class="left_icons_block">
           <ion-icon name="person-outline"></ion-icon>
         </ion-card>
         <div class="right_flex-data">
-          <ion-label class="margin-left"><b>Name</b></ion-label>
+          <ion-label  class="margin-left"><b>Name</b></ion-label>
           <ion-label class="margin-left">{{staffDetails?.name}} </ion-label>
         </div>
       </ion-row>

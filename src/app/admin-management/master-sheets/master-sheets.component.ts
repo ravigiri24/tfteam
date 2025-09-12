@@ -281,7 +281,8 @@ if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
 
 }
 
-tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
+//tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
+tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+37000
   }
 
   logisticExpenseTypeList: any = [];

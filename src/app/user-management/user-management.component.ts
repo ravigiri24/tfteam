@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectRoleComponent } from './select-role/select-role.component';
 import { ApiService } from '../api.service';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -87,5 +88,22 @@ this.share.showLoading("Getting Data")
       this.share.set_staff_detail_session(userde);
       this.share.checkLogin();
     }
+  }
+    async updatePassword() {
+    const modal = await this.modalCtrl.create({
+      component: UpdatePasswordComponent,
+ 
+      cssClass: 'custom-modal',
+      componentProps: {
+        staffDetails:this.staffDetails
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+  if(data){
+          this.share.clearSession();
+          this.share.presentToast("Updated Successfully,Please Re Login")
+      this.router.navigate(['/login']);
+  }
   }
 }

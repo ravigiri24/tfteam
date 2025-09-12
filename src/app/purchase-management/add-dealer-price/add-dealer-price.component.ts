@@ -48,6 +48,7 @@ export class AddDealerPriceComponent implements OnInit {
   initialize(data: any = null) {
     this.form = this.formBuilder.group({
       dealerPrice: new FormControl(data?.dealerPrice,   [Validators.required]),
+      dateOfDealerSale: new FormControl(data?.dateOfDealerSale,   [Validators.required]),
 
       wareHouseLocation: new FormControl(
         this.tractorDetails?.tractordetailadmin?.wareHouseLocation || null,
@@ -70,6 +71,7 @@ export class AddDealerPriceComponent implements OnInit {
       let dataTractor: any = {
         dealerPrice: this.form.value.dealerPrice,
         isSoldToDealer: true,
+        dateOfDealerSale: this.form.value.dateOfDealerSale,
       };
       let obj = {
         src: 'tractor',

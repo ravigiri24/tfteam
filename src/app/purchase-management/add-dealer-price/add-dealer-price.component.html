@@ -22,6 +22,7 @@
         <ion-icon (click)="getWareHouseLocationList()" name="refresh-outline"></ion-icon>
       </div>
     </div>
+       <div class="global_input_block ">
   <ion-item class="bottom-margin">
     <ion-input
       label="Dealer Price"
@@ -31,7 +32,18 @@
     formControlName="dealerPrice"
     ></ion-input>
   </ion-item>
-
+  </div>
+         <div class="global_input_block ">
+   <ion-item class="bottom-margin">
+    <ion-input
+      label="Date Of Sell"
+      labelPlacement="stacked"
+      type="date"
+    
+    formControlName="dateOfDealerSale"
+    ></ion-input>
+  </ion-item>
+ </div>
   <div class="login-button">
 
     <ion-button *ngIf="!tractorDetails?.dealerPrice" (click)="savePrice()"  style="text-align: center;" expand="block" >Save</ion-button>

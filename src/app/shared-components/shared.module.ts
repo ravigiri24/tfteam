@@ -50,6 +50,7 @@ import { ViewStaffListComponent } from './view-staff-list/view-staff-list.compon
 import { CommonHeaderComponent } from './common-header/common-header.component';
 import { SelectCityModelComponent } from './select-city-model/select-city-model.component';
 import { SelectDistrictModelComponent } from './select-district-model/select-district-model.component';
+import { UpdatePasswordComponent } from '../user-management/update-password/update-password.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -106,7 +107,8 @@ import { SelectDistrictModelComponent } from './select-district-model/select-dis
     ViewStaffListComponent,
 
     SelectCityModelComponent,
-    SelectDistrictModelComponent
+    SelectDistrictModelComponent,
+    UpdatePasswordComponent
     
   ],
   schemas: [],
