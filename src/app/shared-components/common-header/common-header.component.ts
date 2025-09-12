@@ -16,5 +16,9 @@ export class CommonHeaderComponent  implements OnInit {
     // this.listBy= 'BUFFER';
     console.log("listColorClass",this.listColorClass);
   }
+  submenuOpen: boolean = false;
+  openSubmenu(){
+    this.submenuOpen = !this.submenuOpen;
+  }
 
 }

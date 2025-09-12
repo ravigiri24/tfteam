@@ -11,16 +11,28 @@
           <div class="btn_icons">
             <ion-icon class="icon-size" name="search-outline"></ion-icon>
             <ion-icon class="icon-size" name="refresh-outline"></ion-icon>
-            <ion-icon class="icon-size" name="cog-outline"></ion-icon>
+            <!-- <ion-icon class="icon-size" name="cog-outline"></ion-icon> -->
+            <ion-icon class="icon-size" name="list-outline" (click)="openSubmenu()"></ion-icon>
           </div>
           <span class="wave dynamic_bgcolor"></span>
           <span class="wave dynamic_bgcolor"></span>
           <span class="wave dynamic_bgcolor"></span>
         </div>
-        <div class="right_more_action">
+        <!-- <div class="right_more_action">
           <ion-icon class="dynamic_color menu_icons" name="list-outline"></ion-icon>
-        </div>
+        </div> -->
       </div>
     </ion-label>
   </ion-toolbar>
+  <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
+    <div class="sub_menu_item">
+      <ion-icon class="dynamic_color" name="list-outline"></ion-icon>
+      <span class="text">Buffer Stock</span>
+    </div>
+    <div class="sub_menu_item">
+      <ion-icon class="dynamic_color" name="cog-outline"></ion-icon>
+      <span class="text">Archived</span>
+    </div>
+  </div>
 </ion-header>
+<div [ngClass]="{'overlay':submenuOpen}" (click)="openSubmenu()"></div>

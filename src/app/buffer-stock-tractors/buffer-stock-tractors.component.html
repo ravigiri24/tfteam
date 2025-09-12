@@ -10,14 +10,11 @@
         <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
         <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
         <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
-        <!-- <ion-button style="margin-right: 10px;" class="button-theme add-button right-margine" slot="end"
-          (click)="refreshList()" fill="outline"><ion-icon class="theme-color"
-            name="refresh-outline"></ion-icon></ion-button> -->
       </div>
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<!-- <app-common-header [listColorClass]="listColorClass" [listBy]="listBy" [buffertractorList]="buffertractorList" ></app-common-header> -->
+<!-- <app-common-header class="app_common_header" [listColorClass]="listColorClass" [listBy]="listBy" [buffertractorList]="buffertractorList" ></app-common-header> -->
 <ion-content>
   <app-view-list *ngIf="buffertractorList?.length" [rowLineCount]="4" [listColorClass]="listColorClass"
     [buttonArray]="buttonArray" [keyList]="keyList" [list]="buffertractorList" [search]="search"
