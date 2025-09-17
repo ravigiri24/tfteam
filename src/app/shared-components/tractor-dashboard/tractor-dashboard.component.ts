@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import {
   FormGroup,
@@ -40,9 +41,9 @@ export class TractorDashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private inAppBrowser: InAppBrowser,
     private alertCtrl: AlertController
-  ) {}
-
-  ngOnInit() {}
+  ) { }
+  @Input() listColorClass: any = "fifthColor";
+  ngOnInit() { }
   async goToUplodeSection() {
     let tarctor_id = this.tractorDetails?.id;
     const modal = await this.modalCtrl.create({
@@ -147,7 +148,7 @@ export class TractorDashboardComponent implements OnInit {
 
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   addCost() {
@@ -383,7 +384,7 @@ export class TractorDashboardComponent implements OnInit {
   async openDealerPrice() {
     const modal = await this.modalCtrl.create({
       component: AddDealerPriceComponent,
-   
+
       cssClass: 'custom-modal',
       componentProps: {
         tractorDetails: this.tractorDetails,
@@ -396,13 +397,13 @@ export class TractorDashboardComponent implements OnInit {
       // this.tractorDetails.isSoldToDealer = true;
       // this.tractorDetails.tractordetailadmin.wareHouseLocation =
       //   data?.wareHouseLocation;
-        this.getTractorDetails('Refreshing Data...')
+      this.getTractorDetails('Refreshing Data...')
     }
   }
-    async addRtoCost() {
+  async addRtoCost() {
     const modal = await this.modalCtrl.create({
       component: AddRtoInsuranceCostComponent,
-    
+
       cssClass: 'custom-modal',
       componentProps: {
         tractorDetails: this.tractorDetails,
@@ -415,11 +416,11 @@ export class TractorDashboardComponent implements OnInit {
       // this.tractorDetails.isSoldToDealer = true;
       // this.tractorDetails.tractordetailadmin.wareHouseLocation =
       //   data?.wareHouseLocation;
-        this.getTractorDetails('Refreshing Data...')
+      this.getTractorDetails('Refreshing Data...')
     }
   }
-async  changeSoldAlert(){
-  const alert = await this.alertCtrl.create({
+  async changeSoldAlert() {
+    const alert = await this.alertCtrl.create({
       header: 'Revert Sale',
       subHeader: '',
       message: 'Are You Sure',
@@ -441,10 +442,10 @@ async  changeSoldAlert(){
     }
   }
 
-  deleteSalesDetails(){
-       let objData: any = {
+  deleteSalesDetails() {
+    let objData: any = {
       isDeleted: 1,
- 
+
     };
     let obj = {
       src: 'tractorsellingdetails',
@@ -454,17 +455,17 @@ async  changeSoldAlert(){
 
     this.share.showLoading('Reverting Sales...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
- 
-     this.removeSellId()
+
+      this.removeSellId()
 
 
       //  this.dismiss();
     });
   }
-    removeSellId(){
-        let objData: any = {
-          isSold: 0,
-      sellingDetailedId:null
+  removeSellId() {
+    let objData: any = {
+      isSold: 0,
+      sellingDetailedId: null
     };
     let obj = {
       src: 'tractor',
@@ -472,11 +473,11 @@ async  changeSoldAlert(){
       id: this.tractorDetails?.id,
     };
 
-  
+
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.tractorDetails.isSold=0
-      this.tractorDetails.sellingDetailedId=null
-    this.share.spinner.dismiss()
+      this.tractorDetails.isSold = 0
+      this.tractorDetails.sellingDetailedId = null
+      this.share.spinner.dismiss()
       this.share.presentToast('Revert Successfully...');
 
 

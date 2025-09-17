@@ -1,12 +1,118 @@
-.right-margine{
-margin-right: 20px;
-font-size: 32px;
+// .right-margine {
+//     margin-right: 20px;
+//     font-size: 32px;
+// }
+
+// :host {
+//     ion-button {
+
+
+//         --outline-color: var(--app-theme-element-color) !important;
+//         --color: var(--app-theme-element-color) !important;
+
+//     }
+// }
+
+
+.main_card_block {
+    ion-card-content {
+        background-color: #f5f5ff;
+    }
+
+    .flex_block_container {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        flex-flow: wrap;
+
+        .right_details_block {
+            width: 100%;
+            position: relative;
+
+            &:before {
+                content: "";
+                position: absolute;
+                width: 120px;
+                height: 120px;
+                top: -50px;
+                left: -40px;
+                border-radius: 50%;
+                z-index: 0;
+                opacity: 0.1;
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                bottom: -10px;
+                right: -65px;
+                transform: rotate(45deg);
+                z-index: 0;
+                opacity: 0.1;
+            }
+
+            ion-card-title {
+                font-size: 16px;
+
+                .dynamic_color {
+                    font-size: 24px;
+                    padding-bottom: 5px;
+                    display: flex;
+                    letter-spacing: .5px;
+                }
+            }
+
+            ion-card-subtitle {
+                margin: 5px 0px 5px 0px;
+
+                b {
+                    span {
+                        font-size: 20px;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+
+        .main_title_text {
+            color: #6f6e6e;
+            font-size: 14px;
+
+        }
+    }
+
+    .accordian_card {
+        margin: 15px 0px;
+        border: dotted thin;
+        border-bottom: none;
+
+        ion-accordion {
+            ion-item {
+                height: 36px;
+                display: flex;
+
+                ion-label {
+                    font-size: 14px;
+                    color: #ffffff;
+                    margin: 0px;
+                }
+
+                ion-item ion-icon {
+                    color: #ffffff !important;
+                }
+            }
+
+            .ion-padding {
+                padding: 5px;
+
+                ion-col {
+                    font-size: 12px;
+
+                }
+            }
+        }
+    }
 }
-:host {
-    ion-button {
-      
-        
-        --outline-color:var(--app-theme-element-color) !important;
-        --color:var(--app-theme-element-color) !important;
-        
-        }}

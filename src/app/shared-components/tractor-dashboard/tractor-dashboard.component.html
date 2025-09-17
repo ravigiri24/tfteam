@@ -1,158 +1,191 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Dashboard</ion-title>  
-   
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
     <ion-buttons (click)="backToSrcPage()" slot="end">
-      <ion-icon class="theme-color icon-size"   name="arrow-back-outline"></ion-icon>
+      <ion-icon class="theme-color icon-size" name="arrow-back-outline"></ion-icon>
     </ion-buttons>
-    <!-- <ion-buttons slot="end">
+    <ion-buttons slot="end">
       <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons> -->
-  </ion-toolbar>  
-</ion-header> 
-<ion-content>
-<ion-card *ngIf="tractorDetails" color="light">
-  <ion-card-header>
-    <ion-card-title>{{tractorDetails?.name}}</ion-card-title>
-    <ion-card-subtitle>{{tractorDetails?.registractionNo}} 
-   </ion-card-subtitle>
-  </ion-card-header>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content class="main_card_block">
+  <!-- <ion-card > -->
+  <ion-card-content [ngClass]="listColorClass" *ngIf="tractorDetails">
 
-  <ion-card-content>
-    {{tractorDetails?.yearOfManufactoring}} |  {{tractorDetails?.createdOn}}  |  {{tractorDetails?.hours}}
-  </ion-card-content>
-  <!-- <ion-button  (click)="addStatus(tractorDetails)" fill="clear">
+    <div class="flex_block_container">
+      <div class="right_details_block">
+        <ion-card-title><span class="dynamic_color">{{tractorDetails?.name}}</span></ion-card-title>
+        <ion-card-subtitle>
+          <span><b>
+              <span>{{ tractorDetails?.registractionNo }}</span>
+              <span *ngIf="tractorDetails?.tractor_status">-&nbsp; {{tractorDetails?.tractor_status }}</span>
+              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0 ">-Live</span>
+              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1 ">-Draft</span>
+              <span *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">-Sold To Customer</span>
+              <span *ngIf="tractorDetails?.isSoldToDealer==1">- Sold To Dealer</span>
+              <span *ngIf="tractorDetails?.isSold==0 && tractorDetails?.isSoldToDealer==0">- Not Sold</span>
+            </b>
+          </span>
+        </ion-card-subtitle>
+        <span class="main_title_text">
+          {{ tractorDetails?.yearOfManufactoring }} | {{ tractorDetails?.createdOn | date }} | {{ tractorDetails?.hours
+          }}
+        </span>
+      </div>
+      <ion-buttons class="right_backbtn dynamic_color" (click)="backToSrcPage()" slot="end">
+        <ion-icon class="icon-size" name="arrow-back-outline"></ion-icon>
+      </ion-buttons>
+    </div>
+
+    <!-- <ion-card *ngIf="tractorDetails" color="light">
+      <ion-card-header>
+        <ion-card-title>{{tractorDetails?.name}}</ion-card-title>
+        <ion-card-subtitle>{{tractorDetails?.registractionNo}}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{tractorDetails?.yearOfManufactoring}} | {{tractorDetails?.createdOn}} | {{tractorDetails?.hours}}
+      </ion-card-content>
+      <ion-button  (click)="addStatus(tractorDetails)" fill="clear">
     <ion-icon    class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
   </ion-button>
   <ion-button  (click)="readyConfirmation(tractorDetails)" fill="clear">
     <ion-icon    class="right-margine theme-color" name="checkmark-done-outline"></ion-icon>
-  </ion-button> -->
- 
+  </ion-button>
+    </ion-card> -->
+    <ion-accordion-group class="accordian_dashboard" [multiple]="true" [value]="[]">
+      <ion-card class="accordian_card">
+        <ion-accordion value="sixth">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Purchase Card</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="openPurchaseCard()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="card-outline"></ion-icon>
+                  Generate
+                </ion-button>
 
-</ion-card>
-<ion-accordion-group [multiple]="true" [value]="[]">
-    <ion-accordion  value="sixth">
-    <ion-item slot="header" color="light">
-      <ion-label>Purchase Card</ion-label>
-      
-    </ion-item>
-  
-    <div class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item >
-          <ion-button  (click)="openPurchaseCard()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="card-outline"></ion-icon>
-          Generate
-          </ion-button>
-      
-        </ion-item>
-        <ion-item *ngIf="cardHistory?.imageUrlUrl" >
-          <ion-button  (click)="download(cardHistory?.imageUrlUrl)"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="download-outline"></ion-icon>
-     Download
-          </ion-button>
-      
-        </ion-item>
-    
-       
-      </ion-list>
-      </div>
-      
-  </ion-accordion>
-    <ion-accordion  value="seventh">
-    <ion-item slot="header" color="light">
-      <ion-label>Images</ion-label>
-      
-    </ion-item>
-  
-    <div class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item >
-          <ion-button  (click)="goToUplodeSection()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="card-outline"></ion-icon>
-     Uploads
-          </ion-button>
-      
-        </ion-item>
-     
-    
-       
-      </ion-list>
-      </div>
-      
-  </ion-accordion>
-  <ion-accordion  value="third">
-    <ion-item slot="header" color="light">
-      <ion-label>Basic Details</ion-label>
-      
-    </ion-item>
-  
-    <div class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item >
-          <ion-button  (click)="openEdit()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="create-outline"></ion-icon>
-          Edit Details
-          </ion-button>
-      
-        </ion-item>
-        <ion-item >
-          <ion-button  (click)="startTranspotation()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="car-outline"></ion-icon>
-        Transport Start Details
-          </ion-button>
-      
-        </ion-item>
-    
-       
-      </ion-list>
-      </div>
-      
-  </ion-accordion>
-  <ion-accordion   value="first">
-    <ion-item slot="header" color="light">
-      <ion-label>Logistic</ion-label>
-      
-    </ion-item>
-  
-    <div class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item >
-          <ion-button  (click)="addCost()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="calculator-outline"></ion-icon>
-          Expense
-          </ion-button>
-      
-        </ion-item>
-      
-        <ion-item >
-          <ion-button  (click)="addStatusTransport()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
-          Remark
-          </ion-button>
-      
-        </ion-item>
-        <ion-item >
-          <ion-button  (click)="showDeliveryModal()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="storefront-outline"></ion-icon>
-          Delivery Details
-          </ion-button>
-      
-        </ion-item>
-        <!-- <ion-item  *ngIf="tractorDetails?.transportDestinationId!=null" >
+              </ion-item>
+              <ion-item *ngIf="cardHistory?.imageUrlUrl">
+                <ion-button (click)="download(cardHistory?.imageUrlUrl)" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="download-outline"></ion-icon>
+                  Download
+                </ion-button>
+
+              </ion-item>
+
+
+            </ion-list>
+          </div>
+
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="seventh">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Images</ion-label>
+
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="goToUplodeSection()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="card-outline"></ion-icon>
+                  Uploads
+                </ion-button>
+
+              </ion-item>
+
+
+
+            </ion-list>
+          </div>
+
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="third">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Basic Details</ion-label>
+
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="openEdit()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="create-outline"></ion-icon>
+                  Edit Details
+                </ion-button>
+
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="startTranspotation()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="car-outline"></ion-icon>
+                  Transport Start Details
+                </ion-button>
+
+              </ion-item>
+
+
+            </ion-list>
+          </div>
+
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="first">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Logistic</ion-label>
+
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="addCost()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="calculator-outline"></ion-icon>
+                  Expense
+                </ion-button>
+
+              </ion-item>
+
+              <ion-item>
+                <ion-button (click)="addStatusTransport()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
+                  Remark
+                </ion-button>
+
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="showDeliveryModal()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="storefront-outline"></ion-icon>
+                  Delivery Details
+                </ion-button>
+
+              </ion-item>
+              <!-- <ion-item  *ngIf="tractorDetails?.transportDestinationId!=null" >
           <ion-button  (click)="startRepairing()"  fill="clear">
             <ion-icon   class="right-margine theme-color"  name="construct-outline"></ion-icon>
           Start Reparing Details
           </ion-button>
       
         </ion-item> -->
-       
-      </ion-list>
-      </div>
-      
-  </ion-accordion>
-  <!-- <ion-accordion value="second">
-    <ion-item slot="header" color="light">
+
+            </ion-list>
+          </div>
+
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <!-- <ion-accordion value="second">
+    <ion-item slot= "header" class="dynamic_bgcolor">
       <ion-label>Maintainance</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
@@ -181,24 +214,24 @@
     </ion-list>
       </div>
   </ion-accordion> -->
-  <ion-accordion   value="fourth">
-    <ion-item slot="header" color="light">
-      <ion-label>Archived</ion-label>
-    </ion-item>
-    <div   class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item >
-          <ion-button *ngIf="tractorDetails?.tractor_status==null"  (click)="archivedAlert()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
-        Send To Archived
-          </ion-button>
-        <ion-button *ngIf="tractorDetails?.tractor_status=='ARCHIVED'"  (click)="sendDraftAlert()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
-         Send To Buffer
-          </ion-button>
-        </ion-item>
-      
-        <!-- <ion-item  *ngIf="tractorDetails?.sellingDetailedId" >
+        <ion-accordion value="fourth">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Archived</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button *ngIf="tractorDetails?.tractor_status==null" (click)="archivedAlert()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
+                  Send To Archived
+                </ion-button>
+                <ion-button *ngIf="tractorDetails?.tractor_status=='ARCHIVED'" (click)="sendDraftAlert()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
+                  Send To Buffer
+                </ion-button>
+              </ion-item>
+
+              <!-- <ion-item  *ngIf="tractorDetails?.sellingDetailedId" >
           <ion-button  (click)="addFinanceDetails()"  fill="clear">
             <ion-icon   class="right-margine theme-color" name="document-text-outline"></ion-icon>
         Finance Details
@@ -210,93 +243,102 @@
             <ion-icon   class="right-margine theme-color" name="document-text-outline"></ion-icon>
        Upload Documents
           </ion-button> -->
-      
-    
-   
-    
-    
-    
-    </ion-list>
-      </div>
-  </ion-accordion>
-    <ion-accordion   value="six">
-    <ion-item slot="header" color="light">
-      <ion-label>Sell To Franchise</ion-label>
-    </ion-item>
-    <div   class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1" >
-          <ion-button   (click)="openDealerPrice()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
-    <span >Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To {{tractorDetails?.franchiseDettails?.name}} Franchise At {{tractorDetails?.dealerPrice}})</span></span>
-          </ion-button>
-     
-        </ion-item>
-             <ion-item *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0" >
-<h3>Tractor Sold To Customer   <ion-icon (click)="changeSoldAlert()" class="left_card_icons" name="enter-outline"></ion-icon></h3>
-             </ion-item>
-      
-   
-    
-   
-    
-    
-    
-    </ion-list>
-      </div>
-  </ion-accordion>
-      <ion-accordion   value="Seven">
-    <ion-item slot="header" color="light">
-      <ion-label>RTO And Insurance</ion-label>
-    </ion-item>
-    <div   class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item  >
-          <ion-button   (click)="addRtoCost()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
-    <span >Update Cost</span>
-          </ion-button>
-
-        </ion-item>
-           <ion-item  >
-     <ul>
-      <li>RTO Cost-<b>{{tractorDetails?.rto_cost}}</b></li>
-      <li>Insurance Cost-<b>{{tractorDetails?.insurance_cost}}</b></li>
-     </ul>
-           </ion-item>
-          
-      
-   
-    
-   
-    
-    
-    
-    </ion-list>
-      </div>
-  </ion-accordion>
-  <ion-accordion   value="fifth">
-    <ion-item slot="header" color="light">
-      <ion-label>Other Expenses</ion-label>
-    </ion-item>
-    <div   class="ion-padding" slot="content">
-      <ion-list  >
-        <ion-item >
-          <ion-button  (click)="AddOtherExpense()"  fill="clear">
-            <ion-icon   class="right-margine theme-color" name="cash-outline"></ion-icon>
-         Add Other Expenses
-          </ion-button>
-      
-        </ion-item>
-      
-   
-    
-    
-    
-    </ion-list>
-      </div>
-  </ion-accordion>
 
 
-</ion-accordion-group>
+
+
+
+
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="six">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Sell To Franchise</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1">
+                <ion-button (click)="openDealerPrice()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
+                  <span>Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To
+                      {{tractorDetails?.franchiseDettails?.name}} Franchise At
+                      {{tractorDetails?.dealerPrice}})</span></span>
+                </ion-button>
+
+              </ion-item>
+              <ion-item *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">
+                <h3>Tractor Sold To Customer <ion-icon (click)="changeSoldAlert()" class="left_card_icons"
+                    name="enter-outline"></ion-icon></h3>
+              </ion-item>
+
+
+
+
+
+
+
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="Seven">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>RTO And Insurance</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="addRtoCost()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
+                  <span>Update Cost</span>
+                </ion-button>
+
+              </ion-item>
+              <ion-item>
+                <ul>
+                  <li>RTO Cost-<b>{{tractorDetails?.rto_cost}}</b></li>
+                  <li>Insurance Cost-<b>{{tractorDetails?.insurance_cost}}</b></li>
+                </ul>
+              </ion-item>
+
+
+
+
+
+
+
+
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-card>
+      <ion-card class="accordian_card">
+        <ion-accordion value="fifth">
+          <ion-item slot="header" class="dynamic_bgcolor">
+            <ion-label>Other Expenses</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-button (click)="AddOtherExpense()" fill="clear">
+                  <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
+                  Add Other Expenses
+                </ion-button>
+
+              </ion-item>
+
+
+
+
+
+            </ion-list>
+          </div>
+        </ion-accordion>
+      </ion-card>
+    </ion-accordion-group>
+  </ion-card-content>
 </ion-content>
