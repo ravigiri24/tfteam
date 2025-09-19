@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -15,7 +15,7 @@ export class SyncTractorWithMaintaninanceComponent implements OnInit {
     private share: ShareService,
     private alertCtrl:AlertController
   ) {}
-
+  @Input() listColorClass: any = "fifthColor";
   ngOnInit() {
 
     this.getSavedJobList()

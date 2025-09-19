@@ -2,42 +2,35 @@
   <ion-toolbar>
     <ion-title>Sync Mainatainance</ion-title>
     <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
-   
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container">
-
-  <ion-button (click)="addJob()" class="global_submit_button add-job-button" expand="block">
-    <ion-icon name="add-outline" ></ion-icon>
-    Add Job</ion-button>
-    <span class="inner-heading-list">Added Job List</span>
-    <ion-grid *ngIf="savedJobList?.length" class="main_block_details">
-      <ion-card>
-        <ion-row >
-          <ion-col>Sr</ion-col>
-          <ion-col>TF Code</ion-col>
-          <ion-col>Created</ion-col>
-          <ion-col>Action</ion-col>
-        </ion-row>
-        <ion-row *ngFor="let jobs of savedJobList;let i=index">
-          <ion-col>{{i+1}}</ion-col>
-          <ion-col>{{jobs?.tfCode}}</ion-col>
-          <ion-col>{{jobs?.createdOn|date}}</ion-col>
-          <ion-col>
-            <ion-icon class="theme-color icon-size" (click)="deleteItem(jobs)" name="trash-outline"></ion-icon>
-          </ion-col>
-   
-
-        </ion-row>
-       
-      </ion-card>
-      </ion-grid>
-
-   
-<div *ngIf="!savedJobList?.length" class="no-data-block">
-        <img class="image-no-data" src="././assets/images/no-data-found.png" />
-      </div>
-
+<ion-content class="internal_card_container" [ngClass]="listColorClass">
+  <div class="global_input_block select_option_with_add">
+    <ion-title class="inner-heading-list dynamic_color">Added Job List</ion-title>
+    <ion-button (click)="addJob()" class="dynamic_bgcolor" expand="block">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-card *ngIf="savedJobList?.length" class="table_block_details">
+    <ion-row class="table_main_header">
+      <ion-col class="sno_col">Sr</ion-col>
+      <ion-col class="code_col">TF Code</ion-col>
+      <ion-col class="date_col">Created</ion-col>
+      <ion-col class="action_col">Action</ion-col>
+    </ion-row>
+    <ion-row class="table_row" *ngFor="let jobs of savedJobList;let i=index">
+      <ion-col class="sno_col">{{i+1}}</ion-col>
+      <ion-col class="code_col">{{jobs?.tfCode}}</ion-col>
+      <ion-col class="date_col">{{jobs?.createdOn|date}}</ion-col>
+      <ion-col class="action_col">
+        <ion-icon class="delete_color icon-size" (click)="deleteItem(jobs)" name="trash-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <app-no-data-view [ngClass]="listColorClass" *ngIf="!savedJobList?.length"></app-no-data-view>
+  <!-- <div *ngIf="!savedJobList?.length" class="no-data-block">
+    <img class="image-no-data" src="././assets/images/no-data-found.png" />
+  </div> -->
 </ion-content>
