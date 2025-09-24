@@ -53,6 +53,12 @@
     align-items: center;
     justify-content: space-between;
 
+    .dynamic_color {
+        font-size: 24px;
+        text-transform: capitalize;
+        margin-bottom: 5px;
+    }
+
     .right_actions {
         display: flex;
         align-items: center;
@@ -78,10 +84,50 @@
     text-align: right;
     display: inline-block;
 }
-.sub_title {
-    font-size: 12px;
-    margin: 0px 0px;
+
+.customer_alldetails {
+    padding: 15px;
 }
+
+.sub_title {
+    font-size: 13px;
+    margin: 5px 0px;
+}
+.buy_card {
+    margin: 15px 0px 0px;
+    font-size: 12px;
+    width: 100%;
+    padding: 10px 5px 10px 10px;
+    color: #000000;
+}
+
+.action_row {
+    ion-button {
+        color: #ffffff;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .remove_margin {
+        margin-right: 0px;
+    }
+}
+
+.date_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    padding-bottom: 5px;
+
+    ion-col {
+        padding: 0px !important;
+    }
+    .date_col {
+        margin-left: 10px;
+    }
+}
+
 .chat_history_block {
     background: #f5f5ff;
     margin-top: 10px;
@@ -117,6 +163,7 @@
         }
     }
 }
-.right-margin{
-   margin-right:  5px
+
+.right-margin {
+    margin-right: 5px
 }

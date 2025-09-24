@@ -7,36 +7,37 @@
       <!-- <img  (click)="viewImage(customer)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="customer?.imageUrlUrl" onerror="this.src='././assets/images/customer_display.png';"  /> -->
       <ion-grid class="main_block_details" [ngClass]="listColorClass">
         <ion-card>
-   
-          <ion-label class="main_title">{{customer?.name}}    <ion-col class="left_row_title">   <img *ngIf="customer?.isHOTDeal" class="hot-deal" src="./././assets/images/hot-deal.png" /></ion-col></ion-label>
-          <ng-container >
+
+          <ion-label class="main_title" [ngClass]="{'apply_hotdeal': customer?.isHOTDeal}">{{customer?.name}}
+            <img *ngIf="customer?.isHOTDeal" class="hot_deal" src="./././assets/images/hot-deal.png" /></ion-label>
+          <ng-container>
             <!-- <ng-container *ngIf="i < rowLineCount"> -->
-              <ion-row>
-                <ng-container >
-                  <ion-col class="left_row_title">Mobile No</ion-col>
-                  <ion-col class="amount_col">
-                   {{customer?.mobileNo}}</ion-col>
-                </ng-container>
-              
-              </ion-row>
             <ion-row>
-                <ng-container >
-                  <ion-col class="left_row_title">Customer Type</ion-col>
-                  <ion-col class="amount_col">
-                   {{customer?.customerType}}</ion-col>
-                </ng-container>
-              
-              </ion-row>
-                 <ion-row>
-                <ng-container >
-                  <ion-col class="left_row_title">City</ion-col>
-                  <ion-col class="amount_col">
-                   {{customer?.cityDetails?.name}}</ion-col>
-                </ng-container>
-              
-              </ion-row>
-         
-             
+              <ng-container>
+                <ion-col class="left_row_title">Mobile No</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.mobileNo}}</ion-col>
+              </ng-container>
+
+            </ion-row>
+            <ion-row>
+              <ng-container>
+                <ion-col class="left_row_title">Customer Type</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.customerType}}</ion-col>
+              </ng-container>
+
+            </ion-row>
+            <ion-row>
+              <ng-container>
+                <ion-col class="left_row_title">City</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.cityDetails?.name}}</ion-col>
+              </ng-container>
+
+            </ion-row>
+
+
           </ng-container>
           <ion-row *ngIf="buttonArray?.length">
             <ion-col class="action_col" *ngFor="let button of buttonArray">

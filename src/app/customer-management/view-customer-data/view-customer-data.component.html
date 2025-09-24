@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <ion-header>
   <ion-toolbar>
     <ion-label class="top_heading">
@@ -10,38 +11,93 @@
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container">
-  <!-- {{customerSelected | json}} -->
+<ion-content class="internal_card_container" [ngClass]="listColorClass">
+  <div class="customer_alldetails">
+    <div class="title_with_contact">
+      <ion-card-title class="dynamic_color">{{customerSelected?.name}}</ion-card-title>
+      <div class="right_actions">
+        <a target="_blank" href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello">
+          <ion-icon class="whatsapp-color" name="logo-whatsapp"></ion-icon>
+        </a>
+        <a href="tel:{{customerSelected?.mobileNo}}" class="book-now-btn"><ion-icon class="theme-color"
+            name="call-outline"></ion-icon></a>
+      </div>
+    </div>
+    <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} |
+      <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
+      <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action
+        Taken</span></ion-card-subtitle>
+    <ion-card-subtitle class="sub_title">{{customerSelected?.cityDetails?.name || '-'}}, {{
+      customerSelected?.stateDetails?.name || '-'}}, India
+    </ion-card-subtitle>
+    <div class="date_row">
+      <ion-row>
+        <ion-col>Recent Attend Date : </ion-col>
+        <ion-col class="date_col"> {{ customerSelected?.createdOn || '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Next Follw-up Date : </ion-col>
+        <ion-col class="date_col"> {{ customerSelected?.followUpDate?.next_lead_date || '-' }}</ion-col>
+      </ion-row>
+    </div>
+    <div class="action_row">
+      <ion-button (click)="addDemand()" class="dynamic_bgcolor" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+        <span>Demand</span>
+      </ion-button>
+      <ion-button (click)="visiting_dates()" class="dynamic_bgcolor" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+        <span>Visitng</span>
+      </ion-button>
+      <ion-button class="dynamic_bgcolor" *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen"
+        (click)="considerAsHotDeal()" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+        <span>Start As Hot Deal</span>
+      </ion-button>
+      <ion-button class="dynamic_bgcolor" (click)="closeHotDeal()" *ngIf="lastHotDeal?.isDealOpen==1" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
+        <span>Remove As Hot Deal</span>
+      </ion-button>
+    </div>
+    <ion-card class="buy_card">
+      <ion-row>
+        <ion-col>Is customer buy a tracor</ion-col>
+        <ion-col class="amount_col">
+          <span>{{customerSelected?.soldStatus? "Yes" : "NO"}}</span>
+        </ion-col>
+        <div class="action_row">
+          <ion-button class="dynamic_bgcolor" *ngIf="customerSelected?.soldStatus" (click)="removeSoldStatus()"
+            fill="clear">
+            <ion-icon class="icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
+            <span>Remove Sold Status</span>
+          </ion-button>
+          <ion-button class="dynamic_bgcolor remove_margin" (click)="sold_status()" fill="clear">
+            <ion-icon class="icon-size-add right-margin" name="create-outline"></ion-icon>
+            <span>Update Status</span>
+          </ion-button>
+        </div>
+      </ion-row>
+    </ion-card>
+  </div>
   <ion-card>
     <ion-card-content>
-      <div class="title_with_contact">
-        <ion-card-title>{{customerSelected?.name}}</ion-card-title>
-        <div class="right_actions">
-          <!-- <ion-button fill="clear"> -->
-          <a target="_blank" href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello">
-            <ion-icon class="whatsapp-color" name="logo-whatsapp"></ion-icon>
-          </a>
-          <!-- </ion-button> -->
-          <a href="tel:{{customerSelected?.mobileNo}}" class="book-now-btn"><ion-icon class="theme-color"
-              name="call-outline"></ion-icon></a>
-        </div>
-      </div>
-      <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} |
+      <!-- <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} | {{
+        customerSelected?.socialType || '-' }} |
         <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
         <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action
           Taken</span></ion-card-subtitle>
       <span class="right_date">{{customerSelected?.createdOn}}</span>
-      <!-- {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}} -->
+      {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}}
       <ion-grid class="main_block_details">
         <ion-card>
-         
+
           <ion-row>
             <ion-col>State</ion-col>
             <ion-col class="amount_col"> {{ customerSelected?.stateDetails?.name || '-' }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>City</ion-col>
-            <ion-col class="amount_col"> {{  customerSelected?.cityDetails?.name || '-' }}</ion-col>
+            <ion-col class="amount_col"> {{ customerSelected?.cityDetails?.name || '-' }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Platform</ion-col>
@@ -51,42 +107,44 @@
             <ion-col>Next Follw-up Date</ion-col>
             <ion-col class="amount_col"> {{ customerSelected?.followUpDate?.next_lead_date || '-' }}</ion-col>
           </ion-row>
-           <ion-row>
-            <ion-col> <ion-button  (click)="addDemand()" fill="clear">
-      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-     Demand
-    </ion-button></ion-col>
-            <ion-col class="amount_col"> <ion-button  (click)="visiting_dates()" fill="clear">
-      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-    Visitng
-    </ion-button></ion-col>
+          <ion-row>
+            <ion-col> <ion-button (click)="addDemand()" fill="clear">
+                <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+                Demand
+              </ion-button></ion-col>
+            <ion-col class="amount_col"> <ion-button (click)="visiting_dates()" fill="clear">
+                <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+                Visitng
+              </ion-button></ion-col>
           </ion-row>
         </ion-card>
-               <ion-card>
-                <ion-row>
-              <ion-col>Mark Hot Deal</ion-col>
-              <ion-col *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen" class="amount_col">      <ion-col class="amount_col"> <ion-button  (click)="considerAsHotDeal()" fill="clear">
-      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-    Start
-    </ion-button></ion-col></ion-col>
-      <ion-col *ngIf="lastHotDeal?.isDealOpen==1" class="amount_col">      <ion-col class="amount_col"> <ion-button  (click)="closeHotDeal()" fill="clear">
-      <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
-    Remove
-    </ion-button></ion-col></ion-col>
-            </ion-row>
-            </ion-card>
-        </ion-grid>
-              <div class="chat_history_block" *ngIf="hotDeal_history?.length">
+        <ion-card>
+          <ion-row>
+            <ion-col>Mark Hot Deal</ion-col>
+            <ion-col *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen" class="amount_col"> <ion-col
+                class="amount_col"> <ion-button (click)="considerAsHotDeal()" fill="clear">
+                  <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+                  Start As Hot Deal
+                </ion-button></ion-col></ion-col>
+            <ion-col *ngIf="lastHotDeal?.isDealOpen==1" class="amount_col"> <ion-col class="amount_col"> <ion-button
+                  (click)="closeHotDeal()" fill="clear">
+                  <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
+                  Remove As Hot Deal
+                </ion-button></ion-col></ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-grid> -->
+      <div class="chat_history_block" *ngIf="hotDeal_history?.length">
         <div class="chat_details_block" *ngFor="let deal of hotDeal_history; let i = index;">
           <div class="top_row">
             <div *ngIf="deal?.isDealOpen==1" class="type">Hot Deal Running</div>
             <div *ngIf="deal?.isDealOpen==0" class="type">Hot Deal Closed</div>
-          <div class="date" ><b>Start Date</b>{{deal?.createdOn | date}}</div>
+            <div class="date"><b>Start Date</b>{{deal?.createdOn | date}}</div>
           </div>
-  
-          <ion-card-title *ngIf="deal?.isDealOpen==0"  class="chat_details">{{deal?.close_remark}}</ion-card-title>
-            <span class="right_date" *ngIf="deal?.isDealOpen==0" >Close Date: {{deal?.closeHotDealDate | date}}</span>
-    
+
+          <ion-card-title *ngIf="deal?.isDealOpen==0" class="chat_details">{{deal?.close_remark}}</ion-card-title>
+          <span class="right_date" *ngIf="deal?.isDealOpen==0">Close Date: {{deal?.closeHotDealDate | date}}</span>
+
         </div>
       </div>
       <div class="chat_history_block" *ngIf="chatHistory?.length">
@@ -109,7 +167,7 @@
           <span class="right_date">{{chat?.createdOn}}</span>
         </div>
       </div>
-        <div class="chat_history_block" *ngIf="demand_history?.length">
+      <div class="chat_history_block" *ngIf="demand_history?.length">
         <div class="chat_details_block" *ngFor="let demand of demand_history; let i = index;">
           <div class="top_row">
             <div class="type">Demand</div>
@@ -119,36 +177,36 @@
           <span class="right_date">{{demand?.createdOn}}</span>
         </div>
       </div>
-        <div class="chat_history_block" *ngIf="visitng_history?.length">
+      <div class="chat_history_block" *ngIf="visitng_history?.length">
         <div class="chat_details_block" *ngFor="let visiting of visitng_history; let i = index;">
           <div class="top_row">
             <div class="type">{{visiting?.visitng_type}}</div>
-            <div class="date" ><b>Date</b>{{visiting?.visiting_date}}</div>
+            <div class="date"><b>Date</b>{{visiting?.visiting_date}}</div>
           </div>
-         <ion-card-title class="chat_details">{{visiting?.remark}}</ion-card-title> 
+          <ion-card-title class="chat_details">{{visiting?.remark}}</ion-card-title>
           <span class="right_date">{{visiting?.createdOn}}</span>
         </div>
       </div>
-         <ion-grid class="main_block_details">
+      <!-- <ion-grid class="main_block_details">
         <ion-card>
           <ion-row>
             <ion-col>is customer buy a tracor</ion-col>
             <ion-col class="amount_col">{{customerSelected?.soldStatus? "Yes" : "NO"}}</ion-col>
           </ion-row>
-               <ion-row>
-            <ion-col><ion-button  (click)="sold_status()" fill="clear">
-      <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-     Status
-    </ion-button></ion-col>
+          <ion-row>
+            <ion-col><ion-button (click)="sold_status()" fill="clear">
+                <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+                Status
+              </ion-button></ion-col>
             <ion-col class="amount_col">
-              <ion-button *ngIf="customerSelected?.soldStatus"  (click)="removeSoldStatus()" fill="clear">
-      <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
-     Remove
-    </ion-button>
+              <ion-button *ngIf="customerSelected?.soldStatus" (click)="removeSoldStatus()" fill="clear">
+                <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
+                Remove
+              </ion-button>
             </ion-col>
           </ion-row>
         </ion-card>
-        </ion-grid>
+      </ion-grid> -->
     </ion-card-content>
   </ion-card>
 </ion-content>

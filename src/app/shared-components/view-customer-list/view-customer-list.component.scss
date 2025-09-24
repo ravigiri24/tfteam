@@ -15,6 +15,20 @@
     top: 44px;
 }
 
+.apply_hotdeal {
+    padding-right: 40px;
+    position: relative;
+    display: flow;
+
+    .hot_deal {
+        position: absolute;
+        right: 0px;
+        width: 40px;
+        top: 0px;
+    }
+}
+
+
 .search_bar_row {
     padding-bottom: 0px !important;
 }
@@ -189,8 +203,9 @@
         }
     }
 }
-.hot-deal{
-        width: 35px;
+
+.hot-deal {
+    width: 35px;
     height: 36px;
- 
+
 }
