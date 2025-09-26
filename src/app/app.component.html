@@ -3,8 +3,8 @@
 
 </ion-app>
  -->
-    <div *ngIf="showSplash" class="splash-screen">
-  <img src="assets/images/tf_splash_screen.gif" alt="Splash Logo" />
+<div *ngIf="showSplash" class="splash-screen">
+  <img src="assets/images/tf_splash_screen.gif" alt="Tractor Factory" />
 </div>
 <ion-app *ngIf="!showSplash">
   <!-- <ion-header>
@@ -13,13 +13,13 @@
     </ion-toolbar>     
   </ion-header> -->
 
-    
-   
-    <!-- <ion-content > -->
-  
 
-      <ion-router-outlet class="position-content"></ion-router-outlet>
-     <app-loader-colorfull *ngIf="share?.globalLoading" class="page_loader"></app-loader-colorfull>
+
+  <!-- <ion-content > -->
+
+
+  <ion-router-outlet class="position-content"></ion-router-outlet>
+  <app-loader-colorfull *ngIf="share?.globalLoading" class="page_loader"></app-loader-colorfull>
   <!-- </ion-content> -->
   <!-- <ion-tabs>
     <ion-tab-bar slot="bottom">
@@ -31,7 +31,7 @@
         </ion-tab-button>
     </ion-tab-bar>
 </ion-tabs> -->
-<!-- 
+  <!-- 
 <app-footer  ></app-footer> -->
 
   <!-- <ion-footer>

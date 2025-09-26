@@ -12,6 +12,7 @@
 
   img {
     width: 100%; // adjust size
+    max-width: 767px;
     animation: fadeIn 1.2s ease-in-out;
   }
 }
