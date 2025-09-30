@@ -1,31 +1,98 @@
-.icon-size{
-    font-size: 50px;
-    position: relative;
-    
-    top:5px;
-}
-.block{
-    text-align: center;
-}
-.card-width{
-    width: 49%;
-}
-.image-style{
-    margin-top: 10px;
-    height: 50;width:84px;
-    
+// .icon-size {
+//     font-size: 50px;
+//     position: relative;
+//     top: 5px;
+// }
+
+// .block {
+//     text-align: center;
+// }
+
+// .card-width {
+//     width: 49%;
+// }
+
+// .image-style {
+//     margin-top: 10px;
+//     height: 50;
+//     width: 84px;
+// }
+
+// .title-style {
+//     font-size: 15px;
+//     font-weight: 700;
+//     position: relative;
+// }
+
+// .sub-title-style {
+//     font-size: 15px;
+//     font-weight: 700;
+//     position: relative;
+// }
+
+// .text-style {
+//     font-size: 15px;
+//     font-weight: 700;
+//     position: relative;
+// }
+.main_dashboard_container {
+    --background: #f5f5ff;
+
+    .cardmain_block {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+        margin: 15px 0px;
+        .image_block {
+            width: 100px;
+            height: 100px;
+            background: #ffffff;
+            padding: 15px;
+            overflow: hidden;
+            z-index: 3;
+            border: dashed 1px;
+            border-bottom: none;
+            border-radius: 5px 5px 0px 0px;
+        }
     }
-.title-style{
-    font-size: 15px;
-    font-weight: 700;
-    position: relative;
 
+    .cardmain_block {
+
+        ion-card {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 5px 20px 5px;
+            border: dashed 1px;
+            margin: -1px 0px 0px 0px;
+            background: #ffffff;
+            width: 100%;
+            z-index: 2;
+            ion-card-header{
+                padding: 0px;
+                text-align: center;
+            }
+        }
+    }
 
 }
-.sub-title-style{
-    font-size: 15px;
-    font-weight: 700;
-    position: relative;
-   
 
+
+
+.header_toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 15px;
+
+    .main_lefttitle {
+        font-size: 16px;
+    }
+
+    ion-button {
+        font-size: 12px;
+    }
 }
