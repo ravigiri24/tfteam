@@ -8,10 +8,55 @@
     <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding main_dashboard_container">
-  <!-- <ion-header class="titlewith_addbutton">
-    <ion-title class="jobs_title">Jobs Details</ion-title>   
-  </ion-header> -->
+<ion-content class="ion-padding main_3d_container" [ngClass]="listColorClass">
+  <div class="row" [ngClass]="listColorClass">
+    <div class="col-md-6 col-6">
+      <div class="brics_cardmain_block">
+        <div class="image_block">
+          <img class="image-style" src="././assets/images/3D/open.png" />
+        </div>
+        <ion-card>
+          <ion-card-title class="title-style">Open Jobs</ion-card-title>
+          <ion-card-title class="sub-title-style">{{jobData?.openJob}}</ion-card-title>
+        </ion-card>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="brics_cardmain_block">
+        <div class="image_block">
+          <img class="image-style" src="././assets/images/3D/close.png" />
+        </div>
+        <ion-card>
+          <ion-card-title class="title-style">Closed Job</ion-card-title>
+          <ion-card-title class="sub-title-style">{{jobData?.closeJob}}</ion-card-title>
+        </ion-card>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="brics_cardmain_block">
+        <div class="image_block">
+          <img class="image-style" src="././assets/images/3D/deleted.png" />
+        </div>
+        <ion-card>
+          <ion-card-title class="title-style">Deleted Jobs</ion-card-title>
+          <ion-card-title class="sub-title-style">{{jobData?.deletedJob}}</ion-card-title>
+        </ion-card>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="brics_cardmain_block">
+        <div class="image_block">
+          <img class="image-style" src="././assets/images/3D/total.png" />
+        </div>
+        <ion-card>
+          <ion-card-title class="title-style"> Total Jobs</ion-card-title>
+          <ion-card-title class="sub-title-style">{{jobData?.openJob+jobData?.closeJob}}</ion-card-title>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<!-- <ion-content class="ion-padding main_dashboard_container">
   <div class="row" [ngClass]="listColorClass">
     <div class="col-md-6 col-6">
       <div class="cardmain_block">
@@ -66,4 +111,4 @@
       </div>
     </div>
   </div>
-</ion-content>
+</ion-content> -->
