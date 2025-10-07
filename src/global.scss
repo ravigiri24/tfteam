@@ -608,7 +608,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-first);
+    color: var(--app-dynamic-color-first) !important;
   }
 
   &:after,
@@ -681,7 +681,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-second);
+    color: var(--app-dynamic-color-second) !important;
   }
 
   &:after,
@@ -753,7 +753,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-third);
+    color: var(--app-dynamic-color-third) !important;
   }
 
   &:after,
@@ -825,7 +825,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-fourth);
+    color: var(--app-dynamic-color-fourth) !important;
   }
 
   &:after,
@@ -897,7 +897,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-fifth);
+    color: var(--app-dynamic-color-fifth) !important;
   }
 
   &:after,
@@ -969,7 +969,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-six);
+    color: var(--app-dynamic-color-six) !important;
   }
 
   &:after,
@@ -1041,7 +1041,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-seven);
+    color: var(--app-dynamic-color-seven) !important;
   }
 
   &:after,
@@ -1111,9 +1111,11 @@ ion-header {
     margin-right: 5px;
   }
 }
+
 .delete_color {
   color: var(--delete-color);
 }
+
 .inner-tabs {
   background-color: var(--app-bg-color);
 
