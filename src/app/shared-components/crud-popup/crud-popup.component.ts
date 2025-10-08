@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 
@@ -10,21 +10,22 @@ import { ShareService } from 'src/app/share.service';
   templateUrl: './crud-popup.component.html',
   styleUrls: ['./crud-popup.component.scss'],
 })
-export class CrudPopupComponent  implements OnInit {
-type:any
-  constructor(private share:ShareService,private api:ApiService,private formBuilder:FormBuilder,public modalCtrl:ModalController) { }
-  crudDetail:any
+export class CrudPopupComponent implements OnInit {
+  type: any
+  constructor(private share: ShareService, private api: ApiService, private formBuilder: FormBuilder, public modalCtrl: ModalController) { }
+  crudDetail: any;
+  @Input() listColorClass = 'firstColor';
   ngOnInit() {
-    this.crudDetail = crud.crud.find((f:any) => f.key == this.type);
+    this.crudDetail = crud.crud.find((f: any) => f.key == this.type);
     this.getList()
   }
-  view:any='LIST'
-  formAction:any
-  viewAction(view:any) {
+  view: any = 'LIST'
+  formAction: any
+  viewAction(view: any) {
     this.view = view;
     if (view == 'FORM') {
       this.formAction = 'ADD';
-      if(this.crudDetail?.isDynamicList){
+      if (this.crudDetail?.isDynamicList) {
         this.getDynamicList()
       }
       this.initialize();
@@ -32,9 +33,9 @@ type:any
       this.getList();
     }
   }
-  dynamicListData:any=[]
+  dynamicListData: any = []
   getDynamicList() {
-   
+
     let obj = this.share.getListObj(
       this.crudDetail?.srcDynamicValue,
       false,
@@ -43,19 +44,19 @@ type:any
     );
     this.share.showLoading("Fetching Data...")
     this.api.postapi('getList', obj).subscribe(
-      (res:any) => {
-      
-        this.dynamicListData = res.data ||[];
+      (res: any) => {
+
+        this.dynamicListData = res.data || [];
         this.share.spinner.dismiss()
       },
-      (error:any) => {
- 
+      (error: any) => {
+
       }
     );
   }
-  dismiss() {  
-    return this.modalCtrl.dismiss(null,'Cancel'); 
-  } 
+  dismiss() {
+    return this.modalCtrl.dismiss(null, 'Cancel');
+  }
   addItem() {
     if (this.form.valid) {
       let obj = {
@@ -63,62 +64,62 @@ type:any
         data: this.form.value,
       };
       this.share.showLoading('Saving Data..')
-      this.api.postapi('addOpp', obj).subscribe((res:any) => {
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss()
-     this.share.presentToast("Saved SuccessFully...")
+        this.share.presentToast("Saved SuccessFully...")
         this.form.reset();
-      
+
       });
     } else {
       this.form.markAllAsTouched();
- 
+
     }
   }
 
-  editRow:any={}
-  editData(data:any) {
+  editRow: any = {}
+  editData(data: any) {
     this.initialize(data);
-    this.editRow=data
+    this.editRow = data
     this.formAction = 'UPDATE';
     this.view = 'FORM';
-    if(this.crudDetail?.isDynamicList){
+    if (this.crudDetail?.isDynamicList) {
       this.getDynamicList()
     }
   }
-  updateItem(){
+  updateItem() {
     if (this.form.valid) {
       let obj = {
         src: this.crudDetail.src,
         data: this.form.value,
-        id:this.editRow?.id
+        id: this.editRow?.id
       };
       this.share.showLoading('Saving Data..')
-      this.api.postapi('updateOpp', obj).subscribe((res:any) => {
+      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss()
         this.share.presentToast("Updated SuccessFully...");
         this.form.reset();
 
-      this.viewAction('LIST')
+        this.viewAction('LIST')
       });
     } else {
       this.form.markAllAsTouched();
 
     }
   }
-  openEdit(data:any){
+  openEdit(data: any) {
 
   }
 
-  form:FormGroup
-  initialize(data:any=null) {
+  form: FormGroup
+  initialize(data: any = null) {
     this.form = this.formBuilder.group({});
-    this.crudDetail.data?.forEach((element:any) => {
+    this.crudDetail.data?.forEach((element: any) => {
       this.form.addControl(
         element?.key,
         new FormControl(data?.[element?.key] || null, [Validators.required])
       );
     });
-    
+
     // if(data){
     //   this.form.addControl(
     //     'id',
@@ -129,7 +130,7 @@ type:any
   }
   listData: any = [];
   getList() {
-   
+
     let obj = this.share.getListObj(
       this.crudDetail.src,
       false,
@@ -138,13 +139,13 @@ type:any
     );
     this.share.showLoading("Fetching Data...")
     this.api.postapi('getList', obj).subscribe(
-      (res:any) => {
-      
+      (res: any) => {
+
         this.listData = res.data;
         this.share.spinner.dismiss()
       },
-      (error:any) => {
- 
+      (error: any) => {
+
       }
     );
   }
