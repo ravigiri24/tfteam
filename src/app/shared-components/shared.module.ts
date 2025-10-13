@@ -51,6 +51,8 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
 import { SelectCityModelComponent } from './select-city-model/select-city-model.component';
 import { SelectDistrictModelComponent } from './select-district-model/select-district-model.component';
 import { UpdatePasswordComponent } from '../user-management/update-password/update-password.component';
+import { TfCodeBackDatedComponent } from '../operational/tf-code-back-dated/tf-code-back-dated.component';
+import { SellBackComponent } from './sell-back/sell-back.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -108,7 +110,9 @@ import { UpdatePasswordComponent } from '../user-management/update-password/upda
 
     SelectCityModelComponent,
     SelectDistrictModelComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
+    TfCodeBackDatedComponent,
+    SellBackComponent
     
   ],
   schemas: [],

@@ -28,6 +28,7 @@ import { EnterTfCodeComponent } from './operational/enter-tf-code/enter-tf-code.
 import { TractorOptionsViewComponent } from './new-arrivals-management/tractor-options-view/tractor-options-view.component';
 import { StartTransportDialogComponent } from './transport-management/start-transport-dialog/start-transport-dialog.component';
 import { TransportOptionsComponent } from './transport-management/transport-options/transport-options.component';
+import { TfCodeBackDatedComponent } from './operational/tf-code-back-dated/tf-code-back-dated.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -134,6 +135,8 @@ export class CommonMethodService {
     }
     else if(e?.button?.name == 'More option Transport'){
     await  this.openOptionsTransport(e?.tractor)
+    }else if(e?.button?.name == 'BackDate TF Assign'){
+    await  this.assignBackDateTF(e?.tractor)
     }
   }
 
@@ -524,4 +527,20 @@ export class CommonMethodService {
            
             }
           }
+        async assignBackDateTF(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TfCodeBackDatedComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
 }

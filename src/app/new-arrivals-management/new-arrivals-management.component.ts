@@ -117,7 +117,17 @@ listColorClass='sevenColor'
       showOnCondition:true,
       objName:'registractionNo',
       obVal:null,
-
+   objNameSecond:'isBackDateEntry',
+ obValSecond:"0",
+      image: './././assets/images/assigntfcode.png',
+    },
+      {
+      name: 'BackDate TF Assign',
+      action: 'assignOldTFCOde',
+      showOnCondition:true,
+      objName:'isBackDateEntry',
+      obVal:"1",
+  
       image: './././assets/images/assigntfcode.png',
     },
       {
@@ -138,6 +148,7 @@ listColorClass='sevenColor'
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
 
     { key: 'Hours', value: 'hours', type: 'INPUT' },
+      { key: 'Is BackDate Entry', value: 'isBackDateEntry', type: 'CONDITIONAL' },
     { key: 'Engine Number', getFromObj:true,objName:'purchasedetail',value: 'engineNumber', type: 'INPUT' },
     { key: 'Chassis Number', getFromObj:true,objName:'purchasedetail',value: 'chasisNumber', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },

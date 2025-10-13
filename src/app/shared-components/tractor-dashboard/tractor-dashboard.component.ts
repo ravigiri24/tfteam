@@ -25,6 +25,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UploadScreenShotComponent } from 'src/app/new-arrivals-management/upload-screen-shot/upload-screen-shot.component';
 import { AddDealerPriceComponent } from 'src/app/purchase-management/add-dealer-price/add-dealer-price.component';
 import { AddRtoInsuranceCostComponent } from '../add-rto-insurance-cost/add-rto-insurance-cost.component';
+import { SellBackComponent } from '../sell-back/sell-back.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -339,7 +340,24 @@ export class TractorDashboardComponent implements OnInit {
       this.doArchive();
     }
   }
+  async sellBack(backFrom: any) {
+    const modal = await this.modalCtrl.create({
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      component: SellBackComponent,
+      componentProps: {
+        tractor: this.tractorDetails,
+        backFrom:backFrom
 
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+    this.getTractorDetails('Refreshing Data...')
+    }
+  }
   async sendDraftAlert() {
     const alert = await this.alertCtrl.create({
       header: 'Send To Draft',

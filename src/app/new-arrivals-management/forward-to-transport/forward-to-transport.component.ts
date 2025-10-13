@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 
-
 import {
   FormGroup,
   FormControl,
@@ -15,26 +14,25 @@ import { ApiService } from 'src/app/api.service';
   templateUrl: './forward-to-transport.component.html',
   styleUrls: ['./forward-to-transport.component.scss'],
 })
-export class ForwardToTransportComponent  implements OnInit {
-updateTranctorStatus=true
-   constructor(
-     private modalControl: ModalController,
-     private alertCtrl: AlertController,
-     private share: ShareService,
-     private api:ApiService,
-         private fb: FormBuilder,
-   ) {}
+export class ForwardToTransportComponent implements OnInit {
+  updateTranctorStatus = true;
+  constructor(
+    private modalControl: ModalController,
+    private alertCtrl: AlertController,
+    private share: ShareService,
+    private api: ApiService,
+    private fb: FormBuilder
+  ) {}
 
- 
   ngOnInit() {
-    this.initialize()
+    this.initialize();
   }
-dismiss(){
-this.modalControl.dismiss()
-}
-tractor:any
-updateItem(){
-   if (this.form.valid) {
+  dismiss() {
+    this.modalControl.dismiss();
+  }
+  tractor: any;
+  updateItem() {
+    if (this.form.valid && this.tractor?.registractionNo != null) {
       let obj = {
         src: 'tractor',
         data: this.form.value,
@@ -44,39 +42,42 @@ updateItem(){
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss();
         this.share.presentToast('Forwarded Successfully...');
-        this.modalControl.dismiss({isForworded:true});
+        this.modalControl.dismiss({ isForworded: true });
       });
     } else {
-      this.share.presentToast('Please fill all details');
+      if (!this.form.valid) {
+        this.share.presentToast('Please fill all details');
+      }
+      if (
+        this.tractor?.registractionNo == null ||
+        this.tractor?.registractionNo == undefined
+      ) {
+        this.share.presentToast('Please Assign TF Code');
+      }
 
       this.form.markAllAsTouched();
     }
-}
-form:FormGroup
+  }
+  form: FormGroup;
 
   initialize(data: any = null) {
-    if(this.updateTranctorStatus){
-    this.form = this.fb.group({
-      forwordToTransportDate: new FormControl(
-        data?.forwordToTransportDate || null,
-        [Validators.required]
-      ),
+    if (this.updateTranctorStatus) {
+      this.form = this.fb.group({
+        forwordToTransportDate: new FormControl(
+          data?.forwordToTransportDate || null,
+          [Validators.required]
+        ),
 
-
-      tractor_status: new FormControl("AT_TRANSPORT", [
-        Validators.required,
-      ]),
-    });
-  }else{
-    this.form = this.fb.group({
-      forwordToTransportDate: new FormControl(
-        data?.forwordToTransportDate || null,
-        [Validators.required]
-      ),
-
-
-    });
-  }
+        tractor_status: new FormControl('AT_TRANSPORT', [Validators.required]),
+      });
+    } else {
+      this.form = this.fb.group({
+        forwordToTransportDate: new FormControl(
+          data?.forwordToTransportDate || null,
+          [Validators.required]
+        ),
+      });
+    }
 
     // if(data){
     //   this.form.addControl(
@@ -85,5 +86,4 @@ form:FormGroup
     //   );
     // }
   }
-  
 }

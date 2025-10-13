@@ -94,20 +94,25 @@
 
     <ion-label class="card_heading">Sell To Franchies</ion-label>
     <div class="tab_main_block selected_tab">
-      <div class="tab_block" *ngIf="tractorDetails?.tractor_status==null" (click)="archivedAlert()">
+      <!-- <div class="tab_block" *ngIf="tractorDetails?.tractor_status==null" (click)="archivedAlert()">
         <div class="tab_icon"><ion-icon name="archive-outline"></ion-icon></div>
         <span class="tabs"><span>Send Archived</span></span>
       </div>
       <div class="tab_block" *ngIf="tractorDetails?.tractor_status=='ARCHIVED'" (click)="sendDraftAlert()">
         <div class="tab_icon"><ion-icon name="cog-outline"></ion-icon></div>
         <span class="tabs"><span>Send Buffer</span></span>
-      </div>
+      </div> -->
       <div class="tab_block" [ngClass]="{'width_auto': tractorDetails?.isSoldToDealer==1 }" *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1"
         (click)="openDealerPrice()">
         <div class="tab_icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
         <span class="tabs">Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To
             {{tractorDetails?.franchiseDettails?.name}} Franchise At
             {{tractorDetails?.dealerPrice}})</span></span>
+      </div>
+        <div class="tab_block" [ngClass]="{'width_auto': tractorDetails?.isSoldToDealer==1 }" *ngIf="tractorDetails?.isSoldToDealer==1"
+        (click)="sellBack('FRANCHISE')">
+        <div class="tab_icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
+        <span class="tabs">Sell Back(Franchise) </span>
       </div>
       <div class="tab_block width_auto" *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0"
         (click)="changeSoldAlert()">

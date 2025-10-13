@@ -367,6 +367,8 @@ let imagesToShow=  tractor?.rawImages?.filter(
       ),
 
       hours: new FormControl(data?.hours || null, [Validators.required]),
+        isBackDateEntry: new FormControl(data?.isBackDateEntry || false, []),
+            backDate: new FormControl(data?.backDate || null, []),
       //  dealerPrice: new FormControl(this.data?.dealerPrice || null, [
       //   Validators.required,
       // ]),

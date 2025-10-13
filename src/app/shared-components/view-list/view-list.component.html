@@ -126,7 +126,8 @@
               <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
             </ion-col>
             </ng-container>
-                <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==tractor?.[button?.obVal]">
+     
+                <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==button?.obVal && tractor?.[button?.objNameSecond]==button?.obValSecond">
             <ion-col class="action_col">
               <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
             </ion-col>

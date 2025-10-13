@@ -281,7 +281,7 @@ setModelDetailEvent(data: any){
       modalID: new FormControl(this.data?.modalID || null, [
         Validators.required,
       ]),
-
+   
       rtoEstimationCost: new FormControl(this.data?.rtoEstimationCost || null),
       inwardEstimationCost: new FormControl(
         this.data?.inwardEstimationCost || null
@@ -291,6 +291,8 @@ setModelDetailEvent(data: any){
       ),
 
       hours: new FormControl(this.data?.hours || null, [Validators.required]),
+      isBackDateEntry: new FormControl(this.data?.isBackDateEntry || false, [Validators.required]),
+      backDate: new FormControl(this.data?.backDate || null, [Validators.required]),
       //  dealerPrice: new FormControl(this.data?.dealerPrice || null, [
       //   Validators.required,
       // ]),
@@ -730,6 +732,8 @@ setModelDetailEvent(data: any){
         ]),
       }),
     });
+    console.log("this.form",this.modelForm);
+    
     //  if (this.data?.images?.length) {
     //    this.loadedImages = this.data?.images;
     //  }
@@ -751,6 +755,7 @@ setModelDetailEvent(data: any){
       (error: any) => {}
     );
   }
+
   goToPage(tab: any) {
     //this.selectedTab=tab
     if (tab == 'MODEL') {
