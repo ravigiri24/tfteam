@@ -1,16 +1,15 @@
- 
-
-  <div class="top-position">
+<!-- <div class="top-position">
   <ion-card>
     <ion-card-header>
       <ion-card-title>Before Service</ion-card-title>
-     
+
     </ion-card-header>
-  
-  
-  
-    <ion-button *ngIf="!this.isJobDone" (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
+
+
+
+    <ion-button *ngIf="!this.isJobDone" (click)="viewImage('BEFORE_SERVICE')" fill="clear"><ion-icon
+        class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+
   </ion-card>
   <ion-grid *ngIf="beforeService?.length">
     <ion-row>
@@ -24,13 +23,14 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>After Service</ion-card-title>
-     
+
     </ion-card-header>
-  
-  
-  
-    <ion-button *ngIf="!this.isJobDone" fill="clear" (click)="viewImage('AFTER_SERVICE')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
+
+
+
+    <ion-button *ngIf="!this.isJobDone" fill="clear" (click)="viewImage('AFTER_SERVICE')"> <ion-icon
+        class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+
   </ion-card>
   <ion-grid *ngIf="afterService?.length">
     <ion-row>
@@ -44,13 +44,14 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>Job Card</ion-card-title>
-     
+
     </ion-card-header>
-  
-  
-  
-    <ion-button *ngIf="!this.isJobDone" fill="clear" (click)="viewImage('JOB_CARD')"  >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
+
+
+
+    <ion-button *ngIf="!this.isJobDone" fill="clear" (click)="viewImage('JOB_CARD')"> <ion-icon
+        class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
+
   </ion-card>
   <ion-grid *ngIf="jobArray?.length">
     <ion-row>
@@ -61,4 +62,58 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</div>
+</div> -->
+<div class="top-position" [ngClass]="listColorClass">
+  <div class="global-inner-heading dynamic_color">
+    <span>Before Service</span>
+    <ion-icon *ngIf="!this.isJobDone" (click)="viewImage('BEFORE_SERVICE')" class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="beforeService?.length">
+    <div class="main_card_block" *ngFor="let photo of beforeService; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!beforeService?.length">
+    <app-no-data-view [title]="['No before service images found.']" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  <div class="global-inner-heading dynamic_color">
+    <span>After Service</span>
+    <ion-icon *ngIf="!this.isJobDone" (click)="viewImage('AFTER_SERVICE')" class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="afterService?.length">
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of afterService; index as position">
+        <div class="main_card_block">
+          <ion-card>
+            <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!afterService?.length">
+    <app-no-data-view [title]="['No after service images found.']" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  <div class="global-inner-heading dynamic_color">
+    <span>Job Card</span>
+    <ion-icon *ngIf="!this.isJobDone" (click)="viewImage('JOB_CARD')" class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="jobArray?.length">
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of jobArray; index as position">
+        <div class="main_card_block">
+          <ion-card class="m-0">
+            <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!jobArray?.length">
+    <app-no-data-view [title]="['No job card images found.']" [subtitleShow]="false"></app-no-data-view>
+  </div>

@@ -368,6 +368,35 @@ app-salary-slip {
   }
 }
 
+.global-inner-heading {
+  font-size: 16px;
+  color: #666666;
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chips_container {
+  max-height: 150px;
+  overflow: auto;
+  display: flex;
+  flex-flow: wrap;
+  padding-bottom: 20px;
+
+  .chips_block {
+    padding: 0px 10px;
+    border: dashed 1px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    margin: 0px 15px 10px 0px;
+    text-transform: capitalize;
+  }
+}
+
 .login-button {
   position: relative;
   top: 20px;
@@ -595,6 +624,12 @@ ion-header {
 
 
 .firstColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-first) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -668,6 +703,12 @@ ion-header {
 }
 
 .secondColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-second) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -740,6 +781,12 @@ ion-header {
 }
 
 .thirdColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-third) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -812,6 +859,12 @@ ion-header {
 }
 
 .fourthColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-fourth) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -884,6 +937,12 @@ ion-header {
 }
 
 .fifthColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-fifth) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -956,6 +1015,12 @@ ion-header {
 }
 
 .sixColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-six) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -1028,6 +1093,12 @@ ion-header {
 }
 
 .sevenColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-seven) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -1103,6 +1174,14 @@ ion-tab-button::part(native) {
   overflow: visible !important;
 }
 
+.no_found_dynamic_block {
+  justify-content: center;
+
+  .empty {
+    margin: 10px !important;
+  }
+}
+
 ion-header {
   ion-title {
     font-size: 16px;
@@ -1141,8 +1220,8 @@ ion-header {
   }
 
   .selected_tab {
-    color: #ffffff !important;
-    background-color: var(--app-primary-color) !important;
+    color: #ffffff;
+    background-color: var(--app-primary-color);
     border-radius: 3px;
     box-shadow: 0px 5px 12px rgba(0, 0, 0, .2);
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
@@ -15,11 +16,12 @@ export class RepairDashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private share: ShareService,
     private api: ApiService
-  ) {}
+  ) { }
+  @Input() listColorClass = 'secondColor';
   srcPage: any;
   selectedTab: any = 'DETAILS';
   jobId: any;
-  ngOnInit() {}
+  ngOnInit() { }
   goToPage(tab: any) {
     this.selectedTab = tab;
   }
@@ -47,7 +49,7 @@ export class RepairDashboardComponent implements OnInit {
         this.getIssueList();
         this.getMaterialList();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   loadAllData: any = false;
@@ -188,7 +190,7 @@ export class RepairDashboardComponent implements OnInit {
         this.materialList = res?.data;
         this.getSpareCategory(loader);
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   spareList: any = [];
@@ -205,7 +207,7 @@ export class RepairDashboardComponent implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   categroyWiseMaterial: any = [];
@@ -231,7 +233,7 @@ export class RepairDashboardComponent implements OnInit {
             catName: getCat.name,
             id: getCat.id,
             materialList: [expense],
-            total_amount: expense?.total_expense||0,
+            total_amount: expense?.total_expense || 0,
           };
           this.categroyWiseMaterial.push(obj);
         }
@@ -347,7 +349,7 @@ export class RepairDashboardComponent implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   issueList: any = [];
@@ -371,7 +373,7 @@ export class RepairDashboardComponent implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   backToSrcPage() {

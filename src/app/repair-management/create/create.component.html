@@ -15,14 +15,14 @@
 </ion-header>
 <ion-content [ngClass]="listColorClass" *ngIf="form" class="ion-padding">
   <form [formGroup]="form">
-    <!-- <span class="inner-heading">Customer Details</span>
+    <!-- <span class="global-inner-heading">Customer Details</span>
     <div class="global_input_block">
       <ion-input label="Customer Name*" fill="outline" labelPlacement="stacked" type="text" formControlName="customer_name"></ion-input>
     </div>
     <div class="global_input_block">
       <ion-input label="Contact Number*" fill="outline" labelPlacement="stacked" type="text" formControlName="contact_number"></ion-input>
     </div> -->
-    <span class="inner-heading dynamic_color">Tractor Details</span>
+    <span class="global-inner-heading dynamic_color">Tractor Details</span>
     <div class="global_input_block">
       <ion-select (ionChange)="getModelsbyBrand()" formControlName="brand_id" fill="outline" label="Select Brand *"
         label-placement="type">
@@ -41,7 +41,7 @@
         <ion-select-option value="NO">No</ion-select-option>
       </ion-select>
     </div>
-    <span *ngIf="form.controls['isTfCode'].value=='NO' && !data" class="inner-heading">Generate TF Code -
+    <span *ngIf="form.controls['isTfCode'].value=='NO' && !data" class="global-inner-heading">Generate TF Code -
       <ion-icon (click)="assignTF()" class="small_icon20 theme-color icon-position" name="medkit-outline"></ion-icon>-
       <span class="tfCOde">{{form.controls['tfCode'].value}}</span>
     </span>
@@ -92,7 +92,7 @@
         <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
       </ion-select>
     </div>
-    <span class="inner-heading">Tractor Condition</span>
+    <span class="global-inner-heading">Tractor Condition</span>
     <div class="global_input_block">
       <ion-select formControlName="fuelLevel" fill="outline" label="Fuel Level" label-placement="type">
         <ion-select-option value="0-20%">0-20%</ion-select-option>
@@ -103,7 +103,7 @@
       </ion-select>
     </div>
     <div>
-      <span class="inner-heading dynamic_color">Tractor Inventory
+      <span class="global-inner-heading dynamic_color">Tractor Inventory
         <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_INVENTORY')"
           name="add-circle-outline"></ion-icon>
       </span>
@@ -118,7 +118,7 @@
       </div>
     </div>
     <div>
-      <span class="inner-heading dynamic_color">Issues
+      <span class="global-inner-heading dynamic_color">Issues
         <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')"
           name="add-circle-outline"></ion-icon>
       </span>
