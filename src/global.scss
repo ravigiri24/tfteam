@@ -259,6 +259,7 @@ app-salary-slip {
 
     .selected_text {
       margin-right: 8px;
+      font-size: 16px;
     }
 
     .selected_ddl {
@@ -348,6 +349,7 @@ app-salary-slip {
     text-transform: capitalize;
     display: flex;
     align-items: center;
+    font-size: 1rem;
   }
 
   .warning_row {
@@ -363,6 +365,35 @@ app-salary-slip {
 
   .selected_model {
     --background: #f5f5ff !important;
+  }
+}
+
+.global-inner-heading {
+  font-size: 16px;
+  color: #666666;
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chips_container {
+  max-height: 150px;
+  overflow: auto;
+  display: flex;
+  flex-flow: wrap;
+  padding-bottom: 20px;
+
+  .chips_block {
+    padding: 0px 10px;
+    border: dashed 1px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    margin: 0px 15px 10px 0px;
+    text-transform: capitalize;
   }
 }
 
@@ -593,6 +624,12 @@ ion-header {
 
 
 .firstColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-first) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -608,7 +645,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-first);
+    color: var(--app-dynamic-color-first) !important;
   }
 
   &:after,
@@ -666,6 +703,12 @@ ion-header {
 }
 
 .secondColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-second) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -681,7 +724,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-second);
+    color: var(--app-dynamic-color-second) !important;
   }
 
   &:after,
@@ -738,6 +781,12 @@ ion-header {
 }
 
 .thirdColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-third) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -753,7 +802,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-third);
+    color: var(--app-dynamic-color-third) !important;
   }
 
   &:after,
@@ -810,6 +859,12 @@ ion-header {
 }
 
 .fourthColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-fourth) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -825,7 +880,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-fourth);
+    color: var(--app-dynamic-color-fourth) !important;
   }
 
   &:after,
@@ -882,6 +937,12 @@ ion-header {
 }
 
 .fifthColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-fifth) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -897,7 +958,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-fifth);
+    color: var(--app-dynamic-color-fifth) !important;
   }
 
   &:after,
@@ -954,6 +1015,12 @@ ion-header {
 }
 
 .sixColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-six) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -969,7 +1036,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-six);
+    color: var(--app-dynamic-color-six) !important;
   }
 
   &:after,
@@ -1026,6 +1093,12 @@ ion-header {
 }
 
 .sevenColor {
+  .inner-tabs {
+    .selected_tab {
+      background-color: var(--app-dynamic-color-seven) !important;
+    }
+  }
+
   .global_top_header {
     &:before {
       border-color: var(--app-dynamic-color-fifth) !important;
@@ -1041,7 +1114,7 @@ ion-header {
   .empty,
   .close_color,
   .dynamic_color {
-    color: var(--app-dynamic-color-seven);
+    color: var(--app-dynamic-color-seven) !important;
   }
 
   &:after,
@@ -1101,6 +1174,14 @@ ion-tab-button::part(native) {
   overflow: visible !important;
 }
 
+.no_found_dynamic_block {
+  justify-content: center;
+
+  .empty {
+    margin: 10px !important;
+  }
+}
+
 ion-header {
   ion-title {
     font-size: 16px;
@@ -1111,9 +1192,11 @@ ion-header {
     margin-right: 5px;
   }
 }
+
 .delete_color {
   color: var(--delete-color);
 }
+
 .inner-tabs {
   background-color: var(--app-bg-color);
 
@@ -1137,8 +1220,8 @@ ion-header {
   }
 
   .selected_tab {
-    color: #ffffff !important;
-    background-color: var(--app-primary-color) !important;
+    color: #ffffff;
+    background-color: var(--app-primary-color);
     border-radius: 3px;
     box-shadow: 0px 5px 12px rgba(0, 0, 0, .2);
 

@@ -11,7 +11,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header> -->
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
@@ -20,12 +20,12 @@
       <div class="right_action">
         <ion-icon (click)="viewAction('FORM')" *ngIf="view === 'LIST'" name="add-circle-outline"></ion-icon>
         <ion-icon (click)="viewAction('LIST')" *ngIf="view === 'FORM'" name="list-outline"></ion-icon>
-        <ion-icon class="theme-color" (click)="dismiss()" name="arrow-back-outline"></ion-icon>
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="arrow-back-outline"></ion-icon>
       </div>
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content [ngClass]="listColorClass">
   <ng-container *ngIf="view === 'LIST'">
     <ion-list class="list_row" *ngIf="listData?.length">
       <ion-item *ngFor="let row of listData;let in=index">
@@ -37,7 +37,7 @@
             </ng-container>
           </p>
         </ion-label>
-        <ion-icon (click)="editData(row)" class="right-margine theme-color" name="create-outline"></ion-icon>
+        <ion-icon (click)="editData(row)" class="right-margine dynamic_color" name="create-outline"></ion-icon>
       </ion-item>
     </ion-list>
   </ng-container>
@@ -57,9 +57,9 @@
           </div>
         </ng-container>
         <ng-container *ngIf="fields?.type==='list'">
-     
-          <div class="global_input_block" >
-            <ion-select     formControlName="{{ fields.key }}" fill="outline"  label="{{fields.title}}"  label-placement="type">
+          <div class="global_input_block">
+            <ion-select formControlName="{{ fields.key }}" fill="outline" label="{{fields.title}}"
+              label-placement="type">
               <ion-select-option *ngFor="let row of dynamicListData" [value]="row?.id">{{row?.name}}</ion-select-option>
             </ion-select>
           </div>
@@ -67,9 +67,9 @@
       </div>
     </form>
     <div class="page_submit_btn">
-      <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_button"
+      <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_button dynamic_bgcolor"
         expand="block">Save</ion-button>
-      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'" class="global_submit_button"
+      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'" class="global_submit_button dynamic_bgcolor"
         expand="block">Update</ion-button>
     </div>
   </div>

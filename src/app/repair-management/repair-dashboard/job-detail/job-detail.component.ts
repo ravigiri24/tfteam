@@ -14,7 +14,8 @@ export class JobDetailComponent implements OnInit {
   @Input() issueList: any = [];
   @Input() inventoryArray: any = [];
   @Input() issueArray: any = [];
-  @Input() isJobDone: any =false
+  @Input() isJobDone: any =false;
+  @Input() listColorClass = 'secondColor';
   constructor(
     private alertCtrl: AlertController,
     private api: ApiService,

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ImageViewerComponent } from '../image-viewer/image-viewer.component';
 
@@ -7,21 +8,20 @@ import { ImageViewerComponent } from '../image-viewer/image-viewer.component';
   templateUrl: './image-dashboard.component.html',
   styleUrls: ['./image-dashboard.component.scss'],
 })
-export class ImageDashboardComponent  implements OnInit {
-  tarctor_id:any
-  constructor(private modalControl:ModalController) { }
-
-  ngOnInit() {}
+export class ImageDashboardComponent implements OnInit {
+  tarctor_id: any
+  constructor(private modalControl: ModalController) { }
+  ngOnInit() { }
   dismiss() {
     this.modalControl.dismiss();
   }
-  async viewImage(imageGroup:any){
+  async viewImage(imageGroup: any) {
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
       componentProps: {
-     
+
         tarctor_id: this.tarctor_id,
-        imageGroup:imageGroup
+        imageGroup: imageGroup
       },
     });
     await modal.present();
@@ -29,7 +29,7 @@ export class ImageDashboardComponent  implements OnInit {
     console.log('role', role);
 
     if (role === 'confirm') {
-   
+
     }
   }
 }

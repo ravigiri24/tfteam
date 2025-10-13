@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import {
   Component,
   EventEmitter,
@@ -39,11 +40,12 @@ export class CreateComponent implements OnInit {
     private modalCntrol: ModalController,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
   brandList: any = [];
   data: any;
   jobId: any;
-  ngOnInit() {}
+  @Input() listColorClass = 'firstColor';
+  ngOnInit() { }
 
   getJobByRowId(id: any) {
     let obj: any = this.share.getListObj('repairing_record', false, [], true);
@@ -57,16 +59,16 @@ export class CreateComponent implements OnInit {
         this.getIssueList();
         this.getMechanicList();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   srcPage: any;
   ionViewWillEnter() {
-    this.createdJobDetails=null
-    if(this.newTractorForm){
-    this.newTractorForm.reset()
+    this.createdJobDetails = null
+    if (this.newTractorForm) {
+      this.newTractorForm.reset()
     }
-    this.newTractorDetails=null
+    this.newTractorDetails = null
     this.activatedRoute.params.subscribe((params: any) => {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
@@ -149,7 +151,7 @@ export class CreateComponent implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   getBrandList() {
@@ -165,10 +167,10 @@ export class CreateComponent implements OnInit {
         this.getModelList();
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  geneateTFCode() {}
+  geneateTFCode() { }
   async assignTF() {
     const modal = await this.modalCntrol.create({
       component: EnterTfCodeComponent,
@@ -275,7 +277,7 @@ export class CreateComponent implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   issueList: any = [];
@@ -296,7 +298,7 @@ export class CreateComponent implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   checkCheckedIssue() {
@@ -338,7 +340,7 @@ export class CreateComponent implements OnInit {
           this.share.presentToast('Updated Successfully...');
           this.router.navigate(['/repair-management/job-list']);
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     } else {
       this.share.presentToast('Please Fill required fields');
@@ -366,7 +368,7 @@ export class CreateComponent implements OnInit {
           }
           // this.router.navigate([this.srcPage])
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     } else {
       this.share.presentToast('Please Fill required fields');
@@ -393,7 +395,7 @@ export class CreateComponent implements OnInit {
           }
           // this.router.navigate([this.srcPage])
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     } else {
       this.share.presentToast('Please Fill required fields');
@@ -401,149 +403,149 @@ export class CreateComponent implements OnInit {
   }
   newTractorForm: FormGroup;
   createNewOne() {
-   this.newTractorForm= this.share.initialize(null, this.newTractorForm);
+    this.newTractorForm = this.share.initialize(null, this.newTractorForm);
     setTimeout(() => {
-       console.log('this.newTractorForm', this.newTractorForm.value);
-    let model = this.modelList.find(
-      (f: any) => f.id == this.form.value.model_id
-    );
-    this.share.setModelDetail(model, this.newTractorForm);
+      console.log('this.newTractorForm', this.newTractorForm.value);
+      let model = this.modelList.find(
+        (f: any) => f.id == this.form.value.model_id
+      );
+      this.share.setModelDetail(model, this.newTractorForm);
 
-    this.newTractorForm?.controls['hours'].setValue(this.form.value.hours);
-    this.newTractorForm?.controls['yearOfManufactoring'].setValue(
-      this.form.value.yearOfManufactoring
-    );
-    let purchasedetail = this.newTractorForm?.controls[
-      'purchasedetail'
-    ] as FormGroup;
-    purchasedetail.controls['registrationNumber'].setValue(
-      this.form.value.regNumber
-    );
-    purchasedetail.controls['engineNumber'].setValue(
-      this.form.value.engineNumber
-    );
-    purchasedetail.controls['chasisNumber'].setValue(
-      this.form.value.chassisNumber
-    );
-    purchasedetail.updateValueAndValidity();
-    this.newTractorForm.updateValueAndValidity();
-    if(this.form.valid && this.checkValidation()){
-    this.createJob(true)
-    }else{
-      this.share.presentToast("Please Fill Required Fields")
-    }
+      this.newTractorForm?.controls['hours'].setValue(this.form.value.hours);
+      this.newTractorForm?.controls['yearOfManufactoring'].setValue(
+        this.form.value.yearOfManufactoring
+      );
+      let purchasedetail = this.newTractorForm?.controls[
+        'purchasedetail'
+      ] as FormGroup;
+      purchasedetail.controls['registrationNumber'].setValue(
+        this.form.value.regNumber
+      );
+      purchasedetail.controls['engineNumber'].setValue(
+        this.form.value.engineNumber
+      );
+      purchasedetail.controls['chasisNumber'].setValue(
+        this.form.value.chassisNumber
+      );
+      purchasedetail.updateValueAndValidity();
+      this.newTractorForm.updateValueAndValidity();
+      if (this.form.valid && this.checkValidation()) {
+        this.createJob(true)
+      } else {
+        this.share.presentToast("Please Fill Required Fields")
+      }
 
 
     }, 0);
-   
+
   }
 
-    
+
   getSensObj(isDraft: any = true) {
-    let obj:any;
+    let obj: any;
     obj = this.newTractorForm.value;
-       obj.leftImage =null
-      obj.rightImage = null
-      obj.frontImage = null
-      obj.backImage =null
-      obj.displayImage =null
-      obj.tractorImages = []
- 
-      obj.isDraft = isDraft;
-    
+    obj.leftImage = null
+    obj.rightImage = null
+    obj.frontImage = null
+    obj.backImage = null
+    obj.displayImage = null
+    obj.tractorImages = []
+
+    obj.isDraft = isDraft;
+
     return obj;
   }
 
-    checkValidation() {
+  checkValidation() {
     let status = false;
- 
-      if (this.newTractorForm.valid) {
-        status = true;
-      } else {
-        status = false;
-      }
-  
+
+    if (this.newTractorForm.valid) {
+      status = true;
+    } else {
+      status = false;
+    }
+
 
     return status;
   }
-  newTractorDetails:any
+  newTractorDetails: any
   onSaveNewTractor() {
     if (this.checkValidation()) {
       let obj = this.getSensObj();
       console.log('onSave', obj);
 
-        this.api.postapi('addTractor', obj).subscribe(
-          (res: any) => {
-      
-       
-            this.newTractorDetails = res?.data;
-            this.updateTF()
-            //this.share.presentToast("Saved Successfully...")
-            //  this.share.openSnackbarAddSuccess();
-          },
-          (error: any) => {
-            //  this.loader = false;
-          }
-        );
-    
+      this.api.postapi('addTractor', obj).subscribe(
+        (res: any) => {
+
+
+          this.newTractorDetails = res?.data;
+          this.updateTF()
+          //this.share.presentToast("Saved Successfully...")
+          //  this.share.openSnackbarAddSuccess();
+        },
+        (error: any) => {
+          //  this.loader = false;
+        }
+      );
+
     } else {
       //this.share.openSnackbarValidationError();
       this.share.presentToast('Please Fill Required Fields');
     }
   }
-  updateMappedId(){
-            let obj = {
-        src: 'repairing_record',
-        data: {mappedTractorId:this.newTractorDetails?.id},
-        id: this.createdJobDetails?.id,
-      };
-   
-      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-        if(res?.status){
-              this.share.spinner.dismiss();
-    this.share.presentToast('Created Successfully...');
+  updateMappedId() {
+    let obj = {
+      src: 'repairing_record',
+      data: { mappedTractorId: this.newTractorDetails?.id },
+      id: this.createdJobDetails?.id,
+    };
+
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      if (res?.status) {
+        this.share.spinner.dismiss();
+        this.share.presentToast('Created Successfully...');
         this.router.navigate([this.srcPage]);
-        }
-   
-  })
+      }
+
+    })
   }
-  updateTF(){
-          let obj = {
-        src: 'tractor',
-        data: {registractionNo:this.form.value.tfCode},
-        id: this.newTractorDetails?.id,
-      };
-   
-      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-        if(res?.status){
-          this.addGenerateRecord()
-          this.updateMappedId()
-    //           this.share.spinner.dismiss();
-    // this.share.presentToast('Created Successfully...');
-    //     this.router.navigate([this.srcPage]);
-        }
-   
-  })
-}
-  addGenerateRecord(){
-      let staffDetails: any = this.share.get_staff();
+  updateTF() {
+    let obj = {
+      src: 'tractor',
+      data: { registractionNo: this.form.value.tfCode },
+      id: this.newTractorDetails?.id,
+    };
+
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      if (res?.status) {
+        this.addGenerateRecord()
+        this.updateMappedId()
+        //           this.share.spinner.dismiss();
+        // this.share.presentToast('Created Successfully...');
+        //     this.router.navigate([this.srcPage]);
+      }
+
+    })
+  }
+  addGenerateRecord() {
+    let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
-       let obj = {
-        src: 'tfcodegenerationrecord',
-        data: {
-          tractor_id:this.newTractorDetails?.id,
-          tfCode:this.form.value.tfCode,
-          actionByid:this.staffDetails?.id
-        },
-        id: this.newTractorDetails?.id,
-      };
-    
-      this.api.postapi('addOpp', obj).subscribe((res: any) => {
-  
-      });
+    let obj = {
+      src: 'tfcodegenerationrecord',
+      data: {
+        tractor_id: this.newTractorDetails?.id,
+        tfCode: this.form.value.tfCode,
+        actionByid: this.staffDetails?.id
+      },
+      id: this.newTractorDetails?.id,
+    };
+
+    this.api.postapi('addOpp', obj).subscribe((res: any) => {
+
+    });
   }
-createdJobDetails:any
-  createJob(saveNewTractor=false) {
+  createdJobDetails: any
+  createJob(saveNewTractor = false) {
     let obj = this.form.value;
     let staffDetails: any = this.share.get_staff();
 
@@ -560,40 +562,40 @@ createdJobDetails:any
     obj.chassisNumber = obj.chassisNumber?.trim();
     this.api.postapi('createJob', obj).subscribe(
       (res: any) => {
-        this.createdJobDetails=res?.rowData
-        if(saveNewTractor){
-    this.onSaveNewTractor()
-        }else{
-      this.share.spinner.dismiss();
-    
-        this.share.presentToast('Created Successfully...');
-        this.router.navigate([this.srcPage]);
+        this.createdJobDetails = res?.rowData
+        if (saveNewTractor) {
+          this.onSaveNewTractor()
+        } else {
+          this.share.spinner.dismiss();
+
+          this.share.presentToast('Created Successfully...');
+          this.router.navigate([this.srcPage]);
         }
-  
+
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   async askForNewTractor() {
-    if(this.form.valid){
-    const modal = await this.modalCntrol.create({
-      component: AddNewTractorAlertComponent,
-      breakpoints: [0, 0.4, 1],
-      initialBreakpoint: 1,
-      cssClass: 'custom-modal',
-      componentProps: {
-        tractorDetails: null,
-        generateTFNow: false,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (data) {
-      this.checkDuplicacy();
+    if (this.form.valid) {
+      const modal = await this.modalCntrol.create({
+        component: AddNewTractorAlertComponent,
+        breakpoints: [0, 0.4, 1],
+        initialBreakpoint: 1,
+        cssClass: 'custom-modal',
+        componentProps: {
+          tractorDetails: null,
+          generateTFNow: false,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+        this.checkDuplicacy();
+      }
+    } else {
+      this.share.presentToast("Please Fill All Required Fields")
     }
-  }else{
-    this.share.presentToast("Please Fill All Required Fields")
-  }
   }
   async duplicacyFound(list: any = []) {
     const modal = await this.modalCntrol.create({
@@ -629,18 +631,18 @@ createdJobDetails:any
         } else {
           this.createNewOne()
         }
-      //  this.router.navigate([this.srcPage]);
+        //  this.router.navigate([this.srcPage]);
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   saveForm() {
     if (this.form.valid) {
-    if (this.form.controls['isTfCode'].value == 'NO') {
-      this.askForNewTractor();
-    } else {
-      this.createJob(false);
-    }
+      if (this.form.controls['isTfCode'].value == 'NO') {
+        this.askForNewTractor();
+      } else {
+        this.createJob(false);
+      }
     } else {
       this.share.presentToast('Please Fill required fields');
     }
@@ -703,7 +705,7 @@ createdJobDetails:any
         }
         this.share?.spinner?.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
 }

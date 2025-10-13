@@ -38,7 +38,7 @@ export class CommonMethodService {
     private router: Router,
     private toastController: ToastController,
     private alertCtrl: AlertController
-  ) {}
+  ) { }
 
   async nocUpdate(tractor: any) {
     let isNoc;
@@ -127,16 +127,14 @@ export class CommonMethodService {
       await this.assignTF(e?.tractor);
     } else if (e?.button?.name == 'Open Options New Arrivals') {
       await this.openOptionsnewArriwals(e?.tractor);
-    }else if(e?.button?.name == 'Add Transport Cost'){
-            this.addCostTransport(e?.tractor);
+    } else if (e?.button?.name == 'Add Transport Cost') {
+      this.addCostTransport(e?.tractor);
     }
-    else if(e?.button?.name == 'Start Transport'){
-          await  this.startTranspotation(e?.tractor);
+    else if (e?.button?.name == 'Start Transport') {
+      await this.startTranspotation(e?.tractor);
     }
     else if(e?.button?.name == 'More option Transport'){
     await  this.openOptionsTransport(e?.tractor)
-    }else if(e?.button?.name == 'BackDate TF Assign'){
-    await  this.assignBackDateTF(e?.tractor)
     }
   }
 
@@ -157,6 +155,7 @@ export class CommonMethodService {
       componentProps: {
         customerSelected: customer,
       },
+      cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -489,7 +488,7 @@ export class CommonMethodService {
     if (role === 'confirm') {
     }
   }
-    addCostTransport(tractor: any) {
+  addCostTransport(tractor: any) {
     this.router.navigate(['/transport-department/add-cost', tractor?.id]);
   }
      async startTranspotation(tractor: any) {
@@ -527,20 +526,4 @@ export class CommonMethodService {
            
             }
           }
-        async assignBackDateTF(tractor: any) {
-    const modal = await this.modalCtrl.create({
-      component: TfCodeBackDatedComponent,
-      breakpoints: [0, 0.4, 1],
-      initialBreakpoint: 0.4,
-      cssClass: 'custom-modal',
-      componentProps: {
-        tractor: tractor,
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (data) {
-      this.reloadMethod = true;
-    }
-  }
 }
