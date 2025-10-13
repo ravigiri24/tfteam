@@ -85,15 +85,11 @@
       name="add-circle-outline"></ion-icon>
   </div>
   <div class="dynamic_block" *ngIf="afterService?.length">
-    <ion-row>
-      <ion-col size="6" *ngFor="let photo of afterService; index as position">
-        <div class="main_card_block">
-          <ion-card>
-            <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
-          </ion-card>
-        </div>
-      </ion-col>
-    </ion-row>
+    <div class="main_card_block" *ngFor="let photo of afterService; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
   </div>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!afterService?.length">
     <app-no-data-view [title]="['No after service images found.']" [subtitleShow]="false"></app-no-data-view>
@@ -104,15 +100,11 @@
       name="add-circle-outline"></ion-icon>
   </div>
   <div class="dynamic_block" *ngIf="jobArray?.length">
-    <ion-row>
-      <ion-col size="6" *ngFor="let photo of jobArray; index as position">
-        <div class="main_card_block">
-          <ion-card class="m-0">
-            <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
-          </ion-card>
-        </div>
-      </ion-col>
-    </ion-row>
+    <div class="main_card_block" *ngFor="let photo of jobArray; index as position">
+      <ion-card class="m-0">
+        <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
   </div>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!jobArray?.length">
     <app-no-data-view [title]="['No job card images found.']" [subtitleShow]="false"></app-no-data-view>
