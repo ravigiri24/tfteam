@@ -32,6 +32,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ReportFilterComponent } from './reports/report-filter/report-filter.component';
 import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-part/add-reduce-part.component';
 import { AddNewTractorAlertComponent } from './create/add-new-tractor-alert/add-new-tractor-alert.component';
+import { RemarkPopupComponent } from './repair-dashboard/job-card/remark-popup/remark-popup.component';
+import { RemarkMissPopupComponent } from './repair-dashboard/job-card/remark-miss-popup/remark-miss-popup.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -52,7 +54,9 @@ import { AddNewTractorAlertComponent } from './create/add-new-tractor-alert/add-
     AddReducePartComponent,
     ReportsComponent,
     ReportFilterComponent,
-    AddNewTractorAlertComponent
+    AddNewTractorAlertComponent,
+    RemarkPopupComponent,
+    RemarkMissPopupComponent
     
   ],
   imports: [

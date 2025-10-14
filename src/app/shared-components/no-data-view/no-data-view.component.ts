@@ -6,20 +6,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./no-data-view.component.scss'],
 })
 export class NoDataViewComponent implements OnInit {
-  @Input() title: any;
-  @Input() subTitle: any;
+  @Input() title: any= 'No records found';
+  @Input() subTitle: any= 'Try adjusting filters or search terms';
   @Input() subtitleShow: any = true;
   constructor() { }
 
   ngOnInit() {
-    if (!this.title) {
-      this.title = 'No records found';
-    }
-    if (!this.subtitleShow) {
-      this.subTitle = '';
-    } else {
-      this.subTitle = 'Try adjusting filters or search terms';
-    }
 
   }
 

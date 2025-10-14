@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { PDFDocument } from 'pdf-lib';
@@ -10,7 +10,8 @@ import { ShareService } from 'src/app/share.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 //import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-
+import { RemarkPopupComponent } from './remark-popup/remark-popup.component';
+import { RemarkMissPopupComponent } from './remark-miss-popup/remark-miss-popup.component';
 import { jsPDF } from 'jspdf';
 pdfMake.fonts = {
   Roboto: {
@@ -46,6 +47,7 @@ export class JobCardComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private router: Router,
+    private modalCtrl:ModalController,
 
     private inAppBrowser: InAppBrowser
   ) {
@@ -239,4 +241,34 @@ todayDate=new Date()
     });
   }
   pdfUrl: any;
+   async addRemark() {
+      const modal = await this.modalCtrl.create({
+        component: RemarkPopupComponent,
+     
+            cssClass: 'midium-model',
+        componentProps: {
+          jobDetails: this.jobDetails,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+      this.jobDetails.remark=data?.remark
+      }
+    }
+     async addRemarkMiss() {
+      const modal = await this.modalCtrl.create({
+        component: RemarkMissPopupComponent,
+     
+            cssClass: 'midium-model',
+        componentProps: {
+          jobDetails: this.jobDetails,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+      this.jobDetails.miscellaneous_remark=data?.miscellaneous_remark
+      }
+    }
 }

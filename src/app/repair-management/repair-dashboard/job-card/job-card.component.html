@@ -14,8 +14,21 @@
       <ion-col>Modal</ion-col>
       <ion-col class="amount_col"> {{ jobDetails?.modelDetails?.name || '-' }}</ion-col>
     </ion-row>
+     
   </ion-card>
 </ion-grid>
+    <div class="action_row">
+      <ion-button (click)="addRemark()"  class="dynamic_bgcolor" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+        <span>Remark</span>
+      </ion-button>
+      <ion-button (click)="addRemarkMiss()"  class="dynamic_bgcolor" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+        <span>Remark(Misc)</span>
+      </ion-button>
+   
+
+    </div>
 <span class="inner-heading">Service Expenses</span>
 <ion-grid class="main_block_details">
   <ion-card>
@@ -237,9 +250,15 @@
     <p style="margin: 0px;"> _____________________</p>
     <p style="margin: 0px;">Signature</p>
   </div>
+    <p >Remark</p>
   <div
     style="font-size: 14px;color: #666666;display: flex;margin: 20px 0px;padding: 10px 10px 70px 15px;border: solid thin #e1e1e1;border-radius: 5px;">
-    <p style="margin: 0px;">Remark</p>
+    <p style="margin: 0px;">{{jobDetails?.remark}}</p>
+  </div>
+      <p >Remark(Miscellaneous)</p>
+  <div
+    style="font-size: 14px;color: #666666;display: flex;margin: 20px 0px;padding: 10px 10px 70px 15px;border: solid thin #e1e1e1;border-radius: 5px;">
+    <p style="margin: 0px;">{{jobDetails?.miscellaneous_remark}}</p>
   </div>
 </div>
 <ion-button (click)="generatePDF()" class="global_submit_button" expand="block">Generate Job Card</ion-button>

@@ -136,6 +136,9 @@ export class CommonMethodService {
     else if(e?.button?.name == 'More option Transport'){
     await  this.openOptionsTransport(e?.tractor)
     }
+       else if(e?.button?.name == 'BackDate TF Assign'){
+    await  this.assignBackDateTF(e?.tractor)
+    }
   }
 
   async addRemark(customer: any = null) {
@@ -526,4 +529,20 @@ export class CommonMethodService {
            
             }
           }
+                 async assignBackDateTF(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TfCodeBackDatedComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
 }
