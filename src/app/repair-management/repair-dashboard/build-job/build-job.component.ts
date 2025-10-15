@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AddServiceChargeComponent } from './add-service-charge/add-service-charge.component';
@@ -17,6 +18,7 @@ export class BuildJobComponent implements OnInit {
   @Input() reduceItemList: any = [];
   @Input() prdeictionMaterialList: any = [];
   @Input() isJobDone: any =false
+  @Input() listColorClass = 'secondColor';
   @Output() refreshServiceList = new EventEmitter();
   @Output() refreshMaterailList = new EventEmitter();
   @Output() refreshReducelList = new EventEmitter();
