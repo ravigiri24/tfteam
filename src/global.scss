@@ -314,7 +314,6 @@ app-salary-slip {
 }
 
 .list_row {
-  padding: 0px;
   padding: 0px 5px;
 
   .item-native {
@@ -365,6 +364,15 @@ app-salary-slip {
 
   .selected_model {
     --background: #f5f5ff !important;
+  }
+}
+
+.list_row_without_padding {
+  padding: 0px;
+
+  ion-item {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
   }
 }
 
@@ -1194,7 +1202,7 @@ ion-header {
 }
 
 .delete_color {
-  color: var(--delete-color);
+  color: var(--delete-color) !important;
 }
 
 .inner-tabs {
@@ -1205,6 +1213,7 @@ ion-header {
     height: 45px;
     background: #f5f5ff;
     padding: 0px 5px 0px 5px;
+    border: dashed 1px #e1e1e1;
 
     ion-tab-button {
       height: 20px;
