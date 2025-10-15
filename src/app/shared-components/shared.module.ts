@@ -53,7 +53,10 @@ import { SelectDistrictModelComponent } from './select-district-model/select-dis
 import { UpdatePasswordComponent } from '../user-management/update-password/update-password.component';
 import { TfCodeBackDatedComponent } from '../operational/tf-code-back-dated/tf-code-back-dated.component';
 import { SellBackComponent } from './sell-back/sell-back.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 @NgModule({
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -112,10 +115,11 @@ import { SellBackComponent } from './sell-back/sell-back.component';
     SelectDistrictModelComponent,
     UpdatePasswordComponent,
     TfCodeBackDatedComponent,
-    SellBackComponent
+    SellBackComponent,
+    ImageSliderComponent
     
   ],
-  schemas: [],
+
   exports: [
     AddRemarkComponent,
     UserManagementComponent,

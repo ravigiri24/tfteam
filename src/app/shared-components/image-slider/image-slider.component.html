@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-label class="top_heading">
+     <div class="right_action">
+         
+        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+      </div>
+      </ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Swiper Container -->
+  <swiper-container
+    [loop]="true"
+    [autoplay]="{ delay: 3000 }"
+    [pagination]="true"
+    [navigation]="true"
+    class="image-slider"
+  >
+    <swiper-slide *ngFor="let img of imageArray">
+      <ion-button  expand="block" color="primary"  (click)="openPDF(img?.imageUrlUrl)" >
+  <ion-icon slot="start" name="share-outline"></ion-icon>
+  Share Image
+</ion-button>
+
+      <img [src]="img?.imageUrlUrl" alt="Slide image" />
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

@@ -2,6 +2,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ImageViewerComponent } from '../image-viewer/image-viewer.component';
+import { ImageSliderComponent } from 'src/app/shared-components/image-slider/image-slider.component';
 import { SingleImageShowComponent } from 'src/app/maintainance-management/single-image-show/single-image-show.component';
 @Component({
   selector: 'app-image-dashboard',
@@ -51,6 +52,23 @@ export class ImageDashboardComponent implements OnInit {
       componentProps: {
 
         image: image,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+      this.reloadImage.emit()
+    }
+  }
+    async viewInSlider(image: any,imageArray:any) {
+    const modal = await this.modalControl.create({
+      component: ImageSliderComponent,
+      componentProps: {
+ 
+        image: image,
+        imageArray:imageArray
       },
     });
     await modal.present();

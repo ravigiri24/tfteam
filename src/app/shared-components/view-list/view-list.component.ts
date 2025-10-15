@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { SingleImageShowComponent } from 'src/app/maintainance-management/single-image-show/single-image-show.component';
 import { ShareService } from 'src/app/share.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ImageSliderComponent } from '../image-slider/image-slider.component';
 @Component({
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
@@ -87,4 +88,22 @@ actionEvent(tractor: any, button: any) {
     if (role === 'confirm') {
     }
   }
+      async viewInSlider(image: any,imageArray:any) {
+      const modal = await this.modalCtrl.create({
+        component: ImageSliderComponent,
+            cssClass: 'midium-model',
+        componentProps: {
+   
+          image: image,
+          imageArray:imageArray
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+   
+      }
+    }
 }

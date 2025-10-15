@@ -87,7 +87,7 @@
   <div class="dynamic_block" *ngIf="afterService?.length">
     <div class="main_card_block" *ngFor="let photo of afterService; index as position">
       <ion-card>
-        <img class="image_upload_card" (click)="viewImageSingle(photo)" [src]="photo?.imageUrlUrl" />
+        <img class="image_upload_card" (click)="viewInSlider(photo,afterService)" [src]="photo?.imageUrlUrl" />
       </ion-card>
     </div>
   </div>

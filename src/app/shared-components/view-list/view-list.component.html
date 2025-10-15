@@ -13,7 +13,7 @@
                 (click)="onOverlayAnimationEnd()"></ion-icon></div>
             <div class="middle-image-section">
               <ng-container *ngFor="let innerImages of tractor?.imagesToShow; let j=index;">
-                <img (click)="viewImage(innerImages)" [src]="innerImages?.imageUrlUrl"
+                <img (click)="viewInSlider(innerImages,tractor?.imagesToShow)" [src]="innerImages?.imageUrlUrl"
                   onerror="this.src='././assets/images/tractor_display.png';" />
               </ng-container>
             </div>
