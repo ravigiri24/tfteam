@@ -1,30 +1,25 @@
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-      <ion-label class="top_heading">
-     <div class="right_action">
-         
-        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        View All Images
       </div>
-      </ion-label>
+      <div class="right_action">
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-  <!-- Swiper Container -->
-  <swiper-container
-    [loop]="true"
-    [autoplay]="{ delay: 3000 }"
-    [pagination]="true"
-    [navigation]="true"
-    class="image-slider"
-  >
+<ion-content class="ion-padding image_card_block" [ngClass]="listColorClass">
+  <swiper-container [loop]="true" [autoplay]="{ delay: 3000 }" [pagination]="true" [navigation]="true"
+    class="image-slider">
     <swiper-slide *ngFor="let img of imageArray">
-      <ion-button  expand="block" color="primary"  (click)="openPDF(img?.imageUrlUrl)" >
-  <ion-icon slot="start" name="share-outline"></ion-icon>
-  Share Image
-</ion-button>
-
-      <img [src]="img?.imageUrlUrl" alt="Slide image" />
+      <ion-card>
+        <ion-button expand="block" class="dynamic_bgcolor download_btn" (click)="openPDF(img?.imageUrlUrl)">
+          <ion-icon slot="start" name="download-outline"></ion-icon>
+        </ion-button>
+        <img [src]="img?.imageUrlUrl" alt="Slide image" />
+      </ion-card>
     </swiper-slide>
   </swiper-container>
 </ion-content>

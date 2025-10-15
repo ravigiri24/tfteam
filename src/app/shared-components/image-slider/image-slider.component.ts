@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -11,6 +11,7 @@ export class ImageSliderComponent implements OnInit {
   constructor(private modalCtrl: ModalController,private inAppBrowser: InAppBrowser) {}
   imageArray: any = [];
   image: any;
+  @Input() listColorClass = 'sixColor';
   ngOnInit() {
     let findselectedImage = this.imageArray.findIndex(
       (f: any) => f.imageUrlUrl == this.image?.imageUrlUrl

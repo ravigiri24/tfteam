@@ -632,6 +632,11 @@ ion-header {
 
 
 .firstColor {
+    --swiper-pagination-color: var(--app-dynamic-color-first) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-first) !important;
@@ -660,7 +665,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-first);
     --background: var(--app-dynamic-color-first);
@@ -711,6 +717,11 @@ ion-header {
 }
 
 .secondColor {
+    --swiper-pagination-color: var(--app-dynamic-color-second) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-second) !important;
@@ -739,7 +750,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-second);
     --background: var(--app-dynamic-color-second);
@@ -789,6 +801,11 @@ ion-header {
 }
 
 .thirdColor {
+    --swiper-pagination-color: var(--app-dynamic-color-third) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-third) !important;
@@ -817,7 +834,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-third);
     --background: var(--app-dynamic-color-third);
@@ -867,6 +885,11 @@ ion-header {
 }
 
 .fourthColor {
+    --swiper-pagination-color: var(--app-dynamic-color-fourth) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-fourth) !important;
@@ -895,7 +918,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-fourth);
     --background: var(--app-dynamic-color-fourth);
@@ -945,6 +969,11 @@ ion-header {
 }
 
 .fifthColor {
+    --swiper-pagination-color: var(--app-dynamic-color-fifth) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-fifth) !important;
@@ -973,7 +1002,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-fifth);
     --background: var(--app-dynamic-color-fifth);
@@ -1023,6 +1053,12 @@ ion-header {
 }
 
 .sixColor {
+  --swiper-pagination-color: var(--app-dynamic-color-six) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-six) !important;
@@ -1051,7 +1087,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-six);
     --background: var(--app-dynamic-color-six);
@@ -1101,6 +1138,11 @@ ion-header {
 }
 
 .sevenColor {
+    --swiper-pagination-color: var(--app-dynamic-color-seven) !important;
+  --swiper-pagination-bullet-size: 14px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-horizontal-gap: 2px;
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-seven) !important;
@@ -1129,7 +1171,8 @@ ion-header {
   .selected,
   .camera-counter,
   .top_right_close_box,
-  .dynamic_bgcolor {
+  .dynamic_bgcolor,
+  .swiper-pagination-bullet-active {
     // background: #FE9B4B;
     background: var(--app-dynamic-color-seven);
     --background: var(--app-dynamic-color-seven);
