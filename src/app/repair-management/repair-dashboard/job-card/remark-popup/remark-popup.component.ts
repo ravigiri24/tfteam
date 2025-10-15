@@ -22,6 +22,7 @@ export class RemarkPopupComponent  implements OnInit {
     dismiss(){
     this.modalCtrl.dismiss()
   }
+  
   ngOnInit() {
     if(this.jobDetails?.remark){
       this.remark=this.jobDetails?.remark
