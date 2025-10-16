@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +18,7 @@ export class AddServiceChargeComponent implements OnInit {
   tractorDetails: any;
   expense_head: any;
   editData: any = null;
+  @Input() listColorClass ='secondColor';
   constructor(
     private modalControl: ModalController,
     private formBuilder: FormBuilder,
