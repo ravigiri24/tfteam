@@ -1,0 +1,28 @@
+<app-common-header
+  [selectedStore]="selectedStore"
+  *ngIf="warehouseList?.length"
+  class="app_common_header"
+  [isListFilter]="true"
+  [brandList]="brandList"
+  [warehouseList]="warehouseList"
+  [listColorClass]="listColorClass"
+  [title]="'Tractors'"
+  [list]="alltractorList"
+  [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)"
+></app-common-header>
+<ion-content>
+  <app-view-list
+    *ngIf="alltractorList?.length"
+    [listColorClass]="listColorClass"
+    [buttonArray]="buttonArray"
+    [keyList]="keyList"
+    [list]="alltractorList"
+    [search]="search"
+    (actionEventCall)="actionEventCall($event)"
+    [searchKey]="'registractionNo'"
+  ></app-view-list>
+  <app-no-data-view
+    *ngIf="!alltractorList?.length && !share?.globalLoading"
+  ></app-no-data-view>
+</ion-content>

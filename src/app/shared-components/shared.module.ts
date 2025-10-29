@@ -55,10 +55,13 @@ import { TfCodeBackDatedComponent } from '../operational/tf-code-back-dated/tf-c
 import { SellBackComponent } from './sell-back/sell-back.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SearchPipe } from '../search.pipe';
+import { GlobalFilterTractorComponent } from './global-filter-tractor/global-filter-tractor.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
+    SearchPipe,
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
@@ -114,6 +117,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SelectCityModelComponent,
     SelectDistrictModelComponent,
     UpdatePasswordComponent,
+    GlobalFilterTractorComponent,
     TfCodeBackDatedComponent,
     SellBackComponent,
     ImageSliderComponent

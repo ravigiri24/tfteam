@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 // import { HomeComponent } from './home/home.component';
-
+import { SearchPipe } from './search.pipe'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { HeaderComponent } from './header/header.component';
@@ -25,7 +25,7 @@ import { LoaderColorfullComponent } from './shared-components/loader-colorfull/l
 @NgModule({
   declarations: [AppComponent,
     LoaderColorfullComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, SharedModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, SharedModule,SearchPipe],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, PDFGenerator],
   bootstrap: [AppComponent],
 })

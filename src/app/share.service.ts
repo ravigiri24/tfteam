@@ -191,6 +191,11 @@ let imagesToShow=  tractor?.rawImages?.filter(
               '/lead-management/customer-management',
             ]);
           }
+              else if (userde?.staff_role == 'SALES_OFFICER') {
+            this.router.navigate([
+              '/sales-officer/tractor-list-francise',
+            ]);
+          }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
@@ -231,6 +236,11 @@ let imagesToShow=  tractor?.rawImages?.filter(
              else if (userde?.currentRole == 'LEAD_MANAGEMENT') {
             this.router.navigate([
               '/lead-management/customer-management',
+            ]);
+          }
+              else if (userde?.currentRole == 'SALES_OFFICER') {
+            this.router.navigate([
+              '/sales-officer/tractor-list-francise',
             ]);
           }
         }
@@ -367,6 +377,8 @@ let imagesToShow=  tractor?.rawImages?.filter(
       ),
 
       hours: new FormControl(data?.hours || null, [Validators.required]),
+      insurance_cost: new FormControl(data?.insurance_cost || null, []),
+      rto_cost: new FormControl(data?.rto_cost || null, []),
         isBackDateEntry: new FormControl(data?.isBackDateEntry || false, []),
             backDate: new FormControl(data?.backDate || null, []),
       //  dealerPrice: new FormControl(this.data?.dealerPrice || null, [

@@ -106,4 +106,5 @@ actionEvent(tractor: any, button: any) {
    
       }
     }
+    searchText:any=''
 }
