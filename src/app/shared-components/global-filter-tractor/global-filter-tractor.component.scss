@@ -8,3 +8,59 @@
 
   
 }
+ion-range {
+  --bar-background: #d0d0d0;
+  --bar-background-active: #3880ff;
+  --knob-background: #3880ff;
+  --knob-size: 24px;
+}
+.multiple_options_container {
+  max-height: 150px;
+  overflow: auto;
+  display: flex;
+  flex-flow: wrap;
+  padding-bottom: 20px;
+
+  .checkbox_block {
+    padding: 0px 10px;
+    border: dashed 1px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    margin: 0px 15px 10px 0px;
+
+    input {
+      font-size: 12px;
+    }
+  }
+}
+
+:host ::ng-deep ion-checkbox::part(label) {
+  color: #666666 !important;
+}
+.margin-set {
+  margin-left: 20px;
+}
+.radio_block_container {
+  padding: 0px 15px 0px 25px;
+  position: relative;
+  z-index: -1;
+
+  .radio_block {
+    display: flex;
+    padding: 5px 10px;
+    background: #ffffff;
+    border-bottom: dashed 1px #e1e1e1;
+    transition: .5s all;
+    &:hover {
+      background: transparent;
+      border-color: #f5f5ff;
+    }
+  }
+}
+.year-poisition{
+  position: relative;
+  top: 46px;
+
+}

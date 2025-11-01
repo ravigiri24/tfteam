@@ -1,40 +1,93 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title class="dynamic_color">Apply Filter</ion-title>
+    <ion-buttons (click)="dismiss()" slot="end">
+      <ion-icon class="dynamic_color icon-size" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
 <ion-content  class="ion-padding ">
   <div class="border-shape background">
 <div class="global_input_block " >
   <ion-select (ionChange)="selectList()"  [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
 
-    <ion-select-option value="BRAND_WISE">Brand Wise</ion-select-option>
-    <ion-select-option *ngIf="showStoreWiseOptions" value="STORE_WISE">Store Wise</ion-select-option>
     <ion-select-option value="ALL">All</ion-select-option>
-    <ion-select-option  *ngIf="showDate" value="BY_DATE">By Date</ion-select-option>
+    <ion-select-option  value="ACITVE">Active</ion-select-option>
+    <ion-select-option value="ARCHIVED">Archived</ion-select-option>
+    <!-- <ion-select-option  *ngIf="showDate" value="BY_DATE">By Date</ion-select-option> -->
 
   </ion-select>
 </div>
 <div *ngIf="showFilter" class="global_input_block " >
   <ion-select (ionChange)="selectFilter()"  [(ngModel)]="filterBy" fill="outline" label="{{filterByTitle}}" label-placement="type">
+   
      <ion-select-option *ngFor="let options of optionsArray" [value]="options?.value">{{options?.displayName}}</ion-select-option>
-     <!-- <ion-select-option value="MAPPED">Mapped</ion-select-option>
-    <ion-select-option value="NOT_MAPPED">Not Mapped</ion-select-option>
-    <ion-select-option value="NOT_SOLD">Not Sold</ion-select-option>
-    <ion-select-option value="SOLD">Sold</ion-select-option> -->
+  
  
   </ion-select>
 </div>
-    <!-- <div>
+ <div >
+  <h3>Year</h3>
+ <div >
+    <ion-radio-group [(ngModel)]="yearChecked" (ionChange)="selectItem($event)">
+            <ion-radio value="ALL" class="radio_block" 
+        ><span class="radio_name">All</span></ion-radio>
+      <ion-radio   class="radio_block" 
+        value="2020 & Above"><span class="radio_name">2020 & Above</span></ion-radio>
+      <ion-radio class="radio_block" 
+        value="2018 & Above"><span class="radio_name">2018 & Above</span></ion-radio>
+      <ion-radio  class="radio_block" 
+        value="2014 & Above"><span class="radio_name">2014 & Above</span></ion-radio>
+      <ion-radio  class="radio_block" 
+        value="2010 & Above"><span class="radio_name">2010 & Above</span></ion-radio>
+    </ion-radio-group>
+<p>Selected: {{ yearChecked }}</p>
+  </div> 
+  </div>
+<ion-item *ngIf="showRange">
+  <ion-label>Price Range</ion-label>
+  <ion-range
+  
+    aria-label="Price Range"
+    [dualKnobs]="true"
+    [value]="{ lower: lower, upper: upper }"
+     [min]="0"
+    [max]="1500000"
+      [step]="10000"
+    (ionChange)="rangeChange($event)">
+  </ion-range>
+</ion-item>
+<ion-item>
+  <ion-label>Min: {{ rangeValue.lower }}</ion-label>
+  <ion-label>Max: {{ rangeValue.upper }}</ion-label>
+</ion-item>
+    <div>
       <span class="global-inner-heading dynamic_color">Brands
-        <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')"
-          name="add-circle-outline"></ion-icon>
+        <!-- <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')"
+          name="add-circle-outline"></ion-icon> -->
       </span>
       <div class="multiple_options_container">
-        <ion-checkbox class="checkbox_block dynamic_color" *ngFor="let issue of issueList" [checked]="issue?.checked"
-          (ionChange)="selectIssue($event,issue)" labelPlacement="end">{{issue?.name}}</ion-checkbox>
+           <ion-checkbox class="checkbox_block dynamic_color"  
+          (ionChange)="selectBrand($event,'ALL')" [checked]="checkedAll" labelPlacement="end">All</ion-checkbox>
+        <ion-checkbox class="checkbox_block dynamic_color" *ngFor="let brand of brandList" [checked]="brand?.checked"
+          (ionChange)="selectBrand($event,brand)" labelPlacement="end">{{brand?.name}}</ion-checkbox>
       </div>
-      <div class="global_input_block">
-        <ion-input label="Other Issue" fill="outline" labelPlacement="stacked" type="text"
-          formControlName="otherIssues"></ion-input>
+   
+    </div>
+   
+      <div class="row">
+        <div class="col-6">
+             <ion-button (click)="applyFilter()"   class="global_submit_button" expand="block">Apply</ion-button>
+        </div>
+              <div class="col-6">
+        
+    <ion-button (click)="reset()" class="global_submit_button" expand="block">Reset</ion-button>
+        </div>
       </div>
-    </div> -->
-<div *ngIf="listBy=='BY_DATE'">
+<!-- <div *ngIf="listBy=='BY_DATE'">
   <form *ngIf="form" [formGroup]="form">
   <div class="row top-position-body">
 
@@ -57,6 +110,7 @@
     
       Generate</ion-button>
     </div>
+</div> -->
 </div>
-</div>
+
 </ion-content>

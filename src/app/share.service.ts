@@ -59,11 +59,51 @@ export class ShareService {
     let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
     let obj = {
-    
       operate: getStaff?.staffCode,
-  
     };
     return obj;
+  }
+  filterByBrand(list: any = [], selectedBrand: any = []) {
+    let tractorList: any = [];
+    list?.forEach((f: any) => {
+      let checkBrand = selectedBrand?.filter(
+        (brand: any) => brand.id == f?.brandID
+      );
+      if (checkBrand?.length) {
+        tractorList.push(f);
+      }
+    });
+    return tractorList;
+  }
+  filterByPrice(list: any = [], lower: any, upper: any) {
+    let tractorList: any = [];
+    tractorList = list?.filter(
+      (li: any) =>
+        Number(li.price) >= Number(lower) && Number(li.price <= upper)
+    );
+
+    return tractorList;
+  }
+  filterByManuYear(list: any = [], yearChecked: any) {
+    let tractorList: any = [];
+    let year = 1960;
+    if (yearChecked == 'ALL') {
+      year = 1960;
+    } else if (yearChecked == '2020 & Above') {
+      year = 2020;
+    } else if (yearChecked == '2018 & Above') {
+      year = 2018;
+    } else if (yearChecked == '2014 & Above') {
+      year = 2014;
+    } else if (yearChecked == '2010 & Above') {
+      year = 2010;
+    }
+
+    tractorList = list?.filter(
+      (li: any) => Number(li.yearOfManufactoring) >= year
+    );
+
+    return tractorList;
   }
   getListObj(
     src: any,
@@ -85,7 +125,7 @@ export class ShareService {
     return obj;
   }
   spinner = {
-    dismiss: (param:any="active_seven") => {
+    dismiss: (param: any = 'active_seven') => {
       this.activeCurrent = `active_page ${param}`; // active_one to active_seven
       setTimeout(() => {
         this.globalLoading = false;
@@ -94,17 +134,16 @@ export class ShareService {
       // You can put your logic here (e.g., hiding loader UI)
     },
   };
-getImagesToShow(tractor:any){
-let imagesToShow=  tractor?.rawImages?.filter(
+  getImagesToShow(tractor: any) {
+    let imagesToShow = tractor?.rawImages?.filter(
       (img: any) =>
         img?.imageGroup == 'BEFORE_SERVICE' ||
         img?.imageGroup == 'AFTER_SERVICE'
-    ) 
+    );
 
-  tractor.imagesToShow=imagesToShow
-  tractor.imageslength=imagesToShow?.length
-  
-}
+    tractor.imagesToShow = imagesToShow;
+    tractor.imageslength = imagesToShow?.length;
+  }
 
   globalLoading = false;
   async showLoading(message: any, duration: any = 7000) {
@@ -120,16 +159,14 @@ let imagesToShow=  tractor?.rawImages?.filter(
       this.globalLoading = false;
     }, duration);
   }
-  spinnerPopup:any
-    async showLoadingCrud(message: any, duration: any = 7000) {
-  
+
+  spinnerPopup: any;
+  async showLoadingCrud(message: any, duration: any = 7000) {
     this.spinner = await this.loadingCtrl.create({
       message: message,
       duration: duration,
     });
-       this.spinnerPopup.present();
-
-   
+    this.spinnerPopup.present();
   }
   getDataRowObj(src: any, isImage: any, images: any, rowCode: any) {
     let staffDetails: any = this.get_staff();
@@ -185,16 +222,10 @@ let imagesToShow=  tractor?.rawImages?.filter(
             this.router.navigate([
               '/inventory-receive-department/inven-received-list',
             ]);
-          }
-           else if (userde?.staff_role == 'LEAD_MANAGEMENT') {
-            this.router.navigate([
-              '/lead-management/customer-management',
-            ]);
-          }
-              else if (userde?.staff_role == 'SALES_OFFICER') {
-            this.router.navigate([
-              '/sales-officer/tractor-list-francise',
-            ]);
+          } else if (userde?.staff_role == 'LEAD_MANAGEMENT') {
+            this.router.navigate(['/lead-management/customer-management']);
+          } else if (userde?.staff_role == 'SALES_OFFICER') {
+            this.router.navigate(['/sales-officer/tractor-list-francise']);
           }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
@@ -232,16 +263,10 @@ let imagesToShow=  tractor?.rawImages?.filter(
             this.router.navigate([
               '/inventory-receive-department/inven-received-list',
             ]);
-          }
-             else if (userde?.currentRole == 'LEAD_MANAGEMENT') {
-            this.router.navigate([
-              '/lead-management/customer-management',
-            ]);
-          }
-              else if (userde?.currentRole == 'SALES_OFFICER') {
-            this.router.navigate([
-              '/sales-officer/tractor-list-francise',
-            ]);
+          } else if (userde?.currentRole == 'LEAD_MANAGEMENT') {
+            this.router.navigate(['/lead-management/customer-management']);
+          } else if (userde?.currentRole == 'SALES_OFFICER') {
+            this.router.navigate(['/sales-officer/tractor-list-francise']);
           }
         }
       }
@@ -379,8 +404,8 @@ let imagesToShow=  tractor?.rawImages?.filter(
       hours: new FormControl(data?.hours || null, [Validators.required]),
       insurance_cost: new FormControl(data?.insurance_cost || null, []),
       rto_cost: new FormControl(data?.rto_cost || null, []),
-        isBackDateEntry: new FormControl(data?.isBackDateEntry || false, []),
-            backDate: new FormControl(data?.backDate || null, []),
+      isBackDateEntry: new FormControl(data?.isBackDateEntry || false, []),
+      backDate: new FormControl(data?.backDate || null, []),
       //  dealerPrice: new FormControl(this.data?.dealerPrice || null, [
       //   Validators.required,
       // ]),
@@ -778,9 +803,9 @@ let imagesToShow=  tractor?.rawImages?.filter(
         ]),
       }),
     });
-       console.log('modelForm', modelForm.value);
-    return modelForm
-     
+    console.log('modelForm', modelForm.value);
+    return modelForm;
+
     //  if (this.data?.images?.length) {
     //    this.loadedImages = this.data?.images;
     //  }
