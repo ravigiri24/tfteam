@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,9 +14,9 @@ import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-po
   templateUrl: './add-reduce-part.component.html',
   styleUrls: ['./add-reduce-part.component.scss'],
 })
-export class AddReducePartComponent  implements OnInit {
-
- tractorDetails: any;
+export class AddReducePartComponent implements OnInit {
+  @Input() listColorClass = 'secondColor';
+  tractorDetails: any;
   expense_head: any;
   editData: any = null;
   constructor(
@@ -24,7 +24,7 @@ export class AddReducePartComponent  implements OnInit {
     private formBuilder: FormBuilder,
     private share: ShareService,
     private api: ApiService
-  ) {}
+  ) { }
   staffDetails: any;
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
@@ -45,14 +45,14 @@ export class AddReducePartComponent  implements OnInit {
       action_id: new FormControl(this.staffDetails?.id || null, [
         Validators.required,
       ]),
-      
-      reduce_amount: new FormControl(data?.reduce_amount || null,[Validators.required]),
-     
+
+      reduce_amount: new FormControl(data?.reduce_amount || null, [Validators.required]),
+
       qty: new FormControl(data?.qty || 1, [Validators.required]),
 
-     
+
       remark: new FormControl(data?.remark || null, []),
-     
+
       repairing_center: new FormControl(
         this.staffDetails?.repair_center || null,
         [Validators.required]
@@ -78,20 +78,20 @@ export class AddReducePartComponent  implements OnInit {
     if (type == 'MATERIAL_OF_REPAIRING') {
       this.getList();
     }
-    else if(type == 'CATEGOEY_OF_MATERIAL'){
+    else if (type == 'CATEGOEY_OF_MATERIAL') {
       this.getSpareCategory(true)
     }
     console.log('role', role);
   }
 
-  materialList:any=[]
+  materialList: any = []
   getList() {
     this.share.showLoading('Loading...');
     let obj = this.share.getListObj('repairmateriallist', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.materialList = res.data;
-      
+
         if (this.editData) {
           let getSelectedExpense = this.materialList.find(
             (ex: any) => ex.id == this.editData?.part_id
@@ -111,19 +111,19 @@ export class AddReducePartComponent  implements OnInit {
         //  });
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  spareList:any=[]
-  getSpareCategory(loader:any=false) {
-    if(loader){
-    this.share.showLoading('Loading...');
+  spareList: any = []
+  getSpareCategory(loader: any = false) {
+    if (loader) {
+      this.share.showLoading('Loading...');
     }
     let obj = this.share.getListObj('spare_category', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.spareList = res.data;
-    
+
         // this.materialList?.forEach((element:any) => {
         //  this.materialList.push(element)
         // });
@@ -133,11 +133,11 @@ export class AddReducePartComponent  implements OnInit {
         //  this.materialList?.forEach((element:any) => {
         //   this.materialList.push(element)
         //  });
-        if(loader){
-        this.share.spinner.dismiss();
+        if (loader) {
+          this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   repairingCenterList: any = [];
@@ -155,25 +155,25 @@ export class AddReducePartComponent  implements OnInit {
           this.share.spinner.dismiss();
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  addNewServiceCrud(serviceObj: any,save:any=true) {
+  addNewServiceCrud(serviceObj: any, save: any = true) {
     let obj = {
       src: 'repairmateriallist',
-      data: { name: this.selectedItem?.name,category:this.category },
+      data: { name: this.selectedItem?.name, category: this.category },
     };
     this.api.postapi('addOpp', obj).subscribe((res: any) => {
       // this.share.spinner.dismiss()
       // this.form.reset();
       console.log('res', res);
       serviceObj.part_id = res?.data;
-if(save==true){
+      if (save == true) {
 
-  this.saveExepense(serviceObj);
-}else{
-  this.updateCall(serviceObj)
-}
+        this.saveExepense(serviceObj);
+      } else {
+        this.updateCall(serviceObj)
+      }
     });
   }
   saveExepense(objServie: any) {
@@ -197,9 +197,9 @@ if(save==true){
 
       objData.job_id = this.tractorDetails?.id;
 
-      objData.total_amount = Number(objData.reduce_amount)*Number(objData?.qty);
-  
-    //  objData.qty = 1;
+      objData.total_amount = Number(objData.reduce_amount) * Number(objData?.qty);
+
+      //  objData.qty = 1;
       if (this.selectedItem?.id == null) {
         this.addNewServiceCrud(objData);
       } else {
@@ -217,11 +217,11 @@ if(save==true){
 
       objData.job_id = this.tractorDetails?.id;
 
-      objData.total_amount = Number(objData.reduce_amount)*Number(objData?.qty);
+      objData.total_amount = Number(objData.reduce_amount) * Number(objData?.qty);
       //objData.billNumber = 'TF-' + Math.floor(100000 + Math.random() * 900000);
-    //  objData.qty = 1;
+      //  objData.qty = 1;
       if (this.selectedItem?.id == null) {
-        this.addNewServiceCrud(objData,false);
+        this.addNewServiceCrud(objData, false);
       } else {
         objData.part_id = this.selectedItem?.id;
         this.updateCall(objData);
@@ -247,7 +247,7 @@ if(save==true){
   }
   showSearchList = false;
   onInputFocus() {
-  
+
     //  this.expenseTypeList=this.expenseTypeListBackup
 
     this.showSearchList = true;
@@ -257,10 +257,10 @@ if(save==true){
     // this.search.name=null
     // this.search.id=null
     setTimeout(() => {
-     // if(!this.spareListOpen){
-        this.showSearchList = false;
-     // }
-     
+      // if(!this.spareListOpen){
+      this.showSearchList = false;
+      // }
+
     }, 100);
   }
   search: any = {
@@ -270,7 +270,7 @@ if(save==true){
   selectedItem: any = {
     name: null,
     id: null,
-    category:null
+    category: null
   };
   setValue(val: any) {
     console.log('setValue');
@@ -289,17 +289,17 @@ if(save==true){
     this.showSearchList = false;
     this.search.name = null;
   }
-  spareListOpen=false
-  onInputSpare(){
-this.spareListOpen=true
+  spareListOpen = false
+  onInputSpare() {
+    this.spareListOpen = true
   }
-  focusOutSpare(){
-    this.spareListOpen=false
+  focusOutSpare() {
+    this.spareListOpen = false
   }
-  category:any=1
+  category: any = 1
 
-  setSpareCategory(){
-    this.selectedItem.category=false
+  setSpareCategory() {
+    this.selectedItem.category = false
   }
 
 }
