@@ -15,15 +15,17 @@ export class TractorListFranchiseComponent implements OnInit {
     private api: ApiService,
     private modalCtrl: ModalController
   ) {}
-  lower=0
-  upper=0
-  yearChecked='ALL'
+  lower = 0;
+  upper = 0;
+  yearChecked = 'ALL';
   ionViewWillEnter() {
-    this.checkedAll=true
-    this.selectedBrand=[]
-    this.lower=0
-    this.upper=1500000
-    this.yearChecked='ALL'
+    this.checkedAll = true;
+    this.selectedBrand = [];
+    this.lower = 0;
+    this.listBy='ACTIVE'
+    this.filterBy='NOT_SOLD'
+    this.upper = 1500000;
+    this.yearChecked = 'ALL';
     //this.alltractorList = [];
     this.getBrandList();
     this.getWareHouseList();
@@ -129,55 +131,83 @@ export class TractorListFranchiseComponent implements OnInit {
         ],
         selectedBrand: this.selectedBrand,
         checkedAll: this.checkedAll,
-        lower:this.lower,
-        upper:this.upper,
-        yearChecked:this.yearChecked
+        lower: this.lower,
+        upper: this.upper,
+        yearChecked: this.yearChecked,
+     
       },
       cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-    if (data && data?.isFilterChange) {
-      console.log('data', data);
-      this.filterBy = data?.filterBy;
-      //  this.sortByFilter()
-    }
-    if (data && data?.isListChange) {
-      console.log('data', data);
-      this.listBy = data?.listBy;
-      //this.callListApi()
-    }
+
     if (data) {
       this.selectedBrand = data?.selectedBrand;
       this.checkedAll = data?.checkedAll;
-      this.lower=data?.lower
-    this.upper=data?.upper
-    this.yearChecked=data?.yearChecked
-      this.sortByFilter();
+      this.lower = data?.lower;
+      this.upper = data?.upper;
+      this.yearChecked = data?.yearChecked;
+      this.listBy=data?.listBy
+      this.filterBy=data?.filterBy
+      this.filterActiveAndFilterBy();
     }
-  
   }
-  sortByFilter() {
-    this.alltractorList = [];
-    let filteredList=[]
+  filterActiveAndFilterBy() {
+        this.alltractorList = [];
+        setTimeout(() => {
+             let tractorList: any = [];
+    if (this.listBy == 'ALL') {
+      tractorList = JSON.parse(JSON.stringify(this.allTractorsSrcList));
+    } else if (this.listBy == 'ARCHIVED') {
+      tractorList = this.allTractorsSrcList.filter(
+        (f: any) => f.tractor_status == 'ARCHIVED'
+      );
+    } else if (this.listBy == 'ACTIVE') {
+      tractorList = this.allTractorsSrcList.filter(
+        (f: any) => f.tractor_status != 'ARCHIVED'
+      );
+    }
+       if (this.filterBy == 'ALL') {
+      tractorList = tractorList
+    } else if (this.filterBy == 'SOLD') {
+      tractorList = tractorList.filter(
+           (f: any) => f?.isSold == 1
+      );
+    } else if (this.filterBy == 'NOT_SOLD') {
+      tractorList = tractorList.filter(
+             (f: any) => f?.isSold == 0
+      );
+    }
+
+
+
+    this.sortByFilter(tractorList)  
+        }, 0);
+ 
+  }
+  sortByFilter(tractorList:any) {
+
+    let filteredList = [];
     if (!this.checkedAll) {
-      filteredList = this.share.filterByBrand(
-        this.allTractorsSrcList,
+      // filteredList = this.share.filterByBrand(
+      //   this.allTractorsSrcList,
+      //   this.selectedBrand
+      // );
+        filteredList = this.share.filterByBrand(
+        tractorList,
         this.selectedBrand
       );
     } else {
-      filteredList = JSON.parse(JSON.stringify(this.allTractorsSrcList));
+      filteredList = JSON.parse(JSON.stringify(tractorList));
     }
-    filteredList= this.share.filterByPrice(
-        filteredList,
-        this.lower,this.upper
-      );
+    filteredList = this.share.filterByPrice(
+      filteredList,
+      this.lower,
+      this.upper
+    );
 
-       filteredList= this.share.filterByManuYear(
-        filteredList,
-        this.yearChecked
-      );   
-      this.alltractorList=filteredList
+    filteredList = this.share.filterByManuYear(filteredList, this.yearChecked);
+    this.alltractorList = filteredList;
   }
   async searchTractor() {
     const modal = await this.modalCtrl.create({
@@ -219,7 +249,7 @@ export class TractorListFranchiseComponent implements OnInit {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-
+  this.filterActiveAndFilterBy()
         //this.sortByFilter()
         this.share.spinner.dismiss('active_one');
         //this.backupList = res.data;

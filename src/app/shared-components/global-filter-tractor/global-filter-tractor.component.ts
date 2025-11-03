@@ -15,7 +15,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class GlobalFilterTractorComponent implements OnInit {
   filterBy = 'ALL';
-  listBy = 'ALL';
+  listBy = 'ACTIVE';
   showStoreWiseOptions = true;
   showDate = false;
   className: 'active_one';
@@ -107,8 +107,8 @@ upper=1500000
   this.rangeValue.lower=0
   this.rangeValue.upper=1500000
   this.yearChecked="ALL"
-  this.listBy='ACITVE'
-  this.filterBy='ALL'
+  this.listBy='ACTIVE'
+  this.filterBy='NOT_SOLD'
 this.showRange=false
 setTimeout(() => {
   this.showRange=true
@@ -121,7 +121,9 @@ setTimeout(() => {
       checkedAll: this.checkedAll,
       lower:this.rangeValue.lower,
       upper:this.rangeValue.upper,
-      yearChecked:this.yearChecked
+      yearChecked:this.yearChecked,
+      listBy:this.listBy,
+      filterBy:this.filterBy,
     });
   }
   checkAllStatus() {
@@ -159,15 +161,15 @@ setTimeout(() => {
     this.modalcontrol.dismiss();
   }
   selectFilter() {
-    this.modalcontrol.dismiss({
-      filterBy: this.filterBy,
-      isFilterChange: true,
-    });
+    // this.modalcontrol.dismiss({
+    //   filterBy: this.filterBy,
+    //   isFilterChange: true,
+    // });
   }
   selectList() {
-    if (this.listBy != 'BY_DATE') {
-      this.modalcontrol.dismiss({ listBy: this.listBy, isListChange: true });
-    }
+    // if (this.listBy != 'BY_DATE') {
+    //   this.modalcontrol.dismiss({ listBy: this.listBy, isListChange: true });
+    // }
   }
   setDate() {
     if (this.form.valid) {
