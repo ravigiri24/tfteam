@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -9,33 +9,33 @@ import { AlertController, ModalController } from '@ionic/angular';
   templateUrl: './remark-popup.component.html',
   styleUrls: ['./remark-popup.component.scss'],
 })
-export class RemarkPopupComponent  implements OnInit {
+export class RemarkPopupComponent implements OnInit {
 
-   constructor(
+  constructor(
     private router: Router,
     public share: ShareService,
     private activatedRoute: ActivatedRoute,
     private api: ApiService,
     private modalCtrl: ModalController,
-    private alertCtrl:AlertController
-  ) {}
-    dismiss(){
+    private alertCtrl: AlertController
+  ) { }
+  dismiss() {
     this.modalCtrl.dismiss()
   }
-  
+  @Input() listColorClass = 'secondColor';
   ngOnInit() {
-    if(this.jobDetails?.remark){
-      this.remark=this.jobDetails?.remark
+    if (this.jobDetails?.remark) {
+      this.remark = this.jobDetails?.remark
     }
   }
-  jobDetails:any
-  remark:any
+  jobDetails: any
+  remark: any
   deleteTractor() {
     //  this.modalcontrol.dismiss(true);
     if (this.remark != null && this.remark != undefined) {
       let objData: any = {
         remark: this.remark,
-      
+
       };
       let obj = {
         src: 'repairing_record',
@@ -48,8 +48,8 @@ export class RemarkPopupComponent  implements OnInit {
 
 
         this.share.presentToast('Saved Successfully...');
-                this.share.spinner.dismiss();
-        this.modalCtrl.dismiss({remark:this.remark});
+        this.share.spinner.dismiss();
+        this.modalCtrl.dismiss({ remark: this.remark });
 
         //  this.dismiss();
       });

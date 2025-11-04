@@ -30,6 +30,7 @@ pdfMake.fonts = {
   styleUrls: ['./job-card.component.scss'],
 })
 export class JobCardComponent implements OnInit {
+  @Input() listColorClass = 'secondColor';
   @Input() jobDetails: any;
   @Input() expenseServiceList: any = [];
   @Input() expenseMaterialList: any = [];
@@ -47,7 +48,7 @@ export class JobCardComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private router: Router,
-    private modalCtrl:ModalController,
+    private modalCtrl: ModalController,
 
     private inAppBrowser: InAppBrowser
   ) {
@@ -75,7 +76,7 @@ export class JobCardComponent implements OnInit {
       'materialList',
       this.materialList,
       this.spareList,
-      this.expenseMaterialList,"categroyWiseMaterial",this.categroyWiseMaterial
+      this.expenseMaterialList, "categroyWiseMaterial", this.categroyWiseMaterial
     );
   }
 
@@ -101,11 +102,11 @@ export class JobCardComponent implements OnInit {
       this.completeJob(status);
     }
   }
-todayDate=new Date()
+  todayDate = new Date()
   completeJob(status: any) {
     let obj = {
       src: 'repairing_record',
-      data: { isCompleted: status,completeDate:new Date() },
+      data: { isCompleted: status, completeDate: new Date() },
       id: this.jobDetails?.id,
     };
 
@@ -132,13 +133,13 @@ todayDate=new Date()
         callback: function (doc: any) {
           // Save the generated PDF
           //      doc.save('invoice.pdf');
-         // const img:any = document.getElementById('imageLogo');
-     
+          // const img:any = document.getElementById('imageLogo');
+
           //img.onload = function () {
-            //doc.addImage(img, 'JPEG', 20, 40, 180, 160);
+          //doc.addImage(img, 'JPEG', 20, 40, 180, 160);
           pdfBlob = doc.output('blob');
           console.log('pdfBlob', pdfBlob);
-        //  }
+          //  }
         },
         x: 10, // X-position of content
         y: 10, // Y-position of content
@@ -150,7 +151,7 @@ todayDate=new Date()
       .then((f) => {
         this.convertBlobToBase64(pdfBlob);
       });
-    setTimeout(() => {}, 0);
+    setTimeout(() => { }, 0);
 
     // Convert the content and trigger download
   }
@@ -225,7 +226,7 @@ todayDate=new Date()
       operate: this.staffDetails?.staffCode,
       pdfObj: this.renderResult,
       tractor_id: this.jobDetails?.id,
-      billNumber: this.jobDetails?.tfCode||'',
+      billNumber: this.jobDetails?.tfCode || '',
       actionByid: this.staffDetails?.id,
     };
     console.log('convertBlobToBase64', obj);
@@ -241,34 +242,34 @@ todayDate=new Date()
     });
   }
   pdfUrl: any;
-   async addRemark() {
-      const modal = await this.modalCtrl.create({
-        component: RemarkPopupComponent,
-     
-            cssClass: 'midium-model',
-        componentProps: {
-          jobDetails: this.jobDetails,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data) {
-      this.jobDetails.remark=data?.remark
-      }
+  async addRemark() {
+    const modal = await this.modalCtrl.create({
+      component: RemarkPopupComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        jobDetails: this.jobDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.jobDetails.remark = data?.remark
     }
-     async addRemarkMiss() {
-      const modal = await this.modalCtrl.create({
-        component: RemarkMissPopupComponent,
-     
-            cssClass: 'midium-model',
-        componentProps: {
-          jobDetails: this.jobDetails,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data) {
-      this.jobDetails.miscellaneous_remark=data?.miscellaneous_remark
-      }
+  }
+  async addRemarkMiss() {
+    const modal = await this.modalCtrl.create({
+      component: RemarkMissPopupComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        jobDetails: this.jobDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.jobDetails.miscellaneous_remark = data?.miscellaneous_remark
     }
+  }
 }

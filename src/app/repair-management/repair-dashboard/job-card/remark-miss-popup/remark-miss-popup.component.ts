@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -9,33 +9,34 @@ import { AlertController, ModalController } from '@ionic/angular';
   templateUrl: './remark-miss-popup.component.html',
   styleUrls: ['./remark-miss-popup.component.scss'],
 })
-export class RemarkMissPopupComponent  implements OnInit {
+export class RemarkMissPopupComponent implements OnInit {
 
 
-   constructor(
+  constructor(
     private router: Router,
     public share: ShareService,
     private activatedRoute: ActivatedRoute,
     private api: ApiService,
     private modalCtrl: ModalController,
-    private alertCtrl:AlertController
-  ) {}
-    dismiss(){
+    private alertCtrl: AlertController
+  ) { }
+  dismiss() {
     this.modalCtrl.dismiss()
   }
   ngOnInit() {
-    if(this.jobDetails?.remark){
-      this.miscellaneous_remark=this.jobDetails?.miscellaneous_remark
+    if (this.jobDetails?.remark) {
+      this.miscellaneous_remark = this.jobDetails?.miscellaneous_remark
     }
   }
-  jobDetails:any
-  	miscellaneous_remark:any
+  @Input() listColorClass = 'secondColor';
+  jobDetails: any
+  miscellaneous_remark: any
   deleteTractor() {
     //  this.modalcontrol.dismiss(true);
     if (this.miscellaneous_remark != null && this.miscellaneous_remark != undefined) {
       let objData: any = {
         miscellaneous_remark: this.miscellaneous_remark,
-      
+
       };
       let obj = {
         src: 'repairing_record',
@@ -48,8 +49,8 @@ export class RemarkMissPopupComponent  implements OnInit {
 
 
         this.share.presentToast('Saved Successfully...');
-                this.share.spinner.dismiss();
-        this.modalCtrl.dismiss({miscellaneous_remark:this.miscellaneous_remark});
+        this.share.spinner.dismiss();
+        this.modalCtrl.dismiss({ miscellaneous_remark: this.miscellaneous_remark });
 
         //  this.dismiss();
       });

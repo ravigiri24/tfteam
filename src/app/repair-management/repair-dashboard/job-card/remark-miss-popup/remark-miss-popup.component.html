@@ -1,29 +1,24 @@
-<ion-header >
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-label class="top_heading">
-
       <div class="left_text">
-
- Add Remark(Miscellaneous)
+        Add Remark (Miscellaneous)
       </div>
       <div class="right_action">
-         
-        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close"></ion-icon>
       </div>
     </ion-label>
-
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
- <div class="border-shape background">
-
-    <div class="global_input_block" >
-    <ion-textarea [(ngModel)]="miscellaneous_remark" label="Remark" fill="outline" labelPlacement="stacked"
-      placeholder="write remark(Miss) here..."></ion-textarea>
-  </div>
+<ion-content class="ion-padding" [ngClass]="listColorClass">
+  <div class="border-shape background">
+    <div class="global_input_block">
+      <ion-textarea [(ngModel)]="miscellaneous_remark" label="Remark" class="global_textarea" fill="outline" labelPlacement="stacked"
+        placeholder="write remark (Miss) here..."></ion-textarea>
+    </div>
     <div class="page_submit_btn">
-    <ion-button (click)="deleteTractor()" class="global_submit_button" expand="block">Save</ion-button>
-   
+      <ion-button (click)="deleteTractor()" class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
+
+    </div>
   </div>
-</div>
 </ion-content>

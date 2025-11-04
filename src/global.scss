@@ -429,6 +429,9 @@ app-salary-slip {
   width: 100%;
   margin: 0px;
 }
+.global_submit_color_button {
+  min-height: 45px;
+}
 
 .no_found_text_block {
   display: flex;
@@ -630,13 +633,28 @@ ion-header {
   }
 }
 
+.global_header_block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 15px;
+
+  .main_lefttitle {
+    font-size: 16px;
+  }
+
+  ion-button {
+    font-size: 12px;
+  }
+}
 
 .firstColor {
-    --swiper-pagination-color: var(--app-dynamic-color-first) !important;
+  --swiper-pagination-color: var(--app-dynamic-color-first) !important;
   --swiper-pagination-bullet-size: 14px;
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-first) !important;
@@ -676,7 +694,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -717,11 +735,12 @@ ion-header {
 }
 
 .secondColor {
-    --swiper-pagination-color: var(--app-dynamic-color-second) !important;
+  --swiper-pagination-color: var(--app-dynamic-color-second) !important;
   --swiper-pagination-bullet-size: 14px;
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-second) !important;
@@ -761,7 +780,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -801,11 +820,12 @@ ion-header {
 }
 
 .thirdColor {
-    --swiper-pagination-color: var(--app-dynamic-color-third) !important;
+  --swiper-pagination-color: var(--app-dynamic-color-third) !important;
   --swiper-pagination-bullet-size: 14px;
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-third) !important;
@@ -845,7 +865,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -885,11 +905,12 @@ ion-header {
 }
 
 .fourthColor {
-    --swiper-pagination-color: var(--app-dynamic-color-fourth) !important;
+  --swiper-pagination-color: var(--app-dynamic-color-fourth) !important;
   --swiper-pagination-bullet-size: 14px;
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-fourth) !important;
@@ -929,7 +950,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -969,11 +990,12 @@ ion-header {
 }
 
 .fifthColor {
-    --swiper-pagination-color: var(--app-dynamic-color-fifth) !important;
+  --swiper-pagination-color: var(--app-dynamic-color-fifth) !important;
   --swiper-pagination-bullet-size: 14px;
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-fifth) !important;
@@ -1013,7 +1035,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -1098,7 +1120,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -1138,11 +1160,12 @@ ion-header {
 }
 
 .sevenColor {
-    --swiper-pagination-color: var(--app-dynamic-color-seven) !important;
+  --swiper-pagination-color: var(--app-dynamic-color-seven) !important;
   --swiper-pagination-bullet-size: 14px;
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-seven) !important;
@@ -1182,7 +1205,7 @@ ion-header {
     }
   }
 
-  ion-card,
+  ion-card, .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -1281,6 +1304,11 @@ ion-header {
       color: #ffffff !important;
     }
   }
+}
+
+.global_textarea {
+  --min-height: 250px;
+  height: 250px;
 }
 
 .page_inner_container {
