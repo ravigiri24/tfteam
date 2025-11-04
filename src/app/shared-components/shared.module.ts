@@ -57,6 +57,8 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SearchPipe } from '../search.pipe';
 import { GlobalFilterTractorComponent } from './global-filter-tractor/global-filter-tractor.component';
+import { ReceiveTractorImageComponent } from '../sales-officer-depart/receive-tractor-image/receive-tractor-image.component';
+import { EnquireCustomerListComponent } from './enquire-customer-list/enquire-customer-list.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -120,7 +122,9 @@ import { GlobalFilterTractorComponent } from './global-filter-tractor/global-fil
     GlobalFilterTractorComponent,
     TfCodeBackDatedComponent,
     SellBackComponent,
-    ImageSliderComponent
+    ImageSliderComponent,
+    ReceiveTractorImageComponent,
+    EnquireCustomerListComponent
     
   ],
 

@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-tractor-list-franchise',
   templateUrl: './tractor-list-franchise.component.html',
@@ -13,7 +14,8 @@ export class TractorListFranchiseComponent implements OnInit {
   constructor(
     public share: ShareService,
     private api: ApiService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private commonMethod:CommonMethodService
   ) {}
   lower = 0;
   upper = 0;
@@ -262,23 +264,18 @@ export class TractorListFranchiseComponent implements OnInit {
     registractionNo: null,
   };
   buttonArray: any = [
-    {
-      name: 'Tractor Dashboard',
-      action: 'tractorDashboard',
-      closeCurrentPopUP: true,
-      srcPage: '/operational/all-tractor-management',
-      image: './././assets/images/layout.png',
+  
+     {
+      name: 'Upload Recive Tractor Image',
+      action: 'reciveTractorImage',
+      image: './././assets/images/image_upload.png',
     },
-    {
-      name: 'Sync Mainatainance',
-      action: 'syncMainatinance',
-      image: './././assets/images/sync.png',
+      {
+      name: 'Upload Recive Tractor Image',
+      action: 'reciveTractorImage',
+      image: './././assets/images/ user-engagement.png',
     },
-    {
-      name: 'Tractor Summary',
-      action: 'tractorSummary',
-      image: './././assets/images/data-analysis.png',
-    },
+   
   ];
   keyList: any = [
     { key: 'Model', value: 'name', type: 'INPUT' },
@@ -294,5 +291,8 @@ export class TractorListFranchiseComponent implements OnInit {
 
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
-  actionEventCall(e: any) {}
+ async actionEventCall(e: any) {
+      await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
+
+  }
 }

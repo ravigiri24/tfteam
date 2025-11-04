@@ -1,6 +1,12 @@
 <ion-tabs >
   <ion-tab-bar slot="bottom" class="custom-tab-bar {{activeTabsColor}}" class="bottom_footer_row" slot="bottom">
- 
+   <ion-tab-button tab="DASHBOARD" (click)="goToPage('DASHBOARD')" [class.active]="selectedTab === 'DASHBOARD'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'DASHBOARD'">
+        <ion-icon name="cellular-outline" *ngIf="selectedTab !== 'DASHBOARD'"></ion-icon>
+        <ion-icon name="cellular" *ngIf="selectedTab === 'DASHBOARD'"></ion-icon>
+      </div>
+      <span class="inner_text">Dashboard</span>
+    </ion-tab-button>
    <ion-tab-button tab="TRACTORS" (click)="goToPage('TRACTORS')" [class.active]="selectedTab === 'TRACTORS'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'TRACTORS'">
         <ion-icon name="bag-outline" *ngIf="selectedTab !== 'TRACTORS'"></ion-icon>

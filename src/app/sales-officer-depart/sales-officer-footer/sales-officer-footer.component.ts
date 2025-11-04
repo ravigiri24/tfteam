@@ -11,13 +11,17 @@ export class SalesOfficerFooterComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='TRACTORS'
-    activeTabsColor = "firstColor";
+  selectedTab:any='DASHBOARD'
+    activeTabsColor = "fourthColor";
   goToPage(tab:any){
   this.selectedTab=tab
   if(tab=='TRACTORS'){
    this.activeTabsColor = "firstColor";
     this.router.navigate(['/sales-officer/tractor-list-francise'])
+  }
+  if(tab=='DASHBOARD'){
+   this.activeTabsColor = "fourthColor";
+    this.router.navigate(['/sales-officer/so-dashbord'])
   }
 
   else if(tab=='User'){

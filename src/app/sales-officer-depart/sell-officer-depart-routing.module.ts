@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { SalesOfficerDepartComponent } from './sales-officer-depart.component';
 import { TractorListFranchiseComponent } from './tractor-list-franchise/tractor-list-franchise.component';
-
+import { SalesOfficerDashboardComponent } from './sales-officer-dashboard/sales-officer-dashboard.component';
 const routes: Routes = [
   {
     path: "", component: SalesOfficerDepartComponent,
@@ -14,6 +14,7 @@ const routes: Routes = [
    
        { path: 'user-management', component: UserManagementComponent},
        { path: 'tractor-list-francise', component: TractorListFranchiseComponent},
+       { path: 'so-dashbord', component: SalesOfficerDashboardComponent},
     
 
    

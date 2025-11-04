@@ -1,0 +1,35 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        Received Tractor
+      </div>
+      <div class="right_action">
+  
+        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+<div class="top-position" [ngClass]="listColorClass">
+  <div class="global-inner-heading dynamic_color">
+    <span>Received Tractor Image</span>
+    <ion-icon  (click)="viewImage('RECEIVED_TRACTOR')" class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="receivedTractorImages?.length">
+    <div class="main_card_block" *ngFor="let photo of receivedTractorImages; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewInSlider(photo,receivedTractorImages)"  [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!receivedTractorImages?.length">
+    <app-no-data-view [title]="'No  images found.'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+ 
+
+</div>
+</ion-content>

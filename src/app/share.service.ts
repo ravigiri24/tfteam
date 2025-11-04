@@ -225,7 +225,7 @@ export class ShareService {
           } else if (userde?.staff_role == 'LEAD_MANAGEMENT') {
             this.router.navigate(['/lead-management/customer-management']);
           } else if (userde?.staff_role == 'SALES_OFFICER') {
-            this.router.navigate(['/sales-officer/tractor-list-francise']);
+            this.router.navigate(['/sales-officer/so-dashbord']);
           }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
@@ -266,7 +266,7 @@ export class ShareService {
           } else if (userde?.currentRole == 'LEAD_MANAGEMENT') {
             this.router.navigate(['/lead-management/customer-management']);
           } else if (userde?.currentRole == 'SALES_OFFICER') {
-            this.router.navigate(['/sales-officer/tractor-list-francise']);
+            this.router.navigate(['/sales-officer/so-dashbord']);
           }
         }
       }

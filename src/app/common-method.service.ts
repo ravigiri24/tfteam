@@ -29,6 +29,7 @@ import { TractorOptionsViewComponent } from './new-arrivals-management/tractor-o
 import { StartTransportDialogComponent } from './transport-management/start-transport-dialog/start-transport-dialog.component';
 import { TransportOptionsComponent } from './transport-management/transport-options/transport-options.component';
 import { TfCodeBackDatedComponent } from './operational/tf-code-back-dated/tf-code-back-dated.component';
+import { ReceiveTractorImageComponent } from './sales-officer-depart/receive-tractor-image/receive-tractor-image.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -138,6 +139,9 @@ export class CommonMethodService {
     }
        else if(e?.button?.name == 'BackDate TF Assign'){
     await  this.assignBackDateTF(e?.tractor)
+    }
+         else if(e?.button?.name == 'Upload Recive Tractor Image'){
+    await  this.reciveTractorImage(e?.tractor)
     }
   }
 
@@ -543,6 +547,23 @@ export class CommonMethodService {
     const { data, role } = await modal.onWillDismiss();
     if (data) {
       this.reloadMethod = true;
+    }
+  }
+   async reciveTractorImage(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ReceiveTractorImageComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        tractor: tractor,
+      
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.modalCtrl.dismiss(true);
+      //this.callListApi();
     }
   }
 }
