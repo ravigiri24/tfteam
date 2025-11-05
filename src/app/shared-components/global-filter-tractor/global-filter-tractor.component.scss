@@ -1,19 +1,15 @@
-.background{
-    background: #f5f5ff;
-  height: 100%;
-
+.filter_main_container {
+  --background: #f5f5ff;
+  border-top: solid thin #e1e1e1;
 }
-.border-shape{
-    background: #f5f5ff;
 
-  
-}
 ion-range {
   --bar-background: #d0d0d0;
   --bar-background-active: #3880ff;
   --knob-background: #3880ff;
   --knob-size: 24px;
 }
+
 .multiple_options_container {
   max-height: 150px;
   overflow: auto;
@@ -30,36 +26,60 @@ ion-range {
     min-height: 36px;
     margin: 0px 15px 10px 0px;
 
+    .name {
+      color: #666666 !important;
+    }
+
     input {
       font-size: 12px;
     }
   }
 }
 
-:host ::ng-deep ion-checkbox::part(label) {
-  color: #666666 !important;
-}
+// :host ::ng-deep ion-checkbox::part(label) {
+//   color: #666666 !important;
+// }
 .margin-set {
   margin-left: 20px;
 }
+
 .radio_block_container {
-  padding: 0px 15px 0px 25px;
-  position: relative;
-  z-index: -1;
+  display: flex;
+  flex-flow: wrap;
+  margin-bottom: 15px;
 
   .radio_block {
     display: flex;
     padding: 5px 10px;
     background: #ffffff;
-    border-bottom: dashed 1px #e1e1e1;
-    transition: .5s all;
-    &:hover {
-      background: transparent;
-      border-color: #f5f5ff;
+    border: dashed 1px;
+    transition: 0.5s all;
+    margin: 0px 10px 10px 0px;
+    border-radius: 5px;
+
+    .name {
+      color: #666666 !important;
     }
   }
 }
-.year-poisition{
+.bottom_fixed_buttons {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 15px;
+    left: 0px;
+    background: #ffffff;
+}
+.label_main_block {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  .right_text {
+    text-align: right;
+  }
+}
+
+.year-poisition {
   position: relative;
   top: 46px;
 
