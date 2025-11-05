@@ -6,6 +6,7 @@ import { UserManagementComponent } from '../user-management/user-management.comp
 import { SalesOfficerDepartComponent } from './sales-officer-depart.component';
 import { TractorListFranchiseComponent } from './tractor-list-franchise/tractor-list-franchise.component';
 import { SalesOfficerDashboardComponent } from './sales-officer-dashboard/sales-officer-dashboard.component';
+import { EnquireListComponent } from './enquire-list/enquire-list.component';
 const routes: Routes = [
   {
     path: "", component: SalesOfficerDepartComponent,
@@ -15,7 +16,11 @@ const routes: Routes = [
        { path: 'user-management', component: UserManagementComponent},
        { path: 'tractor-list-francise', component: TractorListFranchiseComponent},
        { path: 'so-dashbord', component: SalesOfficerDashboardComponent},
-    
+       { path: 'enquire-list', component: EnquireListComponent},
+         {
+            path: 'enquire-list/:type/:srcPage',
+            component: EnquireListComponent,
+          },
 
    
     //   { path: 'user-management', component: UserManagementComponent},

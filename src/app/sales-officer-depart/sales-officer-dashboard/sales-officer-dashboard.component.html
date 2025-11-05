@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content class="ion-padding main_3d_container" [ngClass]="listColorClass">
   <div class="row" [ngClass]="listColorClass">
-    <div class="col-md-6 col-6">
+    <div (click)="goToEnquire('OPEN_ENQUIRE')" class="col-md-6 col-6">
       <div class="brics_cardmain_block">
         <div class="image_block">
           <img class="image-style" src="././assets/images/3D/open.png" />
@@ -21,7 +21,7 @@
         </ion-card>
       </div>
     </div>
-    <div class="col-md-6 col-6">
+    <div (click)="goToEnquire('CLOSED_ENQUIRE')" class="col-md-6 col-6">
       <div class="brics_cardmain_block">
         <div class="image_block">
           <img class="image-style" src="././assets/images/3D/close.png" />

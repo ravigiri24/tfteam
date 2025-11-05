@@ -9,20 +9,28 @@ export class CommonHeaderComponent  implements OnInit {
   @Input() listColorClass: any;
   @Input() title: any;
   @Input() selectedStore: any;
+  @Input() selectedItem: any;
   @Input() isListFilter: any=false;
+  @Input() universalSelect: any=false;
+  @Input() showWareHouse: any=false;
   @Input() warehouseList: any=[];
   @Input() brandList: any=[];
+  @Input() optionsArray: any=[];
   @Input() list: any; //np
   @Output() actionEventHeader = new EventEmitter();
+  @Output() optionActionEvent = new EventEmitter();
   @Input() headerDisplayArray: any=[]; //np
   // listBy = 'BUFFER';
   constructor() { }
 actionEventHeaderCall(e:any){
 this.actionEventHeader.emit(e)
 }
+optionActionEventCall(){
+  this.optionActionEvent.emit(this.selectedItem)
+}
   ngOnInit() {
     // this.listBy= 'BUFFER';
-    console.log("listColorClass",this.listColorClass);
+    console.log("listColorClass",this.optionsArray);
   }
   submenuOpen: boolean = false;
   openSubmenu(){

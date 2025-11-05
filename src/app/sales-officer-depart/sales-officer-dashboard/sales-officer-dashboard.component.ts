@@ -43,4 +43,7 @@ export class SalesOfficerDashboardComponent  implements OnInit {
   createJob() {
     this.router.navigate(['/repair-management/create-job', '/repair-management/job-dashboard'])
   }
+  goToEnquire(type:any){
+    this.router.navigate(['/sales-officer/enquire-list',type,'/sales-officer/so-dashbord']);
+  }
 }

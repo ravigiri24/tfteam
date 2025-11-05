@@ -19,13 +19,15 @@ import { SalesOfficerFooterComponent } from './sales-officer-footer/sales-office
 import { TractorListFranchiseComponent } from './tractor-list-franchise/tractor-list-franchise.component';
 import { SalesOfficerDashboardComponent } from './sales-officer-dashboard/sales-officer-dashboard.component';
 import { EnquireListComponent } from './enquire-list/enquire-list.component';
+import { AddEnqiuryComponent } from './add-enqiury/add-enqiury.component';
 @NgModule({
   declarations: [
  SalesOfficerDepartComponent,
  SalesOfficerFooterComponent,
  TractorListFranchiseComponent,
  SalesOfficerDashboardComponent,
- EnquireListComponent
+ EnquireListComponent,
+ AddEnqiuryComponent
     
   ],
   imports: [

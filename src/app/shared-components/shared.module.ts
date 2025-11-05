@@ -140,7 +140,9 @@ import { EnquireCustomerListComponent } from './enquire-customer-list/enquire-cu
     HeadListingComponent,
     ViewCustomerListComponent,
     ViewStaffListComponent,
-    CommonHeaderComponent
+    CommonHeaderComponent,
+    EnquireCustomerListComponent
+   
   ],
   providers: [ApiService, InAppBrowser,],
 })

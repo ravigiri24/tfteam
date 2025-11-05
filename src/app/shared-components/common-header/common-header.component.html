@@ -8,10 +8,18 @@
        
         </ng-container>
           <ng-container *ngIf="isListFilter">
+            <ng-container *ngIf="showWareHouse">
                <ion-select class="selected_ddl" (ionChange)="getAllTractorListStorewise()" [(ngModel)]="selectedStore"
         label-placement="type">
         <ion-select-option *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name }}</ion-select-option>
       </ion-select>
+      </ng-container>
+           <ng-container *ngIf="universalSelect">
+               <ion-select class="selected_ddl" (ionChange)="optionActionEventCall()" [(ngModel)]="selectedItem"
+        label-placement="type">
+        <ion-select-option *ngFor="let opt of optionsArray" [value]="opt.id"> {{ opt?.name }}</ion-select-option>
+      </ion-select>
+      </ng-container>
       </ng-container>
        <b class="total-number">{{list?.length}}</b>
       </div>

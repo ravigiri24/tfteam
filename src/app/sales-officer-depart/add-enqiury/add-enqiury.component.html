@@ -1,0 +1,72 @@
+
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Add Enquiry</ion-title>
+
+    
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form [formGroup]="form">
+   <div class="margin-bottom-headline">
+    <span class="heading-list" >Customer Details</span>
+    </div>
+    <div class="global_input_block">
+    <ion-input label="Enter Customer name" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+      placeholder="Customer name" formControlName="name"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Enter Mobile Number" fill="outline" labelPlacement="stacked" type="text" 
+      placeholder="Customer Number" formControlName="mobileNo"></ion-input>
+  </div>
+
+   
+   <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+  </div>
+  <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <span class="top_layers">City</span>
+    <span class="name_selected">{{cityName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+        </ion-select> -->
+  </div>
+      <div class="global_input_block">
+    <ion-input label="Enter Village" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+      placeholder="Enter Village" formControlName="village"></ion-input>
+  </div>
+    <div class="margin-bottom-headline">
+    <span class="heading-list" >Requirement</span>
+    </div>
+       <div class="global_input_block">
+    <ion-select  formControlName="strength" fill="outline" label="Lead Temperature"
+      label-placement="stacked">
+      <ion-select-option value="HOT">Hot</ion-select-option>
+      <ion-select-option value="WARM">Warm</ion-select-option>
+      <ion-select-option value="COLD">Cold</ion-select-option>
+    </ion-select>
+  </div>
+        <div class="global_input_block">
+    <ion-select  formControlName="inStoke" fill="outline" label="Availaibility"
+      label-placement="stacked">
+      <ion-select-option value="IN_STOCK">In Stock</ion-select-option>
+      <ion-select-option value="DEMAND">Demand</ion-select-option>
+   
+    </ion-select>
+  </div>
+    <div class="global_input_block" >
+    <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
+      placeholder="write remark here..."></ion-textarea>
+  </div>
+  </form>
+  </ion-content>
