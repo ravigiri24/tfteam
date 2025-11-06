@@ -96,6 +96,7 @@ ion-icon {
 .theme-bgcolor-secondary {
   // color: var(--app-theme-element-color-second) !important;
   background-color: var(--app-secondary-color);
+  --background: var(--app-secondary-color);
 }
 
 .theme-color-second {
@@ -429,6 +430,7 @@ app-salary-slip {
   width: 100%;
   margin: 0px;
 }
+
 .global_submit_color_button {
   min-height: 45px;
 }
@@ -655,6 +657,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-first) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-first) !important;
@@ -694,7 +702,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -741,6 +750,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-second) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-second) !important;
@@ -780,7 +795,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -826,6 +842,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-third) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-third) !important;
@@ -865,7 +887,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -911,6 +934,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-fourth) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-fourth) !important;
@@ -950,7 +979,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -996,6 +1026,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-fifth) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-fifth) !important;
@@ -1035,7 +1071,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -1081,6 +1118,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-six) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-six) !important;
@@ -1120,7 +1163,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,
@@ -1166,6 +1210,12 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .range_block {
+    ion-range {
+      --bar-background-active: var(--app-dynamic-color-seven) !important;
+    }
+  }
+
   .inner-tabs {
     .selected_tab {
       background-color: var(--app-dynamic-color-seven) !important;
@@ -1205,7 +1255,8 @@ ion-header {
     }
   }
 
-  ion-card, .main_card_details,
+  ion-card,
+  .main_card_details,
   .action_col,
   .empty,
   .amount_col,

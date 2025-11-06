@@ -26,30 +26,30 @@
           [value]="options?.value">{{options?.displayName}}</ion-select-option>
       </ion-select>
     </div>
-    <div class="global-inner-heading dynamic_color">Selected Year</div>
+    <div class="global-inner-heading dynamic_color selected_show">Selected Year :<b>{{ yearChecked }}</b></div>
     <div class="radio_block_main_container">
       <ion-radio-group class="radio_block_container" [(ngModel)]="yearChecked" (ionChange)="selectItem($event)">
         <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
-            class="radio_name">All</span></ion-radio>
+            class="name">All</span></ion-radio>
         <ion-radio class="radio_block dynamic_color" value="2020 & Above" labelPlacement="end"><span
-            class="radio_name">2020 &
+            class="name">2020 &
             Above</span></ion-radio>
         <ion-radio class="radio_block dynamic_color" value="2018 & Above" labelPlacement="end"><span
-            class="radio_name">2018 &
+            class="name">2018 &
             Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2014 & Above" labelPlacement="end"><span
-            class="radio_name">2014 &
+        <ion-radio class="radio_block dynamic_color" value="2014 & Above" labelPlacement="end">
+          <span class="name">2014 &
             Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2010 & Above" labelPlacement="end"><span
-            class="radio_name">2010 &
-            Above</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2010 & Above" labelPlacement="end">
+          <span class="name">2010 & Above</span></ion-radio>
       </ion-radio-group>
       <!-- <p>Selected: {{ yearChecked }}</p> -->
     </div>
     <div *ngIf="showRange" class="global-inner-heading dynamic_color">Price Range</div>
-    <ion-range *ngIf="showRange" aria-label="Price Range" [dualKnobs]="true" [value]="{ lower: lower, upper: upper }" [min]="0"
-      [max]="1500000" [step]="10000" (ionChange)="rangeChange($event)">
-    </ion-range>
+    <div class="range_block"><ion-range *ngIf="showRange" aria-label="Price Range" [dualKnobs]="true"
+        [value]="{ lower: lower, upper: upper }" [min]="0" [max]="1500000" [step]="10000"
+        (ionChange)="rangeChange($event)">
+      </ion-range></div>
     <div class="label_main_block">
       <ion-label>Min: {{ rangeValue.lower }}</ion-label>
       <ion-label class="right_text">Max: {{ rangeValue.upper }}</ion-label>
@@ -72,7 +72,8 @@
             expand="block">Apply</ion-button>
         </div>
         <div class="col-6">
-          <ion-button (click)="reset()" class="global_submit_button" expand="block">Reset</ion-button>
+          <ion-button (click)="reset()" class="global_submit_color_button theme-bgcolor-secondary"
+            expand="block">Reset</ion-button>
         </div>
       </div>
     </div>

@@ -3,11 +3,12 @@
   border-top: solid thin #e1e1e1;
 }
 
-ion-range {
-  --bar-background: #d0d0d0;
-  --bar-background-active: #3880ff;
-  --knob-background: #3880ff;
-  --knob-size: 24px;
+.range_block {
+  padding: 0px 5px 0px 5px;
+  ion-range {
+    --bar-background: #d0d0d0;
+    --knob-size: 30px;
+  }
 }
 
 .multiple_options_container {
@@ -16,6 +17,7 @@ ion-range {
   display: flex;
   flex-flow: wrap;
   padding-bottom: 20px;
+  margin-bottom: 75px;
 
   .checkbox_block {
     padding: 0px 10px;
@@ -34,13 +36,6 @@ ion-range {
       font-size: 12px;
     }
   }
-}
-
-// :host ::ng-deep ion-checkbox::part(label) {
-//   color: #666666 !important;
-// }
-.margin-set {
-  margin-left: 20px;
 }
 
 .radio_block_container {
@@ -62,25 +57,37 @@ ion-range {
     }
   }
 }
-.bottom_fixed_buttons {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    padding: 15px;
-    left: 0px;
-    background: #ffffff;
+
+.selected_show {
+  justify-content: flex-start;
+
+  b {
+    margin-left: 10px;
+  }
 }
+
+.bottom_fixed_buttons {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  padding: 10px 15px;
+  left: 0px;
+  background: #ffffff;
+  z-index: 2;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
+  height: 75px;
+}
+
 .label_main_block {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+
   .right_text {
     text-align: right;
   }
 }
 
-.year-poisition {
-  position: relative;
-  top: 46px;
-
-}
+// .margin-set {
+//   margin-left: 20px;
+// }
