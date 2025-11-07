@@ -59,6 +59,7 @@ import { SearchPipe } from '../search.pipe';
 import { GlobalFilterTractorComponent } from './global-filter-tractor/global-filter-tractor.component';
 import { ReceiveTractorImageComponent } from '../sales-officer-depart/receive-tractor-image/receive-tractor-image.component';
 import { EnquireCustomerListComponent } from './enquire-customer-list/enquire-customer-list.component';
+import { NotificationPopUpComponent } from './notification-pop-up/notification-pop-up.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -124,7 +125,8 @@ import { EnquireCustomerListComponent } from './enquire-customer-list/enquire-cu
     SellBackComponent,
     ImageSliderComponent,
     ReceiveTractorImageComponent,
-    EnquireCustomerListComponent
+    EnquireCustomerListComponent,
+    NotificationPopUpComponent
     
   ],
 

@@ -5,6 +5,7 @@ import { ShareService } from 'src/app/share.service';
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
 import { CommonMethodService } from 'src/app/common-method.service';
+import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
 @Component({
   selector: 'app-tractor-list-franchise',
   templateUrl: './tractor-list-franchise.component.html',
@@ -95,12 +96,16 @@ export class TractorListFranchiseComponent implements OnInit {
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
     { name: 'Refresh', icon: 'refresh-outline' },
+        { name: 'Notification', icon: 'notifications-outline' },
   ];
   actionEventHeader(e: any) {
     if (e?.name == 'Search') {
       this.searchTractor();
     } else if (e?.name == 'Filter') {
       this.openFilter();
+    }
+    else if(e?.name == 'Notification'){
+      this.openNotidication()
     }
   }
 
@@ -221,6 +226,20 @@ export class TractorListFranchiseComponent implements OnInit {
         searchFilter: this.search,
         searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: [] },
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+    }
+  }
+    async openNotidication() {
+    const modal = await this.modalCtrl.create({
+      component: NotificationPopUpComponent,
+      componentProps: {
+
       },
     });
     await modal.present();
