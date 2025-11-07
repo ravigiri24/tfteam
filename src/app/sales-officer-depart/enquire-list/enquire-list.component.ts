@@ -41,9 +41,29 @@ enquireList:any=[]
   }
    async actionEventCall(e: any) {
       await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
+      if(this.commonMethod.reloadMethod){
+        this.getEnquirList()
+      }
 
   }
-  
+    buttonArray: any = [
+
+    {
+      name: 'Edit Enquiry',
+      action: 'edit_enquiry',
+      image: './././assets/images/edit.png',
+    },
+    {
+      name: 'View Enquiry',
+      action: 'customer_view',
+      image: './././assets/images/visual.png',
+    },
+       {
+      name: 'Close Enquiry',
+      action: 'closed_enquiry',
+      image: './././assets/images/summary.png',
+    },
+  ];
   getEnquirList() {
     this.enquireList = [];
     let obj:any = this.share.getStaffObj();

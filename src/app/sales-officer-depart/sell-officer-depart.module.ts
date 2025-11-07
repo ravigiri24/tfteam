@@ -21,6 +21,7 @@ import { SalesOfficerDashboardComponent } from './sales-officer-dashboard/sales-
 import { EnquireListComponent } from './enquire-list/enquire-list.component';
 import { AddEnqiuryComponent } from './add-enqiury/add-enqiury.component';
 import { ViewModelsComponent } from './add-enquiry/view-models/view-models.component';
+import { CloseEnquiryComponent } from './close-enquiry/close-enquiry.component';
 @NgModule({
   declarations: [
  SalesOfficerDepartComponent,
@@ -29,7 +30,8 @@ import { ViewModelsComponent } from './add-enquiry/view-models/view-models.compo
  SalesOfficerDashboardComponent,
  EnquireListComponent,
  AddEnqiuryComponent,
- ViewModelsComponent
+ ViewModelsComponent,
+ CloseEnquiryComponent
     
   ],
   imports: [

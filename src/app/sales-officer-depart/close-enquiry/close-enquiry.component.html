@@ -1,0 +1,56 @@
+
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Closed Enquiry</ion-title>
+
+    
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form [formGroup]="form">
+    <div class="global_input_block">
+    <ion-input label="Closing Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
+      placeholder="Closing Date" formControlName="close_date"></ion-input>
+  </div>
+      <div class="global_input_block">
+    <ion-input label="Closing Remark" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+      placeholder="Closing Remark" formControlName="closing_remark"></ion-input>
+  </div>
+     <div class="global_input_block" >
+  <ion-toggle (ionChange)="toggleChanged($event)" formControlName="isBooked" >Is Booked</ion-toggle>
+  </div>
+   <div  *ngIf="form.controls['isBooked'].value==true||form.controls['isBooked'].value==1"  class="global_input_block global_location_block" (click)="selectItem()">
+    <span class="top_layers">Model</span>
+    <span class="name_selected">{{modelName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+        </ion-select> -->
+  </div>
+<ng-container>
+    <div class="global_input_block">
+    <ion-input label="Booked Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
+      placeholder="Booked Date" formControlName="bookedDate"></ion-input>
+  </div>
+     <div class="global_input_block">
+    <ion-input label="Will Purchase" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
+      placeholder="Will Purchase" formControlName="willBuyDate"></ion-input>
+  </div>
+</ng-container>
+     <div class="row" >
+    <ion-button *ngIf="enquiry.isOpen == 1"  (click)="close()" class="global_submit_button" >
+    
+      Close</ion-button>
+           <ion-button *ngIf="enquiry.isOpen == 0"   (click)="close()" class="global_submit_button" >
+    
+      Update</ion-button>
+          <ion-button *ngIf="enquiry.isOpen == 0"   (click)="restart()" class="global_submit_button" >
+    
+      Restart</ion-button>
+    </div>
+</form>
+  </ion-content>

@@ -30,6 +30,8 @@ import { StartTransportDialogComponent } from './transport-management/start-tran
 import { TransportOptionsComponent } from './transport-management/transport-options/transport-options.component';
 import { TfCodeBackDatedComponent } from './operational/tf-code-back-dated/tf-code-back-dated.component';
 import { ReceiveTractorImageComponent } from './sales-officer-depart/receive-tractor-image/receive-tractor-image.component';
+import { AddEnqiuryComponent } from './sales-officer-depart/add-enqiury/add-enqiury.component';
+import { CloseEnquiryComponent } from './sales-officer-depart/close-enquiry/close-enquiry.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -142,6 +144,12 @@ export class CommonMethodService {
     }
          else if(e?.button?.name == 'Upload Recive Tractor Image'){
     await  this.reciveTractorImage(e?.tractor)
+    }
+    else if(e?.button?.name == 'Edit Enquiry'){
+        await  this.editEnquiry(e?.customer)
+    }
+    else if(e?.button?.name =='Close Enquiry'){
+     await  this.closeEnquiry(e?.customer)
     }
   }
 
@@ -566,4 +574,43 @@ export class CommonMethodService {
       //this.callListApi();
     }
   }
+ async editEnquiry(e:any){
+   
+      const modal = await this.modalCtrl.create({
+        component: AddEnqiuryComponent,
+  
+        cssClass: 'midium-model',
+        componentProps: {
+          enquiry: e,
+        
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+this.reloadMethod=true
+        //this.callListApi();
+      }
+    
+  }
+   async closeEnquiry(e:any){
+   
+      const modal = await this.modalCtrl.create({
+        component: CloseEnquiryComponent,
+  
+        cssClass: 'midium-model',
+        componentProps: {
+          enquiry: e,
+        
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+this.reloadMethod=true
+        //this.callListApi();
+      }
+    
+  }
+
 }

@@ -17,8 +17,9 @@
 ></app-common-header>
 <ion-content>
   <ion-content>
-<app-enquire-customer-list></app-enquire-customer-list>
+<app-enquire-customer-list *ngIf="enquireList?.length" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="enquireList"></app-enquire-customer-list>
   <app-no-data-view *ngIf="!enquireList?.length && !share?.globalLoading"></app-no-data-view>
+
 
 
 </ion-content>

@@ -45,7 +45,7 @@ staffDetails:any
       customerName: new FormControl(data?.customerName, [Validators.required]),
       mobileNo: new FormControl(data?.mobileNo, [Validators.required]),
       remark: new FormControl(data?.remark, []),
-      modal_ids: new FormControl(data?.modal_ids||[], []),
+      modal_ids: new FormControl(JSON.parse(data?.modal_ids)||[], []),
       storeId: new FormControl(data?.storeId||store_id, [Validators.required]),
       actionByid: new FormControl(this?.staffDetails?.id, [Validators.required]),
       state_id: new FormControl(data?.state_id, [Validators.required]),
@@ -53,11 +53,18 @@ staffDetails:any
       village: new FormControl(data?.village, [Validators.required]),
       strength: new FormControl(data?.strength, [Validators.required]),
       inStoke: new FormControl(data?.inStoke, [Validators.required]),
-      other: new FormControl(data?.inStoke, []),
+      other: new FormControl(data?.other, []),
     });
 
     console.log(' this.form', this.form);
 
+    if(JSON.parse(data?.modal_ids)?.length){
+      let modelList:any=JSON.parse(data?.modal_ids)
+      modelList?.forEach((model:any)=>{
+   this.getAvailaiblility(model,false)
+      })
+   
+    }
     // if(data){
     //   this.form.addControl(
     //     'id',
@@ -219,7 +226,7 @@ staffDetails:any
       component: SelectWithSearchComponent,
       componentProps: {
         list: this.modelList,
-
+        itemName:"Model",
         table_name: 'model',
         otherObjects: otherObjects,
         jsonKey: 'name',
@@ -249,18 +256,27 @@ staffDetails:any
     if (role === 'confirm') {
     }
   }
-  getAvailaiblility(model:any){
+  getAvailaiblility(model:any,isAdd:any=true){
       
     let obj :any= this.share.getListObj('model', true, ['logo'], false);
     this.share.showLoading('Checking Availaibility');
     obj.model_id=model?.id
     this.api.postapi('getModelAvailaibility', obj).subscribe(
       (res: any) => {
+            let availaibility=res?.data
+        if(isAdd){
         let valueOf = this.form.controls['modal_ids'].value;
-        let availaibility=res?.data
+    
         model.availaibility=availaibility
         valueOf.push(this.getModelObj(model));
         this.form.controls['modal_ids'].setValue(valueOf)
+        }else{
+      let valueOf = this.form.controls['modal_ids'].value;
+      let findModel=valueOf?.findIndex((fn:any)=>fn.id==model.id)
+      valueOf[findModel].availaibility=availaibility
+          this.form.controls['modal_ids'].setValue(valueOf)
+        }
+
         this.share?.spinner?.dismiss();
       },
       (error: any) => {}
@@ -270,11 +286,34 @@ staffDetails:any
     if(this.form.valid){
       let obj :any= this.form.value
        obj.operate= this.share.getStaffObj()?.operate;
-    this.share.showLoading('Checking Availaibility');
+    this.share.showLoading('Saving...');
     
     this.api.postapi('saveEnquiry', obj).subscribe(
       (res: any) => {
           this.share.presentToast("Enquiry Generated Successfully")
+          this.share.spinner.dismiss()
+          this.modalCtrl.dismiss(true)
+      },
+      (error: any) => {}
+    );
+  }else{
+    if(!this.form.valid){
+      this.share.presentToast("Please Fill Required Fields")
+    }
+
+     
+  }
+  }
+    update(){
+    if(this.form.valid){
+      let obj :any= this.form.value
+       obj.operate= this.share.getStaffObj()?.operate;
+       obj.id=this.enquiry?.id
+    this.share.showLoading('Updating...');
+    
+    this.api.postapi('updateEnquiry', obj).subscribe(
+      (res: any) => {
+          this.share.presentToast("Enquiry Updated Successfully")
           this.share.spinner.dismiss()
           this.modalCtrl.dismiss(true)
       },

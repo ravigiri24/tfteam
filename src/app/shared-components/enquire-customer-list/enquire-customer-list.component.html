@@ -1,3 +1,66 @@
-<p>
-  enquire-customer-list works!
-</p>
+<ion-searchbar class="search_bar_row" *ngIf="showSearch" [(ngModel)]="search[searchKey]" slot="fixed"
+  placeholder="Enter Mobile Number"></ion-searchbar>
+<ion-list class="list_row top-position-list" *ngIf="list?.length">
+  <!-- <ion-item *ngFor="let customer of list|filterBy: search ;let in=index"> -->
+  <ion-row>
+    <ion-col *ngFor="let customer of list| filterBy: search ; let i=index" size="12" size-md="6">
+      <!-- <img  (click)="viewImage(customer)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="customer?.imageUrlUrl" onerror="this.src='././assets/images/customer_display.png';"  /> -->
+      <ion-grid class="main_block_details" [ngClass]="listColorClass">
+        <ion-card>
+
+          <ion-label class="main_title" [ngClass]="{'apply_hotdeal': customer?.isHOTDeal}">{{customer?.customerName}}
+            <!-- <img *ngIf="customer?.isHOTDeal" class="hot_deal" src="./././assets/images/hot-deal.png" /> -->
+          </ion-label>
+          <ng-container>
+            <!-- <ng-container *ngIf="i < rowLineCount"> -->
+            <ion-row>
+              <ng-container>
+                <ion-col class="left_row_title">Mobile No</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.mobileNo}}</ion-col>
+              </ng-container>
+
+            </ion-row>
+        
+                   <ion-row>
+              <ng-container>
+                <ion-col class="left_row_title">Lead Temperature</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.strength}}</ion-col>
+              </ng-container>
+
+            </ion-row>
+            
+            <ion-row>
+              <ng-container>
+                <ion-col class="left_row_title">City</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.cityName}}</ion-col>
+              </ng-container>
+              </ion-row>
+                 <ion-row>
+    <ng-container>
+                <ion-col class="left_row_title">Vilage</ion-col>
+                <ion-col class="amount_col">
+                  {{customer?.village}}</ion-col>
+              </ng-container>
+
+            </ion-row>
+
+
+          </ng-container>
+          <ion-row *ngIf="buttonArray?.length">
+            <ion-col class="action_col" *ngFor="let button of buttonArray">
+              <img (click)="actionEvent(customer,button,i)" [src]="button?.image" />
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+  <!-- </ion-item> -->
+</ion-list>
+<!-- <div *ngIf="(list | filterBy: search)?.length === 0" class="no-data-block">
+  <img class="image-no-data" src="././assets/images/no-data-found.png" />
+</div> -->
+<app-no-data-view [ngClass]="listColorClass" *ngIf="(list | filterBy: search)?.length === 0"></app-no-data-view>
