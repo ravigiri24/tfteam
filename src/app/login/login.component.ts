@@ -79,4 +79,5 @@ loginForm:FormGroup
 this.presentToast( 'Please Fill All Fields(*)')
   }
   }
+  
 }

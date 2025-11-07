@@ -43,6 +43,21 @@ enquireList:any=[]
       await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
 
   }
+  
+  getEnquirList() {
+    this.enquireList = [];
+    let obj:any = this.share.getStaffObj();
+    obj.storeId=3
+
+    this.share.showLoading('Loading...');
+    this.api.postapi('get_customers_enquire', obj).subscribe(
+      (res: any) => {
+        this.enquireList = res.data;
+        this.share?.spinner?.dismiss();
+      },
+      (error: any) => {}
+    );
+  }
      async addEnquiry(enquiry: any=null) {
       const modal = await this.modalCtrl.create({
         component: AddEnqiuryComponent,
@@ -56,7 +71,7 @@ enquireList:any=[]
       await modal.present();
       const { data, role } = await modal.onWillDismiss();
       if (data) {
-        this.modalCtrl.dismiss(true);
+ this.getEnquirList()
         //this.callListApi();
       }
     }
@@ -66,6 +81,7 @@ srcPage:any
       this.selectedItem = params?.type;
     this.srcPage= params?.srcPage;
     });
+    this.getEnquirList()
   }
   optionActionEvent(e:any){
 console.log("optionActionEvent",e);

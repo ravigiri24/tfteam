@@ -20,6 +20,7 @@ import { TractorListFranchiseComponent } from './tractor-list-franchise/tractor-
 import { SalesOfficerDashboardComponent } from './sales-officer-dashboard/sales-officer-dashboard.component';
 import { EnquireListComponent } from './enquire-list/enquire-list.component';
 import { AddEnqiuryComponent } from './add-enqiury/add-enqiury.component';
+import { ViewModelsComponent } from './add-enquiry/view-models/view-models.component';
 @NgModule({
   declarations: [
  SalesOfficerDepartComponent,
@@ -27,7 +28,8 @@ import { AddEnqiuryComponent } from './add-enqiury/add-enqiury.component';
  TractorListFranchiseComponent,
  SalesOfficerDashboardComponent,
  EnquireListComponent,
- AddEnqiuryComponent
+ AddEnqiuryComponent,
+ ViewModelsComponent
     
   ],
   imports: [

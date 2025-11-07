@@ -17,7 +17,7 @@
     </div>
     <div class="global_input_block">
     <ion-input label="Enter Customer name" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
-      placeholder="Customer name" formControlName="name"></ion-input>
+      placeholder="Customer name" formControlName="customerName"></ion-input>
   </div>
   <div class="global_input_block">
     <ion-input label="Enter Mobile Number" fill="outline" labelPlacement="stacked" type="text" 
@@ -56,6 +56,28 @@
       <ion-select-option value="COLD">Cold</ion-select-option>
     </ion-select>
   </div>
+  <div class="addModel">
+       <div class="margin-bottom-headline">
+    <span class="heading-list" >Select Model    <ion-icon (click)="selectModelList()" class="theme-color" name="add-circle-outline"></ion-icon></span>
+    </div>
+     <ng-container *ngFor="let model of form.controls['modal_ids']?.value">
+<ion-item>
+  <ion-label>
+    <h3>{{model?.name}}
+      <ion-icon (click)="deleteModel(model)" class="theme-color" name="trash-outline"></ion-icon>
+    </h3>
+    <p *ngIf="model?.availaibility?.length">{{model?.availaibility?.length || 0}} Availaible     <ion-icon (click)="viewModel(model)" class="theme-color" name="eye-outline"></ion-icon></p>
+    <p *ngIf="!model?.availaibility?.length">Opps,It Seems No Stock Avalaible</p>
+  </ion-label>
+</ion-item>
+     </ng-container>
+      <app-no-data-view [title]="'No Model Selected'" [subtitleShow]="false" *ngIf="!form.controls['modal_ids']?.value?.length"></app-no-data-view>    
+
+  </div>
+        <div class="global_input_block">
+    <ion-input label="Other" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+      placeholder="Other" formControlName="other"></ion-input>
+  </div>
         <div class="global_input_block">
     <ion-select  formControlName="inStoke" fill="outline" label="Availaibility"
       label-placement="stacked">
@@ -68,5 +90,13 @@
     <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
       placeholder="write remark here..."></ion-textarea>
   </div>
+    <div class="row" >
+    <ion-button *ngIf="!enquiry"  (click)="save()" class="global_submit_button" >
+    
+      Add</ion-button>
+          <ion-button *ngIf="enquiry"  (click)="updates()" class="global_submit_button" >
+    
+      Update</ion-button>
+    </div>
   </form>
   </ion-content>
