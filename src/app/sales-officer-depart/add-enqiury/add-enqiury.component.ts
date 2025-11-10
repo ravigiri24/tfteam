@@ -29,9 +29,11 @@ staffDetails:any
         let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
-    this.getStateList();
+        this.getStateList();
     this.getModelList();
-    this.initialize(this.enquiry);
+      this.initialize(this.enquiry);
+
+  
   }
   dismiss() {
     this.modalCtrl.dismiss();
@@ -40,12 +42,21 @@ staffDetails:any
 
   formWarehouse: FormGroup;
   initialize(data: any = null) {
+
     let store_id=3
+    let modelIds=[]
+    if(data){
+    if(JSON.parse(data?.modal_ids)?.length){
+   modelIds=JSON.parse(data?.modal_ids)
+    }else{
+ modelIds=[]
+    }
+    }
     this.form = this.formBuilder.group({
       customerName: new FormControl(data?.customerName, [Validators.required]),
       mobileNo: new FormControl(data?.mobileNo, [Validators.required]),
       remark: new FormControl(data?.remark, []),
-      modal_ids: new FormControl(JSON.parse(data?.modal_ids)||[], []),
+      modal_ids: new FormControl(modelIds||[], []),
       storeId: new FormControl(data?.storeId||store_id, [Validators.required]),
       actionByid: new FormControl(this?.staffDetails?.id, [Validators.required]),
       state_id: new FormControl(data?.state_id, [Validators.required]),
@@ -71,6 +82,10 @@ staffDetails:any
     //     new FormControl(data?.id || null, [Validators.required])
     //   );
     // }
+  }
+  getModel(){
+      let valueOf = this.form.controls['modal_ids']?.value || [];
+      return valueOf
   }
   stateList: any = [];
   stateName: any;
@@ -315,6 +330,7 @@ staffDetails:any
       (res: any) => {
           this.share.presentToast("Enquiry Updated Successfully")
           this.share.spinner.dismiss()
+          
           this.modalCtrl.dismiss(true)
       },
       (error: any) => {}

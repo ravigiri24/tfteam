@@ -125,8 +125,10 @@ export class CloseEnquiryComponent implements OnInit {
     await modal.present();
 
     const { data, role } = await modal.onWillDismiss();
+    if(data){
     this.modelName = data?.name;
     this.form.controls['bookedModel'].setValue(data?.id);
+    }
     console.log('role', role, data);
 
     if (role === 'confirm') {
@@ -152,7 +154,7 @@ export class CloseEnquiryComponent implements OnInit {
           if (findModel) {
             this.modelName = findModel?.name;
           }
-          this.form.controls['bookedModel'].setValue(true);
+          this.form.controls['bookedModel'].setValue(findModel?.id);
         }
       },
       (error: any) => {}

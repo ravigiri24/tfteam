@@ -32,6 +32,7 @@ import { TfCodeBackDatedComponent } from './operational/tf-code-back-dated/tf-co
 import { ReceiveTractorImageComponent } from './sales-officer-depart/receive-tractor-image/receive-tractor-image.component';
 import { AddEnqiuryComponent } from './sales-officer-depart/add-enqiury/add-enqiury.component';
 import { CloseEnquiryComponent } from './sales-officer-depart/close-enquiry/close-enquiry.component';
+import { ViewEnquiryComponent } from './sales-officer-depart/view-enquiry/view-enquiry.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -151,6 +152,10 @@ export class CommonMethodService {
     else if(e?.button?.name =='Close Enquiry'){
      await  this.closeEnquiry(e?.customer)
     }
+        else if(e?.button?.name =='View Enquiry'){
+     await  this.viewEnquiry(e?.customer)
+    }
+    
   }
 
   async addRemark(customer: any = null) {
@@ -612,5 +617,23 @@ this.reloadMethod=true
       }
     
   }
-
+   async viewEnquiry(e:any){
+   
+      const modal = await this.modalCtrl.create({
+        component: ViewEnquiryComponent,
+  
+        cssClass: 'midium-model',
+        componentProps: {
+          enquiry: e,
+        
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+this.reloadMethod=true
+        //this.callListApi();
+      }
+    
+  }
 }

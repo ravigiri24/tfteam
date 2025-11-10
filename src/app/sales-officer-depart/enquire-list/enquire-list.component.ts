@@ -68,6 +68,15 @@ enquireList:any=[]
     this.enquireList = [];
     let obj:any = this.share.getStaffObj();
     obj.storeId=3
+    if(this.selectedItem=='OPEN_ENQUIRE'){
+    obj.enquiryType=true
+    }else if(this.selectedItem=='CLOSED_ENQUIRE'){
+  obj.enquiryType=false
+    }else{
+       obj.enquiryType=true
+    }
+  
+    
 
     this.share.showLoading('Loading...');
     this.api.postapi('get_customers_enquire', obj).subscribe(
@@ -105,7 +114,8 @@ srcPage:any
   }
   optionActionEvent(e:any){
 console.log("optionActionEvent",e);
-
+this.selectedItem=e
+this.getEnquirList()
   }
  selectedItem="OPEN_ENQUIRE"
   optionsArray:any=[

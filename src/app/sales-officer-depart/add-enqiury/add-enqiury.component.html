@@ -11,7 +11,7 @@
   </ion-toolbar>  
 </ion-header>  
 <ion-content class="ion-padding">
-<form [formGroup]="form">
+<form [formGroup]="form" *ngIf="form">
    <div class="margin-bottom-headline">
     <span class="heading-list" >Customer Details</span>
     </div>
@@ -60,7 +60,7 @@
        <div class="margin-bottom-headline">
     <span class="heading-list" >Select Model    <ion-icon (click)="selectModelList()" class="theme-color" name="add-circle-outline"></ion-icon></span>
     </div>
-     <ng-container *ngFor="let model of form.controls['modal_ids']?.value">
+     <ng-container *ngFor="let model of getModel()">
 <ion-item>
   <ion-label>
     <h3>{{model?.name}}

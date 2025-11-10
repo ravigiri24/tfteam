@@ -23,7 +23,8 @@
      <div class="global_input_block" >
   <ion-toggle (ionChange)="toggleChanged($event)" formControlName="isBooked" >Is Booked</ion-toggle>
   </div>
-   <div  *ngIf="form.controls['isBooked'].value==true||form.controls['isBooked'].value==1"  class="global_input_block global_location_block" (click)="selectItem()">
+  <ng-container *ngIf="form.controls['isBooked'].value==true||form.controls['isBooked'].value==1" >
+   <div   class="global_input_block global_location_block" (click)="selectItem()">
     <span class="top_layers">Model</span>
     <span class="name_selected">{{modelName}}</span>
     <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
@@ -41,16 +42,17 @@
       placeholder="Will Purchase" formControlName="willBuyDate"></ion-input>
   </div>
 </ng-container>
+</ng-container>
      <div class="row" >
     <ion-button *ngIf="enquiry.isOpen == 1"  (click)="close()" class="global_submit_button" >
     
-      Close</ion-button>
+      Close Enquiry</ion-button>
            <ion-button *ngIf="enquiry.isOpen == 0"   (click)="close()" class="global_submit_button" >
     
-      Update</ion-button>
+      Update Enquiry</ion-button>
           <ion-button *ngIf="enquiry.isOpen == 0"   (click)="restart()" class="global_submit_button" >
     
-      Restart</ion-button>
+      Restart Enquiry</ion-button>
     </div>
 </form>
   </ion-content>

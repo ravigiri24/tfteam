@@ -60,6 +60,7 @@ import { GlobalFilterTractorComponent } from './global-filter-tractor/global-fil
 import { ReceiveTractorImageComponent } from '../sales-officer-depart/receive-tractor-image/receive-tractor-image.component';
 import { EnquireCustomerListComponent } from './enquire-customer-list/enquire-customer-list.component';
 import { NotificationPopUpComponent } from './notification-pop-up/notification-pop-up.component';
+import { ViewEnquiryComponent } from '../sales-officer-depart/view-enquiry/view-enquiry.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -126,7 +127,8 @@ import { NotificationPopUpComponent } from './notification-pop-up/notification-p
     ImageSliderComponent,
     ReceiveTractorImageComponent,
     EnquireCustomerListComponent,
-    NotificationPopUpComponent
+    NotificationPopUpComponent,
+    ViewEnquiryComponent
     
   ],
 
