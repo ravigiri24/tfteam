@@ -15,25 +15,27 @@ export class SalesOfficerDashboardComponent  implements OnInit {
 
   ngOnInit() { }
   staffDetails: any
-  jobData: any
+
   @Input() listColorClass= 'firstColor';
   ionViewWillEnter() {
 
-    this.getJobData();
+    this.getEnquiryTally();
   }
-  getJobData() {
+  enquiryData:any
+  getEnquiryTally() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
 
     let obj = {
       operate: this.staffDetails?.staffCode,
+      storeId: 3,
 
     };
     this.share.showLoading('Loading');
-    this.api.postapi('getJobTally', obj).subscribe(
+    this.api.postapi('getEnquiryTally', obj).subscribe(
       (res: any) => {
-        this.jobData = res.data;
-        console.log('jobData', this.jobData);
+        this.enquiryData = res.data;
+        console.log('jobData', this.enquiryData);
 
         this.share.spinner.dismiss('active_one');
       },
