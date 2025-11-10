@@ -20,6 +20,7 @@ export class NotificationPopUpComponent  implements OnInit {
     private share: ShareService,
     private api: ApiService
   ) {}
+  listColorClass: any = 'firstColor';
   dismiss() {
     this.modalCtrl.dismiss();
   }

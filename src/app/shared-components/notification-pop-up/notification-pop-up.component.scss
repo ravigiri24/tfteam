@@ -1,0 +1,56 @@
+.notification_container {
+    display: flex;
+    flex-flow: wrap;
+
+    .notification_block {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #ffffff;
+        box-shadow: var(--app-brand-shadow-small);
+        border-radius: 5px;
+
+        .notification_icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            min-height: 40px;
+            border-radius: 50%;
+            border: solid thin;
+            margin-right: 20px;
+            color: #e1dfdf;
+            background: #F44336;
+        }
+
+        .notification_text {
+            display: flex;
+            flex-flow: column;
+            width: 100%;
+
+            .notification_title {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2px;
+                color: #666666;
+
+                .notification_date {
+                    font-size: 12px;
+                    color: #666666;
+                }
+            }
+
+            .notification_desc {
+                font-size: 12px;
+                color: #666666;
+
+                b,
+                span {
+                    margin: 0px 5px;
+                }
+            }
+        }
+    }
+}

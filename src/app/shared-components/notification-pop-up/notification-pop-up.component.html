@@ -1,15 +1,36 @@
-
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Notification</ion-title>
-
-    
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title>Notification</ion-title>
     <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <ion-icon class="icon-size dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
-  </ion-toolbar>  
-</ion-header>  
-<ion-content class="ion-padding">
-  </ion-content>
-
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="notification_container">
+    <div class="notification_block">
+      <div class="notification_icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
+      <div class="notification_text">
+        <span class="notification_title"><span class="dynamic_color">Tractor Price
+            Updated</span><small>15-Nov-2025</small></span>
+        <div class="notification_desc">Lorem ipsum dolor <b>sit amet</b>, consectetur adipiscing elit, sed do eiusmod
+          tempor <span style="color: #dd0000;">incididunt ut labore et dolore magna aliqua.</span>incididunt ut labore
+          et dolore magna aliqua.</div>
+      </div>
+    </div>
+    <div class="notification_block">
+      <div class="notification_icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
+      <div class="notification_text">
+        <span class="notification_title"><span class="dynamic_color">Tractor Price
+            Updated</span><small>15-Nov-2025</small></span>
+        <div class="notification_desc">Lorem ipsum dolor <b>sit amet</b>, consectetur adipiscing elit, sed do eiusmod
+          tempor <span style="color: #dd0000;">incididunt ut labore et dolore magna aliqua.</span> incididunt ut labore
+          et dolore magna aliqua.</div>
+      </div>
+    </div>
+  </div>
+</ion-content>
