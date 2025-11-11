@@ -47,4 +47,12 @@ export class ReportsTractorComponent  implements OnInit {
        this.router.navigate(['/admin-block/lead-mgmt-employee','/admin-block/reports-tractor'])
     
   }
+    storeManagement(){
+       this.router.navigate(['/admin-block/sales-manager-list','/admin-block/reports-tractor'])
+    
+  }
+     TeamManagement(){
+       this.router.navigate(['/admin-block/team-manager-list','/admin-block/reports-tractor'])
+    
+  }
 }

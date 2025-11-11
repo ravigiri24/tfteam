@@ -1,0 +1,51 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        Add Sales Manager
+  
+      </div>
+      <div class="right_action">
+  
+        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form *ngIf="form" [formGroup]="form">
+     <div class="global_input_block">
+        <ion-input label="Name" fill="outline" formControlName="name" labelPlacement="stacked" type="text" ></ion-input>
+      </div>
+           <div class="global_input_block">
+        <ion-input label="Contact" fill="outline" formControlName="contact1" labelPlacement="stacked" type="number" ></ion-input>
+      </div>
+        <div class="global_input_block">
+        <ion-input label="User ID" fill="outline" formControlName="userId" labelPlacement="stacked"  ></ion-input>
+      </div>
+             <div class="global_input_block">
+        <ion-input label="User Password" fill="outline" formControlName="password" labelPlacement="stacked"  ></ion-input>
+      </div>
+              <div class="global_input_block">
+        <ion-input label="Address" fill="outline" formControlName="address1" labelPlacement="stacked"  ></ion-input>
+      </div>
+          
+   <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">Alloted State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+  </div>
+        <div class="row" >
+    <ion-button *ngIf="!editedData"  (click)="checkingUserId()" class="global_submit_button" >
+    
+      Add</ion-button>
+          <ion-button (click)="checkingUserIdOnUpdate()" *ngIf="editedData"  class="global_submit_button" >
+    
+      Update</ion-button>
+    </div>
+  </form>
+</ion-content>

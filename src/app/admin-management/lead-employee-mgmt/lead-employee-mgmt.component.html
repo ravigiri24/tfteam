@@ -16,6 +16,6 @@
 </ion-header>
 <ion-content>
   
-       <app-view-staff-list *ngIf="staffList?.length" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="staffList"></app-view-staff-list>  
+       <app-view-staff-list [keyList]="keyList" *ngIf="staffList?.length" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="staffList"></app-view-staff-list>  
     <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!staffList?.length && !share?.globalLoading"></app-no-data-view>
   </ion-content>

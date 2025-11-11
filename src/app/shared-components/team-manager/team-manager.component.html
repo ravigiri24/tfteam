@@ -1,0 +1,20 @@
+
+<app-common-header
+
+
+class="app_common_header"
+[isListFilter]="false"
+
+[listColorClass]="listColorClass"
+[title]="'Team Leads'"
+
+[list]="staffList"
+[showWareHouse]="false"
+[headerDisplayArray]="headerDisplayArray"
+(actionEventHeader)="actionEventHeader($event)"
+></app-common-header>
+<ion-content>
+
+      <app-view-staff-list *ngIf="staffList?.length"   [keyList]="keyList" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="staffList"></app-view-staff-list>  
+  <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!staffList?.length && !share?.globalLoading"></app-no-data-view>
+</ion-content>

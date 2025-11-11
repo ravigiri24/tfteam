@@ -17,6 +17,8 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LeadEmployeeMgmtComponent } from './lead-employee-mgmt/lead-employee-mgmt.component';
 import { AddLeadStaffComponent } from './lead-employee-mgmt/add-lead-staff/add-lead-staff.component';
 import { AddDistrictInStaffComponent } from './lead-employee-mgmt/add-district-in-staff/add-district-in-staff.component';
+import { StoreManagementComponent } from './store-management/store-management.component';
+import { AddSalesManagerComponent } from './store-management/add-sales-manager/add-sales-manager.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -29,7 +31,9 @@ import { AddDistrictInStaffComponent } from './lead-employee-mgmt/add-district-i
     AdminHeaderComponent,
     LeadEmployeeMgmtComponent,
     AddLeadStaffComponent,
-    AddDistrictInStaffComponent
+    AddDistrictInStaffComponent,
+    StoreManagementComponent,
+    AddSalesManagerComponent
   ],
   imports: [
    

@@ -61,6 +61,9 @@ import { ReceiveTractorImageComponent } from '../sales-officer-depart/receive-tr
 import { EnquireCustomerListComponent } from './enquire-customer-list/enquire-customer-list.component';
 import { NotificationPopUpComponent } from './notification-pop-up/notification-pop-up.component';
 import { ViewEnquiryComponent } from '../sales-officer-depart/view-enquiry/view-enquiry.component';
+import { TeamManagerComponent } from './team-manager/team-manager.component';
+import { AddTeamManagerComponent } from './team-manager/add-team-manager/add-team-manager.component';
+import { AssigningStaffComponent } from './assigning-staff/assigning-staff.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -128,7 +131,10 @@ import { ViewEnquiryComponent } from '../sales-officer-depart/view-enquiry/view-
     ReceiveTractorImageComponent,
     EnquireCustomerListComponent,
     NotificationPopUpComponent,
-    ViewEnquiryComponent
+    ViewEnquiryComponent,
+    TeamManagerComponent,
+    AddTeamManagerComponent,
+    AssigningStaffComponent
     
   ],
 
@@ -145,7 +151,8 @@ import { ViewEnquiryComponent } from '../sales-officer-depart/view-enquiry/view-
     ViewCustomerListComponent,
     ViewStaffListComponent,
     CommonHeaderComponent,
-    EnquireCustomerListComponent
+    EnquireCustomerListComponent,
+    TeamManagerComponent
    
   ],
   providers: [ApiService, InAppBrowser,],

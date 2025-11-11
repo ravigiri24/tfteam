@@ -63,6 +63,12 @@ export class ShareService {
     };
     return obj;
   }
+  getStaffCOde(name:any){
+          let rand = Math.floor(10000 + Math.random() * 90000);
+      let uniqueNum = Date.now();
+  
+    return rand + name + uniqueNum + '@tractorFactory.in';
+  }
   filterByBrand(list: any = [], selectedBrand: any = []) {
     let tractorList: any = [];
     list?.forEach((f: any) => {

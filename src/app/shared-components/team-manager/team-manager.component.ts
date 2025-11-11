@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareService } from 'src/app/share.service';
-import { AddLeadStaffComponent } from './add-lead-staff/add-lead-staff.component';
+import { AddTeamManagerComponent } from './add-team-manager/add-team-manager.component';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { CommonMethodService } from 'src/app/common-method.service';
-import { AddDistrictInStaffComponent } from './add-district-in-staff/add-district-in-staff.component';
+
 @Component({
-  selector: 'app-lead-employee-mgmt',
-  templateUrl: './lead-employee-mgmt.component.html',
-  styleUrls: ['./lead-employee-mgmt.component.scss'],
+  selector: 'app-team-manager',
+  templateUrl: './team-manager.component.html',
+  styleUrls: ['./team-manager.component.scss'],
 })
-export class LeadEmployeeMgmtComponent implements OnInit {
+export class TeamManagerComponent  implements OnInit {
+
   constructor(
     private router: Router,
     public share: ShareService,
@@ -33,12 +34,20 @@ listColorClass='firstColor'
     });
     this.getStaffList()
   }
-    keyList: any = [
-    { key: 'User ID', value: 'userId', type: 'INPUT' },
-    { key: 'Contact', value: 'contact1', type: 'INPUT' },
- 
-    { key: 'Store', value: 'storeName', type: 'INPUT' },
+    headerDisplayArray = [
+    { name: 'Add Staff', icon: 'add-circle-outline' },
+    { name: 'Back To Dashboard', icon: 'arrow-back-outline' },
+
   ];
+   actionEventHeader(e: any) {
+    if (e?.name == 'Add Staff') {
+      this.addStaff();
+    } else if (e?.name == 'Back To Dashboard') {
+      this.backToDashboard();
+    }
+  
+  }
+
   staffList: any = [];
   selectedBrand: any;
   getStaffList(loader: any = false) {
@@ -50,9 +59,9 @@ listColorClass='firstColor'
     // }
     let obj: any = this.share.getListObj('staffList', false, [], true);
 
-
+obj.staff_role='TEAM_LEAD'
     setTimeout(() => {
-      this.api.postapi('getStaffList', obj).subscribe(
+      this.api.postapi('getStaffListRoleWise', obj).subscribe(
         (res: any) => {
           this.staffList = res?.data;
      this.share.spinner.dismiss('active_one')
@@ -68,16 +77,17 @@ listColorClass='firstColor'
       action: 'Edit_Staff',
       image: './././assets/images/edit.png',
     },
-      {
-      name: 'District-list-alloted',
-      action: 'districtListAlloted',
-      image: './././assets/images/location-pin.png',
-    },
+    
   ];
-  
+    keyList: any = [
+    { key: 'User ID', value: 'userId', type: 'INPUT' },
+    { key: 'Contact', value: 'contact1', type: 'INPUT' },
+ 
+    { key: 'Posting', value: 'stateName', type: 'INPUT' },
+  ];
   async addStaff(staff:any=null) {
     const modal = await this.modalCTrl.create({
-      component: AddLeadStaffComponent,
+      component: AddTeamManagerComponent,
       componentProps: {
         editedData:staff
       },
@@ -91,33 +101,16 @@ if(data){
     if (role === 'confirm') {
     }
   }
-    async addDistrict(staff:any=null) {
-    const modal = await this.modalCTrl.create({
-      component: AddDistrictInStaffComponent,
-      componentProps: {
-        staff:staff
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-if(data){
-  this.getStaffList()
-}
-    if (role === 'confirm') {
-    }
-  }
+   
     async actionEventCall(e: any) {
       if(e?.button?.name=='Edit Staff'){
 this.addStaff(e?.staff)
       }
-          if(e?.button?.name=='District-list-alloted'){
-this.addDistrict(e?.staff)
-      }
- 
+   
  
   }
   backToDashboard() {
     this.router.navigate([this.srcPage]);
   }
+
 }
