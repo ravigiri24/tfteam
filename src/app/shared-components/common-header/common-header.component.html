@@ -3,46 +3,49 @@
     <ion-label class="top_heading">
       <div class="left_text">
         <ng-container *ngIf="!isListFilter">
-        <span class="selected_text dynamic_color">{{title}}:</span>
-     
-       
+          <span class="selected_text dynamic_color">{{title}}:</span>
+
+
         </ng-container>
-          <ng-container *ngIf="isListFilter">
-            <ng-container *ngIf="showWareHouse">
-               <ion-select class="selected_ddl" (ionChange)="getAllTractorListStorewise()" [(ngModel)]="selectedStore"
-        label-placement="type">
-        <ion-select-option *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name }}</ion-select-option>
-      </ion-select>
-      </ng-container>
-           <ng-container *ngIf="universalSelect">
-               <ion-select class="selected_ddl" (ionChange)="optionActionEventCall()" [(ngModel)]="selectedItem"
-        label-placement="type">
-        <ion-select-option *ngFor="let opt of optionsArray" [value]="opt.id"> {{ opt?.name }}</ion-select-option>
-      </ion-select>
-      </ng-container>
-      </ng-container>
-       <b class="total-number">{{list?.length}}</b>
+        <ng-container *ngIf="isListFilter">
+          <ng-container *ngIf="showWareHouse">
+            <ion-select class="selected_ddl" (ionChange)="getAllTractorListStorewise()" [(ngModel)]="selectedStore"
+              label-placement="type">
+              <ion-select-option *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name
+                }}</ion-select-option>
+            </ion-select>
+          </ng-container>
+          <ng-container *ngIf="universalSelect">
+            <ion-select class="selected_ddl" (ionChange)="optionActionEventCall()" [(ngModel)]="selectedItem"
+              label-placement="type">
+              <ion-select-option *ngFor="let opt of optionsArray" [value]="opt.id"> {{ opt?.name }}</ion-select-option>
+            </ion-select>
+          </ng-container>
+        </ng-container>
+        <b class="total-number">{{list?.length}}</b>
       </div>
       <div class="right_action_collections">
-        <div class="right_color_actions theme_btn dynamic_color three_button">
+        <div class="right_color_actions theme_btn dynamic_color"
+          [ngClass]="headerDisplayArray.length === 2 ? 'two_button' : 'three_button'">
           <div class="btn_icons">
             <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
-                <ng-container *ngIf="headerDisplayArray?.length<=3">
-  <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
-                </ng-container>
-                   <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
-  <ion-icon  (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
-                </ng-container>
-              
+              <ng-container *ngIf="headerDisplayArray?.length<=3">
+                <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
+              </ng-container>
+              <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
+                <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
+              </ng-container>
+
             </ng-container>
             <!-- <ion-icon class="icon-size" name="search-outline"></ion-icon>
             <ion-icon class="icon-size" name="refresh-outline"></ion-icon> -->
-          
-            <ion-icon *ngIf="headerDisplayArray?.length>3" class="icon-size" name="list-outline" (click)="openSubmenu()"></ion-icon>
+
+            <ion-icon *ngIf="headerDisplayArray?.length>3" class="icon-size" name="list-outline"
+              (click)="openSubmenu()"></ion-icon>
           </div>
           <span class="wave dynamic_bgcolor"></span>
           <span class="wave dynamic_bgcolor"></span>
-          <span class="wave dynamic_bgcolor"></span>
+          <span class="wave dynamic_bgcolor" *ngIf="headerDisplayArray?.length>3"></span>
         </div>
         <!-- <div class="right_more_action">
           <ion-icon class="dynamic_color menu_icons" name="list-outline"></ion-icon>
@@ -53,11 +56,11 @@
   <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
-   <div (click)="actionEventHeaderCall(option)" class="sub_menu_item">
-      <ion-icon  class="dynamic_color" name="{{option?.icon}}"></ion-icon>
-      <span class="text">{{option?.name}}</span>
-    </div>
-    </ng-container>
+        <div (click)="actionEventHeaderCall(option)" class="sub_menu_item">
+          <ion-icon class="dynamic_color" name="{{option?.icon}}"></ion-icon>
+          <span class="text">{{option?.name}}</span>
+        </div>
+      </ng-container>
     </ng-container>
     <!-- <div class="sub_menu_item">
       <ion-icon class="dynamic_color" name="list-outline"></ion-icon>

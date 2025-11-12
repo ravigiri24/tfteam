@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -9,25 +9,26 @@ import { ShareService } from 'src/app/share.service';
   styleUrls: ['./select-with-search.component.scss'],
 })
 export class SelectWithSearchComponent implements OnInit {
+  @Input() listColorClass = 'sixColor';
   itemName: any = 'State';
   otherObjects: any;
   table_name: any;
   list: any = [];
-  jsonKey:'name'
-  search:any
-  showAddButton:any=true
+  jsonKey: 'name'
+  search: any
+  showAddButton: any = true
   constructor(
     private modalController: ModalController,
     private api: ApiService,
     private share: ShareService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    console.log("list",this.list,this.jsonKey);
-    
+    console.log("list", this.list, this.jsonKey);
+
   }
-  onInputFocus() {}
-  focusOut() {}
+  onInputFocus() { }
+  focusOut() { }
   dismiss() {
     this.modalController.dismiss();
   }
@@ -36,7 +37,7 @@ export class SelectWithSearchComponent implements OnInit {
     this.modalController.dismiss(data);
   }
   addNewItem() {
-    let sendObj: any={};
+    let sendObj: any = {};
     if (Object.keys(this.otherObjects)?.length) {
       Object.keys(this.otherObjects)?.forEach((obj: any) => {
         sendObj[obj] = this.otherObjects[obj];
@@ -52,7 +53,7 @@ export class SelectWithSearchComponent implements OnInit {
       // this.share.spinner.dismiss()
       // this.form.reset();
       console.log('res', res);
-this.share.spinner.dismiss()
+      this.share.spinner.dismiss()
       this.modalController.dismiss(res?.rowData);
     });
   }

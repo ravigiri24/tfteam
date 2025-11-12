@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 import { ViewModelsComponent } from '../add-enquiry/view-models/view-models.component';
+
 @Component({
   selector: 'app-add-enqiury',
   templateUrl: './add-enqiury.component.html',
@@ -23,17 +24,16 @@ export class AddEnqiuryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private share: ShareService,
     private api: ApiService
-  ) {}
-staffDetails:any
+  ) { }
+  staffDetails: any;
+  @Input() listColorClass = 'sixColor';
   ngOnInit() {
-        let staffDetails: any = this.share.get_staff();
+    let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
-        this.getStateList();
+    this.getStateList();
     this.getModelList();
-      this.initialize(this.enquiry);
-
-  
+    this.initialize(this.enquiry);
   }
   dismiss() {
     this.modalCtrl.dismiss();
@@ -43,21 +43,21 @@ staffDetails:any
   formWarehouse: FormGroup;
   initialize(data: any = null) {
 
-    let store_id=3
-    let modelIds=[]
-    if(data){
-    if(JSON.parse(data?.modal_ids)?.length){
-   modelIds=JSON.parse(data?.modal_ids)
-    }else{
- modelIds=[]
-    }
+    let store_id = 3
+    let modelIds = []
+    if (data) {
+      if (JSON.parse(data?.modal_ids)?.length) {
+        modelIds = JSON.parse(data?.modal_ids)
+      } else {
+        modelIds = []
+      }
     }
     this.form = this.formBuilder.group({
       customerName: new FormControl(data?.customerName, [Validators.required]),
       mobileNo: new FormControl(data?.mobileNo, [Validators.required]),
       remark: new FormControl(data?.remark, []),
-      modal_ids: new FormControl(modelIds||[], []),
-      storeId: new FormControl(data?.storeId||store_id, [Validators.required]),
+      modal_ids: new FormControl(modelIds || [], []),
+      storeId: new FormControl(data?.storeId || store_id, [Validators.required]),
       actionByid: new FormControl(this?.staffDetails?.id, [Validators.required]),
       state_id: new FormControl(data?.state_id, [Validators.required]),
       city_id: new FormControl(data?.city_id, [Validators.required]),
@@ -69,12 +69,12 @@ staffDetails:any
 
     console.log(' this.form', this.form);
 
-    if(JSON.parse(data?.modal_ids)?.length){
-      let modelList:any=JSON.parse(data?.modal_ids)
-      modelList?.forEach((model:any)=>{
-   this.getAvailaiblility(model,false)
+    if (JSON.parse(data?.modal_ids)?.length) {
+      let modelList: any = JSON.parse(data?.modal_ids)
+      modelList?.forEach((model: any) => {
+        this.getAvailaiblility(model, false)
       })
-   
+
     }
     // if(data){
     //   this.form.addControl(
@@ -83,9 +83,9 @@ staffDetails:any
     //   );
     // }
   }
-  getModel(){
-      let valueOf = this.form.controls['modal_ids']?.value || [];
-      return valueOf
+  getModel() {
+    let valueOf = this.form.controls['modal_ids']?.value || [];
+    return valueOf
   }
   stateList: any = [];
   stateName: any;
@@ -106,7 +106,7 @@ staffDetails:any
         }
         this.getCityList();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
 
@@ -120,7 +120,7 @@ staffDetails:any
         this.modelList = res.data;
         this.share?.spinner?.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   cityList: any = [];
@@ -137,7 +137,7 @@ staffDetails:any
         }
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   checkOpenCon(itemName: any) {
@@ -215,12 +215,12 @@ staffDetails:any
       name: model?.name,
       brandName: model?.brandName,
       brandID: model?.brandID,
-      availaibility:model?.availaibility
+      availaibility: model?.availaibility
     };
   }
- async viewModel(model:any){
- let avaialiableList=model?.availaibility
-   let otherObjects: any;
+  async viewModel(model: any) {
+    let avaialiableList = model?.availaibility
+    let otherObjects: any;
 
     const modal = await this.modalCtrl.create({
       component: ViewModelsComponent,
@@ -241,7 +241,7 @@ staffDetails:any
       component: SelectWithSearchComponent,
       componentProps: {
         list: this.modelList,
-        itemName:"Model",
+        itemName: "Model",
         table_name: 'model',
         otherObjects: otherObjects,
         jsonKey: 'name',
@@ -271,85 +271,85 @@ staffDetails:any
     if (role === 'confirm') {
     }
   }
-  getAvailaiblility(model:any,isAdd:any=true){
-      
-    let obj :any= this.share.getListObj('model', true, ['logo'], false);
+  getAvailaiblility(model: any, isAdd: any = true) {
+
+    let obj: any = this.share.getListObj('model', true, ['logo'], false);
     this.share.showLoading('Checking Availaibility');
-    obj.model_id=model?.id
+    obj.model_id = model?.id
     this.api.postapi('getModelAvailaibility', obj).subscribe(
       (res: any) => {
-            let availaibility=res?.data
-        if(isAdd){
-        let valueOf = this.form.controls['modal_ids'].value;
-    
-        model.availaibility=availaibility
-        valueOf.push(this.getModelObj(model));
-        this.form.controls['modal_ids'].setValue(valueOf)
-        }else{
-      let valueOf = this.form.controls['modal_ids'].value;
-      let findModel=valueOf?.findIndex((fn:any)=>fn.id==model.id)
-      valueOf[findModel].availaibility=availaibility
+        let availaibility = res?.data
+        if (isAdd) {
+          let valueOf = this.form.controls['modal_ids'].value;
+
+          model.availaibility = availaibility
+          valueOf.push(this.getModelObj(model));
+          this.form.controls['modal_ids'].setValue(valueOf)
+        } else {
+          let valueOf = this.form.controls['modal_ids'].value;
+          let findModel = valueOf?.findIndex((fn: any) => fn.id == model.id)
+          valueOf[findModel].availaibility = availaibility
           this.form.controls['modal_ids'].setValue(valueOf)
         }
 
         this.share?.spinner?.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  save(){
-    if(this.form.valid){
-      let obj :any= this.form.value
-       obj.operate= this.share.getStaffObj()?.operate;
-    this.share.showLoading('Saving...');
-    
-    this.api.postapi('saveEnquiry', obj).subscribe(
-      (res: any) => {
+  save() {
+    if (this.form.valid) {
+      let obj: any = this.form.value
+      obj.operate = this.share.getStaffObj()?.operate;
+      this.share.showLoading('Saving...');
+
+      this.api.postapi('saveEnquiry', obj).subscribe(
+        (res: any) => {
           this.share.presentToast("Enquiry Generated Successfully")
           this.share.spinner.dismiss()
           this.modalCtrl.dismiss(true)
-      },
-      (error: any) => {}
-    );
-  }else{
-    if(!this.form.valid){
-      this.share.presentToast("Please Fill Required Fields")
-    }
+        },
+        (error: any) => { }
+      );
+    } else {
+      if (!this.form.valid) {
+        this.share.presentToast("Please Fill Required Fields")
+      }
 
-     
+
+    }
   }
-  }
-    update(){
-    if(this.form.valid){
-      let obj :any= this.form.value
-       obj.operate= this.share.getStaffObj()?.operate;
-       obj.id=this.enquiry?.id
-    this.share.showLoading('Updating...');
-    
-    this.api.postapi('updateEnquiry', obj).subscribe(
-      (res: any) => {
+  update() {
+    if (this.form.valid) {
+      let obj: any = this.form.value
+      obj.operate = this.share.getStaffObj()?.operate;
+      obj.id = this.enquiry?.id
+      this.share.showLoading('Updating...');
+
+      this.api.postapi('updateEnquiry', obj).subscribe(
+        (res: any) => {
           this.share.presentToast("Enquiry Updated Successfully")
           this.share.spinner.dismiss()
-          
-          this.modalCtrl.dismiss(true)
-      },
-      (error: any) => {}
-    );
-  }else{
-    if(!this.form.valid){
-      this.share.presentToast("Please Fill Required Fields")
-    }
 
-     
+          this.modalCtrl.dismiss(true)
+        },
+        (error: any) => { }
+      );
+    } else {
+      if (!this.form.valid) {
+        this.share.presentToast("Please Fill Required Fields")
+      }
+
+
+    }
   }
-  }
-  deleteModel(model:any){
-     let valueOf = this.form.controls['modal_ids'].value;
-     let findIn=valueOf?.findIndex((f:any)=>f.id==model?.id)
-    valueOf.splice(findIn,1)
+  deleteModel(model: any) {
+    let valueOf = this.form.controls['modal_ids'].value;
+    let findIn = valueOf?.findIndex((f: any) => f.id == model?.id)
+    valueOf.splice(findIn, 1)
     this.form.controls['modal_ids'].setValue(valueOf)
   }
-  updates(){
+  updates() {
 
   }
 }
