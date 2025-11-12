@@ -114,6 +114,7 @@ export class CloseEnquiryComponent implements OnInit {
         list: this.modelList,
         itemName: 'Model',
         table_name: 'Model',
+             showAddButton:false,
         otherObjects: otherObjects,
         jsonKey: 'name',
         search: {

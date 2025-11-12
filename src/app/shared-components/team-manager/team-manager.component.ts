@@ -59,7 +59,7 @@ listColorClass='firstColor'
     // }
     let obj: any = this.share.getListObj('staffList', false, [], true);
 
-obj.staff_role='TEAM_LEAD'
+obj.staff_role='TERRITORY_MANAGER'
     setTimeout(() => {
       this.api.postapi('getStaffListRoleWise', obj).subscribe(
         (res: any) => {

@@ -31,9 +31,11 @@ listColorClass='firstColor'
        let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
-    this.getStaffList()
+   // this.getStaffList()
     this.getAssignedList()
+   
   }
+  searchHeading:any='TM'
    async actionEventCall(e: any) {
       if(e?.button?.name=='Remove Tractor'){
 this.deleteItem(e?.staff)
@@ -83,28 +85,12 @@ this.deleteItem(e?.staff)
       //  this.dismiss();
     });
   }
+  headerHeading='Assign TM'
   headStaff:any
     staffListAll: any = [];
   selectedBrand: any;
   staffDetails: any;
-  getStaffList(loader: any = false) {
- 
-    //if(loader){
 
-    // }
-    let obj: any = this.share.getListObj('staffList', false, [], true);
-
-obj.staff_role='TEAM_LEAD'
-    setTimeout(() => {
-      this.api.postapi('getStaffListRoleWise', obj).subscribe(
-        (res: any) => {
-          this.staffListAll = res?.data;
-  
-        },
-        (error: any) => {}
-      );
-    }, 0);
-  }
     async selectItem(list: any, itemName: any=null, table_name: any=null) {
  
 
@@ -112,9 +98,9 @@ obj.staff_role='TEAM_LEAD'
         component: SelectWithSearchComponent,
         componentProps: {
           list: list,
-          itemName: itemName,
+          itemName: this.searchHeading,
           table_name: table_name,
-     
+     showAddButton:false,
           jsonKey: 'name',
           search: {
             name: null,
@@ -190,7 +176,7 @@ obj.staff_id=this.headStaff?.id
   ];
      actionEventHeader(e: any) {
     if (e?.name == 'Add Staff') {
-      this.selectItem(this.staffListAll,'Team Lead');
+      this.selectItem(this.staffListAll,this.headerHeading);
     } else if (e?.name == 'Back To Dashboard') {
       this.dismiss();
     }

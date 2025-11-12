@@ -52,7 +52,7 @@ export class AddTeamManagerComponent  implements OnInit {
 
       address1: new FormControl(data?.address1, [Validators.required]),
       allotedState: new FormControl(data?.allotedState, [Validators.required]),
-      staff_role: new FormControl('TEAM_LEAD', [Validators.required]),
+      staff_role: new FormControl('TERRITORY_MANAGER', [Validators.required]),
 
       staffType: new FormControl('STAFF'),
     });
@@ -160,6 +160,7 @@ export class AddTeamManagerComponent  implements OnInit {
         componentProps: {
           list: list,
           itemName: itemName,
+               showAddButton:false,
           table_name: table_name,
      
           jsonKey: 'name',

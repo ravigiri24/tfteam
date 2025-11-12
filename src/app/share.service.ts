@@ -233,6 +233,9 @@ export class ShareService {
           } else if (userde?.staff_role == 'SALES_OFFICER') {
             this.router.navigate(['/sales-officer/so-dashbord']);
           }
+           else if (userde?.staff_role == 'SALES_HEAD') {
+            this.router.navigate(['/sales-head/sales-head-dashboard']);
+          }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
@@ -273,6 +276,9 @@ export class ShareService {
             this.router.navigate(['/lead-management/customer-management']);
           } else if (userde?.currentRole == 'SALES_OFFICER') {
             this.router.navigate(['/sales-officer/so-dashbord']);
+          }
+           else if (userde?.currentRole == 'SALES_HEAD') {
+             this.router.navigate(['/sales-head/sales-head-dashboard']);
           }
         }
       }

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareService } from 'src/app/share.service';
-import { AddSalesManagerComponent } from './add-sales-manager/add-sales-manager.component';
+import { AddTeamManagerComponent } from 'src/app/shared-components/team-manager/add-team-manager/add-team-manager.component';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { AssigningStaffComponent } from 'src/app/shared-components/assigning-staff/assigning-staff.component';
 @Component({
-  selector: 'app-store-management',
-  templateUrl: './store-management.component.html',
-  styleUrls: ['./store-management.component.scss'],
+  selector: 'app-team-manager',
+  templateUrl: './team-manager.component.html',
+  styleUrls: ['./team-manager.component.scss'],
 })
-export class StoreManagementComponent  implements OnInit {
+export class TeamManagerComponent  implements OnInit {
 
-  constructor(
+ constructor(
     private router: Router,
     public share: ShareService,
     public activatedRoute: ActivatedRoute,
@@ -32,12 +32,11 @@ listColorClass='firstColor'
     this.activatedRoute.params.subscribe((params: any) => {
       this.srcPage = params?.srcPage;
     });
-   
     this.getStaffList()
- this.getStaffListTM()
+    this.getStaffListSO()
   }
     headerDisplayArray = [
-    { name: 'Add Staff', icon: 'add-circle-outline' },
+    // { name: 'Add Staff', icon: 'add-circle-outline' },
     { name: 'Back To Dashboard', icon: 'arrow-back-outline' },
 
   ];
@@ -49,22 +48,7 @@ listColorClass='firstColor'
     }
   
   }
-    async addStaff(staff:any=null) {
-    const modal = await this.modalCTrl.create({
-      component: AddSalesManagerComponent,
-      componentProps: {
-        editedData:staff
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-if(data){
-  this.getStaffList()
-}
-    if (role === 'confirm') {
-    }
-  }
+
   staffList: any = [];
   selectedBrand: any;
   getStaffList(loader: any = false) {
@@ -76,9 +60,10 @@ if(data){
     // }
     let obj: any = this.share.getListObj('staffList', false, [], true);
 
-obj.staff_role='SALES_HEAD'
+obj.staff_role='TERRITORY_MANAGER'
+obj.staff_id=this.staffDetails?.id
     setTimeout(() => {
-      this.api.postapi('getStaffListRoleWise', obj).subscribe(
+      this.api.postapi('getAllotedStaffRoleWise', obj).subscribe(
         (res: any) => {
           this.staffList = res?.data;
      this.share.spinner.dismiss('active_one')
@@ -94,9 +79,9 @@ obj.staff_role='SALES_HEAD'
       action: 'Edit_Staff',
       image: './././assets/images/edit.png',
     },
-          {
-      name: 'Assign TL',
-      action: 'assign_tl',
+        {
+      name: 'Assign SO',
+      action: 'assign_so',
       image: './././assets/images/assign.png',
     },
     
@@ -105,33 +90,52 @@ obj.staff_role='SALES_HEAD'
     { key: 'User ID', value: 'userId', type: 'INPUT' },
     { key: 'Contact', value: 'contact1', type: 'INPUT' },
  
-    { key: 'Alloted State', value: 'stateName', type: 'INPUT' },
+    { key: 'Posting', value: 'stateName', type: 'INPUT' },
   ];
-  staffListTM:any=[]
-    getStaffListTM(loader: any = false) {
- 
-    //if(loader){
-
-    // }
-    let obj: any = this.share.getListObj('staffList', false, [], true);
-
-obj.staff_role='TERRITORY_MANAGER'
-    setTimeout(() => {
-      this.api.postapi('getStaffListRoleWise', obj).subscribe(
-        (res: any) => {
-          this.staffListTM = res?.data;
+  staffListSO:any=[]
+      getStaffListSO(loader: any = false) {
+   
+      //if(loader){
   
+      // }
+      let obj: any = this.share.getListObj('staffList', false, [], true);
+  
+  obj.staff_role='SALES_OFFICER'
+  obj.state_id=this.staffDetails?.allotedState
+      setTimeout(() => {
+        this.api.postapi('getStaffListRoleWiseStateWise', obj).subscribe(
+          (res: any) => {
+            this.staffListSO = res?.data;
+    
+          },
+          (error: any) => {}
+        );
+      }, 0);
+    }
+    async assignTL(staff:any=null) {
+      const modal = await this.modalCTrl.create({
+        component: AssigningStaffComponent,
+        componentProps: {
+          headStaff:staff,
+          staffListAll:this.staffListSO,
+          headerHeading:"Assign Sales Officer",
+          searchHeading:"Sales Officer"
         },
-        (error: any) => {}
-      );
-    }, 0);
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  if(data){
+    this.getStaffList()
   }
-  async assignTL(staff:any=null) {
+      if (role === 'confirm') {
+      }
+    }
+  async addStaff(staff:any=null) {
     const modal = await this.modalCTrl.create({
-      component: AssigningStaffComponent,
+      component: AddTeamManagerComponent,
       componentProps: {
-        headStaff:staff,
-        staffListAll:this.staffListTM
+        editedData:staff
       },
     });
     await modal.present();
@@ -143,18 +147,18 @@ if(data){
     if (role === 'confirm') {
     }
   }
-
+   
     async actionEventCall(e: any) {
       if(e?.button?.name=='Edit Staff'){
 this.addStaff(e?.staff)
       }
-          if(e?.button?.name=='Assign TL'){
+            if(e?.button?.name=='Assign SO'){
 this.assignTL(e?.staff)
       }
- 
  
   }
   backToDashboard() {
     this.router.navigate([this.srcPage]);
   }
+
 }

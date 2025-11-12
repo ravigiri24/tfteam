@@ -177,6 +177,7 @@ export class AddEnqiuryComponent implements OnInit {
         componentProps: {
           list: list,
           itemName: itemName,
+               showAddButton:false,
           table_name: table_name,
           otherObjects: otherObjects,
           jsonKey: 'name',
@@ -243,6 +244,7 @@ export class AddEnqiuryComponent implements OnInit {
         list: this.modelList,
         itemName: "Model",
         table_name: 'model',
+             showAddButton:false,
         otherObjects: otherObjects,
         jsonKey: 'name',
         search: {

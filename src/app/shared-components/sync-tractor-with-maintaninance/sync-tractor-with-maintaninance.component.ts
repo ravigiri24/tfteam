@@ -118,6 +118,7 @@ export class SyncTractorWithMaintaninanceComponent implements OnInit {
       componentProps: {
         list: this.jobList,
         itemName: 'Job',
+        
         jsonKey: 'name',
         search: {
           tfCode: null,

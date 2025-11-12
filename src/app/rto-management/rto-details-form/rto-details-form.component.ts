@@ -53,6 +53,7 @@ export class RtoDetailsFormComponent  implements OnInit {
           list: list,
           itemName: itemName,
           table_name: table_name,
+               showAddButton:false,
           otherObjects: otherObjects,
           jsonKey:'name',
           search:  {

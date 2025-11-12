@@ -18,3 +18,4 @@ class="app_common_header"
       <app-view-staff-list *ngIf="staffList?.length"   [keyList]="keyList" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="staffList"></app-view-staff-list>  
   <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!staffList?.length && !share?.globalLoading"></app-no-data-view>
 </ion-content>
+

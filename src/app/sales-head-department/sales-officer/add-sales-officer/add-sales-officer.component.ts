@@ -10,11 +10,11 @@ import {
 } from '@angular/forms';
 import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 @Component({
-  selector: 'app-add-sales-manager',
-  templateUrl: './add-sales-manager.component.html',
-  styleUrls: ['./add-sales-manager.component.scss'],
+  selector: 'app-add-sales-officer',
+  templateUrl: './add-sales-officer.component.html',
+  styleUrls: ['./add-sales-officer.component.scss'],
 })
-export class AddSalesManagerComponent  implements OnInit {
+export class AddSalesOfficerComponent  implements OnInit {
 
  showFilter = true;
   name: any;
@@ -51,8 +51,8 @@ export class AddSalesManagerComponent  implements OnInit {
       password: new FormControl(null, [Validators.required]),
 
       address1: new FormControl(data?.address1, [Validators.required]),
-      allotedState: new FormControl(data?.allotedState, [Validators.required]),
-      staff_role: new FormControl('SALES_HEAD', [Validators.required]),
+      allotedState: new FormControl(this.staffDetails?.allotedState, [Validators.required]),
+      staff_role: new FormControl('SALES_OFFICER', [Validators.required]),
 
       staffType: new FormControl('STAFF'),
     });
@@ -160,8 +160,9 @@ export class AddSalesManagerComponent  implements OnInit {
         componentProps: {
           list: list,
           itemName: itemName,
+               showAddButton:false,
           table_name: table_name,
-          showAddButton:false,
+     
           jsonKey: 'name',
           search: {
             name: null,
@@ -230,5 +231,6 @@ export class AddSalesManagerComponent  implements OnInit {
       this.share.presentToast('Please Fill All Required Field(*)');
     }
   }
+
 
 }
