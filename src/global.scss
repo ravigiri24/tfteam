@@ -1,8 +1,3 @@
-/*
- * App Global CSS
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
 :root {
   --app-bg-color: var(--app-bg-color);
   --app-primary-color: var(--app-theme-element-color);
@@ -55,32 +50,6 @@ ion-icon {
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-// @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
-// @import "@ionic/angular/css/normalize.css";
-// @import "@ionic/angular/css/structure.css";
-// @import "@ionic/angular/css/typography.css";
-// @import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
-// @import "@ionic/angular/css/padding.css";
-// @import "@ionic/angular/css/float-elements.css";
-// @import "@ionic/angular/css/text-alignment.css";
-// @import "@ionic/angular/css/text-transformation.css";
-// @import "@ionic/angular/css/flex-utils.css";
-
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-// @import "@ionic/angular/css/palettes/dark.system.css";
 
 .theme-color {
   // color: var(--app-theme-element-color) !important;
@@ -144,6 +113,7 @@ app-salary-slip {
   border-radius: 5px;
   padding: 11px 15px;
   color: #666666;
+  background: #ffffff;
   margin-bottom: 20px;
   position: relative;
   transition: .5s all;
@@ -433,9 +403,14 @@ app-salary-slip {
 
 .global_submit_color_button {
   min-height: 45px;
+  width: 100%;
+
+  ion-icon {
+    margin-right: 10px;
+  }
 }
 
-.no_found_text_block {
+.no_found_text_main_block {
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -461,10 +436,17 @@ app-salary-slip {
     }
   }
 
-  .global_submit_button {
+  .global_submit_color_button {
     max-width: 150px;
-    min-height: 36px;
+
+    .icon-size {
+      margin-right: 10px;
+    }
   }
+}
+
+.bg_white {
+  background: #ffffff;
 }
 
 ion-header {
@@ -494,62 +476,10 @@ ion-header {
   font-family: var(--app-brand-font);
 }
 
-// .bottom_footer_row {
-//   // border-top: solid 5px var(--app-primary-color);
-//   border-radius: 15px 15px 0px 0px;
-//   box-shadow: #0003 0 3px 3px -2px, #00000024 0 3px 4px, #0000001f 0 1px 8px;
-//   height: 70px;
-
-//   .footer_text {
-//     // font-size: 16px;
-//     color: #666666;
-//   }
-
-//   ion-icon {
-//     font-size: 28px;
-//   }
-
-//   .selected_tabs {
-//     // color: var(--app-primary-color);
-//     font-weight: 500;
-//     position: relative;
-
-//     .inner_text {
-//       color: #ffffff;
-//       z-index: 2;
-//       position: relative;
-//     }
-
-//     &:before {
-//       content: "";
-//       background-color: var(--app-primary-color);
-//       left: calc(50% + 5px);
-//       position: absolute;
-//       width: 200%;
-//       height: 150px;
-//       border-radius: 100%;
-//       top: -4px;
-//       animation: wave 5s infinite linear;
-//       transition: all 1s;
-//       z-index: 1;
-//       min-width: 100px;
-//     }
-//   }
-// }
-
-// .footer_tabs {
-//   .bottom_footer_row {
-//     border-top: solid 5px var(--app-primary-color);
-//     border-radius: 15px 15px 0px 0px;
-//     box-shadow: #0003 0 3px 3px -2px, #00000024 0 3px 4px, #0000001f 0 1px 8px;
-//   }
-
-//   ion-tab-button {
-//     ion-icon {
-//       margin-bottom: 3px;
-//     }
-//   }
-// }
+.global_bgpopup_container {
+  --background: #f5f5ff;
+  border-top: solid thin #e1e1e1;
+}
 
 .accordian_card {
   ion-accordion {
@@ -1302,6 +1232,10 @@ ion-tab-button::part(native) {
 .no_found_dynamic_block {
   justify-content: center;
 
+  .dynamic_block {
+    min-width: 300px;
+  }
+
   .empty {
     margin: 10px !important;
   }
@@ -1357,6 +1291,25 @@ ion-header {
   }
 }
 
+.global_table_block_details {
+  margin: 0px 0px 20px 0px;
+
+  .table_main_header {
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  ion-col {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .table_row {
+    border-bottom: dashed 1px #e1dfdf;
+  }
+}
+
 .global_textarea {
   --min-height: 250px;
   height: 250px;
@@ -1386,32 +1339,6 @@ ion-header {
   }
 }
 
-// ion-tab-button {
-//   position: relative;
-//   overflow: hidden;
-
-//   ion-label {
-//     position: relative;
-//     z-index: 2;
-//   }
-
-//   &::after {
-//     content: '';
-//     position: absolute;
-//     bottom: 0;
-//     left: 0;
-//     width: 200%;
-//     height: 50%;
-//     background: radial-gradient(circle at 50% 100%, #a48cff 60%, transparent 100%);
-//     animation: wave 2s infinite linear;
-//     transform: translateX(-50%);
-//     z-index: 1;
-//   }
-
-//   &.tab-selected::after {
-//     opacity: 1;
-//   }
-// }
 @keyframes wave {
   0% {
     transform: translate(-50%) rotate(-180deg);

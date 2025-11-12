@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -6,13 +6,14 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './view-models.component.html',
   styleUrls: ['./view-models.component.scss'],
 })
-export class ViewModelsComponent  implements OnInit {
+export class ViewModelsComponent implements OnInit {
 
-  constructor(private modalCtrl:ModalController) { }
-modelList:any=[]
+  constructor(private modalCtrl: ModalController) { }
+  @Input() listColorClass = 'sixColor';
+  modelList: any = []
   dismiss() {
     this.modalCtrl.dismiss();
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

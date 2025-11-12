@@ -1,32 +1,26 @@
-  
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Availaibility</ion-title>
-
-    
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title>Availaibility</ion-title>
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
     <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
-  </ion-toolbar>  
-</ion-header>  
-<ion-content class="ion-padding">
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
   <span class="global-inner-heading">{{modelList[0]?.name}}</span>
   <ion-grid class="main_block_details" *ngIf="modelList?.length">
-    <ion-card class="table_block_details">
+    <ion-card class="global_table_block_details">
       <ion-row class="table_main_header dynamic_bgcolor">
         <ion-col class="item_name_col">TF Code</ion-col>
         <ion-col class="item_name_col">Location</ion-col>
         <ion-col class="qty_col">Price</ion-col>
-      
       </ion-row>
       <ion-row class="table_row" *ngFor="let model of modelList">
-            <ion-col class="qty_col">{{model?.registractionNo || '-'}}</ion-col>
+        <ion-col class="qty_col">{{model?.registractionNo || '-'}}</ion-col>
         <ion-col class="item_name_col">{{model?.franchiseDettails?.name||"Head Office(May Be)"}}</ion-col>
         <ion-col class="qty_col">{{model?.price}}</ion-col>
-
       </ion-row>
-
     </ion-card>
   </ion-grid>
-  </ion-content>
+</ion-content>
