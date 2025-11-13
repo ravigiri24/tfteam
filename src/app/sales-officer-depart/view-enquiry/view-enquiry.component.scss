@@ -1,0 +1,24 @@
+.margin-bottom-headline {
+    margin-bottom: 15px;
+}
+
+.global_table_block_details {
+    .availability_col {
+        max-width: 170px;
+        justify-content: center !important;
+    }
+
+    .actions_col {
+        max-width: 80px;
+        justify-content: end !important;
+
+        .delete_color {
+            margin-left: 15px;
+        }
+    }
+}
+
+.main_card_details {
+    margin: 0px 0px 15px 0px;
+    padding: 10px;
+}

@@ -1,25 +1,10 @@
-<app-common-header
-
-
-  class="app_common_header"
-  [isListFilter]="true"
-
-  [listColorClass]="listColorClass"
-  [title]="'Enquire'"
-  [list]="enquireList"
-  [universalSelect]="true"
-  [showWareHouse]="false"
-  [optionsArray]="optionsArray"
-  [selectedItem]="selectedItem"
-  [headerDisplayArray]="headerDisplayArray"
-  (actionEventHeader)="actionEventHeader($event)"
-  (optionActionEvent)="optionActionEvent($event)"
-></app-common-header>
+<app-common-header class="app_common_header" [isListFilter]="true" [listColorClass]="listColorClass" [title]="'Enquire'"
+  [list]="enquireList" [universalSelect]="true" [showWareHouse]="false" [optionsArray]="optionsArray"
+  [selectedItem]="selectedItem" [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)" (optionActionEvent)="optionActionEvent($event)"></app-common-header>
 <ion-content>
   <ion-content>
-<app-enquire-customer-list *ngIf="enquireList?.length" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="enquireList"></app-enquire-customer-list>
-  <app-no-data-view *ngIf="!enquireList?.length && !share?.globalLoading"></app-no-data-view>
-
-
-
-</ion-content>
+    <app-enquire-customer-list *ngIf="enquireList?.length" (actionEventCall)="actionEventCall($event)"
+      [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="enquireList"></app-enquire-customer-list>
+    <app-no-data-view [ngClass]="listColorClass" *ngIf="!enquireList?.length && !share?.globalLoading"></app-no-data-view>
+  </ion-content>
