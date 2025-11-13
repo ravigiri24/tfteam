@@ -68,6 +68,15 @@ loginForm:FormGroup
         this.share.showFooter=true
       //  this.router.navigate(['/digital/customer-management']);
         this.share.checkLogin()
+           if (res?.data?.allotedStore?.length) {
+       
+              this.share.set_sales_officer_store(
+                JSON.stringify(res?.data?.allotedStore[0])
+              );
+            this.share.set_sales_officer_storeList(
+              JSON.stringify(res?.data?.allotedStore)
+            );
+          }
       } else {
         this.presentToast('Invalid Credential...')
         this.spinner?.dismiss()

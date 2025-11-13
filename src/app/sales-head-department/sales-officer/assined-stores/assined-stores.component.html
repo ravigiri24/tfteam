@@ -1,36 +1,18 @@
-<ion-header >
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      District Alloted
-      <div class="left_text">
-<!--       
-          <div class="left_text">
-        <span class="selected_text">State Wise : </span>
- 
-        <ion-select  class="selected_ddl" (ionChange)="districtWiseFIlter()" [(ngModel)]="selectedState"
-        label-placement="type">
-        <ion-select-option *ngFor="let state of stateList" [value]="state.id"> {{ state?.name }}</ion-select-option>
-      </ion-select>
-    
-        
-      </div> -->
 
-    <!-- <span class="top_layers">State</span> -->
-
-    
-    <!-- <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon> -->
+<app-common-header
 
 
-      </div>
-      <div class="right_action">
-             <ion-icon class="theme-color-second icon-size" (click)="addDistrict()" expand="block" 
-          name="add-circle-outline"></ion-icon>
-        <ion-icon (click)="dismiss()" name="close"></ion-icon>
-      </div>
-    </ion-label>
+class="app_common_header"
+[isListFilter]="false"
 
-  </ion-toolbar>
-</ion-header>
+[listColorClass]="listColorClass"
+[title]="'Assign Store'"
+
+[list]="storeAlloted"
+[showWareHouse]="false"
+[headerDisplayArray]="headerDisplayArray"
+(actionEventHeader)="actionEventHeader($event)"
+></app-common-header>
 <ion-content class="ion-padding">
 <app-head-listing [listColorClass]="listColorClass"  *ngIf="storeAlloted?.length" [buttonArray]="buttonArray" [list]="storeAlloted" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'name'"></app-head-listing>
   <app-no-data-view  [ngClass]="listColorClass" *ngIf="!storeAlloted?.length && !share?.globalLoading"></app-no-data-view>

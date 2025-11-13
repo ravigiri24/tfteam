@@ -32,12 +32,12 @@
     </ion-card-subtitle>
     <div class="date_row">
       <ion-row>
-        <ion-col>Recent Attend Date : </ion-col>
-        <ion-col class="date_col"> {{ customerSelected?.createdOn || '-' }}</ion-col>
+        <ion-col>Registered : </ion-col>
+        <ion-col class="date_col"> {{ customerSelected?.createdOn|date  }}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col>Next Follw-up Date : </ion-col>
-        <ion-col class="date_col"> {{ customerSelected?.followUpDate?.next_lead_date || '-' }}</ion-col>
+        <ion-col class="date_col"> {{ customerSelected?.followUpDate?.next_lead_date|date  }}</ion-col>
       </ion-row>
     </div>
     <div class="action_row">

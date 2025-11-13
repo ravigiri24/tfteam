@@ -64,6 +64,7 @@ import { ViewEnquiryComponent } from '../sales-officer-depart/view-enquiry/view-
 import { TeamManagerComponent } from './team-manager/team-manager.component';
 import { AddTeamManagerComponent } from './team-manager/add-team-manager/add-team-manager.component';
 import { AssigningStaffComponent } from './assigning-staff/assigning-staff.component';
+import { SelectStoreComponent } from '../user-management/select-store/select-store.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -134,7 +135,8 @@ import { AssigningStaffComponent } from './assigning-staff/assigning-staff.compo
     ViewEnquiryComponent,
     TeamManagerComponent,
     AddTeamManagerComponent,
-    AssigningStaffComponent
+    AssigningStaffComponent,
+    SelectStoreComponent
     
   ],
 

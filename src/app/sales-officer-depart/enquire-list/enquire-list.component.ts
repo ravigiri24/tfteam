@@ -7,6 +7,7 @@ import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-f
 import { CommonMethodService } from 'src/app/common-method.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddEnqiuryComponent } from '../add-enqiury/add-enqiury.component';
+import { ReviewPageComponent } from 'src/app/customer-management/review-page/review-page.component';
 @Component({
   selector: 'app-enquire-list',
   templateUrl: './enquire-list.component.html',
@@ -40,7 +41,13 @@ enquireList:any=[]
     }
   }
    async actionEventCall(e: any) {
-      await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
+    if(e?.button?.name=='Customer Remark' || e?.button?.name=='Customer View'){
+     let obj= {button:e?.button,index:e?.index,customer:{id:e?.customer?.customer_id,name:e?.customer?.customerName},}
+      await this.commonMethod.actionEventCall(obj, { optionsUploadButtonArray: [] })
+    }else{
+           await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
+    }
+     
       if(this.commonMethod.reloadMethod){
         this.getEnquirList()
       }
@@ -63,11 +70,21 @@ enquireList:any=[]
       action: 'closed_enquiry',
       image: './././assets/images/summary.png',
     },
+       {
+      name: 'Customer Remark',
+      action: 'customer_review',
+      image: './././assets/images/comments.png',
+    },
+        {
+      name: 'Customer View',
+      action: 'customer_view',
+      image: './././assets/images/data.png',
+    },
   ];
   getEnquirList() {
     this.enquireList = [];
     let obj:any = this.share.getStaffObj();
-    obj.storeId=3
+    obj.storeId=this.selectedStore?.store_id
     if(this.selectedItem=='OPEN_ENQUIRE'){
     obj.enquiryType=true
     }else if(this.selectedItem=='CLOSED_ENQUIRE'){
@@ -104,12 +121,26 @@ enquireList:any=[]
         //this.callListApi();
       }
     }
+     async addRemark(customer: any = null) {
+        const modal = await this.modalCtrl.create({
+          component: ReviewPageComponent,
+          componentProps: {
+            customer: customer,
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+      }
 srcPage:any
+selectedStore:any
     ionViewWillEnter() {
       this.activatedRoute.params.subscribe((params: any) => {
       this.selectedItem = params?.type;
     this.srcPage= params?.srcPage;
     });
+         let selectedStore: any = this.share.get_sales_officer_store();
+            this.selectedStore = JSON.parse(selectedStore);
     this.getEnquirList()
   }
   optionActionEvent(e:any){

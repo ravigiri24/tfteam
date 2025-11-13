@@ -25,9 +25,24 @@ export class AssinedStoresComponent  implements OnInit {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
-    this.getDistictAllotedToStaff();
-    this.getStateList();
+    this.warehouselocation()
+    this.getAllotedStoresToStaff();
+ 
   }
+
+  storeList:any
+    warehouselocation() {
+    this.storeList = [];
+    let obj = this.share.getListObj('warehouselocation', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.storeList = res?.data;
+    
+      },
+      (error: any) => {}
+    );
+  }
+
   backToNewArrivals() {
     this.router.navigate([this.srcPage]);
   }
@@ -41,35 +56,38 @@ export class AssinedStoresComponent  implements OnInit {
   }
 
   storeAlloted: any = [];
-  getDistictAllotedToStaff() {
+  getAllotedStoresToStaff() {
     this.share.showLoading('Loading');
-    let obj:any = this.share.getListObj('distric', false, [], true);
+    let obj:any = this.share.getStaffObj();
     obj.staff_id=this.staff?.id
     this.storeAlloted=[]
-    this.api.postapi('getDistictAllotedToStaff', obj).subscribe(
+    this.api.postapi('getAllotedStoresToStaff', obj).subscribe(
       (res: any) => {
         this.storeAlloted = res?.data;
+        this.share.spinner.dismiss()
       },
       (error: any) => {}
     );
   }
   buttonArray: any = [
     {
-      name: 'Remove District',
-      action: 'removeDistrict',
+      name: 'Remove Store',
+      action: 'removeStore',
       image: './././assets/images/deleted.png',
     },
+     
   ];
   stateName: any;
-  async selectItem(list: any, itemName: any, table_name: any) {
+  async selectItem(list: any) {
     let otherObjects: any;
 
     const modal = await this.modalCtrl.create({
       component: SelectWithSearchComponent,
+             cssClass: 'midium-model',
       componentProps: {
         list: list,
-        itemName: itemName,
-        table_name: table_name,
+        itemName: 'Store',
+ 
         showAddButton:false,
         otherObjects: otherObjects,
         jsonKey: 'name',
@@ -81,13 +99,20 @@ export class AssinedStoresComponent  implements OnInit {
     await modal.present();
 
     const { data, role } = await modal.onWillDismiss();
-    if (itemName == 'State') {
+
       if (data) {
-        this.selectedState = data?.id;
-        this.stateName = data?.name;
-        this.getDistrictList();
+        let checkIn=this.storeAlloted.find((f:any)=>f?.store_id==data?.id)
+        if(!checkIn){
+       this.allotteStore(data)
+        }else{
+this.share.presentToast("Already Assigned")
+        }
+ 
+        // this.selectedState = data?.id;
+        // this.stateName = data?.name;
+        // this.getDistrictList();
       }
-    }
+    
     console.log('role', role, data);
 
     if (role === 'confirm') {
@@ -98,86 +123,46 @@ export class AssinedStoresComponent  implements OnInit {
     this.modalCtrl.dismiss()
   }
 
-  async addDistrict() {
-    const modal = await this.modalCtrl.create({
-      component: SelectDistrictModelComponent,
-      componentProps: {
-     
-      },
-    });
-    await modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    console.log('role', role);
-    if (data?.district_id) {
-      this.allotteDistrict(data?.district_id)
-    }
-    if (role === 'confirm') {
-    }
-  }
-  allotteDistrict(district_id:any){
+
+  allotteStore(store:any){
     let objVal={
-      district_id:district_id,
+      store_id:store?.id,
       staff_id:this.staff?.id,
       actionByid:this.staffDetails?.id
     }
     let obj = {
-        src: 'staff_district_record',
+        src: 'assigned_store_id',
         data: objVal,
       };
 
       this.api.postapi('addOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss();
 
-        this.share.presentToast('Added Successfully...');
-       this.getDistictAllotedToStaff()
+        this.share.presentToast('Assigned Successfully...');
+       this.getAllotedStoresToStaff()
 
         //  this.dismiss();
       });
   }
   selectedState: any;
 
-  stateList: any = [];
-  getStateList() {
-    this.share.showLoading('Loading');
-    let obj = this.share.getListObj('state_list', false, [], true);
-    this.api.postapi('getList', obj).subscribe(
-      (res: any) => {
-        this.stateList = res?.data;
-        this.selectedState = this.stateList[0].id;
-        this.stateName = this.stateList[0]?.name;
-        this.getDistrictList();
-      },
-      (error: any) => {}
-    );
-  }
-  districtList: any = [];
-  districtListSrc: any = [];
-  getDistrictList() {
-    this.districtList = [];
-    let obj = this.share.getListObj('district_list', false, [], true);
-    this.api.postapi('getList', obj).subscribe(
-      (res: any) => {
-        this.districtListSrc = res?.data;
-        this.districtWiseFIlter();
-        this.share.spinner.dismiss();
-      },
-      (error: any) => {}
-    );
-  }
+ 
+
 
   search: any = {
     name: null,
   };
   updateItemIndex: any;
   actionEventCall(e: any) {
-   if(e?.button?.name=='Remove District'){
+   if(e?.button?.name=='Remove Store'){
 this.removeAlert(e?.item)
    }
+  
   }
-async  removeAlert(district:any){
+async  removeAlert(store:any){
          
     const alert = await this.alertCtrl.create({
-      header: "Remove District",
+      header: "Remove Store",
       subHeader: '',
       message: 'Are You Sure',
       buttons: [
@@ -194,30 +179,38 @@ async  removeAlert(district:any){
     await alert.present();
     const result = await alert.onDidDismiss();
     if (result?.role == 'Yes') {
-      this.removeDistrict(district);
+      this.removeStore(store);
     }
   
   }
-  removeDistrict(district:any){
+  removeStore(district:any){
     let objVal={
       isDeleted:true
     }
       let obj = {
-        src: 'staff_district_record',
+        src: 'assigned_store_id',
         data: objVal,
         id: district?.id,
       };
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss();
         this.share.presentToast('Removed Successfully...');
-     this.getDistictAllotedToStaff()
+     this.getAllotedStoresToStaff()
       });
 
   }
-  districtWiseFIlter() {
-    this.districtList = this.districtListSrc.filter(
-      (f: any) => f.state_id == this.selectedState
-    );
+      headerDisplayArray = [
+     { name: 'Assign Store', icon: 'add-circle-outline' },
+    { name: 'Dismiss', icon: 'close' },
+
+  ];
+   actionEventHeader(e: any) {
+    if (e?.name == 'Dismiss') {
+      this.dismiss();
+    } 
+  else if(e?.name == 'Assign Store'){
+    this.selectItem(this.storeList)
+  }
   }
 
 }

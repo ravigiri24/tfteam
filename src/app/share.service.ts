@@ -42,7 +42,18 @@ export class ShareService {
 
     await alert.present();
   }
-
+set_sales_officer_store(store:any){
+  localStorage.setItem('selected_store_so',store) 
+}
+get_sales_officer_store(){
+      return localStorage.getItem('selected_store_so') || null;
+}
+set_sales_officer_storeList(store:any){
+  localStorage.setItem('list_store_so',store) 
+}
+get_sales_officer_storeList(){
+      return localStorage.getItem('list_store_so') || null;
+}
   get_staff() {
     return localStorage.getItem('userDetails') || null;
   }

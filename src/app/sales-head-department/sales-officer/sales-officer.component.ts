@@ -5,7 +5,7 @@ import { AddSalesOfficerComponent } from './add-sales-officer/add-sales-officer.
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { CommonMethodService } from 'src/app/common-method.service';
-
+import { AssinedStoresComponent } from './assined-stores/assined-stores.component';
 @Component({
   selector: 'app-sales-officer',
   templateUrl: './sales-officer.component.html',
@@ -77,6 +77,11 @@ obj.state_id=this.staffDetails?.allotedState
       action: 'Edit_Staff',
       image: './././assets/images/edit.png',
     },
+      {
+      name: 'Assign Store',
+      action: 'assign_store',
+      image: './././assets/images/store.png',
+    },
     
   ];
     keyList: any = [
@@ -101,10 +106,30 @@ if(data){
     if (role === 'confirm') {
     }
   }
+    async assignStore(staff:any=null) {
+    const modal = await this.modalCTrl.create({
+      component: AssinedStoresComponent,
+      componentProps: {
+      
+        staff:staff
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+if(data){
+  // this.getStaffList()
+}
+    if (role === 'confirm') {
+    }
+  }
    
     async actionEventCall(e: any) {
       if(e?.button?.name=='Edit Staff'){
 this.addStaff(e?.staff)
+      }
+      if(e?.button?.name=='Assign Store'){
+        this.assignStore(e?.staff)
       }
    
  

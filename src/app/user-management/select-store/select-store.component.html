@@ -1,0 +1,14 @@
+<ion-content  class="ion-padding ">
+  <div class="border-shape background">
+
+<div class="global_input_block " >
+  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="selectedStore" fill="outline" label="Select Store" label-placement="type">
+   
+     <ion-select-option *ngFor="let store of stores" [value]="store?.store_id">{{store?.name}}</ion-select-option>
+
+ 
+ 
+  </ion-select>
+</div>
+</div>
+</ion-content>

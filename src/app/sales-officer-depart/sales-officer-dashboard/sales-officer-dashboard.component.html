@@ -32,6 +32,28 @@
         </ion-card>
       </div>
     </div>
+      <div (click)="goToEnquire('CLOSED_ENQUIRE')" class="col-md-6 col-6">
+      <div class="brics_cardmain_block">
+        <div class="image_block">
+          <img class="image-style" src="././assets/images/sticky-notes.png" />
+        </div>
+        <ion-card>
+          <ion-card-title class="title-style">Today Follow-ups</ion-card-title>
+          <ion-card-title class="sub-title-style">{{enquiryData?.closeenquiry}}</ion-card-title>
+        </ion-card>
+      </div>
+    </div>
+     <div (click)="goToEnquire('CLOSED_ENQUIRE')" class="col-md-6 col-6">
+      <div class="brics_cardmain_block">
+        <div class="image_block">
+          <img class="image-style" src="././assets/images/placeholder.png" />
+        </div>
+        <ion-card>
+          <ion-card-title class="title-style">Today Visitng</ion-card-title>
+          <ion-card-title class="sub-title-style">{{enquiryData?.closeenquiry}}</ion-card-title>
+        </ion-card>
+      </div>
+    </div>
   
   </div>
 </ion-content>

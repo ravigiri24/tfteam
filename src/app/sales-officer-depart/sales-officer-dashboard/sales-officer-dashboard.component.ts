@@ -18,17 +18,20 @@ export class SalesOfficerDashboardComponent  implements OnInit {
 
   @Input() listColorClass= 'firstColor';
   ionViewWillEnter() {
-
+     let selectedStore: any = this.share.get_sales_officer_store();
+            this.selectedStore = JSON.parse(selectedStore);
     this.getEnquiryTally();
+   
   }
   enquiryData:any
+  selectedStore:any
   getEnquiryTally() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
 
     let obj = {
       operate: this.staffDetails?.staffCode,
-      storeId: 3,
+      storeId: this.selectedStore?.store_id,
 
     };
     this.share.showLoading('Loading');

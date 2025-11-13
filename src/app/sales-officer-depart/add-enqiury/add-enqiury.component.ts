@@ -26,11 +26,15 @@ export class AddEnqiuryComponent implements OnInit {
     private api: ApiService
   ) { }
   staffDetails: any;
+  selectedStore:any
   @Input() listColorClass = 'sixColor';
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
+        let selectedStore: any = this.share.get_sales_officer_store();
+    console.log('staffDetails', staffDetails);
+    this.selectedStore = JSON.parse(selectedStore);
     this.getStateList();
     this.getModelList();
     this.initialize(this.enquiry);
@@ -43,7 +47,7 @@ export class AddEnqiuryComponent implements OnInit {
   formWarehouse: FormGroup;
   initialize(data: any = null) {
 
-    let store_id = 3
+    let store_id = this.selectedStore?.store_id
     let modelIds = []
     if (data) {
       if (JSON.parse(data?.modal_ids)?.length) {

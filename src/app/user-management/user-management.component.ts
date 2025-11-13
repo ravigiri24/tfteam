@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectRoleComponent } from './select-role/select-role.component';
 import { ApiService } from '../api.service';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { SelectStoreComponent } from './select-store/select-store.component';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -36,20 +37,36 @@ export class UserManagementComponent implements OnInit {
     this.checkAuthenticationAndRoleList();
     // this.getTractorList();
   }
+  selected_store: any;
   checkAuthenticationAndRoleList() {
     let obj = {
       staff_id: this.staffDetails?.id,
     };
-this.share.showLoading("Getting Data")
+    this.share.showLoading('Getting Data');
     this.api.postapi('checkAuthenticationAndRoleList', obj).subscribe(
       (res: any) => {
-        this.share.spinner.dismiss('active_three')
+        this.share.spinner.dismiss('active_three');
+
         if (res?.data?.status == false) {
           this.share.clearSession();
           this.share.presentToast('Invalid Access');
           this.router.navigate(['/login']);
         } else if (res?.data?.status == true) {
-       
+          if (res?.data?.data?.allotedStore?.length) {
+            let selectedStore = this.share.get_sales_officer_store();
+            if (selectedStore != null) {
+              this.selected_store = JSON.parse(selectedStore);
+            } else {
+              this.share.set_sales_officer_store(
+                JSON.stringify(res?.data?.data?.allotedStore[0])
+              );
+              this.selected_store = res?.data?.data?.allotedStore[0];
+            }
+
+            this.share.set_sales_officer_storeList(
+              JSON.stringify(res?.data?.data?.allotedStore)
+            );
+          }
         }
       },
       (error: any) => {}
@@ -89,21 +106,36 @@ this.share.showLoading("Getting Data")
       this.share.checkLogin();
     }
   }
-    async updatePassword() {
+  async showStoreList() {
+    const modal = await this.modalCtrl.create({
+      component: SelectStoreComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {},
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data && data?.isStoreChange) {
+      this.selected_store=data?.selectedStore
+    this.share.set_sales_officer_store( JSON.stringify(data?.selectedStore));
+    }
+  }
+  async updatePassword() {
     const modal = await this.modalCtrl.create({
       component: UpdatePasswordComponent,
- 
+
       cssClass: 'custom-modal',
       componentProps: {
-        staffDetails:this.staffDetails
+        staffDetails: this.staffDetails,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-  if(data){
-          this.share.clearSession();
-          this.share.presentToast("Updated Successfully,Please Re Login")
+    if (data) {
+      this.share.clearSession();
+      this.share.presentToast('Updated Successfully,Please Re Login');
       this.router.navigate(['/login']);
-  }
+    }
   }
 }
