@@ -25,8 +25,11 @@
         <b class="total-number">{{list?.length}}</b>
       </div>
       <div class="right_action_collections">
-        <div class="right_color_actions theme_btn dynamic_color"
-          [ngClass]="headerDisplayArray.length === 2 ? 'two_button' : 'three_button'">
+        <div class="right_color_actions theme_btn dynamic_color" [ngClass]="{
+    one_button: headerDisplayArray?.length === 1,
+    two_button: headerDisplayArray?.length === 2,
+    three_button: headerDisplayArray?.length >= 3
+  }">
           <div class="btn_icons">
             <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
               <ng-container *ngIf="headerDisplayArray?.length<=3">

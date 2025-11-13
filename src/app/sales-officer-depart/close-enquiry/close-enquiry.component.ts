@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -20,7 +20,8 @@ export class CloseEnquiryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private share: ShareService,
     private api: ApiService
-  ) {}
+  ) { }
+  @Input() listColorClass = 'sixColor';
   dismiss() {
     this.modalCtrl.dismiss();
   }
@@ -52,10 +53,10 @@ export class CloseEnquiryComponent implements OnInit {
     // if (this.enquiry.isOpen == 1) {
     //   this.form.controls['isBooked'].setValue(true);
     // }
-      if (this.enquiry.isBooked == 1) {
+    if (this.enquiry.isBooked == 1) {
       this.form.controls['isBooked'].setValue(true);
     }
-        if (this.enquiry.isBooked == 0) {
+    if (this.enquiry.isBooked == 0) {
       this.form.controls['isBooked'].setValue(false);
     }
 
@@ -73,9 +74,9 @@ export class CloseEnquiryComponent implements OnInit {
   restart() {
     this.form.reset()
 
-       let objVal = this.form.value;
-    objVal.isOpen=true
-    objVal.actionByid=this?.staffDetails?.id
+    let objVal = this.form.value;
+    objVal.isOpen = true
+    objVal.actionByid = this?.staffDetails?.id
 
     let obj = {
       src: 'customers_enquire',
@@ -89,21 +90,21 @@ export class CloseEnquiryComponent implements OnInit {
     });
   }
   close() {
-    if(this.form.valid){
-    let objVal = this.form.value;
-    let obj = {
-      src: 'customers_enquire',
-      data: objVal,
-      id: this.enquiry?.id,
-    };
-    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
-      this.share.presentToast('Closed Successfully...');
-      this.modalCtrl.dismiss(true);
-    });
-  }else{
- this.share.presentToast('Please Fill All Details...');
-  }
+    if (this.form.valid) {
+      let objVal = this.form.value;
+      let obj = {
+        src: 'customers_enquire',
+        data: objVal,
+        id: this.enquiry?.id,
+      };
+      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+        this.share.spinner.dismiss();
+        this.share.presentToast('Closed Successfully...');
+        this.modalCtrl.dismiss(true);
+      });
+    } else {
+      this.share.presentToast('Please Fill All Details...');
+    }
   }
   async selectItem() {
     let otherObjects: any;
@@ -114,7 +115,7 @@ export class CloseEnquiryComponent implements OnInit {
         list: this.modelList,
         itemName: 'Model',
         table_name: 'Model',
-             showAddButton:false,
+        showAddButton: false,
         otherObjects: otherObjects,
         jsonKey: 'name',
         search: {
@@ -126,9 +127,9 @@ export class CloseEnquiryComponent implements OnInit {
     await modal.present();
 
     const { data, role } = await modal.onWillDismiss();
-    if(data){
-    this.modelName = data?.name;
-    this.form.controls['bookedModel'].setValue(data?.id);
+    if (data) {
+      this.modelName = data?.name;
+      this.form.controls['bookedModel'].setValue(data?.id);
     }
     console.log('role', role, data);
 
@@ -158,7 +159,7 @@ export class CloseEnquiryComponent implements OnInit {
           this.form.controls['bookedModel'].setValue(findModel?.id);
         }
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   toggleChanged(e: any) {

@@ -91,7 +91,7 @@
         </ion-card>
       </ion-grid>
 
-      <div class="no_found_dynamic_block margin-bottom-headline" *ngIf="!form.controls['modal_ids']?.value?.length">
+      <div class="margin-bottom-headline" *ngIf="!form.controls['modal_ids']?.value?.length">
         <div class="dynamic_block" [ngClass]="listColorClass">
           <app-no-data-view [title]="'No Model Selected.'" [subtitleShow]="false"></app-no-data-view>
         </div>

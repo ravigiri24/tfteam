@@ -481,6 +481,16 @@ ion-header {
   border-top: solid thin #e1e1e1;
 }
 
+.page_flex_submit_btn {
+  display: flex;
+  gap: 15px;
+
+  .button {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+}
+
 .accordian_card {
   ion-accordion {
     ion-item {
@@ -587,6 +597,28 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-first-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-first) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-first) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-first-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-first-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-first-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-six) !important;
+  }
+
   .range_block {
     ion-range {
       --bar-background-active: var(--app-dynamic-color-first) !important;
@@ -680,6 +712,28 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-second-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-second) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-second) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-second-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-second-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-second-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-second) !important;
+  }
+
   .range_block {
     ion-range {
       --bar-background-active: var(--app-dynamic-color-second) !important;
@@ -771,6 +825,28 @@ ion-header {
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-third-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-third) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-third) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-third-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-third-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-third-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-third) !important;
+  }
 
   .range_block {
     ion-range {
@@ -864,6 +940,28 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-fourth-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-fourth) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-fourth) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-fourth-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-fourth-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-fourth-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-fourth) !important;
+  }
+
   .range_block {
     ion-range {
       --bar-background-active: var(--app-dynamic-color-fourth) !important;
@@ -955,6 +1053,28 @@ ion-header {
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-fifth-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-fifth) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-fifth) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-fifth-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-fifth-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-fifth-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-fifth) !important;
+  }
 
   .range_block {
     ion-range {
@@ -1048,6 +1168,28 @@ ion-header {
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
 
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-six-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-six) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-six) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-six-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-six-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-six-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-six) !important;
+  }
+
   .range_block {
     ion-range {
       --bar-background-active: var(--app-dynamic-color-six) !important;
@@ -1139,6 +1281,28 @@ ion-header {
   --swiper-pagination-bullet-width: 14px;
   --swiper-pagination-bullet-height: 14px;
   --swiper-pagination-bullet-horizontal-gap: 2px;
+
+  .dynamic_toggle_color {
+    --track-background: rgba(var(--app-dynamic-color-seven-rgb, 254, 155, 75), 0.2) !important;
+    --track-background-checked: var(--app-dynamic-color-seven) !important;
+    --handle-background: #fff !important;
+    --handle-background-checked: var(--app-dynamic-color-seven) !important;
+    --handle-box-shadow: 0 2px 6px rgba(var(--app-dynamic-color-seven-rgb, 254, 155, 75), 0.4);
+    --handle-box-shadow-checked: 0 2px 8px rgba(var(--app-dynamic-color-seven-rgb, 254, 155, 75), 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic_toggle_color:focus {
+    box-shadow: 0 0 0 3px rgba(var(--app-dynamic-color-seven-rgb, 254, 155, 75), 0.3);
+  }
+
+  .dynamic_toggle_color::part(track) {
+    background: #b7b1b1;
+  }
+
+  .dynamic_toggle_color.toggle-checked::part(track) {
+    background: var(--app-dynamic-color-seven) !important;
+  }
 
   .range_block {
     ion-range {

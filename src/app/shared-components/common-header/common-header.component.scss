@@ -40,7 +40,16 @@
         }
     }
 }
+.one_button {
+    .wave {
+        width: 100%;
+    }
 
+    .wave:nth-of-type(1) {
+        left: 0%;
+        animation-delay: 0ms;
+    }
+}
 .theme_btn {
     position: relative;
     display: inline-flex;
