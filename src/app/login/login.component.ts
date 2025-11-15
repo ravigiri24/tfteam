@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ShareService } from '../share.service';
 import { Router } from '@angular/router';
@@ -10,29 +15,33 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent  implements OnInit {
-
-  constructor(private formBuilder:FormBuilder,private api:ApiService,private share:ShareService,private router:Router,private loadingCtrl: LoadingController,private toastController: ToastController) { }
-loginForm:FormGroup
+export class LoginComponent implements OnInit {
+  constructor(
+    private formBuilder: FormBuilder,
+    private api: ApiService,
+    private share: ShareService,
+    private router: Router,
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController
+  ) {}
+  loginForm: FormGroup;
   ngOnInit() {
-    this.initiateForm()
-    this.share.showFooter=false
+    this.initiateForm();
+    this.share.showFooter = false;
   }
   ionViewWillEnter() {
- this.initiateForm()
+    this.initiateForm();
   }
-  spinner:any
+  spinner: any;
   async showLoading() {
-     this.spinner = await this.loadingCtrl.create({
+    this.spinner = await this.loadingCtrl.create({
       message: 'Login...',
       duration: 20000,
-    
     });
 
     this.spinner.present();
-  
   }
-  async presentToast(msg:any) {
+  async presentToast(msg: any) {
     const toast = await this.toastController.create({
       message: msg,
       duration: 1500,
@@ -45,48 +54,56 @@ loginForm:FormGroup
     this.loginForm = this.formBuilder.group({
       userId: [null, Validators.required],
       password: [null, Validators.required],
-   
     });
   }
-  loading:any
-  checkAuthentication(){
- 
-    console.log("checkAuthentication",this.loginForm.value);
-    if(this.loginForm?.valid){
-      this.showLoading()
-    this.api.postapi("authentication",this.loginForm.value).subscribe((res:any)=>{
-      if (res.status) {
-        this.loading = false;
-        this.spinner?.dismiss()
-        this.presentToast('Login Successfully...')
-        let data:any=res?.data
-        if(res?.data?.isMultiRole){
-          data.currentRole=res?.data?.defaultRole
-        }
-    
-        this.share.set_staff_detail_session(data);
-        this.share.showFooter=true
-      //  this.router.navigate(['/digital/customer-management']);
-        this.share.checkLogin()
-           if (res?.data?.allotedStore?.length) {
-       
+  loading: any;
+  checkAuthentication() {
+    console.log('checkAuthentication', this.loginForm.value);
+    if (this.loginForm?.valid) {
+      this.showLoading();
+      this.api
+        .postapi('authentication', this.loginForm.value)
+        .subscribe((res: any) => {
+          if (res.status) {
+            this.loading = false;
+            this.spinner?.dismiss();
+            this.presentToast('Login Successfully...');
+            let data: any = res?.data;
+            if (res?.data?.isMultiRole) {
+              data.currentRole = res?.data?.defaultRole;
+            }
+
+            this.share.set_staff_detail_session(data);
+            this.share.showFooter = true;
+            //  this.router.navigate(['/digital/customer-management']);
+            this.share.checkLogin();
+            if (res?.data?.allotedStore?.length) {
               this.share.set_sales_officer_store(
                 JSON.stringify(res?.data?.allotedStore[0])
               );
-            this.share.set_sales_officer_storeList(
-              JSON.stringify(res?.data?.allotedStore)
-            );
+              this.share.set_sales_officer_storeList(
+                JSON.stringify(res?.data?.allotedStore)
+              );
+
+              this.share.setRolesForSalesOfficer();
+            }
+          } else {
+            this.presentToast('Invalid Credential...');
+            this.spinner?.dismiss();
+            this.loading = false;
+            //this.showNotification('snackbar-danger', res.msg, 'bottom', 'center');
           }
-      } else {
-        this.presentToast('Invalid Credential...')
-        this.spinner?.dismiss()
-        this.loading = false;
-        //this.showNotification('snackbar-danger', res.msg, 'bottom', 'center');
-      }
-    })
-  }else{
-this.presentToast( 'Please Fill All Fields(*)')
+        });
+    } else {
+      this.presentToast('Please Fill All Fields(*)');
+    }
   }
+  setStoreSalesOfficer() {
+    let selectedStore: any = this.share.get_sales_officer_store();
+    let store = JSON.parse(selectedStore);
+    let user: any = this.share.get_staff();
+    let userde = JSON.parse(user);
+    userde.storeId = store?.store_id;
+    this.share.set_staff_detail_session(userde);
   }
-  
 }

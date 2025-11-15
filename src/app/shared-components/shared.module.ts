@@ -65,6 +65,8 @@ import { TeamManagerComponent } from './team-manager/team-manager.component';
 import { AddTeamManagerComponent } from './team-manager/add-team-manager/add-team-manager.component';
 import { AssigningStaffComponent } from './assigning-staff/assigning-staff.component';
 import { SelectStoreComponent } from '../user-management/select-store/select-store.component';
+import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
+import { FollowUpManagementComponent } from '../follow-up-management/follow-up-management.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -136,7 +138,9 @@ import { SelectStoreComponent } from '../user-management/select-store/select-sto
     TeamManagerComponent,
     AddTeamManagerComponent,
     AssigningStaffComponent,
-    SelectStoreComponent
+    SelectStoreComponent,
+    VisitingManagementComponent,
+    FollowUpManagementComponent
     
   ],
 
@@ -154,7 +158,9 @@ import { SelectStoreComponent } from '../user-management/select-store/select-sto
     ViewStaffListComponent,
     CommonHeaderComponent,
     EnquireCustomerListComponent,
-    TeamManagerComponent
+    TeamManagerComponent,
+    VisitingManagementComponent,
+    FollowUpManagementComponent
    
   ],
   providers: [ApiService, InAppBrowser,],

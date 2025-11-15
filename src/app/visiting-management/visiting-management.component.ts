@@ -1,25 +1,41 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ShareService } from '../share.service';
-import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { IonModal, ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
 import { CommonMethodService } from '../common-method.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-visiting-management',
   templateUrl: './visiting-management.component.html',
   styleUrls: ['./visiting-management.component.scss'],
 })
-export class VisitingManagementComponent  implements OnInit {
+export class VisitingManagementComponent implements OnInit {
   @ViewChild(IonModal) modalFollow: IonModal;
-  constructor(private api:ApiService,public share:ShareService,private fb:FormBuilder,private modalController:ModalController,private commonMethod:CommonMethodService) {
-
-  
-   }
-   date:any
-   staffDetails:any
-   ionViewWillEnter() {
+  constructor(
+    private api: ApiService,
+    public share: ShareService,
+    private fb: FormBuilder,
+    private modalController: ModalController,
+    private commonMethod: CommonMethodService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
+  date: any;
+  staffDetails: any;
+  srcPage: any;
+  ionViewWillEnter() {
+    this.srcPage = null;
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.srcPage = params?.srcPage;
+    });
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
@@ -32,12 +48,15 @@ export class VisitingManagementComponent  implements OnInit {
 
     this.getVisitorList();
   }
-  async  actionEventCall(e:any){
-
-    await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
-
+  async actionEventCall(e: any) {
+    await this.commonMethod.actionEventCall(e, {
+      optionsUploadButtonArray: [],
+    });
   }
-   async viewCustomer(customer:any=null){
+  backTodashboard() {
+    this.router.navigate([this.srcPage]);
+  }
+  async viewCustomer(customer: any = null) {
     const modal = await this.modalController.create({
       component: ViewCustomerDataComponent,
       componentProps: {
@@ -48,126 +67,115 @@ export class VisitingManagementComponent  implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
   }
-  customerSelected:any
-  showRemark=true
+  customerSelected: any;
+  showRemark = true;
   cancel() {
     this.modalFollow.dismiss(null, 'cancel');
-   
   }
-  show=false
-  addReview(cus: any, editIndex: any){
-    this.customerSelected=cus?.customerDetails
-    this.showRemark=false
+  show = false;
+  addReview(cus: any, editIndex: any) {
+    this.customerSelected = cus?.customerDetails;
+    this.showRemark = false;
     setTimeout(() => {
-     this.showRemark=true
+      this.showRemark = true;
     }, 0);
-    this.initializeNextDate(cus?.customerDetails)
-      document.getElementById('open-modal-follow')?.click();
-  
- }
-   listColorClass='sixColor'
+    this.initializeNextDate(cus?.customerDetails);
+    document.getElementById('open-modal-follow')?.click();
+  }
+  listColorClass = 'sixColor';
   buttonArray: any = [
-
-      {
+    {
       name: 'Customer Remark',
       action: 'customer_review',
       image: './././assets/images/comments.png',
     },
-      {
+    {
       name: 'Customer View',
       action: 'customer_view',
       image: './././assets/images/data.png',
     },
   ];
- followLoader:any=false
- nextFollowupDate() {
-   if (this.nextScheduleForm.valid) {
-     this.followLoader = true;
-     let obj = {
-       src: 'customer_lead_chats',
-       data: this.nextScheduleForm.value,
-     };
-     this.share.showLoading('Scheduling ...')
-     this.api.postapi('addOpp', obj).subscribe((res:any) => {
-       this.followLoader = false;
-       this.share.spinner?.dismiss('active_six');
-     this.share.presentToast("Scheduled Successfully...")
-       this.nextScheduleForm.controls['status'].reset();
-   
-     });
-   }
- }
- message:any
- onWillDismiss(event: Event) {
-  const ev = event as CustomEvent<OverlayEventDetail<string>>;
-  if (ev.detail.role === 'confirm') {
-    this.message = `Hello, ${ev.detail.data}!`;
+  followLoader: any = false;
+  nextFollowupDate() {
+    if (this.nextScheduleForm.valid) {
+      this.followLoader = true;
+      let obj = {
+        src: 'customer_lead_chats',
+        data: this.nextScheduleForm.value,
+      };
+      this.share.showLoading('Scheduling ...');
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+        this.followLoader = false;
+        this.share.spinner?.dismiss('active_six');
+        this.share.presentToast('Scheduled Successfully...');
+        this.nextScheduleForm.controls['status'].reset();
+      });
+    }
   }
-}
- nextScheduleForm:FormGroup
- initializeNextDate(customer:any) {
-  this.nextScheduleForm = this.fb.group({
-    next_lead_date: new FormControl( null, [Validators.required]),
-    customer_id: new FormControl(customer?.id || null, [
-      Validators.required,
-    ]),
-    chat_type: new FormControl("FOLLOW_UP_DATE", [
-      Validators.required,
-    ]),
-    employeId: new FormControl(this.staffDetails?.staffCode || null, [
-      Validators.required,
-    ]),
-  });
+  message: any;
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
+  }
+  nextScheduleForm: FormGroup;
+  initializeNextDate(customer: any) {
+    this.nextScheduleForm = this.fb.group({
+      next_lead_date: new FormControl(null, [Validators.required]),
+      customer_id: new FormControl(customer?.id || null, [Validators.required]),
+      chat_type: new FormControl('FOLLOW_UP_DATE', [Validators.required]),
+      employeId: new FormControl(this.staffDetails?.staffCode || null, [
+        Validators.required,
+      ]),
+    });
 
-  // if(data){
-  //   this.form.addControl(
-  //     'id',
-  //     new FormControl(data?.id || null, [Validators.required])
-  //   );
-  // }
-}
-followUpList:any=[]
+    // if(data){
+    //   this.form.addControl(
+    //     'id',
+    //     new FormControl(data?.id || null, [Validators.required])
+    //   );
+    // }
+  }
+  followUpList: any = [];
   ngOnInit() {}
-  refreshList(){
-    this.getVisitorList()
+  refreshList() {
+    this.getVisitorList();
     setTimeout(() => {
-      this.cancel()
+      this.cancel();
     }, 0);
-
-
   }
-  search:any
-  showData=true
-  loader=false
-  customerList:any=[]
-  getVisitorList(){
+  search: any;
+  showData = true;
+  loader = false;
+  customerList: any = [];
+  getVisitorList() {
     this.loader = true;
     let obj: any = this.share.getListObj('customerdetails', false, [], true);
     obj.date = this.date;
-    obj.storeId=this.staffDetails?.storeId
-    this.share.showLoading('Loading...')
-      this.customerList=[]
+    obj.storeId = this.staffDetails?.storeId;
+    this.share.showLoading('Loading...');
+    this.customerList = [];
     this.api.postapi('getVisitorList', obj).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.followUpList = res.data;
-        res?.data?.forEach((f:any)=>{
-     this.customerList.push(f?.customerDetails)
-        })
-   
+        res?.data?.forEach((f: any) => {
+          this.customerList.push(f?.customerDetails);
+        });
+
         // this.followUpList?.forEach((f:any)=>{
         //   this.followUpList.push(f)
         // })
         // this.followUpList?.forEach((f:any)=>{
         //   this.followUpList.push(f)
         // })
-        console.log("followUpList",this.followUpList);
-        this.share?.spinner?.dismiss('active_six')
+        console.log('followUpList', this.followUpList);
+        this.share?.spinner?.dismiss('active_six');
         this.loader = false;
       },
-      (error:any) => {
+      (error: any) => {
         this.loader = false;
       }
     );
   }
-
 }

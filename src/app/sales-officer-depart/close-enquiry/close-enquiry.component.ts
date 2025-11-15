@@ -26,16 +26,20 @@ export class CloseEnquiryComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
   form: FormGroup;
+  selectedStore:any
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
+    
+        let selectedStore: any = this.share.get_sales_officer_store();
+            this.selectedStore = JSON.parse(selectedStore);
     this.getModelList();
     this.initialize(this.enquiry);
   }
   staffDetails: any;
   initialize(data: any = null) {
-    let store_id = 3;
+    let store_id = this.selectedStore?.store_id;
     this.form = this.formBuilder.group({
       actionByid: new FormControl(this?.staffDetails?.id, [
         Validators.required,

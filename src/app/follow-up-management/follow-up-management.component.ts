@@ -11,6 +11,7 @@ import { IonModal, ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
 import { CommonMethodService } from '../common-method.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-follow-up-management',
   templateUrl: './follow-up-management.component.html',
@@ -23,11 +24,19 @@ export class FollowUpManagementComponent implements OnInit {
     public share: ShareService,
     private fb: FormBuilder,
     private modalController: ModalController,
-    private commonMethod:CommonMethodService
+    private commonMethod:CommonMethodService,
+    private activatedRoute:ActivatedRoute,
+    private router:Router
   ) {}
   date: any;
   staffDetails: any;
+  srcPage: any;
   ionViewWillEnter() {
+    this.srcPage=null
+          this.activatedRoute.params.subscribe((params: any) => {
+    
+    this.srcPage= params?.srcPage;
+    });
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
@@ -39,6 +48,9 @@ export class FollowUpManagementComponent implements OnInit {
     this.date = yyyy + '-' + mm + '-' + dd;
 
     this.getFollowList();
+  }
+  backTodashboard(){
+         this.router.navigate([this.srcPage])
   }
   async viewCustomer(customer: any = null) {
     const modal = await this.modalController.create({

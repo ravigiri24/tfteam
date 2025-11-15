@@ -54,6 +54,32 @@ set_sales_officer_storeList(store:any){
 get_sales_officer_storeList(){
       return localStorage.getItem('list_store_so') || null;
 }
+  setRolesForSalesOfficer() {
+    let user: any = this.get_staff();
+    let userde = JSON.parse(user);
+
+    userde.defaultRole = 'SALES_OFFICER';
+    userde.defaultRole = 'SALES_OFFICER';
+    userde.isMultiRole = 1;
+    if (!userde.currentRole) {
+      userde.currentRole = 'SALES_OFFICER';
+    }
+    userde.isStoreOnlyAccess = true;
+    let storeList = this.get_sales_officer_storeList();
+    if (storeList != null) {
+      userde.allotedStore = JSON.parse(storeList);
+    }
+
+    userde.multiroles = JSON.stringify([
+      'SALES_OFFICER',
+      'LEAD_MANAGEMENT',
+      'SELL_DEPARTMENT',
+      'FINANCE_DEPARTMENT',
+    ]);
+
+    this.set_staff_detail_session(userde);
+  }
+
   get_staff() {
     return localStorage.getItem('userDetails') || null;
   }

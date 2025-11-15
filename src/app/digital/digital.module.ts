@@ -9,7 +9,7 @@ import { DigitalPageRoutingModule } from './digital-routing.module';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { UserManagementComponent } from '../user-management/user-management.component';
-import { FollowUpManagementComponent } from '../follow-up-management/follow-up-management.component';
+//import { FollowUpManagementComponent } from '../follow-up-management/follow-up-management.component';
 import { CustomerManagementComponent } from '../customer-management/customer-management.component';
 import { ReportUpManagementComponent } from '../report-up-management/report-up-management.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,7 +25,7 @@ import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AddDemandComponent } from '../customer-management/view-customer-data/add-demand/add-demand.component';
 import { AddVisitngStatusComponent } from '../customer-management/view-customer-data/add-visitng-status/add-visitng-status.component';
-import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
+// import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 import { CustomerDashboardComponent } from '../customer-management/customer-dashboard/customer-dashboard.component';
@@ -38,7 +38,7 @@ import { CloseHotDealComponent } from '../customer-management/view-customer-data
     DigitalComponent,
     HeaderComponent,
     FooterComponent,
-    FollowUpManagementComponent,
+   // FollowUpManagementComponent,
     CustomerManagementComponent,
     ReportUpManagementComponent,
     AddCustomerComponent,
@@ -49,7 +49,7 @@ import { CloseHotDealComponent } from '../customer-management/view-customer-data
     //ViewCustomerDataComponent,
     AddVisitngStatusComponent,
     AddDemandComponent,
-    VisitingManagementComponent,
+   // VisitingManagementComponent,
     CustomerDashboardComponent,
     SoldStatusEntryComponent,
     DistrictManagementComponent,

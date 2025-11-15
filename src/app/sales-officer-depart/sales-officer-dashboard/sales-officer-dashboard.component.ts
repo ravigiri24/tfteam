@@ -17,9 +17,18 @@ export class SalesOfficerDashboardComponent  implements OnInit {
   staffDetails: any
 
   @Input() listColorClass= 'firstColor';
+  date:any
   ionViewWillEnter() {
-     let selectedStore: any = this.share.get_sales_officer_store();
+         let selectedStore: any = this.share.get_sales_officer_store();
             this.selectedStore = JSON.parse(selectedStore);
+        var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.date = yyyy + '-' + mm + '-' + dd;
+   this.getFollowList()
+   this.getVisitorList()
     this.getEnquiryTally();
    
   }
@@ -50,5 +59,63 @@ export class SalesOfficerDashboardComponent  implements OnInit {
   }
   goToEnquire(type:any){
     this.router.navigate(['/sales-officer/enquire-list',type,'/sales-officer/so-dashbord']);
+  }
+    goTofollowup(){
+    this.router.navigate(['/sales-officer/follow-up-management','/sales-officer/so-dashbord']);
+  }
+    goToVisiting(){
+    this.router.navigate(['/sales-officer/visiting-management','/sales-officer/so-dashbord']);
+  }
+  
+  customerListVisiting:any=[]
+    getVisitorList(){
+   
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId=this.selectedStore?.store_id
+  //  this.share.showLoading('Loading...')
+      this.customerListVisiting=[]
+    this.api.postapi('getVisitorList', obj).subscribe(
+      (res:any) => {
+        //this.followUpList = res.data;
+        res?.data?.forEach((f:any)=>{
+     this.customerListVisiting.push(f?.customerDetails)
+        })
+   
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        // console.log("followUpList",this.followUpList);
+        // this.share?.spinner?.dismiss('active_six')
+        // this.loader = false;
+      },
+      (error:any) => {
+   
+      }
+    );
+  }
+  customerListFollowuplist:any=[]
+    getFollowList() {
+
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId =this.selectedStore?.store_id
+    this.share.showLoading('Loading...');
+    this.customerListFollowuplist = [];
+    this.api.postapi('getFollowupList', obj).subscribe(
+      (res: any) => {
+     
+        res?.data?.forEach((f: any) => {
+          this.customerListFollowuplist.push(f?.customerDetails);
+        });
+      
+      },
+      (error: any) => {
+  
+      }
+    );
   }
 }

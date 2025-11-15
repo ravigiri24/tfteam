@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { AssinedStoresComponent } from './assined-stores/assined-stores.component';
+import { AddDistrictInStaffComponent } from 'src/app/admin-management/lead-employee-mgmt/add-district-in-staff/add-district-in-staff.component';
 @Component({
   selector: 'app-sales-officer',
   templateUrl: './sales-officer.component.html',
@@ -82,8 +83,29 @@ obj.state_id=this.staffDetails?.allotedState
       action: 'assign_store',
       image: './././assets/images/store.png',
     },
+          {
+      name: 'District-list-alloted',
+      action: 'districtListAlloted',
+      image: './././assets/images/location-pin.png',
+    },
     
   ];
+      async addDistrict(staff:any=null) {
+      const modal = await this.modalCTrl.create({
+        component: AddDistrictInStaffComponent,
+        componentProps: {
+          staff:staff
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  if(data){
+    this.getStaffList()
+  }
+      if (role === 'confirm') {
+      }
+    }
     keyList: any = [
     { key: 'User ID', value: 'userId', type: 'INPUT' },
     { key: 'Contact', value: 'contact1', type: 'INPUT' },
@@ -130,6 +152,9 @@ this.addStaff(e?.staff)
       }
       if(e?.button?.name=='Assign Store'){
         this.assignStore(e?.staff)
+      }
+            if(e?.button?.name=='District-list-alloted'){
+this.addDistrict(e?.staff)
       }
    
  

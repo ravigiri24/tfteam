@@ -8,6 +8,7 @@
       <div class="right_action">
         <ion-button class="button-theme" class="add-button displaynone" slot="end" id="open-modal-follow" expand="block"
           fill="outline"><ion-icon class="theme-color" name="refresh-outline"></ion-icon></ion-button>
+                   <ion-icon *ngIf="srcPage" (click)="backTodashboard()" class="icon-size" name="arrow-back-outline"></ion-icon>
         <!-- <ion-icon class="theme-color icon-size" (click)="dismiss()" name="refresh-outline"></ion-icon> -->
       </div>
     </ion-label>

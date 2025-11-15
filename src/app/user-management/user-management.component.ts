@@ -66,11 +66,23 @@ export class UserManagementComponent implements OnInit {
             this.share.set_sales_officer_storeList(
               JSON.stringify(res?.data?.data?.allotedStore)
             );
+            this.setStoreSalesOfficer();
+          }
+          if (res?.data?.data?.staff_role == 'SALES_OFFICER') {
+            this.share.setRolesForSalesOfficer();
           }
         }
       },
       (error: any) => {}
     );
+  }
+
+
+  setStoreSalesOfficer() {
+    let user: any = this.share.get_staff();
+    let userde = JSON.parse(user);
+    userde.storeId = this.selected_store?.store_id;
+    this.share.set_staff_detail_session(userde);
   }
   async showAlert() {
     const alert = await this.alertCtrl.create({
@@ -117,8 +129,9 @@ export class UserManagementComponent implements OnInit {
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (data && data?.isStoreChange) {
-      this.selected_store=data?.selectedStore
-    this.share.set_sales_officer_store( JSON.stringify(data?.selectedStore));
+      this.selected_store = data?.selectedStore;
+      this.share.set_sales_officer_store(JSON.stringify(data?.selectedStore));
+      this.setStoreSalesOfficer();
     }
   }
   async updatePassword() {

@@ -28,11 +28,37 @@ export class LiveTractorListComponent implements OnInit {
   ngOnInit() {}
   ionViewWillEnter() {
     this.alltractorList = [];
+    this.isStoreOnlyAccess=false
     this.getBrandList();
     this.getWareHouseList();
     this.filterBy = 'ALL';
     this.listBy = 'BRAND_WISE';
     // this.getTractorList();
+  }
+  isStoreOnlyAccess=false
+  checkStoreOnlyCondition() {
+    let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
+    if (this.staffDetails?.isStoreOnlyAccess) {
+      let allotedStore = this.staffDetails?.allotedStore;
+      let warehouseList:any=[]
+      this.warehouseList?.forEach((ware: any) => {
+        let checkIn = allotedStore?.find(
+          (store: any) => store.store_id == ware?.id
+        );
+        if (checkIn) {
+          let findI = this.warehouseList?.findIndex(
+            (wareIn: any) => wareIn?.id == ware?.id
+          );
+          warehouseList.push(ware)
+       
+        }
+      });
+         this.filterBy = 'STORE_WISE';
+      this.warehouseList=warehouseList
+      this.callListApi()
+    }
   }
   filterBy: any = 'ALL';
   async presentModal() {
@@ -129,7 +155,6 @@ export class LiveTractorListComponent implements OnInit {
     if (this.commonMethod.reloadMethod) {
       this.callListApi();
     }
- 
   }
   async salesOption(tractor: any) {
     const modal = await this.modalCtrl.create({
@@ -278,7 +303,7 @@ export class LiveTractorListComponent implements OnInit {
         (res: any) => {
           this.warehouseList = res?.data;
           this.warehouseList = this.warehouseList.reverse();
-
+this.checkStoreOnlyCondition()
           console.log('this.warehouseList', this.warehouseList);
           if (!loader) {
             this.selectedStore = this.warehouseList[0]?.id;
@@ -371,11 +396,10 @@ export class LiveTractorListComponent implements OnInit {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
       componentProps: {
-            
-     buttonArray: this.buttonArray,
-       keyList:this.keyList,
-       searchFilter:this.search,
-       searchKey:'registractionNo',
+        buttonArray: this.buttonArray,
+        keyList: this.keyList,
+        searchFilter: this.search,
+        searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: this.optionsUploadButtonArray },
       },
     });

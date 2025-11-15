@@ -49,7 +49,7 @@
           <ion-label class="margin-left">{{staffDetails?.contact1}} </ion-label>
         </div>
       </ion-row>
-       <ion-row *ngIf="staffDetails?.staff_role=='SALES_OFFICER'"  class="details_line_row">
+       <ion-row *ngIf="staffDetails?.staff_role=='SALES_OFFICER' && staffDetails?.currentRole=='SALES_OFFICER'"  class="details_line_row">
         <ion-card class="left_icons_block">
           <ion-icon name="storefront-outline"></ion-icon>
         </ion-card>
