@@ -8,7 +8,7 @@ import { ImageSliderComponent } from '../image-slider/image-slider.component';
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],
-    animations: [
+  animations: [
     trigger('showMoreDetails', [
       state('false', style({ maxHeight: 0 })),
       state('true', style({ maxHeight: '500px' })),
@@ -24,7 +24,7 @@ export class ViewListComponent implements OnInit {
   @Input() width: any = 60;
   @Input() list: any = [];
   @Input() keyList: any = [];
-  @Input() rowLineCount= 3;
+  @Input() rowLineCount = 3;
   @Input() buttonArray: any = [];
   @Input() listColorClass: any;
   @Output() actionEventCall = new EventEmitter();
@@ -46,7 +46,7 @@ export class ViewListComponent implements OnInit {
     this.activeCardIndex = null;
     this.activeCardIndex = index;
     setTimeout(() => {
-      this.showOverlay = true; 
+      this.showOverlay = true;
     }, 100);
     // this.photoCount++;
   }
@@ -65,15 +65,17 @@ export class ViewListComponent implements OnInit {
     );
     tractor.imagesToShow = imagesToShow;
   }
-  
 
-showMore(index: number, keyValue: any) {
-  this.showMoreDetails[index] = !this.showMoreDetails[index];
-  // You can add animation logic here if needed
-}
-actionEvent(tractor: any, button: any) {
-  this.actionEventCall.emit({ tractor, button });
-}
+
+  showMore(index: number, keyValue: any) {
+    this.showMoreDetails[index] = !this.showMoreDetails[index];
+    // You can add animation logic here if needed
+  }
+  actionEvent(tractor: any, button: any) {
+    setTimeout(() => {
+      this.actionEventCall.emit({ tractor, button });
+    }, 600);
+  }
   async viewImage(image: any) {
     const modal = await this.modalCtrl.create({
       component: SingleImageShowComponent,
@@ -88,23 +90,23 @@ actionEvent(tractor: any, button: any) {
     if (role === 'confirm') {
     }
   }
-      async viewInSlider(image: any,imageArray:any) {
-      const modal = await this.modalCtrl.create({
-        component: ImageSliderComponent,
-            cssClass: 'midium-model',
-        componentProps: {
-   
-          image: image,
-          imageArray:imageArray
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-   
-      }
+  async viewInSlider(image: any, imageArray: any) {
+    const modal = await this.modalCtrl.create({
+      component: ImageSliderComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+
+        image: image,
+        imageArray: imageArray
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+
     }
-    searchText:any=''
+  }
+  searchText: any = ''
 }

@@ -21,7 +21,10 @@
               </ng-container>
             </div>
           </div>
-
+          <div class="camera-icon-container live_icon" (click)="triggerOverlayAnimation(i,tractor)">
+            <ion-icon name="camera-reverse-outline"></ion-icon>
+            <span class="camera-counter">{{ tractor?.imageslength }}</span>
+          </div>
           <div class="camera-icon-container" (click)="triggerOverlayAnimation(i,tractor)">
             <ion-icon name="camera-outline"></ion-icon>
             <span class="camera-counter">{{ tractor?.imageslength }}</span>
@@ -125,15 +128,35 @@
           <ion-row *ngIf="buttonArray?.length">
             <ng-container *ngFor="let button of buttonArray">
               <ng-container *ngIf="!button?.showOnCondition">
-                <ion-col class="action_col">
-                  <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
+                <ion-col class="action_col" (click)="actionEvent(tractor,button)">
+                  <img [src]="button?.image" />
+                  <span class="shape">
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                  </span>
                 </ion-col>
               </ng-container>
 
               <ng-container
                 *ngIf="button?.showOnCondition && tractor?.[button?.objName]==button?.obVal && tractor?.[button?.objNameSecond]==button?.obValSecond">
-                <ion-col class="action_col">
-                  <img (click)="actionEvent(tractor,button)" [src]="button?.image" />
+                <ion-col class="action_col" (click)="actionEvent(tractor,button)">
+                  <img [src]="button?.image" />
+                  <span class="shape">
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                    <span class="dynamic_bgcolor"></span>
+                  </span>
                 </ion-col>
               </ng-container>
             </ng-container>
