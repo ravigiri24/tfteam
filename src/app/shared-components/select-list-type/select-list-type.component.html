@@ -1,6 +1,6 @@
 <ion-content  class="ion-padding ">
   <div class="border-shape background">
-<div class="global_input_block " >
+<div *ngIf="showList" class="global_input_block " >
   <ion-select (ionChange)="selectList()"  [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
 
     <ion-select-option value="BRAND_WISE">Brand Wise</ion-select-option>

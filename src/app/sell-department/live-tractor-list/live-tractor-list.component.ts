@@ -27,20 +27,29 @@ export class LiveTractorListComponent implements OnInit {
   alltractorList: any = [];
   ngOnInit() {}
   ionViewWillEnter() {
-    this.alltractorList = [];
-    this.isStoreOnlyAccess=false
-    this.getBrandList();
-    this.getWareHouseList();
-    this.filterBy = 'ALL';
-    this.listBy = 'BRAND_WISE';
-    // this.getTractorList();
-  }
-  isStoreOnlyAccess=false
-  checkStoreOnlyCondition() {
-    let staffDetails: any = this.share.get_staff();
+      let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
-    if (this.staffDetails?.isStoreOnlyAccess) {
+    this.alltractorList = [];
+    this.isStoreOnlyAccess=false
+        this.filterBy = 'ACTIVE';
+        if(!this.share.checkStoreOnlyAccess()){
+   this.listBy = 'BRAND_WISE';
+    
+    this.getBrandList();
+        }else{
+   this.listBy = 'STORE_WISE';
+        }
+
+    this.getWareHouseList();
+
+    // this.getTractorList();
+  }
+  
+  isStoreOnlyAccess=false
+  checkStoreOnlyCondition() {
+
+    if (this.share.checkStoreOnlyAccess()) {
       let allotedStore = this.staffDetails?.allotedStore;
       let warehouseList:any=[]
       this.warehouseList?.forEach((ware: any) => {
@@ -55,13 +64,24 @@ export class LiveTractorListComponent implements OnInit {
        
         }
       });
-         this.filterBy = 'STORE_WISE';
+         this.listBy = 'STORE_WISE';
       this.warehouseList=warehouseList
+      this.selectedStore=this.warehouseList[0]?.id
       this.callListApi()
     }
   }
-  filterBy: any = 'ALL';
+    optionsArray = [
+    { displayName: 'All', value: 'ALL' },
+    { displayName: 'Active', value: 'ACTIVE' },
+    { displayName: 'Archived', value: 'ARCHIVED' },
+ 
+  ];
+  filterBy: any = 'ACTIVE';
   async presentModal() {
+   let showList=true
+if(this.share.checkStoreOnlyAccess()){
+  showList=false
+}
     const modal = await this.modalCtrl.create({
       component: SelectListTypeComponent,
       breakpoints: [0, 0.4, 1],
@@ -70,7 +90,9 @@ export class LiveTractorListComponent implements OnInit {
       componentProps: {
         filterBy: this.filterBy,
         listBy: this.listBy,
-        showFilter: false,
+        showFilter: true,
+        showList:showList,
+        optionsArray:this.optionsArray
       },
     });
     await modal.present();
@@ -80,10 +102,16 @@ export class LiveTractorListComponent implements OnInit {
     //   this.filterBy = data?.filterBy;
     //   this.sortByFilter()
     // }
-    if (data && data?.isListChange) {
+    if (data && (data?.isListChange)) {
       console.log('data', data);
       this.listBy = data?.listBy;
+ 
       this.callListApi();
+    }
+       if (data && data?.isFilterChange) {
+      console.log('data', data);
+      this.filterBy = data?.filterBy;
+      this.sortByFilter();
     }
   }
   listBy = 'BRAND_WISE';
@@ -197,6 +225,7 @@ export class LiveTractorListComponent implements OnInit {
 
     this.staffDetails = JSON.parse(staffDetails);
     //if(loader){
+    
     this.share.showLoading('Loading...');
     // }
     let obj: any = this.share.getListObj('brand', false, [], true);
@@ -211,9 +240,9 @@ export class LiveTractorListComponent implements OnInit {
           console.log('  this.brandList', this.brandList);
           if (!loader) {
             this.selectedBrand = this.brandList[0]?.id;
-
+    if (!this.share.checkStoreOnlyAccess()) {
             this.getTractorList();
-            //   this.share.spinner?.dismiss();
+    }
           }
         },
         (error: any) => {}
@@ -286,6 +315,7 @@ export class LiveTractorListComponent implements OnInit {
       (error: any) => {}
     );
   }
+  
   selectedStore: any;
   warehouseList: any = [];
   getWareHouseList(loader: any = false) {
@@ -317,7 +347,8 @@ this.checkStoreOnlyCondition()
     }, 0);
   }
   callListApi() {
-    this.filterBy = 'ALL';
+   // this.filterBy = 'ACTIVE';
+
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
@@ -325,12 +356,25 @@ this.checkStoreOnlyCondition()
     } else if (this.listBy == 'STORE_WISE') {
       this.getAllTractorListStorewise();
     }
+
   }
   sortByFilter() {
     //  if (this.filterBy == 'NOT_SOLD') {
     this.alltractorList = this.allTractorsSrcList.filter(
       (f: any) => f?.isSold == 0
     );
+
+       if (this.filterBy == 'ALL') {
+  this.alltractorList = JSON.parse(JSON.stringify(this.alltractorList));
+    } else if (this.filterBy == 'ARCHIVED') {
+        this.alltractorList = this.alltractorList.filter(
+        (f: any) => f.tractor_status == 'ARCHIVED'
+      );
+    } else if (this.filterBy == 'ACTIVE') {
+        this.alltractorList = this.alltractorList.filter(
+        (f: any) => f.tractor_status != 'ARCHIVED'
+      );
+    }
   }
   getAllTractorListStorewise(loader: any = false) {
     let staffDetails: any = this.share.get_staff();

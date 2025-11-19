@@ -26,6 +26,7 @@ export class SelectListTypeComponent implements OnInit {
     { displayName: 'Sold', value: 'SOLD' },
   ];
   showFilter = true;
+  showList=true
   constructor(
     private modalcontrol: ModalController,
     private formBuilder: FormBuilder,

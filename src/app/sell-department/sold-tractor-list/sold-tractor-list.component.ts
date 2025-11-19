@@ -23,17 +23,39 @@ export class SoldTractorListComponent  implements OnInit {
     private router: Router
   ) {}
   alltractorList: any = [];
+  isStoreOnlyAccess=false
   ngOnInit() {}
   ionViewWillEnter() {
     this.alltractorList = [];
-    this.getBrandList();
-    this.getWareHouseList();
-    this.filterBy="ALL"
+    
+ 
     this.listBy="BRAND_WISE"
+
+        this.isStoreOnlyAccess=false
+        this.filterBy = 'ACTIVE';
+        if(!this.share.checkStoreOnlyAccess()){
+   this.listBy = 'BRAND_WISE';
+    
+    this.getBrandList();
+        }else{
+   this.listBy = 'STORE_WISE';
+        }
+    
+    this.getWareHouseList();
     // this.getTractorList();
   }
-  filterBy: any = 'ALL';
+    optionsArray = [
+    { displayName: 'All', value: 'ALL' },
+    { displayName: 'Active', value: 'ACTIVE' },
+    { displayName: 'Archived', value: 'ARCHIVED' },
+ 
+  ];
+  filterBy: any = 'ACTIVE';
   async presentModal() {
+       let showList=true
+if(this.share.checkStoreOnlyAccess()){
+  showList=false
+}
     const modal = await this.modalCtrl.create({
       component: SelectListTypeComponent,
       breakpoints: [0, 0.4, 1],
@@ -42,22 +64,30 @@ export class SoldTractorListComponent  implements OnInit {
       componentProps: {
         filterBy: this.filterBy,
         listBy: this.listBy,
-        showFilter:false
+        showFilter:true,
+        showList:showList,
+        optionsArray:this.optionsArray
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-    // if (data && data?.isFilterChange) {
+   
+    // if (data && data?.isListChange) {
     //   console.log('data', data);
-    //   this.filterBy = data?.filterBy;
-    //   this.sortByFilter()
+    //   this.listBy = data?.listBy;
+    //   this.callListApi()
     // }
-    if (data && data?.isListChange) {
+        if (data && (data?.isListChange)) {
       console.log('data', data);
       this.listBy = data?.listBy;
-      this.callListApi()
+ 
+      this.callListApi();
     }
-    
+       if (data && data?.isFilterChange) {
+      console.log('data', data);
+      this.filterBy = data?.filterBy;
+      this.sortByFilter();
+    }
   }
   listBy = 'BRAND_WISE';
   refreshList() {
@@ -182,6 +212,29 @@ if(loader){
       (error: any) => {}
     );
   }
+   checkStoreOnlyCondition() {
+
+    if (this.share.checkStoreOnlyAccess()) {
+      let allotedStore = this.staffDetails?.allotedStore;
+      let warehouseList:any=[]
+      this.warehouseList?.forEach((ware: any) => {
+        let checkIn = allotedStore?.find(
+          (store: any) => store.store_id == ware?.id
+        );
+        if (checkIn) {
+          let findI = this.warehouseList?.findIndex(
+            (wareIn: any) => wareIn?.id == ware?.id
+          );
+          warehouseList.push(ware)
+       
+        }
+      });
+         this.listBy = 'STORE_WISE';
+      this.warehouseList=warehouseList
+      this.selectedStore=this.warehouseList[0]?.id
+      this.callListApi()
+    }
+  }
   selectedStore: any;
   warehouseList: any = [];
   getWareHouseList(loader: any = false) {
@@ -199,7 +252,7 @@ if(loader){
         (res: any) => {
           this.warehouseList = res?.data;
           this.warehouseList = this.warehouseList.reverse();
-
+this.checkStoreOnlyCondition()
           console.log('this.warehouseList', this.warehouseList);
           if (!loader) {
             this.selectedStore = this.warehouseList[0]?.id;
@@ -213,7 +266,7 @@ if(loader){
     }, 0);
   }
   callListApi() {
-    this.filterBy='ALL'
+
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
@@ -229,6 +282,18 @@ if(loader){
       this.alltractorList = this.allTractorsSrcList.filter(
         (f: any) => f?.isSold == 1
       );
+
+      if (this.filterBy == 'ALL') {
+  this.alltractorList = JSON.parse(JSON.stringify(this.alltractorList));
+    } else if (this.filterBy == 'ARCHIVED') {
+        this.alltractorList = this.alltractorList.filter(
+        (f: any) => f.tractor_status == 'ARCHIVED'
+      );
+    } else if (this.filterBy == 'ACTIVE') {
+        this.alltractorList = this.alltractorList.filter(
+        (f: any) => f.tractor_status != 'ARCHIVED'
+      );
+    }
     
   }
      async salesOption(tractor:any){

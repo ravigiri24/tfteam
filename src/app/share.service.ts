@@ -25,6 +25,16 @@ export class ShareService {
   set_staff_detail_session(data: any) {
     localStorage.setItem('userDetails', JSON.stringify(data));
   }
+  checkStoreOnlyAccess() {
+    let staffDetails: any = this.get_staff();
+
+    let staffDetailsDetail = JSON.parse(staffDetails);
+    if (staffDetailsDetail?.isStoreOnlyAccess) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   clearSession() {
     //  localStorage.removeItem('currentGame');
     localStorage.clear();
@@ -42,18 +52,18 @@ export class ShareService {
 
     await alert.present();
   }
-set_sales_officer_store(store:any){
-  localStorage.setItem('selected_store_so',store) 
-}
-get_sales_officer_store(){
-      return localStorage.getItem('selected_store_so') || null;
-}
-set_sales_officer_storeList(store:any){
-  localStorage.setItem('list_store_so',store) 
-}
-get_sales_officer_storeList(){
-      return localStorage.getItem('list_store_so') || null;
-}
+  set_sales_officer_store(store: any) {
+    localStorage.setItem('selected_store_so', store);
+  }
+  get_sales_officer_store() {
+    return localStorage.getItem('selected_store_so') || null;
+  }
+  set_sales_officer_storeList(store: any) {
+    localStorage.setItem('list_store_so', store);
+  }
+  get_sales_officer_storeList() {
+    return localStorage.getItem('list_store_so') || null;
+  }
   setRolesForSalesOfficer() {
     let user: any = this.get_staff();
     let userde = JSON.parse(user);
@@ -100,10 +110,10 @@ get_sales_officer_storeList(){
     };
     return obj;
   }
-  getStaffCOde(name:any){
-          let rand = Math.floor(10000 + Math.random() * 90000);
-      let uniqueNum = Date.now();
-  
+  getStaffCOde(name: any) {
+    let rand = Math.floor(10000 + Math.random() * 90000);
+    let uniqueNum = Date.now();
+
     return rand + name + uniqueNum + '@tractorFactory.in';
   }
   filterByBrand(list: any = [], selectedBrand: any = []) {
@@ -269,8 +279,7 @@ get_sales_officer_storeList(){
             this.router.navigate(['/lead-management/customer-management']);
           } else if (userde?.staff_role == 'SALES_OFFICER') {
             this.router.navigate(['/sales-officer/so-dashbord']);
-          }
-           else if (userde?.staff_role == 'SALES_HEAD') {
+          } else if (userde?.staff_role == 'SALES_HEAD') {
             this.router.navigate(['/sales-head/sales-head-dashboard']);
           }
         } else {
@@ -313,9 +322,8 @@ get_sales_officer_storeList(){
             this.router.navigate(['/lead-management/customer-management']);
           } else if (userde?.currentRole == 'SALES_OFFICER') {
             this.router.navigate(['/sales-officer/so-dashbord']);
-          }
-           else if (userde?.currentRole == 'SALES_HEAD') {
-             this.router.navigate(['/sales-head/sales-head-dashboard']);
+          } else if (userde?.currentRole == 'SALES_HEAD') {
+            this.router.navigate(['/sales-head/sales-head-dashboard']);
           }
         }
       }
