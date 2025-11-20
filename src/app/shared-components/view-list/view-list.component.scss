@@ -62,9 +62,11 @@
                 align-items: center;
             }
         }
-        .live_icon{
+
+        .live_icon {
             right: 55px;
         }
+
         .show_more_block {
             width: 100%;
             display: flex;
@@ -265,6 +267,9 @@
         .main_title {
             font-weight: 600;
             margin-bottom: 5px;
+            max-width: calc(100% - 80px);
+            display: flex;
+            padding-top: 10px;
         }
 
         .left_row_title {

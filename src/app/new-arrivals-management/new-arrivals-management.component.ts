@@ -16,15 +16,15 @@ import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tr
 })
 export class NewArrivalsManagementComponent implements OnInit {
   constructor(
-  private modalCtrl: ModalController,
-  private alertCtrl: AlertController,
-  public share: ShareService,
-  private api: ApiService,
-  private route: Router,
-  private commonMethod:CommonMethodService
-  ) {}
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    public share: ShareService,
+    private api: ApiService,
+    private route: Router,
+    private commonMethod: CommonMethodService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   ionViewWillEnter() {
     this.newArivalsList = [];
     this.getTractorList();
@@ -34,7 +34,7 @@ export class NewArrivalsManagementComponent implements OnInit {
       component: StartTransportDialogComponent,
       componentProps: {
         tractorDetails: tractor,
-    
+
       },
     });
     await modal.present();
@@ -72,7 +72,7 @@ export class NewArrivalsManagementComponent implements OnInit {
       (res: any) => {
         this.getTractorList();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   newArivalsList: any = [];
@@ -80,57 +80,57 @@ export class NewArrivalsManagementComponent implements OnInit {
   userDetails: any;
   staffDetails: any;
   goToNewArival(data: any = null) {
-    let rand=Math.random()
-    this.route.navigate(['/purchase-management/add-new-arrivals',rand,'/purchase-management/new-arrivals']);
+    let rand = Math.random()
+    this.route.navigate(['/purchase-management/add-new-arrivals', rand, '/purchase-management/new-arrivals']);
   }
   openEdit(tractor: any) {
-    this.route.navigate(['/purchase-management/edit-newarrivals', tractor?.rowCode,'/purchase-management/new-arrivals']);
+    this.route.navigate(['/purchase-management/edit-newarrivals', tractor?.rowCode, '/purchase-management/new-arrivals']);
   }
-    async viewImage(image:any){
-      const modal = await this.modalCtrl.create({
-        component: SingleImageShowComponent,
-        componentProps: {
-       
-          image: image,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-     
-      }
+  async viewImage(image: any) {
+    const modal = await this.modalCtrl.create({
+      component: SingleImageShowComponent,
+      componentProps: {
+
+        image: image,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+
     }
-listColorClass='sevenColor'
-      buttonArray: any = [
- {
+  }
+  listColorClass = 'sevenColor'
+  buttonArray: any = [
+    {
       name: 'Edit Tractors New Arrivals',
       action: 'editTractorNewArriwals',
-              closeCurrentPopUP:true,
-    srcPage:'/purchase-management/new-arrivals',
+      closeCurrentPopUP: true,
+      srcPage: '/purchase-management/new-arrivals',
       image: './././assets/images/edit.png',
     },
-     {
+    {
       name: 'Assign TF',
       action: 'assignTFCOde',
-      showOnCondition:true,
-      objName:'registractionNo',
-      obVal:null,
-   objNameSecond:'isBackDateEntry',
- obValSecond:"0",
+      showOnCondition: true,
+      objName: 'registractionNo',
+      obVal: null,
+      objNameSecond: 'isBackDateEntry',
+      obValSecond: "0",
       image: './././assets/images/assigntfcode.png',
     },
-      {
+    {
       name: 'BackDate TF Assign',
       action: 'assignOldTFCOde',
-      showOnCondition:true,
-      objName:'isBackDateEntry',
-      obVal:"1",
-  
+      showOnCondition: true,
+      objName: 'isBackDateEntry',
+      obVal: "1",
+
       image: './././assets/images/assigntfcode.png',
     },
-      {
+    {
       name: 'Open Options New Arrivals',
       action: 'openNewArriwalOptions',
       image: './././assets/images/settings.png',
@@ -141,37 +141,37 @@ listColorClass='sevenColor'
       image: './././assets/images/deleted.png',
     },
   ];
-      keyList: any = [
+  keyList: any = [
     { key: 'Model', value: 'name', type: 'INPUT' },
-        { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
+    { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
 
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
 
     { key: 'Hours', value: 'hours', type: 'INPUT' },
-      { key: 'Is BackDate Entry', value: 'isBackDateEntry', type: 'CONDITIONAL' },
-    { key: 'Engine Number', getFromObj:true,objName:'purchasedetail',value: 'engineNumber', type: 'INPUT' },
-    { key: 'Chassis Number', getFromObj:true,objName:'purchasedetail',value: 'chasisNumber', type: 'INPUT' },
+    { key: 'Is BackDate Entry', value: 'isBackDateEntry', type: 'CONDITIONAL' },
+    { key: 'Engine Number', getFromObj: true, objName: 'purchasedetail', value: 'engineNumber', type: 'INPUT' },
+    { key: 'Chassis Number', getFromObj: true, objName: 'purchasedetail', value: 'chasisNumber', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
-      async searchTractor() {
-      const modal = await this.modalCtrl.create({
-        component: SearchTractorWithTfCodeComponent,
-        componentProps: {
-         buttonArray: this.buttonArray,
-         listColorClass:this.listColorClass,
-         keyList:this.keyList,
-         searchFilter:this.search,
-         searchKey:'registractionNo',
-       obj:{optionsUploadButtonArray:[]}
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-      }
+  async searchTractor() {
+    const modal = await this.modalCtrl.create({
+      component: SearchTractorWithTfCodeComponent,
+      componentProps: {
+        buttonArray: this.buttonArray,
+        listColorClass: this.listColorClass,
+        keyList: this.keyList,
+        searchFilter: this.search,
+        searchKey: 'registractionNo',
+        obj: { optionsUploadButtonArray: [] }
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
     }
+  }
   getTractorList(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -180,7 +180,7 @@ listColorClass='sevenColor'
       operate: this.staffDetails?.staffCode,
       isLive: false,
     };
-     this.newArivalsList=[]
+    this.newArivalsList = []
     this.share.showLoading(msg);
     this.api.postapi('getTractorList', obj).subscribe(
       (res: any) => {
@@ -188,54 +188,54 @@ listColorClass='sevenColor'
         this.newArivalsList = this.newArivalsList.filter(
           (f: any) => f?.tractor_status == 'NEW_ARRIVAL'
         );
- this.newArivalsList?.forEach((tract:any) => {
-  let beforeService=tract?.rawImages?.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
-  tract.beforeServiceImages=beforeService
-  if(tract.beforeServiceImages?.length){
-    tract.imageUrlUrl=tract.beforeServiceImages[0]?.imageUrlUrl
-  }
- });
+        this.newArivalsList?.forEach((tract: any) => {
+          let beforeService = tract?.rawImages?.filter((f: any) => f.imageGroup == 'BEFORE_SERVICE')
+          tract.beforeServiceImages = beforeService
+          if (tract.beforeServiceImages?.length) {
+            tract.imageUrlUrl = tract.beforeServiceImages[0]?.imageUrlUrl
+          }
+        });
         this.share?.spinner?.dismiss('active_seven');
         this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  search={
-    registractionNo:null
+  search = {
+    registractionNo: null
   }
-    async actionEventCall(e: any) {
-      await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
-    
-  if(this.commonMethod.reloadMethod){
-    this.getTractorList()
-  }
+  async actionEventCall(e: any) {
+    await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
+
+    if (this.commonMethod.reloadMethod) {
+      this.getTractorList()
+    }
 
     console.log('actionEventCall', e);
-    
+
   }
   refreshList() {
     this.getTractorList();
   }
-  dataClear() {}
- 
-  async openOptions(tractor:any){
+  dataClear() { }
+
+  async openOptions(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: TractorOptionsViewComponent,
       componentProps: {
-     
+
         tractor: tractor,
-   
+
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
-if(data?.isDeleted || data?.isForworded){
-  this.getTractorList('Refreshing Data...')
-}
+    if (data?.isDeleted || data?.isForworded) {
+      this.getTractorList('Refreshing Data...')
+    }
     if (role === 'confirm') {
-   
+
     }
   }
 }

@@ -27,7 +27,7 @@ export class InventoryListComponent implements OnInit {
     private router: Router,
     private commonMethod: CommonMethodService,
     private route: Router
-  ) {}
+  ) { }
   alltractorList: any = [];
   optionsArray = [
     { displayName: 'All', value: 'ALL' },
@@ -35,14 +35,14 @@ export class InventoryListComponent implements OnInit {
     { displayName: 'Yes', value: 'YES' },
     { displayName: 'No', value: 'NO' },
   ];
-  ngOnInit() {}
-    listColorClass = 'secondColor';
-  storeId:any
+  ngOnInit() { }
+  listColorClass = 'secondColor';
+  storeId: any
   ionViewWillEnter() {
-     let staffDetails: any = this.share.get_staff();
+    let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
-    this.storeId= this.staffDetails?.storeId
+    this.storeId = this.staffDetails?.storeId
 
     this.alltractorList = [];
     this.getBrandList();
@@ -129,7 +129,7 @@ export class InventoryListComponent implements OnInit {
             //this.getTractorList();
           }
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     }, 0);
   }
@@ -174,7 +174,7 @@ export class InventoryListComponent implements OnInit {
         this.share.spinner.dismiss('active_two');
         this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   getAllTractorList(loader: any = false) {
@@ -197,7 +197,7 @@ export class InventoryListComponent implements OnInit {
         this.share.spinner.dismiss('active_two');
         this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   selectedStore: any;
@@ -226,7 +226,7 @@ export class InventoryListComponent implements OnInit {
             //   this.share.spinner?.dismiss();
           }
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     }, 0);
   }
@@ -260,8 +260,8 @@ export class InventoryListComponent implements OnInit {
     //}
     this.api.postapi('getTractorListAll_Inventory_Store', obj).subscribe(
       (res: any) => {
-        this.alltractorList = res?.data?.filter((inv:any)=>inv?.inventoryStoreId==this.selectedStore);
-        this.allTractorsSrcList = res?.data?.filter((inv:any)=>inv?.inventoryStoreId==this.selectedStore);;
+        this.alltractorList = res?.data?.filter((inv: any) => inv?.inventoryStoreId == this.selectedStore);
+        this.allTractorsSrcList = res?.data?.filter((inv: any) => inv?.inventoryStoreId == this.selectedStore);;
 
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
 
@@ -269,7 +269,7 @@ export class InventoryListComponent implements OnInit {
         this.share.spinner.dismiss('active_two');
         this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   async viewImage(tractor: any) {
@@ -327,7 +327,7 @@ export class InventoryListComponent implements OnInit {
   keyList: any = [
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
     { key: 'Hours', value: 'hours', type: 'INPUT' },
-    { key: 'Store', value: 'name',getFromObj:true,objName:'inventoryStoreDetails', type: 'INPUT' },
+    { key: 'Store', value: 'name', getFromObj: true, objName: 'inventoryStoreDetails', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
   optionsUploadButtonArray: any = [
@@ -378,12 +378,12 @@ export class InventoryListComponent implements OnInit {
       goToPage: '/purchase-management/edit-newarrivals',
       srcPage: '/purchase-management/inventory-list',
     },
-        {
+    {
       name: 'New Arrival Settings',
       action: 'newArrivalSettings',
       image: './././assets/images/visual.png',
     },
-      {
+    {
       name: 'Transfer TO New Arrivals',
       action: 'transferToNew',
       image: './././assets/images/transfer.png',
