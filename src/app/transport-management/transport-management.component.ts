@@ -71,8 +71,6 @@ export class TransportManagementComponent implements OnInit {
       {
       name: 'More option Transport',
       action: 'moreOptionTransport',
- 
-
       image: './././assets/images/laptop.png',
     },
     {
