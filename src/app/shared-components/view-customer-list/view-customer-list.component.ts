@@ -8,14 +8,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   templateUrl: './view-customer-list.component.html',
   styleUrls: ['./view-customer-list.component.scss'],
 })
-export class ViewCustomerListComponent  implements OnInit {
-  @Input() search: any={mobileNo:null};
-  @Input() searchKey: any='mobileNo';
+export class ViewCustomerListComponent implements OnInit {
+  @Input() search: any = { mobileNo: null };
+  @Input() searchKey: any = 'mobileNo';
   @Input() showSearch: any = true;
   @Input() width: any = 60;
   @Input() list: any = [];
   @Input() keyList: any = [];
-  @Input() rowLineCount= 3;
+  @Input() rowLineCount = 3;
   @Input() buttonArray: any = [];
   @Input() listColorClass: any;
   @Output() actionEventCall = new EventEmitter();
@@ -27,19 +27,19 @@ export class ViewCustomerListComponent  implements OnInit {
 
   ngOnInit() {
     console.log('ViewListComponent', this.list, this.search, this.searchKey);
- 
+
 
   }
 
-  
 
-showMore(index: number, keyValue: any) {
-  this.showMoreDetails[index] = !this.showMoreDetails[index];
-  // You can add animation logic here if needed
-}
-  actionEvent(customer: any, button: any,index:any) {
-    this.actionEventCall.emit({ customer, button,index });
+
+  showMore(index: number, keyValue: any) {
+    this.showMoreDetails[index] = !this.showMoreDetails[index];
+    // You can add animation logic here if needed
   }
- 
-
+  actionEvent(customer: any, button: any, index: any) {
+    setTimeout(() => {
+      this.actionEventCall.emit({ customer, button, index });
+    }, 600);
+  }
 }
