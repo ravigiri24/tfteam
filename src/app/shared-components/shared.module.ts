@@ -67,6 +67,7 @@ import { AssigningStaffComponent } from './assigning-staff/assigning-staff.compo
 import { SelectStoreComponent } from '../user-management/select-store/select-store.component';
 import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
 import { FollowUpManagementComponent } from '../follow-up-management/follow-up-management.component';
+import { ViewAppovalsListComponent } from './view-appovals-list/view-appovals-list.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -140,7 +141,8 @@ import { FollowUpManagementComponent } from '../follow-up-management/follow-up-m
     AssigningStaffComponent,
     SelectStoreComponent,
     VisitingManagementComponent,
-    FollowUpManagementComponent
+    FollowUpManagementComponent,
+    ViewAppovalsListComponent
     
   ],
 

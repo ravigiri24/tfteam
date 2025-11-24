@@ -1,0 +1,58 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+       <ion-title>
+     <ion-select class="selected_ddl" (ionChange)="optionActionEventCall()" [(ngModel)]="selectedType"
+              label-placement="type">
+              <ion-select-option value="PENDING">Pending</ion-select-option>
+              <ion-select-option value="APPROVED">Approved</ion-select-option>
+              <ion-select-option value="REJECTED">Rejected</ion-select-option>
+              <ion-select-option value="ALL">All</ion-select-option>
+            </ion-select>
+            </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon class="icon-size dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="notification_container">
+    <div class="notification_block">
+      <!-- <div class="notification_icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div> -->
+      <div class="notification_text">
+        <span class="notification_title"><span class="dynamic_color">Eicher 485</span><small>15-Nov-2025</small></span>
+    <span>Request Amount For Sale: 4500000</span>
+    <span>Expected Date: 25 june 2025</span>
+         <div class="notification_desc">Unko last price h finance h</div>
+             <span class="notification_title"><span class="dynamic_color">Status:PENDING
+            </span><small>15-Nov-2025</small></span>
+      </div>
+    </div>
+        <div class="notification_block">
+      <!-- <div class="notification_icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div> -->
+      <div class="notification_text">
+        <span class="notification_title"><span class="dynamic_color">Eicher 485</span><small>15-Nov-2025</small></span>
+    <span>Request Amount For Sale: 4500000</span>
+    <span>Expected Date: 25 june 2025</span>
+         <div class="notification_desc">Unko last price h finance h</div>
+             <span class="notification_title"><span class="dynamic_color">Status:PENDING
+            </span><small>15-Nov-2025</small></span>
+      </div>
+    </div>
+    <!-- <div class="notification_block">
+      <div class="notification_icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
+      <div class="notification_text">
+        <span class="notification_title"><span class="dynamic_color">Tractor Price
+            Updated</span><small>15-Nov-2025</small></span>
+        <div class="notification_desc">Lorem ipsum dolor <b>sit amet</b>, consectetur adipiscing elit, sed do eiusmod
+          tempor <span style="color: #dd0000;">incididunt ut labore et dolore magna aliqua.</span> incididunt ut labore
+          et dolore magna aliqua.</div>
+      </div>
+    </div> -->
+  </div>
+</ion-content>

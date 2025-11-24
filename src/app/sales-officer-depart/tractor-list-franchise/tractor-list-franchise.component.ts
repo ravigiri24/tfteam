@@ -7,6 +7,7 @@ import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-f
 import { CommonMethodService } from 'src/app/common-method.service';
 import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
 import { RequestApproveFormComponent } from './request-approve-form/request-approve-form.component';
+import { ViewAppovalsListComponent } from 'src/app/shared-components/view-appovals-list/view-appovals-list.component';
 @Component({
   selector: 'app-tractor-list-franchise',
   templateUrl: './tractor-list-franchise.component.html',
@@ -145,8 +146,8 @@ export class TractorListFranchiseComponent implements OnInit {
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
-    { name: 'Refresh', icon: 'refresh-outline' },
-        { name: 'Notification', icon: 'notifications-outline' },
+  
+        { name: 'Approvals', icon: 'layers-outline' },
   ];
   actionEventHeader(e: any) {
     if (e?.name == 'Search') {
@@ -157,7 +158,27 @@ export class TractorListFranchiseComponent implements OnInit {
     else if(e?.name == 'Notification'){
       this.openNotidication()
     }
+        else if(e?.name == 'Approvals'){
+      this.openApproveList()
+    }
   }
+    async openApproveList() {
+  
+    const modal = await this.modalCtrl.create({
+      component: ViewAppovalsListComponent,
+      componentProps: {
+    
+      },
+      cssClass: 'midium-model',
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+
+    if (data) {
+   
+    }
+  }
+ 
   tractorListStorewise(e:any){
     this.selectedStore=e?.selectedStore
 this.getAllTractorListStorewise()
