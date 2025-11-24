@@ -34,5 +34,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<app-view-list [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+<app-view-list *ngIf="alltractorList?.length" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+          <app-no-data-view *ngIf="!alltractorList?.length && !share?.globalLoading"></app-no-data-view>
 </ion-content>

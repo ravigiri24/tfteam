@@ -10,6 +10,7 @@ import { SyncTractorWithMaintaninanceComponent } from 'src/app/shared-components
 import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 import { SelectListTypeComponent } from 'src/app/shared-components/select-list-type/select-list-type.component';
 import { SellOptionsComponent } from '../sell-options/sell-options.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-sold-tractor-list',
   templateUrl: './sold-tractor-list.component.html',
@@ -18,12 +19,14 @@ import { SellOptionsComponent } from '../sell-options/sell-options.component';
 export class SoldTractorListComponent  implements OnInit {
   constructor(
     private api: ApiService,
-    private share: ShareService,
+    public share: ShareService,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private commonMethod:CommonMethodService
   ) {}
   alltractorList: any = [];
   isStoreOnlyAccess=false
+  listColorClass="secondColor"
   ngOnInit() {}
   ionViewWillEnter() {
     this.alltractorList = [];
@@ -86,7 +89,11 @@ if(this.share.checkStoreOnlyAccess()){
        if (data && data?.isFilterChange) {
       console.log('data', data);
       this.filterBy = data?.filterBy;
-      this.sortByFilter();
+        this.alltractorList=[]
+      setTimeout(() => {
+          this.sortByFilter();
+      }, 0);
+  
     }
   }
   listBy = 'BRAND_WISE';
@@ -136,8 +143,10 @@ if(this.share.checkStoreOnlyAccess()){
           console.log('  this.brandList', this.brandList);
           if (!loader) {
             this.selectedBrand = this.brandList[0]?.id;
-
+    if (!this.share.checkStoreOnlyAccess()) {
             this.getTractorList();
+    }
+           // this.getTractorList();
             //   this.share.spinner?.dismiss();
           }
         },
@@ -175,7 +184,7 @@ if(this.share.checkStoreOnlyAccess()){
 if(loader){
       this.share.showLoading('Loading...');
    }
-  
+    this.alltractorList=[]
     this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -200,6 +209,7 @@ if(loader){
     //if (loader) {
       this.share.showLoading('Loading...');
    // }
+     this.alltractorList=[]
     this.api.postapi('getTractorListLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -266,7 +276,7 @@ this.checkStoreOnlyCondition()
     }, 0);
   }
   callListApi() {
-
+  this.alltractorList=[]
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
@@ -325,6 +335,7 @@ this.checkStoreOnlyCondition()
     //if (loader) {
       this.share.showLoading('Loading...');
     //}
+      this.alltractorList=[]
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -372,10 +383,17 @@ this.checkStoreOnlyCondition()
       '/operational/all-tractor-management',
     ]);
   }
+  optionsUploadButtonArray:any=[]
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
-      componentProps: {},
+       componentProps: {
+        buttonArray: this.buttonArray,
+        keyList: this.keyList,
+        searchFilter: this.search,
+        searchKey: 'registractionNo',
+        obj: { optionsUploadButtonArray: this.optionsUploadButtonArray },
+      },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -399,18 +417,26 @@ this.checkStoreOnlyCondition()
       image: './././assets/images/sale-tag.png',
     },
     {
-      name: 'Sale Options',
-      action: 'salesOption',
+      name: 'Sale Options Sold',
+      action: 'Sale_Options_Sold',
       image: './././assets/images/documentation.png',
     },
   ];
 
-    actionEventCall(e: any) {
+  async  actionEventCall(e: any) {
     console.log('actionEventCall', e);
-    if (e?.button?.name == 'Sell Details') {
-      this.addSellDetails(e?.tractor);
-    } else if (e?.button?.name == 'Sale Options') {
-      this.salesOption(e?.tractor);
+    // if (e?.button?.name == 'Sell Details') {
+    //   this.addSellDetails(e?.tractor);
+    // } else if (e?.button?.name == 'Sale Options Sold') {
+    //   this.salesOption(e?.tractor);
+    // }
+
+        await this.commonMethod.actionEventCall(e, {
+      optionsUploadButtonArray: this.optionsUploadButtonArray,
+    });
+
+    if (this.commonMethod.reloadMethod) {
+      this.callListApi();
     }
   }
 }

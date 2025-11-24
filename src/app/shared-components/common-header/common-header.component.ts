@@ -19,7 +19,9 @@ export class CommonHeaderComponent  implements OnInit {
   @Input() list: any; //np
   @Output() actionEventHeader = new EventEmitter();
   @Output() optionActionEvent = new EventEmitter();
+  @Output() selectWareHouseAction = new EventEmitter();
   @Input() headerDisplayArray: any=[]; //np
+
   // listBy = 'BUFFER';
   constructor() { }
 actionEventHeaderCall(e:any){
@@ -37,6 +39,6 @@ optionActionEventCall(){
     this.submenuOpen = !this.submenuOpen;
   }
 getAllTractorListStorewise(){
-
+this.selectWareHouseAction.emit({selectedStore:this.selectedStore})
 }
 }

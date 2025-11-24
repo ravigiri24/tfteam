@@ -6,6 +6,7 @@ import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/sear
 import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
+import { RequestApproveFormComponent } from './request-approve-form/request-approve-form.component';
 @Component({
   selector: 'app-tractor-list-franchise',
   templateUrl: './tractor-list-franchise.component.html',
@@ -22,6 +23,9 @@ export class TractorListFranchiseComponent implements OnInit {
   upper = 0;
   yearChecked = 'ALL';
   ionViewWillEnter() {
+        let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
     this.checkedAll = true;
     this.selectedBrand = [];
     this.lower = 0;
@@ -64,6 +68,7 @@ export class TractorListFranchiseComponent implements OnInit {
   listColorClass = 'firstColor';
   warehouseList: any = [];
   selectedStore: any;
+  allotedWareHouse:any=[]
   getWareHouseList(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
 
@@ -80,10 +85,33 @@ export class TractorListFranchiseComponent implements OnInit {
           this.warehouseList = res?.data;
           this.warehouseList = this.warehouseList.reverse();
 
+
+     let allotedStore = this.staffDetails?.allotedStore;
+      let warehouseList:any=[]
+      this.warehouseList?.forEach((ware: any) => {
+        let checkIn = allotedStore?.find(
+          (store: any) => store.store_id == ware?.id
+        );
+        if (checkIn) {
+          let findI = this.warehouseList?.findIndex(
+            (wareIn: any) => wareIn?.id == ware?.id
+          );
+          warehouseList.push(ware)
+       
+        }
+      });
+      this.allotedWareHouse=warehouseList
+
+
           console.log('this.warehouseList', this.warehouseList);
           if (!loader) {
-            this.selectedStore = this.warehouseList[0]?.id;
-
+            if(this.allotedWareHouse?.length){
+            // this.selectedStore = this.allotedWareHouse[0]?.id;
+                  let selectedStore: any = this.share.get_sales_officer_store();
+            this.selectedStore = JSON.parse(selectedStore)?.store_id;
+            }else{
+                this.selectedStore = this.warehouseList[0]?.id;
+            }
             this.getAllTractorListStorewise();
             //this.share.spinner?.dismiss();
           }
@@ -92,6 +120,28 @@ export class TractorListFranchiseComponent implements OnInit {
       );
     }, 0);
   }
+  checkOwnstore(){
+    let check=this.allotedWareHouse?.find((f:any)=>f.id==this.selectedStore)
+    if(check){
+      this.buttonArray=this.buttonArrayCore
+    }else{
+      this.buttonArray=[]
+    }
+  }
+    buttonArrayCore: any = [
+  
+     {
+      name: 'Upload Recive Tractor Image',
+      action: 'reciveTractorImage',
+      image: './././assets/images/image_upload.png',
+    },
+      {
+     name: 'Approval Request',
+      action: 'approvalRequest',
+      image: './././assets/images/request.png',
+    },
+   
+  ];
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
@@ -108,22 +158,17 @@ export class TractorListFranchiseComponent implements OnInit {
       this.openNotidication()
     }
   }
+  tractorListStorewise(e:any){
+    this.selectedStore=e?.selectedStore
+this.getAllTractorListStorewise()
+  }
 
   filterBy: any = 'ALL';
   listBy = 'ALL';
   checkedAll = true;
 
   async openFilter() {
-    // const modal = await this.modalCtrl.create({
-    //   component: GlobalFilterTractorComponent,
-    //   breakpoints: [0, 1, 1],
-    //   initialBreakpoint: 1,
-    //   cssClass: 'custom-modal',
-    //   componentProps: {
-    //     filterBy: this.filterBy,
-    //     listBy: this.listBy,
-    //   },
-    // });
+  
     const modal = await this.modalCtrl.create({
       component: GlobalFilterTractorComponent,
       componentProps: {
@@ -159,6 +204,7 @@ export class TractorListFranchiseComponent implements OnInit {
       this.filterActiveAndFilterBy();
     }
   }
+ 
   filterActiveAndFilterBy() {
         this.alltractorList = [];
         setTimeout(() => {
@@ -265,12 +311,15 @@ export class TractorListFranchiseComponent implements OnInit {
       this.share.showLoading('Loading...');
     }
     this.alltractorList = [];
+        this.checkOwnstore()
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
+    
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
   this.filterActiveAndFilterBy()
+
         //this.sortByFilter()
         this.share.spinner.dismiss('active_one');
         //this.backupList = res.data;
@@ -290,9 +339,9 @@ export class TractorListFranchiseComponent implements OnInit {
       image: './././assets/images/image_upload.png',
     },
       {
-      name: 'Upload Recive Tractor Image',
-      action: 'reciveTractorImage',
-      image: './././assets/images/ user-engagement.png',
+      name: 'Approval Request',
+      action: 'approvalRequest',
+      image: './././assets/images/request.png',
     },
    
   ];
@@ -311,6 +360,7 @@ export class TractorListFranchiseComponent implements OnInit {
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
  async actionEventCall(e: any) {
+  e.selectedStore=this.selectedStore
       await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
 
   }

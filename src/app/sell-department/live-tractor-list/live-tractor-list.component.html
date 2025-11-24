@@ -34,6 +34,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <app-view-list [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+    <app-view-list *ngIf="alltractorList?.length" [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'" [listColorClass]="listColorClass"></app-view-list>
 
 </ion-content>

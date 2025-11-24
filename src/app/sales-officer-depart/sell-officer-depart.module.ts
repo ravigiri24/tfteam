@@ -22,6 +22,7 @@ import { EnquireListComponent } from './enquire-list/enquire-list.component';
 import { AddEnqiuryComponent } from './add-enqiury/add-enqiury.component';
 import { ViewModelsComponent } from './add-enquiry/view-models/view-models.component';
 import { CloseEnquiryComponent } from './close-enquiry/close-enquiry.component';
+import { RequestApproveFormComponent } from './tractor-list-franchise/request-approve-form/request-approve-form.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CloseEnquiryComponent } from './close-enquiry/close-enquiry.component';
  AddEnqiuryComponent,
  ViewModelsComponent,
  CloseEnquiryComponent,
+ RequestApproveFormComponent
  
     
   ],

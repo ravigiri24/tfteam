@@ -27,7 +27,7 @@
       </div>
       <div class="right_action">
         <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
-        <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>
+        <ion-icon (click)="callListApi()" name="refresh-outline"></ion-icon>
         <ion-icon (click)="presentModal()" name="cog-outline"></ion-icon>
       </div>
     </ion-label>
@@ -38,6 +38,6 @@
     <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon>   
   </ion-item> -->
   <!-- <span class="inner-heading-list">Live Tractor List</span> -->
-       <app-view-list [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
-
+       <app-view-list *ngIf="alltractorList?.length"  [buttonArray]="buttonArray" [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'" [listColorClass]="listColorClass"></app-view-list>
+          <app-no-data-view *ngIf="!alltractorList?.length && !share?.globalLoading"></app-no-data-view>
 </ion-content>

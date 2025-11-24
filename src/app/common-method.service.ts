@@ -33,6 +33,11 @@ import { ReceiveTractorImageComponent } from './sales-officer-depart/receive-tra
 import { AddEnqiuryComponent } from './sales-officer-depart/add-enqiury/add-enqiury.component';
 import { CloseEnquiryComponent } from './sales-officer-depart/close-enquiry/close-enquiry.component';
 import { ViewEnquiryComponent } from './sales-officer-depart/view-enquiry/view-enquiry.component';
+import { TractorFinanceDetailsComponent } from './tractor-finance-details/tractor-finance-details.component';
+import { FinanceOptionsComponent } from './finance-department/finance-options/finance-options.component';
+import { SellOptionsComponent } from './sell-department/sell-options/sell-options.component';
+import { RequestApproveFormComponent } from './sales-officer-depart/tractor-list-franchise/request-approve-form/request-approve-form.component';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -42,7 +47,7 @@ export class CommonMethodService {
     private router: Router,
     private toastController: ToastController,
     private alertCtrl: AlertController
-  ) { }
+  ) {}
 
   async nocUpdate(tractor: any) {
     let isNoc;
@@ -133,29 +138,34 @@ export class CommonMethodService {
       await this.openOptionsnewArriwals(e?.tractor);
     } else if (e?.button?.name == 'Add Transport Cost') {
       this.addCostTransport(e?.tractor);
-    }
-    else if (e?.button?.name == 'Start Transport') {
+    } else if (e?.button?.name == 'Start Transport') {
       await this.startTranspotation(e?.tractor);
+    } else if (e?.button?.name == 'More option Transport') {
+      await this.openOptionsTransport(e?.tractor);
+    } else if (e?.button?.name == 'BackDate TF Assign') {
+      await this.assignBackDateTF(e?.tractor);
+    } else if (e?.button?.name == 'Upload Recive Tractor Image') {
+      await this.reciveTractorImage(e?.tractor);
+    } else if (e?.button?.name == 'Edit Enquiry') {
+      await this.editEnquiry(e?.customer);
+    } else if (e?.button?.name == 'Close Enquiry') {
+      await this.closeEnquiry(e?.customer);
+    } else if (e?.button?.name == 'View Enquiry') {
+      await this.viewEnquiry(e?.customer);
     }
-    else if(e?.button?.name == 'More option Transport'){
-    await  this.openOptionsTransport(e?.tractor)
+    if (e?.button?.name == 'Add FinanceDetails') {
+      await this.addFinanceDetails(e?.tractor);
+    } else if (e?.button?.name == 'Sales Option') {
+      await this.salesOption(e?.tractor);
+    } else if (e?.button?.name == 'Sales Details') {
+      await this.salesDetails(e?.tractor);
     }
-       else if(e?.button?.name == 'BackDate TF Assign'){
-    await  this.assignBackDateTF(e?.tractor)
+     else if (e?.button?.name == 'Sale Options Sold') {
+     await this.salesOptionSold(e?.tractor);
     }
-         else if(e?.button?.name == 'Upload Recive Tractor Image'){
-    await  this.reciveTractorImage(e?.tractor)
+        else if (e?.button?.name == 'Approval Request') {
+     await this.reuestForApporoval(e);
     }
-    else if(e?.button?.name == 'Edit Enquiry'){
-        await  this.editEnquiry(e?.customer)
-    }
-    else if(e?.button?.name =='Close Enquiry'){
-     await  this.closeEnquiry(e?.customer)
-    }
-        else if(e?.button?.name =='View Enquiry'){
-     await  this.viewEnquiry(e?.customer)
-    }
-    
   }
 
   async addRemark(customer: any = null) {
@@ -511,42 +521,38 @@ export class CommonMethodService {
   addCostTransport(tractor: any) {
     this.router.navigate(['/transport-department/add-cost', tractor?.id]);
   }
-     async startTranspotation(tractor: any) {
-        const modal = await this.modalCtrl.create({
-          component: StartTransportDialogComponent,
-          componentProps: {
-            tractorDetails: tractor,
-        
-          },
-        });
-        await modal.present();
-        const { data, role } = await modal.onWillDismiss();
-        console.log('role', role);
-    
-        if (role === 'confirm') {
-          this.reloadMethod=true
-        }
-      }
-        async openOptionsTransport(tractor:any){
-            const modal = await this.modalCtrl.create({
-              component: TransportOptionsComponent,
-              componentProps: {
-             
-                tractor: tractor,
-           
-              },
-            });
-            await modal.present();
-            const { data, role } = await modal.onWillDismiss();
-            console.log('role', role);
-        if(data?.isDeleted || data?.isForworded || data?.isReached ){
-          this.reloadMethod=true
-        }
-            if (role === 'confirm') {
-           
-            }
-          }
-                 async assignBackDateTF(tractor: any) {
+  async startTranspotation(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: StartTransportDialogComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+      this.reloadMethod = true;
+    }
+  }
+  async openOptionsTransport(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TransportOptionsComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data?.isDeleted || data?.isForworded || data?.isReached) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+  }
+  async assignBackDateTF(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: TfCodeBackDatedComponent,
       breakpoints: [0, 0.4, 1],
@@ -562,14 +568,13 @@ export class CommonMethodService {
       this.reloadMethod = true;
     }
   }
-   async reciveTractorImage(tractor: any) {
+  async reciveTractorImage(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: ReceiveTractorImageComponent,
 
       cssClass: 'midium-model',
       componentProps: {
         tractor: tractor,
-      
       },
     });
     await modal.present();
@@ -579,61 +584,135 @@ export class CommonMethodService {
       //this.callListApi();
     }
   }
- async editEnquiry(e:any){
-   
-      const modal = await this.modalCtrl.create({
-        component: AddEnqiuryComponent,
-  
-        cssClass: 'midium-model',
-        componentProps: {
-          enquiry: e,
-        
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data) {
-this.reloadMethod=true
-        //this.callListApi();
-      }
-    
+  async editEnquiry(e: any) {
+    const modal = await this.modalCtrl.create({
+      component: AddEnqiuryComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        enquiry: e,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+      //this.callListApi();
+    }
   }
-   async closeEnquiry(e:any){
-   
-      const modal = await this.modalCtrl.create({
-        component: CloseEnquiryComponent,
-  
-        cssClass: 'midium-model',
-        componentProps: {
-          enquiry: e,
-        
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data) {
-this.reloadMethod=true
-        //this.callListApi();
-      }
-    
+  async closeEnquiry(e: any) {
+    const modal = await this.modalCtrl.create({
+      component: CloseEnquiryComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        enquiry: e,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+      //this.callListApi();
+    }
   }
-   async viewEnquiry(e:any){
-   
-      const modal = await this.modalCtrl.create({
-        component: ViewEnquiryComponent,
+  async viewEnquiry(e: any) {
+    const modal = await this.modalCtrl.create({
+      component: ViewEnquiryComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        enquiry: e,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+      //this.callListApi();
+    }
+  }
+  async addFinanceDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TractorFinanceDetailsComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+  async salesOption(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: FinanceOptionsComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+    async salesDetails(tractor:any){
+          const modal = await this.modalCtrl.create({
+            component: ShowSalesDetailsComponent,
+                  cssClass: 'midium-model',
+            componentProps: {
+              tractor: tractor,
+            },
+          });
+          await modal.present();
+          const { data, role } = await modal.onWillDismiss();
+          console.log('role', role);
+              if (data) {
+      this.reloadMethod = true;
+    }
+
+        }
+            async salesOptionSold(tractor:any){
+                    const modal = await this.modalCtrl.create({
+                      component: SellOptionsComponent,
+                               cssClass: 'midium-model',
+                      componentProps: {
+                        tractor: tractor,
+                      },
+                    });
+                    await modal.present();
+                    const { data, role } = await modal.onWillDismiss();
+                    console.log('role', role);
+                          if (data) {
+      this.reloadMethod = true;
+    }
+                    //if (role === 'confirm') {
+          
+                    //}
+                  }
+
+           async reuestForApporoval(obj:any) {
   
-        cssClass: 'midium-model',
-        componentProps: {
-          enquiry: e,
-        
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (data) {
-this.reloadMethod=true
-        //this.callListApi();
-      }
-    
+    const modal = await this.modalCtrl.create({
+      component: RequestApproveFormComponent,
+      componentProps: {
+     tractor:obj?.tractor,
+     selectedStore:obj?.selectedStore
+     
+      },
+      cssClass: 'midium-model',
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+
+    if (data) {
+        this.reloadMethod = true;
+    }
   }
 }

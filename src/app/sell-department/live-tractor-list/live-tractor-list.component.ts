@@ -26,6 +26,7 @@ export class LiveTractorListComponent implements OnInit {
   ) {}
   alltractorList: any = [];
   ngOnInit() {}
+    listColorClass="firstColor"
   ionViewWillEnter() {
       let staffDetails: any = this.share.get_staff();
 
@@ -111,7 +112,11 @@ if(this.share.checkStoreOnlyAccess()){
        if (data && data?.isFilterChange) {
       console.log('data', data);
       this.filterBy = data?.filterBy;
-      this.sortByFilter();
+      this.alltractorList=[]
+      setTimeout(() => {
+          this.sortByFilter();
+      }, 0);
+    
     }
   }
   listBy = 'BRAND_WISE';
@@ -279,7 +284,7 @@ if(this.share.checkStoreOnlyAccess()){
     if (loader) {
       this.share.showLoading('Loading...');
     }
-
+ this.alltractorList=[]
     this.api.postapi('getTractorListBranchWiseisLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -303,6 +308,7 @@ if(this.share.checkStoreOnlyAccess()){
     //if (loader) {
     this.share.showLoading('Loading...');
     // }
+     this.alltractorList=[]
     this.api.postapi('getTractorListLive', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
@@ -348,7 +354,7 @@ this.checkStoreOnlyCondition()
   }
   callListApi() {
    // this.filterBy = 'ACTIVE';
-
+this.alltractorList=[]
     if (this.listBy == 'ALL') {
       this.getAllTractorList();
     } else if (this.listBy == 'BRAND_WISE') {
@@ -389,6 +395,7 @@ this.checkStoreOnlyCondition()
     //if (loader) {
     this.share.showLoading('Loading...');
     //}
+     this.alltractorList=[]
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
         this.alltractorList = res?.data;
