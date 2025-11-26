@@ -143,7 +143,7 @@
                 }
             }
         }
-        
+
         .action_col {
             // display: flex;
             // justify-content: space-between;
@@ -167,13 +167,15 @@
             max-height: 50px;
             min-width: 50px;
             border: dashed 1px;
+            position: relative;
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
             }
-             .shape {
+
+            .shape {
                 height: 90%;
                 width: 94%;
                 position: absolute;

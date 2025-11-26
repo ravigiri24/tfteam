@@ -40,19 +40,21 @@
 
           </ng-container>
           <ion-row *ngIf="buttonArray?.length">
-            <ion-col class="action_col" *ngFor="let button of buttonArray">
-              <img (click)="actionEvent(customer,button,i)" [src]="button?.image" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                  </span>
-            </ion-col>
+            <ng-container *ngFor="let button of buttonArray">
+              <ion-col class="action_col" (click)="actionEvent(customer,button,i)">
+                <img [src]="button?.image" />
+                <span class="shape">
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                </span>
+              </ion-col>
+            </ng-container>
           </ion-row>
         </ion-card>
       </ion-grid>
