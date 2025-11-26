@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
               this.share.set_sales_officer_storeList(
                 JSON.stringify(res?.data?.allotedStore)
               );
-
+              this.share.setStoreSalesOfficer()
               this.share.setRolesForSalesOfficer();
             }
           } else {
@@ -105,5 +105,7 @@ export class LoginComponent implements OnInit {
     let userde = JSON.parse(user);
     userde.storeId = store?.store_id;
     this.share.set_staff_detail_session(userde);
+
+    
   }
 }

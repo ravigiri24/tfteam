@@ -64,7 +64,19 @@ export class ShareService {
   get_sales_officer_storeList() {
     return localStorage.getItem('list_store_so') || null;
   }
+    setStoreSalesOfficer() {
+    let selectedStore: any = this.get_sales_officer_store();
+    let store = JSON.parse(selectedStore);
+    let user: any = this.get_staff();
+    let userde = JSON.parse(user);
+    userde.storeId = store?.store_id;
+    
+    this.set_staff_detail_session(userde);
+
+    
+  }
   setRolesForSalesOfficer() {
+    
     let user: any = this.get_staff();
     let userde = JSON.parse(user);
 

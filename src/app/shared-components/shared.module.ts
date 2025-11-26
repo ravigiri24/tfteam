@@ -68,6 +68,7 @@ import { SelectStoreComponent } from '../user-management/select-store/select-sto
 import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
 import { FollowUpManagementComponent } from '../follow-up-management/follow-up-management.component';
 import { ViewAppovalsListComponent } from './view-appovals-list/view-appovals-list.component';
+import { AllotStoreComponent } from './allot-store/allot-store.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -142,7 +143,8 @@ import { ViewAppovalsListComponent } from './view-appovals-list/view-appovals-li
     SelectStoreComponent,
     VisitingManagementComponent,
     FollowUpManagementComponent,
-    ViewAppovalsListComponent
+    ViewAppovalsListComponent ,
+    AllotStoreComponent
     
   ],
 

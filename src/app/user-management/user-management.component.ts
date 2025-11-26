@@ -66,7 +66,7 @@ export class UserManagementComponent implements OnInit {
             this.share.set_sales_officer_storeList(
               JSON.stringify(res?.data?.data?.allotedStore)
             );
-            this.setStoreSalesOfficer();
+            this.share.setStoreSalesOfficer();
           }
           if (res?.data?.data?.staff_role == 'SALES_OFFICER') {
             this.share.setRolesForSalesOfficer();

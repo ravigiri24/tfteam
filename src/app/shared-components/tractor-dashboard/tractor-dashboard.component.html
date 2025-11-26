@@ -91,17 +91,15 @@
         <span class="tabs"><span>Send Buffer</span></span>
       </div>
     </div>
-
+    <ion-label class="card_heading">Allot Store</ion-label>
+       <div class="tab_main_block selected_tab">
+      <div class="tab_block" (click)="allotStore()">
+        <div class="tab_icon"><ion-icon name="git-pull-request-outline"></ion-icon></div>
+        <span class="tabs"><span>Allot</span></span>
+      </div></div>
     <ion-label class="card_heading">Sell To Franchies</ion-label>
     <div class="tab_main_block selected_tab">
-      <!-- <div class="tab_block" *ngIf="tractorDetails?.tractor_status==null" (click)="archivedAlert()">
-        <div class="tab_icon"><ion-icon name="archive-outline"></ion-icon></div>
-        <span class="tabs"><span>Send Archived</span></span>
-      </div>
-      <div class="tab_block" *ngIf="tractorDetails?.tractor_status=='ARCHIVED'" (click)="sendDraftAlert()">
-        <div class="tab_icon"><ion-icon name="cog-outline"></ion-icon></div>
-        <span class="tabs"><span>Send Buffer</span></span>
-      </div> -->
+    
       <div class="tab_block" [ngClass]="{'width_auto': tractorDetails?.isSoldToDealer==1 }" *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1"
         (click)="openDealerPrice()">
         <div class="tab_icon"><ion-icon name="bag-handle-outline"></ion-icon></div>

@@ -46,7 +46,15 @@ export class VisitingManagementComponent implements OnInit {
 
     this.date = yyyy + '-' + mm + '-' + dd;
 
-    this.getVisitorList();
+    this.getVisitorListCall();
+  }
+    getVisitorListCall(){
+if(this.srcPage=='/sales-officer/so-dashbord'){
+
+   this.getVisitorListEnquiry();
+}else{
+   this.getVisitorList();
+}
   }
   async actionEventCall(e: any) {
     await this.commonMethod.actionEventCall(e, {
@@ -157,6 +165,35 @@ export class VisitingManagementComponent implements OnInit {
     this.share.showLoading('Loading...');
     this.customerList = [];
     this.api.postapi('getVisitorList', obj).subscribe(
+      (res: any) => {
+        this.followUpList = res.data;
+        res?.data?.forEach((f: any) => {
+          this.customerList.push(f?.customerDetails);
+        });
+
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        console.log('followUpList', this.followUpList);
+        this.share?.spinner?.dismiss('active_six');
+        this.loader = false;
+      },
+      (error: any) => {
+        this.loader = false;
+      }
+    );
+  }
+    getVisitorListEnquiry() {
+    this.loader = true;
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId = this.staffDetails?.storeId;
+    this.share.showLoading('Loading...');
+    this.customerList = [];
+    this.api.postapi('getVisitorListEnquriyWise', obj).subscribe(
       (res: any) => {
         this.followUpList = res.data;
         res?.data?.forEach((f: any) => {

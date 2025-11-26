@@ -1,7 +1,7 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-title>
-      <ion-select class="selected_ddl" (ionChange)="optionActionEventCall()" [(ngModel)]="selectedType"
+      <ion-select class="selected_ddl" (ionChange)="getingApprovalList()" [(ngModel)]="selectedType"
         label-placement="type">
         <ion-select-option value="PENDING">Pending</ion-select-option>
         <ion-select-option value="APPROVED">Approved</ion-select-option>
@@ -17,19 +17,26 @@
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
   <div class="notification_container">
     <ion-row>
+      <ng-container *ngFor="let approval of dumyData">
       <ion-col size="12" size-md="6">
         <div class="notification_block">
-          <span class="notification_title"><span class="dynamic_color">Eicher
-              485</span><small>15-Nov-2025</small></span>
+          <span class="notification_title"><span class="dynamic_color">{{approval?.tractor_name}}</span><small>{{approval?.createdOn  | date}}</small></span>
           <div class="internal_block">
-            <span>Request Amount For Sale: 4500000</span>
-            <span>Expected Date: 25 june 2025</span>
-            <div class="notification_desc">Unko last price h finance h</div>
+            <span>Request Amount For Sale: {{approval?.approvePrice}}</span>
+        
+            <span>Expected Date: {{approval?.expectedDateOfSale | date}}</span>
+                <span *ngIf="approval?.actionTaken==1">Approved By: {{approval?.approvalGivenBy}}</span>
+            <div class="notification_desc"> Your Remark-{{approval?.remark}}</div>
+            <div class="notification_desc" *ngIf="approval?.actionTaken==1"> Action Remark-{{approval?.apporveRemark}}</div>
           </div>
-          <span class="notification_status pending_color"><span>Status : PENDING</span><small>15-Nov-2025</small></span>
+          <span *ngIf="approval?.actionTaken==0" class="notification_status pending_color"><span>Status : PENDING</span></span>
+          <span class="notification_status approved_color" *ngIf="approval?.isApproved==1 && approval?.actionTaken==1"><span>Status : APPROVED</span><small>{{approval?.approveactionDate|date}}</small></span>
+          <span class="notification_status rejected_color" *ngIf="approval?.isApproved==0 && approval?.actionTaken==1" ><span>Status : REJECTED</span><small>{{approval?.approveactionDate|date}}</small></span>
+
         </div>
       </ion-col>
-      <ion-col size="12" size-md="6">
+      </ng-container>
+      <!-- <ion-col size="12" size-md="6">
         <div class="notification_block" size="12" size-md="6">
           <span class="notification_title"><span class="dynamic_color">Eicher
               485</span><small>15-Nov-2025</small></span>
@@ -66,7 +73,8 @@
           </div>
           <span class="notification_status pending_color"><span>Status : PENDING</span><small>15-Nov-2025</small></span>
         </div>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </div>
+     <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!dumyData?.length && !share?.globalLoading"></app-no-data-view>
 </ion-content>

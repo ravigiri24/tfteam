@@ -26,6 +26,7 @@ import { UploadScreenShotComponent } from 'src/app/new-arrivals-management/uploa
 import { AddDealerPriceComponent } from 'src/app/purchase-management/add-dealer-price/add-dealer-price.component';
 import { AddRtoInsuranceCostComponent } from '../add-rto-insurance-cost/add-rto-insurance-cost.component';
 import { SellBackComponent } from '../sell-back/sell-back.component';
+import { AllotStoreComponent } from '../allot-store/allot-store.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -173,6 +174,7 @@ export class TractorDashboardComponent implements OnInit {
 
     // }
   }
+
   async showDeliveryModal() {
     const modal = await this.modalCtrl.create({
       component: ConfirmDeliveryComponent,
@@ -402,6 +404,25 @@ export class TractorDashboardComponent implements OnInit {
   async openDealerPrice() {
     const modal = await this.modalCtrl.create({
       component: AddDealerPriceComponent,
+
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.dataEnterd) {
+      // this.tractorDetails.dealerPrice = data?.dealerPrice;
+      // this.tractorDetails.isSoldToDealer = true;
+      // this.tractorDetails.tractordetailadmin.wareHouseLocation =
+      //   data?.wareHouseLocation;
+      this.getTractorDetails('Refreshing Data...')
+    }
+  }
+    async allotStore() {
+    const modal = await this.modalCtrl.create({
+      component: AllotStoreComponent,
 
       cssClass: 'custom-modal',
       componentProps: {

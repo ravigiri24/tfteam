@@ -1,0 +1,33 @@
+
+<ion-header>  
+  <ion-toolbar>  
+    <ion-title >Allot Store</ion-title>
+
+    
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>  
+<ion-content class="ion-padding">
+<form [formGroup]="form">
+   <div class="global_input_block select_option_with_add">
+      <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
+      <ion-select formControlName="wareHouseLocation" fill="outline" label="Franchaise" label-placement="stacked">
+        <ion-select-option *ngFor="let type of wareHouseLocationList" [value]="type.id"> {{ type?.name
+          }}</ion-select-option>
+      </ion-select>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="getWareHouseLocationList()" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
+
+  <div class="login-button">
+
+    <ion-button (click)="updateWarehouseAllotement()"  style="text-align: center;" expand="block" >Allot</ion-button>
+
+
+  </div>
+
+</form></ion-content>

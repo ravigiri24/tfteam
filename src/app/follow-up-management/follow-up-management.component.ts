@@ -46,8 +46,17 @@ export class FollowUpManagementComponent implements OnInit {
     var yyyy = today.getFullYear();
 
     this.date = yyyy + '-' + mm + '-' + dd;
+this.getFollowListCall()
+ 
+  }
 
-    this.getFollowList();
+  getFollowListCall(){
+if(this.srcPage=='/sales-officer/so-dashbord'){
+
+   this.getFollowListEnquiry();
+}else{
+   this.getFollowList();
+}
   }
   backTodashboard(){
          this.router.navigate([this.srcPage])
@@ -159,6 +168,34 @@ export class FollowUpManagementComponent implements OnInit {
     this.share.showLoading('Loading...');
     this.customerList = [];
     this.api.postapi('getFollowupList', obj).subscribe(
+      (res: any) => {
+        this.followUpList = res.data;
+        res?.data?.forEach((f: any) => {
+          this.customerList.push(f?.customerDetails);
+        });
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        // this.followUpList?.forEach((f:any)=>{
+        //   this.followUpList.push(f)
+        // })
+        console.log('followUpList', this.followUpList);
+        this.share?.spinner?.dismiss('active_two');
+        this.loader = false;
+      },
+      (error: any) => {
+        this.loader = false;
+      }
+    );
+  }
+    getFollowListEnquiry() {
+    this.loader = true;
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId = this.staffDetails?.storeId;
+    this.share.showLoading('Loading...');
+    this.customerList = [];
+    this.api.postapi('getFollowupListEnquriyWise', obj).subscribe(
       (res: any) => {
         this.followUpList = res.data;
         res?.data?.forEach((f: any) => {

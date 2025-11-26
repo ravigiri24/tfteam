@@ -75,7 +75,7 @@ export class SalesOfficerDashboardComponent  implements OnInit {
     obj.storeId=this.selectedStore?.store_id
   //  this.share.showLoading('Loading...')
       this.customerListVisiting=[]
-    this.api.postapi('getVisitorList', obj).subscribe(
+    this.api.postapi('getVisitorListEnquriyWise', obj).subscribe(
       (res:any) => {
         //this.followUpList = res.data;
         res?.data?.forEach((f:any)=>{
@@ -105,7 +105,7 @@ export class SalesOfficerDashboardComponent  implements OnInit {
     obj.storeId =this.selectedStore?.store_id
     this.share.showLoading('Loading...');
     this.customerListFollowuplist = [];
-    this.api.postapi('getFollowupList', obj).subscribe(
+    this.api.postapi('getFollowupListEnquriyWise', obj).subscribe(
       (res: any) => {
      
         res?.data?.forEach((f: any) => {
