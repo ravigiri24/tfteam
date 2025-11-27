@@ -27,18 +27,27 @@ export class TractorListFranchiseComponent implements OnInit {
         let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
-    this.checkedAll = true;
+    // this.checkedAll = true;
+    // this.selectedBrand = [];
+    // this.lower = 0;
+    // this.listBy='ACTIVE'
+    // this.filterBy='NOT_SOLD'
+    // this.upper = 1500000;
+    // this.yearChecked = 'ALL';
+  this.resetFilterVal()
+    this.getBrandList();
+    this.getWareHouseList();
+
+    // this.getTractorList();
+  }
+  resetFilterVal(){
+       this.checkedAll = true;
     this.selectedBrand = [];
     this.lower = 0;
     this.listBy='ACTIVE'
     this.filterBy='NOT_SOLD'
     this.upper = 1500000;
     this.yearChecked = 'ALL';
-    //this.alltractorList = [];
-    this.getBrandList();
-    this.getWareHouseList();
-
-    // this.getTractorList();
   }
   brandList: any = [];
   selectedBrand: any = [];

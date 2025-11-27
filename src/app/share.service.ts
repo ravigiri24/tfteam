@@ -209,7 +209,16 @@ export class ShareService {
     tractor.imagesToShow = imagesToShow;
     tractor.imageslength = imagesToShow?.length;
   }
+getImagesToShowPut(tractor: any) {
+    let imagesToShow = tractor?.rawImages?.filter(
+      (img: any) =>
+        img?.imageGroup == 'BEFORE_SERVICE' ||
+        img?.imageGroup == 'AFTER_SERVICE'
+    );
 
+    tractor.imagesInTractor = imagesToShow;
+    tractor.imagesInTractorLength = imagesToShow?.length;
+  }
   globalLoading = false;
   async showLoading(message: any, duration: any = 7000) {
     this.activeCurrent = null;
@@ -223,6 +232,10 @@ export class ShareService {
     setTimeout(() => {
       this.globalLoading = false;
     }, duration);
+  }
+
+  putAllInWareHouse(warehouseList:any){
+ warehouseList.unshift({id:"ALL",name:"All"})
   }
 
   spinnerPopup: any;

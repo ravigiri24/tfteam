@@ -1,8 +1,8 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <!-- (ionChange)="getListByBrand()" -->
+   
         <span class="selected_text">Brand : </span>
         <ion-select class="selected_ddl" (ionChange)="getListByBrand()" [(ngModel)]="selectedBrand" label-placement="type">
           <ion-select-option *ngFor="let type of brandList" [value]="type.id"> {{ type?.name }}</ion-select-option>
@@ -11,13 +11,27 @@
       </div>
       <div class="right_action">
                 <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
-        <!-- <ion-icon (click)="getListByBrand()" name="create-outline"></ion-icon> -->
-        <!-- <ion-icon (click)="getBrandList(true)" name="refresh-outline"></ion-icon> -->
+
       </div>
     </ion-label>
-    <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
+
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+<app-common-header
+  [selectedStore]="selectedStore"
+  *ngIf="warehouseList?.length"
+  class="app_common_header"
+  [isListFilter]="true"
+  [brandList]="brandList"
+  [warehouseList]="warehouseList"
+  [listColorClass]="listColorClass"
+  [title]="'Tractors'"
+  [list]="alltractorList"
+  [showWareHouse]="true"
+  [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)"
+  (selectWareHouseAction)="tractorListStorewise($event)"
+></app-common-header>
 <ion-content>
   <!-- <ion-item class="bottom-margin">   
   </ion-item> -->
