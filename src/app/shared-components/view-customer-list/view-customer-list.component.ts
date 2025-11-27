@@ -38,8 +38,8 @@ export class ViewCustomerListComponent implements OnInit {
     // You can add animation logic here if needed
   }
   actionEvent(customer: any, button: any, index: any) {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.actionEventCall.emit({ customer, button, index });
-    }, 600);
+    // }, 600);
   }
 }

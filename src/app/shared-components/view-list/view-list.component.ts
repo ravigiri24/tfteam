@@ -72,9 +72,9 @@ export class ViewListComponent implements OnInit {
     // You can add animation logic here if needed
   }
   actionEvent(tractor: any, button: any) {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.actionEventCall.emit({ tractor, button });
-    }, 600);
+    // }, 600);
   }
   async viewImage(image: any) {
     const modal = await this.modalCtrl.create({
