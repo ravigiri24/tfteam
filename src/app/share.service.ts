@@ -235,7 +235,7 @@ getImagesToShowPut(tractor: any) {
   }
 
   putAllInWareHouse(warehouseList:any){
- warehouseList.unshift({id:"ALL",name:"All"})
+   warehouseList.unshift({id:"ALL",name:"All"})
   }
 
   spinnerPopup: any;

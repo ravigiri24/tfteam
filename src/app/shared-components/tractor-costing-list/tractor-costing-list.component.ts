@@ -75,8 +75,7 @@ export class TractorCostingListComponent implements OnInit {
             this.getAllTractorListStorewise();
             //this.share.spinner?.dismiss();
           }
-          this.share.putAllInWareHouse( this.warehouseList)
-         
+          this.share.putAllInWareHouse(this.warehouseList);
         },
         (error: any) => {}
       );
@@ -106,8 +105,10 @@ export class TractorCostingListComponent implements OnInit {
       (res: any) => {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
-        this.putMappedValue()
-        this.putImage()
+        this.putMappedValue();
+        this.putImage();
+        this.traceTractorPosition();
+        this.checkedRepairStatus();
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
         this.filterActiveAndFilterBy();
 
@@ -118,13 +119,100 @@ export class TractorCostingListComponent implements OnInit {
       (error: any) => {}
     );
   }
-  putImage(){
-        this.alltractorList?.forEach((tractor: any) => {
-      this.share.getImagesToShowPut(tractor)
-    })
-        this.allTractorsSrcList?.forEach((tractor: any) => {
-      this.share.getImagesToShowPut(tractor)
-    })
+  checkedRepairStatus() {
+    this.alltractorList?.forEach((tractor: any) => {
+      if (tractor?.repairMappedData?.length) {
+        if (tractor?.repairMappedData[0]?.isCompleted == 1) {
+          tractor.repairStatus = 'Refurbish Completed';
+        }
+        if (tractor?.repairMappedData[0]?.isCompleted == 0) {
+          tractor.repairStatus = 'Refurbish In Progress';
+        }
+      } else {
+        tractor.repairStatus = 'Not Availaible';
+      }
+    });
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.repairMappedData?.length) {
+        if (tractor?.repairMappedData[0]?.isCompleted == 1) {
+          tractor.repairStatus = 'Refurbish Completed';
+        }
+        if (tractor?.repairMappedData[0]?.isCompleted == 0) {
+          tractor.repairStatus = 'Refurbish In Progress';
+        }
+      } else {
+        tractor.repairStatus = 'Not Availaible';
+      }
+    });
+  }
+  traceTractorPosition() {
+    this.alltractorList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Trasport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+        tractor.tractor_status_current = 'At WareHouse';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        tractor.tractor_status_current = 'Alloted(At Dealer)';
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Transport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+          let arch=''
+        if( tractor?.tractor_status=='ARCHIVED'){
+          arch='(Archived)'
+        }
+        tractor.tractor_status_current = 'At WareHouse'+arch;
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        let arch=''
+        if( tractor?.tractor_status=='ARCHIVED'){
+          arch='(Archived)'
+        }
+        tractor.tractor_status_current = 'Alloted(At Dealer)'+arch;
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+  }
+  putImage() {
+    this.alltractorList?.forEach((tractor: any) => {
+      this.share.getImagesToShowPut(tractor);
+    });
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      this.share.getImagesToShowPut(tractor);
+    });
   }
   putMappedValue() {
     this.alltractorList?.forEach((trac: any) => {
@@ -134,7 +222,7 @@ export class TractorCostingListComponent implements OnInit {
         trac.isMapped = false;
       }
     });
-       this.allTractorsSrcList?.forEach((trac: any) => {
+    this.allTractorsSrcList?.forEach((trac: any) => {
       if (trac?.repairMappedData?.length > 0) {
         trac.isMapped = true;
       } else {
@@ -177,15 +265,22 @@ export class TractorCostingListComponent implements OnInit {
           (f: any) => f?.repairMappedData?.length == 0
         );
       }
-           if (this.filterBy == '0_IMAGE') {
+      if (this.filterBy == '0_IMAGE') {
         tractorList = tractorList?.filter(
           (f: any) => f?.imagesInTractor?.length == 0
         );
       }
-              if (this.filterBy == 'HAVE_IMAGE') {
-        tractorList = tractorList?.filter(
-          (f: any) => f?.imagesInTractor?.length > 0
-        );
+      if (this.filterBy == 'SOLD_TO_DEALER') {
+        tractorList = tractorList?.filter((f: any) => f?.isSoldToDealer == 1);
+      }
+      if (this.filterBy == 'SOLD_NOT_TO_DEALER') {
+        tractorList = tractorList?.filter((f: any) => f?.isSoldToDealer == 0);
+      }
+            if (this.filterBy == 'AT_WAREHOUSE') {
+        tractorList = tractorList?.filter((f: any) =>f?.isDraft == 1 &&
+        f?.isLive == 1 &&
+        f?.tractordetailadmin?.wareHouseLocation == null);
+        
       }
       
 
@@ -211,8 +306,8 @@ export class TractorCostingListComponent implements OnInit {
 
     filteredList = this.share.filterByManuYear(filteredList, this.yearChecked);
     this.alltractorList = filteredList;
-    if(this.alltractorList?.length>50){
-      this.share.showLoading("Rendering Data",2000)
+    if (this.alltractorList?.length > 50) {
+      this.share.showLoading('Rendering Data', 2000);
     }
   }
   headerDisplayArray = [
@@ -242,6 +337,9 @@ export class TractorCostingListComponent implements OnInit {
           { displayName: 'Not-Mapped', value: 'NOT_MAPPED' },
           { displayName: '0-Image', value: '0_IMAGE' },
           { displayName: 'Have Image', value: 'HAVE_IMAGE' },
+          { displayName: 'Sold(Dealer)', value: 'SOLD_TO_DEALER' },
+          { displayName: 'Not Sold(Dealer)', value: 'SOLD_NOT_TO_DEALER' },
+          { displayName: 'At Warehouse', value: 'AT_WAREHOUSE' },
         ],
         selectedBrand: this.selectedBrand,
         checkedAll: this.checkedAll,
@@ -276,13 +374,14 @@ export class TractorCostingListComponent implements OnInit {
   keyList: any = [
     { key: 'Model', value: 'name', type: 'INPUT' },
     { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
-     { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Hours', value: 'hours', type: 'INPUT' },
     { key: 'Price', value: 'price', type: 'INPUT' },
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
 
     { key: 'Is Sold', value: 'isSold', type: 'CONDITIONAL' },
     { key: 'Mapped To Repair', value: 'isMapped', type: 'CONDITIONAL' },
-
+    { key: 'Refurbish Status', value: 'repairStatus', type: 'INPUT' },
+    { key: 'Status', value: 'tractor_status_current', type: 'INPUT' },
 
     {
       key: 'Franchise(Alloted)',

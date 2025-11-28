@@ -86,6 +86,8 @@ export class TractorDashboardComponent implements OnInit {
   tractor_id: any;
   srcPage: any;
   ionViewWillEnter() {
+       let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
     this.activatedRoute.params.subscribe((params: any) => {
       this.tractor_id = params?.id;
       this.srcPage = params?.srcPage;
@@ -301,9 +303,43 @@ export class TractorDashboardComponent implements OnInit {
   backToSrcPage() {
     this.route.navigate([this.srcPage]);
   }
+    registerOnAchviedHistory(tractor:any){
+      let fromLive=true
+      if(tractor?.isDraft=="1"||tractor?.isLive=="0"){
+fromLive=false
+      }
+        let  getsession=JSON.parse(localStorage?.getItem('setSession')||'null');
+
+         let objData: any = {
+   
+      tractor_id:tractor?.id,
+      fromLive:fromLive,
+      isArchived:true,
+      actionByid:this.staffDetails?.id
+
+    };
+ 
+    let obj = {
+      data: objData,
+      src: 'achived_history',
+
+    };
+
+    this.api.postapi('addOpp', obj).subscribe(
+      (res:any) => {
+
+      },
+      (error:any) => {
+        this.share.presentToast("Erorr...")
+        
+      }
+    );
+  }  
+
   doArchive() {
     let objData: any = {
       tractor_status: 'ARCHIVED',
+      isDraft:true
     };
     let obj = {
       src: 'tractor',
@@ -314,6 +350,8 @@ export class TractorDashboardComponent implements OnInit {
     this.share.showLoading('Updating Data...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
+      this.getTractorDetails()
+      this.registerOnAchviedHistory(this.tractorDetails)
 
       this.share.presentToast('Archived Successfully...');
 
@@ -385,6 +423,7 @@ export class TractorDashboardComponent implements OnInit {
   doDraft() {
     let objData: any = {
       tractor_status: null,
+      isDraft:true
     };
     let obj = {
       src: 'tractor',
@@ -395,7 +434,8 @@ export class TractorDashboardComponent implements OnInit {
     this.share.showLoading('Updating Data...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
-
+   this.registerOnAchviedHistory(this.tractorDetails)
+      this.getTractorDetails()
       this.share.presentToast('Archived Successfully...');
 
       //  this.dismiss();

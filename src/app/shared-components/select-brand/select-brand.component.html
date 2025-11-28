@@ -14,13 +14,13 @@
     <ion-item
       [ngClass]="{'selected_model':modelForm.controls['modalID'].value===model?.id,'font-model':modelForm.controls['modalID'].value===model?.id}"
       (click)="selectModel(model)">
-      <ion-thumbnail class="list_imgbox" slot="start">
+      <!-- <ion-thumbnail class="list_imgbox" slot="start">
         <ion-card class="image_card">
           <ion-avatar>
             <img alt="{{model?.name}}" [src]="model?.logoUrl" />
           </ion-avatar>
         </ion-card>
-      </ion-thumbnail>
+      </ion-thumbnail> -->
       <ion-label class="right_details_block">
         <span class="model_name">{{model?.name}}</span>
         <span class="model_type">{{model?.brandName}}</span>
