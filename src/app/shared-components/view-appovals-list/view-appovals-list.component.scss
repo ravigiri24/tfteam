@@ -3,6 +3,7 @@
     flex-flow: wrap;
     gap: 2%;
     justify-content: space-evenly;
+    flex-flow: column;
 
     .notification_block {
         display: flex;
@@ -65,7 +66,6 @@
         .approved_color {
             background: #4CAF50;
         }
-
 
         .notification_desc {
             font-size: 12px;
