@@ -11,7 +11,9 @@ import { MasterSheetsComponent } from './master-sheets/master-sheets.component';
 import { PendingReportsComponent } from './pending-reports/pending-reports.component';
 import { LeadEmployeeMgmtComponent } from './lead-employee-mgmt/lead-employee-mgmt.component';
 import { StoreManagementComponent } from './store-management/store-management.component';
-import { TeamManagerComponent } from '../shared-components/team-manager/team-manager.component';
+//import { TeamManagerComponent } from '../shared-components/team-manager/team-manager.component';
+import { TeamManagerComponent } from '../sales-head-department/team-manager/team-manager.component';
+import { SalesOfficerComponent } from '../sales-head-department/sales-officer/sales-officer.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -28,7 +30,9 @@ const routes: Routes = [
          { path: 'tractor-costing', component: TractorCostingListComponent},
          { path: 'lead-mgmt-employee/:srcPage', component: LeadEmployeeMgmtComponent},
          { path: 'sales-manager-list/:srcPage', component: StoreManagementComponent},
+      //   { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
+         { path: 'sales-officer/:srcPage', component: SalesOfficerComponent},
          {
               path: 'view-costing-dashboard/:id',
               component: TractorCostingDashboardComponent,

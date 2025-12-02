@@ -268,7 +268,8 @@ getImagesToShowPut(tractor: any) {
           if (userde?.staff_role == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
           } else if (userde?.staff_role == 'OPERATIONAL') {
-            this.router.navigate(['/operational/buffer-stock']);
+          //  this.router.navigate(['/operational/buffer-stock']);
+            this.router.navigate(['/operational/all-tractor-management']);
           } else if (userde?.staff_role == 'PURCHASE') {
             this.router.navigate(['/purchase-management/inventory-list']);
           } else if (
@@ -305,13 +306,13 @@ getImagesToShowPut(tractor: any) {
           } else if (userde?.staff_role == 'SALES_OFFICER') {
             this.router.navigate(['/sales-officer/so-dashbord']);
           } else if (userde?.staff_role == 'SALES_HEAD') {
-            this.router.navigate(['/sales-head/sales-head-dashboard']);
+            this.router.navigate(['/sales-head/sales-head-enquiry-list']);
           }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
           } else if (userde?.currentRole == 'OPERATIONAL') {
-            this.router.navigate(['/operational/buffer-stock']);
+            this.router.navigate(['/operational/all-tractor-management']);
           } else if (userde?.currentRole == 'PURCHASE') {
             this.router.navigate(['/purchase-management/inventory-list']);
           } else if (
@@ -348,7 +349,7 @@ getImagesToShowPut(tractor: any) {
           } else if (userde?.currentRole == 'SALES_OFFICER') {
             this.router.navigate(['/sales-officer/so-dashbord']);
           } else if (userde?.currentRole == 'SALES_HEAD') {
-            this.router.navigate(['/sales-head/sales-head-dashboard']);
+            this.router.navigate(['/sales-head/sales-head-enquiry-list']);
           }
         }
       }

@@ -14,18 +14,24 @@ export class CommonHeaderComponent  implements OnInit {
   @Input() universalSelect: any=false;
   @Input() showWareHouse: any=false;
   @Input() warehouseList: any=[];
+  @Input() showFilterList: any=false;
+  @Input() allFilterList: any=[];
   @Input() brandList: any=[];
   @Input() optionsArray: any=[];
   @Input() list: any; //np
   @Output() actionEventHeader = new EventEmitter();
   @Output() optionActionEvent = new EventEmitter();
   @Output() selectWareHouseAction = new EventEmitter();
+  @Output() expandListEvent = new EventEmitter();
   @Input() headerDisplayArray: any=[]; //np
 
   // listBy = 'BUFFER';
   constructor() { }
 actionEventHeaderCall(e:any){
 this.actionEventHeader.emit(e)
+}
+expandListEventCall(){
+  this.expandListEvent.emit()
 }
 optionActionEventCall(){
   this.optionActionEvent.emit(this.selectedItem)

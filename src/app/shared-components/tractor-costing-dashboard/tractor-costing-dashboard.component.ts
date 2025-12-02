@@ -20,7 +20,7 @@ import { TractorSellsDetailsComponent } from 'src/app/tractor-sells-details/trac
 import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/tractor-finance-details.component';
 import { SellDocumentComponent } from 'src/app/sell-document/sell-document.component';
 import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expense-list/other-expense-list.component';
-
+import { ImageSliderComponent } from '../image-slider/image-slider.component';
 @Component({
   selector: 'app-tractor-costing-dashboard',
   templateUrl: './tractor-costing-dashboard.component.html',
@@ -28,8 +28,8 @@ import { OtherExpenseListComponent } from 'src/app/tractor-dashboard/other-expen
 })
 export class TractorCostingDashboardComponent implements OnInit {
   tractorDetails: any;
-  @Input() listColorClass: any = "fifthColor";
-  imageDummyUrl="../assets/images/gallary.png";
+  @Input() listColorClass: any = 'fifthColor';
+  imageDummyUrl = '../assets/images/gallary.png';
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
@@ -37,7 +37,7 @@ export class TractorCostingDashboardComponent implements OnInit {
     private api: ApiService,
     private route: Router,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
   dismiss() {
     this.modalCtrl.dismiss();
   }
@@ -77,11 +77,11 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.financeData = res?.data;
         console.log('financeData', this.financeData);
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
-  rtoCost: any = 0
-  insuranceCost: any = 0
+  rtoCost: any = 0;
+  insuranceCost: any = 0;
   sellingData: any;
   getDataByIDSellData() {
     let obj = this.share.getDataId(
@@ -93,15 +93,15 @@ export class TractorCostingDashboardComponent implements OnInit {
     this.api.postapi('getSellingDetailsByID', obj).subscribe(
       (res: any) => {
         this.sellingData = res?.data;
-        if(this.tractorDetails?.isSoldToDealer==0){
-   this.sellingPrice = Number(res?.data?.sellingPrice || 0);
-        }else if(this.tractorDetails?.isSoldToDealer==1){
-            this.sellingPrice = Number(this.tractorDetails?.dealerPrice || 0); 
+        if (this.tractorDetails?.isSoldToDealer == 0) {
+          this.sellingPrice = Number(res?.data?.sellingPrice || 0);
+        } else if (this.tractorDetails?.isSoldToDealer == 1) {
+          this.sellingPrice = Number(this.tractorDetails?.dealerPrice || 0);
         }
-     
+
         console.log('sellingData', this.sellingData);
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   getMaintanance() {
@@ -135,7 +135,7 @@ export class TractorCostingDashboardComponent implements OnInit {
           console.log('savedJobList', this.savedJobList);
         }, 0);
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   reduceItemList: any = [];
@@ -150,7 +150,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.calculateAmountMaintainance();
         this.combinedMaintainance();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   expenseMaterialList: any = [];
@@ -178,7 +178,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.calculateAmountMaintainance();
         this.combinedMaintainance();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   // getMaterialList() {
@@ -226,7 +226,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.otherExpenseCost = this.totalAmountOther;
         //    this.share.spinner.dismiss();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   expenseMaterialCost: any = 0;
@@ -321,7 +321,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         //   this.calculateAmount();
         // this.share.spinner.dismiss();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   expenseServiceList: any = [];
@@ -366,7 +366,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.calculateAmountMaintainance();
         this.combinedMaintainance();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   allMaintainance: any = [];
@@ -450,54 +450,102 @@ export class TractorCostingDashboardComponent implements OnInit {
             this.tractorDetails?.purchasedetail?.purchasePrice
           );
         }
-        this.rtoCost = Number(this.tractorDetails?.rto_cost || 0)
-        this.insuranceCost = Number(this.tractorDetails?.insurance_cost || 0)
-        this.getRawImagesCount()
-        this.getRTODataByID()
+        this.rtoCost = Number(this.tractorDetails?.rto_cost || 0);
+        this.insuranceCost = Number(this.tractorDetails?.insurance_cost || 0);
+        this.getRawImagesCount();
+        this.getRTODataByID();
         this.getDataByIDSellData();
         this.getDataByIDFinance();
         this.share.spinner.dismiss();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
-  imagesCount:any={
-    rc_new_rto:0
+  imagesCount: any = {
+    rc_new_rto: 0,
+  };
+  getRawImagesCount() {
+    this.imagesCount.rc_new_rto =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'RC_NEW_RTO'
+      )?.length || 0;
+    this.imagesCount.rto_aplication_form =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'RC_OLD_APPLICATION_FORM'
+      )?.length || 0;
+    this.imagesCount.rc_old_rto =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'RC_OLD_RTO'
+      )?.length || 0;
+    this.imagesCount.insurance_doc =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'INSURANCE_RTO'
+      )?.length || 0;
+    this.imagesCount.rto_doc =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'DOCUMENT_RTO'
+      )?.length || 0;
+    this.imagesCount.rto_noc_doc =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'NOC_DOCUMENT_RTO'
+      )?.length || 0;
+    this.imagesCount.finance_doc =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'FINANCE_DOCUMENTS'
+      )?.length || 0;
+    this.imagesCount.form_34 =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'FORM_34'
+      )?.length || 0;
+    this.imagesCount.bahi_khata =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'BAHI_KHATA'
+      )?.length || 0;
+    this.imagesCount.pan_card =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'PAN_CARD'
+      )?.length || 0;
+    this.imagesCount.adhar_card =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'ADHAR_CARD'
+      )?.length || 0;
+    this.imagesCount.sales_dead =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'SALE_DEAD'
+      )?.length || 0;
+    this.imagesCount.notary_letters =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'NOTARY_LETTERS'
+      )?.length || 0;
+    this.imagesCount.release_letters =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'RELEASE_LETTERS'
+      )?.length || 0;
+    this.imagesCount.payment_screenshot =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'PAYMENT_SCREENSHOT'
+      )?.length || 0;
+    this.imagesCount.before_service =
+      this.tractorDetails?.rawImages.filter(
+        (f: any) => f?.imageGroup == 'BEFORE_SERVICE'
+      )?.length || 0;
   }
-  getRawImagesCount(){
-   this.imagesCount.rc_new_rto= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RC_NEW_RTO')?.length || 0
-   this.imagesCount.rto_aplication_form= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RC_OLD_APPLICATION_FORM')?.length || 0
-   this.imagesCount.rc_old_rto= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RC_OLD_RTO')?.length ||0
-   this.imagesCount.insurance_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='INSURANCE_RTO')?.length ||0
-   this.imagesCount.rto_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='DOCUMENT_RTO')?.length ||0
-   this.imagesCount.rto_noc_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='NOC_DOCUMENT_RTO')?.length ||0
-   this.imagesCount.finance_doc= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='FINANCE_DOCUMENTS')?.length ||0
-   this.imagesCount.form_34= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='FORM_34')?.length ||0
-   this.imagesCount.bahi_khata= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='BAHI_KHATA')?.length ||0
-   this.imagesCount.pan_card= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='PAN_CARD')?.length ||0
-   this.imagesCount.adhar_card= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='ADHAR_CARD')?.length ||0
-   this.imagesCount.sales_dead= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='SALE_DEAD')?.length ||0
-   this.imagesCount.notary_letters= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='NOTARY_LETTERS')?.length ||0
-   this.imagesCount.release_letters= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='RELEASE_LETTERS')?.length ||0
-   this.imagesCount.payment_screenshot= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='PAYMENT_SCREENSHOT')?.length ||0
-   this.imagesCount.before_service= this.tractorDetails?.rawImages.filter((f:any)=>f?.imageGroup=='BEFORE_SERVICE')?.length ||0
-
-  }
-  rtoData: any
+  rtoData: any;
   getRTODataByID() {
-
-    let obj = this.share.getDataId(null, false, [], this.tractorDetails?.rtoDetailsId);
+    let obj = this.share.getDataId(
+      null,
+      false,
+      [],
+      this.tractorDetails?.rtoDetailsId
+    );
     this.api.postapi('getRTODetailsByID', obj).subscribe(
       (res: any) => {
         this.rtoData = res?.data;
 
-        console.log("rtoData", this.rtoData);
-
-
-
+        console.log('rtoData', this.rtoData);
       },
       (error: any) => {
-        this.share.spinner.dismiss()
+        this.share.spinner.dismiss();
       }
     );
   }
@@ -521,7 +569,7 @@ export class TractorCostingDashboardComponent implements OnInit {
         }
         // this.share.spinner.dismiss();
       },
-      (error: any) => { }
+      (error: any) => {}
     );
   }
   backToList() {
@@ -545,7 +593,7 @@ export class TractorCostingDashboardComponent implements OnInit {
       component: AddTransportStatusComponent,
       componentProps: {
         tractor_id: tractor_id,
-      },      
+      },
     });
     await modal.present();
     // const { data, role } = await modal.onWillDismiss();
@@ -571,6 +619,33 @@ export class TractorCostingDashboardComponent implements OnInit {
 
     if (role == 'confirm') {
       this.getTractorDetails('Refreshing Data...');
+    }
+  }
+  async viewInSlider(imageGroup: any) {
+    let imageArray = this.tractorDetails?.rawImages.filter(
+      (f: any) => f?.imageGroup == imageGroup
+    ) ||[];
+    let image = null;
+    if (imageArray?.length > 0) {
+      image = imageArray[0];
+    }
+    if(imageArray?.length){
+    const modal = await this.modalCtrl.create({
+      component: ImageSliderComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        image: image,
+        imageArray: imageArray,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+    }}
+    else{
+      this.share.presentToast("Images Not Availaible")
     }
   }
 }

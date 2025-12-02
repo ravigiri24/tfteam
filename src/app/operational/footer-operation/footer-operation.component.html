@@ -25,6 +25,13 @@
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'BUFFER'}">
         <span class="inner_text">Buffer</span></label>
     </ion-tab-button> -->
+          <ion-tab-button tab="Live" (click)="goToPage('Live')" [class.active]="selectedTab === 'Live'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'Live'">
+        <ion-icon name="list-outline" *ngIf="selectedTab !== 'Live'"></ion-icon>
+        <ion-icon name="list" *ngIf="selectedTab === 'Live'"></ion-icon>
+      </div>
+      <span class="inner_text">Live</span>
+    </ion-tab-button>
    <ion-tab-button tab="Customer" (click)="goToPage('BUFFER')" [class.active]="selectedTab === 'BUFFER'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'BUFFER'">
         <ion-icon name="bag-outline" *ngIf="selectedTab !== 'BUFFER'"></ion-icon>
@@ -38,13 +45,7 @@
       <label class="footer_text" [ngClass]="{'selected_tabs': selectedTab === 'Live'}"><span
           class="inner_text">Live</span></label>
     </ion-tab-button> -->
-       <ion-tab-button tab="Live" (click)="goToPage('Live')" [class.active]="selectedTab === 'Live'">
-      <div class="icon-wrapper" [class.selected]="selectedTab === 'Live'">
-        <ion-icon name="list-outline" *ngIf="selectedTab !== 'Live'"></ion-icon>
-        <ion-icon name="list" *ngIf="selectedTab === 'Live'"></ion-icon>
-      </div>
-      <span class="inner_text">Live</span>
-    </ion-tab-button>
+ 
     <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>
           <ion-icon *ngIf="selectedTab!=='Report'"  class="theme-color" name="book-outline"></ion-icon>

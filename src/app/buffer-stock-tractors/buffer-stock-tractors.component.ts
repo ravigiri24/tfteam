@@ -31,6 +31,8 @@ export class BufferStockTractorsComponent implements OnInit {
   ngOnInit() { }
   ionViewWillEnter() {
     this.buffertractorList = [];
+    this.holddingList=[]
+    this.allFilterList=[]
     this.getTractorList();
     this.filterBy = 'ALL';
   }
@@ -141,40 +143,97 @@ export class BufferStockTractorsComponent implements OnInit {
     }
   }
   listBy = 'BUFFER';
-  selectLiSTYPE() {
+  selectLiSTYPE(filteredList:any) {
     if (this.listBy == 'BUFFER') {
-      this.buffertractorList = this.buffertractorList.filter(
+    filteredList = filteredList.filter(
         (f: any) => f.tractor_status != 'ARCHIVED'
       );
     } else if (this.listBy == 'ARCHIVED') {
-      this.buffertractorList = this.buffertractorList.filter(
+     filteredList= filteredList.filter(
         (f: any) => f.tractor_status == 'ARCHIVED'
       );
     }
+    this.allFilterList=filteredList
+    if(filteredList?.length>30){
+       this.buffertractorList=filteredList.slice(0, 30);
+       this.holddingList= filteredList.slice(30,filteredList?.length);
+    }else{
+         this.buffertractorList=filteredList
+            this.holddingList=[]
+    }
+    setTimeout(() => {
+      this.share.spinner.dismiss()
+    }, 0);
+
+    this.holddingList?.forEach((tractor: any) => {
+      this.share.getImagesToShow(tractor)
+    })
+
   }
+    expandListEvent(){
+  //  this.share.showLoading("Rendering Data...")
+  this.share.presentToast("Expanding...")
+  setTimeout(() => {
+      if(this.buffertractorList?.length<this.allFilterList?.length){
+  this.buffertractorList = [...this.buffertractorList, ...this.holddingList]
+    }
+  }, 0);
+  
+  setTimeout(() => {
+    //this.share.spinner.dismiss()
+  }, 0);
+ 
+  }
+allFilterList:any=[]
+holddingList:any=[]
   sortByFilter() {
     this.buffertractorList = []
-    setTimeout(() => {
+    this.holddingList = []
+      let filteredList:any = [];
+    // setTimeout(() => {
+    //   if (this.filterBy == 'ALL') {
+    //     if (this.allTractorsSrcList?.length) {
+    //       this.buffertractorList = JSON.parse(
+    //         JSON.stringify(this.allTractorsSrcList)
+    //       );
+    //     } else {
+    //       this.buffertractorList = [];
+    //     }
+    //   }
+    //   if (this.filterBy == 'MAPPED') {
+    //     this.buffertractorList = this.allTractorsSrcList.filter(
+    //       (f: any) => f?.repairMappedData?.length > 0
+    //     );
+    //   }
+    //   if (this.filterBy == 'NOT_MAPPED') {
+    //     this.buffertractorList = this.allTractorsSrcList.filter(
+    //       (f: any) => f?.repairMappedData?.length == 0
+    //     );
+    //   }
+    //   this.selectLiSTYPE();
+    // }, 0);
+    this.share.showLoading("Rendering Data...")
+        setTimeout(() => {
       if (this.filterBy == 'ALL') {
         if (this.allTractorsSrcList?.length) {
-          this.buffertractorList = JSON.parse(
+         filteredList = JSON.parse(
             JSON.stringify(this.allTractorsSrcList)
           );
         } else {
-          this.buffertractorList = [];
+          filteredList = [];
         }
       }
       if (this.filterBy == 'MAPPED') {
-        this.buffertractorList = this.allTractorsSrcList.filter(
+      filteredList = this.allTractorsSrcList.filter(
           (f: any) => f?.repairMappedData?.length > 0
         );
       }
       if (this.filterBy == 'NOT_MAPPED') {
-        this.buffertractorList = this.allTractorsSrcList.filter(
+    filteredList = this.allTractorsSrcList.filter(
           (f: any) => f?.repairMappedData?.length == 0
         );
       }
-      this.selectLiSTYPE();
+      this.selectLiSTYPE(filteredList);
     }, 0);
 
   }
@@ -190,13 +249,22 @@ export class BufferStockTractorsComponent implements OnInit {
     };
     this.share.showLoading('Loading...');
     this.buffertractorList = []
+        let takingTime=true
+        setTimeout(() => {
+  if(takingTime){
+  this.share.presentToast("Taking Time,Please Wait...")
+}
+
+}, 2000);
     this.api.postapi('getBufferTractorList', obj).subscribe(
       (res: any) => {
         this.buffertractorList = res?.data;
         this.allTractorsSrcList = res?.data;
+         takingTime=false
+              this.share.spinner.dismiss('active_five');
         this.sortByFilter();
 
-        this.share.spinner.dismiss('active_five');
+   
         this.backupList = res.data;
       },
       (error: any) => { }

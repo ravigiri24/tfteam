@@ -18,13 +18,17 @@ export class SalesHeadFooterComponent  implements OnInit {
   }
 
  
-  selectedTab: any = 'Dashboard';
+  selectedTab: any = 'Enquiry';
 
   goToPage(tab: any) {
     this.selectedTab = tab
     if (tab == 'Dashboard') {
       this.activeTabsColor = "fourthColor";
       this.router.navigate(['/sales-head/sales-head-dashboard']);
+    }
+        if(tab == 'Enquiry') {
+      this.activeTabsColor = "fourthColor";
+      this.router.navigate(['/sales-head/sales-head-enquiry-list']);
     }
    
     else if (tab == 'User') {

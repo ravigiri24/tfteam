@@ -52,7 +52,7 @@ export class TractorCostingListComponent implements OnInit {
   warehouseList: any = [];
 
   allotedWareHouse: any = [];
-  getWareHouseList(loader: any = false) {
+  getWareHouseList() {
     let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
@@ -69,12 +69,12 @@ export class TractorCostingListComponent implements OnInit {
           this.warehouseList = this.warehouseList.reverse();
 
           console.log('this.warehouseList', this.warehouseList);
-          if (!loader) {
+          
             this.selectedStore = this.warehouseList[0]?.id;
 
             this.getAllTractorListStorewise();
             //this.share.spinner?.dismiss();
-          }
+          
           this.share.putAllInWareHouse(this.warehouseList);
         },
         (error: any) => {}
@@ -97,23 +97,35 @@ export class TractorCostingListComponent implements OnInit {
       store_id: this.selectedStore,
     };
     if (loader) {
-      this.share.showLoading('Loading...');
+      this.share.showLoading('Loading...',1000);
     }
     this.alltractorList = [];
+    let takingTime=true
+setTimeout(() => {
+  if(takingTime){
+  this.share.presentToast("Taking Time,Please Wait...")
+}
 
+}, 2000);
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
+   
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         this.putMappedValue();
         this.putImage();
         this.traceTractorPosition();
         this.checkedRepairStatus();
+        setTimeout(() => {
+                 this.share.spinner.dismiss('active_one');
+        }, 0);
+
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+           takingTime=false
         this.filterActiveAndFilterBy();
 
         //this.sortByFilter()
-        this.share.spinner.dismiss('active_one');
+  
         //this.backupList = res.data;
       },
       (error: any) => {}
@@ -234,6 +246,7 @@ export class TractorCostingListComponent implements OnInit {
   filterBy: any = 'NOT_SOLD';
 
   filterActiveAndFilterBy() {
+      this.share.showLoading('Rendering Data', 2000);
     this.alltractorList = [];
     setTimeout(() => {
       let tractorList: any = [];
@@ -305,11 +318,47 @@ export class TractorCostingListComponent implements OnInit {
     );
 
     filteredList = this.share.filterByManuYear(filteredList, this.yearChecked);
-    this.alltractorList = filteredList;
-    if (this.alltractorList?.length > 50) {
-      this.share.showLoading('Rendering Data', 2000);
+  this.allFilterList=filteredList
+    if(filteredList?.length>30){
+ this.alltractorList=filteredList.slice(0, 30);
+ this.holddingList= filteredList.slice(30,filteredList?.length);
+  
+    }else{
+    this.alltractorList=filteredList
+     this.holddingList=[]
     }
+
+
+//console.log("this.holddingList",this.holddingList,'this.alltractorList',this.alltractorList);
+
+   //this.alltractorList = filteredList;
+
+    // if (this.alltractorList?.length > 50) {
+    //   this.alltractorList=this.alltractorList.splice(50)
+    
+    // }else{
+    //   this.share.spinner.dismiss()
+    // }
+      this.holddingList?.forEach((tractor: any) => {
+      this.share.getImagesToShow(tractor)
+    })
   }
+  expandListEvent(){
+  //  this.share.showLoading("Rendering Data...")
+  this.share.presentToast("Expanding...")
+  setTimeout(() => {
+      if(this.alltractorList?.length<this.allFilterList?.length){
+  this.alltractorList = [...this.alltractorList, ...this.holddingList]
+    }
+  }, 0);
+  
+  setTimeout(() => {
+    //this.share.spinner.dismiss()
+  }, 0);
+ 
+  }
+  holddingList:any=[]
+  allFilterList:any=[]
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },

@@ -36,7 +36,7 @@ listColorClass='firstColor'
     this.getStaffListSO()
   }
     headerDisplayArray = [
-    // { name: 'Add Staff', icon: 'add-circle-outline' },
+    { name: 'Add Staff', icon: 'add-circle-outline' },
     { name: 'Back To Dashboard', icon: 'arrow-back-outline' },
 
   ];
@@ -63,7 +63,8 @@ listColorClass='firstColor'
 obj.staff_role='TERRITORY_MANAGER'
 obj.staff_id=this.staffDetails?.id
     setTimeout(() => {
-      this.api.postapi('getAllotedStaffRoleWise', obj).subscribe(
+    //  this.api.postapi('getAllotedStaffRoleWise', obj).subscribe(
+      this.api.postapi('getStaffListRoleWise', obj).subscribe(
         (res: any) => {
           this.staffList = res?.data;
      this.share.spinner.dismiss('active_one')
@@ -103,7 +104,8 @@ obj.staff_id=this.staffDetails?.id
   obj.staff_role='SALES_OFFICER'
   obj.state_id=this.staffDetails?.allotedState
       setTimeout(() => {
-        this.api.postapi('getStaffListRoleWiseStateWise', obj).subscribe(
+        this.api.postapi('getStaffListRoleWise', obj).subscribe(
+     //   this.api.postapi('getStaffListRoleWiseStateWise', obj).subscribe(
           (res: any) => {
             this.staffListSO = res?.data;
     

@@ -22,7 +22,12 @@
             </ion-select>
           </ng-container>
         </ng-container>
-        <b class="total-number">{{list?.length}}</b>
+        <b class="total-number">{{list?.length}}<span *ngIf="showFilterList">/{{allFilterList?.length}}
+                     <ion-icon (click)="expandListEventCall()" class="icon-size expand-icon" name="expand-outline"></ion-icon>
+                     <!-- <ion-button  (click)="expandListEventCall()" class="global_submit_color_button dynamic_bgcolor">
+        <span>Expand</span>
+      </ion-button> -->
+        </span></b>
       </div>
       <div class="right_action_collections">
         <div class="right_color_actions theme_btn dynamic_color" [ngClass]="{

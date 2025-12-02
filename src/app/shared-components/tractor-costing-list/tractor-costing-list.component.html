@@ -27,9 +27,12 @@
   [listColorClass]="listColorClass"
   [title]="'Tractors'"
   [list]="alltractorList"
+  [allFilterList]="allFilterList"
+  [showFilterList]="true"
   [showWareHouse]="true"
   [headerDisplayArray]="headerDisplayArray"
   (actionEventHeader)="actionEventHeader($event)"
+  (expandListEvent)="expandListEvent()"
   (selectWareHouseAction)="tractorListStorewise($event)"
 ></app-common-header>
 <ion-content>

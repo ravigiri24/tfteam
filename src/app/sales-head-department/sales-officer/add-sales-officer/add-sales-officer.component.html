@@ -30,7 +30,14 @@
               <div class="global_input_block">
         <ion-input label="Address" fill="outline" formControlName="address1" labelPlacement="stacked"  ></ion-input>
       </div>
-          
+       <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">Alloted State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+  </div>      
    <!-- <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
     <span class="top_layers">Alloted State</span>
     <span class="name_selected">{{stateName}}</span>

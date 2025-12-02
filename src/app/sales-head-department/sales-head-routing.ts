@@ -8,6 +8,7 @@ import { SalesHeadDashboardComponent } from './sales-head-dashboard/sales-head-d
 import { SalesHeadDepartmentComponent } from './sales-head-department.component';
 import { TeamManagerComponent } from './team-manager/team-manager.component';
 import { SalesOfficerComponent } from './sales-officer/sales-officer.component';
+import { EnquiryListSalesHeadComponent } from './enquiry-list-sales-head/enquiry-list-sales-head.component';
 const routes: Routes = [
   {
     path: "", component: SalesHeadDepartmentComponent,
@@ -16,6 +17,7 @@ const routes: Routes = [
    
        { path: 'user-management', component: UserManagementComponent},
        { path: 'sales-head-dashboard', component: SalesHeadDashboardComponent},
+       { path: 'sales-head-enquiry-list', component: EnquiryListSalesHeadComponent},
        { path: 'team-manager/:srcPage', component: TeamManagerComponent},
        { path: 'sales-officer/:srcPage', component: SalesOfficerComponent},
   

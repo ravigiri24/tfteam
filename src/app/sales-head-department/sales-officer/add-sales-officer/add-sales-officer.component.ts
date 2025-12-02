@@ -51,7 +51,7 @@ export class AddSalesOfficerComponent  implements OnInit {
       password: new FormControl(null, [Validators.required]),
 
       address1: new FormControl(data?.address1, [Validators.required]),
-      allotedState: new FormControl(this.staffDetails?.allotedState, [Validators.required]),
+      allotedState: new FormControl(data?.allotedState, [Validators.required]),
       staff_role: new FormControl('SALES_OFFICER', [Validators.required]),
 
       staffType: new FormControl('STAFF'),

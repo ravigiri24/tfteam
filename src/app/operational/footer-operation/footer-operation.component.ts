@@ -11,8 +11,8 @@ export class FooterOperationComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='BUFFER'
-    activeTabsColor = "fifthColor";
+  selectedTab:any='Live'
+    activeTabsColor = "sixColor";
   goToPage(tab:any){
   this.selectedTab=tab
   
