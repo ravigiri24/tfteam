@@ -368,6 +368,7 @@ export class AllTractorListComponent implements OnInit {
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
+      cssClass: 'midium-model',
       componentProps: {
         buttonArray: this.buttonArray,
         listColorClass: this.listColorClass,

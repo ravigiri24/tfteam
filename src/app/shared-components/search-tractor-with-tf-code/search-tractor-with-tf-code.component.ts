@@ -17,22 +17,22 @@ export class SearchTractorWithTfCodeComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private commonMethod: CommonMethodService
-  ) {}
-listColorClass='sevenColor'
+  ) { }
+  listColorClass = 'sevenColor'
   buttonArray: any = [];
   keyList: any = [];
 
   registractionNo = 'registractionNo';
-  ngOnInit() {}
+  ngOnInit() { }
   tractorList: any = [];
   staffDetails: any;
   isTractorFound: any;
-  obj:any
+  obj: any
   async actionEvent(e: any) {
     if (e?.button?.closeCurrentPopUP) {
       this.modalControl.dismiss();
     }
-    await this.commonMethod.actionEventCall(e,this.obj);
+    await this.commonMethod.actionEventCall(e, this.obj);
     if (this.commonMethod.reloadMethod) {
       this.searchTractor();
     }
@@ -42,9 +42,9 @@ listColorClass='sevenColor'
     this.searchTractor();
   }
   searchKey: any;
-  searchTractor() {
-    this.share.showLoading('Searching');
+  searchTractor() {    
     if (this.search?.tfCode) {
+      this.share.showLoading('Searching');
       let staffDetails: any = this.share.get_staff();
       this.staffDetails = JSON.parse(staffDetails);
 
@@ -53,7 +53,7 @@ listColorClass='sevenColor'
 
         tfCode: this.search.tfCode,
       };
-this.tractorList=[]
+      this.tractorList = []
       this.api.postapi('searchTractorByTfCode', obj).subscribe(
         (res: any) => {
           if (res?.data?.length) {

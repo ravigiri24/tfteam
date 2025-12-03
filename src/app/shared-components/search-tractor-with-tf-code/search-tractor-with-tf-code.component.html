@@ -1,25 +1,26 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Search Tractor</ion-title>  
-  
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title>Search Tractor</ion-title>
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
     <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
-
-  </ion-toolbar>  
-</ion-header>  
-<ion-content class="ion-padding">
-<ion-searchbar [(ngModel)]="search.tfCode" slot="fixed"
-placeholder="Enter TF Code"></ion-searchbar>
-<div class="button-style">
-  <ion-button class="button"  (click)="searchTractor()" expand="block">Search</ion-button>
-
-</div>
-<hr class="line-top-position"/>
-<span class="inner-heading-list top-margin-heading" *ngIf="tractorList?.length">Tractor</span>
-    <app-view-list *ngIf="tractorList?.length" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="searchFilter" (actionEventCall)="actionEvent($event)" [searchKey]="searchKey"></app-view-list>
-<!-- <ion-list class="list_row top-position scroll-body" *ngIf="tractorList?.length">
+  </ion-toolbar>
+</ion-header>
+<ion-content class="internal_card_container ion-padding" [ngClass]="listColorClass">
+  <div class="search_with_btn select_option_with_add">
+    <ion-searchbar [(ngModel)]="search.tfCode" slot="fixed" placeholder="Enter TF Code Ex: TF-123"></ion-searchbar>
+    <ion-button class="dynamic_bgcolor" (click)="searchTractor()" expand="block">
+      <ion-icon class="icon-size" name="search-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <!-- <span class="inner-heading-list top-margin-heading" *ngIf="tractorList?.length">Tractor</span> -->
+  <ion-card class="popup_search_container" *ngIf="tractorList?.length">
+    <app-view-list [listColorClass]="listColorClass"
+      [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="searchFilter"
+      (actionEventCall)="actionEvent($event)" [searchKey]="searchKey"></app-view-list>
+  </ion-card>
+  <!-- <ion-list class="list_row top-position scroll-body" *ngIf="tractorList?.length">
 
   <ion-item *ngFor="let tractor of tractorList;let in=index">
       <ion-row>
@@ -40,5 +41,4 @@ placeholder="Enter TF Code"></ion-searchbar>
               </ion-row>
   </ion-item>
 </ion-list> -->
-
 </ion-content>
