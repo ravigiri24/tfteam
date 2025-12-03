@@ -64,6 +64,9 @@ export class CreateComponent implements OnInit {
   }
   srcPage: any;
   ionViewWillEnter() {
+       let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
     this.createdJobDetails = null
     if (this.newTractorForm) {
       this.newTractorForm.reset()
@@ -328,7 +331,7 @@ export class CreateComponent implements OnInit {
 
       this.share.showLoading('Updating...');
 
-      obj.repair_center = this.staffDetails?.repair_center;
+    //  obj.repair_center = this.staffDetails?.repair_center;
       obj.actionById = this.staffDetails?.id;
       obj.operate = this.staffDetails?.staffCode;
       obj.id = this.jobId;

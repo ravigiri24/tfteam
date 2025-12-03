@@ -150,7 +150,7 @@ export class ReportFilterComponent implements OnInit {
         obj.startDate = this.form.controls['startDate'].value;
         obj.endDate = this.form.controls['endDate'].value;
         obj.jobType = this.form.controls['jobType'].value;
-
+         obj.repair_center=this.staffDetails?.repair_center
         this.share.showLoading('Fetching Report...');
         this.reportDatesRecord = obj;
         this.api.postapi('getJobListByDate', obj).subscribe(

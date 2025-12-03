@@ -6,6 +6,7 @@ import { SelectRoleComponent } from './select-role/select-role.component';
 import { ApiService } from '../api.service';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { SelectStoreComponent } from './select-store/select-store.component';
+import { SelectRepairCenterComponent } from './select-repair-center/select-repair-center.component';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -30,12 +31,34 @@ export class UserManagementComponent implements OnInit {
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
   }
+selectedRepairCenter:any
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
+        this.staffDetails = JSON.parse(staffDetails);
+  this.repairCenterList=[]
+  this.selectedRepairCenter=null
 
-    this.staffDetails = JSON.parse(staffDetails);
+    if(this.staffDetails?.staff_role=='REPAIR' && this.staffDetails?.isRepairHead ==1){
+      this.getRepairCenter()
+
+    }
     this.checkAuthenticationAndRoleList();
     // this.getTractorList();
+  }
+  repairCenterList:any=[]
+  getRepairCenter(){
+
+    let obj = this.share.getListObj('repairing_center', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        
+        this.repairCenterList = res?.data;
+        let find=this.repairCenterList.find((f:any)=>f.id==this.staffDetails?.repair_center)
+        this.selectedRepairCenter=find
+       },
+      (error: any) => {}
+    );
+  
   }
   selected_store: any;
   checkAuthenticationAndRoleList() {
@@ -132,6 +155,27 @@ export class UserManagementComponent implements OnInit {
       this.selected_store = data?.selectedStore;
       this.share.set_sales_officer_store(JSON.stringify(data?.selectedStore));
       this.setStoreSalesOfficer();
+    }
+  }
+    async showRepairList() {
+    const modal = await this.modalCtrl.create({
+      component: SelectRepairCenterComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        repairing_center:this.repairCenterList
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data && data?.isCenterChange) {
+      this.selectedRepairCenter = data?.selectedRepair_center;
+     let user: any = this.share.get_staff();
+      let userde = JSON.parse(user);
+      userde.repair_center = data?.selectedRepair_center?.id;
+      this.share.set_staff_detail_session(userde);
+    
     }
   }
   async updatePassword() {

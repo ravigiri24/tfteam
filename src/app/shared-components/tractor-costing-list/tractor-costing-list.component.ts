@@ -43,6 +43,7 @@ export class TractorCostingListComponent implements OnInit {
   resetFilterVal() {
     this.checkedAll = true;
     this.selectedBrand = [];
+    
     this.lower = 0;
     this.listBy = 'ACTIVE';
     this.filterBy = 'NOT_SOLD';

@@ -24,6 +24,7 @@ export class ReportsTractorComponent  implements OnInit {
 
     let obj = {
       operate: this.staffDetails?.staffCode,
+      repair_center:this.staffDetails?.repair_center
  
     };
     this.share.showLoading('Loading');

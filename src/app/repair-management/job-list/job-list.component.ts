@@ -142,6 +142,7 @@ this.deleteItem(e?.tractor)
     let obj = {
       operate: this.staffDetails?.staffCode,
       isCompleted: this.jobType,
+      repair_center:this.staffDetails?.repair_center
     };
     this.share.showLoading('Loading');
          this.jobList=[]

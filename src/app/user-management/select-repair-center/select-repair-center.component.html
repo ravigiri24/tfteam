@@ -1,0 +1,14 @@
+<ion-content  class="ion-padding ">
+  <div class="border-shape background">
+
+<div class="global_input_block " >
+  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="selectedRepairCenter" fill="outline" label="Select Repair Center" label-placement="type">
+   
+     <ion-select-option *ngFor="let repair of repairing_center" [value]="repair?.id">{{repair?.name}}</ion-select-option>
+
+ 
+ 
+  </ion-select>
+</div>
+</div>
+</ion-content>

@@ -166,11 +166,14 @@ export class BuildJobComponent implements OnInit {
     }
   }
   
- 
+ staffDetails:any
   deleteMaterialApi(mat: any,text:any) {
+        let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
     let obj = {
       src: 'repair_expense_costing',
-      data: { isDeleted: true },
+      data: { isDeleted: true,deletedBy:this.staffDetails?.id },
       id: mat?.id,
     };
 
@@ -189,6 +192,7 @@ export class BuildJobComponent implements OnInit {
   }
 
   async deleteReduce(mat: any,) {
+    
     const alert = await this.alertCtrl.create({
       header: "Delete Reduced Item",
       subHeader: '',
@@ -213,9 +217,11 @@ export class BuildJobComponent implements OnInit {
   
  
   deleteReduceApi(mat: any) {
+      let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
     let obj = {
       src: 'reduce_costing',
-      data: { isDeleted: true },
+      data:{ isDeleted: true,deletedBy:this.staffDetails?.id  },
       id: mat?.id,
     };
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ShareService } from './share.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { register } from 'swiper/element/bundle';
+import { ApiService } from './api.service';
 register();
 @Component({
   selector: 'app-root',
@@ -11,8 +12,9 @@ register();
 export class AppComponent {
   currentUrl:any
   showSplash=true
-  constructor(public share:ShareService,private router:Router,private activated:ActivatedRoute) {
+  constructor(public share:ShareService,private router:Router,private activated:ActivatedRoute,private api:ApiService) {
     console.log("share",this.share.showFooter);
+      // this.initializeApp();
        setTimeout(() => {
       this.showSplash = false;
     }, 4000);
@@ -64,5 +66,13 @@ else if(tab=='User'){
 }
 
 }
-
+  // initializeApp() {
+  //   this.api.isOnline$.subscribe(async isOnline => {
+  //     if (!isOnline) {
+  //       this.share.presentToast("No Internet Connection");
+  //     } else {
+  //        this.share.presentToast("Back Online");
+  //     }
+  //   });
+  // }
 }
