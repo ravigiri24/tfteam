@@ -23,11 +23,16 @@
           </ng-container>
         </ng-container>
         <b class="total-number">{{list?.length}}<span *ngIf="showFilterList">/{{allFilterList?.length}}
-                     <ion-icon (click)="expandListEventCall()" class="icon-size expand-icon" name="expand-outline"></ion-icon>
-                     <!-- <ion-button  (click)="expandListEventCall()" class="global_submit_color_button dynamic_bgcolor">
+
+            <!-- <ion-button  (click)="expandListEventCall()" class="global_submit_color_button dynamic_bgcolor">
         <span>Expand</span>
       </ion-button> -->
-        </span></b>
+          </span></b>
+        <span class="more_rows" (click)="expandListEventCall()" *ngIf="allFilterList?.length">
+          <ion-icon class="unfold_icon top_arrow" name="chevron-up-outline"></ion-icon>
+          <ion-icon class="dots_icon dynamic_color" name="ellipsis-vertical-outline"></ion-icon>
+          <ion-icon class="unfold_icon bottom_arrow" name="chevron-down-outline"></ion-icon>
+        </span>
       </div>
       <div class="right_action_collections">
         <div class="right_color_actions theme_btn dynamic_color" [ngClass]="{
@@ -43,7 +48,6 @@
               <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
                 <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
               </ng-container>
-
             </ng-container>
             <!-- <ion-icon class="icon-size" name="search-outline"></ion-icon>
             <ion-icon class="icon-size" name="refresh-outline"></ion-icon> -->

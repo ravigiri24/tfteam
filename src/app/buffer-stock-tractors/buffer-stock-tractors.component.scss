@@ -24,6 +24,35 @@
     text-align: center;
     width: 100%;
 }
+
 .app_common_header {
     position: relative;
+}
+
+.more_rows {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    position: relative;
+    width: 50px;
+    height: 32px;
+
+    ion-icon {
+        position: absolute;
+        font-size: 24px;
+    }
+
+    .top_arrow {
+        top: -10px;
+    }
+
+    .bottom_arrow {
+        bottom: -6px;
+    }
+
+    .dots_icon {
+        top: 5px;
+        left: 4.5px;
+        font-size: 16px;
+    }
 }
