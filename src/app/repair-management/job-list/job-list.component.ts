@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { RepairDashboardComponent } from '../repair-dashboard/repair-dashboard.component';
 import { CommonMethodService } from 'src/app/common-method.service';
+import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
@@ -167,6 +168,26 @@ job.modalName=job?.modelDetails?.name
       (error: any) => {}
     );
   }
+    async searchTractor() {
+      const modal = await this.modalControl.create({
+        component: SearchTractorWithTfCodeComponent,
+        componentProps: {
+          buttonArray: this.buttonArray,
+          listColorClass: this.listColorClass,
+          keyList: this.keyList,
+          searchFilter: this.search,
+          searchKey: 'registractionNo',
+          obj: { optionsUploadButtonArray: [] }
+        },
+             cssClass: 'midium-model',
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+      }
+    }
   openEdit(job: any) {
     this.router.navigate([
       '/repair-management/update-job',

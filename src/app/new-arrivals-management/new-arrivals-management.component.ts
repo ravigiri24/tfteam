@@ -162,7 +162,8 @@ export class NewArrivalsManagementComponent implements OnInit {
         keyList: this.keyList,
         searchFilter: this.search,
         searchKey: 'registractionNo',
-        obj: { optionsUploadButtonArray: [] }
+        obj: { optionsUploadButtonArray: [] },
+            cssClass: 'midium-model',
       },
     });
     await modal.present();

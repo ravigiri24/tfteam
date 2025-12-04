@@ -420,6 +420,7 @@ this.alltractorList=[]
         searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: [] },
       },
+          cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();

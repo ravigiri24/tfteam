@@ -400,6 +400,7 @@ export class LiveTractorListComponent implements OnInit {
         searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: this.optionsUploadButtonArray },
       },
+          cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
