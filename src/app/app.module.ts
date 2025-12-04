@@ -20,13 +20,13 @@ import { SharedModule } from './shared-components/shared.module';
 import { DigitalPageModule } from './digital/digital.module';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { LoaderColorfullComponent } from './shared-components/loader-colorfull/loader-colorfull.component';
-import { Network } from '@ionic-native/network/ngx';
+
 //import { Printer } from '@ionic-native/printer/ngx';
 @NgModule({
   declarations: [AppComponent,
     LoaderColorfullComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, SharedModule,SearchPipe],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, PDFGenerator,Network],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, PDFGenerator],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

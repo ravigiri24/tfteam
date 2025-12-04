@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { RepairDashboardComponent } from '../repair-dashboard/repair-dashboard.component';
 import { CommonMethodService } from 'src/app/common-method.service';
-import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
+import { SearchJobcardByTfComponent } from 'src/app/shared-components/search-jobcard-by-tf/search-jobcard-by-tf.component';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
@@ -170,7 +170,7 @@ job.modalName=job?.modelDetails?.name
   }
     async searchTractor() {
       const modal = await this.modalControl.create({
-        component: SearchTractorWithTfCodeComponent,
+        component: SearchJobcardByTfComponent,
         componentProps: {
           buttonArray: this.buttonArray,
           listColorClass: this.listColorClass,

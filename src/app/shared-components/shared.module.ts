@@ -70,7 +70,7 @@ import { FollowUpManagementComponent } from '../follow-up-management/follow-up-m
 import { ViewAppovalsListComponent } from './view-appovals-list/view-appovals-list.component';
 import { AllotStoreComponent } from './allot-store/allot-store.component';
 import { SelectRepairCenterComponent } from '../user-management/select-repair-center/select-repair-center.component';
-
+import { SearchJobcardByTfComponent } from './search-jobcard-by-tf/search-jobcard-by-tf.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -147,7 +147,8 @@ import { SelectRepairCenterComponent } from '../user-management/select-repair-ce
     FollowUpManagementComponent,
     ViewAppovalsListComponent ,
     AllotStoreComponent,
-    SelectRepairCenterComponent
+    SelectRepairCenterComponent,
+    SearchJobcardByTfComponent
     
   ],
 
