@@ -54,7 +54,7 @@
         left: calc(50% - 10em);
         width: 20em;
         height: 20em;
-        animation: spin 10s linear infinite;
+        animation: spin 5s linear infinite;
 
         .large.circle {
             box-shadow: 0 1em 2em rgba(0, 0, 0, 0.5);
@@ -83,7 +83,7 @@
         left: calc(50% - 10em);
         width: 20em;
         height: 20em;
-        animation: spin-pulse 20s linear infinite;
+        animation: spin-pulse 10s linear infinite;
         font-size: .875em;
         font-weight: 400;
 
