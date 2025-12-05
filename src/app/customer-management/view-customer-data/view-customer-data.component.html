@@ -40,7 +40,7 @@
         <ion-col class="date_col"> {{ customerSelected?.followUpDate?.next_lead_date|date  }}</ion-col>
       </ion-row>
     </div>
-    <div class="action_row">
+    <div *ngIf="showActionsButton" class="action_row">
       <ion-button (click)="addDemand()" class="dynamic_bgcolor" fill="clear">
         <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
         <span>Demand</span>
@@ -65,7 +65,7 @@
         <ion-col class="amount_col">
           <span>{{customerSelected?.soldStatus? "Yes" : "NO"}}</span>
         </ion-col>
-        <div class="action_row">
+        <div *ngIf="showActionsButton" class="action_row">
           <ion-button class="dynamic_bgcolor" *ngIf="customerSelected?.soldStatus" (click)="removeSoldStatus()"
             fill="clear">
             <ion-icon class="icon-size-add right-margin" name="remove-circle-outline"></ion-icon>

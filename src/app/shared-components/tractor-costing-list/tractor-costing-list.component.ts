@@ -43,7 +43,8 @@ export class TractorCostingListComponent implements OnInit {
   resetFilterVal() {
     this.checkedAll = true;
     this.selectedBrand = [];
-    
+    this.allFilterList=[]
+
     this.lower = 0;
     this.listBy = 'ACTIVE';
     this.filterBy = 'NOT_SOLD';
@@ -371,6 +372,7 @@ setTimeout(() => {
       this.openFilter();
     }
   }
+  
   async openFilter() {
     const modal = await this.modalCtrl.create({
       component: GlobalFilterTractorComponent,
@@ -396,6 +398,7 @@ setTimeout(() => {
         lower: this.lower,
         upper: this.upper,
         yearChecked: this.yearChecked,
+        brandList:this.brandList
       },
       cssClass: 'midium-model',
     });

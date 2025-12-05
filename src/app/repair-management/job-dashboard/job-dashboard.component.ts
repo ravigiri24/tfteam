@@ -40,6 +40,9 @@ export class JobDashboardComponent implements OnInit {
       (error: any) => { }
     );
   }
+    jobList(type:any){
+      //  this.router.navigate(['/repair-management/job-list',type])
+  }
   createJob() {
     this.router.navigate(['/repair-management/create-job', '/repair-management/job-dashboard'])
   }

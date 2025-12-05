@@ -126,10 +126,10 @@ export class CommonMethodService {
       await this.tractorPriceUpdate(e?.tractor);
     }
     if (e?.button?.name == 'Customer Remark') {
-      this.addRemark(e?.customer);
+      this.addRemark(e?.customer,e?.button);
     }
     if (e?.button?.name == 'Customer View') {
-      this.viewCustomer(e?.customer);
+      this.viewCustomer(e?.customer,e?.button);
     } else if (e?.button?.name == 'Edit Tractors New Arrivals') {
       this.editTractorsNewArrivals(e?.tractor);
     } else if (e?.button?.name == 'Assign TF') {
@@ -168,22 +168,32 @@ export class CommonMethodService {
     }
   }
 
-  async addRemark(customer: any = null) {
+  async addRemark(customer: any = null,button:any=null) {
+     let showScheduleRamrk=true
+     if(button?.showScheduleRamrk==false){
+      showScheduleRamrk=false
+     }
     const modal = await this.modalCtrl.create({
       component: ReviewPageComponent,
       componentProps: {
         customer: customer,
+        showScheduleRamrk:showScheduleRamrk
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
   }
-  async viewCustomer(customer: any = null) {
+  async viewCustomer(customer: any = null,button:any) {
+       let showActionsButton=true
+     if(button?.showActionsButton==false){
+      showActionsButton=false
+     }
     const modal = await this.modalCtrl.create({
       component: ViewCustomerDataComponent,
       componentProps: {
         customerSelected: customer,
+        showActionsButton:showActionsButton
       },
       cssClass: 'midium-model',
     });

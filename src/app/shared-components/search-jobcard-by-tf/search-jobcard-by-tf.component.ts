@@ -23,7 +23,9 @@ export class SearchJobcardByTfComponent  implements OnInit {
   keyList: any = [];
 
   registractionNo = 'registractionNo';
-  ngOnInit() { }
+  ngOnInit() {
+    
+   }
   tractorList: any = [];
   staffDetails: any;
   isTractorFound: any;
@@ -61,6 +63,7 @@ export class SearchJobcardByTfComponent  implements OnInit {
             this.tractorList = res?.data;
                    this.tractorList?.forEach((job:any)=>{
 job.modalName=job?.modelDetails?.name
+job.repairCenterName=job?.centerDetails?.name
        })
 
           } else {

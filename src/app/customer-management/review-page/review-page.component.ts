@@ -20,6 +20,7 @@ export class ReviewPageComponent  implements OnInit {
     this.staffDetails = JSON.parse(staffDetails);
     this.initializeNextDate(this.customer)
   }
+  showScheduleRamrk=true
   cancel(){
 this.modalCtl.dismiss()
   }

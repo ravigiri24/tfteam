@@ -216,6 +216,7 @@ this.getAllTractorListStorewise()
         lower: this.lower,
         upper: this.upper,
         yearChecked: this.yearChecked,
+        brandList:this.brandList
      
       },
       cssClass: 'midium-model',

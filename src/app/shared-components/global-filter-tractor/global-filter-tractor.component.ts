@@ -36,14 +36,30 @@ export class GlobalFilterTractorComponent implements OnInit {
     private share: ShareService,
     private api: ApiService
   ) {}
-lower=0
-upper=1500000
+  lower = 0;
+  upper = 1500000;
   ngOnInit() {
     console.log('optionsArray', this.optionsArray);
-    this.rangeValue.lower=this.lower
-    this.rangeValue.upper=this.upper
+    this.rangeValue.lower = this.lower;
+    this.rangeValue.upper = this.upper;
     this.initialize();
-    this.getBrandList();
+    this.setBrandList()
+    //  this.getBrandList();
+  }
+  setBrandList() {
+    this.brandList.forEach((ele: any) => {
+      ele.checked = true;
+    });
+    if (!this.checkedAll) {
+      this.brandList.forEach((ele: any) => {
+        let findInSelected = this.selectedBrand.filter(
+          (sBrand: any) => sBrand.id == ele.id
+        );
+        if (!findInSelected?.length) {
+          ele.checked = false;
+        }
+      });
+    }
   }
   brandList: any = [];
   selectedBrand: any = [];
@@ -95,35 +111,35 @@ upper=1500000
     }
     this.checkAllStatus();
   }
-  showRange=true
-  reset(){
-  this.checkedAll=true
-  this.brandList?.forEach((brand:any) => {
-    brand.checked=true
-  });
-  this.selectedBrand=this.brandList
-  this.lower=0
-  this.upper=1500000
-  this.rangeValue.lower=0
-  this.rangeValue.upper=1500000
-  this.yearChecked="ALL"
-  this.listBy='ACTIVE'
-  this.filterBy='NOT_SOLD'
-this.showRange=false
-setTimeout(() => {
-  this.showRange=true
-}, 0);
+  showRange = true;
+  reset() {
+    this.checkedAll = true;
+    this.brandList?.forEach((brand: any) => {
+      brand.checked = true;
+    });
+    this.selectedBrand = this.brandList;
+    this.lower = 0;
+    this.upper = 1500000;
+    this.rangeValue.lower = 0;
+    this.rangeValue.upper = 1500000;
+    this.yearChecked = 'ALL';
+    this.listBy = 'ACTIVE';
+    this.filterBy = 'NOT_SOLD';
+    this.showRange = false;
+    setTimeout(() => {
+      this.showRange = true;
+    }, 0);
   }
   applyFilter() {
     this.selectedBrand = this.brandList.filter((f: any) => f.checked == true);
     this.modalcontrol.dismiss({
       selectedBrand: this.selectedBrand,
       checkedAll: this.checkedAll,
-      lower:this.rangeValue.lower,
-      upper:this.rangeValue.upper,
-      yearChecked:this.yearChecked,
-      listBy:this.listBy,
-      filterBy:this.filterBy,
+      lower: this.rangeValue.lower,
+      upper: this.rangeValue.upper,
+      yearChecked: this.yearChecked,
+      listBy: this.listBy,
+      filterBy: this.filterBy,
     });
   }
   checkAllStatus() {
@@ -148,14 +164,14 @@ setTimeout(() => {
     console.log('this.dateForm', this.form.value);
   }
   rangeValue = { lower: 0, upper: 1500000 };
- yearChecked="ALL"
+  yearChecked = 'ALL';
   rangeChange(event: any) {
     this.rangeValue = event.detail.value;
     console.log('Range changed:', this.rangeValue);
   }
   selectItem(e: any) {
-    console.log("selectItem",e);
-    this.yearChecked=e?.detail?.value
+    console.log('selectItem', e);
+    this.yearChecked = e?.detail?.value;
   }
   dismiss() {
     this.modalcontrol.dismiss();

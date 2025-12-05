@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -18,7 +18,8 @@ export class JobListComponent implements OnInit {
     private router: Router,
     private modalControl: ModalController,
     private alertCtrl:AlertController,
-    private commonMethod:CommonMethodService
+    private commonMethod:CommonMethodService,
+    private activatedRoute:ActivatedRoute
   ) {}
   search: any = { tfCode: '', regNumber: '' };
   ngOnInit() {}
@@ -129,7 +130,18 @@ this.deleteItem(e?.tractor)
     { key: 'Hours', value: 'hours', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
+  showSearch=false
   ionViewWillEnter() {
+        let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+    if(this.staffDetails?.isRepairHead ==1){
+      this.showSearch=true
+    }
+    //    this.activatedRoute.params.subscribe((params: any) => {
+    //     if(params?.type){
+    //   this.jobType = params?.type;
+    //    }
+    // });
     this.jobList = [];
     this.jobType=false
     this.getJobList();
@@ -169,12 +181,17 @@ job.modalName=job?.modelDetails?.name
     );
   }
     async searchTractor() {
+      let keyList=JSON.parse(JSON.stringify(this.keyList))
+    let buttonArray:any=[]
+    buttonArray.push(this.dashboardObj)
+      buttonArray[0].closeCurrentPopUP=true,
+      keyList.push({ key: 'Repair Center', value: 'repair_centerName', type: 'INPUT' },)
       const modal = await this.modalControl.create({
         component: SearchJobcardByTfComponent,
         componentProps: {
-          buttonArray: this.buttonArray,
+          buttonArray: buttonArray,
           listColorClass: this.listColorClass,
-          keyList: this.keyList,
+          keyList: keyList,
           searchFilter: this.search,
           searchKey: 'registractionNo',
           obj: { optionsUploadButtonArray: [] }

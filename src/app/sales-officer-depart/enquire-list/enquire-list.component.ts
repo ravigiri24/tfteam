@@ -84,7 +84,7 @@ enquireList:any=[]
   getEnquirList() {
     this.enquireList = [];
     let obj:any = this.share.getStaffObj();
-    obj.storeId=this.selectedStore?.store_id
+    obj.storeId=[this.selectedStore?.store_id]
     if(this.selectedItem=='OPEN_ENQUIRE'){
     obj.enquiryType=true
     }else if(this.selectedItem=='CLOSED_ENQUIRE'){

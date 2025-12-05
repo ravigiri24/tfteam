@@ -22,6 +22,7 @@ export class ViewCustomerDataComponent implements OnInit {
   @Input() listColorClass: any = "fifthColor";
   nextFolloupHistory: any = [];
   chatHistory: any = [];
+  showActionsButton=true
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);

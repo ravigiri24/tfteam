@@ -61,6 +61,7 @@ export class RepairDashboardComponent implements OnInit {
       return false;
     }
   }
+
   inventoryArray: any = [];
   getInventoryName() {
     this.inventoryArray = [];

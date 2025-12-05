@@ -5,7 +5,7 @@
         <span *ngIf="listBy==='BUFFER'" class="selected_text">Buffer Stock :</span>
         <span *ngIf="listBy==='ARCHIVED'" class="selected_text">Archived:</span>
         <b class="total-number">{{buffertractorList?.length}}/{{allFilterList?.length}}</b>
-        <span class="more_rows" (click)="expandListEvent()" *ngIf="allFilterList?.length">
+        <span class="more_rows" (click)="expandListEvent()" *ngIf="allFilterList?.length && (buffertractorList?.length<allFilterList?.length)">
           <ion-icon class="unfold_icon top_arrow" name="chevron-up-outline"></ion-icon>
           <ion-icon class="dots_icon dynamic_color" name="ellipsis-vertical-outline"></ion-icon>
           <ion-icon class="unfold_icon bottom_arrow" name="chevron-down-outline"></ion-icon>

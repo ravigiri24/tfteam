@@ -194,7 +194,7 @@ export class ShareService {
       this.activeCurrent = `active_page ${param}`; // active_one to active_seven
       setTimeout(() => {
         this.globalLoading = false;
-      }, 10);
+      }, 0);
 
       // You can put your logic here (e.g., hiding loader UI)
     },
