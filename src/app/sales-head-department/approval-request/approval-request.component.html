@@ -1,3 +1,33 @@
-<p>
-  approval-request works!
-</p>
+<app-common-header
+  class="app_common_header"
+  [isListFilter]="true"
+  [listColorClass]="listColorClass"
+  [title]="'Approvals'"
+  [list]="approvalList"
+  *ngIf="allotedWareHouse?.length"
+  [universalSelect]="true"
+  [showWareHouse]="true"
+  [warehouseList]="allotedWareHouse"
+  [optionsArray]="optionsArray"
+  [selectedItem]="selectedItem"
+  [selectedStore]="selectedStore"
+  [showFilterList]="true"
+  [allFilterList]="allFilterList"
+  (expandListEvent)="expandListEvent()"
+  [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)"
+  (optionActionEvent)="optionActionEvent($event)"
+  (selectWareHouseAction)="listStorewise($event)"
+></app-common-header>
+<ion-content class="ion-padding" [ngClass]="listColorClass">
+  <app-view-approval-list
+    [listColorClass]="listColorClass"
+    *ngIf="approvalList?.length"
+    [approvalList]="approvalList"
+    (refreshList)="getingApprovalList()"
+  ></app-view-approval-list>
+  <app-no-data-view
+    [ngClass]="listColorClass"
+    *ngIf="!approvalList?.length && !share?.globalLoading"
+  ></app-no-data-view>
+</ion-content>

@@ -35,19 +35,20 @@ this.getingApprovalList()
   }
 
   approvalList:any=[]
+  selectedStore:any
     getingApprovalList() {
 
-// let obj:any= this.share.getStaffObj()
-// obj.requestBy=this.staffDetails?.id
-// obj.storeId=this.staffDetails?.storeId
-// obj.type=this.selectedType
-// this.approvalList=[]
-// this.share.showLoading("Getting Data...")
-//       this.api.postapi('getApporvalList',obj ).subscribe((res: any) => {
-//         this.share.spinner.dismiss();
-// this.approvalList=res?.data
+let obj:any= this.share.getStaffObj()
+obj.requestBy=this.staffDetails?.id
+obj.storeId=[this.selectedStore]
+obj.type=this.selectedType
+this.approvalList=[]
+this.share.showLoading("Getting Data...")
+      this.api.postapi('getApporvalList',obj ).subscribe((res: any) => {
+        this.share.spinner.dismiss();
+this.approvalList=res?.data
      
-//       });
+      });
   
 
 

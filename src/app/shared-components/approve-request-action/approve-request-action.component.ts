@@ -1,0 +1,90 @@
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { ApiService } from 'src/app/api.service';
+import { ShareService } from 'src/app/share.service';
+
+@Component({
+  selector: 'app-approve-request-action',
+  templateUrl: './approve-request-action.component.html',
+  styleUrls: ['./approve-request-action.component.scss'],
+})
+export class ApproveRequestActionComponent  implements OnInit {
+
+  constructor(
+    public modalCtrl: ModalController,
+    private formBuilder: FormBuilder,
+    private share: ShareService,
+    private api: ApiService
+  ) { }
+  @Input() listColorClass = 'sixColor';
+  dismiss() {
+    this.modalCtrl.dismiss();
+  }
+  form: FormGroup;
+  selectedStore:any
+  approval:any
+  ngOnInit() {
+    let staffDetails: any = this.share.get_staff();
+    console.log('staffDetails', staffDetails);
+    this.staffDetails = JSON.parse(staffDetails);
+
+ 
+    this.initialize(this.approval);
+  }
+  staffDetails: any;
+  initialize(data: any = null) {
+  
+    this.form = this.formBuilder.group({
+      approvedBy: new FormControl(this?.staffDetails?.id, [
+        Validators.required,
+      ]),
+      actionTaken: new FormControl(true, [Validators.required]),
+      approveactionDate: new FormControl(null, [Validators.required]),
+      apporveRemark: new FormControl(null, []),
+      isApproved: new FormControl( true, [Validators.required]),
+  
+    });
+   
+  }
+  modelName: any;
+  enquiry: any;
+  action() {
+  
+if(this.form.valid){
+    let objVal = this.form.value;
+
+
+    let obj = {
+      src: 'approvalfortractor',
+      data: objVal,
+      id: this.approval?.id,
+    };
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+      this.share.presentToast('Action Done Successfully...');
+      this.modalCtrl.dismiss(true);
+    });
+  }else{
+    this.share.presentToast("Please Fill Required Fields")
+  }
+  }
+
+ 
+  toggleChanged(e: any) {
+    console.log('e', e);
+    if (e?.detail?.checked == true) {
+    } else {
+      this.modelName = null;
+      this.form.controls['bookedModel'].setValue(null);
+      this.form.controls['willBuyDate'].setValue(null);
+      this.form.controls['bookedDate'].setValue(null);
+    }
+  }
+
+}

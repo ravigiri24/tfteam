@@ -71,6 +71,8 @@ import { ViewAppovalsListComponent } from './view-appovals-list/view-appovals-li
 import { AllotStoreComponent } from './allot-store/allot-store.component';
 import { SelectRepairCenterComponent } from '../user-management/select-repair-center/select-repair-center.component';
 import { SearchJobcardByTfComponent } from './search-jobcard-by-tf/search-jobcard-by-tf.component';
+import { ViewApprovalListComponent } from './view-approval-list/view-approval-list.component';
+import { ApproveRequestActionComponent } from './approve-request-action/approve-request-action.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -148,7 +150,9 @@ import { SearchJobcardByTfComponent } from './search-jobcard-by-tf/search-jobcar
     ViewAppovalsListComponent ,
     AllotStoreComponent,
     SelectRepairCenterComponent,
-    SearchJobcardByTfComponent
+    SearchJobcardByTfComponent,
+    ViewApprovalListComponent,
+    ApproveRequestActionComponent
     
   ],
 
@@ -168,7 +172,8 @@ import { SearchJobcardByTfComponent } from './search-jobcard-by-tf/search-jobcar
     EnquireCustomerListComponent,
     TeamManagerComponent,
     VisitingManagementComponent,
-    FollowUpManagementComponent
+    FollowUpManagementComponent,
+    ViewApprovalListComponent
    
   ],
   providers: [ApiService, InAppBrowser,],

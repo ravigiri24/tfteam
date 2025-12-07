@@ -15,6 +15,13 @@
       </div>
       <span class="inner_text">Enquiry</span>
     </ion-tab-button>
+       <ion-tab-button tab="Approvals" (click)="goToPage('Approvals')" [class.active]="selectedTab === 'Approvals'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'Approvals'">
+        <ion-icon name="file-tray-stacked-outline" *ngIf="selectedTab !== 'Approvals'"></ion-icon>
+        <ion-icon name="file-tray-stacked" *ngIf="selectedTab === 'Approvals'"></ion-icon>
+      </div>
+      <span class="inner_text">Approvals</span>
+    </ion-tab-button>
     <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'User'">
         <ion-icon name="person-circle-outline" *ngIf="selectedTab !== 'User'"></ion-icon>

@@ -56,7 +56,7 @@ tractor:any
       expectedDateOfSale: new FormControl(data?.approvePrice, []),
       remark: new FormControl(data?.remark, []),
   
-      storeId: new FormControl(data?.storeId || store_id, [Validators.required]),
+      storeId: new FormControl(this.selectedStore, [Validators.required]),
       actionByid: new FormControl(this?.staffDetails?.id, [Validators.required]),
       requestBy: new FormControl(this?.staffDetails?.id, [Validators.required]),
 
@@ -85,7 +85,7 @@ tractor:any
         src: 'approvalfortractor',
         data: objVal,
       };
-
+this.share.showLoading("Requesting")
       this.api.postapi('addOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss();
 

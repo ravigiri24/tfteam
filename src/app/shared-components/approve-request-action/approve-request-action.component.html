@@ -1,0 +1,37 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title>Approval Action</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+  <form [formGroup]="form">
+    <div class="global_input_block">
+      <ion-input label="Approval Date *" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
+        placeholder="Approval Date" formControlName="approveactionDate"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Remark" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
+        placeholder="Remark" formControlName="apporveRemark"></ion-input>
+    </div>
+  
+      <div class="global_input_block">
+      <ion-select formControlName="isApproved" fill="outline" label="Action *"
+        label-placement="type" labelPlacement="stacked">
+        <ion-select-option [value]="true"> Approved
+          </ion-select-option>
+           <ion-select-option [value]="false"> Reject
+          </ion-select-option>
+      </ion-select>
+     
+    </div>
+    <div class="page_flex_submit_btn">
+      <ion-button  (click)="action()" class="global_submit_color_button dynamic_bgcolor">
+       <span>Action</span>
+      </ion-button>
+
+    </div>
+  </form>
+</ion-content>

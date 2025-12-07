@@ -176,7 +176,7 @@ export class TractorListFranchiseComponent implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ViewAppovalsListComponent,
       componentProps: {
-    
+    selectedStore:this.selectedStore
       },
       cssClass: 'midium-model',
     });
@@ -190,7 +190,7 @@ export class TractorListFranchiseComponent implements OnInit {
  
   tractorListStorewise(e:any){
     this.selectedStore=e?.selectedStore
-this.getAllTractorListStorewise()
+this.getAllTractorListStorewise(true)
   }
 
   filterBy: any = 'ALL';

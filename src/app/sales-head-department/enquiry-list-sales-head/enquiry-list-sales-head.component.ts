@@ -165,9 +165,9 @@ export class EnquiryListSalesHeadComponent implements OnInit {
     this.api.postapi('get_customers_enquire', obj).subscribe(
       (res: any) => {
         this.allFilterList = res?.data;
-        if (res?.data?.length > 1) {
-          this.enquireList = res?.data?.slice(0, 1);
-          this.holddingList = res?.data?.slice(1, res.data?.length);
+        if (res?.data?.length > 20) {
+          this.enquireList = res?.data?.slice(0, 20);
+          this.holddingList = res?.data?.slice(20, res.data?.length);
         } else {
           this.enquireList = res?.data;
           this.holddingList = [];
