@@ -244,3 +244,72 @@
     top: 6px;
     font-size: 28px !important;
 }
+
+// latest dots css
+.total-number {
+    display: flex;
+}
+
+.more_data_load {
+    display: flex;
+}
+
+.unfold_icon {
+    margin-left: -6px;
+}
+.total_count 
+{
+    margin-left: 5px;
+}
+.three-dots-loader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 0px 0px 0px 8px;
+}
+
+.three-dots-loader .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #9e9e9e;
+    transform: scale(0.8);
+    animation: dotPulse 3s infinite ease-in-out;
+}
+
+.three-dots-loader .dot:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.three-dots-loader .dot:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes dotPulse {
+    0% {
+        transform: scale(0.8);
+        background: #9e9e9e;
+        opacity: 0.6;
+    }
+
+    30% {
+        transform: scale(1.2);
+        background: #00b8a9;
+        opacity: 1;
+        box-shadow: 0 0 4px rgba(0, 184, 169, 0.7);
+    }
+
+    60% {
+        transform: scale(0.9);
+        background: #bdbdbd;
+        opacity: 0.8;
+        box-shadow: none;
+    }
+
+    100% {
+        transform: scale(0.8);
+        background: #9e9e9e;
+        opacity: 0.6;
+    }
+}
