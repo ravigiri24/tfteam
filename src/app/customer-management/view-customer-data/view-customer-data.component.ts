@@ -22,7 +22,7 @@ export class ViewCustomerDataComponent implements OnInit {
   @Input() listColorClass: any = "fifthColor";
   nextFolloupHistory: any = [];
   chatHistory: any = [];
-  showActionsButton=true
+  showActionsButton = true
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -218,6 +218,7 @@ export class ViewCustomerDataComponent implements OnInit {
 
     const modal = await this.modalctr.create({
       component: SoldStatusEntryComponent,
+      cssClass: 'light-modal',
       componentProps: {
         customerDetails: this.customerSelected,
 

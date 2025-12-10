@@ -34,7 +34,7 @@ export class AddDemandComponent  implements OnInit {
     private toastController: ToastController,
     private modalCtrl: ModalController
   ) {}
-
+  @Input() listColorClass: any = "fifthColor";
   ngOnInit() {
     this.initialize()
   }

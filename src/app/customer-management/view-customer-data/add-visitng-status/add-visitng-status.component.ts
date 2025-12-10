@@ -24,7 +24,7 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './add-visitng-status.component.html',
   styleUrls: ['./add-visitng-status.component.scss'],
 })
-export class AddVisitngStatusComponent  implements OnInit {
+export class AddVisitngStatusComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private share: ShareService,
@@ -32,43 +32,43 @@ export class AddVisitngStatusComponent  implements OnInit {
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private modalCtrl: ModalController
-  ) {}
-
+  ) { }
+  @Input() listColorClass: any = "fifthColor";
   ngOnInit() {
     this.initialize()
   }
-    form:FormGroup
-    staffDetails:any
-    customerSelected:any
-    initialize(){
-     let staffDetails: any = this.share.get_staff();
-    
-       this.staffDetails = JSON.parse(staffDetails);
-       this.form = this.fb.group({
-         actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
-         visitng_type: new FormControl('WILL_VISIT',  [Validators.required]),
-         visiting_date: new FormControl(null,  []),
-         remark: new FormControl(null,  []),
-         customer_id: new FormControl(this.customerSelected?.id,  [Validators.required]),
-      
-       });
-     }
-  saveForm(){
-    if(this.form?.valid){
-     let obj = {
+  form: FormGroup
+  staffDetails: any
+  customerSelected: any
+  initialize() {
+    let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
+    this.form = this.fb.group({
+      actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
+      visitng_type: new FormControl('WILL_VISIT', [Validators.required]),
+      visiting_date: new FormControl(null, []),
+      remark: new FormControl(null, []),
+      customer_id: new FormControl(this.customerSelected?.id, [Validators.required]),
+
+    });
+  }
+  saveForm() {
+    if (this.form?.valid) {
+      let obj = {
         src: 'visiting_status',
         data: this.form.value,
       };
       this.share.showLoading("Saving")
-      this.api.postapi('addOpp', obj).subscribe((res:any) => {
-     
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+
         this.share.spinner?.dismiss();
-      this.share.presentToast("Status Saved")
-      this.modalCtrl.dismiss({isAdd:true})
-    
+        this.share.presentToast("Status Saved")
+        this.modalCtrl.dismiss({ isAdd: true })
+
       });
     }
-    else{
+    else {
       this.share.presentToast("Please fill required fields")
     }
   }

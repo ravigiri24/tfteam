@@ -26,7 +26,7 @@ import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-po
   templateUrl: './sold-status-entry.component.html',
   styleUrls: ['./sold-status-entry.component.scss'],
 })
-export class SoldStatusEntryComponent  implements OnInit {
+export class SoldStatusEntryComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -36,17 +36,18 @@ export class SoldStatusEntryComponent  implements OnInit {
     private toastController: ToastController,
     private modalCntrol: ModalController,
     private router: Router,
-    private activatedRoute:ActivatedRoute
-) {}
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-         this.initialize()
-   this.getBrandList()
+    this.initialize()
+    this.getBrandList()
 
   }
-  brandList:any=[]
-  data:any
-    getBrandList() {
+  @Input() listColorClass: any = "fifthColor";
+  brandList: any = []
+  data: any
+  getBrandList() {
     this.share.showLoading('Loading...');
     let obj = this.share.getListObj('brand', false, [], true);
     this.api.postapi('getList', obj).subscribe(
@@ -59,54 +60,54 @@ export class SoldStatusEntryComponent  implements OnInit {
         this.getModelList();
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  save(){
-        if(this.form?.valid){
-     let obj = {
+  save() {
+    if (this.form?.valid) {
+      let obj = {
         src: 'sold_customer_record',
         data: this.form.value,
       };
       this.share.showLoading("Saving")
-      this.api.postapi('addOpp', obj).subscribe((res:any) => {
-     
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+
         this.share.spinner?.dismiss();
-      this.share.presentToast("Saved...")
-       this.modalCntrol.dismiss(true)
-    
+        this.share.presentToast("Saved...")
+        this.modalCntrol.dismiss(true)
+
       });
     }
-    else{
+    else {
       this.share.presentToast("Please fill required fields")
     }
 
   }
-  update(){
-    if(this.form?.valid){
-     let obj = {
+  update() {
+    if (this.form?.valid) {
+      let obj = {
         src: 'sold_customer_record',
         data: this.form.value,
-        id:this.customerDetails?.soldStatus?.id
+        id: this.customerDetails?.soldStatus?.id
       };
       this.share.showLoading("Updating")
-      this.api.postapi('updateOpp', obj).subscribe((res:any) => {
-     
+      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+
         this.share.spinner?.dismiss();
-      this.share.presentToast("Updated Successfully...")
-      this.modalCntrol.dismiss(true)
-    
+        this.share.presentToast("Updated Successfully...")
+        this.modalCntrol.dismiss(true)
+
       });
     }
-    else{
+    else {
       this.share.presentToast("Please fill required fields")
     }
   }
 
-  dismiss(){
+  dismiss() {
     this.modalCntrol.dismiss()
   }
-    modelList: any = [];
+  modelList: any = [];
   modelListAll: any = [];
   getModelList() {
     this.modelList = [];
@@ -122,10 +123,10 @@ export class SoldStatusEntryComponent  implements OnInit {
         }
         this.share?.spinner?.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-    getModelsbyBrand(setValue: any = true) {
+  getModelsbyBrand(setValue: any = true) {
     if (setValue) {
       this.form.controls['model_id'].setValue(null);
     }
@@ -137,8 +138,8 @@ export class SoldStatusEntryComponent  implements OnInit {
     }
   }
   staffDetails: any;
-  form:FormGroup
-  customerDetails:any
+  form: FormGroup
+  customerDetails: any
   initialize() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
@@ -155,9 +156,9 @@ export class SoldStatusEntryComponent  implements OnInit {
       tfCode: new FormControl(this.customerDetails?.soldStatus?.tfCode || null, [Validators.required]),
       customer_id: new FormControl(this.customerDetails?.id || null, [Validators.required]),
       dateOfSale: new FormControl(this.customerDetails?.soldStatus?.dateOfSale || null, [Validators.required]),
-  
-    
-   
+
+
+
     });
   }
 }

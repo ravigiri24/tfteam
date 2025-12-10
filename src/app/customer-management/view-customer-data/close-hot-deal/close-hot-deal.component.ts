@@ -41,6 +41,7 @@ export class CloseHotDealComponent implements OnInit {
     this.staffDetails = JSON.parse(staffDetails);
   }
   hotDeal: any;
+  @Input() listColorClass: any = "fifthColor";
   saveForm() {
     let objVal = {
       close_remark: this.close_remark,

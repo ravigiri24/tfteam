@@ -255,6 +255,7 @@ app-salary-slip {
       color: var(--app-secondary-color);
       filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.15));
       transition: transform 0.2s ease, filter 0.2s ease;
+
       &:hover {
         transform: translateY(-2px) scale(1.08);
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35)) drop-shadow(0px 6px 8px rgba(0, 0, 0, 0.25));
@@ -263,10 +264,64 @@ app-salary-slip {
   }
 }
 
+.bottom_small_popup {
+  padding-top: 20px;
+}
+
 .displaynone {
   display: none;
 }
 
+// .light-modal {
+//   border-radius: 10px;
+//   ion-backdrop {
+//     background: #f5f5f5 !important;
+//     background: rgba(0, 0, 0, 0.15);
+//     border-radius: 12px;
+//     box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+//   }
+// }
+// .light-modal ion-backdrop {
+//   background: rgba(0,0,0,0.15) !important;
+// }
+// .light-modal .modal-wrapper {
+//   background: #f5f5f5 !important;   
+//   border-radius: 12px !important;
+//   box-shadow: 0 8px 25px rgba(0,0,0,0.25) !important;
+//   padding: 10px;  
+// }
+// .light-modal ion-backdrop {
+//   background: rgba(0,0,0,0.15) !important;
+// }
+// .light-modal ion-content {
+//   --background: #f5f5f5 !important;
+// }
+// /* BACKDROP */
+// .light-modal ion-backdrop {
+//   background: rgba(0,0,0,0.15) !important;
+// }
+
+// /* MODAL BACKGROUND */
+// .light-modal .modal-wrapper {
+//   background: #f5f5f5 !important;
+//   border-radius: 12px !important;
+//   box-shadow: 0 8px 25px rgba(0,0,0,0.25) !important;
+// }
+
+// /* FIX: CONTENT INSIDE POPUP */
+// .light-modal ion-content {
+//   --background: #f5f5f5 !important;
+// }
+
+// /* FIX: SOME IONIC PAGES WRAP CONTENT */
+// .light-modal .ion-page,
+// .light-modal app-sold-status-entry {
+//   background: #f5f5f5 !important;
+// }
+.light-modal {
+  --backdrop-opacity: 0.3 !important;
+  // --backdrop-color: rgba(0, 0, 0, 0.3) !important;
+}
 .icon-size {
   font-size: 24px;
 }

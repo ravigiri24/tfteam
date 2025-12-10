@@ -1,12 +1,12 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
         <span class="selected_text">Customer Details </span>
       </div>
       <div class="right_action">
-        <ion-icon class="theme-color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
+        <ion-icon class="dynamic_color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
       </div>
     </ion-label>
   </ion-toolbar>
