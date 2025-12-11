@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -16,12 +16,14 @@ import {
 export class AddLeadStaffComponent implements OnInit {
   showFilter = true;
   name: any;
+
+  @Input() listColorClass: any = "firstColor";
   constructor(
     private modalcontrol: ModalController,
     private share: ShareService,
     private api: ApiService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
   isNoc: any = true;
 
   staffDetails: any;
@@ -53,7 +55,7 @@ export class AddLeadStaffComponent implements OnInit {
 
       staffType: new FormControl('STAFF'),
     });
-    if(this.editedData){
+    if (this.editedData) {
       this.form.controls['password'].clearValidators()
       this.form.updateValueAndValidity()
     }
@@ -76,7 +78,7 @@ export class AddLeadStaffComponent implements OnInit {
           this.warehouseList = this.warehouseList.reverse();
           this.share.spinner.dismiss();
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     }, 0);
   }
@@ -150,10 +152,10 @@ export class AddLeadStaffComponent implements OnInit {
     if (this.form.valid) {
       let objVal: any = this.form.value;
       objVal.userId = objVal?.userId?.trim();
-      if(objVal.password!=null ||  objVal.password!=undefined){
-      objVal.password = objVal?.password.trim();
-      }else{
-        delete  objVal.password 
+      if (objVal.password != null || objVal.password != undefined) {
+        objVal.password = objVal?.password.trim();
+      } else {
+        delete objVal.password
       }
 
       let obj = {

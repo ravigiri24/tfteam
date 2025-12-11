@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -14,16 +14,16 @@ import { SelectWithSearchComponent } from 'src/app/shared-components/select-with
   templateUrl: './add-sales-manager.component.html',
   styleUrls: ['./add-sales-manager.component.scss'],
 })
-export class AddSalesManagerComponent  implements OnInit {
-
- showFilter = true;
+export class AddSalesManagerComponent implements OnInit {
+  @Input() listColorClass: any = "firstColor";
+  showFilter = true;
   name: any;
   constructor(
     private modalcontrol: ModalController,
     private share: ShareService,
     private api: ApiService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
   isNoc: any = true;
 
   staffDetails: any;
@@ -32,7 +32,7 @@ export class AddSalesManagerComponent  implements OnInit {
     let getStaffDetail: any = this.share.get_staff();
     this.staffDetails = JSON.parse(getStaffDetail);
     this.getStateList()
-   // this.getWareHouseList();
+    // this.getWareHouseList();
     this.initialize(this.editedData);
   }
   dismiss() {
@@ -56,7 +56,7 @@ export class AddSalesManagerComponent  implements OnInit {
 
       staffType: new FormControl('STAFF'),
     });
-    if(this.editedData){
+    if (this.editedData) {
       this.form.controls['password'].clearValidators()
       this.form.updateValueAndValidity()
     }
@@ -79,7 +79,7 @@ export class AddSalesManagerComponent  implements OnInit {
           this.warehouseList = this.warehouseList.reverse();
           this.share.spinner.dismiss();
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     }, 0);
   }
@@ -112,7 +112,7 @@ export class AddSalesManagerComponent  implements OnInit {
       // let uniqueNum = Date.now();
       // let name = this.form.value.name;
       // objVal.staffCode = rand + name + uniqueNum + '@tractorFactory.in';
-         objVal.staffCode=this.share.getStaffCOde(this.form.value.name)
+      objVal.staffCode = this.share.getStaffCOde(this.form.value.name)
       let obj = {
         src: 'staffdetails',
         data: objVal,
@@ -130,7 +130,7 @@ export class AddSalesManagerComponent  implements OnInit {
       this.share.presentToast('Please Fill All Required Field(*)');
     }
   }
-    stateList: any = [];
+  stateList: any = [];
   stateName: any;
   cityName: any;
   getStateList() {
@@ -147,44 +147,44 @@ export class AddSalesManagerComponent  implements OnInit {
             this.stateName = find?.name;
           }
         }
-     this.share.spinner.dismiss()
+        this.share.spinner.dismiss()
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   async selectItem(list: any, itemName: any, table_name: any) {
- 
 
-      const modal = await this.modalcontrol.create({
-        component: SelectWithSearchComponent,
-        componentProps: {
-          list: list,
-          itemName: itemName,
-          table_name: table_name,
-          showAddButton:false,
-          jsonKey: 'name',
-          search: {
-            name: null,
-          },
+
+    const modal = await this.modalcontrol.create({
+      component: SelectWithSearchComponent,
+      componentProps: {
+        list: list,
+        itemName: itemName,
+        table_name: table_name,
+        showAddButton: false,
+        jsonKey: 'name',
+        search: {
+          name: null,
         },
-        cssClass: 'midium-model',
-      });
-      await modal.present();
+      },
+      cssClass: 'midium-model',
+    });
+    await modal.present();
 
-      const { data, role } = await modal.onWillDismiss();
-      if (itemName == 'State') {
-        if (data) {
-          this.form.controls['allotedState'].setValue(data?.id);
- 
-          this.stateName = data?.name;
-       
-        }
-      }
-      console.log('role', role, data);
+    const { data, role } = await modal.onWillDismiss();
+    if (itemName == 'State') {
+      if (data) {
+        this.form.controls['allotedState'].setValue(data?.id);
 
-      if (role === 'confirm') {
+        this.stateName = data?.name;
+
       }
-    
+    }
+    console.log('role', role, data);
+
+    if (role === 'confirm') {
+    }
+
   }
   checkingUserIdOnUpdate() {
     if (this.form.valid) {
@@ -210,10 +210,10 @@ export class AddSalesManagerComponent  implements OnInit {
     if (this.form.valid) {
       let objVal: any = this.form.value;
       objVal.userId = objVal?.userId?.trim();
-      if(objVal.password!=null ||  objVal.password!=undefined){
-      objVal.password = objVal?.password.trim();
-      }else{
-        delete  objVal.password 
+      if (objVal.password != null || objVal.password != undefined) {
+        objVal.password = objVal?.password.trim();
+      } else {
+        delete objVal.password
       }
 
       let obj = {

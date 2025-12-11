@@ -1,19 +1,16 @@
-<ion-header >
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-label class="top_heading">
-      <div class="left_text">
-        Add Sales Manager
-  
-      </div>
-      <div class="right_action">
-  
-        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+      <div class="left_text" *ngIf="!editedData">Add Sales Manager</div>
+      <div class="left_text" *ngIf="editedData">Update Sales Manager</div>
+      <div class="right_action">  
+        <ion-icon (click)="dismiss()" class="dynamic_color" name="close"></ion-icon>
       </div>
     </ion-label>
 
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" [ngClass]="listColorClass">
   <form *ngIf="form" [formGroup]="form">
      <div class="global_input_block">
         <ion-input label="Name" fill="outline" formControlName="name" labelPlacement="stacked" type="text" ></ion-input>
@@ -39,11 +36,11 @@
       <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
     </ion-select> -->
   </div>
-        <div class="row" >
-    <ion-button *ngIf="!editedData"  (click)="checkingUserId()" class="global_submit_button" >
+        <div class="page_submit_btn" >
+    <ion-button *ngIf="!editedData"  (click)="checkingUserId()" class="global_submit_color_button dynamic_bgcolor" >
     
       Add</ion-button>
-          <ion-button (click)="checkingUserIdOnUpdate()" *ngIf="editedData"  class="global_submit_button" >
+          <ion-button (click)="checkingUserIdOnUpdate()" *ngIf="editedData"  class="global_submit_color_button dynamic_bgcolor" >
     
       Update</ion-button>
     </div>

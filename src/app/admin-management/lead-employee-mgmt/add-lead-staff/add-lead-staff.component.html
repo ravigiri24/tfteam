@@ -1,48 +1,45 @@
-<ion-header >
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-label class="top_heading">
-      <div class="left_text">
-        Add Staff
-  
-      </div>
+      <div class="left_text" *ngIf="editedData">Update Staff</div>
+      <div class="left_text" *ngIf="!editedData">Add Staff</div>
       <div class="right_action">
-  
-        <ion-icon (click)="dismiss()" name="close"></ion-icon>
+
+        <ion-icon (click)="dismiss()" class="dynamic_color" name="close"></ion-icon>
       </div>
     </ion-label>
 
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
   <form *ngIf="form" [formGroup]="form">
-     <div class="global_input_block">
-        <ion-input label="Name" fill="outline" formControlName="name" labelPlacement="stacked" type="text" ></ion-input>
-      </div>
-           <div class="global_input_block">
-        <ion-input label="Contact" fill="outline" formControlName="contact1" labelPlacement="stacked" type="number" ></ion-input>
-      </div>
-        <div class="global_input_block">
-        <ion-input label="User ID" fill="outline" formControlName="userId" labelPlacement="stacked"  ></ion-input>
-      </div>
-             <div class="global_input_block">
-        <ion-input label="User Password" fill="outline" formControlName="password" labelPlacement="stacked"  ></ion-input>
-      </div>
-              <div class="global_input_block">
-        <ion-input label="Address" fill="outline" formControlName="address1" labelPlacement="stacked"  ></ion-input>
-      </div>
-           <div class="global_input_block">
-           <ion-select label="Select Store"  fill="outline"   formControlName="storeId" 
-        label-placement="type">
-        <ion-select-option  *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name }}</ion-select-option>
+    <div class="global_input_block">
+      <ion-input label="Name" fill="outline" formControlName="name" labelPlacement="stacked" type="text"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Contact" fill="outline" formControlName="contact1" labelPlacement="stacked"
+        type="number"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="User ID" fill="outline" formControlName="userId" labelPlacement="stacked"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="User Password" fill="outline" formControlName="password" labelPlacement="stacked"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Address" fill="outline" formControlName="address1" labelPlacement="stacked"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-select label="Select Store" fill="outline" formControlName="storeId" label-placement="type">
+        <ion-select-option *ngFor="let ware of warehouseList" [value]="ware.id"> {{ ware?.name }}</ion-select-option>
       </ion-select>
-      </div>
-        <div class="row" >
-    <ion-button *ngIf="!editedData"  (click)="checkingUserId()" class="global_submit_button" >
-    
-      Add</ion-button>
-          <ion-button (click)="checkingUserIdOnUpdate()" *ngIf="editedData"  class="global_submit_button" >
-    
-      Update</ion-button>
+    </div>
+    <div class="page_submit_btn">
+      <ion-button *ngIf="!editedData" (click)="checkingUserId()" class="global_submit_color_button dynamic_bgcolor">
+        Add</ion-button>
+      <ion-button (click)="checkingUserIdOnUpdate()" *ngIf="editedData"
+        class="global_submit_color_button dynamic_bgcolor">
+        Update</ion-button>
     </div>
   </form>
 </ion-content>
