@@ -12,7 +12,7 @@ import { AddDistrictInStaffComponent } from 'src/app/admin-management/lead-emplo
   templateUrl: './sales-officer.component.html',
   styleUrls: ['./sales-officer.component.scss'],
 })
-export class SalesOfficerComponent  implements OnInit {
+export class SalesOfficerComponent implements OnInit {
 
 
   constructor(
@@ -20,11 +20,11 @@ export class SalesOfficerComponent  implements OnInit {
     public share: ShareService,
     public activatedRoute: ActivatedRoute,
     private modalCTrl: ModalController,
-    private api:ApiService,
-    private commonMethod:CommonMethodService
-  ) {}
-listColorClass='firstColor'
-  ngOnInit() {}
+    private api: ApiService,
+    private commonMethod: CommonMethodService
+  ) { }
+  listColorClass = 'firstColor'
+  ngOnInit() { }
   srcPage: any;
   staffDetails: any;
   ionViewWillEnter() {
@@ -36,18 +36,18 @@ listColorClass='firstColor'
     });
     this.getStaffList()
   }
-    headerDisplayArray = [
+  headerDisplayArray = [
     { name: 'Add Staff', icon: 'add-circle-outline' },
     { name: 'Back To Dashboard', icon: 'arrow-back-outline' },
 
   ];
-   actionEventHeader(e: any) {
+  actionEventHeader(e: any) {
     if (e?.name == 'Add Staff') {
       this.addStaff();
     } else if (e?.name == 'Back To Dashboard') {
       this.backToDashboard();
     }
-  
+
   }
 
   staffList: any = [];
@@ -59,106 +59,108 @@ listColorClass='firstColor'
     // }
     let obj: any = this.share.getListObj('staffList', false, [], true);
 
-obj.staff_role='SALES_OFFICER'
-obj.state_id=this.staffDetails?.allotedState
+    obj.staff_role = 'SALES_OFFICER'
+    obj.state_id = this.staffDetails?.allotedState
     setTimeout(() => {
-   //   this.api.postapi('getStaffListRoleWiseStateWise', obj).subscribe(
+      //   this.api.postapi('getStaffListRoleWiseStateWise', obj).subscribe(
       this.api.postapi('getStaffListRoleWise', obj).subscribe(
         (res: any) => {
           this.staffList = res?.data;
-     this.share.spinner.dismiss('active_one')
+          this.share.spinner.dismiss('active_one')
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     }, 0);
   }
-    buttonArray: any = [
+  buttonArray: any = [
 
-      {
+    {
       name: 'Edit Staff',
       action: 'Edit_Staff',
       image: './././assets/images/edit.png',
     },
-      {
+    {
       name: 'Assign Store',
       action: 'assign_store',
       image: './././assets/images/store.png',
     },
-          {
+    {
       name: 'District-list-alloted',
       action: 'districtListAlloted',
       image: './././assets/images/location-pin.png',
     },
-    
+
   ];
-      async addDistrict(staff:any=null) {
-      const modal = await this.modalCTrl.create({
-        component: AddDistrictInStaffComponent,
-        componentProps: {
-          staff:staff
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  if(data){
-    this.getStaffList()
-  }
-      if (role === 'confirm') {
-      }
+  async addDistrict(staff: any = null) {
+    const modal = await this.modalCTrl.create({
+      component: AddDistrictInStaffComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        staff: staff
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.getStaffList()
     }
-    keyList: any = [
+    if (role === 'confirm') {
+    }
+  }
+  keyList: any = [
     { key: 'User ID', value: 'userId', type: 'INPUT' },
     { key: 'Contact', value: 'contact1', type: 'INPUT' },
- 
+
     { key: 'Posting', value: 'stateName', type: 'INPUT' },
   ];
-  async addStaff(staff:any=null) {
+  async addStaff(staff: any = null) {
     const modal = await this.modalCTrl.create({
       component: AddSalesOfficerComponent,
+      
       componentProps: {
-        editedData:staff
+        editedData: staff
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
-if(data){
-  this.getStaffList()
-}
+    if (data) {
+      this.getStaffList()
+    }
     if (role === 'confirm') {
     }
   }
-    async assignStore(staff:any=null) {
+  async assignStore(staff: any = null) {
     const modal = await this.modalCTrl.create({
       component: AssinedStoresComponent,
+      cssClass: 'midium-model',
       componentProps: {
-      
-        staff:staff
+        staff: staff
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
-if(data){
-  // this.getStaffList()
-}
+    if (data) {
+      // this.getStaffList()
+    }
     if (role === 'confirm') {
     }
   }
-   
-    async actionEventCall(e: any) {
-      if(e?.button?.name=='Edit Staff'){
-this.addStaff(e?.staff)
-      }
-      if(e?.button?.name=='Assign Store'){
-        this.assignStore(e?.staff)
-      }
-            if(e?.button?.name=='District-list-alloted'){
-this.addDistrict(e?.staff)
-      }
-   
- 
+
+  async actionEventCall(e: any) {
+    if (e?.button?.name == 'Edit Staff') {
+      this.addStaff(e?.staff)
+    }
+    if (e?.button?.name == 'Assign Store') {
+      this.assignStore(e?.staff)
+    }
+    if (e?.button?.name == 'District-list-alloted') {
+      this.addDistrict(e?.staff)
+    }
+
+
   }
   backToDashboard() {
     this.router.navigate([this.srcPage]);

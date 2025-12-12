@@ -11,18 +11,18 @@ import { CommonMethodService } from 'src/app/common-method.service';
   templateUrl: './team-manager.component.html',
   styleUrls: ['./team-manager.component.scss'],
 })
-export class TeamManagerComponent  implements OnInit {
+export class TeamManagerComponent implements OnInit {
 
   constructor(
     private router: Router,
     public share: ShareService,
     public activatedRoute: ActivatedRoute,
     private modalCTrl: ModalController,
-    private api:ApiService,
-    private commonMethod:CommonMethodService
-  ) {}
-listColorClass='firstColor'
-  ngOnInit() {}
+    private api: ApiService,
+    private commonMethod: CommonMethodService
+  ) { }
+  listColorClass = 'firstColor'
+  ngOnInit() { }
   srcPage: any;
   staffDetails: any;
   ionViewWillEnter() {
@@ -34,18 +34,18 @@ listColorClass='firstColor'
     });
     this.getStaffList()
   }
-    headerDisplayArray = [
+  headerDisplayArray = [
     { name: 'Add Staff', icon: 'add-circle-outline' },
     { name: 'Back To Dashboard', icon: 'arrow-back-outline' },
 
   ];
-   actionEventHeader(e: any) {
+  actionEventHeader(e: any) {
     if (e?.name == 'Add Staff') {
       this.addStaff();
     } else if (e?.name == 'Back To Dashboard') {
       this.backToDashboard();
     }
-  
+
   }
 
   staffList: any = [];
@@ -59,55 +59,55 @@ listColorClass='firstColor'
     // }
     let obj: any = this.share.getListObj('staffList', false, [], true);
 
-obj.staff_role='TERRITORY_MANAGER'
+    obj.staff_role = 'TERRITORY_MANAGER'
     setTimeout(() => {
       this.api.postapi('getStaffListRoleWise', obj).subscribe(
         (res: any) => {
           this.staffList = res?.data;
-     this.share.spinner.dismiss('active_one')
+          this.share.spinner.dismiss('active_one')
         },
-        (error: any) => {}
+        (error: any) => { }
       );
     }, 0);
   }
-    buttonArray: any = [
+  buttonArray: any = [
 
-      {
+    {
       name: 'Edit Staff',
       action: 'Edit_Staff',
       image: './././assets/images/edit.png',
     },
-    
+
   ];
-    keyList: any = [
+  keyList: any = [
     { key: 'User ID', value: 'userId', type: 'INPUT' },
     { key: 'Contact', value: 'contact1', type: 'INPUT' },
- 
+
     { key: 'Posting', value: 'stateName', type: 'INPUT' },
   ];
-  async addStaff(staff:any=null) {
+  async addStaff(staff: any = null) {
     const modal = await this.modalCTrl.create({
       component: AddTeamManagerComponent,
       componentProps: {
-        editedData:staff
+        editedData: staff
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
-if(data){
-  this.getStaffList()
-}
+    if (data) {
+      this.getStaffList()
+    }
     if (role === 'confirm') {
     }
   }
-   
-    async actionEventCall(e: any) {
-      if(e?.button?.name=='Edit Staff'){
-this.addStaff(e?.staff)
-      }
-   
- 
+
+  async actionEventCall(e: any) {
+    if (e?.button?.name == 'Edit Staff') {
+      this.addStaff(e?.staff)
+    }
+
+
   }
   backToDashboard() {
     this.router.navigate([this.srcPage]);

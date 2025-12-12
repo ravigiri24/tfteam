@@ -117,6 +117,7 @@ obj.staff_id=this.staffDetails?.id
     async assignTL(staff:any=null) {
       const modal = await this.modalCTrl.create({
         component: AssigningStaffComponent,
+        cssClass: 'midium-model',
         componentProps: {
           headStaff:staff,
           staffListAll:this.staffListSO,

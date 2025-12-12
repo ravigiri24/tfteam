@@ -101,6 +101,7 @@ export class AddDistrictInStaffComponent implements OnInit {
   async addDistrict() {
     const modal = await this.modalCtrl.create({
       component: SelectDistrictModelComponent,
+      cssClass: 'light-modal',
       componentProps: {
      
       },

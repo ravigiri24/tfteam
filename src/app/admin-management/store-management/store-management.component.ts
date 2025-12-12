@@ -129,6 +129,7 @@ obj.staff_role='TERRITORY_MANAGER'
   async assignTL(staff:any=null) {
     const modal = await this.modalCTrl.create({
       component: AssigningStaffComponent,
+      cssClass: 'midium-model',
       componentProps: {
         headStaff:staff,
         staffListAll:this.staffListTM
