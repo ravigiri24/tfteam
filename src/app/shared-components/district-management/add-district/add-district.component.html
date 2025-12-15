@@ -1,21 +1,14 @@
-<ion-content  class="ion-padding ">
-  <div class="top-position-body">
-
-     <span class="heading-list">District Will Add In {{stateName}}</span>
-  <div class="row top-position" >
- <div class="global_input_block">
-        <ion-input label="Enter Name" fill="outline" [(ngModel)]="name" labelPlacement="stacked"  ></ion-input>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="bottom_small_popup">
+    <span class="global-inner-heading">District Will Add In {{stateName}}</span>
+    <div class="global_input_block">
+        <ion-input label="Enter Name" fill="outline" [(ngModel)]="name" labelPlacement="stacked"></ion-input>
       </div>
-      </div>
-  <div class="row" >
-    <ion-button *ngIf="!district?.name"  (click)="checkDistrictName()" class="global_submit_button" >
-    
-      Add</ion-button>
-          <ion-button *ngIf="district?.name"  (click)="checkDistrictNameOnUpdate()" class="global_submit_button" >
-    
-      Update</ion-button>
+    <div class="page_submit_btn">
+      <ion-button *ngIf="!district?.name" (click)="checkDistrictName()" class="global_submit_color_button dynamic_bgcolor">
+        Add</ion-button>
+      <ion-button *ngIf="district?.name" (click)="checkDistrictNameOnUpdate()" class="global_submit_color_button dynamic_bgcolor">
+        Update</ion-button>
     </div>
-
-</div>
+  </div>
 </ion-content>
-  

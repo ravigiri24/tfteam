@@ -52,6 +52,7 @@ export class CustomerManagementComponent implements OnInit {
   async searchCustomer() {
     const modal = await this.modalController.create({
       component: SearchCustomerComponent,
+      cssClass: 'midium-model',
       componentProps: {
         buttonArray: this.buttonArray,
       },
