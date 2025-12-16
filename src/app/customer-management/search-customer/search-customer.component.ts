@@ -378,6 +378,7 @@ if(e?.button?.name=='Edit Customer'){
 
       const modal = await this.modalControl.create({
         component: SelectWithSearchComponent,
+        cssClass: 'light-modal',
         componentProps: {
           list: list,
           itemName: itemName,

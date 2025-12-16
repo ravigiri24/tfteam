@@ -8,35 +8,38 @@
 </ion-header>
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
   <div class="search_filter_popup_block">
-    <div class="global_input_block">
-      <ion-select (ionChange)="resetData()" [(ngModel)]="searchBy" fill="outline" label="Search By"
-        label-placement="stacked">
-        <ion-select-option value="NUMBER">By Number</ion-select-option>
-        <ion-select-option value="NAME">By Name</ion-select-option>
-        <ion-select-option value="STATE">By State</ion-select-option>
-        <ion-select-option value="CITY">By City</ion-select-option>
-        <ion-select-option value="DISTRICT">By District</ion-select-option>
-        <ion-select-option value="DATE">By Date</ion-select-option>
-        <ion-select-option value="VISITORS">By Visitors</ion-select-option>
-        <ion-select-option value="DEMAND">By Demand</ion-select-option>
-        <ion-select-option value="HOT_DEAL">By Hot Deal</ion-select-option>
-      </ion-select>
+    <div class="filter_block">
+      <div class="global_input_block">
+        <ion-select (ionChange)="resetData()" [(ngModel)]="searchBy" fill="outline" label="Search By"
+          label-placement="stacked">
+          <ion-select-option value="NUMBER">By Number</ion-select-option>
+          <ion-select-option value="NAME">By Name</ion-select-option>
+          <ion-select-option value="STATE">By State</ion-select-option>
+          <ion-select-option value="CITY">By City</ion-select-option>
+          <ion-select-option value="DISTRICT">By District</ion-select-option>
+          <ion-select-option value="DATE">By Date</ion-select-option>
+          <ion-select-option value="VISITORS">By Visitors</ion-select-option>
+          <ion-select-option value="DEMAND">By Demand</ion-select-option>
+          <ion-select-option value="HOT_DEAL">By Hot Deal</ion-select-option>
+        </ion-select>
+      </div>
     </div>
-    <div *ngIf="searchBy=='NAME' || searchBy=='NUMBER'" class="top-position">
+    <div *ngIf="searchBy=='NAME' || searchBy=='NUMBER'" class="search_block filter_block">
       <ion-searchbar (ionFocus)="onInputFocus()" (ionBlur)="focusOut()" [(ngModel)]="search.name" slot="fixed"
         placeholder="Search Customer"></ion-searchbar>
     </div>
-    <div *ngIf="searchBy=='STATE' || searchBy=='CITY' || searchBy=='DISTRICT'"
-      class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
-      <span class="top_layers">State</span>
-      <span class="name_selected">{{stateName}}</span>
-      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+    <div class="filter_block" *ngIf="searchBy=='STATE' || searchBy=='CITY' || searchBy=='DISTRICT'">
+      <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+        <span class="top_layers">State</span>
+        <span class="name_selected">{{stateName}}</span>
+        <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+        <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
     <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
   </ion-select> -->
+      </div>
     </div>
-    <div *ngIf="searchBy=='CITY'" class="global_input_block global_location_block"
-      (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <div class="filter_block" (click)="selectItem(this.cityListFilter,'City','city_list')" *ngIf="searchBy=='CITY'"
+      class="global_input_block global_location_block">
       <span class="top_layers">City</span>
       <span class="name_selected">{{cityName}}</span>
       <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
@@ -44,34 +47,33 @@
         <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
       </ion-select> -->
     </div>
-    <div *ngIf="searchBy=='DISTRICT'" class="global_input_block global_location_block"
-      (click)="selectItem(this.districtListFilter,'District','district_list')">
-      <span class="top_layers">District</span>
-      <span class="name_selected">{{districtName}}</span>
-      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+    <div class="filter_block" *ngIf="searchBy=='DISTRICT'">
+      <div class="global_input_block global_location_block"
+        (click)="selectItem(this.districtListFilter,'District','district_list')">
+        <span class="top_layers">District</span>
+        <span class="name_selected">{{districtName}}</span>
+        <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+        <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
         <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
       </ion-select> -->
+      </div>
     </div>
-    <div *ngIf="searchBy=='DATE'">
+    <div class="filter_block" *ngIf="searchBy=='DATE'">
       <form [formGroup]="form">
-        <div class="row top-position">
-
-          <div class="col-md-6 col-6">
+        <ion-row>
+          <ion-col size="12" size-md="6">
             <div class="global_input_block">
               <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
                 type="date"></ion-input>
             </div>
-          </div>
-          <div class="col-md-6 col-6">
+          </ion-col>
+          <ion-col size="12" size-md="6">
             <div class="global_input_block">
               <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
                 type="date"></ion-input>
             </div>
-          </div>
-
-        </div>
-
+          </ion-col>
+        </ion-row>
       </form>
     </div>
     <!-- <div *ngIf="searchBy=='HOT_DEAL'"  >
@@ -93,62 +95,53 @@
 
 </form>
 </div> -->
-    <div *ngIf="searchBy=='VISITORS'">
+    <div class="filter_block" *ngIf="searchBy=='VISITORS'">
       <div class="global_input_block input-position">
         <ion-select [(ngModel)]="visitType" fill="outline" label="Visit Type" label-placement="stacked">
           <ion-select-option value="WILL_VISIT">Will Come</ion-select-option>
           <ion-select-option value="VISITED">Visited</ion-select-option>
-
         </ion-select>
       </div>
       <form [formGroup]="form">
-        <div class="row top-position">
-
-          <div class="col-md-6 col-6">
+        <ion-row>
+          <ion-col size="12" size-md="6">
             <div class="global_input_block">
               <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
                 type="date"></ion-input>
             </div>
-          </div>
-          <div class="col-md-6 col-6">
+          </ion-col>
+          <ion-col size="12" size-md="6">
             <div class="global_input_block">
               <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
                 type="date"></ion-input>
             </div>
-          </div>
-
-        </div>
-
+          </ion-col>
+        </ion-row>
       </form>
     </div>
-    <div *ngIf="searchBy=='DEMAND'">
-
+    <div class="filter_block" *ngIf="searchBy=='DEMAND'">
       <form [formGroup]="form">
-        <div class="row top-position">
-
-          <div class="col-md-6 col-6">
+        <ion-row>
+          <ion-col size="12" size-md="6">
             <div class="global_input_block">
               <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
                 type="date"></ion-input>
             </div>
-          </div>
-          <div class="col-md-6 col-6">
+          </ion-col>
+          <ion-col size="12" size-md="6">
             <div class="global_input_block">
               <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
                 type="date"></ion-input>
             </div>
-          </div>
-
-        </div>
-
+          </ion-col>
+        </ion-row>
       </form>
     </div>
-    <div class="button-style">
-      <ion-button class="button" (click)="searchCustomer()" expand="block">Search</ion-button>
-
-    </div>
+    <ion-button class="search_button dynamic_bgcolor" (click)="searchCustomer()" expand="block">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
   </div>
-  <div *ngIf="searchBy=='NUMBER' ||searchBy=='NAME' ">
+  <div class="search_data_block" *ngIf="searchBy=='NUMBER' ||searchBy=='NAME' ">
     <!-- <ng-container *ngFor="let cus of customerData;let in=index">
     <ion-item [ngClass]="{'warning_row': !cus?.leadsChat?.length}">
       <ion-label>
@@ -172,28 +165,24 @@
   </div>
   <div
     *ngIf="customerList?.length && (searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND' || searchBy=='HOT_DEAL')"
-    class="row">
+    class="excel_generate_btn_block">
+    <ion-button class="button" (click)="generateExcel()" class="global_submit_color_button dynamic_bgcolor"
+      expand="block">Genrate Excel</ion-button>
     <!-- <div class="col-6 col-md-6 ">
 <ion-button   (click)="generatePDF()" class="global_submit_button button-width" expand="block">Genrate Pdf</ion-button>
 </div> -->
     <!-- <div class="col-6 col-md-6">
 
 </div> -->
-    <div class="button-style">
-      <ion-button class="button" (click)="generateExcel()" class="global_submit_button button-width"
-        expand="block">Genrate Excel</ion-button>
-
-    </div>
   </div>
-  <div class="scroll"
+  <div
     *ngIf="(searchBy=='STATE' || searchBy=='CITY' ||  searchBy=='DISTRICT'  || searchBy=='DATE' ||  searchBy=='VISITORS' ||  searchBy=='DEMAND' || searchBy=='HOT_DEAL') && customerList?.length"
-    id="customerDataReport" class="top-margin scroll" style="width: 100%;">
+    id="customerDataReport" class="table_data_contain_block">
     <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
   </div> -->
-
-
-    <table cellpadding="5" cellspacing="5" style="width: 100%;">
+    <h2 class="global-inner-heading">Filter Details</h2>
+    <table cellpadding="5" cellspacing="5">
       <tbody>
         <tr>
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">
@@ -222,22 +211,19 @@
           <td style="border: 1px solid #ddd;padding: 5px 10px;">{{form.controls['startDate'].value}}</td>
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date</th>
           <td style="border: 1px solid #ddd;padding: 5px 10px;">{{form.controls['endDate'].value}}</td>
-
         </tr>
         <tr>
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type
           </th>
           <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
-          <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
-          <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
-
+          <th colspan="2" style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">
+          </th>
+          <td colspan="2" style="border: 1px solid #ddd;padding: 5px 10px;"></td>
         </tr>
-
-
       </tbody>
     </table>
-    <h2 style="text-align: center;margin: 10px 0px;">Customer List</h2>
-    <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <h2 class="global-inner-heading">Customer List</h2>
+    <table cellpadding="5" cellspacing="5">
       <tbody>
         <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>
