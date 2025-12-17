@@ -1,131 +1,135 @@
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">DashbOard </span>
+        <span class="selected_text">Dashbaard </span>
       </div>
       <div class="right_action">
-        <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
       </div>
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding ">
-   <form [formGroup]="form">
-  <div class="row top-position">
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <form [formGroup]="form">
+    <ion-row class="filter_row">
+      <ion-col size="12" size-md="5">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="5">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="2">
+        <ion-button class="dynamic_bgcolor global_submit_color_button" (click)="overviewData()"
+          expand="block">Overview</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  <div class="report_main_container" *ngIf="isOverViewData">
+    <span class="global-inner-heading">Lead Report</span>
+    <ion-card class="report_block">
+      <ion-row>
+        <ion-col class="left_details_block dynamic_color" size="12" size-md="6">
+          <ion-grid class="primaryColor">
+            <ion-row class="details_line_row">
+              <ion-col>Digital</ion-col>
+              <ion-col>{{overViewData?.digital}}</ion-col>
 
-    <div class="col-md-6 col-6">
-      <div class="global_input_block">
-        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
-      </div>
-    </div>
-    <div class="col-md-6 col-6">
-      <div class="global_input_block">
-        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
-      </div>
-    </div>
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Visitors</ion-col>
+              <ion-col> {{overViewData?.visitors}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Online</ion-col>
+              <ion-col>{{overViewData?.online}}</ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <google-chart [type]="chart.type" [data]="chart.data" [columns]="chart.columns" [options]="chart.options"
+            [height]="chart.height">
+          </google-chart>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <span class="global-inner-heading"> Digital appearance</span>
+    <ion-card class="report_block">
+      <ion-row>
+        <ion-col class="left_details_block dynamic_color" size="12" size-md="6">
+          <ion-grid class="primaryColor">
+            <ion-row class="details_line_row">
+              <ion-col>Instagram</ion-col>
+              <ion-col>{{overViewData?.instagrame}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Youtube</ion-col>
+              <ion-col> {{overViewData?.youtube}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Facebook</ion-col>
+              <ion-col>{{overViewData?.facebook}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>JustDial</ion-col>
+              <ion-col>{{overViewData?.justDial}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Other</ion-col>
+              <ion-col>{{overViewData?.other}}</ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <google-chart [type]="chartDigital.type" [data]="chartDigital.data" [columns]="chartDigital.columns"
+            [options]="chartDigital.options" [height]="chartDigital.height">
+          </google-chart>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <span class="global-inner-heading">Sales Review</span>
+    <ion-card class="report_block">
+      <ion-row>
+        <ion-col class="left_details_block dynamic_color" size="12" size-md="6">
+          <ion-grid class="primaryColor">
+            <ion-row class="details_line_row">
+              <ion-col>Visitors</ion-col>
+              <ion-col>{{overViewData?.visitorSales}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Digital</ion-col>
+              <ion-col> {{overViewData?.digitalSales}}</ion-col>
+
+            </ion-row>
+            <ion-row class="details_line_row">
+              <ion-col>Online</ion-col>
+              <ion-col>{{overViewData?.onlineSales}}</ion-col>
+
+            </ion-row>
+
+          </ion-grid>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <google-chart [type]="chartSales.type" [data]="chartSales.data" [columns]="chartSales.columns"
+            [options]="chartSales.options" [height]="chartSales.height">
+          </google-chart>
+        </ion-col>
+      </ion-row>
+    </ion-card>
 
   </div>
-<div class="button-style">
-  <ion-button class="button"  (click)="overviewData()" expand="block">Overview</ion-button>
-
-</div>
-</form>
-<hr/>
-<div  *ngIf="isOverViewData">
-
-  <span class="heading-list">  Lead Report</span>
-   <ion-grid class="primaryColor">
-      <ion-row class="details_line_row">
-        <ion-col>Digital</ion-col>
-        <ion-col>{{overViewData?.digital}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>Visitors</ion-col>
-        <ion-col> {{overViewData?.visitors}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>Online</ion-col>
-        <ion-col>{{overViewData?.online}}</ion-col>
-    
-      </ion-row>
- 
-    </ion-grid>
-<google-chart
-  [type]="chart.type"
-  [data]="chart.data"
-  [columns]="chart.columns"
-  [options]="chart.options"
-  [width]="chart.width"
-  [height]="chart.height">
-</google-chart>
-
-  
-  <span class="heading-list"> Digital appearance</span>
-     <ion-grid class="primaryColor">
-      <ion-row class="details_line_row">
-        <ion-col>Instagram</ion-col>
-        <ion-col>{{overViewData?.instagrame}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>Youtube</ion-col>
-        <ion-col> {{overViewData?.youtube}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>Facebook</ion-col>
-        <ion-col>{{overViewData?.facebook}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>JustDial</ion-col>
-        <ion-col>{{overViewData?.justDial}}</ion-col>
-    
-      </ion-row>
-         <ion-row class="details_line_row">
-        <ion-col>Other</ion-col>
-        <ion-col>{{overViewData?.other}}</ion-col>
-    
-      </ion-row>
-    </ion-grid>
-<google-chart
-  [type]="chartDigital.type"
-  [data]="chartDigital.data"
-  [columns]="chartDigital.columns"
-  [options]="chartDigital.options"
-  [width]="chartDigital.width"
-  [height]="chartDigital.height">
-</google-chart>
-  <span class="heading-list">Sales Review</span>
-     <ion-grid class="primaryColor">
-      <ion-row class="details_line_row">
-        <ion-col>Visitors</ion-col>
-        <ion-col>{{overViewData?.visitorSales}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>Digital</ion-col>
-        <ion-col> {{overViewData?.digitalSales}}</ion-col>
-    
-      </ion-row>
-      <ion-row class="details_line_row">
-        <ion-col>Online</ion-col>
-        <ion-col>{{overViewData?.onlineSales}}</ion-col>
-    
-      </ion-row>
-    
-    </ion-grid>
-<google-chart
-  [type]="chartSales.type"
-  [data]="chartSales.data"
-  [columns]="chartSales.columns"
-  [options]="chartSales.options"
-  [width]="chartSales.width"
-  [height]="chartSales.height">
-</google-chart>
-
-</div>
 </ion-content>

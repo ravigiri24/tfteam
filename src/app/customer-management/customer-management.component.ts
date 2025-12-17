@@ -432,6 +432,7 @@ export class CustomerManagementComponent implements OnInit {
     this.editData = editData;
     const modal = await this.modalController.create({
       component: CustomerDashboardComponent,
+      cssClass: 'midium-model',
       componentProps: {
         editData: editData,
       },
