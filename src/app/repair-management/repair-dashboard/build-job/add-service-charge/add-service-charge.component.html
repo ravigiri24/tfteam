@@ -37,9 +37,9 @@
           formControlName="expense_amount"></ion-input>
       </div>
       <div class="global_submit_button">
-        <ion-button *ngIf="!editData" (click)="saveData()" class="dynamic_bgcolor" expand="block"><span
+        <ion-button *ngIf="!editData" (click)="saveData()" class="dynamic_bgcolor global_submit_color_button" expand="block"><span
             class="color-white">Add Service</span></ion-button>
-        <ion-button *ngIf="editData" (click)="updateData()" class="dynamic_bgcolor" expand="block"><span
+        <ion-button *ngIf="editData" (click)="updateData()" class="dynamic_bgcolor global_submit_color_button" expand="block"><span
             class="color-white">Update Service</span></ion-button>
       </div>
     </form>

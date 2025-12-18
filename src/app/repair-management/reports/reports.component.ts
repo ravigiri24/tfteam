@@ -6,22 +6,23 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss'],
 })
-export class ReportsComponent  implements OnInit {
+export class ReportsComponent implements OnInit {
 
-  constructor(    public modalCtrl: ModalController) { }
+  constructor(public modalCtrl: ModalController) { }
 
-  ngOnInit() {}
-  async showReport(reportType:any='Job List') {
+  ngOnInit() { }
+  async showReport(reportType: any = 'Job List') {
     const modal = await this.modalCtrl.create({
       component: ReportFilterComponent,
+      cssClass: 'midium-model',
       componentProps: {
 
         reportType: reportType,
-     
+
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-  
+
   }
 }

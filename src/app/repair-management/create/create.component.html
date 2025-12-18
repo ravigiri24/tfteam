@@ -3,7 +3,7 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Create Job</span>
+        <span class="selected_text">{{ data ? 'Update Job' : 'Create Job' }}</span>
       </div>
       <div class="right_action">
         <ion-icon (click)="backToDashboard()" class="dynamic_color" name="arrow-back-outline"></ion-icon>
