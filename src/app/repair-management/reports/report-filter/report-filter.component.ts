@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -52,6 +52,7 @@ export class ReportFilterComponent implements OnInit {
     };
   }
   reportType: any = 'Job List';
+  @Input() listColorClass = 'fourthColor';
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);

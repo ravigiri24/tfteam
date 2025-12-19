@@ -1,14 +1,74 @@
-.top-position{
-    margin-top: 10px;
-}
-.margin-body{
-    margin-left: 10px;
-}
-.top-margin{
-position: relative;
+// .top-position{
+//     margin-top: 10px;
+// }
+// .margin-body{
+//     margin-left: 10px;
+// }
+// .top-margin{
+// position: relative;
 
+// }
+// .scroll-body{
+//     width: 100%;
+//     overflow-y: scroll;
+// }
+
+
+.search_filter_popup_block {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-right: 65px;
+    padding-bottom: 10px;
+
+    .filter_block {
+        padding-right: 10px;
+        width: 50%;
+        display: flex;
+    }
+
+    .global_input_block {
+        padding-bottom: 0px;
+        margin: 0px;
+    }
+
+    .search_button {
+        margin: 0px;
+        margin: 0px;
+        border-radius: 8px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 46.5px;
+    }
 }
-.scroll-body{
+
+.table_data_contain_block {
     width: 100%;
-    overflow-y: scroll;
+    display: flex;
+    flex-flow: column;
+    overflow: auto;
+    margin-bottom: 75px;
+    table {
+        width: 100%;
+        margin-bottom: 10px;
+        color: #666666;
+
+        th,
+        td {
+            font-size: 12px !important;
+        }
+    }
+}
+
+.bottom_fixed_buttons {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px 15px;
+    left: 0px;
+    background: #ffffff;
+    z-index: 2;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
+    height: 75px;
 }
