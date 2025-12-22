@@ -1,11 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { ShareService } from 'src/app/share.service';
 @Component({
   selector: 'app-select-list-type',
@@ -18,6 +13,7 @@ export class SelectListTypeComponent implements OnInit {
   showStoreWiseOptions = true;
   showDate = false;
   filterByTitle = 'Filter By';
+  @Input() listColorClass: any = "firstColor";
   optionsArray = [
     { displayName: 'All', value: 'ALL' },
     { displayName: 'Mapped', value: 'MAPPED' },
@@ -26,24 +22,24 @@ export class SelectListTypeComponent implements OnInit {
     { displayName: 'Sold', value: 'SOLD' },
   ];
   showFilter = true;
-  showList=true
+  showList = true
   constructor(
     private modalcontrol: ModalController,
     private formBuilder: FormBuilder,
     private share: ShareService
-  ) {}
+  ) { }
 
   ngOnInit() {
     console.log('optionsArray', this.optionsArray);
     this.initialize();
   }
   form: FormGroup;
-  startDate:any=null
-  endDate:any=null
+  startDate: any = null
+  endDate: any = null
   initialize() {
     this.form = this.formBuilder.group({
-      startDate: new FormControl(this.startDate||null, [Validators.required]),
-      endDate: new FormControl(this.endDate||null, [Validators.required]),
+      startDate: new FormControl(this.startDate || null, [Validators.required]),
+      endDate: new FormControl(this.endDate || null, [Validators.required]),
     });
     console.log('this.dateForm', this.form.value);
   }

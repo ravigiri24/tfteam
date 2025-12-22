@@ -1,25 +1,24 @@
-
-    
-    <ion-tabs  >
-      <ion-tab-bar class="custom-tab-bar {{activeTabsColor}}" slot="bottom">
-        <!-- <ion-tab-button tab="home">
+<ion-tabs>
+  <ion-tab-bar class="custom-tab-bar {{activeTabsColor}}" slot="bottom">
+    <!-- <ion-tab-button tab="home">
           <ion-icon name="play-circle"></ion-icon>
           Listen Now
         </ion-tab-button> -->
-        <!-- <ion-tab-button (click)="goToPage('Ready-Tractor')" tab="Customer">
+    <!-- <ion-tab-button (click)="goToPage('Ready-Tractor')" tab="Customer">
           <ion-icon *ngIf="selectedTab!=='Ready-Tractor'" class="theme-color" name="bag-add-outline"></ion-icon>
           <ion-icon *ngIf="selectedTab=='Ready-Tractor'"  class="theme-color" name="bag-add"></ion-icon>
           Tractor
         </ion-tab-button> -->
 
-         <ion-tab-button tab="tractor" (click)="goToPage('Branch-wise-tractor')" [class.active]="selectedTab === 'Branch-wise-tractor'">
+    <ion-tab-button tab="tractor" (click)="goToPage('Branch-wise-tractor')"
+      [class.active]="selectedTab === 'Branch-wise-tractor'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'Branch-wise-tractor'">
-        <ion-icon name="bag-add-outline" *ngIf="selectedTab !== 'Branch-wise-tractor'"></ion-icon>
-        <ion-icon name="bag-add" *ngIf="selectedTab === 'Branch-wise-tractor'"></ion-icon>
+        <ion-icon name="construct-outline" *ngIf="selectedTab !== 'Branch-wise-tractor'"></ion-icon>
+        <ion-icon name="construct" *ngIf="selectedTab === 'Branch-wise-tractor'"></ion-icon>
       </div>
       <span class="inner_text">Tractor</span>
     </ion-tab-button>
-        <!-- <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
+    <!-- <ion-tab-button (click)="goToPage('Logistic')" tab="Follow-Up">
           <ion-icon *ngIf="selectedTab=='Logistic'" class="theme-color" name="bookmarks"></ion-icon>
           <ion-icon  *ngIf="selectedTab!=='Logistic'" class="theme-color" name="bookmarks-outline"></ion-icon>
         Logistic
@@ -34,17 +33,17 @@
           <ion-icon  *ngIf="selectedTab=='Live'" class="theme-color" name="list-circle"></ion-icon>
           Live
         </ion-tab-button> -->
-        <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
+    <!-- <ion-tab-button (click)="goToPage('Report')" tab="Reports">
           <ion-icon  *ngIf="selectedTab=='Report'" class="theme-color" name="book"></ion-icon>
           <ion-icon *ngIf="selectedTab!=='Report'"  class="theme-color" name="book-outline"></ion-icon>
       Reports
         </ion-tab-button> -->
-       <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
+    <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'User'">
         <ion-icon name="person-circle-outline" *ngIf="selectedTab !== 'User'"></ion-icon>
         <ion-icon name="person-circle" *ngIf="selectedTab === 'User'"></ion-icon>
       </div>
       <span class="inner_text">User</span>
     </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
+  </ion-tab-bar>
+</ion-tabs>

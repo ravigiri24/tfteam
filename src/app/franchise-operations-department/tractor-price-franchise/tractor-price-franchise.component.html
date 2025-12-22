@@ -1,16 +1,12 @@
-<ion-content  class="ion-padding ">
-  <div class="top-position-body">
-  <div class="row" >
- <div class="global_input_block">
-        <ion-input label="Enter Price" fill="outline" [(ngModel)]="price" type="number" labelPlacement="stacked"  ></ion-input>
-      </div>
-      </div>
-  <div class="row" >
-    <ion-button  (click)="updatePrice()" class="global_submit_button" >
-    
-      Update</ion-button>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="bottom_small_popup">
+    <div class="global_input_block">
+      <ion-input label="Enter Price" fill="outline" [(ngModel)]="price" type="number"
+        labelPlacement="stacked"></ion-input>
     </div>
-
-</div>
+    <div class="page_submit_btn">
+      <ion-button (click)="updatePrice()" class="global_submit_color_button dynamic_bgcolor">
+        Update</ion-button>
+    </div>
+  </div>
 </ion-content>
-  

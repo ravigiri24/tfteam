@@ -1,48 +1,44 @@
-<ion-content  class="ion-padding ">
-  <div class="border-shape background">
-<div *ngIf="showList" class="global_input_block " >
-  <ion-select (ionChange)="selectList()"  [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
-
-    <ion-select-option value="BRAND_WISE">Brand Wise</ion-select-option>
-    <ion-select-option *ngIf="showStoreWiseOptions" value="STORE_WISE">Store Wise</ion-select-option>
-    <ion-select-option value="ALL">All</ion-select-option>
-    <ion-select-option  *ngIf="showDate" value="BY_DATE">By Date</ion-select-option>
-
-  </ion-select>
-</div>
-<div *ngIf="showFilter" class="global_input_block " >
-  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="filterBy" fill="outline" label="{{filterByTitle}}" label-placement="type">
-     <ion-select-option *ngFor="let options of optionsArray" [value]="options?.value">{{options?.displayName}}</ion-select-option>
-     <!-- <ion-select-option value="MAPPED">Mapped</ion-select-option>
-    <ion-select-option value="NOT_MAPPED">Not Mapped</ion-select-option>
-    <ion-select-option value="NOT_SOLD">Not Sold</ion-select-option>
-    <ion-select-option value="SOLD">Sold</ion-select-option> -->
- 
-  </ion-select>
-</div>
-<div *ngIf="listBy=='BY_DATE'">
-  <form *ngIf="form" [formGroup]="form">
-  <div class="row top-position-body">
-
-    <div class="col-md-6 col-6">
-      <div class="global_input_block">
-        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="bottom_small_popup">
+    <div *ngIf="showList" class="global_input_block ">
+      <ion-select (ionChange)="selectList()" [(ngModel)]="listBy" fill="outline" label="List By" label-placement="type">
+        <ion-select-option value="BRAND_WISE">Brand Wise</ion-select-option>
+        <ion-select-option *ngIf="showStoreWiseOptions" value="STORE_WISE">Store Wise</ion-select-option>
+        <ion-select-option value="ALL">All</ion-select-option>
+        <ion-select-option *ngIf="showDate" value="BY_DATE">By Date</ion-select-option>
+      </ion-select>
+    </div>
+    <div *ngIf="showFilter" class="global_input_block ">
+      <ion-select (ionChange)="selectFilter()" [(ngModel)]="filterBy" fill="outline" label="{{filterByTitle}}"
+        label-placement="type">
+        <ion-select-option *ngFor="let options of optionsArray"
+          [value]="options?.value">{{options?.displayName}}</ion-select-option>
+        <!-- <ion-select-option value="MAPPED">Mapped</ion-select-option>
+              <ion-select-option value="NOT_MAPPED">Not Mapped</ion-select-option>
+              <ion-select-option value="NOT_SOLD">Not Sold</ion-select-option>
+              <ion-select-option value="SOLD">Sold</ion-select-option> -->
+      </ion-select>
+    </div>
+    <div *ngIf="listBy=='BY_DATE'">
+      <form *ngIf="form" [formGroup]="form">
+        <div class="row">
+          <div class="col-md-6 col-6">
+            <div class="global_input_block">
+              <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+                type="date"></ion-input>
+            </div>
+          </div>
+          <div class="col-md-6 col-6">
+            <div class="global_input_block">
+              <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+                type="date"></ion-input>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="page_submit_btn">
+        <ion-button (click)="setDate()" class="global_submit_color_button dynamic_bgcolor">Generate</ion-button>
       </div>
     </div>
-    <div class="col-md-6 col-6">
-      <div class="global_input_block">
-        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
-      </div>
-    </div>
-
   </div>
-  
-</form>
-  <div class="row" >
-    <ion-button  (click)="setDate()" class="global_submit_button" >
-    
-      Generate</ion-button>
-    </div>
-</div>
-</div>
 </ion-content>
