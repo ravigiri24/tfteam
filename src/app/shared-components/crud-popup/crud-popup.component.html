@@ -25,7 +25,7 @@
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content [ngClass]="listColorClass">
+<ion-content class="internal_card_container ion-padding" [ngClass]="listColorClass">
   <ng-container *ngIf="view === 'LIST'">
     <ion-list class="list_row" *ngIf="listData?.length">
       <ion-item *ngFor="let row of listData;let in=index">
@@ -41,7 +41,7 @@
       </ion-item>
     </ion-list>
   </ng-container>
-  <div class="page_inner_container ion-padding" *ngIf="view === 'FORM'">
+  <div class="page_inner_container" *ngIf="view === 'FORM'">
     <form [formGroup]="form">
       <div *ngFor="let fields of crudDetail?.data">
         <ng-container *ngIf="fields?.type==='text'">
@@ -67,9 +67,9 @@
       </div>
     </form>
     <div class="page_submit_btn">
-      <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_button dynamic_bgcolor"
+      <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_color_button dynamic_bgcolor"
         expand="block">Save</ion-button>
-      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'" class="global_submit_button dynamic_bgcolor"
+      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'" class="global_submit_color_button dynamic_bgcolor"
         expand="block">Update</ion-button>
     </div>
   </div>

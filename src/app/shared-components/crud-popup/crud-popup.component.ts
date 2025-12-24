@@ -14,7 +14,7 @@ export class CrudPopupComponent implements OnInit {
   type: any
   constructor(private share: ShareService, private api: ApiService, private formBuilder: FormBuilder, public modalCtrl: ModalController) { }
   crudDetail: any;
-  @Input() listColorClass = 'firstColor';
+  @Input() listColorClass = 'secondColor';
   ngOnInit() {
     this.crudDetail = crud.crud.find((f: any) => f.key == this.type);
     this.getList()
