@@ -1,28 +1,25 @@
-<ion-header>  
-  <ion-toolbar>  
-        <ion-label class="top_heading">
-    <ion-title *ngIf="!editData" >Add {{title}}</ion-title>  
-    <ion-title *ngIf="editData" >Update {{title}}</ion-title>  
- 
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <ion-title *ngIf="!editData">Add {{title}}</ion-title>
+      <ion-title *ngIf="editData">Update {{title}}</ion-title>
       <div class="right_action">
-
-            <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
       </div>
     </ion-label>
-  </ion-toolbar>  
-
-</ion-header>  
-<ion-content class="ion-padding">
-   <form *ngIf="form" [formGroup]="form">
-      <div  class="global_input_block " >
-  <ion-textarea formControlName="note" class="hieght-area" label="Note" fill="outline" labelPlacement="stacked"
-      placeholder="write Notes here..."></ion-textarea>
-  </div>
-   <ion-button *ngIf="!editData" (click)="save()" class="global_submit_button" >
-    
-      Save</ion-button>
-         <ion-button *ngIf="editData" (click)="update()" class="global_submit_button" >
-    
-      Update</ion-button>
-      </form>
-  </ion-content>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <form *ngIf="form" [formGroup]="form">
+    <div class="global_input_block">
+      <ion-textarea formControlName="note" class="hieght-area" label="Note" fill="outline" labelPlacement="stacked"
+        placeholder="write Notes here..."></ion-textarea>
+    </div>
+    <div class="page_submit_btn">
+      <ion-button *ngIf="!editData" (click)="save()" class="global_submit_color_button dynamic_bgcolor">
+        Save</ion-button>
+      <ion-button *ngIf="editData" (click)="update()"
+        class="global_submit_color_button dynamic_bgcolor">Update</ion-button>
+    </div>
+  </form>
+</ion-content>

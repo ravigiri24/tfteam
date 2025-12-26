@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
@@ -13,7 +13,7 @@ import { SelectWithSearchComponent } from 'src/app/shared-components/select-with
 export class RtoDetailsFormComponent  implements OnInit {
    tractorDetails:any
   constructor(private modalControl:ModalController,private share:ShareService,private api:ApiService,private formBuilder:FormBuilder) { }
-
+  @Input() listColorClass = "secondColor";
   dismiss() {
     this.modalControl.dismiss();
   }

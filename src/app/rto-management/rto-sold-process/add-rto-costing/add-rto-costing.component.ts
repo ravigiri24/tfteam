@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,21 +14,22 @@ import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-po
   templateUrl: './add-rto-costing.component.html',
   styleUrls: ['./add-rto-costing.component.scss'],
 })
-export class AddRtoCostingComponent  implements OnInit {
+export class AddRtoCostingComponent implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
     private formBuilder: FormBuilder,
     private share: ShareService,
     private api: ApiService
-  ) {}
+  ) { }
   expenseTypeList: any;
   form: FormGroup;
   data: any;
   tarctor_id: any;
   staffDetails: any;
+  @Input() listColorClass = 'secondColor';
   ngOnInit() {
-        let staffDetails: any = this.share.get_staff();
+    let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
     console.log('expenseTypeList', this.expenseTypeList);
@@ -47,7 +48,7 @@ export class AddRtoCostingComponent  implements OnInit {
       tractor_id: new FormControl(this.tarctor_id || null, [
         Validators.required,
       ]),
-         action_id: new FormControl(this.staffDetails?.id || null, [
+      action_id: new FormControl(this.staffDetails?.id || null, [
         Validators.required,
       ]),
     });
@@ -105,10 +106,10 @@ export class AddRtoCostingComponent  implements OnInit {
         this.expenseTypeList = res.data;
         this.share.spinner.dismiss()
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  async showModal(dataUpdate: any = null) {}
+  async showModal(dataUpdate: any = null) { }
   saveExpense() {
     this.form.controls['tractor_id'].setValue(this.tarctor_id);
     if (this.form.valid) {
