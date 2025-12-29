@@ -1,50 +1,62 @@
-<ion-header>  
-  <ion-toolbar>  
-        <ion-label class="top_heading">
-    <ion-title >Notes</ion-title>  
- 
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <ion-title>Notes</ion-title>
       <div class="right_action">
-          <ion-icon (click)="getNotList()" name="refresh-outline"></ion-icon>
         <ion-icon (click)="addNewNotes()" class="theme-color" name="add-circle-outline"></ion-icon>
-            <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        <ion-icon class="secondary-color" (click)="getNotList()" name="refresh-outline"></ion-icon>
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
       </div>
     </ion-label>
-  </ion-toolbar>  
-
-</ion-header>  
-<ion-content>
-<ion-list class="list_row top-position-list" *ngIf="note_list?.length">
-  <!-- <ion-item *ngFor="let tractor of list|filterBy: search ;let in=index"> -->
-    <ion-row>
-      <ion-col *ngFor="let note of note_list ; let in=index" size="12" size-md="6">
-        <!-- <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  /> -->
-        <ion-grid class="main_block_details" [ngClass]="listColorClass">
-          <ion-card>
-            <ion-label class="main_title">{{note?.note?.createdOn | date}}</ion-label>
-            <ion-row >
-              <ng-container >
-                <ion-col (click)="addNewNotes(note?.note,in)" class="left_row_title">{{note?.note?.note}}</ion-col>
-             
-              </ng-container>
-            
-            </ion-row>
-             <ion-row >
-             
-               <ion-col>Status: <span (click)="enterStatus(note,in,note)" *ngIf="note?.status?.note">{{note?.status?.note}}({{note?.status?.updatedOn ? note?.status?.updatedOn  : note?.status?.createdOn | date}})</span></ion-col>
-             </ion-row>
-            <ion-row >
-              <ion-col (click)="enterStatus(note,in,note)" class="action_col" >
-                   
-                <img  src="./././assets/images/question-and-answer.png" />
-              </ion-col>
-            </ion-row>
-          </ion-card>
-        </ion-grid>
-      </ion-col>
-    </ion-row>
-  <!-- </ion-item> -->
-</ion-list>
-<div *ngIf="note_list?.length ==0" class="no-data-block">
-  <img class="image-no-data" src="././assets/images/no-data-found.png" />
-</div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <ion-row *ngIf="note_list?.length">
+    <ion-card class="card_based_data" *ngFor="let note of note_list ; let in=index">
+      <div class="inner-heading-list">
+        <span>Notes {{in + 1}}</span>
+        <small>{{note?.note?.createdOn | date}}</small>
+      </div>
+      <div class="global_header_block">
+       <b>Details :</b>
+       <ion-icon (click)="addNewNotes(note?.note,in)" class="dynamic_color"
+            name="create-outline"></ion-icon>
+      </div>
+      <ion-row>
+        <ion-col class="notes_text">{{note?.note?.note}}</ion-col>
+      </ion-row>
+      <div class="global_header_block"><b>Status :</b>
+      <span>{{note?.status?.updatedOn ? note?.status?.updatedOn : note?.status?.createdOn | date}}</span>
+          <ion-icon (click)="enterStatus(note, in, note)" class="dynamic_color" name="create-outline"></ion-icon>
+      </div>
+      <ion-row *ngIf="note?.status?.note">
+        <ion-col class="notes_text">{{note?.status?.note}}</ion-col>
+      </ion-row>
+    </ion-card>
+    <!-- <ion-col *ngFor="let note of note_list ; let in=index" size="12" size-md="6">
+      <img  (click)="viewImage(tractor)" style="width: 100%;max-height: 186px;padding: 8px;max-width: 200px;" [src]="tractor?.imageUrlUrl" onerror="this.src='././assets/images/tractor_display.png';"  />
+      <ion-grid class="main_block_details">
+        <ion-card>
+          <ion-label class="main_title">{{note?.note?.createdOn | date}}</ion-label>
+          <ion-row>
+            <ion-col (click)="addNewNotes(note?.note,in)" class="left_row_title">{{note?.note?.note}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Status: <span (click)="enterStatus(note, in, note)" *ngIf="note?.status?.note">
+                {{note?.status?.note}}({{note?.status?.updatedOn ? note?.status?.updatedOn
+                : note?.status?.createdOn | date}})</span></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col (click)="enterStatus(note, in, note)" class="action_col">
+              <img src="./././assets/images/question-and-answer.png" />
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-grid>
+    </ion-col> -->
+  </ion-row>
+  <app-no-data-view [ngClass]="listColorClass" *ngIf="note_list?.length ==0"></app-no-data-view>
+  <!-- <div *ngIf="note_list?.length ==0" class="no-data-block">
+    <img class="image-no-data" src="././assets/images/no-data-found.png" />
+  </div> -->
 </ion-content>

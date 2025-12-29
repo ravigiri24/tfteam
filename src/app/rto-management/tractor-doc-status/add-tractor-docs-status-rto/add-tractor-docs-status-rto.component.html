@@ -12,7 +12,7 @@
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
   <form *ngIf="form" [formGroup]="form">
     <div class="global_input_block">
-      <ion-textarea formControlName="note" class="hieght-area" label="Note" fill="outline" labelPlacement="stacked"
+      <ion-textarea formControlName="note" class="global_textarea" label="{{title}}" fill="outline" labelPlacement="stacked"
         placeholder="write Notes here..."></ion-textarea>
     </div>
     <div class="page_submit_btn">
