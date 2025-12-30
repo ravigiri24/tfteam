@@ -28,7 +28,7 @@ export class LiveTractorListComponent implements OnInit {
   ) {}
   alltractorList: any = [];
   ngOnInit() {}
-  listColorClass = 'firstColor';
+  listColorClass = 'fourthColor';
   ionViewWillEnter() {
     this.alltractorList = [];
 
@@ -104,8 +104,10 @@ export class LiveTractorListComponent implements OnInit {
     this.getTractorList(true);
   }
   async salesOption(tractor: any) {
+    debugger;
     const modal = await this.modalCtrl.create({
       component: FinanceOptionsComponent,
+      cssClass: 'small-model',
       componentProps: {
         tractor: tractor,
       },

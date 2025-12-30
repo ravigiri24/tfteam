@@ -660,7 +660,7 @@ export class CommonMethodService {
   async salesOption(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: FinanceOptionsComponent,
-      cssClass: 'midium-model',
+      cssClass: 'small-model',
       componentProps: {
         tractor: tractor,
       },

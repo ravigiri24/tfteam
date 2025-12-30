@@ -1,21 +1,15 @@
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
     <ion-title>Add Finance Details</ion-title>
-
     <ion-buttons slot="end">
-      <ion-icon
-        class="theme-color icon-size"
-        (click)="dismiss()"
-        name="close-circle-outline"
-      ></ion-icon>
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content class="ion-padding" *ngIf="financeForm">
+<ion-content class="ion-padding internal_card_container" *ngIf="financeForm" [ngClass]="listColorClass">
   <form [formGroup]="financeForm">
-    <div class="margin-bottom-headline">
-      <span class="heading-list">Finance Details</span>
+    <div class="global-inner-heading header_margin">
+      Finance Details
     </div>
     <!-- <ion-item class="bottom-margin">
       <ion-icon
@@ -37,138 +31,65 @@
       </ion-select>
     </ion-item> -->
     <div class="global_input_block select_option_with_add">
-      <ion-select
-        formControlName="bankId"
-        labelPlacement="stacked"
-        fill="outline"
-        label="Financer"
-        label-placement="stacked"
-      >
+      <ion-select formControlName="bankId" labelPlacement="stacked" fill="outline" label="Financer"
+        label-placement="stacked">
         <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
-          {{ fin?.name }}</ion-select-option
-        >
+          {{ fin?.name }}</ion-select-option>
       </ion-select>
-      <div class="right_action_block add_icon">
-        <ion-icon
-          (click)="openCrudManagement('BANK_DETAILS')"
-          name="add-circle-outline"
-        ></ion-icon>
+      <div class="right_action_block dynamic_bgcolor">
+        <ion-icon (click)="openCrudManagement('BANK_DETAILS')" name="add-circle-outline"></ion-icon>
       </div>
       <div class="right_action_block refresh_icon">
-        <ion-icon
-          (click)="getfinancerList(true)"
-          name="refresh-outline"
-        ></ion-icon>
+        <ion-icon (click)="getfinancerList(true)" name="refresh-outline"></ion-icon>
       </div>
     </div>
 
     <div class="global_input_block">
-      <ion-select
-        formControlName="isFIDone"
-        label="FIDone?"
-        fill="outline"
-        label-placement="type"
-        label-placement="type"
-      >
+      <ion-select formControlName="isFIDone" label="FIDone?" fill="outline" label-placement="type"
+        label-placement="type">
         <ion-select-option value="YES">Yes</ion-select-option>
         <ion-select-option value="NO">No</ion-select-option>
       </ion-select>
     </div>
     <div class="global_input_block">
-      <ion-input
-        label="Finance Amount"
-        fill="outline"
-        labelPlacement="stacked"
-        type="number"
-        formControlName="financeAmount"
-      ></ion-input>
+      <ion-input label="Finance Amount" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="financeAmount"></ion-input>
     </div>
     <div class="global_input_block">
-      <ion-input
-        label="Down Payment"
-        fill="outline"
-        labelPlacement="stacked"
-        type="number"
-        formControlName="downPayment"
-      ></ion-input>
+      <ion-input label="Down Payment" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="downPayment"></ion-input>
     </div>
-        <div class="margin-bottom-headline">
-      <span class="heading-list">Disbursal Details</span>
+    <div class="global-inner-heading header_margin">Disbursal Details</div>
+    <div class="global_input_block">
+      <ion-input label="1st Disbursal" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="first_disbursal"></ion-input>
     </div>
-
-       <div class="global_input_block">
-      <ion-input
-           label="1st Disbursal"
-        fill="outline"
-        labelPlacement="stacked"
-       type="number"
-        formControlName="first_disbursal"
-      ></ion-input>
+    <div class="global_input_block">
+      <ion-input label="1st Disbursal Date" fill="outline" labelPlacement="stacked" type="date"
+        formControlName="first_disbursal_date"></ion-input>
     </div>
- <div class="global_input_block">
-      <ion-input
-             label="1st Disbursal Date"
-        fill="outline"
-        labelPlacement="stacked"
-      type="date"
-        formControlName="first_disbursal_date"
-      ></ion-input>
+    <div class="global_input_block">
+      <ion-input label="2nd Disbursal" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="second_disbursal"></ion-input>
     </div>
- <div class="global_input_block">
-      <ion-input
-       label="2nd Disbursal"
-        fill="outline"
-        labelPlacement="stacked"
-         type="number"
-        formControlName="second_disbursal"
-      ></ion-input>
+    <div class="global_input_block">
+      <ion-input label="2nd Disbursal Date" fill="outline" labelPlacement="stacked" type="date"
+        formControlName="second_disbursal_date"></ion-input>
     </div>
- <div class="global_input_block">
-      <ion-input
-          label="2nd Disbursal Date"
-        fill="outline"
-        labelPlacement="stacked"
-      type="date"
-        formControlName="second_disbursal_date"
-      ></ion-input>
+    <div class="global-inner-heading header_margin">Other Details</div>
+    <div class="global_input_block">
+      <ion-input label="Net Market" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="net_market"></ion-input>
     </div>
-          <div class="margin-bottom-headline">
-      <span class="heading-list">Other Details</span>
+    <div class="global_input_block">
+      <ion-input label="Outstanding" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="outstanding"></ion-input>
     </div>
- <div class="global_input_block">
-      <ion-input
-           label="Net Market"
-        fill="outline"
-        labelPlacement="stacked"
-      type="number"
-        formControlName="net_market"
-      ></ion-input>
-    </div>
-  <div class="global_input_block">
-      <ion-input
-       label="Outstanding"
-        fill="outline"
-        labelPlacement="stacked"
-        type="number"
-        formControlName="outstanding"
-      ></ion-input>
-    </div>
-   
-    <div class="login-button bottom-margin-button">
-      <ion-button
-        *ngIf="!financeData"
-        (click)="save()"
-        style="text-align: center"
-        expand="block"
-        ><span class="color-white">Save</span></ion-button
-      >
-      <ion-button
-        *ngIf="financeData"
-        (click)="updateSellingDetails()"
-        style="text-align: center"
-        expand="block"
-        ><span class="color-white">Update</span></ion-button
-      >
+    <div class="popup_submit_btn_block">
+      <ion-button *ngIf="!financeData" (click)="save()" class="global_submit_color_button dynamic_bgcolor" expand="block"><span
+          class="color-white">Save</span></ion-button>
+      <ion-button *ngIf="financeData" (click)="updateSellingDetails()" class="global_submit_color_button dynamic_bgcolor" expand="block"><span
+          class="color-white">Update</span></ion-button>
     </div>
   </form>
 </ion-content>
