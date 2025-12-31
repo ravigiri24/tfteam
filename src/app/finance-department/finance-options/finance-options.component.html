@@ -1,18 +1,18 @@
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>Options</ion-title>
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">Options</div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding internal_card_container">
-  <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class="block margin-body">
-    <span class="succes-tag-line">Finance Documents(Pic)</span>
-  </div>
-  <div (click)="goToUplodeSection('FINANCE_DOCUMENTS')" class=" block">
-    <img class="image-style" src="././assets/images/envelope.png" />
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="upload-card dynamic_color" (click)="goToUplodeSection('FINANCE_DOCUMENTS')">
+    <img src="./assets/images/envelope.png" class="upload-icon" />
+    <h3>Finance Documents</h3>
+    <p>Upload your financial files..</p>
   </div>
   <!-- <ion-card>
     <ion-card-header>

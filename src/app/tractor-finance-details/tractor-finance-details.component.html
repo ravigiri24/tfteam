@@ -1,9 +1,11 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>Add Finance Details</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">Add Finance Details</div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding internal_card_container" *ngIf="financeForm" [ngClass]="listColorClass">
@@ -86,9 +88,10 @@
         formControlName="outstanding"></ion-input>
     </div>
     <div class="popup_submit_btn_block">
-      <ion-button *ngIf="!financeData" (click)="save()" class="global_submit_color_button dynamic_bgcolor" expand="block"><span
-          class="color-white">Save</span></ion-button>
-      <ion-button *ngIf="financeData" (click)="updateSellingDetails()" class="global_submit_color_button dynamic_bgcolor" expand="block"><span
+      <ion-button *ngIf="!financeData" (click)="save()" class="global_submit_color_button dynamic_bgcolor"
+        expand="block"><span class="color-white">Save</span></ion-button>
+      <ion-button *ngIf="financeData" (click)="updateSellingDetails()"
+        class="global_submit_color_button dynamic_bgcolor" expand="block"><span
           class="color-white">Update</span></ion-button>
     </div>
   </form>

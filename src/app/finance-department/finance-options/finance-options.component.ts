@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
@@ -9,19 +9,19 @@ import { ShareService } from 'src/app/share.service';
   templateUrl: './finance-options.component.html',
   styleUrls: ['./finance-options.component.scss'],
 })
-export class FinanceOptionsComponent  implements OnInit {
-
-    constructor(private modalControl: ModalController,private share:ShareService) {}
-tractor:any
-  ngOnInit() {}
-   dismiss() {
+export class FinanceOptionsComponent implements OnInit {
+  @Input() listColorClass: any = "fourthColor";
+  constructor(private modalControl: ModalController, private share: ShareService) { }
+  tractor: any
+  ngOnInit() { }
+  dismiss() {
     this.modalControl.dismiss();
   }
   async goToUplodeSection(imageGroup: any) {
     let showHeading = null;
     if (imageGroup == 'FINANCE_DOCUMENTS') {
       showHeading = 'Upload Finance Documents';
-    } 
+    }
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
       componentProps: {

@@ -1,60 +1,94 @@
-.margin-bottom-headline{
-    margin-bottom: 10px !important;
-}
-.position-body{
-    position: relative;
-    top:20px;
-    height: 100%;
+// .margin-bottom-headline{
+//     margin-bottom: 10px !important;
+// }
+// .position-body{
+//     position: relative;
+//     top:20px;
+//     height: 100%;
 
-}
-.tab_withinner_block {
-    position: relative;
-    top: 45px;
-    height: calc(100% - 45px);
-    overflow-y: scroll;
-}
-.block{
+// }
+// .tab_withinner_block {
+//     position: relative;
+//     top: 45px;
+//     height: calc(100% - 45px);
+//     overflow-y: scroll;
+// }
+// .block{
+//     text-align: center;
+// }
+// .card-width{
+//     width: 49%;
+// }
+// .image-style{
+//    margin-top: 14px;
+//     height: 90px;
+//     width: 110px;
+//     position: relative;
+//     top: 33px;
+
+//     }
+
+//  .succes-tag-line{
+//     font-weight: 700;
+//     font-size: 18px;
+//     margin:10px;
+//     position: relative;
+//     top:40px;
+
+
+//  }   
+//  .top-position{
+//     position: relative;
+//     top: 47px;
+//     margin: 23px;
+//  }
+//  .hieght-body{
+//     height: 100%;
+// }
+
+// .position-select{
+// position: relative;
+//     top: 9px;
+// }
+// .position-head{
+//     position: relative;
+//     top: 9px;
+// }
+
+// .body-form{
+//     width: 100%;
+// }
+
+
+.upload-card {
+    border: 1px dashed;
+    border-radius: 12px;
+    padding: 20px;
     text-align: center;
-}
-.card-width{
-    width: 49%;
-}
-.image-style{
-   margin-top: 14px;
-    height: 90px;
-    width: 110px;
-    position: relative;
-    top: 33px;
-    
-    }
-
- .succes-tag-line{
-    font-weight: 700;
-    font-size: 18px;
-    margin:10px;
-    position: relative;
-    top:40px;
-
-
- }   
- .top-position{
-    position: relative;
-    top: 47px;
-    margin: 23px;
- }
- .hieght-body{
-    height: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #fff7f0;
+    max-width: 400px;
+    margin: 50px auto;
 }
 
-.position-select{
-position: relative;
-    top: 9px;
-}
-.position-head{
-    position: relative;
-    top: 9px;
+.upload-card:hover {
+    background: #ffe6d5;
+    transform: translateY(-3px);
 }
 
-.body-form{
-    width: 100%;
+.upload-icon {
+    width: 70px;
+    margin: 15px 0px;
+    border-radius: 10px;
+}
+
+.upload-card h3 {
+    margin: 8px 0;
+    color: #333;
+}
+
+.upload-card p {
+    font-size: 13px;
+    color: #777;
 }
