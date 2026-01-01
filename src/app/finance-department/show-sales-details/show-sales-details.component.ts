@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
@@ -10,31 +10,31 @@ import { ShareService } from 'src/app/share.service';
   templateUrl: './show-sales-details.component.html',
   styleUrls: ['./show-sales-details.component.scss'],
 })
-export class ShowSalesDetailsComponent  implements OnInit {
+export class ShowSalesDetailsComponent implements OnInit {
 
-
-    constructor(private modalControl: ModalController,private share:ShareService,private api:ApiService) {}
-tractor:any
+  @Input() listColorClass: any = "fourthColor";
+  constructor(private modalControl: ModalController, private share: ShareService, private api: ApiService) { }
+  tractor: any
 
   ngOnInit() {
     this.getDataByID()
   }
-  sellingData:any
-  getDataByID(){
+  sellingData: any
+  getDataByID() {
     this.share.showLoading("Getting Data...")
     let obj = this.share.getDataId(null, false, [], this.tractor?.sellingDetailedId);
     this.api.postapi('getSellingDetailsByID', obj).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.sellingData = res?.data;
-   
+
         this.share.spinner.dismiss()
       },
-      (error:any) => {
+      (error: any) => {
         this.share.spinner.dismiss()
       }
     );
   }
-  dismiss(){
+  dismiss() {
     this.modalControl.dismiss()
   }
 }

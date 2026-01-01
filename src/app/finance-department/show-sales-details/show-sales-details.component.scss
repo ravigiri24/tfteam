@@ -1,7 +1,19 @@
-.margin-bottom-headline{
-    margin-bottom: 10px !important;
-}
-.position-body{
-    position: relative;
-    top:7px
+// .margin-bottom-headline{
+//     margin-bottom: 10px !important;
+// }
+// .position-body{
+//     position: relative;
+//     top:7px
+// }
+
+.card_based_data {
+    margin: 0px 0px 20px 0px;
+    ion-row {
+        padding: 0px 10px;
+        border-bottom: dashed 1px #e1e1e1;
+        b {
+            font-size: 13px;
+            letter-spacing: .5px;
+        }
+    }
 }
