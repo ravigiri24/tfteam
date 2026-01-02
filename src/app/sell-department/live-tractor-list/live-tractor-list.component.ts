@@ -140,8 +140,8 @@ if(this.share.checkStoreOnlyAccess()){
     },
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Adhar Card(Pic)',
-      showHeading: 'Upload Adhar Card(Pic)',
+      optionsName: 'Adhar Card (Pic)',
+      showHeading: 'Upload Adhar Card (Pic)',
       param: 'ADHAR_CARD',
       showDeleteButton: true,
       uploadPhoto: true,
@@ -150,8 +150,8 @@ if(this.share.checkStoreOnlyAccess()){
     },
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Pan Card(Pic)',
-      showHeading: 'Upload Pan Card(Pic)',
+      optionsName: 'Pan Card (Pic)',
+      showHeading: 'Upload Pan Card (Pic)',
       param: 'PAN_CARD',
       showDeleteButton: true,
       uploadPhoto: true,
@@ -160,8 +160,8 @@ if(this.share.checkStoreOnlyAccess()){
     },
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Bahi Khata(Pic)',
-      showHeading: 'Upload Bahi Khata(Pic)',
+      optionsName: 'Bahi Khata (Pic)',
+      showHeading: 'Upload Bahi Khata (Pic)',
       param: 'BAHI_KHATA',
       showDeleteButton: true,
       uploadPhoto: true,

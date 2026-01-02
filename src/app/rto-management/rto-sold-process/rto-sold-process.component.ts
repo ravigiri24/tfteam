@@ -445,7 +445,7 @@ export class RtoSoldProcessComponent implements OnInit {
     },
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Adhar Card(Pic)',
+      optionsName: 'Adhar Card (Pic)',
       showHeading: 'View  Adhar Card',
       param: 'ADHAR_CARD',
       type: 'IMAGE',
@@ -455,7 +455,7 @@ export class RtoSoldProcessComponent implements OnInit {
     },
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Pan Card(Pic)',
+      optionsName: 'Pan Card (Pic)',
       showHeading: 'View Pan Card',
       param: 'PAN_CARD',
       type: 'IMAGE',
