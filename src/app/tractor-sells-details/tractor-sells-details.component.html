@@ -1,123 +1,118 @@
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>Add Sells Details</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-icon
-        class="theme-color icon-size"
-        (click)="dismiss()"
-        name="close-circle-outline"
-      ></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">Add Sells Details</div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding" *ngIf="soldStatusForm">
-  <div >
-  <form   [formGroup]="soldStatusForm">
-    <div class="margin-bottom-headline">
-    <span class="heading-list" >Customer Details</span>
+<ion-content class="ion-padding internal_card_container" *ngIf="soldStatusForm" [ngClass]="listColorClass">
+  <form [formGroup]="soldStatusForm">
+    <div class="global-inner-heading">Customer Details</div>
+    <div class="global_input_block">
+      <ion-input label="Customer Name" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="nameOfCustomer"></ion-input>
     </div>
-      
-     <div class="global_input_block">
-      <ion-input     label="Customer Name" fill="outline" labelPlacement="stacked" type="text"
-          formControlName="nameOfCustomer"></ion-input>
+    <div class="global_input_block">
+      <ion-input label="Customer Mobile Number" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="mobileNo"></ion-input>
     </div>
-       <div class="global_input_block">
-      <ion-input     label="Customer Mobile Number" fill="outline" labelPlacement="stacked"        type="number"
-     formControlName="mobileNo"></ion-input>
+    <div class="global_input_block">
+      <ion-input label="Address" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="address"></ion-input>
     </div>
-     <div class="global_input_block">
-      <ion-input      label="Address" fill="outline" labelPlacement="stacked"        type="text"
-      formControlName="address"></ion-input>
-    </div>
-  
- 
-  
-        <ion-item  class="bottom-margin">
-      <div class="global_input_block   position-select global_location_block " (click)="selectItem(this.stateList,'State','state_list')">
-    <span class="top_layers">State</span>
-    <span class="name_selected">{{stateName}}</span>
-    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+    <div class="global_input_block position-select global_location_block"
+      (click)="selectItem(this.stateList,'State','state_list')">
+      <span class="top_layers">State</span>
+      <span class="name_selected">{{stateName}}</span>
+      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
       <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
     </ion-select> -->
-  </div>
-  </ion-item>
-          <ion-item  class="bottom-margin position-select">
-  <div class="global_input_block  position-select  global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
-    <span class="top_layers">City</span>
-    <span class="name_selected">{{cityName}}</span>
-    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+    </div>
+    <div class="global_input_block  position-select  global_location_block"
+      (click)="selectItem(this.cityListFilter,'City','city_list')">
+      <span class="top_layers">City</span>
+      <span class="name_selected">{{cityName}}</span>
+      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
           <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
         </ion-select> -->
-  </div>
-  </ion-item>
-      <div class="margin-bottom-headline position-head">
-    <span class="heading-list" >Purchase Details</span>
     </div>
-         <div class="global_input_block">
-      <ion-input    label="Selling Price" fill="outline" labelPlacement="stacked"     type="number"
-     formControlName="sellingPrice"></ion-input>
+    <div class="global-inner-heading">Purchase Details</div>
+    <div class="global_input_block">
+      <ion-input label="Selling Price" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="sellingPrice"></ion-input>
     </div>
-       <div class="global_input_block">
-      <ion-input      label="Margin Money" fill="outline" labelPlacement="stacked"    type="number"
-     formControlName="marginMoney"></ion-input>
+    <div class="global_input_block">
+      <ion-input label="Margin Money" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="marginMoney"></ion-input>
     </div>
-        <div class="global_input_block">
-      <ion-input     label="Selling Date" fill="outline" labelPlacement="stacked"       type="date"
-     formControlName="sellingDate"></ion-input>
+    <div class="global_input_block">
+      <ion-input label="Selling Date" fill="outline" labelPlacement="stacked" type="date"
+        formControlName="sellingDate"></ion-input>
     </div>
-         <div class="global_input_block">
-      <ion-input       label="Remark" fill="outline" labelPlacement="stacked"    type="text"
-     formControlName="remark"></ion-input>
+    <div class="global_input_block">
+      <ion-input label="Remark" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="remark"></ion-input>
     </div>
-      <div class="margin-bottom-headline position-head">
-    <span class="heading-list" >Other Details</span>
-    </div>
-
-      <ion-item   class="bottom-margin">
-    
-      <ion-select  formControlName="isFinance"    label="Is Finance" label-placement="type">
-        <ion-select-option  [value]="true">Yes</ion-select-option>
+    <div class="global-inner-heading">Other Details</div>
+    <div class="global_input_block">
+      <ion-select formControlName="isFinance" fill="outline" label="Is Finance" label-placement="type">
+        <ion-select-option [value]="true">Yes</ion-select-option>
         <ion-select-option [value]="false">NO</ion-select-option>
-    
       </ion-select>
-    </ion-item>
- 
-    <ion-item   class="bottom-margin">
-      <ion-icon (click)="openCrudManagement('BROKER')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="getBrokerList(true)" name="refresh-outline"></ion-icon>
-      <ion-select  formControlName="brokerId"    label="Broker" label-placement="type">
-        <ion-select-option *ngFor="let rep of brokerList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
-    
+    </div>
+    <div class="global_input_block select_option_with_add">
+      <ion-select formControlName="brokerId" fill="outline" label="Broker" label-placement="type">
+        <ion-select-option *ngFor="let rep of brokerList" [value]="rep.id"> {{ rep?.name }}</ion-select-option>
       </ion-select>
-    </ion-item>
-
-    <ion-item   class="bottom-margin">
+      <div class="right_action_block dynamic_bgcolor">
+        <ion-icon (click)="openCrudManagement('BROKER')" name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="getBrokerList(true)" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="global_input_block select_option_with_add">
+      <ion-select formControlName="companyRepresentative" fill="outline" label="Company Representative"
+        label-placement="type">
+        <ion-select-option *ngFor="let com of companyRepresentativeList" [value]="com.id"> {{ com?.name
+          }}</ion-select-option>
+      </ion-select>
+      <div class="right_action_block dynamic_bgcolor">
+        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="getCompanyRepresentativeList(true)" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
+    <!-- <ion-item class="bottom-margin">
       <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
       <ion-icon (click)="getCompanyRepresentativeList(true)" name="refresh-outline"></ion-icon>
-      <ion-select  formControlName="companyRepresentative"    label="Company Representative" label-placement="type">
-        <ion-select-option *ngFor="let com of companyRepresentativeList" [value]="com.id">    {{ com?.name }}</ion-select-option>
-    
-      </ion-select>
-    </ion-item>
-    <ion-item   class="bottom-margin">
-      <!-- <ion-icon (click)="openCrudManagement('WAREHOUSELOCATION')" name="add-circle-outline"></ion-icon> -->
-      <ion-icon (click)="getWareHouseLocationList(true)" name="refresh-outline"></ion-icon>
-      <ion-select  formControlName="wareHouseLocation"    label="Store" label-placement="type">
-        <ion-select-option *ngFor="let ware of wareHouseLocationList" [value]="ware.id">    {{ ware?.name }}</ion-select-option>
-    
-      </ion-select>
-    </ion-item>
-        
-    <div class="login-button bottom-margin-button">
+      <ion-select formControlName="companyRepresentative"  fill="outline" label="Company Representative" label-placement="type">
+        <ion-select-option *ngFor="let com of companyRepresentativeList" [value]="com.id"> {{ com?.name
+          }}</ion-select-option>
 
-      <ion-button *ngIf="!sellingData"   (click)="save()"  style="text-align: center;" expand="block" ><span class="color-white">Save</span></ion-button>
-      <ion-button  *ngIf="sellingData"  (click)="updateSellingDetails()"  style="text-align: center;" expand="block" ><span class="color-white">Update</span></ion-button>
-    
+      </ion-select>
+    </ion-item> -->
+    <div class="global_input_block select_option_with_add">
+      <ion-select formControlName="wareHouseLocation" fill="outline" label="Store" label-placement="type">
+        <ion-select-option *ngFor="let ware of wareHouseLocationList" [value]="ware.id"> {{ ware?.name
+          }}</ion-select-option>
+      </ion-select>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="getWareHouseLocationList(true)" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="global_submit_button">
+      <ion-button *ngIf="!sellingData" (click)="save()" class="global_submit_color_button dynamic_bgcolor"
+        expand="block"><span class="color-white">Save</span></ion-button>
+      <ion-button *ngIf="sellingData" (click)="updateSellingDetails()"
+        class="global_submit_color_button dynamic_bgcolor" expand="block"><span
+          class="color-white">Update</span></ion-button>
     </div>
   </form>
-  </div>
-  
-  </ion-content>
+</ion-content>
