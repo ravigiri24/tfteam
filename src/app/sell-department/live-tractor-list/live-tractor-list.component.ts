@@ -130,8 +130,8 @@ if(this.share.checkStoreOnlyAccess()){
   optionsUploadButtonArray: any = [
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Sale Dead(Pic)',
-      showHeading: 'Upload Sale Dead(Pic)',
+      optionsName: 'Sale Dead (Pic)',
+      showHeading: 'Upload Sale Dead (Pic)',
       param: 'SALE_DEAD',
       showDeleteButton: true,
       uploadPhoto: true,

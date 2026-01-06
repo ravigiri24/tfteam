@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
@@ -9,31 +9,32 @@ import { ShareService } from 'src/app/share.service';
   templateUrl: './sell-options.component.html',
   styleUrls: ['./sell-options.component.scss'],
 })
-export class SellOptionsComponent  implements OnInit {
+export class SellOptionsComponent implements OnInit {
 
-  constructor(private modalControl: ModalController,private share:ShareService) {}
-tractor:any
-  ngOnInit() {}
-   dismiss() {
+  constructor(private modalControl: ModalController, private share: ShareService) { }
+  tractor: any;
+  @Input() listColorClass: any = "secondColor";
+  ngOnInit() { }
+  dismiss() {
     this.modalControl.dismiss();
   }
   async goToUplodeSection(imageGroup: any) {
     let showHeading = null;
     if (imageGroup == 'SALE_DEAD') {
       showHeading = 'Upload Sale Dead';
-    } 
-  else if(imageGroup =='ADHAR_CARD'){
+    }
+    else if (imageGroup == 'ADHAR_CARD') {
       showHeading = ' Upload Adhar Card';
-  }
-    else if(imageGroup =='PAN_CARD'){
+    }
+    else if (imageGroup == 'PAN_CARD') {
       showHeading = ' Upload Pan Card';
-  }
-      else if(imageGroup =='BAHI_KHATA'){
+    }
+    else if (imageGroup == 'BAHI_KHATA') {
       showHeading = ' Upload Bahi kHATA';
-  }
-      else if(imageGroup =='FORM_34'){
+    }
+    else if (imageGroup == 'FORM_34') {
       showHeading = ' Upload Form 34';
-  }
+    }
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
       componentProps: {
