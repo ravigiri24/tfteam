@@ -1,18 +1,21 @@
-<ion-header>
+<ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>Details</ion-title>
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons [ngClass]="listColorClass" slot="end">
-      <ion-icon class="close_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">Details</div>
+      <div class="right_action">
+        <ion-buttons  slot="end">
+          <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container">
+<ion-content class="internal_card_container" [ngClass]="listColorClass">
   <ion-row>
     <!-- {{optionsArray | json}} -->
     <ng-container *ngFor="let option of optionsArray;let i=index">
-      <ion-col [ngClass]="listColorClass" (click)="actionEvent(option)" class="section_col" size="6" size-md="6">
-         <!-- <div class="camera-icon-container">
+      <ion-col (click)="actionEvent(option)" class="section_col" size="6" size-md="6">
+        <!-- <div class="camera-icon-container">
             <ion-icon name="camera-outline"></ion-icon>
             <span class="camera-counter">{{ optionsArray?.uploadPhoto?.length }}</span>
           </div> -->
