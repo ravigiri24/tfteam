@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -24,12 +24,13 @@ export class AddNewArrivalsComponent implements OnInit {
     private api: ApiService,
     private fb: FormBuilder,
     private modalCtrl: ModalController
-  ) {}
+  ) { }
 
   ngOnInit() {
     //this.getModelList()
   }
   cityList: any = [];
+  @Input() listColorClass = 'sevenColor';
   getCityList(loader: any = false) {
     if (loader) {
       this.share.showLoading('Refreshing Data...');
@@ -41,7 +42,7 @@ export class AddNewArrivalsComponent implements OnInit {
 
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   companyRepresentativeList: any = [];
@@ -55,7 +56,7 @@ export class AddNewArrivalsComponent implements OnInit {
         this.companyRepresentativeList = res.data;
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   typePurchaseList: any = [];
@@ -69,7 +70,7 @@ export class AddNewArrivalsComponent implements OnInit {
         this.typePurchaseList = res.data;
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
   staffDetails: any;
@@ -104,7 +105,7 @@ export class AddNewArrivalsComponent implements OnInit {
     if (this.rowCode != undefined) {
       this.getDataByRowCode(this.rowCode);
     } else {
-   this.modelForm=   this.share.initialize(
+      this.modelForm = this.share.initialize(
         this.data,
         this.modelForm,
         this.isStockEntry,
@@ -112,8 +113,8 @@ export class AddNewArrivalsComponent implements OnInit {
         this.isInventoryStock,
         this.inventoryStoreId
       );
-      console.log("this.modelForm",this.modelForm);
-      
+      console.log("this.modelForm", this.modelForm);
+
     }
     this.selectedTab = 'MODEL';
     this.getModelList();
@@ -139,15 +140,15 @@ export class AddNewArrivalsComponent implements OnInit {
           this.data.tractor_status = 'NEW_ARRIVAL';
         }
         if (this.data?.isDraft) {
-       //   this.initialize();
-       this.modelForm=       this.share.initialize(
-        this.data,
-        this.modelForm,
-        this.isStockEntry,
-        this.tractor_status,
-        this.isInventoryStock,
-        this.inventoryStoreId
-      );
+          //   this.initialize();
+          this.modelForm = this.share.initialize(
+            this.data,
+            this.modelForm,
+            this.isStockEntry,
+            this.tractor_status,
+            this.isInventoryStock,
+            this.inventoryStoreId
+          );
           this.selectedTab = 'BASIC_INFO';
         }
       },
@@ -167,13 +168,13 @@ export class AddNewArrivalsComponent implements OnInit {
       this.getCompanyRepresentativeList(true);
     }
   }
-setModelDetailEvent(data: any){
-  this.share.setModelDetail(data,this.modelForm)
-  setTimeout(() => {
-         this.selectedTab = 'BASIC_INFO';
-  }, 0);
- 
-}
+  setModelDetailEvent(data: any) {
+    this.share.setModelDetail(data, this.modelForm)
+    setTimeout(() => {
+      this.selectedTab = 'BASIC_INFO';
+    }, 0);
+
+  }
   data: any;
   selectedModel: any;
   modelForm: FormGroup;
@@ -281,7 +282,7 @@ setModelDetailEvent(data: any){
       modalID: new FormControl(this.data?.modalID || null, [
         Validators.required,
       ]),
-   
+
       rtoEstimationCost: new FormControl(this.data?.rtoEstimationCost || null),
       inwardEstimationCost: new FormControl(
         this.data?.inwardEstimationCost || null
@@ -732,8 +733,8 @@ setModelDetailEvent(data: any){
         ]),
       }),
     });
-    console.log("this.form",this.modelForm);
-    
+    console.log("this.form", this.modelForm);
+
     //  if (this.data?.images?.length) {
     //    this.loadedImages = this.data?.images;
     //  }
@@ -752,7 +753,7 @@ setModelDetailEvent(data: any){
         this.modelList = res.data;
         this.share?.spinner?.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
 
