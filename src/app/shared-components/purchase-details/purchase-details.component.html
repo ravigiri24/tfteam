@@ -1,18 +1,18 @@
-<form class="form_basic_height" [formGroup]="modelForm">
+<form class="form_basic_height" [formGroup]="modelForm" [ngClass]="listColorClass">
   <div class="position-body" formGroupName="purchasedetail">
-      <div class="margin-bottom-headline">
-    <span class="heading-list" >Dates</span>
+    <div class="global-inner-heading">
+      <span>Dates</span>
     </div>
     <div class="global_input_block">
       <ion-input label="Select Purchase Date" fill="outline" labelPlacement="stacked" type="date"
         formControlName="purchanseDate"></ion-input>
     </div>
-     <div class="global_input_block">
+    <div class="global_input_block">
       <ion-input label="Expected Date Of Arrival" fill="outline" labelPlacement="stacked" type="date"
         formControlName="expectedDateOfArrival"></ion-input>
     </div>
-      <div class="margin-bottom-headline">
-    <span class="heading-list" >Purchase Details</span>
+    <div class="global-inner-heading">
+      <span>Purchase Details</span>
     </div>
     <div class="global_input_block select_option_with_add">
       <ion-select formControlName="typeOfPurchase" labelPlacement="stacked" fill="outline" label="Type Of Purchase"
@@ -20,14 +20,13 @@
         <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id"> {{ type?.name }}</ion-select-option>
       </ion-select>
       <div class="right_action_block add_icon">
-        <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')"
-          name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')" name="add-circle-outline"></ion-icon>
       </div>
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="refreshList('TYPE_OF_PURCHASE')" name="refresh-outline"></ion-icon>
       </div>
     </div>
-        <div class="global_input_block">
+    <div class="global_input_block">
       <ion-input label="Bank Name" fill="outline" labelPlacement="stacked" type="text"
         formControlName="bankNameAuction"></ion-input>
     </div>
@@ -39,13 +38,13 @@
       <ion-input label="Purchase Price" fill="outline" labelPlacement="stacked" type="text"
         formControlName="purchasePrice"></ion-input>
     </div>
-       <div class="global_input_block">
+    <div class="global_input_block">
       <ion-input label="Amount Transfer Date" fill="outline" labelPlacement="stacked" type="date"
         formControlName="amountTransferDate"></ion-input>
     </div>
-   
-        <div class="margin-bottom-headline">
-    <span class="heading-list" >Seller Details</span>
+
+    <div class="global-inner-heading">
+      <span>Seller Details</span>
     </div>
     <div class="global_input_block">
       <ion-input label="Seller Address" fill="outline" labelPlacement="stacked" type="text"
@@ -70,7 +69,7 @@
       <ion-input label="Seller Contact 2" fill="outline" labelPlacement="stacked" type="text"
         formControlName="contact2"></ion-input>
     </div>
-       <div class="global_input_block">
+    <div class="global_input_block">
       <ion-input label="Park Location" fill="outline" labelPlacement="stacked" type="text"
         formControlName="parkLocation"></ion-input>
     </div>
@@ -81,49 +80,45 @@
           }}</ion-select-option>
       </ion-select>
       <div class="right_action_block add_icon">
-        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')"
-          name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
       </div>
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="refreshList('COMPANYREPRESENTATIVE')" name="refresh-outline"></ion-icon>
       </div>
     </div>
- 
-  </div>
-    <div class="margin-bottom-headline">
-    <span class="heading-list" >RTO/INSURANCE COST</span>
-    </div>
-     <div class="global_input_block" >
-      <ion-input label="RTO Cost" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="rto_cost"></ion-input>
-    </div>
-     <div class="global_input_block" >
-      <ion-input label="Insurance Cost" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="insurance_cost"></ion-input>
-    </div>
-    
 
-    
-     <div class="margin-bottom-headline">
-    <span class="heading-list" >Estimation</span>
-    </div>
-     <!-- <div class="global_input_block" >
+  </div>
+  <div class="global-inner-heading">
+    <span>RTO/INSURANCE COST</span>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="RTO Cost" fill="outline" labelPlacement="stacked" type="number"
+      formControlName="rto_cost"></ion-input>
+  </div>
+  <div class="global_input_block">
+    <ion-input label="Insurance Cost" fill="outline" labelPlacement="stacked" type="number"
+      formControlName="insurance_cost"></ion-input>
+  </div>
+  <div class="global-inner-heading">
+    <span>Estimation</span>
+  </div>
+  <!-- <div class="global_input_block" >
       <ion-input label="RTO Estimation" fill="outline" labelPlacement="stacked" type="text"
         formControlName="rtoEstimationCost"></ion-input>
     </div> -->
-   <div class="global_input_block">
-      <ion-input label="Inward Estimation" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="inwardEstimationCost"></ion-input>
-    </div>
+  <div class="global_input_block">
+    <ion-input label="Inward Estimation" fill="outline" labelPlacement="stacked" type="text"
+      formControlName="inwardEstimationCost"></ion-input>
+  </div>
 
 
-     <div class="global_input_block">
-      <ion-input label="Maintainance Estimation" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="maintainanceEstimationCost"></ion-input>
-    </div>
+  <div class="global_input_block">
+    <ion-input label="Maintainance Estimation" fill="outline" labelPlacement="stacked" type="text"
+      formControlName="maintainanceEstimationCost"></ion-input>
+  </div>
 
   <div class="page_submit_btn">
-    <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
-    <ion-button *ngIf="data" (click)="saveForm()" class="global_submit_button" expand="block">Update</ion-button>
+    <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
+    <ion-button *ngIf="data" (click)="saveForm()" class="global_submit_color_button dynamic_bgcolor" expand="block">Update</ion-button>
   </div>
 </form>

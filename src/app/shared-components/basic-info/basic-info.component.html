@@ -1,15 +1,14 @@
-
-<form class="form_basic_height"  [formGroup]="form">
-  <div >
+<form class="form_basic_height" [formGroup]="form">
   <div class="global_input_block">
     <ion-input label="Enter Tractor Name" fill="outline" labelPlacement="stacked" type="text" placeholder="Your name"
-    formControlName="name"></ion-input>
+      formControlName="name"></ion-input>
   </div>
   <!-- <div class="global_input_block">
     <ion-input label="Enter TF Code" fill="outline" labelPlacement="stacked" type="text" formControlName="registractionNo"></ion-input>
   </div> -->
   <div class="global_input_block">
-    <ion-input label="Enter Hours" fill="outline" labelPlacement="stacked" type="text" formControlName="hours"></ion-input>
+    <ion-input label="Enter Hours" fill="outline" labelPlacement="stacked" type="text"
+      formControlName="hours"></ion-input>
   </div>
   <!-- <div class="global_input_block">
     <ion-input label="Dealer Price" fill="outline" labelPlacement="stacked" type="number" formControlName="dealerPrice"></ion-input>
@@ -28,8 +27,8 @@
       formControlName="price"
       ></ion-input>
     </ion-item> -->
-      <div formGroupName="purchasedetail">
-      <div class="global_input_block">
+  <div formGroupName="purchasedetail">
+    <div class="global_input_block">
       <ion-input label="Chasis Number" fill="outline" labelPlacement="stacked" type="text"
         formControlName="chasisNumber"></ion-input>
     </div>
@@ -41,19 +40,18 @@
       <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text"
         formControlName="engineNumber"></ion-input>
     </div>
-      
+
   </div>
-    <div *ngIf="!data" class="global_input_block" >
-  <ion-toggle   (ionChange)="setBackDateEntry()" formControlName="isBackDateEntry" [checked]="true">Backdated entry</ion-toggle>
+  <div *ngIf="!data" class="global_input_block">
+    <ion-toggle (ionChange)="setBackDateEntry()" formControlName="isBackDateEntry" [checked]="true">Backdated
+      entry</ion-toggle>
   </div>
-   <div class="global_input_block" *ngIf="(form.controls['isBackDateEntry'].value==true)">
-      <ion-input label="Date Of Back Entry" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="backDate"></ion-input>
-    </div>
-    <div *ngIf="isStockEntry" class="page_submit_btn">
+  <div class="global_input_block" *ngIf="(form.controls['isBackDateEntry'].value==true)">
+    <ion-input label="Date Of Back Entry" fill="outline" labelPlacement="stacked" type="date"
+      formControlName="backDate"></ion-input>
+  </div>
+  <div *ngIf="isStockEntry" class="page_submit_btn">
     <ion-button *ngIf="!data" (click)="saveForm()" class="global_submit_button" expand="block">Save</ion-button>
     <ion-button *ngIf="data" (click)="saveForm()" class="global_submit_button" expand="block">Update</ion-button>
   </div>
-  </div>
 </form>
-
