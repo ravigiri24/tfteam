@@ -6,7 +6,8 @@ import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/sear
 import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
+import { OpenNotificationAlertComponent } from 'src/app/shared-components/open-notification-alert/open-notification-alert.component';
 import { ReviewPageComponent } from 'src/app/customer-management/review-page/review-page.component';
 @Component({
   selector: 'app-enquiry-list-sales-head',
@@ -24,15 +25,32 @@ export class EnquiryListSalesHeadComponent implements OnInit {
   ) {}
   listColorClass = 'sixColor';
   ngOnInit() {}
+  
   enquireList: any = [];
   headerDisplayArray = [
-    //  { name: 'Back', icon: 'arrow-back-outline' },
+    
+     { name: 'Notification', icon: 'notifications-outline' },
   ];
+
   actionEventHeader(e: any) {
-    if (e?.name == 'Back') {
-      this.router.navigate([this.srcPage]);
+    if (e?.name == 'Notification') {
+     this.openNotidication()
     }
   }
+  async openNotidication() {
+      const modal = await this.modalCtrl.create({
+        component: NotificationPopUpComponent,
+        componentProps: {
+  
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+      }
+    }
   async actionEventCall(e: any) {
     if (
       e?.button?.name == 'Customer Remark' ||
@@ -59,6 +77,9 @@ export class EnquiryListSalesHeadComponent implements OnInit {
       this.getEnquirList();
     }
   }
+  isModalOpen=false
+   
+   
   tractorListStorewise(e: any) {
     this.selectedStore = e?.selectedStore;
     this.getEnquirList();
@@ -71,7 +92,10 @@ export class EnquiryListSalesHeadComponent implements OnInit {
     this.staffDetails = JSON.parse(staffDetails);
     let obj: any = this.share.getListObj('warehouselocation', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
-    this.share.showLoading('Loading...');
+    if(loader){
+this.share.showLoading('Loading...');
+    }
+    
     setTimeout(() => {
       this.api.postapi('getList', obj).subscribe(
         (res: any) => {
@@ -192,20 +216,33 @@ export class EnquiryListSalesHeadComponent implements OnInit {
   srcPage: any;
 
   staffDetails: any;
+  callNotification=false
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
+       this.staffDetails = JSON.parse(staffDetails);
     this.allFilterList = [];
     this.holddingList = [];
     this.enquireList = [];
-    this.staffDetails = JSON.parse(staffDetails);
+ 
     //    this.activatedRoute.params.subscribe((params: any) => {
     //    this.selectedItem = 'params?.type;'
     //  this.srcPage= params?.srcPage;
     //  });
     this.selectedItem = 'OPEN_ENQUIRE';
+    //setTimeout(() => {
+  //this.api.generateNotifcationToAboveStaff({id:2},this.staffDetails)
+  
+    let obj: any = this.share.getStaffObj();
+   obj.staff_id=this.staffDetails?.id
+ this.api.checkNotification(obj)
+    
+ 
+  
+   
     this.getAllotStoreToAssignStaff();
     // this.getAllotStoreToAssignStaff()
   }
+
   storesList: any = [];
   getAllotStoreToAssignStaff() {
     this.enquireList = [];
@@ -217,7 +254,7 @@ export class EnquiryListSalesHeadComponent implements OnInit {
     this.api.postapi('getAllotedToStaffStore', obj).subscribe(
       (res: any) => {
         this.storesList = res.data;
-        this.share?.spinner?.dismiss();
+      //  this.share?.spinner?.dismiss();
         this.getWareHouseList();
       },
       (error: any) => {}

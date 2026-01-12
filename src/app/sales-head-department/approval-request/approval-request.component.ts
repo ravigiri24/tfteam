@@ -6,7 +6,7 @@ import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/sear
 import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
 import { ReviewPageComponent } from 'src/app/customer-management/review-page/review-page.component';
 @Component({
   selector: 'app-approval-request',
@@ -25,12 +25,32 @@ export class ApprovalRequestComponent implements OnInit {
   listColorClass = 'sixColor';
   ngOnInit() {}
   enquireList: any = [];
-  headerDisplayArray = [];
+  headerDisplayArray = [
+        
+     { name: 'Notification', icon: 'notifications-outline' },
+  ];
   actionEventHeader(e: any) {
     if (e?.name == 'Back') {
       this.router.navigate([this.srcPage]);
     }
+       if (e?.name == 'Notification') {
+     this.openNotidication()
+    }
   }
+    async openNotidication() {
+        const modal = await this.modalCtrl.create({
+          component: NotificationPopUpComponent,
+          componentProps: {
+    
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+        }
+      }
   approvalList: any = [];
   getingApprovalList() {
     let obj: any = this.share.getStaffObj();
@@ -143,6 +163,9 @@ export class ApprovalRequestComponent implements OnInit {
     this.selectedItem = 'PENDING';
     this.getAllotStoreToAssignStaff();
     // this.getAllotStoreToAssignStaff()
+      let obj: any = this.share.getStaffObj();
+   obj.staff_id=this.staffDetails?.id
+ this.api.checkNotification(obj)
   }
   storesList: any = [];
   getAllotStoreToAssignStaff() {

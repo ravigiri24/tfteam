@@ -24,7 +24,27 @@ export class NotificationPopUpComponent  implements OnInit {
   dismiss() {
     this.modalCtrl.dismiss();
   }
+staffDetails:any
+  ngOnInit() {
+       let staffDetails: any = this.share.get_staff();
+       this.staffDetails = JSON.parse(staffDetails);
+       this.getNotification()
+  }
+  noti_list:any=[]
+getNotification(){
+      let obj: any = this.share.getStaffObj();
+    
+       obj.staff_id= this.staffDetails?.id
+this.share.showLoading("Getting Notification")
+      this.api.postapi('getNotification', obj).subscribe(
+        (res: any) => {
+    this.noti_list=res?.data
+        this.share.spinner.dismiss()
+        },
+        (error: any) => {
+        
+        }
+      );
 
-  ngOnInit() {}
-
+  }
 }

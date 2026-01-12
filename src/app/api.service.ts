@@ -6,8 +6,10 @@ import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 
 import { Platform } from '@ionic/angular';
+import { OpenNotificationAlertComponent } from './shared-components/open-notification-alert/open-notification-alert.component';
 import { BehaviorSubject } from 'rxjs';
 import { UpdateVersionAlertComponent } from './shared-components/update-version-alert/update-version-alert.component';
+import { ShareService } from './share.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,7 @@ export class ApiService {
     private router: Router,
     private toastController: ToastController,
     private modalCtrl:ModalController,
-    
+    private share:ShareService,
     private platform: Platform
   ) {
    
@@ -108,5 +110,81 @@ export class ApiService {
 isOnline(): boolean {
   return this.isOnlineSubject.value;
 }
+checkNotification(obj:any){
+       
+  
 
+      this.postapi('checkNotification', obj).subscribe(
+        (res: any) => {
+        if(res?.data>0){
+          this.alertNotification(res)
+        }
+        
+        },
+        (error: any) => {
+        
+        }
+      );
+
+  }
+isModalOpen=false
+ async alertNotification(res:any) {
+    
+      if(!this.isModalOpen){
+      this.isModalOpen=true
+      console.log("alertNotification",this.isModalOpen);
+      const modal = await this.modalCtrl.create({
+        component: OpenNotificationAlertComponent,
+        breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.6,
+        componentProps: {
+     count:res?.data
+        },
+           cssClass: 'midium-model',
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+       this.isModalOpen=false
+      if (role === 'confirm') {
+      }
+    }
+    }
+     getNotificationObj(title:any,description:any,selectedStore:any,type:any){
+        let getStaffDetail: any = this.get_staff();
+    let getStaff: any = JSON.parse(getStaffDetail);
+    return {
+        operate: getStaff?.staffCode,
+        action_id:getStaff?.id,
+      title:title,
+      description:description,
+      type:type,
+      storeId:selectedStore
+    }
+  }
+  genreteEnquiry(title:any,description:any,selectedStore:any,staffDetails:any) {
+ 
+    let obj = this.getNotificationObj(
+     title,
+      description,
+      selectedStore?.store_id,
+      'Enquiry'
+    );
+
+    this.postapi('generateEnquiry', obj).subscribe((res: any) => {
+      this.generateNotifcationToAboveStaff(res?.rowData,staffDetails);
+    });
+  }
+  generateNotifcationToAboveStaff(noti: any,staffDetails:any) {
+    let obj: any = {};
+    obj.operate = this.share.getStaffObj()?.operate;
+
+    obj.staff_id = staffDetails?.id;
+    obj.noti_id = noti?.id;
+
+    this.postapi('generateNotifcationToAboveStaff', obj).subscribe(
+      (res: any) => {},
+      (error: any) => {}
+    );
+  }
 }

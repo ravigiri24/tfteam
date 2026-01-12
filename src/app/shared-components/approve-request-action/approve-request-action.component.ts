@@ -66,6 +66,34 @@ if(this.form.valid){
       id: this.approval?.id,
     };
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      if(this.form.value?.isApproved==true){
+ let description =
+          this.staffDetails?.name +
+          ' has approved the request for ' +
+          this.approval?.tractor_name +
+          ' at ' +
+          this.approval?.approvePrice+' for '+this.approval?.storeName;
+        this.api.genreteEnquiry(
+          'Request Approved',
+          description,
+        {store_id:this.approval?.storeId}  ,
+          this.staffDetails
+        );
+      }else{
+ let description =
+          this.staffDetails?.name +
+          ' has rejected the request for ' +
+          this.approval?.tractor_name +
+          ' at ' +
+          this.approval?.approvePrice+' for '+this.approval?.storeName;
+        this.api.genreteEnquiry(
+          'Request Rejected',
+          description,
+        {store_id:this.approval?.storeId}  ,
+          this.staffDetails
+        );
+      }
+       
       this.share.spinner.dismiss();
       this.share.presentToast('Action Done Successfully...');
       this.modalCtrl.dismiss(true);

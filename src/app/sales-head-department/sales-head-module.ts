@@ -27,7 +27,7 @@ import { AssinedStoresComponent } from './sales-officer/assined-stores/assined-s
 
 import { ApprovalRequestComponent } from './approval-request/approval-request.component';
 import { EnquiryListSalesHeadComponent } from './enquiry-list-sales-head/enquiry-list-sales-head.component';
-
+import { SalesHeadTractorListComponent } from './sales-head-tractor-list/sales-head-tractor-list.component';
 @NgModule({
   declarations: [
 
@@ -40,7 +40,8 @@ AddSalesOfficerComponent,
 AssinedStoresComponent,
 
 ApprovalRequestComponent,
-EnquiryListSalesHeadComponent
+EnquiryListSalesHeadComponent,
+SalesHeadTractorListComponent
     
   ],
   imports: [

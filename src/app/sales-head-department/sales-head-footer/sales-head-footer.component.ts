@@ -34,7 +34,10 @@ export class SalesHeadFooterComponent  implements OnInit {
       this.activeTabsColor = "firstColor";
       this.router.navigate(['/sales-head/approval-list']);
     }
-   
+     if(tab=='TRACTORS'){
+   this.activeTabsColor = "sixColor";
+    this.router.navigate(['/sales-head/sales-head-tractor-list'])
+  }
     else if (tab == 'User') {
       this.activeTabsColor = "thirdColor";
       this.router.navigate(['/sales-head/user-management']);

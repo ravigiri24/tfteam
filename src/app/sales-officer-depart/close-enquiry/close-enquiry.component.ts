@@ -35,7 +35,17 @@ export class CloseEnquiryComponent implements OnInit {
         let selectedStore: any = this.share.get_sales_officer_store();
             this.selectedStore = JSON.parse(selectedStore);
     this.getModelList();
+    this.getCustomerData()
     this.initialize(this.enquiry);
+  }
+  customerData:any
+  getCustomerData(){
+ 
+    let obj:any = this.share.getStaffObj()
+    obj.customer_id=this.enquiry?.customer_id
+    this.api.postapi('getCustomerData', obj).subscribe((res: any) => {
+      this.customerData=res?.data
+    });
   }
   staffDetails: any;
   initialize(data: any = null) {
@@ -88,6 +98,16 @@ export class CloseEnquiryComponent implements OnInit {
       id: this.enquiry?.id,
     };
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+         let description =
+          'Enquiry of '+this.customerData?.name+' Restart by '  + this.staffDetails?.name +
+            ' at ' +
+            this.selectedStore?.name;
+          this.api.genreteEnquiry(
+            'Enquiry Restart',
+            description,
+            this.selectedStore,
+            this.staffDetails
+          );
       this.share.spinner.dismiss();
       this.share.presentToast('Restart Successfully...');
       this.modalCtrl.dismiss(true);
@@ -102,6 +122,16 @@ export class CloseEnquiryComponent implements OnInit {
         id: this.enquiry?.id,
       };
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+           let description =
+          'Enquiry of '+this.customerData?.name+' closed by '  + this.staffDetails?.name +
+            ' at ' +
+            this.selectedStore?.name;
+          this.api.genreteEnquiry(
+            'Enquiry Closed',
+            description,
+            this.selectedStore,
+            this.staffDetails
+          );
         this.share.spinner.dismiss();
         this.share.presentToast('Closed Successfully...');
         this.modalCtrl.dismiss(true);

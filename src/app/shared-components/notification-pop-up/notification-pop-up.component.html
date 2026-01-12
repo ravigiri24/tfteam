@@ -8,19 +8,18 @@
 </ion-header>
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
   <div class="notification_container">
+    <ng-container *ngFor="let noti of noti_list">
     <div class="notification_block">
       <div class="notification_icon">
         <ion-icon name="notifications-outline"></ion-icon>
       </div>
       <div class="notification_text">
-        <span class="notification_title"><span class="dynamic_color">Tractor Price
-            Updated</span><small>15-Nov-2025</small></span>
-        <div class="notification_desc">Lorem ipsum dolor <b>sit amet</b>, consectetur adipiscing elit, sed do eiusmod
-          tempor <span style="color: #dd0000;">incididunt ut labore et dolore magna aliqua.</span>incididunt ut labore
-          et dolore magna aliqua.</div>
+        <span class="notification_title"><span class="dynamic_color">{{noti?.title}}</span><small>{{noti?.timeOfNotification | date}}</small></span>
+        <div class="notification_desc">{{noti?.description}}</div>
       </div>
     </div>
-    <div class="notification_block">
+    </ng-container>
+    <!-- <div class="notification_block">
       <div class="notification_icon">
         <ion-icon name="notifications-outline"></ion-icon>
       </div>
@@ -31,6 +30,6 @@
           tempor <span style="color: #dd0000;">incididunt ut labore et dolore magna aliqua.</span> incididunt ut labore
           et dolore magna aliqua.</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </ion-content>

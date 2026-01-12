@@ -6,14 +6,15 @@ import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/sear
 import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
-import { RequestApproveFormComponent } from './request-approve-form/request-approve-form.component';
+import { RequestApproveFormComponent } from 'src/app/sales-officer-depart/tractor-list-franchise/request-approve-form/request-approve-form.component';
 import { ViewAppovalsListComponent } from 'src/app/shared-components/view-appovals-list/view-appovals-list.component';
 @Component({
-  selector: 'app-tractor-list-franchise',
-  templateUrl: './tractor-list-franchise.component.html',
-  styleUrls: ['./tractor-list-franchise.component.scss'],
+  selector: 'app-sales-head-tractor-list',
+  templateUrl: './sales-head-tractor-list.component.html',
+  styleUrls: ['./sales-head-tractor-list.component.scss'],
 })
-export class TractorListFranchiseComponent implements OnInit {
+export class SalesHeadTractorListComponent  implements OnInit {
+
   constructor(
     public share: ShareService,
     private api: ApiService,
@@ -99,35 +100,37 @@ export class TractorListFranchiseComponent implements OnInit {
         (res: any) => {
           this.warehouseList = res?.data;
           this.warehouseList = this.warehouseList.reverse();
-          this.share.putUnAssignedInWareHouse(this.warehouseList )
-              this.share.putAllInWareHouse(this.warehouseList )
 
-     let allotedStore = this.staffDetails?.allotedStore;
-      let warehouseList:any=[]
-      this.warehouseList?.forEach((ware: any) => {
-        let checkIn = allotedStore?.find(
-          (store: any) => store.store_id == ware?.id
-        );
-        if (checkIn) {
-          let findI = this.warehouseList?.findIndex(
-            (wareIn: any) => wareIn?.id == ware?.id
-          );
-          warehouseList.push(ware)
+
+    //  let allotedStore = this.staffDetails?.allotedStore;
+    //   let warehouseList:any=[]
+      // this.warehouseList?.forEach((ware: any) => {
+      //   let checkIn = allotedStore?.find(
+      //     (store: any) => store.store_id == ware?.id
+      //   );
+      //   if (checkIn) {
+      //     let findI = this.warehouseList?.findIndex(
+      //       (wareIn: any) => wareIn?.id == ware?.id
+      //     );
+      //     warehouseList.push(ware)
        
-        }
-      });
-      this.allotedWareHouse=warehouseList
-
+      //   }
+      // });
+      // this.allotedWareHouse=warehouseList
+              this.share.putUnAssignedInWareHouse(this.warehouseList )
+              this.share.putAllInWareHouse(this.warehouseList )
 
           console.log('this.warehouseList', this.warehouseList);
           if (!loader) {
-            if(this.allotedWareHouse?.length){
-            // this.selectedStore = this.allotedWareHouse[0]?.id;
-                  let selectedStore: any = this.share.get_sales_officer_store();
-            this.selectedStore = JSON.parse(selectedStore)?.store_id;
-            }else{
-                this.selectedStore = this.warehouseList[2]?.id;
-            }
+            // if(this.allotedWareHouse?.length){
+    
+            //       let selectedStore: any = this.share.get_sales_officer_store();
+            // this.selectedStore = JSON.parse(selectedStore)?.store_id;
+            // }else{
+            //     this.selectedStore = this.warehouseList[0]?.id;
+            // }
+              this.selectedStore = this.warehouseList[2]?.id;
+
             this.getAllTractorListStorewise();
             //this.share.spinner?.dismiss();
           }
@@ -141,13 +144,7 @@ export class TractorListFranchiseComponent implements OnInit {
     if(check){
       this.buttonArray=this.buttonArrayCore
     }else{
-      this.buttonArray=[
-        {
-      name: 'View Refurbish Details',
-      action: 'viewRefurbishDetails',
-      image: './././assets/images/layout.png',
-    }
-      ]
+      this.buttonArray=[]
     }
   }
     buttonArrayCore: any = [
@@ -161,19 +158,13 @@ export class TractorListFranchiseComponent implements OnInit {
      name: 'Approval Request',
       action: 'approvalRequest',
       image: './././assets/images/request.png',
-    }, 
-     {
-      name: 'View Refurbish Details',
-      action: 'viewRefurbishDetails',
-      image: './././assets/images/layout.png',
-    }
+    },
    
   ];
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
   
-        { name: 'Approvals', icon: 'layers-outline' },
             
      { name: 'Notification', icon: 'notifications-outline' },
   ];
@@ -185,7 +176,6 @@ export class TractorListFranchiseComponent implements OnInit {
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
   
-        { name: 'Approvals', icon: 'layers-outline' },
              { name: 'Notification', icon: 'notifications-outline' },
   ];
   actionEventHeader(e: any) {
@@ -338,7 +328,7 @@ this.getAllTractorListStorewise(true)
     this.alltractorList=filteredList
      this.holddingList=[]
     }
-          this.holddingList?.forEach((tractor: any) => {
+      this.holddingList?.forEach((tractor: any) => {
       this.share.getImagesToShow(tractor)
     })
   }
@@ -392,6 +382,32 @@ this.getAllTractorListStorewise(true)
     if (role === 'confirm') {
     }
   }
+    checkedRepairStatus() {
+    this.alltractorList?.forEach((tractor: any) => {
+      if (tractor?.repairMappedData?.length) {
+        if (tractor?.repairMappedData[0]?.isCompleted == 1) {
+          tractor.repairStatus = 'Refurbish Completed';
+        }
+        if (tractor?.repairMappedData[0]?.isCompleted == 0) {
+          tractor.repairStatus = 'Refurbish In Progress';
+        }
+      } else {
+        tractor.repairStatus = 'Not Availaible';
+      }
+    });
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.repairMappedData?.length) {
+        if (tractor?.repairMappedData[0]?.isCompleted == 1) {
+          tractor.repairStatus = 'Refurbish Completed';
+        }
+        if (tractor?.repairMappedData[0]?.isCompleted == 0) {
+          tractor.repairStatus = 'Refurbish In Progress';
+        }
+      } else {
+        tractor.repairStatus = 'Not Availaible';
+      }
+    });
+  }
   alltractorList: any = [];
   allTractorsSrcList: any = [];
   getAllTractorListStorewise(loader: any = false) {
@@ -407,39 +423,96 @@ this.getAllTractorListStorewise(true)
     if (loader) {
       this.share.showLoading('Loading...');
     }
-      let takingTime=true
-    setTimeout(() => {
+    this.alltractorList = [];
+     //   this.checkOwnstore()
+       let takingTime=true
+setTimeout(() => {
   if(takingTime){
   this.share.presentToast("Taking Time,Please Wait...")
 }
 
 }, 2000);
-    this.alltractorList = [];
-        this.checkOwnstore()
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
     
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-
- this.checkAlloteStoreMethod()
-   this.putImage();
-   this.share.putMappedValue(this.alltractorList,this.allTractorsSrcList);
-     
-        this.share.traceTractorPosition(this.alltractorList,this.allTractorsSrcList);
-        this.share.checkedRepairStatus(this.alltractorList,this.allTractorsSrcList);
+  this.filterActiveAndFilterBy()
+ //this.checkAlloteStoreMethod()
+    this.putMappedValue();
+       this.putImage();
+        this.traceTractorPosition();
+        this.checkedRepairStatus();
         //this.sortByFilter()
-        this.share.spinner.dismiss('active_one');
-         
-           this.filterActiveAndFilterBy() 
-               let takingTime=false  
+           takingTime=false
+        this.share.spinner.dismiss('active_six');
         //this.backupList = res.data;
       },
       (error: any) => {}
     );
+  }  traceTractorPosition() {
+    this.alltractorList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Trasport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+        tractor.tractor_status_current = 'At WareHouse';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        tractor.tractor_status_current = 'Alloted(At Dealer)';
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Transport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+          let arch=''
+        if( tractor?.tractor_status=='ARCHIVED'){
+          arch='(Archived)'
+        }
+        tractor.tractor_status_current = 'At WareHouse'+arch;
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        let arch=''
+        if( tractor?.tractor_status=='ARCHIVED'){
+          arch='(Archived)'
+        }
+        tractor.tractor_status_current = 'Alloted(At Dealer)'+arch;
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
   }
-   putImage() {
+  putImage() {
     this.alltractorList?.forEach((tractor: any) => {
       this.share.getImagesToShowPut(tractor);
     });
@@ -447,21 +520,32 @@ this.getAllTractorListStorewise(true)
       this.share.getImagesToShowPut(tractor);
     });
   }
+  putMappedValue() {
+    this.alltractorList?.forEach((trac: any) => {
+      if (trac?.repairMappedData?.length > 0) {
+        trac.isMapped = true;
+      } else {
+        trac.isMapped = false;
+      }
+    });
+    this.allTractorsSrcList?.forEach((trac: any) => {
+      if (trac?.repairMappedData?.length > 0) {
+        trac.isMapped = true;
+      } else {
+        trac.isMapped = false;
+      }
+    });
+  }
+
 
   search = {
     registractionNo: null,
   };
   buttonArray: any = [
-  
-     {
-      name: 'Upload Recive Tractor Image',
-      action: 'reciveTractorImage',
-      image: './././assets/images/image_upload.png',
-    },
       {
-      name: 'Approval Request',
-      action: 'approvalRequest',
-      image: './././assets/images/request.png',
+      name: 'Tractor Summary',
+      action: 'tractorSummary',
+      image: './././assets/images/data-analysis.png',
     },
    
   ];
@@ -476,7 +560,8 @@ this.getAllTractorListStorewise(true)
 
     { key: 'Hours', value: 'hours', type: 'INPUT' },
     { key: 'Price', value: 'price', type: 'INPUT' },
-  { key: 'Mapped To Repair', value: 'isMapped', type: 'CONDITIONAL' },
+        { key: 'Is Sold', value: 'isSold', type: 'CONDITIONAL' },
+    { key: 'Mapped To Repair', value: 'isMapped', type: 'CONDITIONAL' },
     { key: 'Refurbish Status', value: 'repairStatus', type: 'INPUT' },
     { key: 'Status', value: 'tractor_status_current', type: 'INPUT' },
 
@@ -487,7 +572,7 @@ this.getAllTractorListStorewise(true)
       value: 'name',
       type: 'INPUT',
     },
-   
+
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
  async actionEventCall(e: any) {
@@ -495,4 +580,5 @@ this.getAllTractorListStorewise(true)
       await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
 
   }
+
 }

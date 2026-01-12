@@ -73,6 +73,9 @@ import { SelectRepairCenterComponent } from '../user-management/select-repair-ce
 import { SearchJobcardByTfComponent } from './search-jobcard-by-tf/search-jobcard-by-tf.component';
 import { ViewApprovalListComponent } from './view-approval-list/view-approval-list.component';
 import { ApproveRequestActionComponent } from './approve-request-action/approve-request-action.component';
+import { ViewMaintainanceExpenseComponent } from './view-maintainance-expense/view-maintainance-expense.component';
+import { OpenNotificationAlertComponent } from './open-notification-alert/open-notification-alert.component';
+import { ViewRepairRecordComponent } from './view-repair-record/view-repair-record.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -152,7 +155,10 @@ import { ApproveRequestActionComponent } from './approve-request-action/approve-
     SelectRepairCenterComponent,
     SearchJobcardByTfComponent,
     ViewApprovalListComponent,
-    ApproveRequestActionComponent
+    ApproveRequestActionComponent,
+    OpenNotificationAlertComponent,
+    ViewMaintainanceExpenseComponent,
+    ViewRepairRecordComponent
     
   ],
 

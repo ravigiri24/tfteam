@@ -114,6 +114,7 @@ export class ShareService {
 
     await toast.present();
   }
+  isModalOpen=false
   getStaffObj() {
     let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
@@ -121,6 +122,18 @@ export class ShareService {
       operate: getStaff?.staffCode,
     };
     return obj;
+  }
+  getNotificationObj(title:any,description:any,selectedStore:any,type:any){
+        let getStaffDetail: any = this.get_staff();
+    let getStaff: any = JSON.parse(getStaffDetail);
+    return {
+        operate: getStaff?.staffCode,
+        action_id:getStaff?.id,
+      title:title,
+      description:description,
+      type:type,
+      storeId:selectedStore
+    }
   }
   getStaffCOde(name: any) {
     let rand = Math.floor(10000 + Math.random() * 90000);
@@ -189,6 +202,21 @@ export class ShareService {
     };
     return obj;
   }
+    getDataByIdObj(
+    src: any,
+    key:any='id',
+    value:any
+   ) {
+    let getStaffDetail: any = this.get_staff();
+    let getStaff: any = JSON.parse(getStaffDetail);
+    let obj = {
+      src: src,
+      operate: getStaff?.staffCode,
+      value:value,
+      key: key,
+    };
+    return obj;
+  }
   spinner = {
     dismiss: (param: any = 'active_seven') => {
       this.activeCurrent = `active_page ${param}`; // active_one to active_seven
@@ -236,6 +264,112 @@ getImagesToShowPut(tractor: any) {
 
   putAllInWareHouse(warehouseList:any){
    warehouseList.unshift({id:"ALL",name:"All"})
+  }
+    putUnAssignedInWareHouse(warehouseList:any){
+   warehouseList.unshift({id:"UNASSIGNED",name:"Unassigned"})
+  }
+    putMappedValue(alltractorList:any,allTractorsSrcList:any) {
+    alltractorList?.forEach((trac: any) => {
+      if (trac?.repairMappedData?.length > 0) {
+        trac.isMapped = true;
+      } else {
+        trac.isMapped = false;
+      }
+    });
+    allTractorsSrcList?.forEach((trac: any) => {
+      if (trac?.repairMappedData?.length > 0) {
+        trac.isMapped = true;
+      } else {
+        trac.isMapped = false;
+      }
+    });
+  }
+    traceTractorPosition(alltractorList:any,allTractorsSrcList:any) {
+    alltractorList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Trasport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+        tractor.tractor_status_current = 'At WareHouse';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        tractor.tractor_status_current = 'Alloted(At Dealer)';
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+
+    allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Transport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+          let arch=''
+        if( tractor?.tractor_status=='ARCHIVED'){
+          arch='(Archived)'
+        }
+        tractor.tractor_status_current = 'At WareHouse'+arch;
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        let arch=''
+        if( tractor?.tractor_status=='ARCHIVED'){
+          arch='(Archived)'
+        }
+        tractor.tractor_status_current = 'Alloted(At Dealer)'+arch;
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+  }
+   checkedRepairStatus(alltractorList:any,allTractorsSrcList:any) {
+    alltractorList?.forEach((tractor: any) => {
+      if (tractor?.repairMappedData?.length) {
+        if (tractor?.repairMappedData[0]?.isCompleted == 1) {
+          tractor.repairStatus = 'Refurbish Completed';
+        }
+        if (tractor?.repairMappedData[0]?.isCompleted == 0) {
+          tractor.repairStatus = 'Refurbish In Progress';
+        }
+      } else {
+        tractor.repairStatus = 'Not Availaible';
+      }
+    });
+    allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.repairMappedData?.length) {
+        if (tractor?.repairMappedData[0]?.isCompleted == 1) {
+          tractor.repairStatus = 'Refurbish Completed';
+        }
+        if (tractor?.repairMappedData[0]?.isCompleted == 0) {
+          tractor.repairStatus = 'Refurbish In Progress';
+        }
+      } else {
+        tractor.repairStatus = 'Not Availaible';
+      }
+    });
   }
 
   spinnerPopup: any;
