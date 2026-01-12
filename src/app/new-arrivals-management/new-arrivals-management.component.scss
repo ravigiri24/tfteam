@@ -27,16 +27,16 @@
 //         --border-color:var(--app-theme-element-color) !important;
 //         --outline-color:var(--app-theme-element-color) !important;
 //         --color:white !important;
-       
+
 //         }
 // }
 // :host {
 //     ion-button {
-     
-       
+
+
 //         --outline-color:var(--app-theme-element-color) !important;
 //         --color:var(--app-theme-element-color) !important;
-       
+
 //         }
 //   }
 //   .total-number{
@@ -47,15 +47,17 @@
 //     position: relative;
 //     top: 45px;
 //   }
-.top-position-list{
-    position: relative;
-    top:52px
-  }
-  .body-section{
-    width: 100%;
-    text-align: center;
-  }
-  .block{
-    text-align: center;
-    width: 100%;
-  }
+.top-position-list {
+  position: relative;
+  top: 52px
+}
+
+.body-section {
+  width: 100%;
+  text-align: center;
+}
+
+.block {
+  text-align: center;
+  width: 100%;
+}

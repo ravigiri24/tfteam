@@ -4,18 +4,23 @@
 //     height: 50px;
 //     width: 100%;
 //     text-align: center;
-  
+
 // ion-button {
 //     --background: var(--app-theme-element-color) !important;
 //     --border-color:var(--app-theme-element-color) !important;
 //     --color:white !important;
-   
+
 //     }
 // }
-.margin-bottom-headline{
+.margin-bottom-headline {
     margin-bottom: 10px !important;
 }
-.position-body{
+
+.position-body {
     position: relative;
-    top:7px
+    top: 7px
+}
+
+.form_basic_height {
+    padding: 5px 0px 0px 0px;
 }

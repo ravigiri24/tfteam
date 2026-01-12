@@ -435,7 +435,7 @@ export class RtoSoldProcessComponent implements OnInit {
     },
     {
       functionName: 'goToUplodeSection',
-      optionsName: 'Sale Dead(Pic)',
+      optionsName: 'Sale Dead (Pic)',
       showHeading: 'View Sale Dead',
       param: 'SALE_DEAD',
       showDeleteButton: false,

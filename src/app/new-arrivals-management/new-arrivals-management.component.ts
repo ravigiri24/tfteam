@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -23,8 +23,10 @@ export class NewArrivalsManagementComponent implements OnInit {
     private route: Router,
     private commonMethod: CommonMethodService
   ) { }
-
+  @Input() listColorClass = 'sevenColor';
+  
   ngOnInit() { }
+
   ionViewWillEnter() {
     this.newArivalsList = [];
     this.getTractorList();
@@ -102,7 +104,6 @@ export class NewArrivalsManagementComponent implements OnInit {
 
     }
   }
-  listColorClass = 'sevenColor'
   buttonArray: any = [
     {
       name: 'Edit Tractors New Arrivals',
@@ -163,7 +164,7 @@ export class NewArrivalsManagementComponent implements OnInit {
         searchFilter: this.search,
         searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: [] },
-            cssClass: 'midium-model',
+        cssClass: 'midium-model',
       },
     });
     await modal.present();

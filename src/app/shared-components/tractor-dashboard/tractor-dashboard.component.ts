@@ -44,7 +44,7 @@ export class TractorDashboardComponent implements OnInit {
     private inAppBrowser: InAppBrowser,
     private alertCtrl: AlertController
   ) { }
-  @Input() listColorClass: any = "fifthColor";
+  @Input() listColorClass: any = "sixColor";
   ngOnInit() { }
   async goToUplodeSection() {
     let tarctor_id = this.tractorDetails?.id;
@@ -86,7 +86,7 @@ export class TractorDashboardComponent implements OnInit {
   tractor_id: any;
   srcPage: any;
   ionViewWillEnter() {
-       let staffDetails: any = this.share.get_staff();
+    let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
     this.activatedRoute.params.subscribe((params: any) => {
       this.tractor_id = params?.id;
@@ -111,6 +111,7 @@ export class TractorDashboardComponent implements OnInit {
   async openPurchaseCard() {
     const modal = await this.modalCtrl.create({
       component: PurchaseCarfComponent,
+      cssClass: 'midium-model',
       componentProps: {
         tractor: this.tractorDetails,
       },
@@ -303,22 +304,22 @@ export class TractorDashboardComponent implements OnInit {
   backToSrcPage() {
     this.route.navigate([this.srcPage]);
   }
-    registerOnAchviedHistory(tractor:any){
-      let fromLive=true
-      if(tractor?.isDraft=="1"||tractor?.isLive=="0"){
-fromLive=false
-      }
-        let  getsession=JSON.parse(localStorage?.getItem('setSession')||'null');
+  registerOnAchviedHistory(tractor: any) {
+    let fromLive = true
+    if (tractor?.isDraft == "1" || tractor?.isLive == "0") {
+      fromLive = false
+    }
+    let getsession = JSON.parse(localStorage?.getItem('setSession') || 'null');
 
-         let objData: any = {
-   
-      tractor_id:tractor?.id,
-      fromLive:fromLive,
-      isArchived:true,
-      actionByid:this.staffDetails?.id
+    let objData: any = {
+
+      tractor_id: tractor?.id,
+      fromLive: fromLive,
+      isArchived: true,
+      actionByid: this.staffDetails?.id
 
     };
- 
+
     let obj = {
       data: objData,
       src: 'achived_history',
@@ -326,20 +327,20 @@ fromLive=false
     };
 
     this.api.postapi('addOpp', obj).subscribe(
-      (res:any) => {
+      (res: any) => {
 
       },
-      (error:any) => {
+      (error: any) => {
         this.share.presentToast("Erorr...")
-        
+
       }
     );
-  }  
+  }
 
   doArchive() {
     let objData: any = {
       tractor_status: 'ARCHIVED',
-      isDraft:true
+      isDraft: true
     };
     let obj = {
       src: 'tractor',
@@ -388,14 +389,14 @@ fromLive=false
       component: SellBackComponent,
       componentProps: {
         tractor: this.tractorDetails,
-        backFrom:backFrom
+        backFrom: backFrom
 
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (data) {
-    this.getTractorDetails('Refreshing Data...')
+      this.getTractorDetails('Refreshing Data...')
     }
   }
   async sendDraftAlert() {
@@ -423,7 +424,7 @@ fromLive=false
   doDraft() {
     let objData: any = {
       tractor_status: null,
-      isDraft:true
+      isDraft: true
     };
     let obj = {
       src: 'tractor',
@@ -434,7 +435,7 @@ fromLive=false
     this.share.showLoading('Updating Data...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
-   this.registerOnAchviedHistory(this.tractorDetails)
+      this.registerOnAchviedHistory(this.tractorDetails)
       this.getTractorDetails()
       this.share.presentToast('Archived Successfully...');
 
@@ -460,7 +461,7 @@ fromLive=false
       this.getTractorDetails('Refreshing Data...')
     }
   }
-    async allotStore() {
+  async allotStore() {
     const modal = await this.modalCtrl.create({
       component: AllotStoreComponent,
 

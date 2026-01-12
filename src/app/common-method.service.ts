@@ -696,7 +696,7 @@ this.refurbishDetails(e?.tractor)
             async salesOptionSold(tractor:any){
                     const modal = await this.modalCtrl.create({
                       component: SellOptionsComponent,
-                               cssClass: 'midium-model',
+                              //  cssClass: 'midium-model',
                       componentProps: {
                         tractor: tractor,
                       },

@@ -1,60 +1,145 @@
-.margin-bottom-headline{
-    margin-bottom: 10px !important;
-}
-.position-body{
-    position: relative;
-    top:20px;
-    height: 100%;
+// .margin-bottom-headline{
+//     margin-bottom: 10px !important;
+// }
+// .position-body{
+//     position: relative;
+//     top:20px;
+//     height: 100%;
 
-}
-.tab_withinner_block {
-    position: relative;
-    top: 45px;
-    height: calc(100% - 45px);
-    overflow-y: scroll;
-}
-.block{
-    text-align: center;
-}
-.card-width{
-    width: 49%;
-}
-.image-style{
-   margin-top: 14px;
-    height: 90px;
-    width: 110px;
-    position: relative;
-    top: 33px;
-    
+// }
+// .tab_withinner_block {
+//     position: relative;
+//     top: 45px;
+//     height: calc(100% - 45px);
+//     overflow-y: scroll;
+// }
+// .block{
+//     text-align: center;
+// }
+// .card-width{
+//     width: 49%;
+// }
+// .image-style{
+//    margin-top: 14px;
+//     height: 90px;
+//     width: 110px;
+//     position: relative;
+//     top: 33px;
+
+//     }
+
+//  .succes-tag-line{
+//     font-weight: 700;
+//     font-size: 18px;
+//     margin:10px;
+//     position: relative;
+//     top:40px;
+
+
+//  }   
+//  .top-position{
+//     position: relative;
+//     top: 47px;
+//     margin: 23px;
+//  }
+//  .hieght-body{
+//     height: 100%;
+// }
+
+// .position-select{
+// position: relative;
+//     top: 9px;
+// }
+// .position-head{
+//     position: relative;
+//     top: 9px;
+// }
+
+// .body-form{
+//     width: 100%;
+// }
+
+.section_col {
+    overflow: visible !important;
+
+    .image_block {
+        width: 100px;
+        height: 100px;
+        margin: 10px auto 0px auto;
+        border-radius: 10px;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+
+        img {
+            width: 100%;
+            max-height: 100%;
+        }
+
+
     }
 
- .succes-tag-line{
-    font-weight: 700;
-    font-size: 18px;
-    margin:10px;
-    position: relative;
-    top:40px;
+    .camera-icon-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 8px;
+        z-index: 10;
+        cursor: pointer;
 
+        ion-icon {
+            font-size: 24px;
+        }
 
- }   
- .top-position{
-    position: relative;
-    top: 47px;
-    margin: 23px;
- }
- .hieght-body{
-    height: 100%;
-}
+        .camera-counter {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            color: white;
+            font-size: 12px;
+            border-radius: 50%;
+            padding: 2px 5px;
+            width: 24px;
+            height: 24px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 
-.position-select{
-position: relative;
-    top: 9px;
-}
-.position-head{
-    position: relative;
-    top: 9px;
-}
+    .global_image_upload_card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+        overflow: visible !important;
+        padding: 10px;
+        border: dashed 1px;
 
-.body-form{
-    width: 100%;
+        .title {
+            font-size: 12px;
+            display: inline-block;
+            width: 100%;
+            padding: 0px;
+            text-align: center;
+        }
+    }
+
+    .middle_border {
+        height: 30px;
+        width: 2px;
+        margin: 0px auto;
+        display: inline-block;
+        background: var(--app-dynamic-color-second);
+        position: absolute;
+        left: calc(50% - 1px);
+        bottom: 50px;
+    }
 }

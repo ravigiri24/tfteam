@@ -275,6 +275,7 @@ app-salary-slip {
 .displaynone {
   display: none;
 }
+
 .light-modal {
   --backdrop-opacity: 0.3 !important;
 }
@@ -372,6 +373,7 @@ app-salary-slip {
   justify-content: space-between;
   align-items: center;
 }
+
 .header_margin {
   margin-bottom: 15px;
 }
@@ -1440,6 +1442,8 @@ ion-header {
 
 .inner-tabs {
   background-color: var(--app-bg-color);
+  // position: sticky !important;
+  // z-index: 10;
 
   ion-tab-bar {
     display: flex;
