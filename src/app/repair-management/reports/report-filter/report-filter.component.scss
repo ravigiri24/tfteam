@@ -18,13 +18,14 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    padding-right: 65px;
+    padding-right: 55px;
     padding-bottom: 10px;
-
+    flex-flow: wrap;
     .filter_block {
         padding-right: 10px;
         width: 50%;
         display: flex;
+        margin-bottom: 10px;
     }
 
     .global_input_block {
