@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
@@ -9,13 +9,14 @@ import { ShareService } from 'src/app/share.service';
 })
 export class DeleteTractorComponent implements OnInit {
   showFilter = true;
+  @Input() listColorClass: any = 'sixColor';
   constructor(
     private modalcontrol: ModalController,
     private share: ShareService,
     private api: ApiService
-  ) {}
+  ) { }
   deletedReason: any;
-  ngOnInit() {}
+  ngOnInit() { }
   tractor: any;
 
   deleteTractor() {
@@ -23,7 +24,7 @@ export class DeleteTractorComponent implements OnInit {
     if (this.deletedReason != null && this.deletedReason != undefined) {
       let objData: any = {
         deletedReason: this.deletedReason,
-        isDeleted:true
+        isDeleted: true
       };
       let obj = {
         src: 'tractor',
@@ -36,7 +37,7 @@ export class DeleteTractorComponent implements OnInit {
 
 
         this.share.presentToast('Deleted Successfully...');
-                this.share.spinner.dismiss();
+        this.share.spinner.dismiss();
         this.modalcontrol.dismiss(true);
 
         //  this.dismiss();

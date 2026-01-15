@@ -1603,6 +1603,13 @@ ion-header {
 }
 
 // Media Query added in below
+@media (max-width: 560px) {
+  .search_filter_popup_block {
+    .filter_block {
+      width: 50% !important;
+    }
+  }
+}
 @media (min-width: 768px) {
   ion-modal.midium-model {
     --width: 80%;
