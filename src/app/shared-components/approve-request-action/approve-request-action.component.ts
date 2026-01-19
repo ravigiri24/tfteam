@@ -65,6 +65,7 @@ if(this.form.valid){
       data: objVal,
       id: this.approval?.id,
     };
+    this.share.showLoading("Action Taking")
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
       if(this.form.value?.isApproved==true){
  let description =

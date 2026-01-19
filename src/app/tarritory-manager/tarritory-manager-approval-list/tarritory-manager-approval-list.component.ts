@@ -9,11 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationPopUpComponent } from 'src/app/shared-components/notification-pop-up/notification-pop-up.component';
 import { ReviewPageComponent } from 'src/app/customer-management/review-page/review-page.component';
 @Component({
-  selector: 'app-approval-request',
-  templateUrl: './approval-request.component.html',
-  styleUrls: ['./approval-request.component.scss'],
+  selector: 'app-tarritory-manager-approval-list',
+  templateUrl: './tarritory-manager-approval-list.component.html',
+  styleUrls: ['./tarritory-manager-approval-list.component.scss'],
 })
-export class ApprovalRequestComponent implements OnInit {
+export class TarritoryManagerApprovalListComponent  implements OnInit {
+
   constructor(
     public share: ShareService,
     private api: ApiService,
@@ -209,4 +210,5 @@ export class ApprovalRequestComponent implements OnInit {
       name: 'All',
     },
   ];
+
 }

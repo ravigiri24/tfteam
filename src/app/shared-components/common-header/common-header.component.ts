@@ -1,4 +1,5 @@
 import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-common-header',
@@ -26,7 +27,7 @@ export class CommonHeaderComponent  implements OnInit {
   @Input() headerDisplayArray: any=[]; //np
 
   // listBy = 'BUFFER';
-  constructor() { }
+  constructor(public api:ApiService) { }
 actionEventHeaderCall(e:any){
 this.actionEventHeader.emit(e)
 }

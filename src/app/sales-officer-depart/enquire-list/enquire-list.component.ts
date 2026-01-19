@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
-import { SearchTractorWithTfCodeComponent } from 'src/app/shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
-import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
+
 import { CommonMethodService } from 'src/app/common-method.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddEnqiuryComponent } from '../add-enqiury/add-enqiury.component';

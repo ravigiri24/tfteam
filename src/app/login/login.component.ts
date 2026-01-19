@@ -76,6 +76,9 @@ export class LoginComponent implements OnInit {
             this.share.set_staff_detail_session(data);
             this.share.showFooter = true;
             //  this.router.navigate(['/digital/customer-management']);
+                let staffDetails: any = this.share.get_staff();
+     this.staffDetails = JSON.parse(staffDetails);
+    this.share.setByDefaultSalesHeadClone(this.staffDetails)
             this.share.checkLogin();
             if (res?.data?.allotedStore?.length) {
               this.share.set_sales_officer_store(
@@ -86,6 +89,7 @@ export class LoginComponent implements OnInit {
               );
               this.share.setStoreSalesOfficer()
               this.share.setRolesForSalesOfficer();
+
             }
           } else {
             this.presentToast('Invalid Credential...');
@@ -98,6 +102,7 @@ export class LoginComponent implements OnInit {
       this.presentToast('Please Fill All Fields(*)');
     }
   }
+  staffDetails:any
   setStoreSalesOfficer() {
     let selectedStore: any = this.share.get_sales_officer_store();
     let store = JSON.parse(selectedStore);

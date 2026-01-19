@@ -1,0 +1,14 @@
+<ion-content  class="ion-padding ">
+  <div class="border-shape background">
+
+<div class="global_input_block " >
+  <ion-select (ionChange)="selectFilter()"  [(ngModel)]="selectedstaff" fill="outline" label="Select Clone Staff" label-placement="type">
+   
+     <ion-select-option *ngFor="let staff of cloneStaffArray" [value]="staff?.id">{{staff?.name}}</ion-select-option>
+
+ 
+ 
+  </ion-select>
+</div>
+</div>
+</ion-content>

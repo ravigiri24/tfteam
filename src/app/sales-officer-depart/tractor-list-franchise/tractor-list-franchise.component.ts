@@ -23,6 +23,7 @@ export class TractorListFranchiseComponent implements OnInit {
   lower = 0;
   upper = 0;
   yearChecked = 'ALL';
+  wheeldrive = 'ALL';
   ionViewWillEnter() {
         let staffDetails: any = this.share.get_staff();
     this.allFilterList=[]
@@ -53,6 +54,7 @@ export class TractorListFranchiseComponent implements OnInit {
     this.filterBy='NOT_SOLD'
     this.upper = 1500000;
     this.yearChecked = 'ALL';
+    this.wheeldrive = 'ALL';
   }
   brandList: any = [];
   selectedBrand: any = [];
@@ -172,10 +174,11 @@ export class TractorListFranchiseComponent implements OnInit {
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
-  
-        { name: 'Approvals', icon: 'layers-outline' },
+   { name: 'Notification', icon: 'notifications-outline',type:'NOTIFICATION' },
+    { name: 'Approvals', icon: 'layers-outline' },
             
-     { name: 'Notification', icon: 'notifications-outline' },
+            
+
   ];
 
   
@@ -184,9 +187,10 @@ export class TractorListFranchiseComponent implements OnInit {
   headerDisplayArraySrc:any=[
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
-  
+       { name: 'Notification', icon: 'notifications-outline',type:'NOTIFICATION' },
         { name: 'Approvals', icon: 'layers-outline' },
-             { name: 'Notification', icon: 'notifications-outline' },
+        
+        
   ];
   actionEventHeader(e: any) {
     if (e?.name == 'Search') {
@@ -220,7 +224,7 @@ export class TractorListFranchiseComponent implements OnInit {
 checkAlloteStoreMethod(){
    let checkAllotedStore=this.allotedWareHouse.find((f:any)=>f?.id==this.selectedStore)
     if(!checkAllotedStore){
-      this.headerDisplayArray.splice(2)
+      this.headerDisplayArray.splice(3)
     }
 }
   tractorListStorewise(e:any){
@@ -253,6 +257,7 @@ this.getAllTractorListStorewise(true)
         lower: this.lower,
         upper: this.upper,
         yearChecked: this.yearChecked,
+        wheeldrive: this.wheeldrive,
         brandList:this.brandList
      
       },
@@ -267,6 +272,7 @@ this.getAllTractorListStorewise(true)
       this.lower = data?.lower;
       this.upper = data?.upper;
       this.yearChecked = data?.yearChecked;
+      this.wheeldrive = data?.wheeldrive;
       this.listBy=data?.listBy
       this.filterBy=data?.filterBy
       this.filterActiveAndFilterBy();

@@ -31,20 +31,37 @@
       <ion-radio-group class="radio_block_container" [(ngModel)]="yearChecked" (ionChange)="selectItem($event)">
         <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
             class="name">All</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2020 & Above" labelPlacement="end"><span
-            class="name">2020 &
+        <ion-radio class="radio_block dynamic_color" value="2021 & Above" labelPlacement="end"><span
+            class="name">2021 &
             Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2018 & Above" labelPlacement="end"><span
-            class="name">2018 &
-            Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2014 & Above" labelPlacement="end">
-          <span class="name">2014 &
-            Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2010 & Above" labelPlacement="end">
-          <span class="name">2010 & Above</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2018-2020" labelPlacement="end"><span
+            class="name">2018 -2020
+            </span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2014-2017" labelPlacement="end">
+          <span class="name">2014 -
+            2017</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2010-2013" labelPlacement="end">
+          <span class="name">2010 - 2013</span></ion-radio>
+            <ion-radio class="radio_block dynamic_color" value="2000-2009" labelPlacement="end">
+          <span class="name">2000 - 2009</span></ion-radio>
       </ion-radio-group>
       <!-- <p>Selected: {{ yearChecked }}</p> -->
     </div>
+       <!-- <div class="global-inner-heading dynamic_color selected_show">Wheel Drive :<b>{{ wheeldrive }}</b></div>
+    <div class="radio_block_main_container">
+      <ion-radio-group class="radio_block_container" [(ngModel)]="wheeldrive" (ionChange)="selectWheel($event)">
+        <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
+            class="name">All</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2WD" labelPlacement="end"><span
+            class="name">2WD
+            Above</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="4WD" labelPlacement="end"><span
+            class="name">4WD
+            Above</span></ion-radio>
+
+      </ion-radio-group>
+ 
+    </div> -->
     <div *ngIf="showRange" class="global-inner-heading dynamic_color">Price Range</div>
     <div class="range_block"><ion-range *ngIf="showRange" aria-label="Price Range" [dualKnobs]="true"
         [value]="{ lower: lower, upper: upper }" [min]="0" [max]="1500000" [step]="10000"

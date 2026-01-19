@@ -86,6 +86,10 @@ const routes: Routes = [
     path: 'sales-head',
   loadChildren: () => import('./sales-head-department/sales-head-module').then(m => m.SalesHeadModule)
   },
+          {
+    path: 'tarritory-manager',
+  loadChildren: () => import('./tarritory-manager/tarritory-manager-module').then(m => m.TarritoryManagerModule)
+  },
   // { path: 'home', component: HomeComponent},
   // { path: 'user-management', component: UserManagementComponent},
   // { path: 'follow-up-management', component: FollowUpManagementComponent},

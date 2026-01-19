@@ -30,7 +30,9 @@ export class SalesOfficerDashboardComponent  implements OnInit {
    this.getFollowList()
    this.getVisitorList()
     this.getEnquiryTally();
-   
+      let obj: any = this.share.getStaffObj();
+   obj.staff_id=this.staffDetails?.id
+ this.api.checkNotification(obj)
   }
   enquiryData:any
   selectedStore:any

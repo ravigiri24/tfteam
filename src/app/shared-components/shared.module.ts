@@ -76,6 +76,7 @@ import { ApproveRequestActionComponent } from './approve-request-action/approve-
 import { ViewMaintainanceExpenseComponent } from './view-maintainance-expense/view-maintainance-expense.component';
 import { OpenNotificationAlertComponent } from './open-notification-alert/open-notification-alert.component';
 import { ViewRepairRecordComponent } from './view-repair-record/view-repair-record.component';
+import { SelectSalesHeadCloneStaffComponent } from '../user-management/select-sales-head-clone-staff/select-sales-head-clone-staff.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -158,7 +159,8 @@ import { ViewRepairRecordComponent } from './view-repair-record/view-repair-reco
     ApproveRequestActionComponent,
     OpenNotificationAlertComponent,
     ViewMaintainanceExpenseComponent,
-    ViewRepairRecordComponent
+    ViewRepairRecordComponent,
+    SelectSalesHeadCloneStaffComponent
     
   ],
 

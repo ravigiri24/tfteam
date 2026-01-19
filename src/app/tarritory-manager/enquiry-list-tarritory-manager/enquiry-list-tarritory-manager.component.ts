@@ -9,12 +9,13 @@ import { NotificationPopUpComponent } from 'src/app/shared-components/notificati
 import { OpenNotificationAlertComponent } from 'src/app/shared-components/open-notification-alert/open-notification-alert.component';
 import { ReviewPageComponent } from 'src/app/customer-management/review-page/review-page.component';
 @Component({
-  selector: 'app-enquiry-list-sales-head',
-  templateUrl: './enquiry-list-sales-head.component.html',
-  styleUrls: ['./enquiry-list-sales-head.component.scss'],
+  selector: 'app-enquiry-list-tarritory-manager',
+  templateUrl: './enquiry-list-tarritory-manager.component.html',
+  styleUrls: ['./enquiry-list-tarritory-manager.component.scss'],
 })
-export class EnquiryListSalesHeadComponent implements OnInit {
-  constructor(
+export class EnquiryListTarritoryManagerComponent  implements OnInit {
+
+ constructor(
     public share: ShareService,
     private api: ApiService,
     private modalCtrl: ModalController,
@@ -276,4 +277,5 @@ this.share.showLoading('Loading...');
       name: 'Closed',
     },
   ];
+
 }

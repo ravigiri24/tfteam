@@ -40,6 +40,7 @@
           <div class="btn_icons">
             <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
               <ng-container *ngIf="headerDisplayArray?.length<=3">
+              <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'" >{{api.number_of_noti}}</span>
                 <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
               </ng-container>
               <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
@@ -66,6 +67,7 @@
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
         <div (click)="actionEventHeaderCall(option)" class="sub_menu_item">
+                <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'" class="camera-counter">{{api.number_of_noti}}</span>
           <ion-icon class="dynamic_color" name="{{option?.icon}}"></ion-icon>
           <span class="text">{{option?.name}}</span>
         </div>

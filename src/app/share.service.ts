@@ -64,19 +64,16 @@ export class ShareService {
   get_sales_officer_storeList() {
     return localStorage.getItem('list_store_so') || null;
   }
-    setStoreSalesOfficer() {
+  setStoreSalesOfficer() {
     let selectedStore: any = this.get_sales_officer_store();
     let store = JSON.parse(selectedStore);
     let user: any = this.get_staff();
     let userde = JSON.parse(user);
     userde.storeId = store?.store_id;
-    
-    this.set_staff_detail_session(userde);
 
-    
+    this.set_staff_detail_session(userde);
   }
   setRolesForSalesOfficer() {
-    
     let user: any = this.get_staff();
     let userde = JSON.parse(user);
 
@@ -114,7 +111,7 @@ export class ShareService {
 
     await toast.present();
   }
-  isModalOpen=false
+  isModalOpen = false;
   getStaffObj() {
     let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
@@ -123,17 +120,22 @@ export class ShareService {
     };
     return obj;
   }
-  getNotificationObj(title:any,description:any,selectedStore:any,type:any){
-        let getStaffDetail: any = this.get_staff();
+  getNotificationObj(
+    title: any,
+    description: any,
+    selectedStore: any,
+    type: any
+  ) {
+    let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
     return {
-        operate: getStaff?.staffCode,
-        action_id:getStaff?.id,
-      title:title,
-      description:description,
-      type:type,
-      storeId:selectedStore
-    }
+      operate: getStaff?.staffCode,
+      action_id: getStaff?.id,
+      title: title,
+      description: description,
+      type: type,
+      storeId: selectedStore,
+    };
   }
   getStaffCOde(name: any) {
     let rand = Math.floor(10000 + Math.random() * 90000);
@@ -162,27 +164,79 @@ export class ShareService {
 
     return tractorList;
   }
+  // filterByManuYear(list: any = [], yearChecked: any) {
+  //   let tractorList: any = [];
+  //   let year = 1960;
+  //   if (yearChecked == 'ALL') {
+  //     year = 1960;
+  //   } else if (yearChecked == '2020 & Above') {
+  //     year = 2020;
+  //   } else if (yearChecked == '2018 & Above') {
+  //     year = 2018;
+  //   } else if (yearChecked == '2014 & Above') {
+  //     year = 2014;
+  //   } else if (yearChecked == '2010 & Above') {
+  //     year = 2010;
+  //   }
+
+  //   tractorList = list?.filter(
+  //     (li: any) => Number(li.yearOfManufactoring) >= year
+  //   );
+
+  //   return tractorList;
+  // }
   filterByManuYear(list: any = [], yearChecked: any) {
     let tractorList: any = [];
     let year = 1960;
+    let yearEnd = 2050;
     if (yearChecked == 'ALL') {
       year = 1960;
-    } else if (yearChecked == '2020 & Above') {
-      year = 2020;
-    } else if (yearChecked == '2018 & Above') {
+    } else if (yearChecked == '2021 & Above') {
+      year = 2021;
+    } else if (yearChecked == '2018-2020') {
       year = 2018;
-    } else if (yearChecked == '2014 & Above') {
+      yearEnd = 2020;
+    } else if (yearChecked == '2014-2017') {
       year = 2014;
-    } else if (yearChecked == '2010 & Above') {
+      yearEnd = 2017;
+    } else if (yearChecked == '2010-2013') {
       year = 2010;
+      yearEnd = 2013;
+    }
+     else if (yearChecked == '2000-2009') {
+      year = 2000;
+      yearEnd = 2009;
     }
 
     tractorList = list?.filter(
-      (li: any) => Number(li.yearOfManufactoring) >= year
+      (li: any) =>
+        Number(li.yearOfManufactoring) >= year &&
+        Number(li.yearOfManufactoring) <= yearEnd
     );
 
     return tractorList;
   }
+  //   filterByWheelDrive(list: any = [], wheeldrive: any) {
+  //   let tractorList: any = [];
+  //   let year = 1960;
+  //   if (yearChecked == 'ALL') {
+  //     year = 1960;
+  //   } else if (yearChecked == '2020 & Above') {
+  //     year = 2020;
+  //   } else if (yearChecked == '2018 & Above') {
+  //     year = 2018;
+  //   } else if (yearChecked == '2014 & Above') {
+  //     year = 2014;
+  //   } else if (yearChecked == '2010 & Above') {
+  //     year = 2010;
+  //   }
+
+  //   tractorList = list?.filter(
+  //     (li: any) => Number(li.yearOfManufactoring) >= year
+  //   );
+
+  //   return tractorList;
+  // }
   getListObj(
     src: any,
     isImage: any = false,
@@ -202,20 +256,41 @@ export class ShareService {
     };
     return obj;
   }
-    getDataByIdObj(
-    src: any,
-    key:any='id',
-    value:any
-   ) {
+  getDataByIdObj(src: any, key: any = 'id', value: any) {
     let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
     let obj = {
       src: src,
       operate: getStaff?.staffCode,
-      value:value,
+      value: value,
       key: key,
     };
     return obj;
+  }
+  setByDefaultSalesHeadClone(staffDetails: any) {
+    if (
+      staffDetails?.stateHeadCloneId == null ||
+      staffDetails?.stateHeadCloneId == undefined
+    ) {
+      if (staffDetails?.isCloneToSalesHead == 1) {
+        let sales_heads_id = JSON.parse(staffDetails?.sales_heads_id);
+        this.setDefaulStateStaffClone(sales_heads_id[0]);
+      }
+    }
+  }
+  setDefaulStateStaffClone(staff_id: any) {
+    let user: any = this.get_staff();
+    let userde = JSON.parse(user);
+    userde.stateHeadCloneId = staff_id;
+
+    this.set_staff_detail_session(userde);
+  }
+  getStaffCloneId(staffDetails: any) {
+    if (staffDetails?.isCloneToSalesHead == 1) {
+      return staffDetails?.stateHeadCloneId;
+    } else {
+      return staffDetails?.id;
+    }
   }
   spinner = {
     dismiss: (param: any = 'active_seven') => {
@@ -237,7 +312,7 @@ export class ShareService {
     tractor.imagesToShow = imagesToShow;
     tractor.imageslength = imagesToShow?.length;
   }
-getImagesToShowPut(tractor: any) {
+  getImagesToShowPut(tractor: any) {
     let imagesToShow = tractor?.rawImages?.filter(
       (img: any) =>
         img?.imageGroup == 'BEFORE_SERVICE' ||
@@ -262,13 +337,13 @@ getImagesToShowPut(tractor: any) {
     }, duration);
   }
 
-  putAllInWareHouse(warehouseList:any){
-   warehouseList.unshift({id:"ALL",name:"All"})
+  putAllInWareHouse(warehouseList: any) {
+    warehouseList.unshift({ id: 'ALL', name: 'All' });
   }
-    putUnAssignedInWareHouse(warehouseList:any){
-   warehouseList.unshift({id:"UNASSIGNED",name:"Unassigned"})
+  putUnAssignedInWareHouse(warehouseList: any) {
+    warehouseList.unshift({ id: 'UNASSIGNED', name: 'Unassigned' });
   }
-    putMappedValue(alltractorList:any,allTractorsSrcList:any) {
+  putMappedValue(alltractorList: any, allTractorsSrcList: any) {
     alltractorList?.forEach((trac: any) => {
       if (trac?.repairMappedData?.length > 0) {
         trac.isMapped = true;
@@ -284,7 +359,7 @@ getImagesToShowPut(tractor: any) {
       }
     });
   }
-    traceTractorPosition(alltractorList:any,allTractorsSrcList:any) {
+  traceTractorPosition(alltractorList: any, allTractorsSrcList: any) {
     alltractorList?.forEach((tractor: any) => {
       if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
         tractor.tractor_status_current = 'New Arrivals';
@@ -323,29 +398,29 @@ getImagesToShowPut(tractor: any) {
         tractor?.isLive == 1 &&
         tractor?.tractordetailadmin?.wareHouseLocation == null
       ) {
-          let arch=''
-        if( tractor?.tractor_status=='ARCHIVED'){
-          arch='(Archived)'
+        let arch = '';
+        if (tractor?.tractor_status == 'ARCHIVED') {
+          arch = '(Archived)';
         }
-        tractor.tractor_status_current = 'At WareHouse'+arch;
+        tractor.tractor_status_current = 'At WareHouse' + arch;
       }
       if (
         tractor?.isDraft == 1 &&
         tractor?.isLive == 1 &&
         tractor?.tractordetailadmin?.wareHouseLocation != null
       ) {
-        let arch=''
-        if( tractor?.tractor_status=='ARCHIVED'){
-          arch='(Archived)'
+        let arch = '';
+        if (tractor?.tractor_status == 'ARCHIVED') {
+          arch = '(Archived)';
         }
-        tractor.tractor_status_current = 'Alloted(At Dealer)'+arch;
+        tractor.tractor_status_current = 'Alloted(At Dealer)' + arch;
       }
       if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
         tractor.tractor_status_current = 'Live';
       }
     });
   }
-   checkedRepairStatus(alltractorList:any,allTractorsSrcList:any) {
+  checkedRepairStatus(alltractorList: any, allTractorsSrcList: any) {
     alltractorList?.forEach((tractor: any) => {
       if (tractor?.repairMappedData?.length) {
         if (tractor?.repairMappedData[0]?.isCompleted == 1) {
@@ -402,7 +477,7 @@ getImagesToShowPut(tractor: any) {
           if (userde?.staff_role == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
           } else if (userde?.staff_role == 'OPERATIONAL') {
-          //  this.router.navigate(['/operational/buffer-stock']);
+            //  this.router.navigate(['/operational/buffer-stock']);
             this.router.navigate(['/operational/all-tractor-management']);
           } else if (userde?.staff_role == 'PURCHASE') {
             this.router.navigate(['/purchase-management/inventory-list']);
@@ -441,6 +516,9 @@ getImagesToShowPut(tractor: any) {
             this.router.navigate(['/sales-officer/so-dashbord']);
           } else if (userde?.staff_role == 'SALES_HEAD') {
             this.router.navigate(['/sales-head/sales-head-enquiry-list']);
+          }
+           else if (userde?.staff_role == 'TERRITORY_MANAGER') {
+            this.router.navigate(['/tarritory-manager/tarritory-manager-enquiry-list']);
           }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
@@ -484,6 +562,9 @@ getImagesToShowPut(tractor: any) {
             this.router.navigate(['/sales-officer/so-dashbord']);
           } else if (userde?.currentRole == 'SALES_HEAD') {
             this.router.navigate(['/sales-head/sales-head-enquiry-list']);
+          }
+             else if (userde?.currentRole == 'TERRITORY_MANAGER') {
+            this.router.navigate(['/tarritory-manager/tarritory-manager-enquiry-list']);
           }
         }
       }

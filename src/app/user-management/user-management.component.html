@@ -57,7 +57,19 @@
           <ion-label class="margin-left"><b>Store</b></ion-label>
           <ion-label class="margin-left">{{selected_store?.name}} </ion-label>
         </div>
+        
       </ion-row>
+         <ion-row *ngIf="staffDetails?.isCloneToSalesHead == 1 &&
+        staffDetails?.currentRole == 'SALES_HEAD'" class="details_line_row">
+        <ion-card class="left_icons_block">
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-card>
+        <div  (click)="showCloneList()" class="right_flex-data">
+          <ion-label class="margin-left"><b>Clone Staff</b></ion-label>
+          <ion-label class="margin-left">{{selectedCloneStateHead?.name}}</ion-label>
+        </div>
+      </ion-row>
+   
              <ion-row *ngIf="staffDetails?.staff_role=='REPAIR' && staffDetails?.isRepairHead ==1"  class="details_line_row">
         <ion-card class="left_icons_block">
           <ion-icon name="storefront-outline"></ion-icon>

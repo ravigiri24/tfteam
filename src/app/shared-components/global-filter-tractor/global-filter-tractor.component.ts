@@ -123,6 +123,7 @@ export class GlobalFilterTractorComponent implements OnInit {
     this.rangeValue.lower = 0;
     this.rangeValue.upper = 1500000;
     this.yearChecked = 'ALL';
+    this.wheeldrive = 'ALL';
     this.listBy = 'ACTIVE';
     this.filterBy = 'NOT_SOLD';
     this.showRange = false;
@@ -138,6 +139,7 @@ export class GlobalFilterTractorComponent implements OnInit {
       lower: this.rangeValue.lower,
       upper: this.rangeValue.upper,
       yearChecked: this.yearChecked,
+      wheeldrive: this.wheeldrive,
       listBy: this.listBy,
       filterBy: this.filterBy,
     });
@@ -165,6 +167,7 @@ export class GlobalFilterTractorComponent implements OnInit {
   }
   rangeValue = { lower: 0, upper: 1500000 };
   yearChecked = 'ALL';
+  wheeldrive = 'ALL';
   rangeChange(event: any) {
     this.rangeValue = event.detail.value;
     console.log('Range changed:', this.rangeValue);
@@ -172,6 +175,10 @@ export class GlobalFilterTractorComponent implements OnInit {
   selectItem(e: any) {
     console.log('selectItem', e);
     this.yearChecked = e?.detail?.value;
+  }
+    selectWheel(e: any) {
+    console.log('selectItem', e);
+    this.wheeldrive = e?.detail?.value;
   }
   dismiss() {
     this.modalcontrol.dismiss();

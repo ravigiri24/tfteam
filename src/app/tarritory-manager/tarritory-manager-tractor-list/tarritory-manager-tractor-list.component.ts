@@ -9,11 +9,12 @@ import { NotificationPopUpComponent } from 'src/app/shared-components/notificati
 import { RequestApproveFormComponent } from 'src/app/sales-officer-depart/tractor-list-franchise/request-approve-form/request-approve-form.component';
 import { ViewAppovalsListComponent } from 'src/app/shared-components/view-appovals-list/view-appovals-list.component';
 @Component({
-  selector: 'app-sales-head-tractor-list',
-  templateUrl: './sales-head-tractor-list.component.html',
-  styleUrls: ['./sales-head-tractor-list.component.scss'],
+  selector: 'app-tarritory-manager-tractor-list',
+  templateUrl: './tarritory-manager-tractor-list.component.html',
+  styleUrls: ['./tarritory-manager-tractor-list.component.scss'],
 })
-export class SalesHeadTractorListComponent  implements OnInit {
+export class TarritoryManagerTractorListComponent  implements OnInit {
+
 
   constructor(
     public share: ShareService,
@@ -580,5 +581,6 @@ setTimeout(() => {
       await this.commonMethod.actionEventCall(e, { optionsUploadButtonArray: [] })
 
   }
+
 
 }

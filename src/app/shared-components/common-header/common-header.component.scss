@@ -313,3 +313,35 @@
         opacity: 0.6;
     }
 }
+  .camera-counter {
+            position: absolute;
+          top: 8px;
+    right: 113px;
+            color: white;
+            font-size: 12px;
+            border-radius: 50%;
+            padding: 2px 5px;
+            width: 24px;
+            height: 24px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+          .camera-counter-outer-header {
+            position: absolute;
+          top: 2px;
+    right: 2px;
+            color: white;
+            font-size: 12px;
+            border-radius: 50%;
+            padding: 2px 5px;
+            width: 24px;
+            height: 24px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }

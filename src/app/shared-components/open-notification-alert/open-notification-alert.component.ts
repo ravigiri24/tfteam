@@ -52,15 +52,6 @@ staffDetails:any
     }
   
   markAsRead(){
-       let obj: any = this.share.getStaffObj();
-   obj.staff_id=this.staffDetails?.id
-   this.share.showLoading("Mark As Read")
-       this.api.postapi('readNotification', obj).subscribe(
-      (res: any) => {
-       this.share.spinner.dismiss()
-       this.modalCtrl.dismiss()
-      },
-      (error: any) => {}
-    );
+   this.api.markAsRead(this.staffDetails)
   }
 }

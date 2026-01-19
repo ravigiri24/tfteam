@@ -30,6 +30,7 @@ staffDetails:any
        this.staffDetails = JSON.parse(staffDetails);
        this.getNotification()
   }
+
   noti_list:any=[]
 getNotification(){
       let obj: any = this.share.getStaffObj();
@@ -39,6 +40,8 @@ this.share.showLoading("Getting Notification")
       this.api.postapi('getNotification', obj).subscribe(
         (res: any) => {
     this.noti_list=res?.data
+         this.api.number_of_noti=res?.data?.length||0
+    this.api.markAsRead(this.staffDetails)
         this.share.spinner.dismiss()
         },
         (error: any) => {
@@ -47,4 +50,5 @@ this.share.showLoading("Getting Notification")
       );
 
   }
+    
 }

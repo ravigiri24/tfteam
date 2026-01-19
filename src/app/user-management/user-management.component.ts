@@ -7,6 +7,7 @@ import { ApiService } from '../api.service';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { SelectStoreComponent } from './select-store/select-store.component';
 import { SelectRepairCenterComponent } from './select-repair-center/select-repair-center.component';
+import { SelectSalesHeadCloneStaffComponent } from './select-sales-head-clone-staff/select-sales-head-clone-staff.component';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -31,34 +32,88 @@ export class UserManagementComponent implements OnInit {
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
   }
-selectedRepairCenter:any
+  setStateHeads() {
+    if (
+      this.staffDetails?.stateHeadCloneId == null ||
+      this.staffDetails?.stateHeadCloneId == undefined
+    ) {
+      if (
+        this.staffDetails?.isCloneToSalesHead == 1 &&
+        this.staffDetails?.currentRole == 'SALES_HEAD'
+      ) {
+        this.setStateH(this.cloneStaffArray[0]);
+      }
+    } else {
+      let staff = this.cloneStaffArray?.find(
+        (f: any) => f.id == this.staffDetails.stateHeadCloneId
+      );
+      if(staff){
+  this.selectedCloneStateHead = staff;
+      }
+    
+    }
+  }
+  selectedCloneStateHead: any;
+  setStateH(staff: any) {
+    let user: any = this.share.get_staff();
+    let userde = JSON.parse(user);
+    userde.stateHeadCloneId = staff?.id;
+    this.selectedCloneStateHead = staff;
+    this.share.set_staff_detail_session(userde);
+  }
+  cloneStaffArray: any = [];
+  cloneSalesHeads() {
+    let clonesArray = JSON.parse(this.staffDetails?.sales_heads_id);
+    console.log('cloneSalesHeads', clonesArray);
+    this.cloneStaffArray = [];
+    clonesArray?.forEach((id: any) => {
+      this.getDataByID(id);
+    });
+  }
+  storeData: any;
+  getDataByID(id: any) {
+    let obj = this.share.getDataByIdObj('staffdetails', 'id', id);
+
+    this.api.postapi('getStaffById', obj).subscribe((res: any) => {
+      this.cloneStaffArray.push(res?.data);
+      console.log('cloneStaffArray', this.cloneStaffArray);
+      this.setStateHeads();
+      //  this.dismiss();
+    });
+  }
+  selectedRepairCenter: any;
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
-        this.staffDetails = JSON.parse(staffDetails);
-  this.repairCenterList=[]
-  this.selectedRepairCenter=null
+    this.staffDetails = JSON.parse(staffDetails);
+    this.repairCenterList = [];
+    this.selectedRepairCenter = null;
 
-    if(this.staffDetails?.staff_role=='REPAIR' && this.staffDetails?.isRepairHead ==1){
-      this.getRepairCenter()
+    if (
+      this.staffDetails?.staff_role == 'REPAIR' &&
+      this.staffDetails?.isRepairHead == 1
+    ) {
+      this.getRepairCenter();
+    }
 
+    if (this.staffDetails?.isCloneToSalesHead == 1) {
+      this.cloneSalesHeads();
     }
     this.checkAuthenticationAndRoleList();
     // this.getTractorList();
   }
-  repairCenterList:any=[]
-  getRepairCenter(){
-
+  repairCenterList: any = [];
+  getRepairCenter() {
     let obj = this.share.getListObj('repairing_center', false, [], true);
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
-        
         this.repairCenterList = res?.data;
-        let find=this.repairCenterList.find((f:any)=>f.id==this.staffDetails?.repair_center)
-        this.selectedRepairCenter=find
-       },
+        let find = this.repairCenterList.find(
+          (f: any) => f.id == this.staffDetails?.repair_center
+        );
+        this.selectedRepairCenter = find;
+      },
       (error: any) => {}
     );
-  
   }
   selected_store: any;
   checkAuthenticationAndRoleList() {
@@ -99,7 +154,6 @@ selectedRepairCenter:any
       (error: any) => {}
     );
   }
-
 
   setStoreSalesOfficer() {
     let user: any = this.share.get_staff();
@@ -157,25 +211,41 @@ selectedRepairCenter:any
       this.setStoreSalesOfficer();
     }
   }
-    async showRepairList() {
+  async showCloneList() {
+    const modal = await this.modalCtrl.create({
+      component: SelectSalesHeadCloneStaffComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        cloneStaffArray: this.cloneStaffArray,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data && data?.isStaffChange) {
+      this.selectedCloneStateHead = data?.selected_clone_staff;
+      this.setStateH(this.selectedCloneStateHead);
+    }
+  }
+  async showRepairList() {
     const modal = await this.modalCtrl.create({
       component: SelectRepairCenterComponent,
       breakpoints: [0, 0.4, 1],
       initialBreakpoint: 0.4,
       cssClass: 'custom-modal',
       componentProps: {
-        repairing_center:this.repairCenterList
+        repairing_center: this.repairCenterList,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (data && data?.isCenterChange) {
       this.selectedRepairCenter = data?.selectedRepair_center;
-     let user: any = this.share.get_staff();
+      let user: any = this.share.get_staff();
       let userde = JSON.parse(user);
       userde.repair_center = data?.selectedRepair_center?.id;
       this.share.set_staff_detail_session(userde);
-    
     }
   }
   async updatePassword() {
