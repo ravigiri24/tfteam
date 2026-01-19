@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -21,8 +21,8 @@ export class ConfirmDeliveryComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private modalCtrl: ModalController
-  ) {}
-
+  ) { }
+  @Input() listColorClass: any = "sixColor";
   ngOnInit() {
     this.getWareHouseLocationList();
     this.initialize(this.tractorDetails);
@@ -30,41 +30,41 @@ export class ConfirmDeliveryComponent implements OnInit {
   dismiss() {
     return this.modalCtrl.dismiss(null, 'Cancel');
   }
-  updateTranctorStatus:any=true
+  updateTranctorStatus: any = true
   form: FormGroup;
   initialize(data: any = null) {
-      if(this.updateTranctorStatus){
-    this.form = this.fb.group({
-      transportDestinationId: new FormControl(
-        data?.transportDestinationId || null,
-        [Validators.required]
-      ),
+    if (this.updateTranctorStatus) {
+      this.form = this.fb.group({
+        transportDestinationId: new FormControl(
+          data?.transportDestinationId || null,
+          [Validators.required]
+        ),
 
-      reachDate: new FormControl(data?.reachDate || null, [
-        Validators.required,
-      ]),
-      tractor_status: new FormControl(null),
-       
-      isLive: new FormControl(true, [
-        Validators.required,
-      ]),
-      isDraft: new FormControl(true, [
-        Validators.required,
-      ]),
-    });
-  }else{
-    this.form = this.fb.group({
-      transportDestinationId: new FormControl(
-        data?.transportDestinationId || null,
-        [Validators.required]
-      ),
+        reachDate: new FormControl(data?.reachDate || null, [
+          Validators.required,
+        ]),
+        tractor_status: new FormControl(null),
 
-      reachDate: new FormControl(data?.reachDate || null, [
-        Validators.required,
-      ]),
-   
-    });
-  }
+        isLive: new FormControl(true, [
+          Validators.required,
+        ]),
+        isDraft: new FormControl(true, [
+          Validators.required,
+        ]),
+      });
+    } else {
+      this.form = this.fb.group({
+        transportDestinationId: new FormControl(
+          data?.transportDestinationId || null,
+          [Validators.required]
+        ),
+
+        reachDate: new FormControl(data?.reachDate || null, [
+          Validators.required,
+        ]),
+
+      });
+    }
     // if(data){
     //   this.form.addControl(
     //     'id',
@@ -82,23 +82,23 @@ export class ConfirmDeliveryComponent implements OnInit {
         this.wareHouseLocationList = res.data;
         this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-   async openCrudManagement(type: any) {
-      const modal = await this.modalCtrl.create({
-        component: CrudPopupComponent,
-        componentProps: {
-          type: type,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      if (type == 'WAREHOUSELOCATION') {
-        this.getWareHouseLocationList()
-      }
-      console.log('role', role);
+  async openCrudManagement(type: any) {
+    const modal = await this.modalCtrl.create({
+      component: CrudPopupComponent,
+      componentProps: {
+        type: type,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (type == 'WAREHOUSELOCATION') {
+      this.getWareHouseLocationList()
     }
+    console.log('role', role);
+  }
 
   updateItem() {
 
@@ -108,13 +108,13 @@ export class ConfirmDeliveryComponent implements OnInit {
         data: this.form.value,
         id: this.tractorDetails?.id,
       };
-this.share.showLoading("Updating Details...")
+      this.share.showLoading("Updating Details...")
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss()
         this.share.presentToast('Details Saved...');
-        this.modalCtrl.dismiss({isReached:true})
-        
-     
+        this.modalCtrl.dismiss({ isReached: true })
+
+
       });
     } else {
       this.share.presentToast("Please fill all details")

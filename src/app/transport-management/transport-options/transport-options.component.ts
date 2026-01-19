@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TransportActualDateFormComponent } from '../transport-actual-date-form/transport-actual-date-form.component';
 import { ModalController } from '@ionic/angular';
 import { ConfirmDeliveryComponent } from '../confirm-delivery/confirm-delivery.component';
@@ -10,8 +10,9 @@ import { ShareService } from 'src/app/share.service';
   styleUrls: ['./transport-options.component.scss'],
 })
 export class TransportOptionsComponent implements OnInit {
-  constructor(private modalControl: ModalController,private share:ShareService) {}
+  constructor(private modalControl: ModalController, private share: ShareService) { }
   tractor: any;
+  @Input() listColorClass: any = "sixColor";
   dismiss() {
     this.modalControl.dismiss();
   }
@@ -46,7 +47,7 @@ export class TransportOptionsComponent implements OnInit {
     if (role === 'confirm') {
     }
   }
-  ngOnInit() {}
+  ngOnInit() { }
   async arrivalDateActual() {
     const modal = await this.modalControl.create({
       component: TransportActualDateFormComponent,
@@ -60,9 +61,9 @@ export class TransportOptionsComponent implements OnInit {
   async goToUplodeSection(imageGroup: any) {
     let showHeading = null;
     if (imageGroup == 'RELEASE_LETTERS') {
-      showHeading = 'UplOad Relase Letter';
+      showHeading = 'Upload Relase Letter';
     } else if (imageGroup == 'NOTARY_LETTERS') {
-      showHeading = 'UplOad Notary Letter';
+      showHeading = 'Upload Notary Letter';
     }
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
@@ -89,16 +90,16 @@ export class TransportOptionsComponent implements OnInit {
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
- 
-  if(data?.isReached){
-   this.share.showLoading('clossing...');
-  }
-setTimeout(() => {
-  this.share.spinner.dismiss()
-  if(data?.isReached){
-    this.modalControl.dismiss({isReached:true})
-  }
-}, 1000);
+
+    if (data?.isReached) {
+      this.share.showLoading('clossing...');
+    }
+    setTimeout(() => {
+      this.share.spinner.dismiss()
+      if (data?.isReached) {
+        this.modalControl.dismiss({ isReached: true })
+      }
+    }, 1000);
 
   }
 }

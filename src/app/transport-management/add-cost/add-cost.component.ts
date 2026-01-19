@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,8 +20,9 @@ export class AddCostComponent implements OnInit {
     private formBuilder: FormBuilder,
     private share: ShareService,
     private api: ApiService
-  ) {}
+  ) { }
   expenseTypeList: any;
+  @Input() listColorClass: any = "sixColor";
   form: FormGroup;
   data: any;
   tarctor_id: any;
@@ -97,10 +98,10 @@ export class AddCostComponent implements OnInit {
         this.expenseTypeList = res.data;
         this.share.spinner.dismiss()
       },
-      (error: any) => {}
+      (error: any) => { }
     );
   }
-  async showModal(dataUpdate: any = null) {}
+  async showModal(dataUpdate: any = null) { }
   saveExpense() {
     this.form.controls['tractor_id'].setValue(this.tarctor_id);
     if (this.form.valid) {
