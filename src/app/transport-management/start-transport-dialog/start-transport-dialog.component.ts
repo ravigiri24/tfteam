@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import {
   FormGroup,
@@ -15,14 +15,14 @@ import { ApiService } from 'src/app/api.service';
 })
 export class StartTransportDialogComponent implements OnInit {
   tractorDetails: any;
-  updateTranctorStatus:any=true
+  updateTranctorStatus: any = true
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
     private share: ShareService,
     private api: ApiService
-  ) {}
-
+  ) { }
+  @Input() listColorClass: any = "sixColor";
   ngOnInit() {
     this.initialize(this.tractorDetails);
   }
@@ -31,33 +31,33 @@ export class StartTransportDialogComponent implements OnInit {
   }
   form: FormGroup;
   initialize(data: any = null) {
-    if(this.updateTranctorStatus){
-    this.form = this.fb.group({
-      transport_start_date: new FormControl(
-        data?.transport_start_date || null,
-        [Validators.required]
-      ),
+    if (this.updateTranctorStatus) {
+      this.form = this.fb.group({
+        transport_start_date: new FormControl(
+          data?.transport_start_date || null,
+          [Validators.required]
+        ),
 
-      transport_src_place: new FormControl(data?.transport_src_place || null, [
-        Validators.required,
-      ]),
-      tractor_status: new FormControl("AT_TRANSPORT", [
-        Validators.required,
-      ]),
-    });
-  }else{
-    this.form = this.fb.group({
-      transport_start_date: new FormControl(
-        data?.transport_start_date || null,
-        [Validators.required]
-      ),
+        transport_src_place: new FormControl(data?.transport_src_place || null, [
+          Validators.required,
+        ]),
+        tractor_status: new FormControl("AT_TRANSPORT", [
+          Validators.required,
+        ]),
+      });
+    } else {
+      this.form = this.fb.group({
+        transport_start_date: new FormControl(
+          data?.transport_start_date || null,
+          [Validators.required]
+        ),
 
-      transport_src_place: new FormControl(data?.transport_src_place || null, [
-        Validators.required,
-      ]),
+        transport_src_place: new FormControl(data?.transport_src_place || null, [
+          Validators.required,
+        ]),
 
-    });
-  }
+      });
+    }
 
     // if(data){
     //   this.form.addControl(

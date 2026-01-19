@@ -1,75 +1,80 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Options</ion-title>  
-  
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-
-  </ion-toolbar>  
-
-</ion-header>  
-<ion-content>
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title>Before Service</ion-card-title>
-     
-    </ion-card-header>
-  
-  
-  
-    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
-  </ion-card> -->
-
-    <div (click)="arrivalDateActual()" class="block">
-     <span class="succes-tag-line">Arrival Date(Actual)</span>
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">Options</div>
+      <div class="right_action">
+        <ion-buttons slot="end">
+          <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
       </div>
-    <div class=" block">
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="internal_card_container ion-padding" [ngClass]="listColorClass">
+  <ion-row>
+    <ion-col (click)="arrivalDateActual()" class="section_col" size="6" size-md="6">
+      <div class="image_block">
+        <img class="image-style" src="././assets/images/schedule.png" />
+      </div>
+      <div class="middle_border"></div>
+      <ion-card class="global_image_upload_card">
+        <ion-title class="title">Arrival Date (Actual)</ion-title>
+      </ion-card>
+    </ion-col>
+    <ion-col (click)="goToUplodeSection('RELEASE_LETTERS')" class="section_col" size="6"
+      size-md="6">
+      <div class="image_block">
+        <img class="image-style" src="././assets/images/envelope.png" />
+      </div>
+      <div class="middle_border"></div>
+      <ion-card class="global_image_upload_card">
+        <ion-title class="title">Adhar Card (Pic)</ion-title>
+      </ion-card>
+    </ion-col>
+    <ion-col (click)="goToUplodeSection('NOTARY_LETTERS')" class="section_col" size="6"
+      size-md="6">
+      <div class="image_block">
+        <img class="image-style" src="././assets/images/contract.png" />
+      </div>
+      <div class="middle_border"></div>
+      <ion-card class="global_image_upload_card">
+        <ion-title class="title">Pan Card (Pic)</ion-title>
+      </ion-card>
+    </ion-col>
+    <ion-col (click)="reachDestination()" class="section_col" size="6"
+      size-md="6">
+      <div class="image_block">
+        <img class="image-style" src="././assets/images/location.png" />
+      </div>
+      <div class="middle_border"></div>
+      <ion-card class="global_image_upload_card">
+        <ion-title class="title">Reached Destination</ion-title>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 
-  
+  <!-- <div (click)="arrivalDateActual()" class="block">
+    <span class="succes-tag-line">Arrival Date(Actual)</span>
+  </div>
+  <div class=" block">
     <img (click)="actualDate()" class="image-style" src="././assets/images/schedule.png" />
-
-    </div>
+  </div>
   <div (click)="goToUplodeSection('RELEASE_LETTERS')" class="block margin-body">
-     <span class="succes-tag-line">Release Letter(Pic)</span>
-      </div>
-    <div (click)="goToUplodeSection('RELEASE_LETTERS')" class=" block">
-
-  
-    <img  class="image-style" src="././assets/images/envelope.png" />
-
-    </div>
-     <div (click)="goToUplodeSection('NOTARY_LETTERS')" class="block margin-body">
-     <span class="succes-tag-line">Notary(Pic)</span>
-      </div>
-    <div (click)="goToUplodeSection('NOTARY_LETTERS')" class=" block">
-
-  
-    <img  class="image-style" src="././assets/images/contract.png" />
-
-    </div>
-      <div (click)="reachDestination()" class="block margin-body">
-     <span class="succes-tag-line">Reached Destination</span>
-      </div>
-    <div (click)="reachDestination()"  class=" block">
-
-  
-    <img  class="image-style" src="././assets/images/location.png" />
-
-    </div>
-     
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title>Payment Screenshot</ion-card-title>
-     
-    </ion-card-header>
-  
-  
-  
-    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
-  </ion-card> -->
-
+    <span class="succes-tag-line">Release Letter(Pic)</span>
+  </div>
+  <div (click)="goToUplodeSection('RELEASE_LETTERS')" class=" block">
+    <img class="image-style" src="././assets/images/envelope.png" />
+  </div>
+  <div (click)="goToUplodeSection('NOTARY_LETTERS')" class="block margin-body">
+    <span class="succes-tag-line">Notary(Pic)</span>
+  </div>
+  <div (click)="goToUplodeSection('NOTARY_LETTERS')" class=" block">
+    <img class="image-style" src="././assets/images/contract.png" />
+  </div>
+  <div (click)="reachDestination()" class="block margin-body">
+    <span class="succes-tag-line">Reached Destination</span>
+  </div>
+  <div (click)="reachDestination()" class=" block">
+    <img class="image-style" src="././assets/images/location.png" />
+  </div> -->
 </ion-content>

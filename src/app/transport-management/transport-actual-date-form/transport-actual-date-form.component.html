@@ -1,22 +1,26 @@
- <ion-content class="ion-padding">
-  <form class="form_basic_height" [formGroup]="form">
-  
-      <ion-item class="bottom-margin">
-        <ion-input
-          label="Actual Release Date"
-          labelPlacement="stacked"
-          type="date"
-       
-        formControlName="actualReleaseDate"
-        ></ion-input>
-      </ion-item>
-     
-      <div class="login-button">
-  
-        <ion-button *ngIf="!tractorDetails?.actualReleaseDate"  (click)="updateItem()"  style="text-align: center;" expand="block" >Save</ion-button>
-        <ion-button  *ngIf="tractorDetails?.actualReleaseDate" (click)="updateItem()"  style="text-align: center;" expand="block" >Update</ion-button>
-  
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Reach Destination Information</span>
       </div>
-      
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <form class="form_basic_height" [formGroup]="form">
+    <div class="global_input_block">
+      <ion-input label="Actual Release Date" labelPlacement="stacked" type="date"
+        formControlName="actualReleaseDate"></ion-input>
+    </div>
+    <div class="page_submit_btn">
+      <ion-button *ngIf="!tractorDetails?.actualReleaseDate" (click)="updateItem()"
+        class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
+      <ion-button *ngIf="tractorDetails?.actualReleaseDate" (click)="updateItem()"
+        class="global_submit_color_button dynamic_bgcolor" expand="block">Update</ion-button>
+    </div>
   </form>
-  </ion-content>
+</ion-content>

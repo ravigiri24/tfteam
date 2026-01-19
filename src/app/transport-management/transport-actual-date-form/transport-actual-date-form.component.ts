@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -19,8 +19,12 @@ export class TransportActualDateFormComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private modalCtrl: ModalController
-  ) {}
+  ) { }
   tractorDetails: any;
+  @Input() listColorClass: any = "sixColor";
+  dismiss() {
+    return this.modalCtrl.dismiss(null, 'Cancel');
+  }
   ngOnInit() {
     this.initialize(this.tractorDetails);
   }
@@ -42,9 +46,9 @@ export class TransportActualDateFormComponent implements OnInit {
       this.share.showLoading('Updating Details...');
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss();
-        this.tractorDetails.actualReleaseDate= this.form.value?.actualReleaseDate
+        this.tractorDetails.actualReleaseDate = this.form.value?.actualReleaseDate
         this.share.presentToast('Details Saved...');
-        this.modalCtrl.dismiss({isActioned:true});
+        this.modalCtrl.dismiss({ isActioned: true });
       });
     } else {
       this.share.presentToast('Please fill all details');
