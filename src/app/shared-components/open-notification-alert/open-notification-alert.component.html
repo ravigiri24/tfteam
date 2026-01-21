@@ -1,9 +1,13 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>New Notifications</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon class="icon-size dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">New Notifications</div>
+      <div class="right_action">
+        <ion-buttons slot="end">
+          <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
@@ -13,25 +17,34 @@
         <ion-icon name="notifications-outline"></ion-icon>
       </div>
       <div class="notification_text">
-        <span class="notification_title"><span class="dynamic_color">Hey, You Have {{count}} New Notifications</span></span>
-     
-      </div>
-    </div>
-  
-  </div>
-  <div class="row">
-    <div class="col-6 col-md-6">
-       <div class="page_submit_btn">
-        <ion-button (click)="viewNotification()" class="global_submit_color_button dynamic_bgcolor">View</ion-button>
-       
-      </div>
-    </div>
-    <div class="col-6 col-md-6">
-       <div class="page_submit_btn">
-
-        <ion-button (click)="markAsRead()"  class="global_submit_color_button dynamic_bgcolor">Mark As Read</ion-button>
+        <span>Hey, You Have <span class="delete_color">{{count}}</span> New
+          Notifications</span>
       </div>
     </div>
   </div>
-       
 </ion-content>
+<ion-footer class="global_bottom_fixed_buttons">
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="viewNotification()" class="global_submit_color_button dynamic_bgcolor" expand="block">View
+        All Notification</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="markAsRead()" class="global_submit_color_button theme-bgcolor-secondary" expand="block">Mark
+        As Read</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
+
+<!-- <div class="global_bottom_fixed_buttons">
+    <div class="row">
+      <div class="col-6">
+        <ion-button (click)="viewNotification()" class="global_submit_color_button dynamic_bgcolor" expand="block">View
+          All Notification</ion-button>
+      </div>
+      <div class="col-6">
+        <ion-button (click)="markAsRead()" class="global_submit_color_button theme-bgcolor-secondary"
+          expand="block">Mark As Read</ion-button>
+      </div>
+    </div>
+  </div> -->

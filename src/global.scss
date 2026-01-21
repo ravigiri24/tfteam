@@ -1507,6 +1507,19 @@ ion-header {
   padding-top: 25px;
 }
 
+.global_bottom_fixed_buttons {
+  position: fixed;
+  top: calc(375px - 70px);
+  // bottom: 0px;
+  width: 100%;
+  padding: 10px 15px;
+  // left: 0px;
+  background: #ffffff;
+  z-index: 9999;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
+  height: 75px;
+}
+
 .custom-fullscreen-modal {
   --width: 100vw;
   --height: 100vh;
@@ -1610,6 +1623,7 @@ ion-header {
     }
   }
 }
+
 @media (min-width: 768px) {
   ion-modal.midium-model {
     --width: 80%;

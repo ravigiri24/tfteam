@@ -4,8 +4,6 @@
       <div class="left_text">
         <ng-container *ngIf="!isListFilter">
           <span class="selected_text dynamic_color">{{title}}:</span>
-
-
         </ng-container>
         <ng-container *ngIf="isListFilter">
           <ng-container *ngIf="showWareHouse">
@@ -23,7 +21,12 @@
           </ng-container>
         </ng-container>
         <b class="total-number">
-          <div class="more_data_load" (click)="expandListEventCall()"><span>{{list?.length}}</span><span class="three-dots-loader" *ngIf="allFilterList?.length && (list?.length<allFilterList?.length)"><span class="dot"></span><span class="dot"></span><span class="dot"></span><ion-icon class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div>  <span class="total_count" *ngIf="showFilterList">/{{allFilterList?.length}}</span></b>
+          <div class="more_data_load" (click)="expandListEventCall()"><span>{{list?.length}}</span><span
+              class="three-dots-loader" *ngIf="allFilterList?.length && (list?.length<allFilterList?.length)"><span
+                class="dot"></span><span class="dot"></span><span class="dot"></span><ion-icon
+                class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div> <span
+            class="total_count" *ngIf="showFilterList">/{{allFilterList?.length}}</span>
+        </b>
         <!-- <span class="more_rows" (click)="expandListEventCall()"
           *ngIf="allFilterList?.length && (list?.length<allFilterList?.length)">
           <ion-icon class="unfold_icon top_arrow dynamic_color" name="chevron-up-outline"></ion-icon>
@@ -40,7 +43,7 @@
           <div class="btn_icons">
             <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
               <ng-container *ngIf="headerDisplayArray?.length<=3">
-              <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'" >{{api.number_of_noti}}</span>
+                <span class="noti-counter top_header_counter" *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'">{{api.number_of_noti}}2</span>
                 <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
               </ng-container>
               <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
@@ -66,9 +69,13 @@
   <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
-        <div (click)="actionEventHeaderCall(option)" class="sub_menu_item">
-                <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'" class="camera-counter">{{api.number_of_noti}}</span>
-          <ion-icon class="dynamic_color" name="{{option?.icon}}"></ion-icon>
+        <div (click)="actionEventHeaderCall(option)" [ngClass]="{'notification_row': option?.type === 'NOTIFICATION'}"
+          class="sub_menu_item">
+          <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'"
+            class="noti-counter">{{api.number_of_noti}}</span>
+          <ion-icon
+            [ngClass]="{ 'dynamic_color': option?.type !== 'NOTIFICATION', 'notification_color': option?.type === 'NOTIFICATION'}"
+            name="{{option?.icon}}"></ion-icon>
           <span class="text">{{option?.name}}</span>
         </div>
       </ng-container>
