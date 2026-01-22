@@ -38,14 +38,16 @@
   </ion-select> -->
       </div>
     </div>
-    <div class="filter_block" (click)="selectItem(this.cityListFilter,'City','city_list')" *ngIf="searchBy=='CITY'"
-      class="global_input_block global_location_block">
-      <span class="top_layers">City</span>
-      <span class="name_selected">{{cityName}}</span>
-      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+    <div class="filter_block" *ngIf="searchBy=='CITY'">
+      <div (click)="selectItem(this.cityListFilter,'City','city_list')"
+        class="global_input_block global_location_block">
+        <span class="top_layers">City</span>
+        <span class="name_selected">{{cityName}}</span>
+        <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+        <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
         <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
       </ion-select> -->
+      </div>
     </div>
     <div class="filter_block" *ngIf="searchBy=='DISTRICT'">
       <div class="global_input_block global_location_block"
@@ -58,24 +60,20 @@
       </ion-select> -->
       </div>
     </div>
-    <div class="filter_block" *ngIf="searchBy=='DATE'">
-      <form [formGroup]="form">
-        <ion-row>
-          <ion-col size="12" size-md="6">
-            <div class="global_input_block">
-              <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
-                type="date"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col size="12" size-md="6">
-            <div class="global_input_block">
-              <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
-                type="date"></ion-input>
-            </div>
-          </ion-col>
-        </ion-row>
-      </form>
-    </div>
+    <form [formGroup]="form" *ngIf="searchBy=='DATE'">
+      <div class="filter_block">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="filter_block">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+    </form>
     <!-- <div *ngIf="searchBy=='HOT_DEAL'"  >
     <form [formGroup]="form">
   <div class="row top-position">
@@ -102,41 +100,35 @@
           <ion-select-option value="VISITED">Visited</ion-select-option>
         </ion-select>
       </div>
-      <form [formGroup]="form">
-        <ion-row>
-          <ion-col size="12" size-md="6">
-            <div class="global_input_block">
-              <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
-                type="date"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col size="12" size-md="6">
-            <div class="global_input_block">
-              <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
-                type="date"></ion-input>
-            </div>
-          </ion-col>
-        </ion-row>
-      </form>
     </div>
-    <div class="filter_block" *ngIf="searchBy=='DEMAND'">
-      <form [formGroup]="form">
-        <ion-row>
-          <ion-col size="12" size-md="6">
-            <div class="global_input_block">
-              <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
-                type="date"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col size="12" size-md="6">
-            <div class="global_input_block">
-              <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
-                type="date"></ion-input>
-            </div>
-          </ion-col>
-        </ion-row>
-      </form>
-    </div>
+    <form [formGroup]="form" *ngIf="searchBy=='VISITORS'">
+      <div class="filter_block">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="filter_block">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+    </form>
+    <form [formGroup]="form" *ngIf="searchBy=='DEMAND'">
+      <div class="filter_block">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="filter_block">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+    </form>
     <ion-button class="search_button dynamic_bgcolor" (click)="searchCustomer()" expand="block">
       <ion-icon name="search-outline"></ion-icon>
     </ion-button>
@@ -281,10 +273,5 @@
 
       </tbody>
     </table>
-
-
-
-
   </div>
-
 </ion-content>

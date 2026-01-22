@@ -141,7 +141,7 @@ isModalOpen=false
         componentProps: {
      count:res?.data
         },
-           cssClass: 'midium-model',
+          //  cssClass: 'midium-model',
       });
       await modal.present();
       const { data, role } = await modal.onWillDismiss();

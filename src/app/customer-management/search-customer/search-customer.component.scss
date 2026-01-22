@@ -41,12 +41,23 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    padding-right: 65px;
+    padding-right: 55px;
     padding-bottom: 10px;
+    flex-flow: wrap;
+
     .filter_block {
-        padding-right: 10px;
+        padding: 0px 10px 15px 0px;
         width: 50%;
         display: flex;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+    }
+
+    .global_location_block {
+        min-height: 45px;
     }
 
     .search_block {
@@ -77,6 +88,7 @@
         height: 46.5px;
     }
 }
+
 .excel_generate_btn_block {
     margin-bottom: 10px;
     border-radius: 8px;
@@ -84,15 +96,19 @@
     display: flex;
     width: 100%;
 }
+
 .table_data_contain_block {
     width: 100%;
     display: flex;
     flex-flow: column;
     overflow: auto;
+
     table {
         width: 100%;
         margin-bottom: 10px;
-        th, td{
+
+        th,
+        td {
             font-size: 12px !important;
         }
     }

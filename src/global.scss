@@ -1520,6 +1520,13 @@ ion-header {
   height: 75px;
 }
 
+ion-searchbar {
+  input {
+    padding-right: 5px !important;
+    font-size: 13px !important;
+  }
+}
+
 .custom-fullscreen-modal {
   --width: 100vw;
   --height: 100vh;
