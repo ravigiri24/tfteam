@@ -425,7 +425,7 @@
       {
         "key": "COMPANYREPRESENTATIVE",
         "src":"companyrepresentative",
-        "headerTitle":"Company Representative Management",
+        "headerTitle":"Company Representative",
          "field":1,
          "colArray":["name","contact","hindiTranslation"],
          "deleteHeading":"Company Representative delete?",

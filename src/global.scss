@@ -1503,6 +1503,12 @@ ion-header {
   --background: #ffffff;
 }
 
+.global_textarea_bg,
+ion-textarea {
+  background: #ffffff;
+  --background: #ffffff;
+}
+
 .page_inner_container {
   padding-top: 25px;
 }
@@ -1546,7 +1552,11 @@ ion-searchbar {
     background-color: rgba(0, 0, 0, 0.4);
   }
 }
-
+.main_container_scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+}
 @keyframes wave {
   0% {
     transform: translate(-50%) rotate(-180deg);
@@ -1628,6 +1638,17 @@ ion-searchbar {
     .filter_block {
       width: 50% !important;
     }
+  }
+
+  .report_main_container {
+    .left_details_block {
+      border-right: none !important;
+    }
+  }
+
+  table tr td,
+  table tr th {
+    font-size: 13px;
   }
 }
 
