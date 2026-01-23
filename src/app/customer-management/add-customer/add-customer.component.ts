@@ -61,7 +61,7 @@ export class AddCustomerComponent implements OnInit {
     this.customerForm = this.fb.group({
       name: new FormControl(this.editData?.name || null, [Validators.required]),
       mobileNo: new FormControl(this.editData?.mobileNo || null, [
-        Validators.required,
+        Validators.required, Validators.pattern(/^[0-9]{10}$/)
       ]),
       customerType: new FormControl(this.editData?.customerType || 'DIGITAL', [
         Validators.required,

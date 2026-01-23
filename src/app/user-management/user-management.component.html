@@ -70,7 +70,7 @@
         </div>
       </ion-row>
    
-             <ion-row *ngIf="staffDetails?.staff_role=='REPAIR' && staffDetails?.isRepairHead ==1"  class="details_line_row">
+             <ion-row *ngIf="(staffDetails?.staff_role=='REPAIR' || staffDetails?.currentRole=='REPAIR') && staffDetails?.isRepairHead ==1"  class="details_line_row">
         <ion-card class="left_icons_block">
           <ion-icon name="storefront-outline"></ion-icon>
         </ion-card>

@@ -4,8 +4,21 @@
       placeholder="Your name" formControlName="name"></ion-input>
   </div>
   <div class="global_input_block">
-    <ion-input label="Enter Mobile Number" fill="outline" labelPlacement="stacked" type="text" [readonly]="editData"
+    <ion-input label="Enter Mobile Number" fill="outline" labelPlacement="stacked" type="number" [readonly]="editData"
       placeholder="Your Number" formControlName="mobileNo"></ion-input>
+<div
+  class="text-danger mt-1"
+  *ngIf="customerForm.controls['mobileNo'].touched && customerForm.controls['mobileNo'].invalid">
+
+  <div *ngIf="customerForm.controls['mobileNo'].errors?.['required']">
+    Mobile number is required
+  </div>
+
+  <div *ngIf="customerForm.controls['mobileNo'].errors?.['pattern']">
+    Mobile number must be exactly 10 digits
+  </div>
+
+</div>
   </div>
   <div class="global_input_block">
     <ion-select (ionChange)="clearsocialType()" formControlName="customerType" fill="outline" label="Customer Type"

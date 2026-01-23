@@ -148,7 +148,12 @@ export class TractorListFranchiseComponent implements OnInit {
       name: 'View Refurbish Details',
       action: 'viewRefurbishDetails',
       image: './././assets/images/layout.png',
-    }
+    },
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
       ]
     }
   }
@@ -164,6 +169,11 @@ export class TractorListFranchiseComponent implements OnInit {
       action: 'approvalRequest',
       image: './././assets/images/request.png',
     }, 
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
      {
       name: 'View Refurbish Details',
       action: 'viewRefurbishDetails',
@@ -468,6 +478,11 @@ this.getAllTractorListStorewise(true)
       name: 'Approval Request',
       action: 'approvalRequest',
       image: './././assets/images/request.png',
+    },
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
     },
    
   ];

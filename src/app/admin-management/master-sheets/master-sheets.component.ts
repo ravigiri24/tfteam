@@ -285,14 +285,24 @@ if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
 //tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
 tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+37000
   }
-
+ swap(arr: any[], i: number, j: number): void {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+}
   logisticExpenseTypeList: any = [];
   getLogisticExpense() {
     let obj: any = this.share.getListObj('expensetype', false, [], true);
 
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
+        console.log("logisticExpenseTypeList",res.data);
+        
         this.logisticExpenseTypeList = res.data;
+        if(this.logisticExpenseTypeList?.length){
+          let findIndex=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==4)
+          let findIndex1=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==5)
+          this.swap(this.logisticExpenseTypeList, findIndex, findIndex1);
+
+        }
       },
       (error: any) => {}
     );

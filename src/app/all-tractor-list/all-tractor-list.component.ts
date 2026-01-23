@@ -86,6 +86,11 @@ export class AllTractorListComponent implements OnInit {
       action: 'syncMainatinance',
       image: './././assets/images/sync.png',
     },
+       {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
     {
       name: 'Tractor Summary',
       action: 'tractorSummary',

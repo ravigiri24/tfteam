@@ -39,6 +39,7 @@ import { SellOptionsComponent } from './sell-department/sell-options/sell-option
 import { RequestApproveFormComponent } from './sales-officer-depart/tractor-list-franchise/request-approve-form/request-approve-form.component';
 import { ViewMaintainanceExpenseComponent } from './shared-components/view-maintainance-expense/view-maintainance-expense.component';
 import { ViewRepairRecordComponent } from './shared-components/view-repair-record/view-repair-record.component';
+import { ViewAllImagesTractorwiseComponent } from './shared-components/view-all-images-tractorwise/view-all-images-tractorwise.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -170,6 +171,9 @@ export class CommonMethodService {
     else if(e?.button?.name =='View Refurbish Details'){
 this.refurbishDetails(e?.tractor)
 
+    }
+    if(e?.button?.name =='View Tractor All Images'){
+this.getTractorAllImages(e?.tractor)
     }
   }
 
@@ -748,4 +752,20 @@ this.refurbishDetails(e?.tractor)
           
                     //}
                   }
+      async getTractorAllImages(tractor:any){
+                    const modal = await this.modalCtrl.create({
+                      component: ViewAllImagesTractorwiseComponent,
+                               cssClass: 'midium-model',
+                      componentProps: {
+                        tractor: tractor,
+                      },
+                    });
+                    await modal.present();
+                    const { data, role } = await modal.onWillDismiss();
+                    console.log('role', role);
+                          if (data) {
+      this.reloadMethod = true;
+    }
+                   
+                  }                
 }

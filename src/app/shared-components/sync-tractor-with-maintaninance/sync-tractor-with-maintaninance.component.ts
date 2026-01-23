@@ -3,17 +3,20 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { SelectWithSearchComponent } from '../select-with-search/select-with-search.component';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-sync-tractor-with-maintaninance',
   templateUrl: './sync-tractor-with-maintaninance.component.html',
   styleUrls: ['./sync-tractor-with-maintaninance.component.scss'],
+    providers: [DatePipe] 
 })
 export class SyncTractorWithMaintaninanceComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private api: ApiService,
     private share: ShareService,
-    private alertCtrl:AlertController
+    private alertCtrl:AlertController,
+    private datePipe: DatePipe
   ) {}
   @Input() listColorClass: any = "fifthColor";
   ngOnInit() {
@@ -100,7 +103,11 @@ export class SyncTractorWithMaintaninanceComponent implements OnInit {
     this.api.postapi('unmappedJobList', obj).subscribe(
       (res: any) => {
         res.data?.forEach((f: any) => {
-          f.name = f?.tfCode + '-' + f?.modelDetails?.name;
+        let   formattedDate = this.datePipe.transform(
+  new Date(f?.createdOn),
+  'dd-MM-yyyy'
+);
+          f.name = f?.tfCode + '-' + f?.modelDetails?.name + ' ( '+ formattedDate +' )';
           this.jobList.push(f);
         });
 

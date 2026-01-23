@@ -1,0 +1,74 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title >View All Image</ion-title>
+
+    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-buttons slot="end">
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+<div class="top-position" [ngClass]="listColorClass">
+  <div class="global-inner-heading dynamic_color">
+    <span>Before Service(Maintainance)</span>
+    <ion-icon   class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="beforeService?.length">
+    <div class="main_card_block" *ngFor="let photo of beforeService; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewInSlider(photo,beforeService)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!beforeService?.length">
+    <app-no-data-view [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  <div class="global-inner-heading dynamic_color">
+    <span>After Service(Maintainance)</span>
+    <ion-icon  class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="afterService?.length">
+    <div class="main_card_block" *ngFor="let photo of afterService; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewInSlider(photo,afterService)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!afterService?.length">
+    <app-no-data-view [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+ <div class="global-inner-heading dynamic_color">
+    <span>At Purchase/Receiving</span>
+    <ion-icon   class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="purchaseTimeList?.length">
+    <div class="main_card_block" *ngFor="let photo of purchaseTimeList; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewInSlider(photo,purchaseTimeList)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!purchaseTimeList?.length">
+    <app-no-data-view [title]="'No  images found '" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  <div class="global-inner-heading dynamic_color">
+    <span>Live Images</span>
+    <ion-icon class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="liveImages?.length">
+    <div class="main_card_block" *ngFor="let photo of liveImages; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewInSlider(photo,liveImages)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!liveImages?.length">
+    <app-no-data-view [title]="'No  images found'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+</div>
+</ion-content>

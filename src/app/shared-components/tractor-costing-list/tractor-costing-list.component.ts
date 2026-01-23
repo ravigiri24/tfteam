@@ -423,6 +423,11 @@ setTimeout(() => {
       action: 'tractorSummary',
       image: './././assets/images/data-analysis.png',
     },
+       {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
   ];
   keyList: any = [
     { key: 'Model', value: 'name', type: 'INPUT' },

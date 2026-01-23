@@ -1,0 +1,34 @@
+.icon-size-add {
+  font-size: 30px;
+}
+
+.top-position {
+  position: relative;
+  top: 40px;
+}
+
+.dynamic_block {
+  margin-bottom: 15px;
+  display: flex;
+  flex-flow: wrap;
+
+  .main_card_block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  ion-card {
+    padding: 5px;
+    border-radius: 15px;
+    border: dashed 1px;
+    margin: 0px 15px 10px 0px;
+
+    .image_upload_card {
+      max-width: 150px;
+      width: 150px;
+      border-radius: 10px;
+    }
+  }
+}

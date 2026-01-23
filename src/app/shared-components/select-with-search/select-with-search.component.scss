@@ -26,6 +26,7 @@
   z-index: -1;
 
   .radio_block {
+      overflow-x: scroll;
     display: flex;
     padding: 5px 10px;
     background: #ffffff;

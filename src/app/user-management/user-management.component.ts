@@ -89,7 +89,7 @@ export class UserManagementComponent implements OnInit {
     this.selectedRepairCenter = null;
 
     if (
-      this.staffDetails?.staff_role == 'REPAIR' &&
+     ( this.staffDetails?.staff_role == 'REPAIR' || this.staffDetails?.currentRole == 'REPAIR') &&
       this.staffDetails?.isRepairHead == 1
     ) {
       this.getRepairCenter();
