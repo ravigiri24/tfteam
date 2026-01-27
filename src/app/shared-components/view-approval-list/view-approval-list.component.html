@@ -1,62 +1,68 @@
-
-  <div class="notification_container">
-    <ion-row>
-      <ng-container *ngFor="let approval of approvalList">
+<div class="notification_container" [ngClass]="listColorClass">
+  <ion-row>
+    <ng-container *ngFor="let approval of approvalList">
       <ion-col size="12" size-md="6">
-        <div class="notification_block">
-          <span class="notification_title"><span class="dynamic_color">{{approval?.tractor_name}}</span><small>{{approval?.createdOn  | date}}</small></span>
+        <div class="notification_block dynamic_color">
+          <span class="notification_title"><span
+              class="dynamic_color">{{approval?.tractor_name}}</span><small>{{approval?.createdOn |
+              date}}</small></span>
           <div class="internal_block">
             <span>Request Amount For Sale: {{approval?.approvePrice}}</span>
             <span>Price Of Tractor: {{approval?.expectedPrice}}</span>
-        
+
             <span>Expected Date: {{approval?.expectedDateOfSale | date}}</span>
-                <span >Request By: {{approval?.requestByName}}</span>
-                <span *ngIf="approval?.actionTaken==1">Approved By: {{approval?.approvalGivenBy}}</span>
+            <span>Request By: {{approval?.requestByName}}</span>
+            <span *ngIf="approval?.actionTaken==1">Approved By: {{approval?.approvalGivenBy}}</span>
             <div class="notification_desc"> Your Remark-{{approval?.remark}}</div>
             <div class="notification_desc"> Store-{{approval?.storeName}}</div>
-            <div class="notification_desc" *ngIf="approval?.actionTaken==1"> Action Remark-{{approval?.apporveRemark}}</div>
+            <div class="notification_desc" *ngIf="approval?.actionTaken==1"> Action Remark-{{approval?.apporveRemark}}
+            </div>
           </div>
-          <span *ngIf="approval?.actionTaken==0" class="notification_status pending_color"><span>Status : PENDING 
+          <span *ngIf="approval?.actionTaken==0" class="notification_status pending_color"><span>Status : PENDING
 
-          </span></span>
-          <span class="notification_status approved_color" *ngIf="approval?.isApproved==1 && approval?.actionTaken==1"><span>Status : APPROVED</span><small>{{approval?.approveactionDate|date}}</small></span>
-          <span class="notification_status rejected_color" *ngIf="approval?.isApproved==0 && approval?.actionTaken==1" ><span>Status : REJECTED</span><small>{{approval?.approveactionDate|date}}</small></span>
-            <!-- <ion-button (click)="takeAction(approval)" *ngIf="showAction && approval?.actionTaken==0" expand="block">Action</ion-button>
+            </span></span>
+          <span class="notification_status approved_color"
+            *ngIf="approval?.isApproved==1 && approval?.actionTaken==1"><span>Status :
+              APPROVED</span><small>{{approval?.approveactionDate|date}}</small></span>
+          <span class="notification_status rejected_color"
+            *ngIf="approval?.isApproved==0 && approval?.actionTaken==1"><span>Status :
+              REJECTED</span><small>{{approval?.approveactionDate|date}}</small></span>
+          <div class="internal_block">
+            <ion-row>
+              <ion-col *ngIf="showAction && approval?.actionTaken==0" class="action_col" (click)="takeAction(approval)">
+                <img src="./././assets/images/settings.png" />
+                <span class="shape">
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                </span>
+              </ion-col>
+              <ion-col *ngIf="showSummary" class="action_col" (click)="tractorSummaryDetails(approval)">
+                <img src="./././assets/images/data-analysis.png" />
+                <span class="shape">
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                </span>
+              </ion-col>
+            </ion-row>
+          </div>
+          <!-- <ion-button (click)="takeAction(approval)" *ngIf="showAction && approval?.actionTaken==0" expand="block">Action</ion-button>
             <ion-button (click)="tractorSummaryDetails(approval)" *ngIf="showSummary" expand="block">View</ion-button> -->
         </div>
-          <ng-container >
-               <ion-row>
-                <ion-col *ngIf="showAction && approval?.actionTaken==0" class="action_col" (click)="takeAction(approval)">
-                  <img src="./././assets/images/settings.png" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                  </span>
-                </ion-col>
-                    <ion-col *ngIf="showSummary" class="action_col" (click)="tractorSummaryDetails(approval)">
-                  <img src="./././assets/images/data-analysis.png" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span>
-                  </span>
-                </ion-col>
-                </ion-row>
-              </ng-container>
       </ion-col>
-      </ng-container>
-   
-    </ion-row>
-  </div>
-     <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!approvalList?.length && !share?.globalLoading"></app-no-data-view>
+    </ng-container>
+
+  </ion-row>
+</div>
+<app-no-data-view [ngClass]="listColorClass" *ngIf="!approvalList?.length && !share?.globalLoading"></app-no-data-view>
