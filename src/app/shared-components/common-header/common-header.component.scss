@@ -324,8 +324,9 @@
 
 .noti-counter {
     position: absolute;
-    top: -2px;
-    left: 20px;
+    top: 2px;
+    // left: 20px;
+    right: 2px;
     color: white;
     background: var(--delete-color);
     font-size: 12px;
@@ -342,8 +343,8 @@
 }
 
 .top_header_counter {
-    top: 1px;
-    left: 25px;
+    left: 20px;
+    top: -2px;
 }
 
 .notification_row {
