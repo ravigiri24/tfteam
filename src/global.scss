@@ -1515,17 +1515,16 @@ ion-textarea {
 
 .global_bottom_fixed_buttons {
   position: fixed;
-  top: calc(375px - 70px);
-  // bottom: 0px;
+  bottom: 0px;
   width: 100%;
   padding: 10px 15px;
-  // left: 0px;
   background: #ffffff;
   z-index: 9999;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
   height: 75px;
+  left: 0;
+  right: 0;
 }
-
 ion-searchbar {
   input {
     padding-right: 5px !important;
