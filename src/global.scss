@@ -1525,6 +1525,7 @@ ion-textarea {
   left: 0;
   right: 0;
 }
+
 ion-searchbar {
   input {
     padding-right: 5px !important;
@@ -1551,11 +1552,13 @@ ion-searchbar {
     background-color: rgba(0, 0, 0, 0.4);
   }
 }
+
 .main_container_scroll {
   width: 100%;
   max-width: 100%;
   overflow: auto;
 }
+
 @keyframes wave {
   0% {
     transform: translate(-50%) rotate(-180deg);
@@ -1647,6 +1650,10 @@ ion-searchbar {
 
   table tr td,
   table tr th {
+    font-size: 13px;
+  }
+
+  .amount_col {
     font-size: 13px;
   }
 }
