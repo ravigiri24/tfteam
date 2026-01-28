@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ShareService } from 'src/app/share.service';
 import { TractorCostingDashboardComponent } from '../tractor-costing-dashboard/tractor-costing-dashboard.component';
 import { ApproveRequestActionComponent } from '../approve-request-action/approve-request-action.component';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-view-approval-list',
   templateUrl: './view-approval-list.component.html',
@@ -10,7 +11,7 @@ import { ApproveRequestActionComponent } from '../approve-request-action/approve
 })
 export class ViewApprovalListComponent  implements OnInit {
 
-  constructor(public share :ShareService,private modalCtrl:ModalController) { }
+  constructor(public share :ShareService,private modalCtrl:ModalController,private commonMethod:CommonMethodService) { }
 @Input() approvalList:any=[]
 @Input() listColorClass:any
 @Input() showAction:any=true
@@ -21,7 +22,9 @@ export class ViewApprovalListComponent  implements OnInit {
 
 
   }
- 
+ showAllImage(approval:any){
+  this.commonMethod.getTractorAllImages({id:approval?.tractor_id})
+ }
 
     async takeAction(e: any) {
       const modal = await this.modalCtrl.create({

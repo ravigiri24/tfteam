@@ -55,6 +55,19 @@
                   <span class="dynamic_bgcolor"></span>
                 </span>
               </ion-col>
+                   <ion-col *ngIf="showSummary" class="action_col" (click)="showAllImage(approval)">
+                <img src="./././assets/images/all_image_icon.png" />
+                <span class="shape">
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                  <span class="dynamic_bgcolor"></span>
+                </span>
+              </ion-col>
             </ion-row>
           </div>
           <!-- <ion-button (click)="takeAction(approval)" *ngIf="showAction && approval?.actionTaken==0" expand="block">Action</ion-button>

@@ -252,7 +252,8 @@ export class AllTractorListComponent implements OnInit {
         (res: any) => {
           this.warehouseList = res?.data;
           this.warehouseList = this.warehouseList.reverse();
-
+         this.share.putUnAssignedInWareHouse(this.warehouseList)
+        this.share.putAllInWareHouse(this.warehouseList)
           console.log('this.warehouseList', this.warehouseList);
           if (!loader) {
             this.selectedStore = this.warehouseList[0]?.id;

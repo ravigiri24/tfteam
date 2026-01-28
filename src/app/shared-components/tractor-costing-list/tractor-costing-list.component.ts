@@ -76,8 +76,9 @@ export class TractorCostingListComponent implements OnInit {
 
             this.getAllTractorListStorewise();
             //this.share.spinner?.dismiss();
-          
+             this.share.putUnAssignedInWareHouse(this.warehouseList);
           this.share.putAllInWareHouse(this.warehouseList);
+       
         },
         (error: any) => {}
       );

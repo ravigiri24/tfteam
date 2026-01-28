@@ -50,7 +50,7 @@ this.getStoreByid()
       tractor_id: new FormControl(this.tractor?.id, [Validators.required]),
       approvePrice: new FormControl(data?.approvePrice, [Validators.required]),
       expectedDateOfSale: new FormControl(data?.approvePrice, []),
-      remark: new FormControl(data?.remark, []),
+      remark: new FormControl(data?.remark, [Validators.required]),
 
       storeId: new FormControl(this.selectedStore, [Validators.required]),
       actionByid: new FormControl(this?.staffDetails?.id, [

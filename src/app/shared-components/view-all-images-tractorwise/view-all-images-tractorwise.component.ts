@@ -30,6 +30,7 @@ this.getAllImage()
   allImages:any=[]
   purchaseTimeList:any=[]
   liveImages:any=[]
+  receiveTractorList:any=[]
   getAllImage() {
     let obj: any = {};
     obj.operate = this.share.getStaffObj()?.operate;
@@ -47,6 +48,7 @@ this.allImages=res?.data
 this.beforeService=this.allImages?.repair_image?.filter((f:any)=>f.imageGroup=='AFTER_SERVICE')
 this.afterService=this.allImages?.repair_image?.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
 this.purchaseTimeList=this.allImages?.rawImages?.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
+this.receiveTractorList=this.allImages?.rawImages?.filter((f:any)=>f.imageGroup=='RECEIVED_TRACTOR')
 this.liveImages=this.allImages?.live_images
         this.share.spinner.dismiss()
       },

@@ -27,8 +27,8 @@ export class ApiService {
   }
   //frontendUrl="https://tractorfactory.in/#"
 
-  //rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
- rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
+  rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
+// rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
   private isOnlineSubject = new BehaviorSubject<boolean>(true);
   public isOnline$ = this.isOnlineSubject.asObservable();
   initializeApp() {
@@ -173,15 +173,16 @@ isModalOpen=false
     );
 
     this.postapi('generateEnquiry', obj).subscribe((res: any) => {
-      this.generateNotifcationToAboveStaff(res?.rowData,staffDetails);
+      this.generateNotifcationToAboveStaff(res?.rowData,staffDetails, selectedStore?.store_id);
     });
   }
-  generateNotifcationToAboveStaff(noti: any,staffDetails:any) {
+  generateNotifcationToAboveStaff(noti: any,staffDetails:any,storeId:any) {
     let obj: any = {};
     obj.operate = this.share.getStaffObj()?.operate;
 
     obj.staff_id = staffDetails?.id;
     obj.noti_id = noti?.id;
+    obj.storeId = storeId
 
     this.postapi('generateNotifcationToAboveStaff', obj).subscribe(
       (res: any) => {},

@@ -145,7 +145,18 @@ export class TarritoryManagerTractorListComponent  implements OnInit {
     if(check){
       this.buttonArray=this.buttonArrayCore
     }else{
-      this.buttonArray=[]
+      this.buttonArray=[
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
+        {
+      name: 'View Refurbish Details',
+      action: 'viewRefurbishDetails',
+      image: './././assets/images/layout.png',
+    }
+      ]
     }
   }
     buttonArrayCore: any = [
@@ -160,6 +171,16 @@ export class TarritoryManagerTractorListComponent  implements OnInit {
       action: 'approvalRequest',
       image: './././assets/images/request.png',
     },
+     {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
+         {
+      name: 'View Refurbish Details',
+      action: 'viewRefurbishDetails',
+      image: './././assets/images/layout.png',
+    }
    
   ];
   headerDisplayArray = [
@@ -543,11 +564,17 @@ setTimeout(() => {
     registractionNo: null,
   };
   buttonArray: any = [
-      {
-      name: 'Tractor Summary',
-      action: 'tractorSummary',
-      image: './././assets/images/data-analysis.png',
+   
+     {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
     },
+       {
+      name: 'View Refurbish Details',
+      action: 'viewRefurbishDetails',
+      image: './././assets/images/layout.png',
+    }
    
   ];
   keyList: any = [

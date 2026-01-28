@@ -144,7 +144,11 @@ export class SalesHeadTractorListComponent  implements OnInit {
     if(check){
       this.buttonArray=this.buttonArrayCore
     }else{
-      this.buttonArray=[]
+      this.buttonArray=[     {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    }]
     }
   }
     buttonArrayCore: any = [
@@ -158,6 +162,11 @@ export class SalesHeadTractorListComponent  implements OnInit {
      name: 'Approval Request',
       action: 'approvalRequest',
       image: './././assets/images/request.png',
+    },
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
     },
    
   ];
@@ -547,6 +556,12 @@ setTimeout(() => {
       action: 'tractorSummary',
       image: './././assets/images/data-analysis.png',
     },
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
+    
    
   ];
   keyList: any = [

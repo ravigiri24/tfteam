@@ -41,7 +41,7 @@ export class BufferStockTractorsComponent implements OnInit {
       breakpoints: [0, 0.4, 1],
       initialBreakpoint: 0.4,
       cssClass: 'custom-modal',
-      component: DeleteTractorComponent,
+      component: DeleteTractorComponent,  
       componentProps: {
         tractor: tractor,
       },
