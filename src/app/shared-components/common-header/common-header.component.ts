@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 
 @Component({
@@ -6,46 +6,47 @@ import { ApiService } from 'src/app/api.service';
   templateUrl: './common-header.component.html',
   styleUrls: ['./common-header.component.scss'],
 })
-export class CommonHeaderComponent  implements OnInit {
+export class CommonHeaderComponent implements OnInit {
   @Input() listColorClass: any;
   @Input() title: any;
   @Input() selectedStore: any;
   @Input() selectedItem: any;
-  @Input() isListFilter: any=false;
-  @Input() universalSelect: any=false;
-  @Input() showWareHouse: any=false;
-  @Input() warehouseList: any=[];
-  @Input() showFilterList: any=false;
-  @Input() allFilterList: any=[];
-  @Input() brandList: any=[];
-  @Input() optionsArray: any=[];
+  @Input() isListFilter: any = false;
+  @Input() universalSelect: any = false;
+  @Input() showWareHouse: any = false;
+  @Input() warehouseList: any = [];
+  @Input() showFilterList: any = false;
+  @Input() allFilterList: any = [];
+  @Input() brandList: any = [];
+  @Input() optionsArray: any = [];
   @Input() list: any; //np
   @Output() actionEventHeader = new EventEmitter();
   @Output() optionActionEvent = new EventEmitter();
   @Output() selectWareHouseAction = new EventEmitter();
   @Output() expandListEvent = new EventEmitter();
-  @Input() headerDisplayArray: any=[]; //np
+  @Input() headerDisplayArray: any = []; //np
 
   // listBy = 'BUFFER';
-  constructor(public api:ApiService) { }
-actionEventHeaderCall(e:any){
-this.actionEventHeader.emit(e)
-}
-expandListEventCall(){
-  this.expandListEvent.emit()
-}
-optionActionEventCall(){
-  this.optionActionEvent.emit(this.selectedItem)
-}
-  ngOnInit() {
-    // this.listBy= 'BUFFER';
-    console.log("listColorClass",this.optionsArray);
-  }
-  submenuOpen: boolean = false;
-  openSubmenu(){
+  constructor(public api: ApiService) { }
+  actionEventHeaderCall(e: any) {
+    this.actionEventHeader.emit(e);
     this.submenuOpen = !this.submenuOpen;
   }
-getAllTractorListStorewise(){
-this.selectWareHouseAction.emit({selectedStore:this.selectedStore})
-}
+  expandListEventCall() {
+    this.expandListEvent.emit()
+  }
+  optionActionEventCall() {
+    this.optionActionEvent.emit(this.selectedItem)
+  }
+  ngOnInit() {
+    // this.listBy= 'BUFFER';
+    console.log("listColorClass", this.optionsArray);
+  }
+  submenuOpen: boolean = false;
+  openSubmenu() {
+    this.submenuOpen = !this.submenuOpen;
+  }
+  getAllTractorListStorewise() {
+    this.selectWareHouseAction.emit({ selectedStore: this.selectedStore })
+  }
 }

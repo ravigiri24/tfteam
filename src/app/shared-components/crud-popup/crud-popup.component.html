@@ -40,6 +40,7 @@
         <ion-icon (click)="editData(row)" class="right-margine dynamic_color" name="create-outline"></ion-icon>
       </ion-item>
     </ion-list>
+    <app-no-data-view [ngClass]="listColorClass" *ngIf="!listData?.length"></app-no-data-view>
   </ng-container>
   <div class="page_inner_container" *ngIf="view === 'FORM'">
     <form [formGroup]="form">
@@ -69,8 +70,8 @@
     <div class="page_submit_btn">
       <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_color_button dynamic_bgcolor"
         expand="block">Save</ion-button>
-      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'" class="global_submit_color_button dynamic_bgcolor"
-        expand="block">Update</ion-button>
+      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'"
+        class="global_submit_color_button dynamic_bgcolor" expand="block">Update</ion-button>
     </div>
   </div>
 </ion-content>
