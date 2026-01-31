@@ -10,7 +10,10 @@
   <div class="inner_container d-flex">
     <ion-card class="image_card">
       <ion-avatar>
-        <img alt="User" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img
+          alt="User"
+          src="https://ionicframework.com/docs/img/demos/avatar.svg"
+        />
       </ion-avatar>
     </ion-card>
     <ion-grid>
@@ -20,24 +23,42 @@
         </ion-card>
         <div class="right_flex-data">
           <ion-label class="margin-left"><b>Name</b></ion-label>
-          <ion-label class="margin-left">{{staffDetails?.name}} </ion-label>
+          <ion-label class="margin-left">{{ staffDetails?.name }} </ion-label>
         </div>
       </ion-row>
       <ion-row class="details_line_row">
-        <ion-card *ngIf="staffDetails?.isMultiRole==0 || !staffDetails?.isMultiRole" class="left_icons_block">
+        <ion-card
+          *ngIf="staffDetails?.isMultiRole == 0 || !staffDetails?.isMultiRole"
+          class="left_icons_block"
+        >
           <ion-icon name="id-card-outline"></ion-icon>
         </ion-card>
-        <div *ngIf="staffDetails?.isMultiRole==0 || !staffDetails?.isMultiRole" class="right_flex-data">
+        <div
+          *ngIf="staffDetails?.isMultiRole == 0 || !staffDetails?.isMultiRole"
+          class="right_flex-data"
+        >
           <ion-label class="margin-left"><b>Staff Role</b></ion-label>
-          <ion-label class="margin-left">{{staffDetails?.staff_role}} </ion-label>
+          <ion-label class="margin-left"
+            >{{ staffDetails?.staff_role }}
+          </ion-label>
         </div>
-        <ion-card (click)="showRoleModel()" *ngIf="staffDetails?.isMultiRole==1" class="left_icons_block">
+        <ion-card
+          (click)="showRoleModel()"
+          *ngIf="staffDetails?.isMultiRole == 1"
+          class="left_icons_block"
+        >
           <ion-icon name="id-card-outline"></ion-icon>
         </ion-card>
 
-        <div (click)="showRoleModel()" *ngIf="staffDetails?.isMultiRole==1" class="right_flex-data">
+        <div
+          (click)="showRoleModel()"
+          *ngIf="staffDetails?.isMultiRole == 1"
+          class="right_flex-data"
+        >
           <ion-label class="margin-left"><b>Staff Role</b></ion-label>
-          <ion-label class="margin-left">{{staffDetails?.currentRole}} (MULTIPLE)</ion-label>
+          <ion-label class="margin-left"
+            >{{ staffDetails?.currentRole }} (MULTIPLE)</ion-label
+          >
         </div>
       </ion-row>
       <ion-row class="details_line_row">
@@ -46,37 +67,71 @@
         </ion-card>
         <div class="right_flex-data">
           <ion-label class="margin-left"><b>Contact No.</b></ion-label>
-          <ion-label class="margin-left">{{staffDetails?.contact1}} </ion-label>
+          <ion-label class="margin-left"
+            >{{ staffDetails?.contact1 }}
+          </ion-label>
         </div>
       </ion-row>
-       <ion-row *ngIf="staffDetails?.staff_role=='SALES_OFFICER' && staffDetails?.currentRole=='SALES_OFFICER'"  class="details_line_row">
+      <!-- <ion-row
+        *ngIf="
+          (staffDetails?.staff_role == 'SALES_OFFICER' &&
+            staffDetails?.currentRole == 'SALES_OFFICER') ||
+          (staffDetails?.staff_role == 'TERRITORY_MANAGER' &&
+            staffDetails?.currentRole == 'TERRITORY_MANAGER') ||
+          (staffDetails?.staff_role == 'SALES_HEAD' &&
+            staffDetails?.currentRole == 'SALES_HEAD')
+        "
+        class="details_line_row"
+      > -->
+          <ion-row
+        *ngIf="
+          (staffDetails?.staff_role == 'SALES_OFFICER' &&
+            staffDetails?.currentRole == 'SALES_OFFICER') 
+        "
+        class="details_line_row"
+      >
         <ion-card class="left_icons_block">
           <ion-icon name="storefront-outline"></ion-icon>
         </ion-card>
         <div (click)="showStoreList()" class="right_flex-data">
           <ion-label class="margin-left"><b>Store</b></ion-label>
-          <ion-label class="margin-left">{{selected_store?.name}} </ion-label>
+          <ion-label class="margin-left">{{ selected_store?.name }} </ion-label>
         </div>
-        
       </ion-row>
-         <ion-row *ngIf="staffDetails?.isCloneToSalesHead == 1 &&
-        staffDetails?.currentRole == 'SALES_HEAD'" class="details_line_row">
+      <ion-row
+        *ngIf="
+          staffDetails?.isCloneToSalesHead == 1 &&
+          staffDetails?.currentRole == 'SALES_HEAD'
+        "
+        class="details_line_row"
+      >
         <ion-card class="left_icons_block">
           <ion-icon name="call-outline"></ion-icon>
         </ion-card>
-        <div  (click)="showCloneList()" class="right_flex-data">
+        <div (click)="showCloneList()" class="right_flex-data">
           <ion-label class="margin-left"><b>Clone Staff</b></ion-label>
-          <ion-label class="margin-left">{{selectedCloneStateHead?.name}}</ion-label>
+          <ion-label class="margin-left">{{
+            selectedCloneStateHead?.name
+          }}</ion-label>
         </div>
       </ion-row>
-   
-             <ion-row *ngIf="(staffDetails?.staff_role=='REPAIR' || staffDetails?.currentRole=='REPAIR') && staffDetails?.isRepairHead ==1"  class="details_line_row">
+
+      <ion-row
+        *ngIf="
+          (staffDetails?.staff_role == 'REPAIR' ||
+            staffDetails?.currentRole == 'REPAIR') &&
+          staffDetails?.isRepairHead == 1
+        "
+        class="details_line_row"
+      >
         <ion-card class="left_icons_block">
           <ion-icon name="storefront-outline"></ion-icon>
         </ion-card>
         <div (click)="showRepairList()" class="right_flex-data">
           <ion-label class="margin-left"><b>Repair Center</b></ion-label>
-          <ion-label class="margin-left">{{selectedRepairCenter?.name}} </ion-label>
+          <ion-label class="margin-left"
+            >{{ selectedRepairCenter?.name }}
+          </ion-label>
         </div>
       </ion-row>
       <ion-row>

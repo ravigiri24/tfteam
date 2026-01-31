@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
                 JSON.stringify(res?.data?.allotedStore)
               );
               this.share.setStoreSalesOfficer()
-              this.share.setRolesForSalesOfficer();
+              this.share.setRolesForSalesOfficer(res?.data?.staff_role);
 
             }
           } else {

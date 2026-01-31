@@ -20,7 +20,7 @@ export class UserManagementComponent implements OnInit {
     public alertCtrl: AlertController,
     private router: Router,
     private activated: ActivatedRoute,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
   ) {
     activated.url.subscribe((res) => {
       console.log('res', res);
@@ -45,12 +45,11 @@ export class UserManagementComponent implements OnInit {
       }
     } else {
       let staff = this.cloneStaffArray?.find(
-        (f: any) => f.id == this.staffDetails.stateHeadCloneId
+        (f: any) => f.id == this.staffDetails.stateHeadCloneId,
       );
-      if(staff){
-  this.selectedCloneStateHead = staff;
+      if (staff) {
+        this.selectedCloneStateHead = staff;
       }
-    
     }
   }
   selectedCloneStateHead: any;
@@ -89,7 +88,8 @@ export class UserManagementComponent implements OnInit {
     this.selectedRepairCenter = null;
 
     if (
-     ( this.staffDetails?.staff_role == 'REPAIR' || this.staffDetails?.currentRole == 'REPAIR') &&
+      (this.staffDetails?.staff_role == 'REPAIR' ||
+        this.staffDetails?.currentRole == 'REPAIR') &&
       this.staffDetails?.isRepairHead == 1
     ) {
       this.getRepairCenter();
@@ -108,11 +108,11 @@ export class UserManagementComponent implements OnInit {
       (res: any) => {
         this.repairCenterList = res?.data;
         let find = this.repairCenterList.find(
-          (f: any) => f.id == this.staffDetails?.repair_center
+          (f: any) => f.id == this.staffDetails?.repair_center,
         );
         this.selectedRepairCenter = find;
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   selected_store: any;
@@ -136,22 +136,26 @@ export class UserManagementComponent implements OnInit {
               this.selected_store = JSON.parse(selectedStore);
             } else {
               this.share.set_sales_officer_store(
-                JSON.stringify(res?.data?.data?.allotedStore[0])
+                JSON.stringify(res?.data?.data?.allotedStore[0]),
               );
               this.selected_store = res?.data?.data?.allotedStore[0];
             }
 
             this.share.set_sales_officer_storeList(
-              JSON.stringify(res?.data?.data?.allotedStore)
+              JSON.stringify(res?.data?.data?.allotedStore),
             );
             this.share.setStoreSalesOfficer();
           }
-          if (res?.data?.data?.staff_role == 'SALES_OFFICER') {
-            this.share.setRolesForSalesOfficer();
+          if (
+            res?.data?.data?.staff_role == 'SALES_OFFICER' ||
+            res?.data?.data?.staff_role == 'TERRITORY_MANAGER' ||
+            res?.data?.data?.staff_role == 'SALES_HEAD'
+          ) {
+            this.share.setRolesForSalesOfficer(res?.data?.data?.staff_role);
           }
         }
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
 

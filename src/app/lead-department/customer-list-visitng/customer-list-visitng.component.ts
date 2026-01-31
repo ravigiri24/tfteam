@@ -20,6 +20,7 @@ export class CustomerListVisitngComponent implements OnInit {
   }
   date: any
   staffDetails: any
+  staff_ids:any=[]
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
@@ -30,7 +31,14 @@ export class CustomerListVisitngComponent implements OnInit {
     var yyyy = today.getFullYear();
 
     this.date = yyyy + '-' + mm + '-' + dd;
-
+    this.staff_ids=[]
+   if (this.share.checkStaffTypeForLeadManagement(this.staffDetails)) {
+      this.staffDetails?.allotedStore?.forEach((f: any) => {
+        this.staff_ids.push(f?.staff_id);
+      });
+    }else{
+         this.staff_ids.push(this.staffDetails?.id)
+    }
     this.getDistrictList();
   }
   async actionEventCall(e: any) {
@@ -144,7 +152,8 @@ export class CustomerListVisitngComponent implements OnInit {
   getDistrictList(selectDistrict: any = false) {
     this.districtList = [];
     let obj: any = this.share.getStaffObj();
-    obj.staff_id = this.staffDetails?.id;
+   // obj.staff_id = this.staffDetails?.id;
+    obj.staff_id =  this.staff_ids;
     this.share.showLoading("Loading")
     this.district_ids = []
     this.api.postapi('getAllotedDistrictList', obj).subscribe(

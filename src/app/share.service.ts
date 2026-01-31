@@ -20,7 +20,7 @@ export class ShareService {
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private alertController: AlertController,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
   set_staff_detail_session(data: any) {
     localStorage.setItem('userDetails', JSON.stringify(data));
@@ -64,6 +64,16 @@ export class ShareService {
   get_sales_officer_storeList() {
     return localStorage.getItem('list_store_so') || null;
   }
+  checkStaffTypeForLeadManagement(staffDetails: any) {
+    if (
+      staffDetails?.staff_role == 'SALES_HEAD' ||
+      staffDetails?.staff_role == 'TERRITORY_MANAGER'
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   setStoreSalesOfficer() {
     let selectedStore: any = this.get_sales_officer_store();
     let store = JSON.parse(selectedStore);
@@ -73,15 +83,39 @@ export class ShareService {
 
     this.set_staff_detail_session(userde);
   }
-  setRolesForSalesOfficer() {
+  setRolesForSalesOfficer(staff_role: any) {
+    // let user: any = this.get_staff();
+    // let userde = JSON.parse(user);
+
+    // userde.defaultRole = 'SALES_OFFICER';
+    // userde.defaultRole = 'SALES_OFFICER';
+    // userde.isMultiRole = 1;
+    // if (!userde.currentRole) {
+    //   userde.currentRole = 'SALES_OFFICER';
+    // }
+    // userde.isStoreOnlyAccess = true;
+    // let storeList = this.get_sales_officer_storeList();
+    // if (storeList != null) {
+    //   userde.allotedStore = JSON.parse(storeList);
+    // }
+
+    // userde.multiroles = JSON.stringify([
+    //   'SALES_OFFICER',
+    //   'LEAD_MANAGEMENT',
+    //   'SELL_DEPARTMENT',
+    //   'FINANCE_DEPARTMENT',
+    // ]);
+
+    // this.set_staff_detail_session(userde);
+
     let user: any = this.get_staff();
     let userde = JSON.parse(user);
 
-    userde.defaultRole = 'SALES_OFFICER';
-    userde.defaultRole = 'SALES_OFFICER';
+    userde.defaultRole = staff_role;
+    userde.defaultRole = staff_role;
     userde.isMultiRole = 1;
     if (!userde.currentRole) {
-      userde.currentRole = 'SALES_OFFICER';
+      userde.currentRole = staff_role;
     }
     userde.isStoreOnlyAccess = true;
     let storeList = this.get_sales_officer_storeList();
@@ -90,7 +124,7 @@ export class ShareService {
     }
 
     userde.multiroles = JSON.stringify([
-      'SALES_OFFICER',
+      staff_role,
       'LEAD_MANAGEMENT',
       'SELL_DEPARTMENT',
       'FINANCE_DEPARTMENT',
@@ -124,7 +158,7 @@ export class ShareService {
     title: any,
     description: any,
     selectedStore: any,
-    type: any
+    type: any,
   ) {
     let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
@@ -147,7 +181,7 @@ export class ShareService {
     let tractorList: any = [];
     list?.forEach((f: any) => {
       let checkBrand = selectedBrand?.filter(
-        (brand: any) => brand.id == f?.brandID
+        (brand: any) => brand.id == f?.brandID,
       );
       if (checkBrand?.length) {
         tractorList.push(f);
@@ -159,7 +193,7 @@ export class ShareService {
     let tractorList: any = [];
     tractorList = list?.filter(
       (li: any) =>
-        Number(li.price) >= Number(lower) && Number(li.price <= upper)
+        Number(li.price) >= Number(lower) && Number(li.price <= upper),
     );
 
     return tractorList;
@@ -202,8 +236,7 @@ export class ShareService {
     } else if (yearChecked == '2010-2013') {
       year = 2010;
       yearEnd = 2013;
-    }
-     else if (yearChecked == '2000-2009') {
+    } else if (yearChecked == '2000-2009') {
       year = 2000;
       yearEnd = 2009;
     }
@@ -211,7 +244,7 @@ export class ShareService {
     tractorList = list?.filter(
       (li: any) =>
         Number(li.yearOfManufactoring) >= year &&
-        Number(li.yearOfManufactoring) <= yearEnd
+        Number(li.yearOfManufactoring) <= yearEnd,
     );
 
     return tractorList;
@@ -242,7 +275,7 @@ export class ShareService {
     isImage: any = false,
     images: any = [],
     all: any,
-    keys: any = []
+    keys: any = [],
   ) {
     let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
@@ -306,7 +339,7 @@ export class ShareService {
     let imagesToShow = tractor?.rawImages?.filter(
       (img: any) =>
         img?.imageGroup == 'BEFORE_SERVICE' ||
-        img?.imageGroup == 'AFTER_SERVICE'
+        img?.imageGroup == 'AFTER_SERVICE',
     );
 
     tractor.imagesToShow = imagesToShow;
@@ -316,7 +349,7 @@ export class ShareService {
     let imagesToShow = tractor?.rawImages?.filter(
       (img: any) =>
         img?.imageGroup == 'BEFORE_SERVICE' ||
-        img?.imageGroup == 'AFTER_SERVICE'
+        img?.imageGroup == 'AFTER_SERVICE',
     );
 
     tractor.imagesInTractor = imagesToShow;
@@ -516,9 +549,10 @@ export class ShareService {
             this.router.navigate(['/sales-officer/so-dashbord']);
           } else if (userde?.staff_role == 'SALES_HEAD') {
             this.router.navigate(['/sales-head/sales-head-enquiry-list']);
-          }
-           else if (userde?.staff_role == 'TERRITORY_MANAGER') {
-            this.router.navigate(['/tarritory-manager/tarritory-manager-enquiry-list']);
+          } else if (userde?.staff_role == 'TERRITORY_MANAGER') {
+            this.router.navigate([
+              '/tarritory-manager/tarritory-manager-enquiry-list',
+            ]);
           }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
@@ -562,9 +596,10 @@ export class ShareService {
             this.router.navigate(['/sales-officer/so-dashbord']);
           } else if (userde?.currentRole == 'SALES_HEAD') {
             this.router.navigate(['/sales-head/sales-head-enquiry-list']);
-          }
-             else if (userde?.currentRole == 'TERRITORY_MANAGER') {
-            this.router.navigate(['/tarritory-manager/tarritory-manager-enquiry-list']);
+          } else if (userde?.currentRole == 'TERRITORY_MANAGER') {
+            this.router.navigate([
+              '/tarritory-manager/tarritory-manager-enquiry-list',
+            ]);
           }
         }
       }
@@ -610,20 +645,20 @@ export class ShareService {
     transmission.controls['gearBox'].setValue(data?.transmission?.gearBox);
     transmission.controls['battery'].setValue(data?.transmission?.battery);
     transmission.controls['alternator'].setValue(
-      data?.transmission?.alternator
+      data?.transmission?.alternator,
     );
     transmission.controls['forwardSpeed'].setValue(
-      data?.transmission?.forwardSpeed
+      data?.transmission?.forwardSpeed,
     );
     transmission.controls['reverseSpeed'].setValue(
-      data?.transmission?.reverseSpeed
+      data?.transmission?.reverseSpeed,
     );
     let brakes = modelForm.controls['brakes'] as FormGroup;
     brakes.controls['brakes'].setValue(data?.brakes?.brakes);
     let steering = modelForm.controls['steering'] as FormGroup;
     steering.controls['type'].setValue(data?.steering?.type);
     steering.controls['steeringColumn'].setValue(
-      data?.steering?.steeringColumn
+      data?.steering?.steeringColumn,
     );
     let powertakeof = modelForm.controls['powertakeof'] as FormGroup;
     powertakeof.controls['type'].setValue(data?.powertakeof?.type);
@@ -634,33 +669,33 @@ export class ShareService {
       'dimensionandwieght'
     ] as FormGroup;
     dimensionandwieght.controls['totalWeight'].setValue(
-      data?.dimensionandwieght?.totalWeight
+      data?.dimensionandwieght?.totalWeight,
     );
     dimensionandwieght.controls['wheelBase'].setValue(
-      data?.dimensionandwieght?.wheelBase
+      data?.dimensionandwieght?.wheelBase,
     );
     dimensionandwieght.controls['overallWidth'].setValue(
-      data?.dimensionandwieght?.overallWidth
+      data?.dimensionandwieght?.overallWidth,
     );
     let hydraulics = modelForm.controls['hydraulics'] as FormGroup;
     hydraulics.controls['liftingCapacity'].setValue(
-      data?.hydraulics?.liftingCapacity
+      data?.hydraulics?.liftingCapacity,
     );
     hydraulics.controls['threePointLinkage'].setValue(
-      data?.hydraulics?.threePointLinkage
+      data?.hydraulics?.threePointLinkage,
     );
     let wheelsandtyres = modelForm.controls['wheelsandtyres'] as FormGroup;
     wheelsandtyres.controls['wheelDrive'].setValue(
-      data?.wheelsandtyres?.wheelDrive
+      data?.wheelsandtyres?.wheelDrive,
     );
     wheelsandtyres.controls['front'].setValue(data?.wheelsandtyres?.front);
     wheelsandtyres.controls['rear'].setValue(data?.wheelsandtyres?.rear);
     let otherinformation = modelForm.controls['otherinformation'] as FormGroup;
     otherinformation.controls['accessories'].setValue(
-      data?.otherinformation?.accessories
+      data?.otherinformation?.accessories,
     );
     otherinformation.controls['warranty'].setValue(
-      data?.otherinformation?.warranty
+      data?.otherinformation?.warranty,
     );
     console.log('setModelDetail', modelForm.value);
   }
@@ -671,7 +706,7 @@ export class ShareService {
     isStockEntry: any = false,
     tractor_status: any = 'NEW_ARRIVAL',
     isInventoryStock: any = false,
-    inventoryStoreId: any = null
+    inventoryStoreId: any = null,
   ) {
     let staffDetails: any = this.get_staff();
     console.log('staffDetails', staffDetails);
@@ -696,7 +731,7 @@ export class ShareService {
       rtoEstimationCost: new FormControl(data?.rtoEstimationCost || null),
       inwardEstimationCost: new FormControl(data?.inwardEstimationCost || null),
       maintainanceEstimationCost: new FormControl(
-        data?.maintainanceEstimationCost || null
+        data?.maintainanceEstimationCost || null,
       ),
 
       hours: new FormControl(data?.hours || null, [Validators.required]),
@@ -716,10 +751,10 @@ export class ShareService {
       isLive: new FormControl(false, [Validators.required]),
       hindiTranslation: new FormControl(data?.hindiTranslation || null),
       isInventoryStock: new FormControl(
-        data?.isInventoryStock || isInventoryStock
+        data?.isInventoryStock || isInventoryStock,
       ),
       inventoryStoreId: new FormControl(
-        data?.inventoryStoreId || inventoryStoreId
+        data?.inventoryStoreId || inventoryStoreId,
       ),
 
       //  isActive: new FormControl(this.data?.isActive || false, []),
@@ -728,7 +763,7 @@ export class ShareService {
       //  registractionNo: new FormControl(this.data?.registractionNo || null, []),
       yearOfManufactoring: new FormControl(
         Number(data?.yearOfManufactoring) || null,
-        [Validators.required]
+        [Validators.required],
       ),
       discount: new FormControl(data?.discount || null),
       price: new FormControl(data?.price || null, []),
@@ -807,11 +842,11 @@ export class ShareService {
         ]),
         forwardSpeed: new FormControl(
           data?.transmission?.forwardSpeed || null,
-          [Validators.required]
+          [Validators.required],
         ),
         reverseSpeed: new FormControl(
           data?.transmission?.reverseSpeed || null,
-          [Validators.required]
+          [Validators.required],
         ),
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
         actionByid: new FormControl(this.staffDetails?.staffCode, [
@@ -833,7 +868,7 @@ export class ShareService {
         ]),
         steeringColumn: new FormControl(
           data?.steering?.steeringColumn || null,
-          [Validators.required]
+          [Validators.required],
         ),
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
         actionByid: new FormControl(this.staffDetails?.staffCode, [
@@ -864,16 +899,16 @@ export class ShareService {
       dimensionandwieght: this.fb.group({
         totalWeight: new FormControl(
           data?.dimensionandwieght?.totalWeight || null,
-          [Validators.required]
+          [Validators.required],
         ),
         wheelBase: new FormControl(
           data?.dimensionandwieght?.wheelBase || null,
-          [Validators.required]
+          [Validators.required],
         ),
 
         overallWidth: new FormControl(
           data?.dimensionandwieght?.overallWidth || null,
-          [Validators.required]
+          [Validators.required],
         ),
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
         actionByid: new FormControl(this.staffDetails?.staffCode, [
@@ -883,11 +918,11 @@ export class ShareService {
       hydraulics: this.fb.group({
         liftingCapacity: new FormControl(
           data?.hydraulics?.liftingCapacity || null,
-          [Validators.required]
+          [Validators.required],
         ),
         threePointLinkage: new FormControl(
           data?.hydraulics?.threePointLinkage || null,
-          [Validators.required]
+          [Validators.required],
         ),
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
         actionByid: new FormControl(this.staffDetails?.staffCode, [
@@ -912,7 +947,7 @@ export class ShareService {
       otherinformation: this.fb.group({
         accessories: new FormControl(
           data?.otherinformation?.accessories || null,
-          [Validators.required]
+          [Validators.required],
         ),
         warranty: new FormControl(data?.otherinformation?.warranty || null, [
           Validators.required,
@@ -924,7 +959,7 @@ export class ShareService {
       }),
       tractordetailadmin: this.fb.group({
         nameOfSeller: new FormControl(
-          data?.tractordetailadmin?.nameOfSeller || null
+          data?.tractordetailadmin?.nameOfSeller || null,
         ),
         address: new FormControl(data?.tractordetailadmin?.address || null),
         // city: new FormControl(this.data?.tractordetailadmin?.city || null),
@@ -932,19 +967,19 @@ export class ShareService {
         contact2: new FormControl(data?.tractordetailadmin?.contact2 || null),
         brokerId: new FormControl(data?.tractordetailadmin?.brokerId || null),
         companyRepresentative: new FormControl(
-          data?.tractordetailadmin?.companyRepresentative || null
+          data?.tractordetailadmin?.companyRepresentative || null,
         ),
         wareHouseLocation: new FormControl(
-          data?.tractordetailadmin?.wareHouseLocation || null
+          data?.tractordetailadmin?.wareHouseLocation || null,
         ),
         purchanseDate: new FormControl(
-          data?.tractordetailadmin?.purchanseDate || null
+          data?.tractordetailadmin?.purchanseDate || null,
         ),
         repairngCost: new FormControl(
-          data?.tractordetailadmin?.repairngCost || null
+          data?.tractordetailadmin?.repairngCost || null,
         ),
         repairingCenter: new FormControl(
-          data?.tractordetailadmin?.repairingCenter || null
+          data?.tractordetailadmin?.repairingCenter || null,
         ),
 
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
@@ -954,33 +989,33 @@ export class ShareService {
       }),
       purchasedetail: this.fb.group({
         nameOfSeller: new FormControl(
-          data?.purchasedetail?.nameOfSeller || null
+          data?.purchasedetail?.nameOfSeller || null,
         ),
         address: new FormControl(data?.purchasedetail?.address || null),
         //city: new FormControl(this.data?.purchasedetail?.city || null),
         purchasePrice: new FormControl(
-          data?.purchasedetail?.purchasePrice || null
+          data?.purchasedetail?.purchasePrice || null,
         ),
         contact1: new FormControl(data?.purchasedetail?.contact1 || null),
         contact2: new FormControl(data?.purchasedetail?.contact2 || null),
         chasisNumber: new FormControl(
-          data?.purchasedetail?.chasisNumber || null
+          data?.purchasedetail?.chasisNumber || null,
         ),
         registrationNumber: new FormControl(
-          data?.purchasedetail?.registrationNumber || null
+          data?.purchasedetail?.registrationNumber || null,
         ),
         engineNumber: new FormControl(
-          data?.purchasedetail?.engineNumber || null
+          data?.purchasedetail?.engineNumber || null,
         ),
         typeOfPurchase: new FormControl(
-          data?.purchasedetail?.typeOfPurchase || null
+          data?.purchasedetail?.typeOfPurchase || null,
         ),
         companyRepresentative: new FormControl(
-          data?.purchasedetail?.companyRepresentative || null
+          data?.purchasedetail?.companyRepresentative || null,
         ),
 
         purchanseDate: new FormControl(
-          data?.purchasedetail?.purchanseDate || null
+          data?.purchasedetail?.purchanseDate || null,
         ),
 
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
@@ -988,16 +1023,16 @@ export class ShareService {
           Validators.required,
         ]),
         bankNameAuction: new FormControl(
-          data?.purchasedetail?.bankNameAuction || null
+          data?.purchasedetail?.bankNameAuction || null,
         ),
         parkLocation: new FormControl(
-          data?.purchasedetail?.parkLocation || null
+          data?.purchasedetail?.parkLocation || null,
         ),
         expectedDateOfArrival: new FormControl(
-          data?.purchasedetail?.expectedDateOfArrival || null
+          data?.purchasedetail?.expectedDateOfArrival || null,
         ),
         amountTransferDate: new FormControl(
-          data?.purchasedetail?.amountTransferDate || null
+          data?.purchasedetail?.amountTransferDate || null,
         ),
       }),
       inspection: this.fb.group({
@@ -1008,92 +1043,92 @@ export class ShareService {
         frontAxe: new FormControl(data?.inspection?.frontAxe || null, []),
         mufflerSpark: new FormControl(
           data?.inspection?.mufflerSpark || null,
-          []
+          [],
         ),
         tractorTrolley: new FormControl(
           data?.inspection?.tractorTrolley || null,
-          []
+          [],
         ),
         tyreFrontRight: new FormControl(
           data?.inspection?.tyreFrontRight || null,
-          []
+          [],
         ),
         tyreFrontLeft: new FormControl(
           data?.inspection?.tyreFrontLeft || null,
-          []
+          [],
         ),
         tyreBackRight: new FormControl(
           data?.inspection?.tyreBackRight || null,
-          []
+          [],
         ),
         tyreBackLeft: new FormControl(
           data?.inspection?.tyreBackLeft || null,
-          []
+          [],
         ),
         gearShiftLever: new FormControl(
           data?.inspection?.gearShiftLever || null,
-          []
+          [],
         ),
         highSpeedShiftLever: new FormControl(
           data?.inspection?.highSpeedShiftLever || null,
-          []
+          [],
         ),
         runningBoard: new FormControl(
           data?.inspection?.runningBoard || null,
-          []
+          [],
         ),
         seats: new FormControl(data?.inspection?.seats || null, []),
         seatFunction: new FormControl(
           data?.inspection?.seatFunction || null,
-          []
+          [],
         ),
         steeringWheel: new FormControl(
           data?.inspection?.steeringWheel || null,
-          []
+          [],
         ),
         dashboard: new FormControl(data?.inspection?.dashboard || null, []),
         acceleratorPedal: new FormControl(
           data?.inspection?.acceleratorPedal || null,
-          []
+          [],
         ),
         acceleratorPedalPlay: new FormControl(
           data?.inspection?.acceleratorPedalPlay || null,
-          []
+          [],
         ),
         breakPedal: new FormControl(data?.inspection?.breakPedal || null, []),
         breakPedalPlay: new FormControl(
           data?.inspection?.breakPedalPlay || null,
-          []
+          [],
         ),
         clutchPedal: new FormControl(data?.inspection?.clutchPedal || null, []),
         clutchPedalPlay: new FormControl(
           data?.inspection?.clutchPedalPlay || null,
-          []
+          [],
         ),
         starts: new FormControl(data?.inspection?.starts || null, []),
         driveForward: new FormControl(
           data?.inspection?.driveForward || null,
-          []
+          [],
         ),
         driveBackward: new FormControl(
           data?.inspection?.driveBackward || null,
-          []
+          [],
         ),
         engine: new FormControl(data?.inspection?.engine || null, []),
         driveTrain: new FormControl(data?.inspection?.driveTrain || null, []),
         engineComartmentCondition: new FormControl(
           data?.inspection?.engineComartmentCondition || null,
-          []
+          [],
         ),
         suspension: new FormControl(data?.inspection?.suspension || null, []),
         leakageInHydraulics: new FormControl(
           data?.inspection?.leakageInHydraulics || null,
-          []
+          [],
         ),
         powerTakeOf: new FormControl(data?.inspection?.powerTakeOf || null, []),
         hosesDamaged: new FormControl(
           data?.inspection?.hosesDamaged || null,
-          []
+          [],
         ),
         detailsType: new FormControl('TRACTOR_DETAILS', [Validators.required]),
         actionByid: new FormControl(this.staffDetails?.staffCode, [

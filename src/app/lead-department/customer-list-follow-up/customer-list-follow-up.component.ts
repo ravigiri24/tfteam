@@ -37,9 +37,17 @@ export class CustomerListFollowUpComponent  implements OnInit {
     var yyyy = today.getFullYear();
 
     this.date = yyyy + '-' + mm + '-' + dd;
-
+    this.staff_ids=[]
+   if (this.share.checkStaffTypeForLeadManagement(this.staffDetails)) {
+      this.staffDetails?.allotedStore?.forEach((f: any) => {
+        this.staff_ids.push(f?.staff_id);
+      });
+    }else{
+         this.staff_ids.push(this.staffDetails?.id)
+    }
     this.getDistrictList();
   }
+  staff_ids:any=[]
   async viewCustomer(customer: any = null) {
     const modal = await this.modalController.create({
       component: ViewCustomerDataComponent,
@@ -140,7 +148,8 @@ export class CustomerListFollowUpComponent  implements OnInit {
   getDistrictList(selectDistrict: any = false) {
     this.districtList = [];
     let obj: any = this.share.getStaffObj();
-    obj.staff_id = this.staffDetails?.id;
+    //obj.staff_id = this.staffDetails?.id;
+    obj.staff_id = this.staff_ids;
     this.share.showLoading("Loading")
     this.district_ids=[]
     this.api.postapi('getAllotedDistrictList', obj).subscribe(

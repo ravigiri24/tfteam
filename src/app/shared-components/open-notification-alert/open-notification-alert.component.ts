@@ -52,6 +52,7 @@ staffDetails:any
     }
   
   markAsRead(){
+    this.modalCtrl.dismiss()
    this.api.markAsRead(this.staffDetails)
   }
 }

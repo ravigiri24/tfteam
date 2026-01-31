@@ -38,7 +38,7 @@ export class CustomerListDistrictWiseComponent implements OnInit {
     private toastController: ToastController,
     private modalController: ModalController,
     private router: Router,
-    private commonMethod: CommonMethodService
+    private commonMethod: CommonMethodService,
   ) {}
 
   @ViewChild(IonContent) content: IonContent;
@@ -69,13 +69,21 @@ export class CustomerListDistrictWiseComponent implements OnInit {
   }
 
   stateList: any = [];
+  staff_ids: any = [];
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
-
+ this.staff_ids=[]
     this.staffDetails = JSON.parse(staffDetails);
     this.customerList = [];
     this.showData = false;
     this.selectedDistrict = null;
+    if (this.share.checkStaffTypeForLeadManagement(this.staffDetails)) {
+      this.staffDetails?.allotedStore?.forEach((f: any) => {
+        this.staff_ids.push(f?.staff_id);
+      });
+    }else{
+         this.staff_ids.push(this.staffDetails?.id)
+    }
     setTimeout(() => {
       this.content.scrollToTop(0).then(() => {
         this.getDistrictList(true);
@@ -91,8 +99,8 @@ export class CustomerListDistrictWiseComponent implements OnInit {
   getDistrictList(selectDistrict: any = false) {
     this.districtList = [];
     let obj: any = this.share.getStaffObj();
-    obj.staff_id = this.staffDetails?.id;
-    this.share.showLoading("Loading")
+    obj.staff_id = this.staff_ids;
+    this.share.showLoading('Loading');
     this.api.postapi('getAllotedDistrictList', obj).subscribe(
       (res: any) => {
         this.districtList = res?.data;
@@ -103,7 +111,7 @@ export class CustomerListDistrictWiseComponent implements OnInit {
 
         //    this.share.spinner.dismiss();
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   ngOnInit() {
@@ -333,7 +341,7 @@ export class CustomerListDistrictWiseComponent implements OnInit {
 
         console.log('getCustomerListByStore', this.customerList);
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   buttonArray: any = [
