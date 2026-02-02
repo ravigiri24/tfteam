@@ -95,6 +95,7 @@ this.liveImages=this.allImages?.live_images
     async viewInSlider(image: any,imageArray:any) {
     const modal = await this.modalControl.create({
       component: ImageSliderComponent,
+      cssClass: 'light-modal',
       componentProps: {
  
         image: image,

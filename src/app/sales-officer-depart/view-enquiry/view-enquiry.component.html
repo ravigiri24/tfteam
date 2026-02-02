@@ -1,10 +1,13 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>View Enquiry</ion-title>
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">View Enquiry</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
@@ -71,7 +74,7 @@
 
   </ion-card>
   <ng-container>
-   <span class="global-inner-heading">Demanding Models</span>
+    <span class="global-inner-heading">Demanding Models</span>
     <ion-grid class="main_block_details" *ngIf="modelList?.length">
       <ion-card class="global_table_block_details">
         <ion-row class="table_main_header dynamic_bgcolor">
@@ -91,7 +94,7 @@
           </ion-col>
         </ion-row>
       </ion-card>
-    </ion-grid>    
+    </ion-grid>
     <div class="margin-bottom-headline" *ngIf="!modelList?.length">
       <div class="dynamic_block" [ngClass]="listColorClass">
         <app-no-data-view [title]="'No Demanding Model Selected.'" [subtitleShow]="false"></app-no-data-view>
