@@ -12,6 +12,8 @@ export class CommonHeaderComponent implements OnInit {
   @Input() selectedStore: any;
   @Input() selectedItem: any;
   @Input() isListFilter: any = false;
+  @Input() showDateFilter: any = false;
+  @Input() date: any;
   @Input() universalSelect: any = false;
   @Input() showWareHouse: any = false;
   @Input() warehouseList: any = [];
@@ -24,6 +26,7 @@ export class CommonHeaderComponent implements OnInit {
   @Output() optionActionEvent = new EventEmitter();
   @Output() selectWareHouseAction = new EventEmitter();
   @Output() expandListEvent = new EventEmitter();
+  @Output() changeDateEvent = new EventEmitter();
   @Input() headerDisplayArray: any = []; //np
 
   // listBy = 'BUFFER';
@@ -31,6 +34,9 @@ export class CommonHeaderComponent implements OnInit {
   actionEventHeaderCall(e: any) {
     this.actionEventHeader.emit(e);
     this.submenuOpen = !this.submenuOpen;
+  }
+  changeDateEventCall(){
+    this.changeDateEvent.emit(this.date)
   }
   expandListEventCall() {
     this.expandListEvent.emit()

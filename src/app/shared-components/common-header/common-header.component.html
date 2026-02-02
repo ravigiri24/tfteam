@@ -2,6 +2,7 @@
   <ion-toolbar class="global_top_header">
     <ion-label class="top_heading">
       <div class="left_text">
+      
         <ng-container *ngIf="!isListFilter">
           <span class="selected_text dynamic_color">{{title}}:</span>
         </ng-container>
@@ -33,6 +34,9 @@
           <ion-icon class="dots_icon dynamic_color" name="ellipsis-vertical-outline"></ion-icon>
           <ion-icon class="unfold_icon bottom_arrow dynamic_color" name="chevron-down-outline"></ion-icon>
         </span> -->
+             <ng-container  *ngIf="showDateFilter">
+        <input type="date" style="margin-left: 10px;" class="global_datetextbox" [(ngModel)]="date" (change)="changeDateEventCall()" />
+        </ng-container>
       </div>
       <div class="right_action_collections">
         <div class="right_color_actions theme_btn dynamic_color" [ngClass]="{

@@ -20,36 +20,37 @@ export class EnquiryListSalesHeadComponent implements OnInit {
     private modalCtrl: ModalController,
     private commonMethod: CommonMethodService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
   listColorClass = 'sixColor';
   ngOnInit() {}
-  
+
   enquireList: any = [];
   headerDisplayArray = [
-    
-     { name: 'Notification', icon: 'notifications-outline',type:'NOTIFICATION' },
+    {
+      name: 'Notification',
+      icon: 'notifications-outline',
+      type: 'NOTIFICATION',
+    },
   ];
 
   actionEventHeader(e: any) {
     if (e?.name == 'Notification') {
-     this.openNotidication()
+      this.openNotidication();
     }
   }
   async openNotidication() {
-      const modal = await this.modalCtrl.create({
-        component: NotificationPopUpComponent,
-        componentProps: {
-  
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-  
-      if (role === 'confirm') {
-      }
+    const modal = await this.modalCtrl.create({
+      component: NotificationPopUpComponent,
+      componentProps: {},
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
     }
+  }
   async actionEventCall(e: any) {
     if (
       e?.button?.name == 'Customer Remark' ||
@@ -76,12 +77,32 @@ export class EnquiryListSalesHeadComponent implements OnInit {
       this.getEnquirList();
     }
   }
-  isModalOpen=false
-   
-   
+  isModalOpen = false;
+
   tractorListStorewise(e: any) {
     this.selectedStore = e?.selectedStore;
-    this.getEnquirList();
+    //this.getEnquirList();
+    this.actionEvent();
+  }
+  actionEvent() {
+  
+    if (
+      this.selectedItem == 'OPEN_ENQUIRE' ||
+      this.selectedItem == 'CLOSED_ENQUIRE'
+    ) {
+          this.showDateFilter=false
+      this.getEnquirList();
+    } else if (this.selectedItem == 'FOLLOW_UP_ENQUIRE') {
+      this.showDateFilter=true
+      this.getFollowListEnquiry();
+    } else if (this.selectedItem == 'VISITING_ENQUIRE') {
+        this.showDateFilter=true
+        this.getVisitorListEnquiry()
+    }
+  }
+  changeDateEvent(e: any) {
+    this.date = e;
+    this.actionEvent()
   }
   warehouseList: any = [];
   selectedStore: any;
@@ -91,10 +112,10 @@ export class EnquiryListSalesHeadComponent implements OnInit {
     this.staffDetails = JSON.parse(staffDetails);
     let obj: any = this.share.getListObj('warehouselocation', false, [], true);
     obj.storeId = this.staffDetails?.storeId;
-    if(loader){
-this.share.showLoading('Loading...');
+    if (loader) {
+      this.share.showLoading('Loading...');
     }
-    
+
     setTimeout(() => {
       this.api.postapi('getList', obj).subscribe(
         (res: any) => {
@@ -104,11 +125,11 @@ this.share.showLoading('Loading...');
           let warehouseList: any = [];
           this.warehouseList?.forEach((ware: any) => {
             let checkIn = allotedStore?.find(
-              (store: any) => store.store_id == ware?.id
+              (store: any) => store.store_id == ware?.id,
             );
             if (checkIn) {
               let findI = this.warehouseList?.findIndex(
-                (wareIn: any) => wareIn?.id == ware?.id
+                (wareIn: any) => wareIn?.id == ware?.id,
               );
               warehouseList.push(ware);
             }
@@ -123,7 +144,7 @@ this.share.showLoading('Loading...');
             this.getEnquirList();
           }
         },
-        (error: any) => {}
+        (error: any) => {},
       );
     }, 0);
   }
@@ -197,7 +218,7 @@ this.share.showLoading('Loading...');
         }
         this.share?.spinner?.dismiss();
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
 
@@ -215,33 +236,36 @@ this.share.showLoading('Loading...');
   srcPage: any;
 
   staffDetails: any;
-  callNotification=false
+  callNotification = false;
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
-       this.staffDetails = JSON.parse(staffDetails);
+    this.staffDetails = JSON.parse(staffDetails);
     this.allFilterList = [];
     this.holddingList = [];
     this.enquireList = [];
- 
+this.showDateFilter=false
     //    this.activatedRoute.params.subscribe((params: any) => {
     //    this.selectedItem = 'params?.type;'
     //  this.srcPage= params?.srcPage;
     //  });
     this.selectedItem = 'OPEN_ENQUIRE';
     //setTimeout(() => {
-  //this.api.generateNotifcationToAboveStaff({id:2},this.staffDetails)
-  
+    //this.api.generateNotifcationToAboveStaff({id:2},this.staffDetails)
+
     let obj: any = this.share.getStaffObj();
-   obj.staff_id=this.staffDetails?.id
- this.api.checkNotification(obj)
-    
- 
-  
-   
+    obj.staff_id = this.staffDetails?.id;
+    this.api.checkNotification(obj);
+
     this.getAllotStoreToAssignStaff();
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.date = yyyy + '-' + mm + '-' + dd;
     // this.getAllotStoreToAssignStaff()
   }
-
+  date: any;
   storesList: any = [];
   getAllotStoreToAssignStaff() {
     this.enquireList = [];
@@ -249,22 +273,80 @@ this.share.showLoading('Loading...');
 
     //obj.staff_id = this.staffDetails?.id;
     obj.staff_id = this.share?.getStaffCloneId(this.staffDetails);
-    
+
     this.share.showLoading('Loading...');
     this.api.postapi('getAllotedToStaffStore', obj).subscribe(
       (res: any) => {
         this.storesList = res.data;
-      //  this.share?.spinner?.dismiss();
+        //  this.share?.spinner?.dismiss();
         this.getWareHouseList();
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   optionActionEvent(e: any) {
     console.log('optionActionEvent', e);
     this.selectedItem = e;
-    this.getEnquirList();
+    this.actionEvent();
   }
+  followUpList: any = [];
+  getFollowListEnquiry() {
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId = this.selectedStore;
+    this.share.showLoading('Loading...');
+    let customerList: any = [];
+    this.enquireList = [];
+    this.api.postapi('getFollowupListEnquriyWise', obj).subscribe(
+      (res: any) => {
+        this.followUpList = res.data;
+        res?.data?.forEach((f: any) => {
+          customerList.push(f?.enquiry);
+        });
+        this.allFilterList = customerList;
+        if (customerList?.length > 20) {
+          this.enquireList = customerList?.slice(0, 20);
+          this.holddingList = customerList?.slice(20, customerList?.length);
+        } else {
+          this.enquireList = customerList;
+          this.holddingList = [];
+        }
+        console.log('followUpList', this.followUpList);
+        this.share?.spinner?.dismiss();
+      },
+      (error: any) => {},
+    );
+  }
+      getVisitorListEnquiry() {
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId = this.selectedStore;
+    this.share.showLoading('Loading...');
+      this.enquireList = [];
+          let customerList: any = [];
+    this.api.postapi('getVisitorListEnquriyWise', obj).subscribe(
+      (res: any) => {
+        this.followUpList = res.data;
+        res?.data?.forEach((f: any) => {
+            customerList.push(f?.enquiry);
+        });
+    this.allFilterList = customerList;
+        if (customerList?.length > 20) {
+          this.enquireList = customerList?.slice(0, 20);
+          this.holddingList = customerList?.slice(20, customerList?.length);
+        } else {
+          this.enquireList = customerList;
+          this.holddingList = [];
+        }
+        this.share?.spinner?.dismiss();
+   
+      },
+      (error: any) => {
+     
+      }
+    );
+  }
+  showDateFilter = false;
   selectedItem = 'OPEN_ENQUIRE';
   optionsArray: any = [
     {
@@ -274,6 +356,14 @@ this.share.showLoading('Loading...');
     {
       id: 'CLOSED_ENQUIRE',
       name: 'Closed',
+    },
+    {
+      id: 'FOLLOW_UP_ENQUIRE',
+      name: 'Follow-Up',
+    },
+    {
+      id: 'VISITING_ENQUIRE',
+      name: 'Visiting',
     },
   ];
 }
