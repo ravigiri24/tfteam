@@ -28,14 +28,19 @@ export class CommonHeaderComponent implements OnInit {
   @Output() expandListEvent = new EventEmitter();
   @Output() changeDateEvent = new EventEmitter();
   @Input() headerDisplayArray: any = []; //np
-
+  mobiledateOpen: boolean = false;
   // listBy = 'BUFFER';
   constructor(public api: ApiService) { }
   actionEventHeaderCall(e: any) {
     this.actionEventHeader.emit(e);
     this.submenuOpen = !this.submenuOpen;
+    this.mobiledateOpen = !this.mobiledateOpen;
   }
-  changeDateEventCall(){
+  openDatePicker() {
+    this.mobiledateOpen = !this.mobiledateOpen;
+  }
+  changeDateEventCall() {
+    this.mobiledateOpen = !this.mobiledateOpen;
     this.changeDateEvent.emit(this.date)
   }
   expandListEventCall() {

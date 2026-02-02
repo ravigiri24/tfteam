@@ -2,7 +2,6 @@
   <ion-toolbar class="global_top_header">
     <ion-label class="top_heading">
       <div class="left_text">
-      
         <ng-container *ngIf="!isListFilter">
           <span class="selected_text dynamic_color">{{title}}:</span>
         </ng-container>
@@ -28,15 +27,20 @@
                 class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div> <span
             class="total_count" *ngIf="showFilterList">/{{allFilterList?.length}}</span>
         </b>
+        <ng-container *ngIf="showDateFilter">
+          <input type="date" class="global_datetextbox date_desktop" [(ngModel)]="date"
+            (change)="changeDateEventCall()" />
+          <ion-button fill="clear" class="mobile-date-btn date_icon_mobile" (click)="openDatePicker()">
+            <ion-icon slot="icon-only" class="dynamic_color" name="calendar-outline"></ion-icon>
+          </ion-button>
+        </ng-container>
+
         <!-- <span class="more_rows" (click)="expandListEventCall()"
           *ngIf="allFilterList?.length && (list?.length<allFilterList?.length)">
           <ion-icon class="unfold_icon top_arrow dynamic_color" name="chevron-up-outline"></ion-icon>
           <ion-icon class="dots_icon dynamic_color" name="ellipsis-vertical-outline"></ion-icon>
           <ion-icon class="unfold_icon bottom_arrow dynamic_color" name="chevron-down-outline"></ion-icon>
         </span> -->
-             <ng-container  *ngIf="showDateFilter">
-        <input type="date" style="margin-left: 10px;" class="global_datetextbox" [(ngModel)]="date" (change)="changeDateEventCall()" />
-        </ng-container>
       </div>
       <div class="right_action_collections">
         <div class="right_color_actions theme_btn dynamic_color" [ngClass]="{
@@ -47,7 +51,8 @@
           <div class="btn_icons">
             <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
               <ng-container *ngIf="headerDisplayArray?.length<=3">
-                <span class="noti-counter" *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'">{{api.number_of_noti}}</span>
+                <span class="noti-counter"
+                  *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'">{{api.number_of_noti}}</span>
                 <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
               </ng-container>
               <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
@@ -70,6 +75,9 @@
       </div>
     </ion-label>
   </ion-toolbar>
+  <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':mobiledateOpen}" class="sub_menu_block">
+    <input type="date" class="header_date_textbox" [(ngModel)]="date" (change)="changeDateEventCall()" />
+  </div>
   <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
