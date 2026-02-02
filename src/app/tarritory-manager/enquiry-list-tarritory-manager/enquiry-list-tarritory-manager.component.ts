@@ -80,10 +80,10 @@ export class EnquiryListTarritoryManagerComponent  implements OnInit {
   isModalOpen=false
    
    
-  tractorListStorewise(e: any) {
-    this.selectedStore = e?.selectedStore;
-    this.getEnquirList();
-  }
+  // tractorListStorewise(e: any) {
+  //   this.selectedStore = e?.selectedStore;
+  //   this.getEnquirList();
+  // }
   warehouseList: any = [];
   selectedStore: any;
   allotedWareHouse: any = [];
@@ -240,9 +240,16 @@ this.share.showLoading('Loading...');
   
    
     this.getAllotStoreToAssignStaff();
+        this.showDateFilter=false
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.date = yyyy + '-' + mm + '-' + dd;
     // this.getAllotStoreToAssignStaff()
   }
-
+showDateFilter=false
   storesList: any = [];
   getAllotStoreToAssignStaff() {
     this.enquireList = [];
@@ -261,11 +268,11 @@ this.share.showLoading('Loading...');
       (error: any) => {}
     );
   }
-  optionActionEvent(e: any) {
-    console.log('optionActionEvent', e);
-    this.selectedItem = e;
-    this.getEnquirList();
-  }
+  // optionActionEvent(e: any) {
+  //   console.log('optionActionEvent', e);
+  //   this.selectedItem = e;
+  //   this.getEnquirList();
+  // }
   selectedItem = 'OPEN_ENQUIRE';
   optionsArray: any = [
     {
@@ -276,6 +283,105 @@ this.share.showLoading('Loading...');
       id: 'CLOSED_ENQUIRE',
       name: 'Closed',
     },
+      {
+      id: 'FOLLOW_UP_ENQUIRE',
+      name: 'Follow-Up',
+    },
+    {
+      id: 'VISITING_ENQUIRE',
+      name: 'Visiting',
+    },
   ];
-
+  date:any
+  changeDateEvent(e: any) {
+    this.date = e;
+    this.actionEvent()
+  }
+    tractorListStorewise(e: any) {
+    this.selectedStore = e?.selectedStore;
+    //this.getEnquirList();
+    this.actionEvent();
+  }
+  actionEvent() {
+  
+    if (
+      this.selectedItem == 'OPEN_ENQUIRE' ||
+      this.selectedItem == 'CLOSED_ENQUIRE'
+    ) {
+          this.showDateFilter=false
+      this.getEnquirList();
+    } else if (this.selectedItem == 'FOLLOW_UP_ENQUIRE') {
+      this.showDateFilter=true
+      this.getFollowListEnquiry();
+    } else if (this.selectedItem == 'VISITING_ENQUIRE') {
+        this.showDateFilter=true
+        this.getVisitorListEnquiry()
+    }
+  }
+    optionActionEvent(e: any) {
+    console.log('optionActionEvent', e);
+    this.selectedItem = e;
+    this.actionEvent();
+  }
+    followUpList: any = [];
+  getFollowListEnquiry() {
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId = this.selectedStore;
+    this.share.showLoading('Loading...');
+    let customerList: any = [];
+    this.enquireList = [];
+    this.api.postapi('getFollowupListEnquriyWise', obj).subscribe(
+      (res: any) => {
+        this.followUpList = res.data;
+        res?.data?.forEach((f: any) => {
+          if(f?.enquiry){
+          customerList.push(f?.enquiry);
+          }
+        });
+        this.allFilterList = customerList;
+        if (customerList?.length > 20) {
+          this.enquireList = customerList?.slice(0, 20);
+          this.holddingList = customerList?.slice(20, customerList?.length);
+        } else {
+          this.enquireList = customerList;
+          this.holddingList = [];
+        }
+        console.log('followUpList', this.followUpList);
+        this.share?.spinner?.dismiss();
+      },
+      (error: any) => {},
+    );
+  }
+      getVisitorListEnquiry() {
+    let obj: any = this.share.getListObj('customerdetails', false, [], true);
+    obj.date = this.date;
+    obj.storeId = this.selectedStore;
+    this.share.showLoading('Loading...');
+      this.enquireList = [];
+          let customerList: any = [];
+    this.api.postapi('getVisitorListEnquriyWise', obj).subscribe(
+      (res: any) => {
+        this.followUpList = res.data;
+        res?.data?.forEach((f: any) => {
+           if(f?.enquiry){
+            customerList.push(f?.enquiry);
+           }
+        });
+    this.allFilterList = customerList;
+        if (customerList?.length > 20) {
+          this.enquireList = customerList?.slice(0, 20);
+          this.holddingList = customerList?.slice(20, customerList?.length);
+        } else {
+          this.enquireList = customerList;
+          this.holddingList = [];
+        }
+        this.share?.spinner?.dismiss();
+   
+      },
+      (error: any) => {
+     
+      }
+    );
+  }
 }

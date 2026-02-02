@@ -243,7 +243,7 @@ export class EnquiryListSalesHeadComponent implements OnInit {
     this.allFilterList = [];
     this.holddingList = [];
     this.enquireList = [];
-this.showDateFilter=false
+
     //    this.activatedRoute.params.subscribe((params: any) => {
     //    this.selectedItem = 'params?.type;'
     //  this.srcPage= params?.srcPage;
@@ -257,6 +257,7 @@ this.showDateFilter=false
     this.api.checkNotification(obj);
 
     this.getAllotStoreToAssignStaff();
+    this.showDateFilter=false
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -301,7 +302,9 @@ this.showDateFilter=false
       (res: any) => {
         this.followUpList = res.data;
         res?.data?.forEach((f: any) => {
+          if(f?.enquiry){
           customerList.push(f?.enquiry);
+          }
         });
         this.allFilterList = customerList;
         if (customerList?.length > 20) {
@@ -328,7 +331,9 @@ this.showDateFilter=false
       (res: any) => {
         this.followUpList = res.data;
         res?.data?.forEach((f: any) => {
+            if(f?.enquiry){
             customerList.push(f?.enquiry);
+            }
         });
     this.allFilterList = customerList;
         if (customerList?.length > 20) {

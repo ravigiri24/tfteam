@@ -6,7 +6,14 @@
         label-placement="type">
         <ion-select-option *ngFor="let district of districtList" [value]="district.district_id"> {{ district?.name }}</ion-select-option>
       </ion-select>
-        <span>{{customerList?.length}}</span>
+        <!-- <span>{{customerList?.length}}</span> -->
+          <b class="total-number">
+          <div class="more_data_load" (click)="expandListEvent()"><span>{{customerList?.length}}</span><span
+              class="three-dots-loader" *ngIf="allFilterList?.length && (customerList?.length<allFilterList?.length)"><span
+                class="dot"></span><span class="dot"></span><span class="dot"></span><ion-icon
+                class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div> <span
+            class="total_count">/{{allFilterList?.length}}</span>
+        </b>
       </div>
       <div class="right_action">
         <!-- <ion-icon class="theme-color icon-size" (click)="districtmgmt()" name="chevron-up-circle-outline"></ion-icon> -->

@@ -75,6 +75,8 @@ export class CustomerListDistrictWiseComponent implements OnInit {
  this.staff_ids=[]
     this.staffDetails = JSON.parse(staffDetails);
     this.customerList = [];
+     this.allFilterList=[]
+  this.holddingList=[]
     this.showData = false;
     this.selectedDistrict = null;
     if (this.share.checkStaffTypeForLeadManagement(this.staffDetails)) {
@@ -93,6 +95,19 @@ export class CustomerListDistrictWiseComponent implements OnInit {
     }, 0);
 
     setTimeout(() => {}, 0);
+  }
+   expandListEvent() {
+    //  this.share.showLoading("Rendering Data...")
+    this.share.presentToast('Expanding...');
+    setTimeout(() => {
+      if (this.customerList?.length < this.allFilterList?.length) {
+        this.customerList = [...this.customerList, ...this.holddingList];
+      }
+    }, 0);
+
+    setTimeout(() => {
+      //this.share.spinner.dismiss()
+    }, 0);
   }
   districtList: any = [];
   districtListSrc: any = [];
@@ -309,10 +324,13 @@ export class CustomerListDistrictWiseComponent implements OnInit {
   online: any = 0;
   visitors: any = 0;
   customerListOrg: any = [];
+  allFilterList:any=[]
+  holddingList:any=[]
   getCustomerList(loader: any = true) {
     let obj: any = this.share.getStaffObj();
     obj.district_id = this.selectedDistrict;
     this.customerList = [];
+    let customerList:any=[]
     if (loader) {
       this.share.showLoading('Loading Data');
     }
@@ -321,13 +339,28 @@ export class CustomerListDistrictWiseComponent implements OnInit {
       (res: any) => {
         this.showData = true;
 
+        // res?.data?.forEach((element: any) => {
+        //   this.customerList.push(element);
+        // });
+
+        // this.customerList.sort(function (a: any, b: any) {
+        //   return b.id - a.id;
+        // });
         res?.data?.forEach((element: any) => {
-          this.customerList.push(element);
+          customerList.push(element);
         });
 
-        this.customerList.sort(function (a: any, b: any) {
+        customerList.sort(function (a: any, b: any) {
           return b.id - a.id;
         });
+            this.allFilterList = customerList;
+        if (customerList?.length > 20) {
+          this.customerList = customerList?.slice(0, 20);
+          this.holddingList = customerList?.slice(20, customerList?.length);
+        } else {
+          this.customerList = customerList;
+          this.holddingList = [];
+        }
         this.share.spinner.dismiss();
         console.log('  this.customerList', this.customerList);
         // this.customerListOrg = JSON.parse(JSON.stringify(res.data));
