@@ -236,23 +236,25 @@ app-salary-slip {
       margin-right: 8px;
     }
 
-    .global_datetextbox {
-      border: solid thin #e1e1e1;
-      border-radius: 5px;
-      padding: 5px 10px;
-      color: #666666;
-      max-width: 125px;
-      margin-left: 10px;
-      min-height: 46px;
-    }
 
-    .date_desktop {
-      display: block;
-    }
+  }
 
-    .date_icon_mobile {
-      display: none;
-    }
+  .global_datetextbox {
+    border: solid thin #e1e1e1;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #666666;
+    max-width: 125px;
+    margin-right: 10px;
+    min-height: 46px;
+  }
+
+  .date_desktop {
+    display: block;
+  }
+
+  .date_icon_mobile {
+    display: none;
   }
 
   .right_action {
@@ -274,15 +276,17 @@ app-salary-slip {
     }
   }
 }
+
 .header_date_textbox {
-    border: solid thin #e1e1e1;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: #666666;
-    max-width: 140px;
-    margin-left: 10px;
-    min-height: 46px;
+  border: solid thin #e1e1e1;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #666666;
+  max-width: 140px;
+  margin-left: 10px;
+  min-height: 46px;
 }
+
 .bottom_small_popup {
   padding-top: 25px;
 }

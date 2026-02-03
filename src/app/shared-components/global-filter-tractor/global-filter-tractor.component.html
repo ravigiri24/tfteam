@@ -1,12 +1,9 @@
 <ion-header [ngClass]="listColorClass">
-  <ion-toolbar>
-    <ion-title class="dynamic_color">Apply Filter</ion-title>
-    <ion-buttons (click)="dismiss()" slot="end">
+  <ion-toolbar class="top_heading">
+    <div class="left_text">Apply Filter</div>
+    <ion-buttons class="right_action" (click)="dismiss()" slot="end">
       <ion-icon class="dynamic_color icon-size" name="close-circle-outline"></ion-icon>
     </ion-buttons>
-    <!-- <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding filter_main_container">

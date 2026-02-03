@@ -27,13 +27,7 @@
                 class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div> <span
             class="total_count" *ngIf="showFilterList">/{{allFilterList?.length}}</span>
         </b>
-        <ng-container *ngIf="showDateFilter">
-          <input type="date" class="global_datetextbox date_desktop" [(ngModel)]="date"
-            (change)="changeDateEventCall()" />
-          <ion-button fill="clear" class="mobile-date-btn date_icon_mobile" (click)="openDatePicker()">
-            <ion-icon slot="icon-only" class="dynamic_color" name="calendar-outline"></ion-icon>
-          </ion-button>
-        </ng-container>
+
 
         <!-- <span class="more_rows" (click)="expandListEventCall()"
           *ngIf="allFilterList?.length && (list?.length<allFilterList?.length)">
@@ -43,6 +37,13 @@
         </span> -->
       </div>
       <div class="right_action_collections">
+        <ng-container *ngIf="showDateFilter">
+          <input type="date" class="global_datetextbox date_desktop" [(ngModel)]="date"
+            (change)="changeDateEventCall()" />
+          <ion-button fill="clear" class="mobile-date-btn date_icon_mobile" (click)="openDatePicker()">
+            <ion-icon slot="icon-only" class="dynamic_color" name="calendar-outline"></ion-icon>
+          </ion-button>
+        </ng-container>
         <div class="right_color_actions theme_btn dynamic_color" [ngClass]="{
     one_button: headerDisplayArray?.length === 1,
     two_button: headerDisplayArray?.length === 2,
@@ -53,10 +54,12 @@
               <ng-container *ngIf="headerDisplayArray?.length<=3">
                 <span class="noti-counter"
                   *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'">{{api.number_of_noti}}</span>
-                <ion-icon (click)="actionEventHeaderCall(option,opI)" class="icon-size" name="{{option?.icon}}"></ion-icon>
+                <ion-icon (click)="actionEventHeaderCall(option,opI)" class="icon-size"
+                  name="{{option?.icon}}"></ion-icon>
               </ng-container>
               <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
-                <ion-icon (click)="actionEventHeaderCall(option,opI)" class="icon-size" name="{{option?.icon}}"></ion-icon>
+                <ion-icon (click)="actionEventHeaderCall(option,opI)" class="icon-size"
+                  name="{{option?.icon}}"></ion-icon>
               </ng-container>
             </ng-container>
             <!-- <ion-icon class="icon-size" name="search-outline"></ion-icon>
@@ -78,11 +81,12 @@
   <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':mobiledateOpen}" class="sub_menu_block">
     <input type="date" class="header_date_textbox" [(ngModel)]="date" (change)="changeDateEventCall()" />
   </div>
-  <div [ngClass]="listColorClass" *ngIf="headerDisplayArray?.length > 2" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
+  <div [ngClass]="listColorClass" *ngIf="headerDisplayArray?.length > 2" [ngClass]="{'open_submenu':submenuOpen}"
+    class="sub_menu_block">
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
-        <div (click)="actionEventHeaderCall(option,opI)" [ngClass]="{'notification_row': option?.type === 'NOTIFICATION'}"
-          class="sub_menu_item">
+        <div (click)="actionEventHeaderCall(option,opI)"
+          [ngClass]="{'notification_row': option?.type === 'NOTIFICATION'}" class="sub_menu_item">
           <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'"
             class="noti-counter top_header_counter">{{api.number_of_noti}}</span>
           <ion-icon
@@ -102,4 +106,5 @@
     </div> -->
   </div>
 </ion-header>
+<div [ngClass]="{'overlay':mobiledateOpen}" (click)="hideMobileDatePicker()"></div>
 <div *ngIf="headerDisplayArray?.length > 2" [ngClass]="{'overlay':submenuOpen}" (click)="openSubmenu()"></div>

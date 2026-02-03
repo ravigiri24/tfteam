@@ -31,14 +31,15 @@ export class CommonHeaderComponent implements OnInit {
   mobiledateOpen: boolean = false;
   // listBy = 'BUFFER';
   constructor(public api: ApiService) { }
-  actionEventHeaderCall(e: any,opI:any) {
-
+  actionEventHeaderCall(e: any, opI: any) {
     this.actionEventHeader.emit(e);
-    if(opI>1){
-    this.submenuOpen = !this.submenuOpen;
+    if (opI > 1) {
+      this.submenuOpen = !this.submenuOpen;
     }
     this.mobiledateOpen = false;
-
+  }
+  hideMobileDatePicker() {
+    this.mobiledateOpen = !this.mobiledateOpen;
   }
   openDatePicker() {
     this.mobiledateOpen = !this.mobiledateOpen;
