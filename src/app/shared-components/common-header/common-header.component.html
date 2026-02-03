@@ -78,7 +78,7 @@
   <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':mobiledateOpen}" class="sub_menu_block">
     <input type="date" class="header_date_textbox" [(ngModel)]="date" (change)="changeDateEventCall()" />
   </div>
-  <div [ngClass]="listColorClass" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
+  <div [ngClass]="listColorClass" *ngIf="headerDisplayArray?.length > 2" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
         <div (click)="actionEventHeaderCall(option)" [ngClass]="{'notification_row': option?.type === 'NOTIFICATION'}"

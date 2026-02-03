@@ -34,7 +34,7 @@ export class CommonHeaderComponent implements OnInit {
   actionEventHeaderCall(e: any) {
     this.actionEventHeader.emit(e);
     this.submenuOpen = !this.submenuOpen;
-    this.mobiledateOpen = !this.mobiledateOpen;
+    this.mobiledateOpen = false;
   }
   openDatePicker() {
     this.mobiledateOpen = !this.mobiledateOpen;
