@@ -53,10 +53,10 @@
               <ng-container *ngIf="headerDisplayArray?.length<=3">
                 <span class="noti-counter"
                   *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'">{{api.number_of_noti}}</span>
-                <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
+                <ion-icon (click)="actionEventHeaderCall(option,opI)" class="icon-size" name="{{option?.icon}}"></ion-icon>
               </ng-container>
               <ng-container *ngIf="headerDisplayArray?.length>3 && opI<2">
-                <ion-icon (click)="actionEventHeaderCall(option)" class="icon-size" name="{{option?.icon}}"></ion-icon>
+                <ion-icon (click)="actionEventHeaderCall(option,opI)" class="icon-size" name="{{option?.icon}}"></ion-icon>
               </ng-container>
             </ng-container>
             <!-- <ion-icon class="icon-size" name="search-outline"></ion-icon>
@@ -81,7 +81,7 @@
   <div [ngClass]="listColorClass" *ngIf="headerDisplayArray?.length > 2" [ngClass]="{'open_submenu':submenuOpen}" class="sub_menu_block">
     <ng-container *ngFor="let option of headerDisplayArray;let opI=index">
       <ng-container *ngIf="opI>1">
-        <div (click)="actionEventHeaderCall(option)" [ngClass]="{'notification_row': option?.type === 'NOTIFICATION'}"
+        <div (click)="actionEventHeaderCall(option,opI)" [ngClass]="{'notification_row': option?.type === 'NOTIFICATION'}"
           class="sub_menu_item">
           <span *ngIf="api.number_of_noti>0 && option?.type=='NOTIFICATION'"
             class="noti-counter top_header_counter">{{api.number_of_noti}}</span>
@@ -102,4 +102,4 @@
     </div> -->
   </div>
 </ion-header>
-<div [ngClass]="{'overlay':submenuOpen}" (click)="openSubmenu()"></div>
+<div *ngIf="headerDisplayArray?.length > 2" [ngClass]="{'overlay':submenuOpen}" (click)="openSubmenu()"></div>
