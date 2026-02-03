@@ -45,7 +45,7 @@ export class CommonHeaderComponent implements OnInit {
     this.mobiledateOpen = !this.mobiledateOpen;
   }
   changeDateEventCall() {
-    this.mobiledateOpen = !this.mobiledateOpen;
+    this.mobiledateOpen = false;
     this.changeDateEvent.emit(this.date)
   }
   expandListEventCall() {
