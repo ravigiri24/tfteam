@@ -59,87 +59,87 @@
 //     width: 100%;
 // }
 
-.section_col {
-    overflow: visible !important;
+// .section_col {
+//     overflow: visible !important;
 
-    .image_block {
-        width: 100px;
-        height: 100px;
-        margin: 10px auto 0px auto;
-        border-radius: 10px;
-        display: flex;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
+//     .image_block {
+//         width: 100px;
+//         height: 100px;
+//         margin: 10px auto 0px auto;
+//         border-radius: 10px;
+//         display: flex;
+//         position: relative;
+//         align-items: center;
+//         justify-content: center;
+//         z-index: 2;
 
-        img {
-            width: 100%;
-            max-height: 100%;
-        }
+//         img {
+//             width: 100%;
+//             max-height: 100%;
+//         }
 
 
-    }
+//     }
 
-    .camera-icon-container {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: white;
-        border-radius: 50%;
-        padding: 8px;
-        z-index: 10;
-        cursor: pointer;
+//     .camera-icon-container {
+//         position: absolute;
+//         top: 10px;
+//         right: 10px;
+//         background-color: white;
+//         border-radius: 50%;
+//         padding: 8px;
+//         z-index: 10;
+//         cursor: pointer;
 
-        ion-icon {
-            font-size: 24px;
-        }
+//         ion-icon {
+//             font-size: 24px;
+//         }
 
-        .camera-counter {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            color: white;
-            font-size: 12px;
-            border-radius: 50%;
-            padding: 2px 5px;
-            width: 24px;
-            height: 24px;
-            font-weight: bold;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
+//         .camera-counter {
+//             position: absolute;
+//             top: -6px;
+//             right: -6px;
+//             color: white;
+//             font-size: 12px;
+//             border-radius: 50%;
+//             padding: 2px 5px;
+//             width: 24px;
+//             height: 24px;
+//             font-weight: bold;
+//             text-align: center;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//         }
+//     }
 
-    .global_image_upload_card {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-flow: column;
-        overflow: visible !important;
-        padding: 10px;
-        border: dashed 1px;
+//     .global_image_upload_card {
+//         position: relative;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         flex-flow: column;
+//         overflow: visible !important;
+//         padding: 10px;
+//         border: dashed 1px;
 
-        .title {
-            font-size: 12px;
-            display: inline-block;
-            width: 100%;
-            padding: 0px;
-            text-align: center;
-        }
-    }
+//         .title {
+//             font-size: 12px;
+//             display: inline-block;
+//             width: 100%;
+//             padding: 0px;
+//             text-align: center;
+//         }
+//     }
 
-    .middle_border {
-        height: 30px;
-        width: 2px;
-        margin: 0px auto;
-        display: inline-block;
-        background: var(--app-dynamic-color-second);
-        position: absolute;
-        left: calc(50% - 1px);
-        bottom: 50px;
-    }
-}
+//     .middle_border {
+//         height: 30px;
+//         width: 2px;
+//         margin: 0px auto;
+//         display: inline-block;
+//         background: var(--app-dynamic-color-second);
+//         position: absolute;
+//         left: calc(50% - 1px);
+//         bottom: 50px;
+//     }
+// }

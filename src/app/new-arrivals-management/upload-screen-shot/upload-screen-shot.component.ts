@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ImageViewerComponent } from 'src/app/maintainance-management/image-viewer/image-viewer.component';
 
@@ -7,22 +7,22 @@ import { ImageViewerComponent } from 'src/app/maintainance-management/image-view
   templateUrl: './upload-screen-shot.component.html',
   styleUrls: ['./upload-screen-shot.component.scss'],
 })
-export class UploadScreenShotComponent  implements OnInit {
-  tarctor_id:any
-  constructor(private modalControl:ModalController) { }
-
-  ngOnInit() {}
+export class UploadScreenShotComponent implements OnInit {
+  tarctor_id: any
+  constructor(private modalControl: ModalController) { }
+  @Input() listColorClass = 'secondColor';
+  ngOnInit() { }
   dismiss() {
     this.modalControl.dismiss();
   }
-  async viewImage(imageGroup:any){
+  async viewImage(imageGroup: any) {
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
       componentProps: {
-     
+
         tarctor_id: this.tarctor_id,
-        imageGroup:imageGroup,
-        showDeleteButton:true
+        imageGroup: imageGroup,
+        showDeleteButton: true
       },
     });
     await modal.present();
@@ -30,7 +30,7 @@ export class UploadScreenShotComponent  implements OnInit {
     console.log('role', role);
 
     if (role === 'confirm') {
-   
+
     }
   }
 }
