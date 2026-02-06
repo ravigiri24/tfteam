@@ -1,32 +1,9 @@
-// .top-position{
-//     position: relative;
-//     top:70px;
-//     margin-left: 15px;
-//     margin-left: 25px;
-//     margin-bottom: 15px;
-
-// }
-// .width{
-//     width: 90%;
-
-// }
-// .font-display{
-//     font-size: 18px;
-//     font-family: var(--app-brand-font) !important;
-
-// }
-//   .text-align{  text-align: center;
-//     position: relative;
-//     top:12px;
-//   }
-
 .radio_block_container {
   padding: 15px 15px 0px 25px;
   position: relative;
   z-index: -1;
-
   .radio_block {
-      overflow-x: scroll;
+    // overflow-x: scroll;
     display: flex;
     padding: 5px 10px;
     background: #ffffff;

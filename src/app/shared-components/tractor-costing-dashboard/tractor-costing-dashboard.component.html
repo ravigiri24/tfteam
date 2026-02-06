@@ -1,26 +1,19 @@
-<!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title class="dynamic_color">Dashboard</ion-title>
-    <ion-buttons (click)="dismiss()" slot="end">
-      <ion-icon class="dynamic_color icon-size" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-    <!-- <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons> -->
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Dashboard</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="main_card_block">
-  <!-- <ion-card > -->
   <ion-card-content [ngClass]="listColorClass" *ngIf="tractorDetails">
     <div class="flex_block_container">
-      <!-- <ion-card class="top_imagewith_details">
-        <div class="image_block">
-          <img src="../../../assets/images/tractor.jpg">
-        </div>
-      </ion-card> -->
       <div class="right_details_block">
-        <!-- <ion-card-header> -->
         <ion-card-title><span class="dynamic_color">{{tractorDetails?.name}}</span></ion-card-title>
         <ion-card-subtitle>
           <span><b>
@@ -34,21 +27,12 @@
             </b>
           </span>
         </ion-card-subtitle>
-        <!-- </ion-card-header> -->
-
         <span class="main_title_text">
           {{ tractorDetails?.yearOfManufactoring }} | {{ tractorDetails?.createdOn | date }} | {{ tractorDetails?.hours
           }}
         </span>
       </div>
     </div>
-    <!-- <ion-button  (click)="addStatus(tractorDetails)" fill="clear">
-    <ion-icon    class="right-margine theme-color" name="bookmarks-outline"></ion-icon>
-  </ion-button>
-  <ion-button  (click)="readyConfirmation(tractorDetails)" fill="clear">
-    <ion-icon    class="right-margine theme-color" name="checkmark-done-outline"></ion-icon>
-  </ion-button> -->
-    <!-- </ion-card> -->
     <div class="tab_withinner_block">
       <div class="tab_main_block">
         <div class="tab_block" [ngClass]="{'details_tab selected_tab':selectedTab=='DETAILS'}"
@@ -62,19 +46,6 @@
           <span class="tabs">Images</span>
         </div>
       </div>
-      <!-- <ion-tabs>
-        <ion-tab-bar slot="top">
-          <ion-tab-button (click)="selectTab('DETAILS')" [ngClass]="{'selected_tab':selectedTab=='DETAILS'}"
-            tab="DETAILS">
-            <span class="tabs">Details</span>
-          </ion-tab-button>
-          <ion-tab-button (click)="selectTab('IMAGES')" [ngClass]="{'selected_tab':selectedTab=='IMAGES'}"
-            tab="IMAGES">
-            <span class="tabs">Images</span>
-          </ion-tab-button>
-        </ion-tab-bar>
-      </ion-tabs> -->
-
       <ng-container *ngIf="selectedTab=='DETAILS'">
         <ion-grid class="main_block_details">
           <ion-card>
@@ -851,29 +822,6 @@
               </ion-card>
             </ion-col>
           </ion-row>
-
-          <!-- <div class="ion-padding" slot="content">
-            <ion-list>
-              <ion-item>
-                <ion-button (click)="viewInSliderLive()" fill="clear">
-                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
-                  <span>Live</span>
-                </ion-button>
-              </ion-item>
-              <ion-item>
-                <ion-button (click)="viewImage('BEFORE_SERVICE')" fill="clear">
-                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
-                  <span>Before Maintainance</span>
-                </ion-button>
-              </ion-item>
-              <ion-item>
-                <ion-button (click)="viewImage('AFTER_SERVICE')" class="" fill="clear">
-                  <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
-                  <span>After Maintainance</span>
-                </ion-button>
-              </ion-item>
-            </ion-list>
-          </div> -->
         </ion-grid>
       </ng-container>
     </div>

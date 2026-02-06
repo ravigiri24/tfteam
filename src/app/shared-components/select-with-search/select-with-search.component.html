@@ -1,9 +1,13 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>Select {{itemName}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Select {{itemName}}</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="internal_card_container" [ngClass]="listColorClass">
@@ -22,7 +26,7 @@
         <span class="no_found_text">No {{itemName}} Found</span>
       </div>
       <ion-button *ngIf="showAddButton" class="global_submit_color_button dynamic_bgcolor" (click)="addNewItem()">
-       <ion-icon class="icon-size" name="add-circle-outline"></ion-icon>
+        <ion-icon class="icon-size" name="add-circle-outline"></ion-icon>
         <span>Add New</span>
       </ion-button>
     </div>

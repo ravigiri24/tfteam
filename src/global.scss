@@ -150,6 +150,10 @@ app-salary-slip {
     margin-left: 10px;
     box-shadow: var(--app-brand-shadow-small);
   }
+  .add_btn {
+    border-radius: 5px;
+    overflow: hidden;
+  }
 
   .add_icon {
     background: var(--app-primary-color);

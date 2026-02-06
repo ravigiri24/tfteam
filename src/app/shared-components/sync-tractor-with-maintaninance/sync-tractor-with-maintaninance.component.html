@@ -1,15 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Sync Mainatainance</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Sync Mainatainance</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="internal_card_container" [ngClass]="listColorClass">
   <div class="global_input_block select_option_with_add">
     <ion-title class="inner-heading-list dynamic_color">Added Job List</ion-title>
-    <ion-button (click)="addJob()" class="dynamic_bgcolor" expand="block">
+    <ion-button (click)="addJob()" class="dynamic_bgcolor add_btn" expand="block">
       <ion-icon name="add-outline"></ion-icon>
     </ion-button>
   </div>
