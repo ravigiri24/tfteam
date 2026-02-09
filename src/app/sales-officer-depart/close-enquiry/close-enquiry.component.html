@@ -1,9 +1,13 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title>Closed Enquiry</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Closed Enquiry</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
@@ -17,7 +21,8 @@
         placeholder="Closing Remark" formControlName="closing_remark"></ion-input>
     </div>
     <div class="global_input_block">
-      <ion-toggle (ionChange)="toggleChanged($event)" class="dynamic_toggle_color" formControlName="isBooked">Is Booked</ion-toggle>
+      <ion-toggle (ionChange)="toggleChanged($event)" class="dynamic_toggle_color" formControlName="isBooked">Is
+        Booked</ion-toggle>
     </div>
     <ng-container *ngIf="form.controls['isBooked'].value==true||form.controls['isBooked'].value==1">
       <div class="global_input_block global_location_block" (click)="selectItem()">
@@ -45,7 +50,8 @@
       </ion-button>
       <ion-button *ngIf="enquiry.isOpen == 0" (click)="close()" class="global_submit_color_button dynamic_bgcolor">
         <ion-icon class="icon-size" name="create-outline"></ion-icon><span>Update Enquiry</span></ion-button>
-      <ion-button *ngIf="enquiry.isOpen == 0" (click)="restart()" class="global_submit_color_button theme-bgcolor-primary">
+      <ion-button *ngIf="enquiry.isOpen == 0" (click)="restart()"
+        class="global_submit_color_button theme-bgcolor-primary">
         <ion-icon class="icon-size" name="refresh-outline"></ion-icon><span>Restart Enquiry</span></ion-button>
     </div>
   </form>
