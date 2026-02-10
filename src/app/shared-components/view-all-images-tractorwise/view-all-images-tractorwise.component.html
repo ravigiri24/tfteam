@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!afterService?.length">
-    <app-no-data-view [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
+    <app-no-data-view class="image_record_minwidth" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
   </div>
  <div class="global-inner-heading dynamic_color">
     <span>At Purchase / Receiving</span>
@@ -55,7 +55,7 @@
     </div>
   </div>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!purchaseTimeList?.length">
-    <app-no-data-view [title]="'No  images found '" [subtitleShow]="false"></app-no-data-view>
+    <app-no-data-view  class="image_record_minwidth" [title]="'No  images found '" [subtitleShow]="false"></app-no-data-view>
   </div>
   <div class="global-inner-heading dynamic_color">
     <span>Live Images</span>
@@ -70,7 +70,7 @@
     </div>
   </div>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!liveImages?.length">
-    <app-no-data-view [title]="'No  images found'" [subtitleShow]="false"></app-no-data-view>
+    <app-no-data-view  class="image_record_minwidth" [title]="'No  images found'" [subtitleShow]="false"></app-no-data-view>
   </div> 
     <div class="global-inner-heading dynamic_color">
     <span>Received At Store</span>
@@ -85,7 +85,7 @@
     </div>
   </div>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!receiveTractorList?.length">
-    <app-no-data-view [title]="'No  images found'" [subtitleShow]="false"></app-no-data-view>
+    <app-no-data-view  class="image_record_minwidth" [title]="'No  images found'" [subtitleShow]="false"></app-no-data-view>
   </div>   
 </div>
 </ion-content>

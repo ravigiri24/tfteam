@@ -1,31 +1,31 @@
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title *ngIf="!approvalData">Approval Request</ion-title>
-    <!-- <ion-title *ngIf="approvalData">Update Enquiry</ion-title> -->
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text" *ngIf="!approvalData">Approval Request</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
   <form [formGroup]="form" *ngIf="form">
-
     <div class="global_input_block">
-      <ion-input label="Enter Price" fill="outline" labelPlacement="stacked" labelPlacement="stacked"
-        type="number" placeholder="Enter Price" formControlName="approvePrice"></ion-input>
+      <ion-input label="Enter Price" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="number"
+        placeholder="Enter Price" formControlName="approvePrice"></ion-input>
     </div>
     <div class="global_input_block">
-      <ion-input type="date" label="Expected Date(Purchase)" fill="outline" labelPlacement="stacked" 
+      <ion-input type="date" label="Expected Date(Purchase)" fill="outline" labelPlacement="stacked"
         placeholder="Expected Date(Purchase)" formControlName="expectedDateOfSale"></ion-input>
     </div>
-  
     <div class="global_input_block">
       <ion-textarea formControlName="remark" label="Remark" class="bg_white" fill="outline" labelPlacement="stacked"
         placeholder="write remark here..."></ion-textarea>
     </div>
     <div class="page_submit_btn">
-      <ion-button  (click)="save()" class="global_submit_color_button dynamic_bgcolor">
+      <ion-button (click)="save()" class="global_submit_color_button dynamic_bgcolor">
         <ion-icon class="icon-size" name="add-circle-outline"></ion-icon><span>Request</span>
       </ion-button>
       <!-- <ion-button *ngIf="approvalData" (click)="update()" class="global_submit_color_button dynamic_bgcolor">

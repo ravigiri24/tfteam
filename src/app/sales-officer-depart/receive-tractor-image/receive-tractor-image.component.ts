@@ -11,38 +11,39 @@ import { ApiService } from 'src/app/api.service';
   templateUrl: './receive-tractor-image.component.html',
   styleUrls: ['./receive-tractor-image.component.scss'],
 })
-export class ReceiveTractorImageComponent  implements OnInit {
+export class ReceiveTractorImageComponent implements OnInit {
 
   tarctor_id: any
-  constructor(private modalControl: ModalController,private share:ShareService,private api:ApiService) { }
-listColorClass='firstColor'
+  constructor(private modalControl: ModalController, private share: ShareService, private api: ApiService) { }
+  listColorClass = 'firstColor'
   ngOnInit() {
-this.getRawImages()
+    this.getRawImages()
   }
-  staffDetails:any
-    getRawImages(){
+  staffDetails: any
+  getRawImages() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
     let obj = {
       operate: this.staffDetails?.staffCode,
-      
+
       tractor_id: this.tractor?.id,
     };
     this.share.showLoading('Fetching Data...');
     this.api.postapi("getRawImages", obj).subscribe((res: any) => {
-      console.log("data",res);
-      this.receivedTractorImages=res?.data || []
-      this.receivedTractorImages= this.receivedTractorImages.filter((f:any)=>f.imageGroup=='RECEIVED_TRACTOR')
+      console.log("data", res);
+      this.receivedTractorImages = res?.data || []
+      this.receivedTractorImages = this.receivedTractorImages.filter((f: any) => f.imageGroup == 'RECEIVED_TRACTOR')
       this.share.spinner.dismiss();
- 
+
     });
   }
 
-receivedTractorImages:any=[]
-tractor:any
+  receivedTractorImages: any = []
+  tractor: any
   async viewImage(imageGroup: any) {
-     const modal = await this.modalControl.create({
+    const modal = await this.modalControl.create({
       component: ImageViewerComponent,
+      cssClass: 'light-modal',
       componentProps: {
         tarctor_id: this.tractor?.id,
         imageGroup: imageGroup,
@@ -60,12 +61,13 @@ tractor:any
     this.getRawImages()
 
   }
-  dismiss(){
+  dismiss() {
     this.modalControl.dismiss()
   }
   async viewImageSingle(image: any) {
     const modal = await this.modalControl.create({
       component: SingleImageShowComponent,
+      cssClass: 'light-modal',
       componentProps: {
 
         image: image,
@@ -76,16 +78,17 @@ tractor:any
     console.log('role', role);
 
     if (role === 'confirm') {
-   
+
     }
   }
-    async viewInSlider(image: any,imageArray:any) {
+  async viewInSlider(image: any, imageArray: any) {
     const modal = await this.modalControl.create({
       component: ImageSliderComponent,
+      cssClass: 'light-modal',
       componentProps: {
- 
+
         image: image,
-        imageArray:imageArray
+        imageArray: imageArray
       },
     });
     await modal.present();
@@ -95,5 +98,10 @@ tractor:any
     if (role === 'confirm') {
 
     }
+  }
+
+  onImageError(e: Event) {
+    const target = e.target as HTMLImageElement;
+    target.src = 'assets/img/placeholder.png';
   }
 }

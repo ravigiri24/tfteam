@@ -1791,6 +1791,10 @@ ion-searchbar {
   }
 }
 
+.image_record_minwidth {
+  min-width: 300px;
+}
+
 @media (min-width: 768px) {
   ion-modal.midium-model {
     --width: 80%;
