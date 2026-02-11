@@ -27,7 +27,7 @@
           <span class="notification_status rejected_color"
             *ngIf="approval?.isApproved==0 && approval?.actionTaken==1"><span>Status :
               REJECTED</span><small>{{approval?.approveactionDate|date}}</small></span>
-          <div class="internal_block">
+          <div [class.internal_block]="showAction || showSummary || approval?.actionTaken==0">
             <ion-row>
               <ion-col *ngIf="showAction && approval?.actionTaken==0" class="action_col" (click)="takeAction(approval)">
                 <img src="./././assets/images/settings.png" />
@@ -55,7 +55,7 @@
                   <span class="dynamic_bgcolor"></span>
                 </span>
               </ion-col>
-                   <ion-col *ngIf="showSummary" class="action_col" (click)="showAllImage(approval)">
+              <ion-col *ngIf="showSummary" class="action_col" (click)="showAllImage(approval)">
                 <img src="./././assets/images/all_image_icon.png" />
                 <span class="shape">
                   <span class="dynamic_bgcolor"></span>

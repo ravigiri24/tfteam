@@ -18,7 +18,7 @@ export class ViewRepairRecordComponent  implements OnInit {
     private alertCtrl:AlertController,
     private modalCtrl:ModalController
   ) {}
-  @Input() listColorClass: any = "fifthColor";
+  @Input() listColorClass: any = "firstColor";
   ngOnInit() {
 
     this.getSavedJobList()

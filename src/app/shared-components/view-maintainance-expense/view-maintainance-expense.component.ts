@@ -17,7 +17,7 @@ export class ViewMaintainanceExpenseComponent  implements OnInit {
     private api: ApiService,
     private modalCtrl:ModalController
   ) { }
-  @Input() listColorClass = 'secondColor';
+  @Input() listColorClass = 'firstColor';
   srcPage: any;
   selectedTab: any = 'DETAILS';
   jobId: any;

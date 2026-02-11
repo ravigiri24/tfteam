@@ -1,13 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Refurbish Record</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+<ion-header [ngClass]="listColorClass">
+   <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Refurbish Record</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 <ion-content class="internal_card_container" [ngClass]="listColorClass">
-
   <ion-card *ngIf="savedJobList?.length" class="table_block_details">
     <ion-row class="table_main_header dynamic_bgcolor">
       <ion-col class="sno_col">Sr</ion-col>
