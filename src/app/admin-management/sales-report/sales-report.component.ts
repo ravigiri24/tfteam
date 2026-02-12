@@ -15,11 +15,12 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-  selector: 'app-unsold-tractor-list',
-  templateUrl: './unsold-tractor-list.component.html',
-  styleUrls: ['./unsold-tractor-list.component.scss'],
+  selector: 'app-sales-report',
+  templateUrl: './sales-report.component.html',
+  styleUrls: ['./sales-report.component.scss'],
 })
-export class UnsoldTractorListComponent  implements OnInit {
+export class SalesReportComponent  implements OnInit {
+
   constructor(
     public modalCtrl: ModalController,
     private formBuilder: FormBuilder,
@@ -55,7 +56,7 @@ export class UnsoldTractorListComponent  implements OnInit {
   }
   generateExcel() {
     // Get the HTML content of the div you want to export
-    const element = document.getElementById('unsold-sheet-report');
+    const element = document.getElementById('sales-report-sheet');
 
     // Create a worksheet from the table
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -93,18 +94,17 @@ export class UnsoldTractorListComponent  implements OnInit {
       this.srcPage = params?.srcPage;
     });
     this.initialize();
-    this.genrateReport()
   }
   allDetails: any;
   tractorArray: any;
   showData=false
   genrateReport() {
     this.showData=false
-    // if (this.form.valid) {
-    //   if (
-    //     this.form.controls['startDate']?.value <=
-    //     this.form.controls['endDate']?.value
-    //   ) {
+    if (this.form.valid) {
+      if (
+        this.form.controls['startDate']?.value <=
+        this.form.controls['endDate']?.value
+      ) {
         let obj: any = this.share.getListObj(
           'getTractorSheetByDate',
           false,
@@ -112,12 +112,12 @@ export class UnsoldTractorListComponent  implements OnInit {
           true
         );
 
-        // obj.startDate = this.form.controls['startDate'].value;
-        // obj.endDate = this.form.controls['endDate'].value;
+        obj.startDate = this.form.controls['startDate'].value;
+        obj.endDate = this.form.controls['endDate'].value;
 
         this.share.showLoading('Fetching Report...');
         this.reportDatesRecord = obj;
-        this.api.postapi('getUnsoldTractorList', obj).subscribe(
+        this.api.postapi('getSalesReportByDate', obj).subscribe(
           (res: any) => {
             this.allDetails = res?.data;
              this.allDetails.spareList= this.allDetails.spareList.reverse()
@@ -169,12 +169,12 @@ export class UnsoldTractorListComponent  implements OnInit {
           },
           (error: any) => {}
         );
-      // } else {
-      //   this.share.presentToast('Error:End Date is less than Start Date');
-      // }
-    // } else {
-    //   this.share.presentToast('Error:Please Fill Required(*) Fields');
-    // }
+      } else {
+        this.share.presentToast('Error:End Date is less than Start Date');
+      }
+    } else {
+      this.share.presentToast('Error:Please Fill Required(*) Fields');
+    }
   }
   calculateRepairCost(tractor:any){
     //service 
@@ -338,14 +338,15 @@ tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+37000
       pdfObj: this.renderResult,
 
       actionByid: this.staffDetails?.id,
-      report_type: 'UNSOLD_SHEET',
+      report_type: 'SOLD_SHEET',
       extension: extension,
       reparing_center: this.staffDetails?.repair_center,
-  
+      startDate: this.reportDatesRecord?.startDate,
+      endDate: this.reportDatesRecord?.endDate,
     };
     console.log('convertBlobToBase64', obj);
 this.share.showLoading("Generating Excel",20000)
-    this.api.postapi('saveUnsoldTractor', obj).subscribe((res: any) => {
+    this.api.postapi('savemastersheet', obj).subscribe((res: any) => {
       console.log('saveDataTo', res);
       this.share.spinner.dismiss();
       if (res?.data?.imageUrlUrl) {

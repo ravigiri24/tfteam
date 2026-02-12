@@ -1,0 +1,358 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Sales Report</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container">
+  <form *ngIf="form" [formGroup]="form">
+    <div class="row top-position-body">
+
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+  <div class="row">
+    <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
+  </div>
+  <ng-container *ngIf="tractorArray?.length && showData">
+    <hr />
+    <div class="margin-top">
+      <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
+    </div>
+    <div class="scroll" *ngIf="tractorArray?.length && showData" id="sales-report-sheet" class="top-margin scroll"
+      style="width: 100%;">
+      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+      <table cellpadding="5" cellspacing="5" style="width: 100%;">
+        <tbody>
+
+          <tr>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total
+              Tractor
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+
+          </tr>
+          <tr>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.startDate}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.endDate}}</td>
+
+          </tr>
+          <!-- <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr> -->
+
+
+        </tbody>
+      </table>
+      <h2 style="text-align: center;margin: 10px 0px;">Sales Report</h2>
+      <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+        <tbody>
+          <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+              Inventory
+              Code</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">INVENTORY LOCATION</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Tractor OEM</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Tractor
+              Model</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Auction
+              /Exchange/Dealer</th>
+            <!-- <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Status
+            </th> -->
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">
+              Registration No.</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Engine
+              No.
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Chasis
+              No.
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Operating
+              Hours</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Year of
+              Mfg
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Owner
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Bank name
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Park
+              Location</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 1
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Date of
+              Auction/Deal</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Purchase
+              Amount</th>
+            <th *ngFor="let expenseTransport of logisticExpenseTypeList"
+              style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">
+              {{expenseTransport?.name}}</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Insurance
+              Cost</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO
+              Expense
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Amount
+              Paid
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Date Of
+              Payment </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">NOC
+              Status
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO
+              Status
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 2
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Workshop
+              Estimation</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Inward
+              Estimation</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">RTO
+              Estimation</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 3
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Service
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;"
+              *ngFor="let spare of allDetails?.spareList">{{spare?.name}}</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Total
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Reduce
+              Costing</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">WORKSHOP
+              TOTAL</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Remark
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Column 4
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Total
+              Expense</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Net
+              Selling
+              Price</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">GST
+              Applicable</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">GM</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">P/L
+              Amount
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">P/L
+              Margin(%) without GST</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">without
+              gst
+              amount for billing</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">DLP BASED
+              ON ESTIMATION</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Customer
+              Name</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Mobile
+              Number</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Address
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">City</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">State
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Selling
+              Price</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Sell To
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Margin
+              Money</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Financed
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">FI Done
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Finance
+              Amount</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Financer
+              Name</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">1st
+              Disbursal</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">1st
+              Disbursal Date</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">2nd
+              Disbursal</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">2nd
+              Disbursal Date</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Net
+              Market
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">
+              Outstanding
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Delivery
+              Date</th>
+
+
+
+
+          </tr>
+          <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
+            style="border: 1px solid #e1e1e1;text-align: left">
+            <td style="text-align: center;">{{tracIndex+1}}</td>
+            <td style="text-align: center;">{{tractor?.registractionNo}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.franchiseDettails?.name}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.brandName}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.modalName}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.typeOfPurchaseDetails?.name}}</td>
+            <!-- <td style="padding: 5px 10px;"><span *ngIf="tractor?.isSold==1">Sold</span><span
+                *ngIf="tractor?.isSold==0 || tractor?.isSold==null">Un-Sold</span></td> -->
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.registrationNumber}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.engineNumber}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.chasisNumber}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.hours}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.yearOfManufactoring}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.nameOfSeller}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.bankNameAuction}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.parkLocation}}</td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;"></td>
+            <!-- <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchanseDate}}</td> -->
+            <td style="padding: 5px 10px;">{{tractor?.reachDate}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchasePrice}}</td>
+            <td *ngFor="let expenseTransport of logisticExpenseTypeList" style="padding: 5px 10px;">
+              {{tractor?.logisticExpense[expenseTransport?.name]}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.insurance_cost}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.rto_cost}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.totalAmountBreakup}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.amountTransferDate}}</td>
+            <td style="padding: 5px 10px;">
+              <span *ngIf="tractor?.isNoc==null">Not Assign</span>
+              <span *ngIf="tractor?.isNoc==1">Yes</span>
+              <span *ngIf="tractor?.isNoc==0">No</span>
+            </td>
+            <td style="padding: 5px 10px;">
+              <span *ngIf="tractor?.rtoDetails?.isrtoDone==null">Not Assign</span>
+              <span *ngIf="tractor?.rtoDetails?.isrtoDone==1">Yes</span>
+              <span *ngIf="tractor?.rtoDetails?.isrtoDone==0">No</span>
+            </td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;">{{tractor?.maintainanceEstimationCost}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.inwardEstimationCost}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.rtoEstimationCost}}</td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;">{{tractor?.expenseServiceCost}}</td>
+            <td style="padding: 5px 10px;" *ngFor="let catvalue of tractor?.categroyWiseMaterial">
+              {{catvalue?.total_amount}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.totalRepairExpense}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.reduceItemTotalAmount}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.workshopTotalExpense}}</td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;">{{tractor?.totalExpenseT}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.netSellingPrice}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.gstAmount | number : '1.2-2'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.gm | number : '1.2-2'}}</td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;"></td>
+            <td style="padding: 5px 10px;">{{tractor?.billingAmountWithoutGst| number : '1.2-2'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.dlpBasedEstimation| number : '1.2-2'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.customerDetails?.name||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.customerDetails?.mobileNo||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.address||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.stateDetails?.name||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.cityDetails?.name||''}}</td>
+            <td style="padding: 5px 10px;">
+              <span *ngIf="tractor?.isSoldToDealer==0">{{tractor?.sellingDetailedIdDetails?.sellingPrice||0}}</span>
+              <span *ngIf="tractor?.isSoldToDealer==1">{{tractor?.dealerPrice||0}}</span>
+            </td>
+            <td style="padding: 5px 10px;">
+              <span *ngIf="tractor?.isSoldToDealer==0 && tractor?.sellingDetailedIdDetails?.sellingPrice">Sold To
+                Customer</span>
+              <span *ngIf="tractor?.isSoldToDealer==0 && !tractor?.sellingDetailedIdDetails?.sellingPrice">Not
+                Sold</span>
+              <span *ngIf="tractor?.isSoldToDealer==1">Sold To Dealer</span>
+            </td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.marginMoney||0}}</td>
+            <td style="padding: 5px 10px;">
+              <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinance==null">Not Assign</span>
+              <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinance==1">Yes</span>
+              <span *ngIf="tractor?.sellingDetailedIdDetails?.isFinancee==0">No</span>
+            </td>
+            <td style="padding: 5px 10px;">
+              {{tractor?.financeDetails?.isFIDone||''}}
+            </td>
+
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.financeAmount||0}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.bankDetails?.name||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.first_disbursal||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.first_disbursal_date||''}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.second_disbursal||'0'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.second_disbursal_date||'0'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.net_market||'0'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.financeDetails?.outstanding ||'0'}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.sellingDate||''}}</td>
+
+            <!-- <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastDemand?.demand ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastDemand?.createdOn ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.visitng_type ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.visiting_date ||'-'}}</td>
+        <td style="padding: 5px 10px;">{{cus?.lastVisitingStatus?.remark ||'-'}}</td>
+        <td  style="padding: 5px 10px;">{{cus?.cityDetails?.name}}</td> -->
+
+
+          </tr>
+          <!-- <tr>
+        <td colspan="3"  style="padding: 5px 10px;">
+          {{catTotal[expenseHeader[0]]}}
+        </td>
+        <div *ngFor="let head of expenseHeader;let indi=index">
+          <div  *ngIf="indi>0" >
+            <td style="padding: 5px 10px;">
+              {{catTotal[expenseHeader[0]]}}
+            </td> 
+
+          </div>
+        </div>
+     
+      </tr> -->
+
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</ion-content>

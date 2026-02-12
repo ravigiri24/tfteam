@@ -15,6 +15,7 @@ import { StoreManagementComponent } from './store-management/store-management.co
 import { TeamManagerComponent } from '../sales-head-department/team-manager/team-manager.component';
 import { SalesOfficerComponent } from '../sales-head-department/sales-officer/sales-officer.component';
 import { UnsoldTractorListComponent } from './unsold-tractor-list/unsold-tractor-list.component';
+import { SalesReportComponent } from './sales-report/sales-report.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -25,6 +26,7 @@ const routes: Routes = [
          { path: 'dashboard-overview', component: DashboardOverviewComponent},
        
          { path: 'master-sheet/:srcPage', component: MasterSheetsComponent},
+         { path: 'sales-report/:srcPage', component: SalesReportComponent},
          { path: 'unsold-tractor-sheet/:srcPage', component: UnsoldTractorListComponent},
          { path: 'work-sheet/:srcPage', component: PendingReportsComponent},
          { path: 'reports-tractor', component: ReportsTractorComponent},

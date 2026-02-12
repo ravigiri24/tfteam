@@ -22,6 +22,7 @@ import { AddSalesManagerComponent } from './store-management/add-sales-manager/a
 import { TeamManagerComponent } from '../sales-head-department/team-manager/team-manager.component';
 import { SalesOfficerComponent } from '../sales-head-department/sales-officer/sales-officer.component';
 import { UnsoldTractorListComponent } from './unsold-tractor-list/unsold-tractor-list.component';
+import { SalesReportComponent } from './sales-report/sales-report.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -39,7 +40,8 @@ import { UnsoldTractorListComponent } from './unsold-tractor-list/unsold-tractor
     AddSalesManagerComponent,
     TeamManagerComponent,
     SalesOfficerComponent,
-    UnsoldTractorListComponent
+    UnsoldTractorListComponent,
+    SalesReportComponent
   ],
   imports: [
    
