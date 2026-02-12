@@ -1,94 +1,92 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <ion-header [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-title >Refurbish Details</ion-title>
-  
+    <ion-title>Refurbish Details</ion-title>
     <ion-buttons slot="end">
       <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
-<div [classList]="'main_page_container ' + listColorClass">
- 
-  <ion-grid class="main_block_details">
-    <ion-card class="main_card_details">
-      <ion-row>
-        <ion-col>TF Code</ion-col>
-        <ion-col class="amount_col"> {{ jobDetails?.tfCode || '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Make</ion-col>
-        <ion-col class="amount_col"> {{ jobDetails?.brandDetails?.name || '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Modal</ion-col>
-        <ion-col class="amount_col"> {{ jobDetails?.modelDetails?.name || '-' }}</ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-grid>
+  <div [classList]="'main_page_container ' + listColorClass">
+    <ion-grid class="main_block_details">
+      <ion-card class="main_card_details">
+        <ion-row>
+          <ion-col>TF Code</ion-col>
+          <ion-col class="amount_col"> {{ jobDetails?.tfCode || '-' }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Make</ion-col>
+          <ion-col class="amount_col"> {{ jobDetails?.brandDetails?.name || '-' }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Modal</ion-col>
+          <ion-col class="amount_col"> {{ jobDetails?.modelDetails?.name || '-' }}</ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
 
-  <span class="global-inner-heading">Service Expenses</span>
-  <ion-grid class="main_block_details" *ngIf="expenseServiceList?.length">
-    <ion-card class="table_block_details">
-      <ion-row class="table_main_header dynamic_bgcolor">
-        <ion-col class="item_name_col">Service</ion-col>
-        <ion-col class="amount_col">Amount</ion-col>
-      </ion-row>
-      <ion-row class="table_row" *ngFor="let service of expenseServiceList">
-        <ion-col class="item_name_col">{{service?.materialDetail?.name}}</ion-col>
-        <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
-      </ion-row>
-    </ion-card>
+    <span class="global-inner-heading">Service Expenses</span>
+    <ion-grid class="main_block_details" *ngIf="expenseServiceList?.length">
       <ion-card class="table_block_details">
-    <ion-row class="table_row total_row">
-      <ion-col></ion-col>
-      <ion-col class="total_text_col"><b>Total</b></ion-col>
-      <ion-col class="amount_col"><b>{{expenseServiceCost}}</b></ion-col>
-    </ion-row>
-  </ion-card>
-  </ion-grid>
-  <div class="dynamic_block no_found_dynamic_block" *ngIf="!expenseServiceList?.length">
-    <app-no-data-view [title]="'No Service Expenses found.'" [subtitleShow]="false"></app-no-data-view>
-  </div>
-  <span class="global-inner-heading">Spare Expenses</span>
-  <ion-grid class="main_block_details" *ngIf="expenseMaterialList?.length">
-    <ion-card class="table_block_details">
-      <ion-row class="table_main_header dynamic_bgcolor">
-        <ion-col class="item_name_col">Spare</ion-col>
-        <ion-col class="qty_col">Qty</ion-col>
-        <ion-col class="amount_col">Amount</ion-col>
-      </ion-row>
-      <ion-row class="table_row" *ngFor="let service of expenseMaterialList">
-        <ion-col class="item_name_col">{{service?.materialDetail?.name}}</ion-col>
-        <ion-col class="qty_col">{{service?.qty}}</ion-col>
-        <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
-      </ion-row>
-
-    </ion-card>
+        <ion-row class="table_main_header dynamic_bgcolor">
+          <ion-col class="item_name_col">Service</ion-col>
+          <ion-col class="amount_col">Amount</ion-col>
+        </ion-row>
+        <ion-row class="table_row" *ngFor="let service of expenseServiceList">
+          <ion-col class="item_name_col">{{service?.materialDetail?.name}}</ion-col>
+          <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="table_block_details bottom_margin">
+        <ion-row class="table_row total_row">
+          <ion-col></ion-col>
+          <ion-col class="total_text_col"><b>Total :</b></ion-col>
+          <ion-col class="amount_col"><b>{{expenseServiceCost}}</b></ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+    <div class="dynamic_block no_found_dynamic_block" *ngIf="!expenseServiceList?.length">
+      <app-no-data-view [title]="'No Service Expenses found.'" [subtitleShow]="false"></app-no-data-view>
+    </div>
+    <span class="global-inner-heading">Spare Expenses</span>
+    <ion-grid class="main_block_details" *ngIf="expenseMaterialList?.length">
       <ion-card class="table_block_details">
-    <ion-row class="table_row total_row">
-      <ion-col></ion-col>
-      <ion-col class="total_text_col"><b>Total</b></ion-col>
-      <ion-col class="amount_col"><b>{{expenseMaterialCost}}</b></ion-col>
-    </ion-row>
-  </ion-card>
-  </ion-grid>
-  <div class="dynamic_block no_found_dynamic_block" *ngIf="!expenseMaterialList?.length">
-    <app-no-data-view [title]="'No Spare Expenses found.'" [subtitleShow]="false"></app-no-data-view>
-  </div>
-  <ion-card class="table_block_details">
-    <ion-row class="table_row total_row">
-      <ion-col></ion-col>
-      <ion-col class="total_text_col"><b>Grand Total</b></ion-col>
-      <ion-col class="amount_col"><b>{{expenseMaterialCost+expenseServiceCost}}</b></ion-col>
-    </ion-row>
-  </ion-card>
+        <ion-row class="table_main_header dynamic_bgcolor">
+          <ion-col class="item_name_col">Spare</ion-col>
+          <ion-col class="qty_col">Qty</ion-col>
+          <ion-col class="amount_col">Amount</ion-col>
+        </ion-row>
+        <ion-row class="table_row" *ngFor="let service of expenseMaterialList">
+          <ion-col class="item_name_col">{{service?.materialDetail?.name}}</ion-col>
+          <ion-col class="qty_col">{{service?.qty}}</ion-col>
+          <ion-col class="amount_col">{{service?.total_expense}}</ion-col>
+        </ion-row>
+
+      </ion-card>
+      <ion-card class="table_block_details">
+        <ion-row class="table_row total_row">
+          <ion-col></ion-col>
+          <ion-col class="total_text_col"><b>Total :</b></ion-col>
+          <ion-col class="amount_col"><b>{{expenseMaterialCost}}</b></ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+    <div class="dynamic_block no_found_dynamic_block" *ngIf="!expenseMaterialList?.length">
+      <app-no-data-view [title]="'No Spare Expenses found.'" [subtitleShow]="false"></app-no-data-view>
+    </div>
+    <ion-card class="table_block_details bottom_margin">
+      <ion-row class="table_row total_row">
+        <ion-col></ion-col>
+        <ion-col class="total_text_col"><b>Grand Total :</b></ion-col>
+        <ion-col class="amount_col"><b>{{expenseMaterialCost+expenseServiceCost}}</b></ion-col>
+      </ion-row>
+    </ion-card>
 
 
-  
-  <!-- <ion-button (click)="downloadInvoice()"  class="global_submit_button" expand="block">
+
+    <!-- <ion-button (click)="downloadInvoice()"  class="global_submit_button" expand="block">
        
                 Share</ion-button> -->
-</div>
+  </div>
 </ion-content>

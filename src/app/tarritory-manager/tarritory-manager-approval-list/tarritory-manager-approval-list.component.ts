@@ -23,7 +23,7 @@ export class TarritoryManagerApprovalListComponent  implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
-  listColorClass = 'sixColor';
+  listColorClass = 'firstColor';
   ngOnInit() {}
   enquireList: any = [];
   headerDisplayArray = [

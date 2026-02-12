@@ -1,0 +1,115 @@
+.main_page_container {
+  position: relative;
+  .right_button {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+
+    .dynamic_color {
+      display: flex;
+      margin-left: 10px;
+      padding: 5px;
+      cursor: pointer;
+
+      ion-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .main_block_details {
+    padding: 0px;
+
+    .main_card_details {
+      margin: 10px 0px;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      padding: 10px;
+      border: dashed 1px;
+      position: relative;
+      overflow: hidden;
+
+      .left_row_title {
+        color: #000000;
+      }
+
+      ion-col {
+        font-size: 13px;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        top: -50px;
+        left: -40px;
+        border-radius: 50%;
+        z-index: 0;
+        opacity: 0.1;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        bottom: -40px;
+        right: -40px;
+        transform: rotate(45deg);
+        z-index: 0;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .table_block_details {
+    margin: 0px;
+    .table_main_header {
+      // background-color: #cccccc;
+      // color: #434343;
+      // border-bottom: solid thin #979797;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    ion-col {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .qty_col {
+      max-width: 80px;
+      justify-content: center;
+    }
+
+    .amount_col {
+      justify-content: right !important;
+    }
+
+    .table_row {
+      border-bottom: dashed 1px #e1dfdf;
+    }
+    .total_text_col {
+      justify-content: right !important;
+    }
+    .total_row {
+      font-size: 16px;
+    }
+  }
+  .bottom_margin {
+    margin-bottom: 20px;
+  }
+
+  .dynamic_block {
+    padding: 10px 0px;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+
+    app-no-data-view {
+      min-width: 350px;
+    }
+  }
+}
