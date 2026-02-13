@@ -65,7 +65,7 @@
         <ion-col class="amount_col">
           <span>{{customerSelected?.soldStatus? "Yes" : "NO"}}</span>
         </ion-col>
-        <div *ngIf="showActionsButton" class="action_row">
+        <div *ngIf="showActionsButton" class="action_row res_width100">
           <ion-button class="dynamic_bgcolor" *ngIf="customerSelected?.soldStatus" (click)="removeSoldStatus()"
             fill="clear">
             <ion-icon class="icon-size-add right-margin" name="remove-circle-outline"></ion-icon>

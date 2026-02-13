@@ -11,10 +11,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+  <span class="global-inner-heading">Customer Details</span>
   <ion-grid class="main_block_details">
-    <div class="margin-bottom-headline">
-      <span class="global-inner-heading">Customer Details</span>
-    </div>
     <ion-card class="main_card_details">
       <ion-row>
         <ion-col>Enquiry Date</ion-col>
@@ -49,30 +47,32 @@
   <div class="margin-bottom-headline">
     <span class="global-inner-heading">Lead Details</span>
   </div>
-  <ion-card class="main_card_details">
-    <ion-row>
-      <ion-col>Remark</ion-col>
-      <ion-col class="amount_col"> {{ enquiry?.remark }}</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>Is Lead open</ion-col>
-      <ion-col class="amount_col" *ngIf="enquiry?.isOpen==1"> Open</ion-col>
-      <ion-col class="amount_col" *ngIf="enquiry?.isOpen==0">Closed</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>Lead Temperature</ion-col>
-      <ion-col class="amount_col"> {{ enquiry?.strength }}</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>In Stoke</ion-col>
-      <ion-col class="amount_col"> {{ enquiry?.inStoke }}</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>Other Requirement</ion-col>
-      <ion-col class="amount_col"> {{ enquiry?.other }}</ion-col>
-    </ion-row>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row>
+        <ion-col>Remark</ion-col>
+        <ion-col class="amount_col"> {{ enquiry?.remark }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Is Lead open</ion-col>
+        <ion-col class="amount_col" *ngIf="enquiry?.isOpen==1"> Open</ion-col>
+        <ion-col class="amount_col" *ngIf="enquiry?.isOpen==0">Closed</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Lead Temperature</ion-col>
+        <ion-col class="amount_col"> {{ enquiry?.strength }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>In Stoke</ion-col>
+        <ion-col class="amount_col"> {{ enquiry?.inStoke }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Other Requirement</ion-col>
+        <ion-col class="amount_col"> {{ enquiry?.other }}</ion-col>
+      </ion-row>
 
-  </ion-card>
+    </ion-card>
+  </ion-grid>
   <ng-container>
     <span class="global-inner-heading">Demanding Models</span>
     <ion-grid class="main_block_details" *ngIf="modelList?.length">
