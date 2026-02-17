@@ -32,7 +32,7 @@
       }
 
       img {
-        height: 100%;
+        // height: 100%;
         max-height: 100%;
       }
     }
@@ -46,5 +46,13 @@ swiper-container::part(pagination) {
 
 swiper-container::part(button-prev),
 swiper-container::part(button-next) {
-  color: white;
+  color: var(--app-primary-color);
+}
+
+swiper-container::part(button-prev) {
+  left: -10px;
+}
+
+swiper-container::part(button-next) {
+  right: -10px;
 }
