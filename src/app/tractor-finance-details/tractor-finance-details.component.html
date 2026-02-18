@@ -38,9 +38,9 @@
         <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
           {{ fin?.name }}</ion-select-option>
       </ion-select>
-      <div class="right_action_block dynamic_bgcolor">
+      <!-- <div class="right_action_block dynamic_bgcolor">
         <ion-icon (click)="openCrudManagement('BANK_DETAILS')" name="add-circle-outline"></ion-icon>
-      </div>
+      </div> -->
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="getfinancerList(true)" name="refresh-outline"></ion-icon>
       </div>

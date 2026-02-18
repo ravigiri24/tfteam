@@ -334,6 +334,13 @@ export class CustomerListDistrictWiseComponent implements OnInit {
     if (loader) {
       this.share.showLoading('Loading Data');
     }
+       let takingTime=true
+setTimeout(() => {
+  if(takingTime){
+  this.share.presentToast("Taking Time,Please Wait...")
+}
+
+}, 2000);
 
     this.api.postapi('getCustomerListByDistrict', obj).subscribe(
       (res: any) => {
@@ -371,18 +378,14 @@ export class CustomerListDistrictWiseComponent implements OnInit {
         // this.online=this.customerList.filter((f:any)=>f?.customerType=='ONLINE')?.length
         // this.visitors=this.customerList.filter((f:any)=>f?.customerType=='VISITORS')?.length
         this.share.spinner?.dismiss('active_one');
-
+takingTime=false
         console.log('getCustomerListByStore', this.customerList);
       },
       (error: any) => {},
     );
   }
   buttonArray: any = [
-    {
-      name: 'Edit Customer',
-      action: 'editCustomer',
-      image: './././assets/images/edit.png',
-    },
+ 
     {
       name: 'Customer Remark',
       action: 'customer_review',

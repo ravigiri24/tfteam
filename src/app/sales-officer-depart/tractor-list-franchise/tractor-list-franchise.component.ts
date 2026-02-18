@@ -138,6 +138,7 @@ export class TractorListFranchiseComponent implements OnInit {
       );
     }, 0);
   }
+ 
   checkOwnstore(){
     let check=this.allotedWareHouse?.find((f:any)=>f.id==this.selectedStore)
     if(check){
@@ -203,6 +204,7 @@ export class TractorListFranchiseComponent implements OnInit {
         
   ];
   actionEventHeader(e: any) {
+    this.checkOwnstore()
     if (e?.name == 'Search') {
       this.searchTractor();
     } else if (e?.name == 'Filter') {
@@ -378,7 +380,18 @@ this.getAllTractorListStorewise(true)
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
       componentProps: {
-        buttonArray: this.buttonArray,
+        buttonArray: [
+        {
+      name: 'View Refurbish Details',
+      action: 'viewRefurbishDetails',
+      image: './././assets/images/layout.png',
+    },
+         {
+      name: 'View Tractor All Images',
+      action: 'viewTractorAllImage',
+      image: './././assets/images/all_image_icon.png',
+    },
+      ],
         listColorClass: this.listColorClass,
         keyList: this.keyList,
         searchFilter: this.search,

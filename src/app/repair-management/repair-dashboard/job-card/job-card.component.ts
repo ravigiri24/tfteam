@@ -109,11 +109,33 @@ export class JobCardComponent implements OnInit {
       data: { isCompleted: status, completeDate: new Date() },
       id: this.jobDetails?.id,
     };
+  let staffDetails: any = this.share.get_staff();
 
+    this.staffDetails = JSON.parse(staffDetails);
     this.share.showLoading('Closing Job...');
     this.api.postapi('updateOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
-
+      if(status==true){
+              let description =
+            this.staffDetails?.name +
+            ' has closed the job card TF Code- '+this.jobDetails?.tfCode+ ' at ' +
+            'the repair center';
+          this.api.genreteJobCardNotification(
+            'Job Card Closed',
+            description,
+          this.staffDetails
+          );
+        }else{
+            let description =
+            this.staffDetails?.name +
+            ' has reopen the job card TF Code- '+this.jobDetails?.tfCode+ ' at ' +
+            'the repair center';
+          this.api.genreteJobCardNotification(
+            'Job Card Reopen',
+            description,
+          this.staffDetails
+          );
+        }
       this.share.presentToast('Closed Successfully...');
       this.router.navigate(['/repair-management/job-list']);
     });

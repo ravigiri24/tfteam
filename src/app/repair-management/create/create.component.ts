@@ -339,6 +339,7 @@ export class CreateComponent implements OnInit {
       obj.chassisNumber = obj?.chassisNumber?.trim();
       this.api.postapi('updateJob', obj).subscribe(
         (res: any) => {
+           
           this.share.spinner.dismiss();
           this.share.presentToast('Updated Successfully...');
           this.router.navigate(['/repair-management/job-list']);
@@ -566,6 +567,15 @@ export class CreateComponent implements OnInit {
     this.api.postapi('createJob', obj).subscribe(
       (res: any) => {
         this.createdJobDetails = res?.rowData
+          let description =
+            this.staffDetails?.name +
+            ' Generate New Job Card of '+obj.tfCode+ ' at ' +
+            'Repair Center';
+          this.api.genreteJobCardNotification(
+            'New Job Card Punched',
+            description,
+          this.staffDetails
+          );
         if (saveNewTractor) {
           this.onSaveNewTractor()
         } else {

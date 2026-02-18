@@ -27,8 +27,8 @@ export class ApiService {
   }
   //frontendUrl="https://tractorfactory.in/#"
 
-  // rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
-rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
+   rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
+//rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
   private isOnlineSubject = new BehaviorSubject<boolean>(true);
   public isOnline$ = this.isOnlineSubject.asObservable();
   initializeApp() {
@@ -162,6 +162,18 @@ isModalOpen=false
       type:type,
       storeId:selectedStore
     }
+  }
+   genreteJobCardNotification(title:any,description:any,staffDetails:any) {
+ 
+    let obj = this.getNotificationObj(
+     title,
+      description,
+null,
+      'Job Card'
+    );
+ this.postapi('generateJobCard', obj).subscribe((res: any) => {
+
+    });
   }
   genreteEnquiry(title:any,description:any,selectedStore:any,staffDetails:any) {
  
