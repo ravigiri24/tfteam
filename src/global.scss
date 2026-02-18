@@ -1789,6 +1789,16 @@ ion-searchbar {
       font-size: 13px;
     }
   }
+
+  .image_card_block {
+    .image-slider {
+      swiper-slide {
+        ion-card {
+          height: auto !important;
+        }
+      }
+    }
+  }
 }
 
 .image_record_minwidth {

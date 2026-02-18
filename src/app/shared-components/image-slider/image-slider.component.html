@@ -10,15 +10,17 @@
     </ion-label>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding image_card_block" [ngClass]="listColorClass">
+<ion-content class="image_card_block" [ngClass]="listColorClass">
   <swiper-container [loop]="true" [autoplay]="{ delay: 3000 }" [pagination]="true" [navigation]="true"
     class="image-slider">
     <swiper-slide *ngFor="let img of imageArray">
+      <ion-button expand="block" class="dynamic_bgcolor download_btn" (click)="openPDF(img?.imageUrlUrl)">
+        <ion-icon slot="start" name="download-outline"></ion-icon>
+      </ion-button>
       <ion-card>
-        <ion-button expand="block" class="dynamic_bgcolor download_btn" (click)="openPDF(img?.imageUrlUrl)">
-          <ion-icon slot="start" name="download-outline"></ion-icon>
-        </ion-button>
-        <img [src]="img?.imageUrlUrl" alt="Slide image" />
+        <div class="image-scroll-wrap">
+          <img [src]="img?.imageUrlUrl" alt="Slide image" />
+        </div>
       </ion-card>
     </swiper-slide>
   </swiper-container>

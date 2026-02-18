@@ -1,11 +1,15 @@
 .image_card_block {
   --background: #f5f5ff;
+  --padding-top: 10px;
+  --padding-end: 10px;
+  --padding-bottom: 10px;
+  --padding-start: 10px;
   padding: 10px !important;
 
   .image-slider {
     width: 100%;
-    height: calc(100% - 10px);
-    border-radius: 20px;
+    height: 100%;
+    border-radius: 0;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -15,25 +19,54 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0px;
+      position: relative;
+      box-shadow: none !important;
 
       ion-card {
-        height: 100%;
-        max-height: 100%;
+        width: 100%;
+        margin: 0;
+        // height: calc(100dvh - 130px);
+        max-height: calc(100dvh - 130px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        box-shadow: none !important;
+        --box-shadow: none !important;
+        --background: transparent;
+      }
 
-        .download_btn {
-          position: absolute;
-          right: 10px;
-          top: 10px;
-
-          ion-icon {
-            margin: 0px !important;
-          }
+      .download_btn {
+        position: fixed;
+        right: 0px;
+        top: calc(env(safe-area-inset-top) + 0px);
+        z-index: 999;
+        border-radius:5px;
+        margin: 0px;
+        ion-icon {
+          margin: 0px !important;
         }
       }
 
+      &:not(.swiper-slide-active) {
+        .download_btn {
+          display: none;
+        }
+      }
+
+      .image-scroll-wrap {
+        width: 100%;
+        min-height: 100%;
+      }
+
       img {
-        // height: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: none;
+        display: block;
       }
     }
   }
@@ -55,4 +88,33 @@ swiper-container::part(button-prev) {
 
 swiper-container::part(button-next) {
   right: -10px;
+}
+
+@media (max-width: 560px) {
+  .image_card_block {
+    .image-slider {
+      swiper-slide {
+        ion-card {
+          height: calc(100dvh - 115px);
+          max-height: calc(100dvh - 115px);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) and (orientation: landscape) {
+  .image_card_block {
+    .image-slider {
+      swiper-slide {
+        ion-card {
+          width: 70vw;
+          max-width: 70vw;
+          margin: 0 auto;
+          height: calc(100dvh - 95px);
+          max-height: calc(100dvh - 95px);
+        }
+      }
+    }
+  }
 }
