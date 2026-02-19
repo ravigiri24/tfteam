@@ -12,6 +12,7 @@ import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tr
 import { SyncTractorWithMaintaninanceComponent } from '../shared-components/sync-tractor-with-maintaninance/sync-tractor-with-maintaninance.component';
 import { CommonMethodService } from '../common-method.service';
 import { DeleteTractorComponent } from '../shared-components/delete-tractor/delete-tractor.component';
+import { ViewJobCardActivityLogComponent } from '../shared-components/view-job-card-activity-log/view-job-card-activity-log.component';
 @Component({
   selector: 'app-buffer-stock-tractors',
   templateUrl: './buffer-stock-tractors.component.html',
@@ -36,6 +37,20 @@ export class BufferStockTractorsComponent implements OnInit {
     this.getTractorList();
     this.filterBy = 'ALL';
   }
+      async openJobCardActiviyLog() {
+      const modal = await this.modalCtrl.create({
+        component: ViewJobCardActivityLogComponent,
+        componentProps: {
+  
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+      }
+    }
   async deleteTractor(tractor: any) {
     const modal = await this.modalCtrl.create({
       breakpoints: [0, 0.4, 1],

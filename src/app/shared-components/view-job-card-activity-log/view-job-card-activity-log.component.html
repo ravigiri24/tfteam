@@ -1,0 +1,29 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">Activity Log</div>
+      <div class="right_action">
+        <ion-buttons slot="end">
+          <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <div class="notification_container">
+    <ng-container *ngFor="let noti of noti_list">
+      <div class="notification_block">
+        <div class="notification_icon">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </div>
+        <div class="notification_text">
+          <span class="notification_title"><span
+              class="delete_color">{{noti?.title}}</span><small>{{noti?.timeOfNotification | date}}</small></span>
+          <div class="notification_desc">{{noti?.description}}</div>
+        </div>
+      </div>
+    </ng-container>
+    <app-no-data-view [ngClass]="listColorClass" class="full_width_norecord"  *ngIf="!noti_list?.length"></app-no-data-view>
+  </div>
+</ion-content>

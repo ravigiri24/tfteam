@@ -569,8 +569,8 @@ export class CreateComponent implements OnInit {
         this.createdJobDetails = res?.rowData
           let description =
             this.staffDetails?.name +
-            ' Generate New Job Card of '+obj.tfCode+ ' at ' +
-            'Repair Center';
+            'Generate new job card of '+obj.tfCode+ ' at ' +
+            'the repair center';
           this.api.genreteJobCardNotification(
             'New Job Card Punched',
             description,

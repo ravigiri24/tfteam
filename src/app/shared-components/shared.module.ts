@@ -78,6 +78,7 @@ import { OpenNotificationAlertComponent } from './open-notification-alert/open-n
 import { ViewRepairRecordComponent } from './view-repair-record/view-repair-record.component';
 import { SelectSalesHeadCloneStaffComponent } from '../user-management/select-sales-head-clone-staff/select-sales-head-clone-staff.component';
 import { ViewAllImagesTractorwiseComponent } from './view-all-images-tractorwise/view-all-images-tractorwise.component';
+import { ViewJobCardActivityLogComponent } from './view-job-card-activity-log/view-job-card-activity-log.component';
 
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -163,7 +164,8 @@ import { ViewAllImagesTractorwiseComponent } from './view-all-images-tractorwise
     ViewMaintainanceExpenseComponent,
     ViewRepairRecordComponent,
     SelectSalesHeadCloneStaffComponent,
-    ViewAllImagesTractorwiseComponent
+    ViewAllImagesTractorwiseComponent,
+    ViewJobCardActivityLogComponent
     
   ],
 
