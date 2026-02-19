@@ -28,14 +28,28 @@
         margin: 0;
         // height: calc(100dvh - 130px);
         max-height: calc(100dvh - 130px);
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scrollbar-gutter: stable;
         scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.45) rgba(0, 0, 0, 0.12);
         box-shadow: none !important;
         --box-shadow: none !important;
         --background: transparent;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.45);
+          border-radius: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.12);
+        }
       }
 
       .download_btn {
@@ -97,6 +111,7 @@ swiper-container::part(button-next) {
         ion-card {
           height: calc(100dvh - 115px);
           max-height: calc(100dvh - 115px);
+          overflow-y: scroll;
         }
       }
     }

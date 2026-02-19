@@ -1,6 +1,6 @@
 .top-position-list {
     position: relative;
-    top: 20px
+    top: 0;
 }
 
 .image-no-data {
@@ -16,6 +16,10 @@
 }
 
 .search_bar_row {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--ion-background-color, #fff);
     padding-bottom: 0px !important;
 }
 
