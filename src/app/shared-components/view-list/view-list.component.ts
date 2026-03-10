@@ -21,7 +21,9 @@ export class ViewListComponent implements OnInit {
   @Input() search: any;
   @Input() searchKey: any;
   @Input() showSearch: any = true;
+  @Input() allSearch: any = true;
   @Input() width: any = 60;
+  
   @Input() list: any = [];
   @Input() keyList: any = [];
   @Input() rowLineCount = 3;

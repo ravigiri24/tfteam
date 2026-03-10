@@ -16,6 +16,8 @@ import { TeamManagerComponent } from '../sales-head-department/team-manager/team
 import { SalesOfficerComponent } from '../sales-head-department/sales-officer/sales-officer.component';
 import { UnsoldTractorListComponent } from './unsold-tractor-list/unsold-tractor-list.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
+import { SpeceficUnsoldTractorListComponent } from './specefic-unsold-tractor-list/specefic-unsold-tractor-list.component';
+import { LastActivityComponent } from './last-activity/last-activity.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -28,12 +30,14 @@ const routes: Routes = [
          { path: 'master-sheet/:srcPage', component: MasterSheetsComponent},
          { path: 'sales-report/:srcPage', component: SalesReportComponent},
          { path: 'unsold-tractor-sheet/:srcPage', component: UnsoldTractorListComponent},
+         { path: 'unsold-tractor-sheet-specific/:srcPage', component: SpeceficUnsoldTractorListComponent},
          { path: 'work-sheet/:srcPage', component: PendingReportsComponent},
          { path: 'reports-tractor', component: ReportsTractorComponent},
          { path: 'user-management', component: UserManagementComponent},
          { path: 'tractor-costing', component: TractorCostingListComponent},
          { path: 'lead-mgmt-employee/:srcPage', component: LeadEmployeeMgmtComponent},
          { path: 'sales-manager-list/:srcPage', component: StoreManagementComponent},
+         { path: 'last-activity/:srcPage', component: LastActivityComponent},
       //   { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'sales-officer/:srcPage', component: SalesOfficerComponent},

@@ -42,6 +42,16 @@
 </div>
   <div class="col-md-6 col-6 block">
   <ion-card >
+    <img (click)="unsoldReportSpecific()" class="image-style" src="././assets/images/tractor_report.png" />
+    <ion-card-header >
+      <ion-card-title (click)="unsoldReportSpecific()" class="title-style">Unsold Spec</ion-card-title>
+      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
+    </ion-card-header>
+  
+  </ion-card>
+</div>
+  <div class="col-md-6 col-6 block">
+  <ion-card >
     <img (click)="salesReport()"  class="image-style" src="././assets/images/market-analysis.png" />
     <ion-card-header >
       <ion-card-title (click)="salesReport()" class="title-style">Sale Report</ion-card-title>
@@ -75,7 +85,7 @@
   <ion-card >
     <img (click)="TeamManagement()" class="image-style" src="././assets/images/partners.png" />
     <ion-card-header >
-      <ion-card-title (click)="TeamManagement()" class="title-style">Territory Manager</ion-card-title>
+      <ion-card-title (click)="TeamManagement()" class="title-style">Terr. Manager</ion-card-title>
       <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
     </ion-card-header>
   
@@ -93,7 +103,17 @@
   </ion-card>
   
 </div>
-
+ <div class="col-md-6 col-6 block">
+  <ion-card >
+    <img (click)="lastSeen()" class="image-style" src="././assets/images/clock.png" />
+    <ion-card-header >
+      <ion-card-title (click)="lastSeen()" class="title-style">Last Activity</ion-card-title>
+      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
+    </ion-card-header>
+  
+  </ion-card>
+  
+</div>
 <!-- <div class="col-md-6 col-6 block">
   <ion-card >
     <img class="image-style" src="././assets/images/close.jpg" />

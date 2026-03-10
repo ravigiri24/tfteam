@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Unsold Tractor list</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container">
+  <!-- <form *ngIf="form" [formGroup]="form">
+    <div class="row top-position-body">
+
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+  <div class="row">
+    <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
+  </div> -->
+  <ng-container *ngIf="tractorArray?.length && showData">
+    <hr />
+    <div class="margin-top">
+      <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
+    </div>
+    <div class="scroll" *ngIf="tractorArray?.length && showData" id="unsold-sheet-report_specific" class="top-margin scroll"
+      style="width: 100%;">
+      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+      <table cellpadding="5" cellspacing="5" style="width: 100%;">
+        <tbody>
+
+          <tr>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total
+              Tractor
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+
+          </tr>
+          <!-- <tr>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.startDate}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.endDate}}</td>
+
+          </tr> -->
+          <!-- <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr> -->
+
+
+        </tbody>
+      </table>
+      <h2 style="text-align: center;margin: 10px 0px;">Unsold Tractor Sheet</h2>
+      <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+        <tbody>
+          <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
+            </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+              Inventory
+              Code</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">INVENTORY LOCATION</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;">Tractor OEM</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Tractor
+              Model</th>
+         
+           
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;text-align: center;">Year of
+              Mfg
+            </th>
+         
+      
+     
+
+
+
+
+          </tr>
+          <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
+            style="border: 1px solid #e1e1e1;text-align: left">
+            <td style="text-align: center;">{{tracIndex+1}}</td>
+            <td style="text-align: center;">{{tractor?.registractionNo}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.franchiseDettails?.name}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.brandName}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.modalName}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.yearOfManufactoring}}</td>
+         
+        
+
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</ion-content>

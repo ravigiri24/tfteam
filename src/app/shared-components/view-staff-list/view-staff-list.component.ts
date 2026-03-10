@@ -32,7 +32,7 @@ export class ViewStaffListComponent  implements OnInit {
   }
 
   
-
+searchText:any
 showMore(index: number, keyValue: any) {
   this.showMoreDetails[index] = !this.showMoreDetails[index];
   // You can add animation logic here if needed

@@ -23,6 +23,9 @@ import { TeamManagerComponent } from '../sales-head-department/team-manager/team
 import { SalesOfficerComponent } from '../sales-head-department/sales-officer/sales-officer.component';
 import { UnsoldTractorListComponent } from './unsold-tractor-list/unsold-tractor-list.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
+import { SpeceficUnsoldTractorListComponent } from './specefic-unsold-tractor-list/specefic-unsold-tractor-list.component';
+import { LastActivityComponent } from './last-activity/last-activity.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -41,7 +44,9 @@ import { SalesReportComponent } from './sales-report/sales-report.component';
     TeamManagerComponent,
     SalesOfficerComponent,
     UnsoldTractorListComponent,
-    SalesReportComponent
+    SalesReportComponent,
+    SpeceficUnsoldTractorListComponent,
+    LastActivityComponent
   ],
   imports: [
    
@@ -51,7 +56,8 @@ import { SalesReportComponent } from './sales-report/sales-report.component';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    AdminRoutingModule 
+    AdminRoutingModule ,
+    DatePipe
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 })

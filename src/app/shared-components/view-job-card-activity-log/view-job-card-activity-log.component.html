@@ -19,7 +19,7 @@
         </div>
         <div class="notification_text">
           <span class="notification_title"><span
-              class="delete_color">{{noti?.title}}</span><small>{{noti?.timeOfNotification | date}}</small></span>
+              class="delete_color">{{noti?.title}}</span><small>{{noti?.createdOn | date:'dd MMM yyyy, HH:mm' }}</small></span>
           <div class="notification_desc">{{noti?.description}}</div>
         </div>
       </div>

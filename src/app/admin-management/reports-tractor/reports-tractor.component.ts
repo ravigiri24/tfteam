@@ -47,6 +47,9 @@ export class ReportsTractorComponent  implements OnInit {
     unsoldReport(){
     this.router.navigate(['/admin-block/unsold-tractor-sheet','/admin-block/reports-tractor'])
   }
+      unsoldReportSpecific(){
+    this.router.navigate(['/admin-block/unsold-tractor-sheet-specific','/admin-block/reports-tractor'])
+  }
     salesReport(){
     this.router.navigate(['/admin-block/sales-report','/admin-block/reports-tractor'])
   }
@@ -68,5 +71,8 @@ export class ReportsTractorComponent  implements OnInit {
   }
   goToSo(){
     this.router.navigate(['/admin-block/sales-officer','/admin-block/reports-tractor']);
+  }
+  lastSeen(){
+        this.router.navigate(['/admin-block/last-activity','/admin-block/reports-tractor']);
   }
 }

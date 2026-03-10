@@ -1,0 +1,34 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Sales Managers</span>
+      </div>
+      <div class="right_action">
+            <ion-icon class="theme-color-second icon-size" (click)="addStaff()" expand="block" 
+          name="add-circle-outline"></ion-icon>
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header> -->
+<app-common-header
+
+ 
+  class="app_common_header"
+  [isListFilter]="false"
+
+  [listColorClass]="listColorClass"
+  [title]="'Staff Activity'"
+
+  [list]="staffList"
+  [showWareHouse]="false"
+  [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)"
+></app-common-header>
+<ion-content>
+  
+       <app-view-staff-list *ngIf="staffList?.length"   [keyList]="keyList" (actionEventCall)="actionEventCall($event)" [buttonArray]="buttonArray" [listColorClass]="listColorClass" [list]="staffList"></app-view-staff-list>  
+    <app-no-data-view  [ngClass]="listColorClass"   *ngIf="!staffList?.length && !share?.globalLoading"></app-no-data-view>
+  </ion-content>

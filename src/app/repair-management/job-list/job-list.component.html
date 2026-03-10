@@ -38,5 +38,5 @@
       </div>
     </ion-item>
   </ion-list> -->
-         <app-view-list *ngIf="jobList?.length" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="jobList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'tfCode'"></app-view-list>
+         <app-view-list *ngIf="jobList?.length" [allSearch]="false" [listColorClass]="listColorClass" [buttonArray]="buttonArray" [keyList]="keyList" [list]="jobList" [search]="search" (actionEventCall)="actionEventCall($event)" [searchKey]="'tfCode'"></app-view-list>
 </ion-content>
