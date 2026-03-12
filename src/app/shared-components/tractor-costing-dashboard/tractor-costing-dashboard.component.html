@@ -102,7 +102,7 @@
               <ion-col class="amount_col">₹ {{ sellingPrice }}</ion-col>
             </ion-row>
             <ion-row
-              *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost+ rtoCost +insuranceCost ) <= sellingPrice) && tractorDetails?.sellingDetailedId">
+              *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost+ rtoCost +insuranceCost ) <= sellingPrice) && (tractorDetails?.sellingDetailedId || tractorDetails?.isSoldToDealer) ">
               <ion-col>Profit</ion-col>
               <ion-col class="amount_col">₹ {{ sellingPrice
                 -(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost +
@@ -110,7 +110,7 @@
                 }}</ion-col>
             </ion-row>
             <ion-row
-              *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost+ rtoCost +insuranceCost ) > sellingPrice) && tractorDetails?.sellingDetailedId">
+              *ngIf="((purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost+ rtoCost +insuranceCost ) > sellingPrice) && (tractorDetails?.sellingDetailedId || tractorDetails?.isSoldToDealer)">
               <ion-col>Loss</ion-col>
               <ion-col class="amount_col">₹ {{(purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
                 +insuranceCost )-

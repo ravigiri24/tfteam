@@ -424,6 +424,11 @@ setTimeout(() => {
       action: 'tractorSummary',
       image: './././assets/images/data-analysis.png',
     },
+        {
+      name: 'Tractor NDP',
+      action: 'tractorNDP',
+      image: './././assets/images/rupee-sign.png',
+    },
        {
       name: 'View Tractor All Images',
       action: 'viewTractorAllImage',

@@ -40,6 +40,7 @@ import { RequestApproveFormComponent } from './sales-officer-depart/tractor-list
 import { ViewMaintainanceExpenseComponent } from './shared-components/view-maintainance-expense/view-maintainance-expense.component';
 import { ViewRepairRecordComponent } from './shared-components/view-repair-record/view-repair-record.component';
 import { ViewAllImagesTractorwiseComponent } from './shared-components/view-all-images-tractorwise/view-all-images-tractorwise.component';
+import { ViewNdpSellPriceComponent } from './shared-components/view-ndp-sell-price/view-ndp-sell-price.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -118,7 +119,12 @@ export class CommonMethodService {
       this.syncManitainance(e?.tractor);
     } else if (e?.button?.name == 'Tractor Summary') {
       this.tractorSummaryDetails(e?.tractor);
-    } else if (e?.button?.name == 'Delete Tractor') {
+    }
+     else if (e?.button?.name == 'Tractor NDP') {
+      this.tractorNDP(e?.tractor);
+    }
+    
+     else if (e?.button?.name == 'Delete Tractor') {
       await this.deleteTractor(e);
     }
     if (e?.button?.name == 'Tractor Price') {
@@ -213,6 +219,19 @@ this.getTractorAllImages(e?.tractor)
   async tractorSummaryDetails(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: TractorCostingDashboardComponent,
+      componentProps: {
+        tractor_id: tractor?.id,
+      },
+      cssClass: 'midium-model',
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+  }
+    async tractorNDP(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ViewNdpSellPriceComponent,
       componentProps: {
         tractor_id: tractor?.id,
       },
