@@ -28,7 +28,6 @@
   position: relative;
   top: 10px;
   height: calc(100% - 45px);
-  overflow-y: scroll;
 }
 
 .tab_main_block {
@@ -125,168 +124,273 @@
     }
   }
 }
-  .main_block_details {
-    padding: 10px;
-    z-index: 2;
-    // background: #d1d1d1;
-    background: #ffffff;
-    border-radius: 5px;
-    position: relative;
 
-    .section_col {
-      overflow: visible !important;
+.chips_container {
+  .chips_block {
+    ion-label {
+      color: #333333;
+    }
+  }
+}
 
-      .image_block {
-        width: 100px;
-        height: 100px;
-        margin: 10px auto 20px auto;
-        border-radius: 10px;
-        display: flex;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
+.ndp-tag-section {
+  margin-top: 12px;
+}
 
-        img {
-          width: 100%;
-          max-height: 100%;
-        }
+.ndp-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
 
+.ndp-tag-chip {
+  --background: linear-gradient(135deg, #fce4ff 0%, #e0f2ff 100%);
+  --color: #1f2937;
+  --padding-start: 10px;
+  --padding-end: 8px;
+  border-radius: 999px !important;
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  box-shadow: 0 10px 18px rgba(37, 99, 235, 0.15);
+  animation: ndpTagPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--ndp-tag-delay, 0) * 0.08s);
+  position: relative;
+  overflow: hidden;
 
+  .ndp-tag-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1.25;
+  }
+
+  .ndp-tag-pin {
+    margin-right: 4px;
+    color: #2563eb;
+    font-size: 14px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.45) 0 20%, transparent 21%);
+    pointer-events: none;
+    transform: translateX(-130%);
+    transition: transform 0.28s ease;
+  }
+
+  &:hover::after {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes ndpTagPop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ndp-tag-chip {
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.ndp-tag-chip:hover,
+.ndp-tag-chip:focus-within,
+.ndp-tag-chip:active {
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  box-shadow: 0 12px 20px rgba(37, 99, 235, 0.25) !important;
+  --background: linear-gradient(135deg, #cbe7ff 0%, #f5d4ff 100%) !important;
+}
+
+.ndp-tag-chip .ndp-tag-clear {
+  opacity: 0.75;
+  transition: transform 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+
+.ndp-tag-chip:hover .ndp-tag-clear,
+.ndp-tag-chip:focus-within .ndp-tag-clear,
+.ndp-tag-chip:active .ndp-tag-clear {
+  transform: scale(1.15);
+  color: #e11d48;
+  opacity: 1;
+}
+
+.main_block_details {
+  padding: 10px;
+  z-index: 2;
+  // background: #d1d1d1;
+  background: #ffffff;
+  border-radius: 5px;
+  position: relative;
+
+  .section_col {
+    overflow: visible !important;
+
+    .image_block {
+      width: 100px;
+      height: 100px;
+      margin: 10px auto 20px auto;
+      border-radius: 10px;
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+
+      img {
+        width: 100%;
+        max-height: 100%;
       }
 
-      .camera-icon-container {
+
+    }
+
+    .camera-icon-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      // background-color: white;
+      border-radius: 50%;
+      display: flex;
+      z-index: 10;
+      cursor: pointer;
+      width: 45px;
+      height: 45px;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        font-size: 24px;
+      }
+
+      .camera-counter {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        // background-color: white;
+        top: -6px;
+        right: -6px;
+        color: white;
+        font-size: 12px;
         border-radius: 50%;
+        padding: 2px 5px;
+        width: 24px;
+        height: 24px;
+        font-weight: bold;
+        text-align: center;
         display: flex;
-        z-index: 10;
-        cursor: pointer;
-        width: 45px;
-        height: 45px;
         justify-content: center;
         align-items: center;
-
-        ion-icon {
-          font-size: 24px;
-        }
-
-        .camera-counter {
-          position: absolute;
-          top: -6px;
-          right: -6px;
-          color: white;
-          font-size: 12px;
-          border-radius: 50%;
-          padding: 2px 5px;
-          width: 24px;
-          height: 24px;
-          font-weight: bold;
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-
-      .global_image_upload_card {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-flow: column;
-        overflow: visible !important;
-        padding: 10px;
-        border: dashed 1px;
-
-        .title {
-          font-size: 12px;
-          display: inline-block;
-          width: 100%;
-          padding: 0px;
-          text-align: center;
-          text-align: center;
-          text-transform: uppercase;
-          letter-spacing: .5px;
-        }
-      }
-
-      .middle_border {
-        height: 45px;
-        width: 2px;
-        margin: 0px auto;
-        display: inline-block;
-        // background: var(--app-dynamic-color-second);
-        position: absolute;
-        left: calc(50% - 1px);
-        bottom: 50px;
-        border: dashed 1px;
       }
     }
 
-    // .camera-icon-container {
-    //   position: absolute;
-    //   top: 10px;
-    //   right: 10px;
-    //   background-color: white;
-    //   border-radius: 50%;
-    //   padding: 8px;
-    //   z-index: 10;
-    //   cursor: pointer;
-
-    //   ion-icon {
-    //     font-size: 24px;
-    //   }
-
-    //   .camera-counter {
-    //     position: absolute;
-    //     top: -6px;
-    //     right: -6px;
-    //     color: white;
-    //     font-size: 12px;
-    //     border-radius: 50%;
-    //     padding: 2px 5px;
-    //     width: 24px;
-    //     height: 24px;
-    //     font-weight: bold;
-    //     text-align: center;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //   }
-    // }
-
-    ion-card {
-      margin: 0px 0px 15px 0px !important;
-      padding: 10px 10px 0px 10px;
-      // --background: linear-gradient(to right, #ffd2d5, #c3a1e1);
-      // background-image: url(../../../assets/images/card-bg.svg);
-      // background-position: right top 76%;
+    .global_image_upload_card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: column;
+      overflow: visible !important;
+      padding: 10px;
       border: dashed 1px;
 
-      ion-row {
-        display: flex;
-        justify-content: space-between;
-        margin: 0px 0px 8px 0px;
-        font-size: 13px;
+      .title {
+        font-size: 12px;
+        display: inline-block;
+        width: 100%;
+        padding: 0px;
+        text-align: center;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+      }
+    }
 
-        ion-col {
-          padding: 0px;
-        }
+    .middle_border {
+      height: 45px;
+      width: 2px;
+      margin: 0px auto;
+      display: inline-block;
+      // background: var(--app-dynamic-color-second);
+      position: absolute;
+      left: calc(50% - 1px);
+      bottom: 50px;
+      border: dashed 1px;
+    }
+  }
 
-        .amount_col {
-          text-align: right;
-          border-left: dashed 1px;
-          color: #1a1a1a;
-        }
+  // .camera-icon-container {
+  //   position: absolute;
+  //   top: 10px;
+  //   right: 10px;
+  //   background-color: white;
+  //   border-radius: 50%;
+  //   padding: 8px;
+  //   z-index: 10;
+  //   cursor: pointer;
+
+  //   ion-icon {
+  //     font-size: 24px;
+  //   }
+
+  //   .camera-counter {
+  //     position: absolute;
+  //     top: -6px;
+  //     right: -6px;
+  //     color: white;
+  //     font-size: 12px;
+  //     border-radius: 50%;
+  //     padding: 2px 5px;
+  //     width: 24px;
+  //     height: 24px;
+  //     font-weight: bold;
+  //     text-align: center;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //   }
+  // }
+
+  ion-card {
+    margin: 0px 0px 15px 0px !important;
+    padding: 10px 10px 0px 10px;
+    // --background: linear-gradient(to right, #ffd2d5, #c3a1e1);
+    // background-image: url(../../../assets/images/card-bg.svg);
+    // background-position: right top 76%;
+    border: dashed 1px;
+
+    ion-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 0px 0px 8px 0px;
+      font-size: 13px;
+
+      ion-col {
+        padding: 0px;
+      }
+
+      .amount_col {
+        text-align: right;
+        border-left: dashed 1px;
+        color: #1a1a1a;
       }
     }
   }
-  .main_card_block {
+}
+
+.main_card_block {
   ion-card-content {
     background-color: #f5f5ff;
+    min-height: calc(100vh - 100px);
   }
 
   .right-margine {
@@ -415,4 +519,69 @@
       }
     }
   }
+}
+
+/* Forcefully consistent hover/focus/active visuals for tags */
+.ndp-tag-cloud .ndp-tag-pill {
+  all: unset;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 7px 11px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #fce4ff 0%, #e0f2ff 100%) !important;
+  border: 1px solid rgba(37, 99, 235, 0.28) !important;
+  border-left: 4px solid #2563eb !important;
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.18) !important;
+  color: #1f2937 !important;
+  min-height: 30px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease !important;
+  animation: ndpTagPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  animation-delay: calc(var(--ndp-tag-delay, 0) * 0.08s) !important;
+}
+
+.ndp-tag-cloud .ndp-tag-pill:hover,
+.ndp-tag-cloud .ndp-tag-pill:focus-visible,
+.ndp-tag-cloud .ndp-tag-pill:focus-within,
+.ndp-tag-cloud .ndp-tag-pill:active {
+  transform: translateY(-2px) scale(1.03) !important;
+  background: linear-gradient(135deg, #dff0ff 0%, #f7d8ff 100%) !important;
+  border-color: rgba(37, 99, 235, 0.65) !important;
+  box-shadow: 0 14px 22px rgba(37, 99, 235, 0.3) !important;
+}
+
+.ndp-tag-cloud .ndp-tag-label {
+  display: inline-block !important;
+  max-width: 24ch !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+
+.ndp-tag-cloud .ndp-tag-clear {
+  width: 20px !important;
+  height: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 2px !important;
+  border-radius: 50% !important;
+  color: #64748b !important;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease !important;
+}
+
+.ndp-tag-cloud .ndp-tag-clear:hover,
+.ndp-tag-cloud .ndp-tag-clear:focus-visible {
+  transform: rotate(90deg) !important;
+  color: #dc2626 !important;
+  background: rgba(220, 38, 38, 0.14) !important;
+}
+
+.ndp-tag-cloud .ndp-tag-pill:hover::after {
+  transform: translateX(0) !important;
 }

@@ -11,7 +11,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="main_card_block">
-      <div class="flex_block_container">
+  <ion-card-content [ngClass]="listColorClass" *ngIf="tractorDetails">
+    <div class="flex_block_container">
       <div class="right_details_block">
         <ion-card-title><span class="dynamic_color">{{tractorDetails?.name}}</span></ion-card-title>
         <ion-card-subtitle>
@@ -32,33 +33,50 @@
         </span>
       </div>
     </div>
-          <ng-container >
-        <ion-grid class="main_block_details">
-          <ion-card>
-           
-            <ion-row>
-              <ion-col>Total</ion-col>
-              <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
-                +insuranceCost}}</ion-col>
-            </ion-row>
-               <ion-row>
-              <ion-col>NDP</ion-col>
-              <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
-                +insuranceCost+30000}}</ion-col>
-            </ion-row>
-                 <ion-row>
-              <ion-col>Selling Price</ion-col>
-              <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
-                +insuranceCost+30000+30000}}</ion-col>
-            </ion-row>
-          </ion-card>
-          </ion-grid>
-          </ng-container>
-          <ion-content>
-<ng-container *ngFor="let tag of tagsArray">
-  <ion-chip>
-    <ion-label>{{tag?.tag}}</ion-label>
-  </ion-chip>
-</ng-container>
+    <div class="tab_withinner_block">
+      <ion-grid class="main_block_details">
+        <ion-card>
 
-  </ion-content>
+          <ion-row>
+            <ion-col>Total</ion-col>
+            <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
+              +insuranceCost}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>NDP</ion-col>
+            <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
+              +insuranceCost+30000}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Selling Price</ion-col>
+            <ion-col class="amount_col">₹ {{ purchaseCost+logisticCost+maintainanaceCost+otherExpenseCost + rtoCost
+              +insuranceCost+30000+30000}}</ion-col>
+          </ion-row>
+        </ion-card>
+        <div class="ndp-tag-section">
+          <div class="ndp-tag-cloud">
+            <button
+              class="ndp-tag-chip ndp-tag-pill"
+              type="button"
+              *ngFor="let tag of tagsArray; let i = index"
+              [style.--ndp-tag-delay]="i"
+              title="{{tag?.tag}}"
+            >
+              <ion-icon class="ndp-tag-pin" name="pricetag-outline"></ion-icon>
+              <span class="ndp-tag-label">{{ tag?.tag }}</span>
+              <span
+                class="ndp-tag-clear"
+                (click)="removeNdpTag(i, $event)"
+                aria-label="Clear tag"
+                role="button"
+                tabindex="-1"
+              >
+                <ion-icon name="close-circle"></ion-icon>
+              </span>
+            </button>
+          </div>
+        </div>
+      </ion-grid>
+    </div>
+  </ion-card-content>
+</ion-content>

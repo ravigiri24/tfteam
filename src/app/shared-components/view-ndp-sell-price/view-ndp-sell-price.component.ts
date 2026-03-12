@@ -629,6 +629,12 @@ export class ViewNdpSellPriceComponent  implements OnInit {
   allExpenses: any = 0;
   purchaseAndAllExpenseCost: any = 0;
   sellPrice: any = 0;
+  removeNdpTag(index: number, event: Event): void {
+    event.stopPropagation();
+    if (index > -1 && index < (this.tagsArray?.length || 0)) {
+      this.tagsArray.splice(index, 1);
+    }
+  }
 
   addStatusTransport() {
     this.showModal(this.tractorDetails?.id);
