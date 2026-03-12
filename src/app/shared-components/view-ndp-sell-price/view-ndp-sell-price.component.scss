@@ -214,19 +214,6 @@
   --background: linear-gradient(135deg, #cbe7ff 0%, #f5d4ff 100%) !important;
 }
 
-.ndp-tag-chip .ndp-tag-clear {
-  opacity: 0.75;
-  transition: transform 0.25s ease, color 0.25s ease, opacity 0.25s ease;
-}
-
-.ndp-tag-chip:hover .ndp-tag-clear,
-.ndp-tag-chip:focus-within .ndp-tag-clear,
-.ndp-tag-chip:active .ndp-tag-clear {
-  transform: scale(1.15);
-  color: #e11d48;
-  opacity: 1;
-}
-
 .main_block_details {
   padding: 10px;
   z-index: 2;
@@ -526,8 +513,8 @@
   all: unset;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 6px !important;
-  padding: 7px 11px !important;
+  gap: 5px !important;
+  padding: 0px 10px !important;
   border-radius: 999px !important;
   background: linear-gradient(135deg, #fce4ff 0%, #e0f2ff 100%) !important;
   border: 1px solid rgba(37, 99, 235, 0.28) !important;
@@ -535,11 +522,11 @@
   box-shadow: 0 8px 16px rgba(37, 99, 235, 0.18) !important;
   color: #1f2937 !important;
   min-height: 30px !important;
-  cursor: pointer !important;
   position: relative !important;
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease !important;
   animation: ndpTagPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
   animation-delay: calc(var(--ndp-tag-delay, 0) * 0.08s) !important;
+  overflow: hidden;
 }
 
 .ndp-tag-cloud .ndp-tag-pill:hover,
@@ -554,32 +541,12 @@
 
 .ndp-tag-cloud .ndp-tag-label {
   display: inline-block !important;
-  max-width: 24ch !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   font-size: 12px !important;
   font-weight: 600 !important;
   line-height: 1.2 !important;
-}
-
-.ndp-tag-cloud .ndp-tag-clear {
-  width: 20px !important;
-  height: 20px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin-left: 2px !important;
-  border-radius: 50% !important;
-  color: #64748b !important;
-  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease !important;
-}
-
-.ndp-tag-cloud .ndp-tag-clear:hover,
-.ndp-tag-cloud .ndp-tag-clear:focus-visible {
-  transform: rotate(90deg) !important;
-  color: #dc2626 !important;
-  background: rgba(220, 38, 38, 0.14) !important;
 }
 
 .ndp-tag-cloud .ndp-tag-pill:hover::after {
