@@ -60,7 +60,6 @@
               type="button"
               *ngFor="let tag of tagsArray; let i = index"
               [style.--ndp-tag-delay]="i"
-              title="{{tag?.tag}}"
             >
               <ion-icon class="ndp-tag-pin" name="pricetag-outline"></ion-icon>
               <span class="ndp-tag-label">{{ tag?.tag }}</span>
