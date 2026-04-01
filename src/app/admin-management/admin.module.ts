@@ -26,6 +26,8 @@ import { SalesReportComponent } from './sales-report/sales-report.component';
 import { SpeceficUnsoldTractorListComponent } from './specefic-unsold-tractor-list/specefic-unsold-tractor-list.component';
 import { LastActivityComponent } from './last-activity/last-activity.component';
 import { DatePipe } from '@angular/common';
+import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.component';
+import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -46,7 +48,9 @@ import { DatePipe } from '@angular/common';
     UnsoldTractorListComponent,
     SalesReportComponent,
     SpeceficUnsoldTractorListComponent,
-    LastActivityComponent
+    LastActivityComponent,
+    SalesAnalysisComponent,
+    BufferStockListComponent
   ],
   imports: [
    

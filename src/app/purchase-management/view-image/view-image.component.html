@@ -1,0 +1,32 @@
+<ion-header [ngClass]="listColorClass">
+   <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">View All Image</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+<div class="top-position" [ngClass]="listColorClass">
+  <div class="global-inner-heading dynamic_color">
+    <span>All Images</span>
+    <ion-icon (click)="viewImage()"   class="dynamic_color icon-size-add"
+      name="add-circle-outline"></ion-icon>
+  </div>
+  <div class="dynamic_block" *ngIf="allImages?.length">
+    <div class="main_card_block" *ngFor="let photo of allImages; index as position">
+      <ion-card>
+        <img class="image_upload_card" (click)="viewInSlider(photo,allImages)" [src]="photo?.imageUrlUrl" />
+      </ion-card>
+    </div>
+  </div>
+  <div class="dynamic_block no_found_dynamic_block" *ngIf="!allImages?.length">
+    <app-no-data-view class="image_record_minwidth" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  
+</div>
+</ion-content>

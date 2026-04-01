@@ -80,6 +80,8 @@ import { SelectSalesHeadCloneStaffComponent } from '../user-management/select-sa
 import { ViewAllImagesTractorwiseComponent } from './view-all-images-tractorwise/view-all-images-tractorwise.component';
 import { ViewJobCardActivityLogComponent } from './view-job-card-activity-log/view-job-card-activity-log.component';
 import { ViewNdpSellPriceComponent } from './view-ndp-sell-price/view-ndp-sell-price.component';
+import { ViewImageComponent } from '../purchase-management/view-image/view-image.component';
+import { ViewNewFindingDealComponent } from './view-new-finding-deal/view-new-finding-deal.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -166,7 +168,9 @@ import { ViewNdpSellPriceComponent } from './view-ndp-sell-price/view-ndp-sell-p
     SelectSalesHeadCloneStaffComponent,
     ViewAllImagesTractorwiseComponent,
     ViewJobCardActivityLogComponent,
-    ViewNdpSellPriceComponent
+    ViewNdpSellPriceComponent,
+    ViewImageComponent,
+    ViewNewFindingDealComponent
     
   ],
 

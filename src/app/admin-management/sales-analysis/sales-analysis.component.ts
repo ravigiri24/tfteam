@@ -15,89 +15,88 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-  selector: 'app-master-sheets',
-  templateUrl: './master-sheets.component.html',
-  styleUrls: ['./master-sheets.component.scss'],
+  selector: 'app-sales-analysis',
+  templateUrl: './sales-analysis.component.html',
+  styleUrls: ['./sales-analysis.component.scss'],
 })
-export class MasterSheetsComponent implements OnInit {
-  constructor(
-    public modalCtrl: ModalController,
-    private formBuilder: FormBuilder,
-    private share: ShareService,
-    private api: ApiService,
-    private inAppBrowser: InAppBrowser,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {
-    (window as any).pdfMake.vfs = pdfMake.vfs;
-    pdfMake.fonts = {
-      Roboto: {
-        normal:
-          'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
-        bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
-        italics:
-          'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
-        bolditalics:
-          'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf',
-      },
-    };
-  }
-  initialize() {
-    this.form = this.formBuilder.group({
-      startDate: new FormControl(null, [Validators.required]),
-      endDate: new FormControl(null, [Validators.required]),
-    });
-    console.log('this.dateForm', this.form.value);
-  }
-  form: FormGroup;
-  dismiss() {
-    return this.modalCtrl.dismiss(null);
-  }
-  generateExcel() {
-    // Get the HTML content of the div you want to export
-    const element = document.getElementById('master-sheet-report');
+export class SalesAnalysisComponent  implements OnInit {
 
-    // Create a worksheet from the table
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-    // Create a new workbook with the generated worksheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    // Write the workbook as a binary string
-    const wbout: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-
-    // Create a Blob object from the binary data
-    const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' });
-
-    // Create a link to trigger the download
-    // const link = document.createElement('a');
-    //    link.href = URL.createObjectURL(blob);
-    //  link.download = 'generated_file.xlsx'; // Name of the file to be downloaded
-    this.convertBlobToBase64(blob, 'xlsx');
-    // Trigger the link click to download the file
-    // link.click();
-  }
+   constructor(
+     public modalCtrl: ModalController,
+     private formBuilder: FormBuilder,
+     private share: ShareService,
+     private api: ApiService,
+     private inAppBrowser: InAppBrowser,
+     private router: Router,
+     private activatedRoute: ActivatedRoute
+   ) {
+     (window as any).pdfMake.vfs = pdfMake.vfs;
+     pdfMake.fonts = {
+       Roboto: {
+         normal:
+           'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+         bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
+         italics:
+           'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
+         bolditalics:
+           'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf',
+       },
+     };
+   }
+     form: FormGroup;
+  ngOnInit() {}
+    initialize() {
+      this.form = this.formBuilder.group({
+        startDate: new FormControl(null, [Validators.required]),
+        endDate: new FormControl(null, [Validators.required]),
+      });
+      console.log('this.dateForm', this.form.value);
+    }
   srcPage: any;
+  staffDetails: any;
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
     if (this.form) {
       this.form.reset();
     }
-    this.allDetails=null
-    this.tractorArray=[]
-    this.showData=false
-    this.getLogisticExpense();
+  
     this.activatedRoute.params.subscribe((params: any) => {
       this.srcPage = params?.srcPage;
     });
+       this.getLogisticExpense();
     this.initialize();
   }
-  allDetails: any;
-  tractorArray: any;
+    getLogisticExpense() {
+    let obj: any = this.share.getListObj('expensetype', false, [], true);
+
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        console.log("logisticExpenseTypeList",res.data);
+        
+        this.logisticExpenseTypeList = res.data;
+        if(this.logisticExpenseTypeList?.length){
+          let findIndex=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==4)
+          let findIndex1=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==5)
+          this.swap(this.logisticExpenseTypeList, findIndex, findIndex1);
+
+        }
+      },
+      (error: any) => {}
+    );
+  }
+   swap(arr: any[], i: number, j: number): void {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+}
+
+  genrateReport(){
+this.getSalesReport()
+  }
   showData=false
-  genrateReport() {
+  reportDatesRecord:any
+  allDetails:any
+  tractorArray:any=[]
+  getSalesReport(){
     this.showData=false
     if (this.form.valid) {
       if (
@@ -116,7 +115,7 @@ export class MasterSheetsComponent implements OnInit {
 
         this.share.showLoading('Fetching Report...');
         this.reportDatesRecord = obj;
-        this.api.postapi('getTractorSheetByDate', obj).subscribe(
+        this.api.postapi('getSalesReportByDate', obj).subscribe(
           (res: any) => {
             this.allDetails = res?.data;
              this.allDetails.spareList= this.allDetails.spareList.reverse()
@@ -157,7 +156,6 @@ export class MasterSheetsComponent implements OnInit {
                 tractor.totalAmountBreakup=totalAmountBreakup
                 //need to call at last for all calculation
                 this.calculateRepairCost(tractor)
-
             });
             // this.createReport();
             console.log("tractorArray",this.tractorArray);
@@ -175,9 +173,9 @@ export class MasterSheetsComponent implements OnInit {
     } else {
       this.share.presentToast('Error:Please Fill Required(*) Fields');
     }
+
   }
-  totalSellingCost:any=0
-  calculateRepairCost(tractor:any){
+    calculateRepairCost(tractor:any){
     //service 
         let expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
           (f: any) => f?.expense_head == 'EXPENSE'
@@ -286,82 +284,11 @@ if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
 
 //tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
 tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+37000
-
 this.totalSellingCost=this.totalSellingCost+Number(tractor.gm)
   }
- swap(arr: any[], i: number, j: number): void {
-  [arr[i], arr[j]] = [arr[j], arr[i]];
-}
-  logisticExpenseTypeList: any = [];
-  getLogisticExpense() {
-    let obj: any = this.share.getListObj('expensetype', false, [], true);
-
-    this.api.postapi('getList', obj).subscribe(
-      (res: any) => {
-        console.log("logisticExpenseTypeList",res.data);
-        
-        this.logisticExpenseTypeList = res.data;
-        if(this.logisticExpenseTypeList?.length){
-          let findIndex=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==4)
-          let findIndex1=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==5)
-          this.swap(this.logisticExpenseTypeList, findIndex, findIndex1);
-
-        }
-      },
-      (error: any) => {}
-    );
-  }
-  ngOnInit() {}
-  private convertBlobToBase64 = (blob: Blob, extension: any) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = reject;
-      reader.onload = () => {
-        resolve(reader.result);
-
-        this.renderResult = reader.result;
-        this.saveDataTo(extension);
-        console.log('reader.result', reader.result);
-      };
-      reader.readAsDataURL(blob);
-    });
-  staffDetails: any;
-  renderResult: any;
-  reportDatesRecord: any;
-  printData: any;
-  backToDashboard() {
+  totalSellingCost:any=0
+    logisticExpenseTypeList: any = [];
+    backToDashboard() {
     this.router.navigate([this.srcPage]);
-  }
-  saveDataTo(extension: any) {
-    let staffDetails: any = this.share.get_staff();
-    this.staffDetails = JSON.parse(staffDetails);
-
-    let obj = {
-      operate: this.staffDetails?.staffCode,
-      pdfObj: this.renderResult,
-
-      actionByid: this.staffDetails?.id,
-      report_type: 'MASTER_SHEET',
-      extension: extension,
-      reparing_center: this.staffDetails?.repair_center,
-      startDate: this.reportDatesRecord?.startDate,
-      endDate: this.reportDatesRecord?.endDate,
-    };
-    console.log('convertBlobToBase64', obj);
-this.share.showLoading("Generating Excel",20000)
-    this.api.postapi('savemastersheet', obj).subscribe((res: any) => {
-      console.log('saveDataTo', res);
-      this.share.spinner.dismiss();
-      if (res?.data?.imageUrlUrl) {
-        this.pdfUrl = res?.data?.imageUrlUrl;
-        this.openPDF(res?.data?.imageUrlUrl);
-      }
-    });
-  }
-  pdfUrl: any;
-  openPDF(dataUrl: string) {
-    const browser = this.inAppBrowser.create(dataUrl, '_blank');
-    // this.error = dataUrl;
-    browser.show();
   }
 }

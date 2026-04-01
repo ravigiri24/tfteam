@@ -26,6 +26,13 @@
       <ion-icon *ngIf="selectedTab==='Inventory-list'" class="theme-color" name="list"></ion-icon>
       Inventory
     </ion-tab-button> -->
+         <ion-tab-button tab="Inventory" (click)="goToPage('New-findings')" [class.active]="selectedTab === 'New-findings'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'New-findings'">
+        <ion-icon name="file-tray-full-outline" *ngIf="selectedTab !== 'New-findings'"></ion-icon>
+        <ion-icon name="file-tray-full" *ngIf="selectedTab === 'New-findings'"></ion-icon>
+      </div>
+      <span class="inner_text">Finding</span>
+    </ion-tab-button>
      <ion-tab-button tab="Inventory" (click)="goToPage('Inventory-list')" [class.active]="selectedTab === 'Inventory-list'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'Inventory-list'">
         <ion-icon name="list-outline" *ngIf="selectedTab !== 'Inventory-list'"></ion-icon>

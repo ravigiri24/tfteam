@@ -26,7 +26,7 @@
             <ion-icon name="camera-reverse-outline"></ion-icon>
             <span class="camera-counter">{{ tractor?.imageslength }}</span>
           </div> -->
-          <div class="camera-icon-container" (click)="triggerOverlayAnimation(i,tractor)">
+          <div *ngIf="showImage" class="camera-icon-container" (click)="triggerOverlayAnimation(i,tractor)">
             <ion-icon name="camera-outline"></ion-icon>
             <span class="camera-counter">{{ tractor?.imageslength }}</span>
           </div>
@@ -185,7 +185,7 @@
             <ion-icon name="camera-reverse-outline"></ion-icon>
             <span class="camera-counter">{{ tractor?.imageslength }}</span>
           </div> -->
-          <div class="camera-icon-container" (click)="triggerOverlayAnimation(i,tractor)">
+          <div class="camera-icon-container" *ngIf="showImage" (click)="triggerOverlayAnimation(i,tractor)">
             <ion-icon name="camera-outline"></ion-icon>
             <span class="camera-counter">{{ tractor?.imageslength }}</span>
           </div>

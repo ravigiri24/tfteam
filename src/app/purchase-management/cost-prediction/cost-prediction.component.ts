@@ -248,6 +248,9 @@ setTimeout(() => {
       (error: any) => {}
     );
   }
+    dismiss() {
+    this.modalCntrol.dismiss();
+  }
   modelList: any = [];
   modelListAll: any = [];
   getModelList() {

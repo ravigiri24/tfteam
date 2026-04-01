@@ -8,29 +8,45 @@
     </ion-label> 
   
   </div>
-  
+      <ion-buttons slot="end">
+      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
  
   </ion-toolbar>     
 </ion-header>
 <ion-content *ngIf="form" class="ion-padding">
   <form [formGroup]="form">
-<ion-item class="bottom-margin">
+<!-- <ion-item class="bottom-margin">
   <ion-select   (ionChange)="getModelsbyBrand()"      formControlName="brand_id" label="Select Brand" label-placement="type">
     <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
 
   
 
   </ion-select>
-</ion-item>
-<ion-item class="bottom-margin">
+</ion-item> -->
+   <div class="global_input_block">
+      <ion-select (ionChange)="getModelsbyBrand()"  formControlName="brand_id" labelPlacement="stacked" fill="outline" label="Select Brand"
+        label-placement="stacked">
+        <ion-select-option *ngFor="let brand of brandList" [value]="brand.id"> {{ brand?.name }}</ion-select-option>
+      </ion-select>
+      
+    </div>
+         <div class="global_input_block select_option_with_add">
+      <ion-select  (ionChange)="resetPrice()"  formControlName="model_id" labelPlacement="stacked" fill="outline" label="Select Modal"
+        label-placement="stacked">
+        <ion-select-option *ngFor="let model of modelList" [value]="model.id"> {{ model?.name }}</ion-select-option>
+      </ion-select>
+      
+    </div>
+<!-- <ion-item class="bottom-margin">
   <ion-select   (ionChange)="resetPrice()"    formControlName="model_id" label="Select Model" label-placement="type">
     <ion-select-option *ngFor="let model of modelList"  [value]="model?.id">{{model?.name}} </ion-select-option>
  
   
 
   </ion-select>
-</ion-item>
-<ion-item class="bottom-margin">
+</ion-item> -->
+<!-- <ion-item class="bottom-margin">
   <ion-input
     label="Current Price"
     labelPlacement="stacked"
@@ -38,8 +54,17 @@
  
   formControlName="current_price"
   ></ion-input>
-</ion-item>
-<ion-item class="bottom-margin">
+</ion-item> -->
+      <div class="global_input_block">
+      <ion-input label="Current Price" fill="outline" labelPlacement="stacked" type="number"
+        formControlName="current_price"></ion-input>
+    </div>
+      <div class="global_input_block" *ngIf="yearArray?.length">
+    <ion-select (ionChange)="resetPrediction()" formControlName="year" fill="outline" label="Manufactoring" label-placement="type">
+      <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
+    </ion-select>
+  </div>
+<!-- <ion-item class="bottom-margin">
   <ion-select  (ionChange)="resetPrediction()"  
   formControlName="year"        label="Year" label-placement="type">
     <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
@@ -47,10 +72,11 @@
   
 
   </ion-select>
-</ion-item>
-<ion-item class="bottom-margin">
+</ion-item> -->
+
+      <div class="global_input_block" >
   <ion-select  (ionChange)="resetPrediction()"  
-  formControlName="tyreCondition"        label="Tyre Condition" label-placement="type">
+  formControlName="tyreCondition"        label="Tyre Condition" fill="outline" label-placement="type">
     <ion-select-option value="Poor">0-25%(Poor)</ion-select-option>
     <ion-select-option value="Average">26-50%(Average)</ion-select-option>
     <ion-select-option value="Good">51-75%(Good)</ion-select-option>
@@ -59,10 +85,11 @@
   
 
   </ion-select>
-</ion-item>
-<ion-item class="bottom-margin">
+  </div>
+
+    <div class="global_input_block" >
   <ion-select  (ionChange)="resetPrediction()"  
-  formControlName="bodyCondition"        label="Body Condition" label-placement="type">
+  formControlName="bodyCondition"  fill="outline"      label="Body Condition" label-placement="type">
     <ion-select-option value="Poor">0-25%(Poor)</ion-select-option>
     <ion-select-option value="Average">26-50%(Average)</ion-select-option>
     <ion-select-option value="Good">51-75%(Good)</ion-select-option>
@@ -71,13 +98,13 @@
   
 
   </ion-select>
-</ion-item>
-<ion-item>
+</div>
+  <div class="global_input_block" >
   <ion-button (click)="addPhotoToGallery()" class="" fill="clear">
     <ion-icon class="right-margine theme-color" name="camera-outline"></ion-icon>
     <span>Upload Image</span>
   </ion-button>
-</ion-item>
+  </div>
 <ion-grid *ngIf="imageArray?.length">
   <ion-row>
     <ion-col size="6" *ngFor="let photo of imageArray; index as position">

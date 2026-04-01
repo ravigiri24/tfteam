@@ -20,7 +20,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./specefic-unsold-tractor-list.component.scss'],
 })
 export class SpeceficUnsoldTractorListComponent  implements OnInit {
-
   constructor(
     public modalCtrl: ModalController,
     private formBuilder: FormBuilder,

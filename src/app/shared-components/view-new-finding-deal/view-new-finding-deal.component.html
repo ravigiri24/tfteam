@@ -1,0 +1,136 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">View Finding Details</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+  <span class="global-inner-heading">Details</span>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row>
+        <ion-col>Modal</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.name }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Purchase Number</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.purchaseSrNo || '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Year Of Manufactoring</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.yearOfManufactoring|| '-' }}</ion-col>
+      </ion-row>
+         <ion-row>
+        <ion-col>Hours</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.hours|| '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Delear</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.delearDetails?.name }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Contact</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.delearDetails?.contactNo }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Location</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.delearDetails?.location }}</ion-col>
+      </ion-row>
+
+       <ion-row>
+        <ion-col>Registered Date</ion-col>
+        <ion-col class="amount_col"> {{ (tractorDetails?.createdOn | date) || '-' }}</ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+      <div class="margin-bottom-headline">
+    <span class="global-inner-heading">Tractor Condition</span>
+  </div>
+    <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row>
+        <ion-col>Tyre</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.tyreCondition }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Body</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.bodyCondition }}</ion-col>
+      </ion-row>
+   
+  
+    </ion-card>
+  </ion-grid>
+    <div class="margin-bottom-headline">
+    <span class="global-inner-heading">Purchase Cost Summary</span>
+  </div>
+    <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row>
+        <ion-col>Quote Delear</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.quoteByDealer }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Quote By TF</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.quoteByTf }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Final Price</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.finalPrice }}</ion-col>
+      </ion-row>
+  
+    </ion-card>
+  </ion-grid>
+  <div class="margin-bottom-headline">
+    <span class="global-inner-heading">Cost Estimations</span>
+  </div>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row *ngFor="let costEstimation of listData">
+        <ion-col>{{costEstimation?.name}}</ion-col>
+        <ion-col class="amount_col">{{costEstimation?.cost_value}}</ion-col>
+      </ion-row>
+       <ion-row >
+        <ion-col>Total</ion-col>
+        <ion-col class="amount_col">{{totalAmount}}</ion-col>
+      </ion-row>
+     
+     
+
+    </ion-card>
+  </ion-grid>
+  <div class="margin-bottom-headline">
+    <span class="global-inner-heading">Analyse</span>
+  </div>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row *ngIf="tractorDetails?.quoteByDealer>0">
+        <ion-col>Total Costing(Dealer Price)</ion-col>
+        <ion-col class="amount_col">{{ toNumber(tractorDetails?.quoteByDealer)+totalAmount}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="tractorDetails?.quoteByTf>0">
+        <ion-col>Total Costing(TF Price)</ion-col>
+        <ion-col class="amount_col">{{toNumber(tractorDetails?.quoteByTf) +totalAmount}}</ion-col>
+      </ion-row>
+          <ion-row *ngIf="tractorDetails?.finalPrice>0">
+        <ion-col>Total Costing(Final Price)</ion-col>
+        <ion-col class="amount_col">{{toNumber(tractorDetails?.finalPrice)+totalAmount}}</ion-col>
+      </ion-row>
+             <ion-row *ngIf="tractorDetails?.finalPrice>0">
+        <ion-col>Buying Price(Based On Prediction Tool)</ion-col>
+        <ion-col class="amount_col">{{leastPrediction}}-{{maxPredictionCost}}</ion-col>
+      </ion-row>
+     
+             <ion-row >
+        <ion-col>Selling Price(Based On Prediction Tool)</ion-col>
+        <ion-col class="amount_col">{{leastSellingPrdiction}}-{{maxSellingPrdiction}}</ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+
+</ion-content>

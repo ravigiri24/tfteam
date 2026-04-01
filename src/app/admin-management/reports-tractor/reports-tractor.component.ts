@@ -75,4 +75,12 @@ export class ReportsTractorComponent  implements OnInit {
   lastSeen(){
         this.router.navigate(['/admin-block/last-activity','/admin-block/reports-tractor']);
   }
+    transactionOverview(){
+        this.router.navigate(['/admin-block/transaction-overview','/admin-block/reports-tractor']);
+  }
+  bufferList(){
+    this.router.navigate(['/admin-block/buffer-list','/admin-block/reports-tractor']);
+    
+  }
+
 }

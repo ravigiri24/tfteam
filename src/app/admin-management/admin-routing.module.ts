@@ -18,6 +18,8 @@ import { UnsoldTractorListComponent } from './unsold-tractor-list/unsold-tractor
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { SpeceficUnsoldTractorListComponent } from './specefic-unsold-tractor-list/specefic-unsold-tractor-list.component';
 import { LastActivityComponent } from './last-activity/last-activity.component';
+import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.component';
+import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -35,9 +37,11 @@ const routes: Routes = [
          { path: 'reports-tractor', component: ReportsTractorComponent},
          { path: 'user-management', component: UserManagementComponent},
          { path: 'tractor-costing', component: TractorCostingListComponent},
+         { path: 'transaction-overview/:srcPage', component: SalesAnalysisComponent},
          { path: 'lead-mgmt-employee/:srcPage', component: LeadEmployeeMgmtComponent},
          { path: 'sales-manager-list/:srcPage', component: StoreManagementComponent},
          { path: 'last-activity/:srcPage', component: LastActivityComponent},
+         { path: 'buffer-list/:srcPage', component: BufferStockListComponent},
       //   { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'sales-officer/:srcPage', component: SalesOfficerComponent},

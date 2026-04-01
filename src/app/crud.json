@@ -797,6 +797,59 @@
              }
           
         ]
+      },
+               {
+        "key": "DEALER_LIST",
+        "src":"dealer_list",
+        "headerTitle":"Dealer List",
+         "field":1,
+         "colArray":["name","contactNo","location"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             },
+                 {
+            "title": "Contact Number",
+            "type": "number",
+            "key": "contactNo",
+            "errorMsg": "contact is required",
+            "validation":true
+             },
+                 {
+            "title": "Location",
+            "type": "text",
+            "key": "location",
+            "errorMsg": "location is required",
+            "validation":true
+             }
+          
+        ]
+      },
+                   {
+        "key": "NEW_FINDING_COST_ESTIMATION_HEADING",
+        "src":"cost_estimation_heading",
+        "headerTitle":"Cost Estimation Heading",
+         "field":1,
+         "colArray":["name"],
+         "deleteHeading":"Type delete?",
+         "deleteSubHeading":"Are you sure to delete this",
+         "data": [
+          {
+            "title": "Enter Name",
+            "type": "text",
+            "key": "name",
+            "errorMsg": "type is required",
+            "validation":true
+             }
+        
+          
+        ]
       }
     ]
   }

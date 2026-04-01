@@ -15,11 +15,12 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-  selector: 'app-master-sheets',
-  templateUrl: './master-sheets.component.html',
-  styleUrls: ['./master-sheets.component.scss'],
+  selector: 'app-buffer-stock-list',
+  templateUrl: './buffer-stock-list.component.html',
+  styleUrls: ['./buffer-stock-list.component.scss'],
 })
-export class MasterSheetsComponent implements OnInit {
+export class BufferStockListComponent  implements OnInit {
+
   constructor(
     public modalCtrl: ModalController,
     private formBuilder: FormBuilder,
@@ -55,7 +56,7 @@ export class MasterSheetsComponent implements OnInit {
   }
   generateExcel() {
     // Get the HTML content of the div you want to export
-    const element = document.getElementById('master-sheet-report');
+    const element = document.getElementById('buffer_stock_list');
 
     // Create a worksheet from the table
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -93,17 +94,18 @@ export class MasterSheetsComponent implements OnInit {
       this.srcPage = params?.srcPage;
     });
     this.initialize();
+    this.genrateReport()
   }
   allDetails: any;
   tractorArray: any;
   showData=false
   genrateReport() {
     this.showData=false
-    if (this.form.valid) {
-      if (
-        this.form.controls['startDate']?.value <=
-        this.form.controls['endDate']?.value
-      ) {
+    // if (this.form.valid) {
+    //   if (
+    //     this.form.controls['startDate']?.value <=
+    //     this.form.controls['endDate']?.value
+    //   ) {
         let obj: any = this.share.getListObj(
           'getTractorSheetByDate',
           false,
@@ -111,57 +113,19 @@ export class MasterSheetsComponent implements OnInit {
           true
         );
 
-        obj.startDate = this.form.controls['startDate'].value;
-        obj.endDate = this.form.controls['endDate'].value;
+        // obj.startDate = this.form.controls['startDate'].value;
+        // obj.endDate = this.form.controls['endDate'].value;
 
         this.share.showLoading('Fetching Report...');
         this.reportDatesRecord = obj;
-        this.api.postapi('getTractorSheetByDate', obj).subscribe(
+        this.api.postapi('getBufferTractorList', obj).subscribe(
           (res: any) => {
-            this.allDetails = res?.data;
-             this.allDetails.spareList= this.allDetails.spareList.reverse()
-            this.tractorArray = res?.data?.tractorList;
+       
+            this.tractorArray = res?.data;
             this.tractorArray=this.tractorArray.reverse()
-            this.tractorArray?.forEach((tractor: any) => {
-              let logisticExpense: any = {};
-              let totalAmountBreakup = 0;
-
-              this.logisticExpenseTypeList?.forEach((log: any) => {
-                let haveExpense = tractor?.transportCosting?.find(
-                  (f: any) => f.expense_id == log?.id
-                );
-
-                if (haveExpense) {
-                  totalAmountBreakup =
-                    Number(totalAmountBreakup) + Number(haveExpense?.expense_amount);
-                  logisticExpense[log?.name] = haveExpense?.expense_amount;
-                } else {
-                  logisticExpense[log?.name] = 0;
-                }
-              
-              
-              });
-                tractor.logisticExpense = logisticExpense;
-                console.log('logisticExpense', logisticExpense);
-                if(tractor?.purchasedetail?.purchasePrice>0){
-               totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.purchasedetail?.purchasePrice)
-                }
-               // if(tractor?.rtoDetails){
-                if(tractor?.rto_cost>0){
-                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.rto_cost)
-                }
-                   if(tractor?.insurance_cost>0){
-                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.insurance_cost)
-                } 
-                //}
-                tractor.totalAmountBreakup=totalAmountBreakup
-                //need to call at last for all calculation
-                this.calculateRepairCost(tractor)
-
-            });
-            // this.createReport();
-            console.log("tractorArray",this.tractorArray);
-            
+                  this.tractorArray =   this.tractorArray?.filter(
+        (f: any) => f.tractor_status != 'ARCHIVED'
+      );
             this.share.spinner.dismiss();
             setTimeout(() => {
               this.showData=true
@@ -169,14 +133,13 @@ export class MasterSheetsComponent implements OnInit {
           },
           (error: any) => {}
         );
-      } else {
-        this.share.presentToast('Error:End Date is less than Start Date');
-      }
-    } else {
-      this.share.presentToast('Error:Please Fill Required(*) Fields');
-    }
+      // } else {
+      //   this.share.presentToast('Error:End Date is less than Start Date');
+      // }
+    // } else {
+    //   this.share.presentToast('Error:Please Fill Required(*) Fields');
+    // }
   }
-  totalSellingCost:any=0
   calculateRepairCost(tractor:any){
     //service 
         let expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
@@ -286,8 +249,6 @@ if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
 
 //tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
 tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+37000
-
-this.totalSellingCost=this.totalSellingCost+Number(tractor.gm)
   }
  swap(arr: any[], i: number, j: number): void {
   [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -341,15 +302,14 @@ this.totalSellingCost=this.totalSellingCost+Number(tractor.gm)
       pdfObj: this.renderResult,
 
       actionByid: this.staffDetails?.id,
-      report_type: 'MASTER_SHEET',
+      report_type: 'BUFFER_LIST',
       extension: extension,
       reparing_center: this.staffDetails?.repair_center,
-      startDate: this.reportDatesRecord?.startDate,
-      endDate: this.reportDatesRecord?.endDate,
+  
     };
     console.log('convertBlobToBase64', obj);
 this.share.showLoading("Generating Excel",20000)
-    this.api.postapi('savemastersheet', obj).subscribe((res: any) => {
+    this.api.postapi('saveUnsoldTractor', obj).subscribe((res: any) => {
       console.log('saveDataTo', res);
       this.share.spinner.dismiss();
       if (res?.data?.imageUrlUrl) {
@@ -364,4 +324,6 @@ this.share.showLoading("Generating Excel",20000)
     // this.error = dataUrl;
     browser.show();
   }
+
+
 }

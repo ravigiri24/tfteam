@@ -28,6 +28,8 @@ import { UploadScreenShotComponent } from '../new-arrivals-management/upload-scr
 import { ForwardToTransportComponent } from '../new-arrivals-management/forward-to-transport/forward-to-transport.component';
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
 import { TransferToNewArrivalsComponent } from './transfer-to-new-arrivals/transfer-to-new-arrivals.component';
+import { CostEstimationComponent } from './new-findings/cost-estimation/cost-estimation.component';
+import { AddCostEstimationComponent } from './new-findings/cost-estimation/add-cost-estimation/add-cost-estimation.component';
 @NgModule({
   declarations: [
 
@@ -49,7 +51,9 @@ PurchaseDetailsComponent,
     BasicInfoComponent,
     UploadScreenShotComponent,
     ForwardToTransportComponent,
-    InventoryListComponent
+    InventoryListComponent,
+    CostEstimationComponent,
+    AddCostEstimationComponent
   ],
   imports: [
     PurchaseRoutingModule,
