@@ -1,0 +1,38 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text" *ngIf="!data">Action</span>
+     
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="dismiss()" class="dynamic_color" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
+  <form [formGroup]="form">
+    <div *ngIf="tractor?.action_taken==0" class="global_input_block select_option_with_add">      
+      <ion-select formControlName="approved_status" fill="outline" label="Action" label-placement="stacked">
+        <ion-select-option  value="APPROVED"> Approve</ion-select-option>
+        <ion-select-option  value="REJECTED"> Reject</ion-select-option>
+      </ion-select>
+  
+      <!-- <ion-icon (click)="openCrudManagement('TYPE_OF_EXPENSE')" name="add-circle-outline"></ion-icon>
+      <ion-icon (click)="getExpense()" name="refresh-outline"></ion-icon> -->
+    </div>
+      <div class="global_input_block">
+      <ion-input label="Action Date" fill="outline" labelPlacement="stacked" type="date" formControlName="action_date"></ion-input>
+    </div>
+    <div class="global_input_block">
+     <ion-textarea formControlName="action_remark" label="Remark" fill="outline" labelPlacement="stacked"
+      placeholder="write remark here..."></ion-textarea>
+    </div>
+  
+    <div class="page_submit_btn">
+      <ion-button  (click)="saveExpense()" class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
+
+    </div>
+  </form>
+</ion-content>

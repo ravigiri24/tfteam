@@ -20,6 +20,7 @@ import { SpeceficUnsoldTractorListComponent } from './specefic-unsold-tractor-li
 import { LastActivityComponent } from './last-activity/last-activity.component';
 import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.component';
 import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
+import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -34,6 +35,7 @@ const routes: Routes = [
          { path: 'unsold-tractor-sheet/:srcPage', component: UnsoldTractorListComponent},
          { path: 'unsold-tractor-sheet-specific/:srcPage', component: SpeceficUnsoldTractorListComponent},
          { path: 'work-sheet/:srcPage', component: PendingReportsComponent},
+         { path: 'view-maintainance/:srcPage', component: ViewMaintainanceCostComponent},
          { path: 'reports-tractor', component: ReportsTractorComponent},
          { path: 'user-management', component: UserManagementComponent},
          { path: 'tractor-costing', component: TractorCostingListComponent},

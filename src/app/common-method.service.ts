@@ -45,6 +45,7 @@ import { AddNewFindingsComponent } from './purchase-management/new-findings/add-
 import { ViewImageComponent } from './purchase-management/view-image/view-image.component';
 import { CostEstimationComponent } from './purchase-management/new-findings/cost-estimation/cost-estimation.component';
 import { ViewNewFindingDealComponent } from './shared-components/view-new-finding-deal/view-new-finding-deal.component';
+import { ActionPopupComponent } from './purchase-management/new-findings/action-popup/action-popup.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -53,7 +54,7 @@ export class CommonMethodService {
     private modalCtrl: ModalController,
     private router: Router,
     private toastController: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
   ) {}
 
   async nocUpdate(tractor: any) {
@@ -123,12 +124,9 @@ export class CommonMethodService {
       this.syncManitainance(e?.tractor);
     } else if (e?.button?.name == 'Tractor Summary') {
       this.tractorSummaryDetails(e?.tractor);
-    }
-     else if (e?.button?.name == 'Tractor NDP') {
+    } else if (e?.button?.name == 'Tractor NDP') {
       this.tractorNDP(e?.tractor);
-    }
-    
-     else if (e?.button?.name == 'Delete Tractor') {
+    } else if (e?.button?.name == 'Delete Tractor') {
       await this.deleteTractor(e);
     }
     if (e?.button?.name == 'Tractor Price') {
@@ -138,10 +136,10 @@ export class CommonMethodService {
       await this.tractorPriceUpdate(e?.tractor);
     }
     if (e?.button?.name == 'Customer Remark') {
-      this.addRemark(e?.customer,e?.button);
+      this.addRemark(e?.customer, e?.button);
     }
     if (e?.button?.name == 'Customer View') {
-      this.viewCustomer(e?.customer,e?.button);
+      this.viewCustomer(e?.customer, e?.button);
     } else if (e?.button?.name == 'Edit Tractors New Arrivals') {
       this.editTractorsNewArrivals(e?.tractor);
     } else if (e?.button?.name == 'Assign TF') {
@@ -171,62 +169,59 @@ export class CommonMethodService {
       await this.salesOption(e?.tractor);
     } else if (e?.button?.name == 'Sales Details') {
       await this.salesDetails(e?.tractor);
+    } else if (e?.button?.name == 'Sale Options Sold') {
+      await this.salesOptionSold(e?.tractor);
+    } else if (e?.button?.name == 'Approval Request') {
+      await this.reuestForApporoval(e);
+    } else if (e?.button?.name == 'View Refurbish Details') {
+      this.refurbishDetails(e?.tractor);
     }
-     else if (e?.button?.name == 'Sale Options Sold') {
-     await this.salesOptionSold(e?.tractor);
+    if (e?.button?.name == 'View Tractor All Images') {
+      this.getTractorAllImages(e?.tractor);
     }
-        else if (e?.button?.name == 'Approval Request') {
-     await this.reuestForApporoval(e);
+    if (e?.button?.name == 'Finding Edit') {
+      await this.updateNewFinfing(e?.tractor);
     }
-    else if(e?.button?.name =='View Refurbish Details'){
-this.refurbishDetails(e?.tractor)
-
+    if (e?.button?.name == 'Upload New FInding Image') {
+      await this.uploadNewFindingImage(e?.tractor);
     }
-    if(e?.button?.name =='View Tractor All Images'){
-this.getTractorAllImages(e?.tractor)
+    if (e?.button?.name == 'New Finding Cost Estimation') {
+      await this.costEstimationList(e?.tractor);
     }
-        if(e?.button?.name =='Finding Edit'){
-
-await this.updateNewFinfing(e?.tractor)
+    if (e?.button?.name == 'View New Finding Deals') {
+      await this.viewNewFindingDetails(e?.tractor);
     }
-    if(e?.button?.name =='Upload New FInding Image'){
-   await   this.uploadNewFindingImage(e?.tractor)
+    if (e?.button?.name == 'New Finding Action') {
+      await this.actionPopupNewFinding(e?.tractor);
     }
-    if(e?.button?.name =='New Finding Cost Estimation'){
-      await this.costEstimationList(e?.tractor)
-    }
-        if(e?.button?.name =='View New Finding Deals'){
-      await this.viewNewFindingDetails(e?.tractor)
-    }
-    
   }
 
-  async addRemark(customer: any = null,button:any=null) {
-     let showScheduleRamrk=true
-     if(button?.showScheduleRamrk==false){
-      showScheduleRamrk=false
-     }
+  async addRemark(customer: any = null, button: any = null) {
+    let showScheduleRamrk = true;
+    if (button?.showScheduleRamrk == false) {
+      showScheduleRamrk = false;
+    }
     const modal = await this.modalCtrl.create({
       component: ReviewPageComponent,
       componentProps: {
         customer: customer,
-        showScheduleRamrk:showScheduleRamrk
+        showScheduleRamrk: showScheduleRamrk,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
   }
-  async viewCustomer(customer: any = null,button:any) {
-       let showActionsButton=true
-     if(button?.showActionsButton==false){
-      showActionsButton=false
-     }
+  async viewCustomer(customer: any = null, button: any) {
+    let showActionsButton = true;
+    if (button?.showActionsButton == false) {
+      showActionsButton = false;
+    }
     const modal = await this.modalCtrl.create({
       component: ViewCustomerDataComponent,
       componentProps: {
         customerSelected: customer,
-        showActionsButton:showActionsButton
+        showActionsButton: showActionsButton,
       },
       cssClass: 'midium-model',
     });
@@ -247,7 +242,7 @@ await this.updateNewFinfing(e?.tractor)
     console.log('role', role);
     //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
   }
-    async tractorNDP(tractor: any) {
+  async tractorNDP(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: ViewNdpSellPriceComponent,
       componentProps: {
@@ -718,49 +713,46 @@ await this.updateNewFinfing(e?.tractor)
       this.reloadMethod = true;
     }
   }
-    async salesDetails(tractor:any){
-          const modal = await this.modalCtrl.create({
-            component: ShowSalesDetailsComponent,
-                  cssClass: 'midium-model',
-            componentProps: {
-              tractor: tractor,
-            },
-          });
-          await modal.present();
-          const { data, role } = await modal.onWillDismiss();
-          console.log('role', role);
-              if (data) {
+  async salesDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ShowSalesDetailsComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
       this.reloadMethod = true;
     }
-
-        }
-            async salesOptionSold(tractor:any){
-                    const modal = await this.modalCtrl.create({
-                      component: SellOptionsComponent,
-                              //  cssClass: 'midium-model',
-                      componentProps: {
-                        tractor: tractor,
-                      },
-                    });
-                    await modal.present();
-                    const { data, role } = await modal.onWillDismiss();
-                    console.log('role', role);
-                          if (data) {
+  }
+  async salesOptionSold(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: SellOptionsComponent,
+      //  cssClass: 'midium-model',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
       this.reloadMethod = true;
     }
-                    //if (role === 'confirm') {
-          
-                    //}
-                  }
+    //if (role === 'confirm') {
 
-           async reuestForApporoval(obj:any) {
-  
+    //}
+  }
+
+  async reuestForApporoval(obj: any) {
     const modal = await this.modalCtrl.create({
       component: RequestApproveFormComponent,
       componentProps: {
-     tractor:obj?.tractor,
-     selectedStore:obj?.selectedStore
-     
+        tractor: obj?.tractor,
+        selectedStore: obj?.selectedStore,
       },
       cssClass: 'midium-model',
     });
@@ -768,123 +760,121 @@ await this.updateNewFinfing(e?.tractor)
     const { data, role } = await modal.onWillDismiss();
 
     if (data) {
-        this.reloadMethod = true;
+      this.reloadMethod = true;
     }
   }
-    async refurbishDetails(tractor:any){
-                    const modal = await this.modalCtrl.create({
-                      component: ViewRepairRecordComponent,
-                               cssClass: 'midium-model',
-                      componentProps: {
-                        tractor: tractor,
-                      },
-                    });
-                    await modal.present();
-                    const { data, role } = await modal.onWillDismiss();
-                    console.log('role', role);
-                          if (data) {
+  async refurbishDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ViewRepairRecordComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
       this.reloadMethod = true;
     }
-                    //if (role === 'confirm') {
-          
-                    //}
-                  }
-      async getTractorAllImages(tractor:any){
-                    const modal = await this.modalCtrl.create({
-                      component: ViewAllImagesTractorwiseComponent,
-                               cssClass: 'midium-model',
-                      componentProps: {
-                        tractor: tractor,
-                      },
-                    });
-                    await modal.present();
-                    const { data, role } = await modal.onWillDismiss();
-                    console.log('role', role);
-                          if (data) {
-      this.reloadMethod = true;
-    }
-                   
-                  } 
-                  
-   async updateNewFinfing(dataUpdate: any = null) {
-                        const modal = await this.modalCtrl.create({
-                          component: AddNewFindingsComponent,
-                          componentProps: {
-                      
-                            data: dataUpdate,
-                          
-                          },
-                        });
-                        await modal.present();
-                        const { data, role } = await modal.onWillDismiss();
-                        console.log('role', role);
-                     if (data) {
-      this.reloadMethod = true;
-    }
-                        if (role === 'confirm') {
-                    
-                        }
-                      }
-    async uploadNewFindingImage(dataUpdate: any = null) {
+    //if (role === 'confirm') {
 
-                        const modal = await this.modalCtrl.create({
-                          component: ViewImageComponent,
-                          componentProps: {
-                      
-                            tractor: dataUpdate,
-                          
-                          },
-                        });
-                        await modal.present();
-                        const { data, role } = await modal.onWillDismiss();
-                        console.log('role', role);
-                     if (data) {
+    //}
+  }
+  async getTractorAllImages(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: ViewAllImagesTractorwiseComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
       this.reloadMethod = true;
     }
-                        if (role === 'confirm') {
-                    
-                        }
-                      }
-        async costEstimationList(tractor: any = null) {
+  }
 
-                        const modal = await this.modalCtrl.create({
-                          component: CostEstimationComponent,
-                          componentProps: {
-                      
-                            tarctor_id: tractor?.id,
-                          
-                          },
-                        });
-                        await modal.present();
-                        const { data, role } = await modal.onWillDismiss();
-                        console.log('role', role);
-                     if (data) {
+  async updateNewFinfing(dataUpdate: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: AddNewFindingsComponent,
+      componentProps: {
+        data: dataUpdate,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
       this.reloadMethod = true;
     }
-                        if (role === 'confirm') {
-                    
-                        }
-                      }
-           async viewNewFindingDetails(tractor: any = null) {
-
-
-                        const modal = await this.modalCtrl.create({
-                          component: ViewNewFindingDealComponent,
-                          componentProps: {
-                      
-                            tractorDetails:tractor,
-                          
-                          },
-                        });
-                        await modal.present();
-                        const { data, role } = await modal.onWillDismiss();
-                        console.log('role', role);
-                     if (data) {
+    if (role === 'confirm') {
+    }
+  }
+  async uploadNewFindingImage(dataUpdate: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: ViewImageComponent,
+      componentProps: {
+        tractor: dataUpdate,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
       this.reloadMethod = true;
     }
-                        if (role === 'confirm') {
-                    
-                        }
-                      }                                   
-                      
+    if (role === 'confirm') {
+    }
+  }
+  async costEstimationList(tractor: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: CostEstimationComponent,
+      componentProps: {
+        tarctor_id: tractor?.id,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+  }
+  async viewNewFindingDetails(tractor: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: ViewNewFindingDealComponent,
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+  }
+  async actionPopupNewFinding(tractor: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: ActionPopupComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+  }
 }

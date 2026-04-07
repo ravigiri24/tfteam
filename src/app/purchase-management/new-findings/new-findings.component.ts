@@ -32,7 +32,7 @@ export class NewFindingsComponent implements OnInit {
   }
   addNewFinding() {}
   tractorListStorewise(e: any) {}
-  expandListEvent() {}
+
   async viewImage(new_finding: any) {
     const modal = await this.modalCtrl.create({
       component: ImageViewerComponent,
@@ -105,6 +105,7 @@ export class NewFindingsComponent implements OnInit {
 
     let obj = {
       operate: this.staffDetails?.staffCode,
+      type:this.selectedItem
     };
     this.share.showLoading(msg);
     this.api.postapi('getNewFindingList', obj).subscribe(
@@ -113,10 +114,43 @@ export class NewFindingsComponent implements OnInit {
         this.newFindingList.forEach((tract: any) => {
           tract.name = tract?.modelDetails?.name;
         });
+        this.filterData(  this.newFindingList)
         this.share.spinner.dismiss();
       },
       (error: any) => {},
     );
+  }
+  holddingList:any=[]
+  filterData(filteredList:any){
+      this.allFilterList=filteredList
+    if(filteredList?.length>30){
+ this.newFindingList=filteredList.slice(0, 30);
+ this.holddingList= filteredList.slice(30,filteredList?.length);
+  
+    }else{
+    this.newFindingList=filteredList
+     this.holddingList=[]
+    }
+
+  }
+   optionActionEvent(e: any) {
+    console.log('optionActionEvent', e);
+    this.selectedItem = e;
+    this.getTractorList();
+  }
+    expandListEvent(){
+  //  this.share.showLoading("Rendering Data...")
+  this.share.presentToast("Expanding...")
+  setTimeout(() => {
+      if(this.newFindingList?.length<this.allFilterList?.length){
+  this.newFindingList = [...this.newFindingList, ...this.holddingList]
+    }
+  }, 0);
+  
+  setTimeout(() => {
+    //this.share.spinner.dismiss()
+  }, 0);
+ 
   }
   openEdit(tractor: any, ind: any) {
     this.showModal(tractor);
@@ -158,6 +192,11 @@ export class NewFindingsComponent implements OnInit {
       name: 'View New Finding Deals',
       action: 'viewNewFindingDeals',
       image: './././assets/images/visual.png',
+    },
+         {
+      name: 'New Finding Action',
+      action: 'newFindingAction',
+      image: './././assets/images/contract.png',
     },
   ];
   keyList: any = [
@@ -239,4 +278,19 @@ export class NewFindingsComponent implements OnInit {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
   }
+    selectedItem = 'OPEN';
+  optionsArray: any = [
+    {
+      id: 'OPEN',
+      name: 'Open',
+    },
+       {
+      id: 'APPROVED',
+      name: 'Approved',
+    },
+    {
+      id: 'REJECTED',
+      name: 'Rejected',
+    }
+  ];
 }

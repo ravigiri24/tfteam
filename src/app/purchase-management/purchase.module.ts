@@ -30,6 +30,7 @@ import { InventoryListComponent } from './inventory-list/inventory-list.componen
 import { TransferToNewArrivalsComponent } from './transfer-to-new-arrivals/transfer-to-new-arrivals.component';
 import { CostEstimationComponent } from './new-findings/cost-estimation/cost-estimation.component';
 import { AddCostEstimationComponent } from './new-findings/cost-estimation/add-cost-estimation/add-cost-estimation.component';
+import { ActionPopupComponent } from './new-findings/action-popup/action-popup.component';
 @NgModule({
   declarations: [
 
@@ -53,7 +54,8 @@ PurchaseDetailsComponent,
     ForwardToTransportComponent,
     InventoryListComponent,
     CostEstimationComponent,
-    AddCostEstimationComponent
+    AddCostEstimationComponent,
+    ActionPopupComponent
   ],
   imports: [
     PurchaseRoutingModule,

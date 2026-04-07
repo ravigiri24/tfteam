@@ -28,6 +28,7 @@ import { LastActivityComponent } from './last-activity/last-activity.component';
 import { DatePipe } from '@angular/common';
 import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.component';
 import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
+import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -50,7 +51,8 @@ import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.
     SpeceficUnsoldTractorListComponent,
     LastActivityComponent,
     SalesAnalysisComponent,
-    BufferStockListComponent
+    BufferStockListComponent,
+    ViewMaintainanceCostComponent
   ],
   imports: [
    

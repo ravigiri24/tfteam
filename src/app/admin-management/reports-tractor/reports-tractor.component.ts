@@ -82,5 +82,11 @@ export class ReportsTractorComponent  implements OnInit {
     this.router.navigate(['/admin-block/buffer-list','/admin-block/reports-tractor']);
     
   }
+    viewMaintainance(){
+    this.router.navigate(['/admin-block/view-maintainance','/admin-block/reports-tractor']);
+    
+  }
 
+
+  
 }

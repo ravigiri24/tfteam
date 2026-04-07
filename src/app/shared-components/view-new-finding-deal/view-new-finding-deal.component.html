@@ -105,7 +105,7 @@
     </ion-card>
   </ion-grid>
   <div class="margin-bottom-headline">
-    <span class="global-inner-heading">Analyse</span>
+    <span class="global-inner-heading">Cost Based On Price</span>
   </div>
   <ion-grid class="main_block_details">
     <ion-card class="main_card_details">
@@ -121,7 +121,19 @@
         <ion-col>Total Costing(Final Price)</ion-col>
         <ion-col class="amount_col">{{toNumber(tractorDetails?.finalPrice)+totalAmount}}</ion-col>
       </ion-row>
-             <ion-row *ngIf="tractorDetails?.finalPrice>0">
+         
+    </ion-card>
+  </ion-grid>
+  <div class="margin-bottom-headline">
+    <span class="global-inner-heading">Analyse</span>
+  </div>
+    <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+        <ion-row >
+        <ion-col>Current Show Room Price</ion-col>
+        <ion-col class="amount_col">{{currentPrice}} <ion-icon (click)="editShowRoomPrice()" name="create-outline"></ion-icon></ion-col>
+      </ion-row>
+             <ion-row >
         <ion-col>Buying Price(Based On Prediction Tool)</ion-col>
         <ion-col class="amount_col">{{leastPrediction}}-{{maxPredictionCost}}</ion-col>
       </ion-row>
@@ -132,5 +144,4 @@
       </ion-row>
     </ion-card>
   </ion-grid>
-
 </ion-content>

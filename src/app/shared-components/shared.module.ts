@@ -82,6 +82,7 @@ import { ViewJobCardActivityLogComponent } from './view-job-card-activity-log/vi
 import { ViewNdpSellPriceComponent } from './view-ndp-sell-price/view-ndp-sell-price.component';
 import { ViewImageComponent } from '../purchase-management/view-image/view-image.component';
 import { ViewNewFindingDealComponent } from './view-new-finding-deal/view-new-finding-deal.component';
+import { EditShowroomPriceComponent } from './view-new-finding-deal/edit-showroom-price/edit-showroom-price.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -170,7 +171,8 @@ import { ViewNewFindingDealComponent } from './view-new-finding-deal/view-new-fi
     ViewJobCardActivityLogComponent,
     ViewNdpSellPriceComponent,
     ViewImageComponent,
-    ViewNewFindingDealComponent
+    ViewNewFindingDealComponent,
+    EditShowroomPriceComponent
     
   ],
 

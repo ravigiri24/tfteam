@@ -8,7 +8,7 @@ import {
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
-
+import { EditShowroomPriceComponent } from './edit-showroom-price/edit-showroom-price.component';
 @Component({
   selector: 'app-view-new-finding-deal',
   templateUrl: './view-new-finding-deal.component.html',
@@ -30,7 +30,7 @@ export class ViewNewFindingDealComponent  implements OnInit {
   ngOnInit() {
     this.getListEstimation()
     this.getValuation()
-    this.getPriceEstimate()
+
   //   this.getDetails()
   }
     listData: any;
@@ -64,19 +64,53 @@ export class ViewNewFindingDealComponent  implements OnInit {
     this.api.postapi('getValuation', obj).subscribe(
       (res: any) => {
         this.valuationList = res?.data;
+           this.resetPrice()
         console.log('valuationList', this.valuationList);
       },
       (error: any) => {}
     );
   }
+ async editShowRoomPrice(){
+    
+        const modal = await this.modalCtrl.create({
+          component: EditShowroomPriceComponent,
+          breakpoints: [0, 0.4, 1],
+          initialBreakpoint: 0.4,
+          cssClass: 'custom-modal',
+          componentProps: {
+            currentPrice: this.currentPrice,
+        
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        if (data) {
+       this.currentPrice=data?.currentPrice
+       this.getPriceEstimate()
+        }
+  }
+  currentPrice:any=0
+    resetPrice(){
+
+    let getModel=this.valuationList.find((f:any)=>f.model_id==this.tractorDetails?.modelDetails?.id)
+    if(getModel){
+   this.currentPrice=getModel?.model_current_price||0
+    }else{
+     // this.form.controls['current_price'].setValue(0)
+    }
+    this.getPriceEstimate()
+  }
+
   getPriceEstimate() {
-  
+
+  if(this.currentPrice){
     this.share.showLoading("Checking")
+    
     let date = new Date();
     let currentYear = date.getFullYear();
     let previousYear=currentYear-1
     let yearForPrice=this.tractorDetails?.yearOfManufactoring
-    let currentPrice=750000
+    let currentPrice=this.currentPrice
     let lastYearPrice=Number(currentPrice)*0.8
     let deduction=0.95
     for (let index = previousYear-1; index >= yearForPrice; index--) {
@@ -116,8 +150,12 @@ this.maxSellingPrdiction=this.maxPredictionCost+60000
 setTimeout(() => {
   this.share.spinner.dismiss()
 }, 300);
+  }else{
+this.share.presentToast("No Showroom Price Found")
+  }
    
   }
+  
   predictionCost:any
   leastPrediction:any=0
   leastSellingPrdiction=0

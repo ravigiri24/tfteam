@@ -33,11 +33,12 @@
   </ion-list>
   </ion-content> -->
 
-<app-common-header  class="app_common_header"
+<app-common-header    [universalSelect]="true"  [optionsArray]="optionsArray"
+  [selectedItem]="selectedItem" class="app_common_header"
   [isListFilter]="true" [brandList]="brandList" [listColorClass]="listColorClass"
   [title]="'Tractors'" [list]="newFindingList" [allFilterList]="allFilterList" [showFilterList]="true"
   [showWareHouse]="false" [headerDisplayArray]="headerDisplayArray" (actionEventHeader)="actionEventHeader($event)"
-  (expandListEvent)="expandListEvent()" ></app-common-header>
+  (expandListEvent)="expandListEvent()"   (optionActionEvent)="optionActionEvent($event)" ></app-common-header>
 <ion-content>
 
 
