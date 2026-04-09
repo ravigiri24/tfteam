@@ -21,6 +21,7 @@ import { LastActivityComponent } from './last-activity/last-activity.component';
 import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.component';
 import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
 import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
+import { FindingReportsComponent } from './finding-reports/finding-reports.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -47,6 +48,7 @@ const routes: Routes = [
       //   { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'team-manager-list/:srcPage', component: TeamManagerComponent},
          { path: 'sales-officer/:srcPage', component: SalesOfficerComponent},
+         { path: 'finding-reports/:srcPage', component: FindingReportsComponent},
          {
               path: 'view-costing-dashboard/:id',
               component: TractorCostingDashboardComponent,

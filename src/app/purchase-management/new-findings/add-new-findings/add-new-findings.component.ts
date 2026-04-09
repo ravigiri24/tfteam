@@ -240,9 +240,9 @@ this.share.showLoading('Loading...')
       bodyCondition: new FormControl(this.data?.bodyCondition, [Validators.required]),
       dealerId: new FormControl(this.data?.dealerId, [Validators.required]),
       actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
-      yearOfManufactoring: new FormControl(yearOfManufactoring, []),
+      yearOfManufactoring: new FormControl(yearOfManufactoring, [Validators.required]),
       registractionNo: new FormControl(this.data?.registractionNo, []),
-      hours: new FormControl(this.data?.hours, []),
+      hours: new FormControl(this.data?.hours, [Validators.required]),
       id: new FormControl(this.data?.id || null),
       remark: new FormControl(this.data?.remark, []),
     });

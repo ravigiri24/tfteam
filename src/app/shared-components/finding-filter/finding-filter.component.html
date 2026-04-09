@@ -1,0 +1,99 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar class="top_heading">
+    <div class="left_text">Apply Filter</div>
+    <ion-buttons class="right_action" (click)="dismiss()" slot="end">
+      <ion-icon class="dynamic_color icon-size" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding filter_main_container">
+  <div [ngClass]="listColorClass">
+
+
+    <div class="global-inner-heading dynamic_color selected_show">Selected Year :<b>{{ yearChecked }}</b></div>
+    <div class="radio_block_main_container">
+      <ion-radio-group class="radio_block_container" [(ngModel)]="yearChecked" (ionChange)="selectItem($event)">
+        <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
+            class="name">All</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2021 & Above" labelPlacement="end"><span
+            class="name">2021 &
+            Above</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2018-2020" labelPlacement="end"><span
+            class="name">2018 -2020
+            </span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2014-2017" labelPlacement="end">
+          <span class="name">2014 -
+            2017</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2010-2013" labelPlacement="end">
+          <span class="name">2010 - 2013</span></ion-radio>
+            <ion-radio class="radio_block dynamic_color" value="2000-2009" labelPlacement="end">
+          <span class="name">2000 - 2009</span></ion-radio>
+      </ion-radio-group>
+      <!-- <p>Selected: {{ yearChecked }}</p> -->
+    </div>
+       <!-- <div class="global-inner-heading dynamic_color selected_show">Wheel Drive :<b>{{ wheeldrive }}</b></div>
+    <div class="radio_block_main_container">
+      <ion-radio-group class="radio_block_container" [(ngModel)]="wheeldrive" (ionChange)="selectWheel($event)">
+        <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
+            class="name">All</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="2WD" labelPlacement="end"><span
+            class="name">2WD
+            Above</span></ion-radio>
+        <ion-radio class="radio_block dynamic_color" value="4WD" labelPlacement="end"><span
+            class="name">4WD
+            Above</span></ion-radio>
+
+      </ion-radio-group>
+ 
+    </div> -->
+
+    <span class="global-inner-heading dynamic_color">Brands
+      <!-- <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')"
+          name="add-circle-outline"></ion-icon> -->
+    </span>
+    <div class="multiple_options_container">
+      <ion-checkbox class="checkbox_block dynamic_color" (ionChange)="selectBrand($event,'ALL')" [checked]="checkedAll"
+        labelPlacement="end"><span class="name">All</span></ion-checkbox>
+      <ion-checkbox class="checkbox_block dynamic_color" *ngFor="let brand of brandList" [checked]="brand?.checked"
+        (ionChange)="selectBrand($event,brand)" labelPlacement="end"><span
+          class="name">{{brand?.name}}</span></ion-checkbox>
+    </div>
+    <div class="bottom_fixed_buttons">
+      <div class="row">
+        <div class="col-6">
+          <ion-button (click)="applyFilter()" class="global_submit_color_button dynamic_bgcolor"
+            expand="block">Apply</ion-button>
+        </div>
+        <div class="col-6">
+          <ion-button (click)="reset()" class="global_submit_color_button theme-bgcolor-secondary"
+            expand="block">Reset</ion-button>
+        </div>
+      </div>
+    </div>
+    <!-- <div *ngIf="listBy=='BY_DATE'">
+  <form *ngIf="form" [formGroup]="form">
+  <div class="row top-position-body">
+
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+    <div class="col-md-6 col-6">
+      <div class="global_input_block">
+        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+      </div>
+    </div>
+
+  </div>
+  
+</form>
+  <div class="row" >
+    <ion-button  (click)="setDate()" class="global_submit_button" >
+    
+      Generate</ion-button>
+    </div>
+</div> -->
+  </div>
+
+</ion-content>

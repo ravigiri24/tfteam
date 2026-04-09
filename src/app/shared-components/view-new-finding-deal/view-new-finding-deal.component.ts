@@ -26,13 +26,14 @@ export class ViewNewFindingDealComponent  implements OnInit {
     this.modalCtrl.dismiss();
   }
   enquiry: any
-  modelList: any = []
+
   ngOnInit() {
     this.getListEstimation()
     this.getValuation()
 
   //   this.getDetails()
   }
+
     listData: any;
   totalAmount = 0;
   getListEstimation() {
@@ -89,6 +90,7 @@ export class ViewNewFindingDealComponent  implements OnInit {
        this.getPriceEstimate()
         }
   }
+
   currentPrice:any=0
     resetPrice(){
 

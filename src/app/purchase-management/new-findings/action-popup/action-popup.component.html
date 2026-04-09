@@ -13,7 +13,7 @@
 </ion-header>
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
   <form [formGroup]="form">
-    <div *ngIf="tractor?.action_taken==0" class="global_input_block select_option_with_add">      
+    <div  class="global_input_block select_option_with_add">      
       <ion-select formControlName="approved_status" fill="outline" label="Action" label-placement="stacked">
         <ion-select-option  value="APPROVED"> Approve</ion-select-option>
         <ion-select-option  value="REJECTED"> Reject</ion-select-option>

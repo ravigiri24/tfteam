@@ -189,6 +189,18 @@ export class ShareService {
     });
     return tractorList;
   }
+   filterByBrandFindings(list: any = [], selectedBrand: any = []) {
+    let tractorList: any = [];
+    list?.forEach((f: any) => {
+      let checkBrand = selectedBrand?.filter(
+        (brand: any) => brand.id == f?.brand_id,
+      );
+      if (checkBrand?.length) {
+        tractorList.push(f);
+      }
+    });
+    return tractorList;
+  }
   filterByPrice(list: any = [], lower: any, upper: any) {
     let tractorList: any = [];
     tractorList = list?.filter(

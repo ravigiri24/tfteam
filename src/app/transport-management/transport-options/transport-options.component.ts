@@ -53,6 +53,7 @@ export class TransportOptionsComponent implements OnInit {
       component: TransportActualDateFormComponent,
       componentProps: {
         tractor: this.tractor,
+        tractorDetails: this.tractor,
       },
     });
     await modal.present();

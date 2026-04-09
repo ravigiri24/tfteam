@@ -29,6 +29,7 @@ import { DatePipe } from '@angular/common';
 import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.component';
 import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
 import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
+import { FindingReportsComponent } from './finding-reports/finding-reports.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -52,7 +53,8 @@ import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-mai
     LastActivityComponent,
     SalesAnalysisComponent,
     BufferStockListComponent,
-    ViewMaintainanceCostComponent
+    ViewMaintainanceCostComponent,
+    FindingReportsComponent
   ],
   imports: [
    

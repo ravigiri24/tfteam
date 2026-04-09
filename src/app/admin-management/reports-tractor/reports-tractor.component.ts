@@ -87,6 +87,9 @@ export class ReportsTractorComponent  implements OnInit {
     
   }
 
-
+viewFindingReports(){
+  this.router.navigate(['/admin-block/finding-reports','/admin-block/reports-tractor']);
+  
+}
   
 }

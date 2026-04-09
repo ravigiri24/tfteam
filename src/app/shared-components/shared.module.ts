@@ -83,6 +83,7 @@ import { ViewNdpSellPriceComponent } from './view-ndp-sell-price/view-ndp-sell-p
 import { ViewImageComponent } from '../purchase-management/view-image/view-image.component';
 import { ViewNewFindingDealComponent } from './view-new-finding-deal/view-new-finding-deal.component';
 import { EditShowroomPriceComponent } from './view-new-finding-deal/edit-showroom-price/edit-showroom-price.component';
+import { FindingFilterComponent } from './finding-filter/finding-filter.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -172,7 +173,8 @@ import { EditShowroomPriceComponent } from './view-new-finding-deal/edit-showroo
     ViewNdpSellPriceComponent,
     ViewImageComponent,
     ViewNewFindingDealComponent,
-    EditShowroomPriceComponent
+    EditShowroomPriceComponent,
+    FindingFilterComponent
     
   ],
 
