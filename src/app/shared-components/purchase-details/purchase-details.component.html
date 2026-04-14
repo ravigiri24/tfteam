@@ -12,7 +12,9 @@
         formControlName="expectedDateOfArrival"></ion-input>
     </div>
     <div class="global-inner-heading">
-      <span>Purchase Details</span>
+      <span>Purchase Details           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
+              <ion-icon (click)="refreshList('DEALER_LIST')" name="refresh-outline"></ion-icon></span>
+
     </div>
     <div class="global_input_block select_option_with_add">
       <ion-select formControlName="typeOfPurchase" labelPlacement="stacked" fill="outline" label="Type Of Purchase"
@@ -30,10 +32,18 @@
       <ion-input label="Bank Name" fill="outline" labelPlacement="stacked" type="text"
         formControlName="bankNameAuction"></ion-input>
     </div>
-    <div class="global_input_block">
-      <ion-input label="Name Of Seller" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="nameOfSeller"></ion-input>
-    </div>
+
+      <div class="global_input_block global_location_block" (click)="selectItem(dealer_list,'Dealer/Bank','dealer_list')">
+
+    <span class="top_layers">Dealer/Bank</span>
+    <span class="name_selected">{{dealerName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+     
+  </div>
+    
     <div class="global_input_block">
       <ion-input label="Purchase Price" fill="outline" labelPlacement="stacked" type="text"
         formControlName="purchasePrice"></ion-input>
@@ -42,9 +52,30 @@
       <ion-input label="Amount Transfer Date" fill="outline" labelPlacement="stacked" type="date"
         formControlName="amountTransferDate"></ion-input>
     </div>
-
-    <div class="global-inner-heading">
-      <span>Seller Details</span>
+    <div class="global_input_block">
+      <ion-input label="Park Location" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="parkLocation"></ion-input>
+    </div>
+      <div class="global_input_block select_option_with_add">
+      <ion-select formControlName="companyRepresentative" fill="outline" label="Company Representative"
+        label-placement="type" labelPlacement="stacked">
+        <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id"> {{ comp?.name
+          }}</ion-select-option>
+      </ion-select>
+      <div class="right_action_block add_icon">
+        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="right_action_block refresh_icon">
+        <ion-icon (click)="refreshList('COMPANYREPRESENTATIVE')" name="refresh-outline"></ion-icon>
+      </div>
+    </div>
+    <ng-container *ngIf="dealerName=='Other'">
+    <div  class="global-inner-heading">
+      <span>Seller Details (For Individual)</span>
+    </div>
+      <div class="global_input_block">
+      <ion-input label="Name Of Seller(For Individual)" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="nameOfSeller"></ion-input>
     </div>
     <div class="global_input_block">
       <ion-input label="Seller Address" fill="outline" labelPlacement="stacked" type="text"
@@ -65,27 +96,12 @@
       <ion-input label="Seller Contact 1" fill="outline" labelPlacement="stacked" type="text"
         formControlName="contact1"></ion-input>
     </div>
-    <div class="global_input_block">
+    <!-- <div class="global_input_block">
       <ion-input label="Seller Contact 2" fill="outline" labelPlacement="stacked" type="text"
         formControlName="contact2"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Park Location" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="parkLocation"></ion-input>
-    </div>
-    <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="companyRepresentative" fill="outline" label="Company Representative"
-        label-placement="type" labelPlacement="stacked">
-        <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id"> {{ comp?.name
-          }}</ion-select-option>
-      </ion-select>
-      <div class="right_action_block add_icon">
-        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
-      </div>
-      <div class="right_action_block refresh_icon">
-        <ion-icon (click)="refreshList('COMPANYREPRESENTATIVE')" name="refresh-outline"></ion-icon>
-      </div>
-    </div>
+    </div> -->
+
+  </ng-container>
 
   </div>
   <div class="global-inner-heading">

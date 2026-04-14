@@ -32,9 +32,10 @@ export class FindingReportsComponent implements OnInit {
     });
         this.selectedItem = 'OPEN'
     this.resetFilterVal()
+        this.getBrandList();
     this.newFindingList = [];
     this.getTractorList();
-    this.getBrandList();
+
 
   }
  
@@ -155,6 +156,11 @@ export class FindingReportsComponent implements OnInit {
   };
 
   buttonArray: any = [
+        {
+      name: 'Upload New FInding Image',
+      action: 'uploadNewFiningImage',
+      image: './././assets/images/all_image_icon.png',
+    },
     {
       name: 'New Finding Cost Estimation',
       action: 'newFindingCostEstimation',

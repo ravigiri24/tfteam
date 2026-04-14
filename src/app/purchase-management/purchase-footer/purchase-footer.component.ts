@@ -10,7 +10,7 @@ export class PurchaseFooterComponent  implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {}
-  selectedTab:any='Inventory-list'
+  selectedTab:any='New-findings'
     activeTabsColor = "secondColor";
   goToPage(tab:any){
   this.selectedTab=tab

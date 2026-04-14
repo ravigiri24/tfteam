@@ -243,7 +243,7 @@ export class NewFindingsComponent implements OnInit {
     if (e?.name == 'Search') {
       this.searchTractor();
     } else if (e?.name == 'Filter') {
-      this.openFilterNew();
+      this.openFilterNew  ();
     } else if (e?.name == 'Add') {
       this.showModal();
     }

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Purchase History-{{tractorList?.length||0}}</span>
+      </div>
+         <div class="right_action">
+        <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
+      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container">
+  <form *ngIf="form" [formGroup]="form">
+    <div class="row top-position-body">
+
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+  <div class="row">
+      <ion-button (click)="getTractors()" class="global_submit_button">View</ion-button>
+  </div>
+    <app-view-list *ngIf="tractorList?.length" [showImage]="false" [rowLineCount]="4" [listColorClass]="listColorClass"
+    [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="search"
+    (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+  <app-no-data-view *ngIf="!tractorList?.length && !share?.globalLoading"></app-no-data-view>
+    </ion-content>

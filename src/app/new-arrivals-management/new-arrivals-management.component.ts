@@ -9,6 +9,7 @@ import { StartTransportDialogComponent } from '../transport-management/start-tra
 import { EnterTfCodeComponent } from '../operational/enter-tf-code/enter-tf-code.component';
 import { CommonMethodService } from '../common-method.service';
 import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
+import { ViewPurchaseHistoryComponent } from './view-purchase-history/view-purchase-history.component';
 @Component({
   selector: 'app-new-arrivals-management',
   templateUrl: './new-arrivals-management.component.html',
@@ -46,6 +47,20 @@ export class NewArrivalsManagementComponent implements OnInit {
     if (role === 'confirm') {
       this.getTractorList('Refreshing Data...');
     }
+  }
+ async viewPurchaseHistory(){
+        const modal = await this.modalCtrl.create({
+      component: ViewPurchaseHistoryComponent,
+      componentProps: {
+  
+
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+   
   }
   async showAlert(tractor: any, i: any) {
     const alert = await this.alertCtrl.create({

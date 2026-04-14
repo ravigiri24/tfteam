@@ -31,6 +31,8 @@ import { TransferToNewArrivalsComponent } from './transfer-to-new-arrivals/trans
 import { CostEstimationComponent } from './new-findings/cost-estimation/cost-estimation.component';
 import { AddCostEstimationComponent } from './new-findings/cost-estimation/add-cost-estimation/add-cost-estimation.component';
 import { ActionPopupComponent } from './new-findings/action-popup/action-popup.component';
+import { ViewPurchaseHistoryComponent } from '../new-arrivals-management/view-purchase-history/view-purchase-history.component';
+import { EditPurchaseHistoryComponent } from '../new-arrivals-management/edit-purchase-history/edit-purchase-history.component';
 @NgModule({
   declarations: [
 
@@ -55,7 +57,9 @@ PurchaseDetailsComponent,
     InventoryListComponent,
     CostEstimationComponent,
     AddCostEstimationComponent,
-    ActionPopupComponent
+    ActionPopupComponent,
+    ViewPurchaseHistoryComponent,
+    EditPurchaseHistoryComponent
   ],
   imports: [
     PurchaseRoutingModule,

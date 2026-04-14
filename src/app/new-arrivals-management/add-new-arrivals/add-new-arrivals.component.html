@@ -52,7 +52,7 @@
         <!-- <ion-content class="ion-padding"> -->
         <app-purchase-details (callListApi)="callListApi($event)" [data]="data" (saveFormEvent)="onSave()"
           [companyRepresentativeList]="companyRepresentativeList" [cityList]="cityList"
-          [typePurchaseList]="typePurchaseList" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"
+          [typePurchaseList]="typePurchaseList" [dealerName]="dealerName" [dealer_list]="dealer_list" *ngIf="typePurchaseList?.length && modelForm && cityList?.length"
           [modelForm]="modelForm"></app-purchase-details>
         <!-- </ion-content> -->
       </ng-container>

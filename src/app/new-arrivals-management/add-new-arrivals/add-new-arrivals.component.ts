@@ -45,6 +45,36 @@ export class AddNewArrivalsComponent implements OnInit {
       (error: any) => { }
     );
   }
+  dealer_list:any=[]
+    getDealerList(loader: any = false) {
+    if (loader) {
+      this.share.showLoading('Refreshing Data...');
+    }
+    let obj = this.share.getListObj('dealer_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.dealer_list = res.data;
+
+        this.share.spinner.dismiss();
+        if(!loader){
+   this.setDealerName()
+        }
+     
+      },
+      (error: any) => { }
+    );
+  }
+  dealerName:any
+    setDealerName() {
+    let purchasedetail = this.modelForm.controls['purchasedetail'] as FormGroup;
+
+    let dealerDetail = this.dealer_list.find(
+      (f: any) => f.id == purchasedetail?.value?.dealer_id,
+    );
+    if (dealerDetail) {
+      this.dealerName = dealerDetail?.name;
+    }
+  }
   companyRepresentativeList: any = [];
   getCompanyRepresentativeList(loader: any = false) {
     if (loader) {
@@ -119,6 +149,7 @@ export class AddNewArrivalsComponent implements OnInit {
     this.selectedTab = 'MODEL';
     this.getModelList();
     this.getCityList();
+   
     this.getPurchaseList();
     this.getCompanyRepresentativeList();
   }
@@ -150,7 +181,9 @@ export class AddNewArrivalsComponent implements OnInit {
             this.inventoryStoreId
           );
           this.selectedTab = 'BASIC_INFO';
+
         }
+         this.getDealerList()
       },
       (error: any) => {
         //this.loadDataLoader = false;
@@ -166,6 +199,9 @@ export class AddNewArrivalsComponent implements OnInit {
     }
     if (type == 'COMPANYREPRESENTATIVE') {
       this.getCompanyRepresentativeList(true);
+    }
+     if (type == 'DEALER_LIST') {
+      this.getDealerList(true);
     }
   }
   setModelDetailEvent(data: any) {
