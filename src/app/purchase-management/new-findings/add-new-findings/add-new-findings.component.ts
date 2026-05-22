@@ -18,6 +18,7 @@ import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
 @Component({
   selector: 'app-add-new-findings',
@@ -137,9 +138,20 @@ this.share.showLoading('Loading...')
          if(loader){
         this.share?.spinner?.dismiss();
          }
+         this.setDealerName()
       },
       (error: any) => {}
     );
+  }
+  setDealerName() {
+
+
+    let dealerDetail = this.dealerList.find(
+      (f: any) => f.id == this.data?.dealerId,
+    );
+    if (dealerDetail) {
+      this.dealerName = dealerDetail?.name;
+    }
   }
     async openCrudManagement(type: any) {
       const modal = await this.modalCtrl.create({
@@ -154,6 +166,39 @@ this.share.showLoading('Loading...')
       this.getDealerList(true)
       console.log('role', role);
     }
+       async selectItem(list: any, itemName: any, table_name: any) {
+        const modal = await this.modalCtrl.create({
+          component: SelectWithSearchComponent,
+          componentProps: {
+            list: list,
+            itemName: itemName,
+            table_name: table_name,
+            showAddButton:false,
+            otherObjects: null,
+            jsonKey: 'name',
+            search: {
+              name: null,
+            },
+          },
+        });
+        await modal.present();
+    
+        const { data, role } = await modal.onWillDismiss();
+    
+        if (data) {
+       
+          this.newFindingForms.controls['dealerId'].setValue(data?.id);
+    
+          this.dealerName = data?.name;
+          //this.resetOtherValue()
+        }
+    
+        console.log('role', role, data);
+    
+        if (role === 'confirm') {
+        }
+      }
+      dealerName:any
   getModelsbyBrand(setValue:any=true) {
     if(setValue){
     this.newFindingForms.controls['model_id'].setValue(null);
@@ -245,6 +290,9 @@ this.share.showLoading('Loading...')
       hours: new FormControl(this.data?.hours, [Validators.required]),
       id: new FormControl(this.data?.id || null),
       remark: new FormControl(this.data?.remark, []),
+      chassisNumber: new FormControl(this.data?.chassisNumber, []),
+      engineNo: new FormControl(this.data?.engineNo, []),
+      selling_estimation: new FormControl(this.data?.selling_estimation, []),
     });
   }
 }

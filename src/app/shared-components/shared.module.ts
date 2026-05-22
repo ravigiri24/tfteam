@@ -84,6 +84,11 @@ import { ViewImageComponent } from '../purchase-management/view-image/view-image
 import { ViewNewFindingDealComponent } from './view-new-finding-deal/view-new-finding-deal.component';
 import { EditShowroomPriceComponent } from './view-new-finding-deal/edit-showroom-price/edit-showroom-price.component';
 import { FindingFilterComponent } from './finding-filter/finding-filter.component';
+import { BookingHistoryComponent } from './booking-history/booking-history.component';
+import { AddBookingComponent } from './booking-history/add-booking/add-booking.component';
+import { ViewBookingComponent } from './booking-history/view-booking/view-booking.component';
+import { CancelBookingComponent } from './booking-history/cancel-booking/cancel-booking.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -174,7 +179,11 @@ import { FindingFilterComponent } from './finding-filter/finding-filter.componen
     ViewImageComponent,
     ViewNewFindingDealComponent,
     EditShowroomPriceComponent,
-    FindingFilterComponent
+    FindingFilterComponent,
+    BookingHistoryComponent,
+    AddBookingComponent,
+    ViewBookingComponent,
+    CancelBookingComponent
     
   ],
 
@@ -198,6 +207,6 @@ import { FindingFilterComponent } from './finding-filter/finding-filter.componen
     ViewApprovalListComponent
    
   ],
-  providers: [ApiService, InAppBrowser,],
+  providers: [ApiService, InAppBrowser,DatePipe],
 })
 export class SharedModule { }

@@ -259,6 +259,8 @@ this.customerForm.controls['socialType'].setValue(null)
     } else if (itemName == 'City') {
       this.cityName = data?.name;
       this.customerForm.controls['city_id'].setValue(data?.id);
+      //this.getCityList()
+
     }
     console.log('role', role, data);
 

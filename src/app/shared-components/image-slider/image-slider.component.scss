@@ -63,6 +63,17 @@
           margin: 0px !important;
         }
       }
+         .delete_btn {
+        position: fixed;
+        right: 60px;
+        top: calc(env(safe-area-inset-top) + 0px);
+        z-index: 999;
+        border-radius:5px;
+        margin: 0px;
+        ion-icon {
+          margin: 0px !important;
+        }
+      }
 
       &:not(.swiper-slide-active) {
         .download_btn {

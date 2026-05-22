@@ -146,6 +146,7 @@ export class ViewPurchaseHistoryComponent implements OnInit {
 
     if (this.commonMethod.reloadMethod) {
       this.getTractors();
+      this.getDealerList()
     }
     //   if(e?.button?.name == 'Tractor Dashboard') {
     //     this.tractorDashboard(e?.tractor);

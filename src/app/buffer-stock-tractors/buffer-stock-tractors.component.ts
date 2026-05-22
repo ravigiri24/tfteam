@@ -116,6 +116,12 @@ export class BufferStockTractorsComponent implements OnInit {
       action: 'viewTractorAllImage',
       image: './././assets/images/all_image_icon.png',
     },
+    {
+      name: 'Booking Tractor',
+      action: 'BookTractor',
+      image: './././assets/images/book-now.png',
+    },
+    
     
     {
       name: 'Delete Tractor',

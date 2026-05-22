@@ -41,7 +41,7 @@ this.getAllImage()
 this.share.showLoading("Getting Image")
     this.api.postapi('getNewFindingImages', obj).subscribe(
       (res: any) => {
-this.allImages=res?.data
+this.allImages=res?.data?.filter((f:any)=>f.isDeleted=='0')
 
         this.share.spinner.dismiss()
       },
@@ -92,7 +92,7 @@ this.allImages=res?.data
       component: ImageSliderComponent,
       cssClass: 'light-modal',
       componentProps: {
- 
+        showDeleteButton:true,
         image: image,
         imageArray:imageArray
       },
@@ -104,6 +104,7 @@ this.allImages=res?.data
     if (role === 'confirm') {
       this.reloadImage.emit()
     }
+    this.getAllImage()
   }
 
 

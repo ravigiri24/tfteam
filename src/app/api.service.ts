@@ -27,8 +27,8 @@ export class ApiService {
   }
   //frontendUrl="https://tractorfactory.in/#"
 
-  rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
-//rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
+ //rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
+rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
   private isOnlineSubject = new BehaviorSubject<boolean>(true);
   public isOnline$ = this.isOnlineSubject.asObservable();
   initializeApp() {

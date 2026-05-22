@@ -47,6 +47,7 @@ import { CostEstimationComponent } from './purchase-management/new-findings/cost
 import { ViewNewFindingDealComponent } from './shared-components/view-new-finding-deal/view-new-finding-deal.component';
 import { ActionPopupComponent } from './purchase-management/new-findings/action-popup/action-popup.component';
 import { EditPurchaseHistoryComponent } from './new-arrivals-management/edit-purchase-history/edit-purchase-history.component';
+import { BookingHistoryComponent } from './shared-components/booking-history/booking-history.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -197,6 +198,8 @@ export class CommonMethodService {
     }
        if (e?.button?.name == 'Tractor Purchase History') {
       await this.purchaseHistory(e);
+    }if(e?.button?.name == 'Booking Tractor'){
+      this.bookingMethod(e?.tractor)
     }
     
   }
@@ -888,6 +891,23 @@ export class CommonMethodService {
       componentProps: {
         obj: obj,
       },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+ }
+  async bookingMethod(tractor: any = null) {
+     const modal = await this.modalCtrl.create({
+      component: BookingHistoryComponent,
+      componentProps: {
+        tractor: tractor,
+      },
+        cssClass: 'custom-modal',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();

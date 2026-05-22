@@ -12,6 +12,24 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass"> 
+      <ion-grid class="main_block_details">
+          <ion-card>
+        <ion-row>
+              <ion-col>Seller Name(Old)</ion-col>
+              <ion-col class="amount_col">{{ tractor?.nameOfSeller}}</ion-col>
+            </ion-row>
+              <ion-row>
+              <ion-col>contact1</ion-col>
+              <ion-col class="amount_col">{{ tractor?.contact1 }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>Address</ion-col>
+              <ion-col class="amount_col">{{ tractor?.address }}</ion-col>
+            </ion-row>
+        
+          </ion-card>
+       
+        </ion-grid>
        <form *ngIf="form" class="form_basic_height" [formGroup]="form" [ngClass]="listColorClass">
        <div class="global-inner-heading">
       <span>Purchase Details           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>

@@ -96,6 +96,11 @@ export class AllTractorListComponent implements OnInit {
       action: 'tractorSummary',
       image: './././assets/images/data-analysis.png',
     },
+      {
+      name: 'Booking Tractor',
+      action: 'BookTractor',
+      image: './././assets/images/book-now.png',
+    },
 
   ];
   keyList: any = [

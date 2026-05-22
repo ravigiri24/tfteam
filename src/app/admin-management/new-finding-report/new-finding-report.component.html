@@ -1,0 +1,193 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">New Findings</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container">
+
+    <div class="top-position-body">
+  <div class="global_input_block select_option_with_add">
+      <ion-select [(ngModel)]="selectedItem"  labelPlacement="stacked" fill="outline" label="Select Status"
+        label-placement="stacked">
+        <ion-select-option  value="OPEN">Open</ion-select-option>
+        <ion-select-option  value="APPROVED">Approved</ion-select-option>
+        <ion-select-option  value="REJECTED">Rejected</ion-select-option>
+      </ion-select>
+      
+    </div>
+      <!-- <div class="global_input_block select_option_with_add">
+      <ion-select [(ngModel)]="selectedDealer"  labelPlacement="stacked" fill="outline" label="Select Dealer"
+        label-placement="stacked">
+        <ion-select-option *ngFor="let deal of dealerList"  [value]="deal.id">{{deal?.name}}</ion-select-option>
+
+      </ion-select>
+      
+    </div> -->
+         <div class="global-inner-heading">
+      <span>Select Dealer    
+               <!-- <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
+              <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon> -->
+            </span>
+
+    </div>
+    <div class="global_input_block global_location_block" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
+
+    <span class="top_layers">Dealer/Bank</span>
+    <span class="name_selected">{{dealerName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+
+     
+  </div> 
+
+    </div>
+
+  <div class="row">
+    <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
+  </div>
+  <ng-container *ngIf="tractorArray?.length && showData">
+    <hr />
+    <div class="margin-top">
+      <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
+    </div>
+    <div class="scroll" *ngIf="tractorArray?.length && showData" id="new-finding-sheet-report" class="top-margin scroll"
+      style="width: 100%;">
+      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+      <table cellpadding="5" cellspacing="5" style="width: 100%;">
+        <tbody>
+
+          <tr>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total
+              Tractor
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+
+          </tr>
+         
+          <!-- <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr> -->
+
+
+        </tbody>
+      </table>
+      <h2 style="text-align: center;margin: 10px 0px;">New Finding Sheet</h2>
+      <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+        <tbody>
+          <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
+            </th>
+                 <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+            Image</th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Purchase Number</th>
+                     <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Finding Date</th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+          Model</th>
+          
+             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Year Of Manufactoring</th>
+   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Dealer</th>
+     <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Contact</th>          
+           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Location</th>           
+   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Hours</th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Tyre</th>
+                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Body</th>
+                      <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Quote By Dealer</th>
+                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Quote By TF</th>
+                 <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+           FinalPrice</th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+           Expense Estimation(Total)</th>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+          Total Costing(Dealer Price)</th>
+                 <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+          Total Costing(TF Price)</th>
+             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+          Total Costing(Final Price)</th>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+          Selling Estimation</th>
+              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+           Registration Number</th>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+           Chasis Number</th>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+           Engine Number</th>
+          </tr>
+          
+          <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
+            style="border: 1px solid #e1e1e1;text-align: left">
+            <td style="text-align: center;">{{tracIndex+1}}</td>
+            <td (click)="uploadNewFindingImage(tractor)" style="text-align: center;"> <img style="width: 50px;height: 50px;" src="./././assets/images/all_image_icon.png" /></td>
+            <td style="text-align: center;">{{tractor?.purchaseSrNo}}</td>
+            <td style="text-align: center;">{{tractor?.createdOn | date}}</td>
+            <td style="text-align: center;">{{tractor?.modelDetails?.name}}</td>
+            <td style="text-align: center;">{{tractor?.yearOfManufactoring}}</td>
+                        <td style="text-align: center;">{{tractor?.delearDetails?.name }}</td>
+            <td style="text-align: center;">{{tractor?.delearDetails?.contactNo}}</td>
+            <td style="text-align: center;">{{tractor?.delearDetails?.location}}</td>
+            <td style="text-align: center;">{{tractor?.hours}}</td>
+            <td style="text-align: center;">{{tractor?.tyreCondition}}</td>
+            <td style="text-align: center;">{{tractor?.bodyCondition}}</td>
+            <td style="text-align: center;">{{tractor?.quoteByDealer}}</td>
+            <td style="text-align: center;">{{tractor?.quoteByTf}}</td>
+            <td style="text-align: center;">{{tractor?.finalPrice}}</td>
+            <td style="text-align: center;">{{tractor?.totalAmount}}</td>
+            <td style="text-align: center;">{{tractor?.quoteByDealer ? tractor?.totalCosting_quoteByDealer:'NA'}}</td>
+            <td style="text-align: center;">{{tractor?.quoteByTf ? tractor?.totalCosting_quoteByTf:'NA'}}</td>
+            <td style="text-align: center;">{{tractor?.finalPrice ? tractor?.totalCosting_finalPrice:'NA'  }}</td>
+            <td style="text-align: center;">{{tractor?.selling_estimation}}</td>
+                <!-- <td style="text-align: center;">{{tractor?.totalAmount}}</td> -->
+            <td style="text-align: center;">{{tractor?.registractionNo}}</td>
+            <td style="text-align: center;">{{tractor?.chassisNumber}}</td>
+            <td style="text-align: center;">{{tractor?.engineNo}}</td>
+        
+
+        
+
+          </tr>
+          <!-- <tr>
+        <td colspan="3"  style="padding: 5px 10px;">
+          {{catTotal[expenseHeader[0]]}}
+        </td>
+        <div *ngFor="let head of expenseHeader;let indi=index">
+          <div  *ngIf="indi>0" >
+            <td style="padding: 5px 10px;">
+              {{catTotal[expenseHeader[0]]}}
+            </td> 
+
+          </div>
+        </div>
+     
+      </tr> -->
+
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</ion-content>

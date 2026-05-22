@@ -1,0 +1,40 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text" >Cancel Booking</span>
+     
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+  <form [formGroup]="form" *ngIf="form">
+    <div class="margin-bottom-headline">
+      <span class="global-inner-heading">Cancel Details</span>
+    </div>
+   
+        <div class="global_input_block">
+      <ion-input label="Cancel Date" fill="outline" labelPlacement="stacked" type="date"
+        placeholder="Cancel Date" formControlName="canceled_date"></ion-input>
+    </div>
+      <div class="global_input_block">
+      <ion-textarea formControlName="canceled_reason" label="Cancel Reason" class="bg_white" fill="outline" labelPlacement="stacked"
+        placeholder="Cancel Reason..."></ion-textarea>
+    </div>
+
+  
+ 
+  
+   
+    <div class="page_submit_btn">
+  
+      <ion-button *ngIf="bookedData" (click)="update()" class="global_submit_color_button dynamic_bgcolor">
+        <ion-icon class="icon-size" name="create-outline"></ion-icon><span>Cancel</span>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

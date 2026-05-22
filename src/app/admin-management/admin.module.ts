@@ -30,6 +30,7 @@ import { SalesAnalysisComponent } from './sales-analysis/sales-analysis.componen
 import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.component';
 import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
 import { FindingReportsComponent } from './finding-reports/finding-reports.component';
+import { NewFindingReportComponent } from './new-finding-report/new-finding-report.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -54,7 +55,8 @@ import { FindingReportsComponent } from './finding-reports/finding-reports.compo
     SalesAnalysisComponent,
     BufferStockListComponent,
     ViewMaintainanceCostComponent,
-    FindingReportsComponent
+    FindingReportsComponent,
+    NewFindingReportComponent
   ],
   imports: [
    

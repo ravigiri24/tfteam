@@ -144,7 +144,7 @@ export class AddNewArrivalsComponent implements OnInit {
         this.inventoryStoreId
       );
       console.log("this.modelForm", this.modelForm);
-
+      this.getDealerList()
     }
     this.selectedTab = 'MODEL';
     this.getModelList();

@@ -91,5 +91,9 @@ viewFindingReports(){
   this.router.navigate(['/admin-block/finding-reports','/admin-block/reports-tractor']);
   
 }
+newFindingReports(){
+  this.router.navigate(['/admin-block/new-finding-reports','/admin-block/reports-tractor']);
+  
+}
   
 }

@@ -1,0 +1,64 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">View Booking Details</span>
+      </div>
+      <div class="right_action">
+        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      </div>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+  <span class="global-inner-heading">Details</span>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+         <ion-row>
+        <ion-col>Status</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.currentStatus }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>DealPrice</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.deal_price }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Booking Price</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.booking_price || '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Booking Date</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.booking_date|| '-' }}</ion-col>
+      </ion-row>
+         <ion-row>
+        <ion-col>Remark</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.remark|| '-' }}</ion-col>
+      </ion-row>
+  
+      
+
+       <ion-row>
+        <ion-col>Registered Date</ion-col>
+        <ion-col class="amount_col"> {{ (tractorDetails?.createdOn | date) || '-' }}</ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+      <div *ngIf="tractorDetails?.currentStatus=='CANCELED'" class="margin-bottom-headline">
+    <span class="global-inner-heading">Cancel Details</span>
+  </div>
+    <ion-grid *ngIf="tractorDetails?.currentStatus=='CANCELED'"  class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row>
+        <ion-col>Cancel Date</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.canceled_date }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Cancel Reason</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.canceled_reason }}</ion-col>
+      </ion-row>
+   
+  
+    </ion-card>
+  </ion-grid>
+
+</ion-content>

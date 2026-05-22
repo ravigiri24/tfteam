@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        View All Images
+        View All Imagess
       </div>
       <div class="right_action">
         <ion-icon class="dynamic_color" (click)="dismiss()" name="close"></ion-icon>
@@ -14,9 +14,15 @@
   <swiper-container [loop]="true" [autoplay]="{ delay: 3000 }" [pagination]="true" [navigation]="true"
     class="image-slider">
     <swiper-slide *ngFor="let img of imageArray">
-      <ion-button expand="block" class="dynamic_bgcolor download_btn" (click)="openPDF(img?.imageUrlUrl)">
-        <ion-icon slot="start" name="download-outline"></ion-icon>
-      </ion-button>
+        <ion-button expand="block" class="dynamic_bgcolor download_btn" (click)="openPDF(img?.imageUrlUrl)">
+          <ion-icon slot="start" name="download-outline"></ion-icon>
+        </ion-button>
+          <ion-button *ngIf="showDeleteButton" expand="block" (click)="deleteItem(img)" class="dynamic_bgcolor delete_btn" >
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+        </ion-button>
+        <!-- <ion-buttons  class="right_close_delete" slot="end">
+      <ion-icon class="delete_color icon-size" (click)="deleteItem()" name="trash-outline"></ion-icon>
+    </ion-buttons> -->
       <ion-card>
         <div class="image-scroll-wrap">
           <img [src]="img?.imageUrlUrl" alt="Slide image" />

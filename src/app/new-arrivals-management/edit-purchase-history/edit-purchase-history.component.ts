@@ -80,7 +80,7 @@ tractor:any=[]
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
-
+this.getDealerList(true)
     
     console.log('role', role);
   }

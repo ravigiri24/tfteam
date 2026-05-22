@@ -250,7 +250,7 @@
             <td style="padding: 5px 10px;"></td>
             <td style="padding: 5px 10px;"></td>
             <!-- <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchanseDate}}</td> -->
-            <td style="padding: 5px 10px;">{{tractor?.reachDate}}</td>
+            <td style="padding: 5px 10px;">{{tractor?.reachDate | date:'dd/MM/yyyy'}}</td>
             <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.purchasePrice}}</td>
             <td *ngFor="let expenseTransport of logisticExpenseTypeList" style="padding: 5px 10px;">
               {{tractor?.logisticExpense[expenseTransport?.name]}}</td>

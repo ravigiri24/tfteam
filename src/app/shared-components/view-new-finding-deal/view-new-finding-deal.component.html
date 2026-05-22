@@ -86,6 +86,29 @@
   
     </ion-card>
   </ion-grid>
+    <div class="margin-bottom-headline">
+    <span class="global-inner-heading">Viechle Details</span>
+  </div>
+    <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row >
+        <ion-col>Registration Number</ion-col>
+        <ion-col class="amount_col">{{tractorDetails?.registractionNo}}</ion-col>
+      </ion-row>
+       <ion-row >
+        <ion-col>Chassis Number</ion-col>
+        <ion-col class="amount_col">{{tractorDetails?.chassisNumber}}</ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>Engine Number</ion-col>
+        <ion-col class="amount_col">{{tractorDetails?.engineNo}}</ion-col>
+      </ion-row>
+     
+     
+     
+
+    </ion-card>
+  </ion-grid>
   <div class="margin-bottom-headline">
     <span class="global-inner-heading">Cost Estimations</span>
   </div>
@@ -121,10 +144,13 @@
         <ion-col>Total Costing(Final Price)</ion-col>
         <ion-col class="amount_col">{{toNumber(tractorDetails?.finalPrice)+totalAmount}}</ion-col>
       </ion-row>
-         
+             <ion-row >
+        <ion-col>Selling Estimation</ion-col>
+        <ion-col class="amount_col">{{tractorDetails?.selling_estimation}}</ion-col>
+      </ion-row>
     </ion-card>
   </ion-grid>
-  <div class="margin-bottom-headline">
+  <!-- <div class="margin-bottom-headline">
     <span class="global-inner-heading">Analyse</span>
   </div>
     <ion-grid class="main_block_details">
@@ -143,5 +169,5 @@
         <ion-col class="amount_col">{{leastSellingPrdiction}}-{{maxSellingPrdiction}}</ion-col>
       </ion-row>
     </ion-card>
-  </ion-grid>
+  </ion-grid> -->
 </ion-content>

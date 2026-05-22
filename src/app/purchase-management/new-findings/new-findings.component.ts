@@ -236,6 +236,7 @@ export class NewFindingsComponent implements OnInit {
     { key: 'Final Price', value: 'finalPrice', type: 'INPUT' },
 
     { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Selling Estimation', value: 'selling_estimation', type: 'INPUT' },
 
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];

@@ -53,8 +53,15 @@
       <ion-input       label="Registration Number" fill="outline" labelPlacement="stacked" type="text"
         formControlName="registractionNo"></ion-input>
     </div>
-
-    <div class="global_input_block select_option_with_add">
+  <div class="global_input_block">
+      <ion-input       label="Chassis Number" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="chassisNumber"></ion-input>
+    </div>
+  <div class="global_input_block">
+      <ion-input       label="Engine Number" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="engineNo"></ion-input>
+    </div>
+    <!-- <div class="global_input_block select_option_with_add">
       <ion-select formControlName="dealerId" labelPlacement="stacked" fill="outline" label="Select Dealer"
         label-placement="stacked">
         <ion-select-option *ngFor="let type of dealerList" [value]="type.id"> {{ type?.name }}</ion-select-option>
@@ -65,7 +72,20 @@
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon>
       </div>
+    </div> -->
+        <div class="global-inner-heading">
+      <span>Select Dealer           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
+              <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon></span>
+
     </div>
+    <div class="global_input_block global_location_block" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
+
+    <span class="top_layers">Dealer/Bank</span>
+    <span class="name_selected">{{dealerName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+
+     
+  </div>
         <div class="global_input_block" >
   <ion-select 
   formControlName="tyreCondition"        label="Tyre Condition" fill="outline" label-placement="type">
@@ -95,7 +115,10 @@
       <ion-input  label="Remark" fill="outline" labelPlacement="stacked" type="text"
         formControlName="remark"></ion-input>
     </div>
-
+  <div class="global_input_block">
+      <ion-input label="Selling Estimation" fill="outline" labelPlacement="stacked" type="text"
+        formControlName="selling_estimation"></ion-input>
+    </div>
 
   <div class="login-button">
   

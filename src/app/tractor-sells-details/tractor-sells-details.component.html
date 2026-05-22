@@ -69,9 +69,9 @@
       <ion-select formControlName="brokerId" fill="outline" label="Broker" label-placement="type">
         <ion-select-option *ngFor="let rep of brokerList" [value]="rep.id"> {{ rep?.name }}</ion-select-option>
       </ion-select>
-      <!-- <div class="right_action_block dynamic_bgcolor">
+      <div class="right_action_block dynamic_bgcolor">
         <ion-icon (click)="openCrudManagement('BROKER')" name="add-circle-outline"></ion-icon>
-      </div> -->
+      </div>
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="getBrokerList(true)" name="refresh-outline"></ion-icon>
       </div>
@@ -82,9 +82,9 @@
         <ion-select-option *ngFor="let com of companyRepresentativeList" [value]="com.id"> {{ com?.name
           }}</ion-select-option>
       </ion-select>
-      <!-- <div class="right_action_block dynamic_bgcolor">
+      <div class="right_action_block dynamic_bgcolor">
         <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
-      </div> -->
+      </div>
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="getCompanyRepresentativeList(true)" name="refresh-outline"></ion-icon>
       </div>
