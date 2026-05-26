@@ -129,12 +129,17 @@ export class ActionPopupComponent  implements OnInit {
       this.modelForm?.controls['yearOfManufactoring'].setValue(
  this.tractor?.yearOfManufactoring
       );
-   
+
+  let grp= this.modelForm.controls['purchasedetail'] as FormGroup   
+   grp?.controls['chasisNumber'].setValue(this.tractor?.chassisNumber)
+   grp?.controls['registrationNumber'].setValue(this.tractor?.registractionNo)
+   grp?.controls['engineNumber'].setValue(this.tractor?.engineNo)
+      grp?.updateValueAndValidity();
       this.modelForm.updateValueAndValidity();
-  
+     console.log('this.newTractorForm', this.modelForm.value);
 
     }, 0);
-   console.log('this.newTractorForm', this.modelForm.value);
+
   
    
   }

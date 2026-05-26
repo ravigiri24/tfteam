@@ -95,5 +95,9 @@ newFindingReports(){
   this.router.navigate(['/admin-block/new-finding-reports','/admin-block/reports-tractor']);
   
 }
+bookedTractorSheets(){
+  this.router.navigate(['/admin-block/booked-tractor-sheets','/admin-block/reports-tractor']);
+  
+}
   
 }

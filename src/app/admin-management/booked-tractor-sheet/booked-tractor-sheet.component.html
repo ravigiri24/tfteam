@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="top_heading">
+      <div class="left_text">
+        <span class="selected_text">Booked Tractors</span>
+      </div>
+      <div class="right_action">
+        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      </div>
+    </ion-label>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding internal_card_container">
+
+  <ng-container *ngIf="tractorArray?.length && showData">
+  
+    <div class="margin-top">
+      <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
+    </div>
+    <div class="scroll" *ngIf="tractorArray?.length && showData" id="booked-tractor-sheet" class="top-margin scroll"
+      style="width: 100%;">
+      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+      <table cellpadding="5" cellspacing="5" style="width: 100%;">
+        <tbody>
+
+          <tr>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total
+              Tractor
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By
+            </th>
+            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
+
+          </tr>
+         
+          <!-- <tr>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
+        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
+        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+      
+      </tr> -->
+
+
+        </tbody>
+      </table>
+      <h2 style="text-align: center;margin: 10px 0px;">Booked Tractor Sheet</h2>
+      <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+        <tbody>
+          <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
+            </th>
+                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Store</th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             TF Code</th>
+                     <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+           Name  </th>
+            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+          Hours</th>
+          
+             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Year Of Manufactoring</th>
+   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Price</th>
+     <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Deal Price</th>          
+           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Booking Price</th>           
+   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Booking Date</th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Remark</th>
+               
+          </tr>
+          
+          <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
+            style="border: 1px solid #e1e1e1;text-align: left">
+            <td style="text-align: center;">{{tracIndex+1}}</td>
+          
+            <td style="text-align: center;">{{tractor?.storeName}}</td>
+            <td style="text-align: center;">{{tractor?.tfCode}}</td>
+            <td style="text-align: center;">{{tractor?.tractorName}}</td>
+            <td style="text-align: center;">{{tractor?.hours}}</td>
+            <td style="text-align: center;">{{tractor?.yearOfManufactoring}}</td>
+            <td style="text-align: center;">{{tractor?.tractorPrice}}</td>
+            <td style="text-align: center;">{{tractor?.deal_price}}</td>
+            <td style="text-align: center;">{{tractor?.booking_price}}</td>
+       
+            <td style="text-align: center;">{{tractor?.booking_date | date}}</td>
+            <td style="text-align: center;">{{tractor?.remark}}</td>
+          
+          </tr>
+          <!-- <tr>
+        <td colspan="3"  style="padding: 5px 10px;">
+          {{catTotal[expenseHeader[0]]}}
+        </td>
+        <div *ngFor="let head of expenseHeader;let indi=index">
+          <div  *ngIf="indi>0" >
+            <td style="padding: 5px 10px;">
+              {{catTotal[expenseHeader[0]]}}
+            </td> 
+
+          </div>
+        </div>
+     
+      </tr> -->
+
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</ion-content>

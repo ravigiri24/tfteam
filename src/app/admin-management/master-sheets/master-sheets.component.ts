@@ -27,7 +27,7 @@ export class MasterSheetsComponent implements OnInit {
     private api: ApiService,
     private inAppBrowser: InAppBrowser,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
     (window as any).pdfMake.vfs = pdfMake.vfs;
     pdfMake.fonts = {
@@ -85,9 +85,9 @@ export class MasterSheetsComponent implements OnInit {
     if (this.form) {
       this.form.reset();
     }
-    this.allDetails=null
-    this.tractorArray=[]
-    this.showData=false
+    this.allDetails = null;
+    this.tractorArray = [];
+    this.showData = false;
     this.getLogisticExpense();
     this.activatedRoute.params.subscribe((params: any) => {
       this.srcPage = params?.srcPage;
@@ -96,9 +96,9 @@ export class MasterSheetsComponent implements OnInit {
   }
   allDetails: any;
   tractorArray: any;
-  showData=false
+  showData = false;
   genrateReport() {
-    this.showData=false
+    this.showData = false;
     if (this.form.valid) {
       if (
         this.form.controls['startDate']?.value <=
@@ -108,7 +108,7 @@ export class MasterSheetsComponent implements OnInit {
           'getTractorSheetByDate',
           false,
           [],
-          true
+          true,
         );
 
         obj.startDate = this.form.controls['startDate'].value;
@@ -119,55 +119,78 @@ export class MasterSheetsComponent implements OnInit {
         this.api.postapi('getTractorSheetByDate', obj).subscribe(
           (res: any) => {
             this.allDetails = res?.data;
-             this.allDetails.spareList= this.allDetails.spareList.reverse()
+            this.allDetails.spareList = this.allDetails.spareList.reverse();
             this.tractorArray = res?.data?.tractorList;
-            this.tractorArray=this.tractorArray.reverse()
+            this.tractorArray = this.tractorArray.reverse();
             this.tractorArray?.forEach((tractor: any) => {
               let logisticExpense: any = {};
               let totalAmountBreakup = 0;
 
-              this.logisticExpenseTypeList?.forEach((log: any) => {
-                let haveExpense = tractor?.transportCosting?.find(
-                  (f: any) => f.expense_id == log?.id
+              // this.logisticExpenseTypeList?.forEach((log: any) => {
+              //   let haveExpense = tractor?.transportCosting?.find(
+              //     (f: any) => f.expense_id == log?.id
+              //   );
+
+              //   if (haveExpense) {
+              //     totalAmountBreakup =
+              //       Number(totalAmountBreakup) + Number(haveExpense?.expense_amount);
+              //     logisticExpense[log?.name] = haveExpense?.expense_amount;
+              //   } else {
+              //     logisticExpense[log?.name] = 0;
+              //   }
+
+              // });
+
+              tractor?.transportCosting?.forEach((log: any) => {
+                let haveExpense = this.logisticExpenseTypeList?.find(
+                  (f: any) => f.id == log?.expense_id,
                 );
 
                 if (haveExpense) {
                   totalAmountBreakup =
-                    Number(totalAmountBreakup) + Number(haveExpense?.expense_amount);
-                  logisticExpense[log?.name] = haveExpense?.expense_amount;
+                    Number(totalAmountBreakup) + Number(log?.expense_amount);
+                  if (logisticExpense[haveExpense?.name] > 0) {
+                    logisticExpense[haveExpense?.name] =
+                      Number(logisticExpense[haveExpense?.name]) +
+                      Number(log?.expense_amount);
+                  } else {
+                    logisticExpense[haveExpense?.name] = log?.expense_amount;
+                  }
                 } else {
-                  logisticExpense[log?.name] = 0;
+                  logisticExpense[haveExpense?.name] = 0;
                 }
-              
-              
               });
-                tractor.logisticExpense = logisticExpense;
-                console.log('logisticExpense', logisticExpense);
-                if(tractor?.purchasedetail?.purchasePrice>0){
-               totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.purchasedetail?.purchasePrice)
-                }
-               // if(tractor?.rtoDetails){
-                if(tractor?.rto_cost>0){
-                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.rto_cost)
-                }
-                   if(tractor?.insurance_cost>0){
-                  totalAmountBreakup=Number(totalAmountBreakup)+Number(tractor?.insurance_cost)
-                } 
-                //}
-                tractor.totalAmountBreakup=totalAmountBreakup
-                //need to call at last for all calculation
-                this.calculateRepairCost(tractor)
 
+              tractor.logisticExpense = logisticExpense;
+              console.log('logisticExpense', logisticExpense);
+              if (tractor?.purchasedetail?.purchasePrice > 0) {
+                totalAmountBreakup =
+                  Number(totalAmountBreakup) +
+                  Number(tractor?.purchasedetail?.purchasePrice);
+              }
+              // if(tractor?.rtoDetails){
+              if (tractor?.rto_cost > 0) {
+                totalAmountBreakup =
+                  Number(totalAmountBreakup) + Number(tractor?.rto_cost);
+              }
+              if (tractor?.insurance_cost > 0) {
+                totalAmountBreakup =
+                  Number(totalAmountBreakup) + Number(tractor?.insurance_cost);
+              }
+              //}
+              tractor.totalAmountBreakup = totalAmountBreakup;
+              //need to call at last for all calculation
+              this.calculateRepairCost(tractor);
             });
             // this.createReport();
-            console.log("tractorArray",this.tractorArray);
-            
+            console.log('tractorArray', this.tractorArray);
+
             this.share.spinner.dismiss();
             setTimeout(() => {
-              this.showData=true
+              this.showData = true;
             }, 0);
           },
-          (error: any) => {}
+          (error: any) => {},
         );
       } else {
         this.share.presentToast('Error:End Date is less than Start Date');
@@ -176,51 +199,48 @@ export class MasterSheetsComponent implements OnInit {
       this.share.presentToast('Error:Please Fill Required(*) Fields');
     }
   }
-  totalSellingCost:any=0
-  calculateRepairCost(tractor:any){
-    //service 
-        let expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
-          (f: any) => f?.expense_head == 'EXPENSE'
-        );
-      let  expenseServiceCost=0
-        expenseServiceList?.forEach((f: any) => {
-        expenseServiceCost =
-        expenseServiceCost + Number(f?.total_expense);
-       
+  totalSellingCost: any = 0;
+  calculateRepairCost(tractor: any) {
+    //service
+    let expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
+      (f: any) => f?.expense_head == 'EXPENSE',
+    );
+    let expenseServiceCost = 0;
+    expenseServiceList?.forEach((f: any) => {
+      expenseServiceCost = expenseServiceCost + Number(f?.total_expense);
     });
-     tractor.expenseServiceCost=expenseServiceCost
-   let expenseMaterialList = tractor?.repairMaterialExpenseCost?.filter(
-          (f: any) => f?.expense_head == 'EXPENSE'
-        );
+    tractor.expenseServiceCost = expenseServiceCost;
+    let expenseMaterialList = tractor?.repairMaterialExpenseCost?.filter(
+      (f: any) => f?.expense_head == 'EXPENSE',
+    );
 
-     // material   
-       let expenseMaterialCost=0
-  expenseMaterialList?.forEach((f: any) => {
-      expenseMaterialCost =
-        expenseMaterialCost + Number(f?.total_expense);
+    // material
+    let expenseMaterialCost = 0;
+    expenseMaterialList?.forEach((f: any) => {
+      expenseMaterialCost = expenseMaterialCost + Number(f?.total_expense);
     });
 
-    //category wise 
-   let  categroyWiseMaterial:any=[]   
-   this.allDetails?.spareList?.forEach((spare:any)=>{
-  let obj = {
-            catName: spare.name,
-            id: spare.id,
-            materialList: [],
-            total_amount: 0,
-          };
-            categroyWiseMaterial.push(obj)
-   })
-       expenseMaterialList?.forEach((expense: any) => {
+    //category wise
+    let categroyWiseMaterial: any = [];
+    this.allDetails?.spareList?.forEach((spare: any) => {
+      let obj = {
+        catName: spare.name,
+        id: spare.id,
+        materialList: [],
+        total_amount: 0,
+      };
+      categroyWiseMaterial.push(obj);
+    });
+    expenseMaterialList?.forEach((expense: any) => {
       let findinMatList = this.allDetails?.materialList?.find(
-        (mat: any) => mat.id == expense?.expense_id
+        (mat: any) => mat.id == expense?.expense_id,
       );
       let getCat = this.allDetails?.spareList?.find(
-        (spare: any) => spare.id == findinMatList?.category
+        (spare: any) => spare.id == findinMatList?.category,
       );
       if (getCat) {
         let findExist = categroyWiseMaterial?.findIndex(
-          (cat: any) => cat.id == getCat.id
+          (cat: any) => cat.id == getCat.id,
         );
         if (findExist > -1) {
           categroyWiseMaterial[findExist].total_amount =
@@ -232,7 +252,7 @@ export class MasterSheetsComponent implements OnInit {
             catName: getCat?.name,
             id: getCat?.id,
             materialList: [expense],
-            total_amount: expense?.total_expense||0,
+            total_amount: expense?.total_expense || 0,
           };
           categroyWiseMaterial.push(obj);
         }
@@ -242,73 +262,81 @@ export class MasterSheetsComponent implements OnInit {
     // categroyWiseMaterial?.forEach((catM:any)=>{
     //   catMaterialTotal=catMaterialTotal+Number(catM?.total_amount)
     // })
-     tractor.categroyWiseMaterial=categroyWiseMaterial
-     //reduce
-   let reduceItemTotalAmount=0
-  tractor?.reduceItemList?.forEach((f: any) => {
-      reduceItemTotalAmount =
-        reduceItemTotalAmount + Number(f?.total_amount);
+    tractor.categroyWiseMaterial = categroyWiseMaterial;
+    //reduce
+    let reduceItemTotalAmount = 0;
+    tractor?.reduceItemList?.forEach((f: any) => {
+      reduceItemTotalAmount = reduceItemTotalAmount + Number(f?.total_amount);
     });
 
-//total
-    tractor.reduceItemTotalAmount=reduceItemTotalAmount
-      let totalRepairExpense= Number(expenseMaterialCost)+Number(expenseServiceCost)
-      tractor.totalRepairExpense=totalRepairExpense
-tractor.workshopTotalExpense=Number(totalRepairExpense)-Number(reduceItemTotalAmount)
+    //total
+    tractor.reduceItemTotalAmount = reduceItemTotalAmount;
+    let totalRepairExpense =
+      Number(expenseMaterialCost) + Number(expenseServiceCost);
+    tractor.totalRepairExpense = totalRepairExpense;
+    tractor.workshopTotalExpense =
+      Number(totalRepairExpense) - Number(reduceItemTotalAmount);
 
-//totalExpense
-tractor.totalExpenseT=Number(tractor.workshopTotalExpense)+Number(tractor?.totalAmountBreakup)
-if(tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer==0){
+    //totalExpense
+    tractor.totalExpenseT =
+      Number(tractor.workshopTotalExpense) +
+      Number(tractor?.totalAmountBreakup);
+    if (tractor?.sellingDetailedIdDetails && tractor?.isSoldToDealer == 0) {
+      tractor.netSellingPrice = tractor?.sellingDetailedIdDetails?.sellingPrice;
+      tractor.gm =
+        Number(tractor?.sellingDetailedIdDetails?.sellingPrice) -
+        Number(tractor.totalExpenseT);
+      if (tractor.gm) {
+        tractor.gstAmount = (Number(tractor.gm) * 18) / 118;
+      }
+      tractor.billingAmountWithoutGst =
+        Number(tractor?.netSellingPrice) - Number(tractor?.gstAmount);
+    } else {
+      if (tractor?.isSoldToDealer == 1) {
+        tractor.netSellingPrice = Number(tractor?.dealerPrice);
+        tractor.gm =
+          Number(tractor?.dealerPrice) - Number(tractor.totalExpenseT);
+        if (tractor.gm) {
+          tractor.gstAmount = (Number(tractor.gm) * 18) / 118;
+        }
+        tractor.billingAmountWithoutGst =
+          Number(tractor?.netSellingPrice) - Number(tractor?.gstAmount);
+      } else {
+        tractor.netSellingPrice = null;
+        tractor.gm = null;
+        tractor.gstAmount = null;
+        tractor.billingAmountWithoutGst = null;
+      }
+    }
 
-  tractor.netSellingPrice=tractor?.sellingDetailedIdDetails?.sellingPrice
-  tractor.gm=Number(tractor?.sellingDetailedIdDetails?.sellingPrice)-Number(tractor.totalExpenseT)
-  if( tractor.gm){
-    tractor.gstAmount=Number(tractor.gm)*18/118
+    //tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
+    tractor.dlpBasedEstimation = Number(tractor?.totalAmountBreakup) + 37000;
+
+    this.totalSellingCost = this.totalSellingCost + Number(tractor.gm);
   }
-  tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
-
-}else{
-    if(tractor?.isSoldToDealer==1){
-  tractor.netSellingPrice=Number(tractor?.dealerPrice)
-    tractor.gm=Number(tractor?.dealerPrice)-Number(tractor.totalExpenseT)
-      if( tractor.gm){
-    tractor.gstAmount=Number(tractor.gm)*18/118
+  swap(arr: any[], i: number, j: number): void {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  tractor.billingAmountWithoutGst=Number( tractor?.netSellingPrice)-Number(tractor?.gstAmount)
-  }else{
-       tractor.netSellingPrice=null
-   tractor.gm=null
-   tractor.gstAmount=null
-  tractor.billingAmountWithoutGst=null
-  }
-
-}
-
-//tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+Number(tractor?.maintainanceEstimationCost||0)+37000
-tractor.dlpBasedEstimation=Number(tractor?.totalAmountBreakup)+37000
-
-this.totalSellingCost=this.totalSellingCost+Number(tractor.gm)
-  }
- swap(arr: any[], i: number, j: number): void {
-  [arr[i], arr[j]] = [arr[j], arr[i]];
-}
   logisticExpenseTypeList: any = [];
   getLogisticExpense() {
     let obj: any = this.share.getListObj('expensetype', false, [], true);
 
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
-        console.log("logisticExpenseTypeList",res.data);
-        
-        this.logisticExpenseTypeList = res.data;
-        if(this.logisticExpenseTypeList?.length){
-          let findIndex=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==4)
-          let findIndex1=this.logisticExpenseTypeList?.findIndex((f:any)=>f.id==5)
-          this.swap(this.logisticExpenseTypeList, findIndex, findIndex1);
+        console.log('logisticExpenseTypeList', res.data);
 
+        this.logisticExpenseTypeList = res.data;
+        if (this.logisticExpenseTypeList?.length) {
+          let findIndex = this.logisticExpenseTypeList?.findIndex(
+            (f: any) => f.id == 4,
+          );
+          let findIndex1 = this.logisticExpenseTypeList?.findIndex(
+            (f: any) => f.id == 5,
+          );
+          this.swap(this.logisticExpenseTypeList, findIndex, findIndex1);
         }
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   ngOnInit() {}
@@ -348,7 +376,7 @@ this.totalSellingCost=this.totalSellingCost+Number(tractor.gm)
       endDate: this.reportDatesRecord?.endDate,
     };
     console.log('convertBlobToBase64', obj);
-this.share.showLoading("Generating Excel",20000)
+    this.share.showLoading('Generating Excel', 20000);
     this.api.postapi('savemastersheet', obj).subscribe((res: any) => {
       console.log('saveDataTo', res);
       this.share.spinner.dismiss();

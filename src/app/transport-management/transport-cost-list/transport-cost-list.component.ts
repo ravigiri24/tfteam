@@ -64,9 +64,9 @@ export class TransportCostListComponent implements OnInit {
     setTimeout(() => {
       this.showAdd = true;
     }, 0);
-    this.activatedRoute.params.subscribe((params: any) => {
-      this.tarctor_id = params?.id;
-    });
+    // this.activatedRoute.params.subscribe((params: any) => {
+    //   this.tarctor_id = params?.id;
+    // });
 
     this.listData = [];
 

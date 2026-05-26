@@ -31,6 +31,7 @@ import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.
 import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
 import { FindingReportsComponent } from './finding-reports/finding-reports.component';
 import { NewFindingReportComponent } from './new-finding-report/new-finding-report.component';
+import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tractor-sheet.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -56,7 +57,8 @@ import { NewFindingReportComponent } from './new-finding-report/new-finding-repo
     BufferStockListComponent,
     ViewMaintainanceCostComponent,
     FindingReportsComponent,
-    NewFindingReportComponent
+    NewFindingReportComponent,
+    BookedTractorSheetComponent
   ],
   imports: [
    

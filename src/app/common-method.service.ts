@@ -48,6 +48,7 @@ import { ViewNewFindingDealComponent } from './shared-components/view-new-findin
 import { ActionPopupComponent } from './purchase-management/new-findings/action-popup/action-popup.component';
 import { EditPurchaseHistoryComponent } from './new-arrivals-management/edit-purchase-history/edit-purchase-history.component';
 import { BookingHistoryComponent } from './shared-components/booking-history/booking-history.component';
+import { TransportCostListComponent } from './transport-management/transport-cost-list/transport-cost-list.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -199,7 +200,7 @@ export class CommonMethodService {
        if (e?.button?.name == 'Tractor Purchase History') {
       await this.purchaseHistory(e);
     }if(e?.button?.name == 'Booking Tractor'){
-      this.bookingMethod(e?.tractor)
+      this.bookingMethod(e)
     }
     
   }
@@ -577,8 +578,24 @@ export class CommonMethodService {
     if (role === 'confirm') {
     }
   }
-  addCostTransport(tractor: any) {
-    this.router.navigate(['/transport-department/add-cost', tractor?.id]);
+  // addCostTransport(tractor: any) {
+  //   this.router.navigate(['/transport-department/add-cost', tractor?.id]);
+  // }
+    async addCostTransport(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TransportCostListComponent,
+      componentProps: {
+          tarctor_id: tractor?.id,
+      },
+           cssClass: 'custom-modal',
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+      this.reloadMethod = true;
+    }
   }
   async startTranspotation(tractor: any) {
     const modal = await this.modalCtrl.create({
@@ -586,6 +603,7 @@ export class CommonMethodService {
       componentProps: {
         tractorDetails: tractor,
       },
+           cssClass: 'custom-modal',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -901,11 +919,12 @@ export class CommonMethodService {
     if (role === 'confirm') {
     }
  }
-  async bookingMethod(tractor: any = null) {
+  async bookingMethod(e: any = null) {
      const modal = await this.modalCtrl.create({
       component: BookingHistoryComponent,
       componentProps: {
-        tractor: tractor,
+        tractor: e?.tractor,
+        button: e?.button,
       },
         cssClass: 'custom-modal',
     });
@@ -918,4 +937,5 @@ export class CommonMethodService {
     if (role === 'confirm') {
     }
  }
+ 
 }

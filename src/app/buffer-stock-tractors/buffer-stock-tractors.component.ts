@@ -119,6 +119,7 @@ export class BufferStockTractorsComponent implements OnInit {
     {
       name: 'Booking Tractor',
       action: 'BookTractor',
+         showAction:true,
       image: './././assets/images/book-now.png',
     },
     

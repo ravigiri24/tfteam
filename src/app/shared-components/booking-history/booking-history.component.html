@@ -13,7 +13,7 @@
 <ion-content class="internal_card_container" [ngClass]="listColorClass">
   <div class="global_input_block select_option_with_add">
       <ion-title class="inner-heading-list dynamic_color">Booking</ion-title>
-    <ion-button *ngIf="lastBookingStatus?.currentStatus=='CANCELED' || !bookingList?.length" (click)="addBooking()" class="dynamic_bgcolor add_btn" expand="block">
+    <ion-button *ngIf="(lastBookingStatus?.currentStatus=='CANCELED' || !bookingList?.length) && showAction" (click)="addBooking()" class="dynamic_bgcolor add_btn" expand="block">
       <ion-icon name="add-outline"></ion-icon>
     </ion-button>
   </div>
@@ -23,9 +23,9 @@
       <ion-col class="code_col">Booking Date</ion-col>
       <ion-col class="date_col">Booking Status</ion-col>
       <ion-col class="date_col">Store</ion-col>
-      <ion-col class="date_col">Edit</ion-col>
+      <ion-col *ngIf="showAction" class="date_col">Edit</ion-col>
             <ion-col class="action_col">View</ion-col>
-      <ion-col class="action_col">Cancel</ion-col>
+      <ion-col *ngIf="showAction" class="action_col">Cancel</ion-col>
 
     </ion-row>
     <ion-row class="table_row" *ngFor="let book of bookingList;let i=index">
@@ -33,14 +33,14 @@
       <ion-col class="code_col">{{book?.booking_date | date}}</ion-col>
       <ion-col class="date_col">{{book?.currentStatus}}</ion-col>
       <ion-col class="date_col">{{book?.storeName}}</ion-col>
-             <ion-col class="action_col">
+             <ion-col *ngIf="showAction" class="action_col">
         <ion-icon class="delete_color icon-size" *ngIf="book?.currentStatus=='OPEN'" (click)="addBooking(book)" name="create-outline"></ion-icon>
             </ion-col>
             <ion-col class="action_col">
         <ion-icon class="delete_color icon-size" (click)="viewBooking(book)" name="eye-outline"></ion-icon>
             </ion-col>
-      <ion-col class="action_col">
-        <ion-icon class="delete_color icon-size" (click)="cancelBooking(book)" name="close-circle-outline"></ion-icon>
+      <ion-col *ngIf="showAction"  class="action_col">
+        <ion-icon  class="delete_color icon-size" (click)="cancelBooking(book)" name="close-circle-outline"></ion-icon>
 
       </ion-col>
       

@@ -23,7 +23,7 @@ export class TractorCostingListComponent implements OnInit {
     public share: ShareService,
     private modalCtrl: ModalController,
     private router: Router,
-    private commonMethod: CommonMethodService
+    private commonMethod: CommonMethodService,
   ) {}
   alltractorList: any = [];
   ngOnInit() {}
@@ -43,7 +43,7 @@ export class TractorCostingListComponent implements OnInit {
   resetFilterVal() {
     this.checkedAll = true;
     this.selectedBrand = [];
-    this.allFilterList=[]
+    this.allFilterList = [];
 
     this.lower = 0;
     this.listBy = 'ACTIVE';
@@ -71,16 +71,15 @@ export class TractorCostingListComponent implements OnInit {
           this.warehouseList = this.warehouseList.reverse();
 
           console.log('this.warehouseList', this.warehouseList);
-          
-            this.selectedStore = this.warehouseList[0]?.id;
 
-            this.getAllTractorListStorewise();
-            //this.share.spinner?.dismiss();
-             this.share.putUnAssignedInWareHouse(this.warehouseList);
+          this.selectedStore = this.warehouseList[0]?.id;
+
+          this.getAllTractorListStorewise();
+          //this.share.spinner?.dismiss();
+          this.share.putUnAssignedInWareHouse(this.warehouseList);
           this.share.putAllInWareHouse(this.warehouseList);
-       
         },
-        (error: any) => {}
+        (error: any) => {},
       );
     }, 0);
   }
@@ -100,19 +99,17 @@ export class TractorCostingListComponent implements OnInit {
       store_id: this.selectedStore,
     };
     if (loader) {
-      this.share.showLoading('Loading...',1000);
+      this.share.showLoading('Loading...', 1000);
     }
     this.alltractorList = [];
-    let takingTime=true
-setTimeout(() => {
-  if(takingTime){
-  this.share.presentToast("Taking Time,Please Wait...")
-}
-
-}, 2000);
+    let takingTime = true;
+    setTimeout(() => {
+      if (takingTime) {
+        this.share.presentToast('Taking Time,Please Wait...');
+      }
+    }, 2000);
     this.api.postapi('getTractorsListStoreWise', obj).subscribe(
       (res: any) => {
-   
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         this.putMappedValue();
@@ -120,18 +117,18 @@ setTimeout(() => {
         this.traceTractorPosition();
         this.checkedRepairStatus();
         setTimeout(() => {
-                 this.share.spinner.dismiss('active_one');
+          this.share.spinner.dismiss('active_one');
         }, 0);
 
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-           takingTime=false
+        takingTime = false;
         this.filterActiveAndFilterBy();
 
         //this.sortByFilter()
-  
+
         //this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   checkedRepairStatus() {
@@ -199,22 +196,22 @@ setTimeout(() => {
         tractor?.isLive == 1 &&
         tractor?.tractordetailadmin?.wareHouseLocation == null
       ) {
-          let arch=''
-        if( tractor?.tractor_status=='ARCHIVED'){
-          arch='(Archived)'
+        let arch = '';
+        if (tractor?.tractor_status == 'ARCHIVED') {
+          arch = '(Archived)';
         }
-        tractor.tractor_status_current = 'At WareHouse'+arch;
+        tractor.tractor_status_current = 'At WareHouse' + arch;
       }
       if (
         tractor?.isDraft == 1 &&
         tractor?.isLive == 1 &&
         tractor?.tractordetailadmin?.wareHouseLocation != null
       ) {
-        let arch=''
-        if( tractor?.tractor_status=='ARCHIVED'){
-          arch='(Archived)'
+        let arch = '';
+        if (tractor?.tractor_status == 'ARCHIVED') {
+          arch = '(Archived)';
         }
-        tractor.tractor_status_current = 'Alloted(At Dealer)'+arch;
+        tractor.tractor_status_current = 'Alloted(At Dealer)' + arch;
       }
       if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
         tractor.tractor_status_current = 'Live';
@@ -249,7 +246,7 @@ setTimeout(() => {
   filterBy: any = 'NOT_SOLD';
 
   filterActiveAndFilterBy() {
-      this.share.showLoading('Rendering Data', 2000);
+    this.share.showLoading('Rendering Data', 2000);
     this.alltractorList = [];
     setTimeout(() => {
       let tractorList: any = [];
@@ -257,11 +254,11 @@ setTimeout(() => {
         tractorList = JSON.parse(JSON.stringify(this.allTractorsSrcList));
       } else if (this.listBy == 'ARCHIVED') {
         tractorList = this.allTractorsSrcList.filter(
-          (f: any) => f.tractor_status == 'ARCHIVED'
+          (f: any) => f.tractor_status == 'ARCHIVED',
         );
       } else if (this.listBy == 'ACTIVE') {
         tractorList = this.allTractorsSrcList.filter(
-          (f: any) => f.tractor_status != 'ARCHIVED'
+          (f: any) => f.tractor_status != 'ARCHIVED',
         );
       }
       if (this.filterBy == 'ALL') {
@@ -269,21 +266,31 @@ setTimeout(() => {
       } else if (this.filterBy == 'SOLD') {
         tractorList = tractorList?.filter((f: any) => f?.isSold == 1);
       } else if (this.filterBy == 'NOT_SOLD') {
-        tractorList = tractorList?.filter((f: any) => f?.isSold == 0);
+        tractorList = tractorList?.filter(
+          (f: any) =>
+            f?.isSold == 0 &&
+            (f?.getBookedStatus?.currentStatus != 'OPEN' ||
+              !f?.getBookedStatus),
+        );
+      } else if (this.filterBy == 'BOOKED') {
+        tractorList = tractorList?.filter(
+          (f: any) =>
+            f?.isSold == 0 && f?.getBookedStatus?.currentStatus == 'OPEN',
+        );
       }
       if (this.filterBy == 'MAPPED') {
         tractorList = tractorList?.filter(
-          (f: any) => f?.repairMappedData?.length > 0
+          (f: any) => f?.repairMappedData?.length > 0,
         );
       }
       if (this.filterBy == 'NOT_MAPPED') {
         tractorList = tractorList?.filter(
-          (f: any) => f?.repairMappedData?.length == 0
+          (f: any) => f?.repairMappedData?.length == 0,
         );
       }
       if (this.filterBy == '0_IMAGE') {
         tractorList = tractorList?.filter(
-          (f: any) => f?.imagesInTractor?.length == 0
+          (f: any) => f?.imagesInTractor?.length == 0,
         );
       }
       if (this.filterBy == 'SOLD_TO_DEALER') {
@@ -292,13 +299,14 @@ setTimeout(() => {
       if (this.filterBy == 'SOLD_NOT_TO_DEALER') {
         tractorList = tractorList?.filter((f: any) => f?.isSoldToDealer == 0);
       }
-            if (this.filterBy == 'AT_WAREHOUSE') {
-        tractorList = tractorList?.filter((f: any) =>f?.isDraft == 1 &&
-        f?.isLive == 1 &&
-        f?.tractordetailadmin?.wareHouseLocation == null);
-        
+      if (this.filterBy == 'AT_WAREHOUSE') {
+        tractorList = tractorList?.filter(
+          (f: any) =>
+            f?.isDraft == 1 &&
+            f?.isLive == 1 &&
+            f?.tractordetailadmin?.wareHouseLocation == null,
+        );
       }
-      
 
       this.sortByFilter(tractorList);
     }, 0);
@@ -317,51 +325,48 @@ setTimeout(() => {
     filteredList = this.share.filterByPrice(
       filteredList,
       this.lower,
-      this.upper
+      this.upper,
     );
 
     filteredList = this.share.filterByManuYear(filteredList, this.yearChecked);
-  this.allFilterList=filteredList
-    if(filteredList?.length>30){
- this.alltractorList=filteredList.slice(0, 30);
- this.holddingList= filteredList.slice(30,filteredList?.length);
-  
-    }else{
-    this.alltractorList=filteredList
-     this.holddingList=[]
+    this.allFilterList = filteredList;
+    if (filteredList?.length > 30) {
+      this.alltractorList = filteredList.slice(0, 30);
+      this.holddingList = filteredList.slice(30, filteredList?.length);
+    } else {
+      this.alltractorList = filteredList;
+      this.holddingList = [];
     }
 
+    //console.log("this.holddingList",this.holddingList,'this.alltractorList',this.alltractorList);
 
-//console.log("this.holddingList",this.holddingList,'this.alltractorList',this.alltractorList);
-
-   //this.alltractorList = filteredList;
+    //this.alltractorList = filteredList;
 
     // if (this.alltractorList?.length > 50) {
     //   this.alltractorList=this.alltractorList.splice(50)
-    
+
     // }else{
     //   this.share.spinner.dismiss()
     // }
-      this.holddingList?.forEach((tractor: any) => {
-      this.share.getImagesToShow(tractor)
-    })
+    this.holddingList?.forEach((tractor: any) => {
+      this.share.getImagesToShow(tractor);
+    });
   }
-  expandListEvent(){
-  //  this.share.showLoading("Rendering Data...")
-  this.share.presentToast("Expanding...")
-  setTimeout(() => {
-      if(this.alltractorList?.length<this.allFilterList?.length){
-  this.alltractorList = [...this.alltractorList, ...this.holddingList]
-    }
-  }, 0);
-  
-  setTimeout(() => {
-    //this.share.spinner.dismiss()
-  }, 0);
- 
+  expandListEvent() {
+    //  this.share.showLoading("Rendering Data...")
+    this.share.presentToast('Expanding...');
+    setTimeout(() => {
+      if (this.alltractorList?.length < this.allFilterList?.length) {
+        this.alltractorList = [...this.alltractorList, ...this.holddingList];
+      }
+    }, 0);
+
+    setTimeout(() => {
+      //this.share.spinner.dismiss()
+    }, 0);
   }
-  holddingList:any=[]
-  allFilterList:any=[]
+  holddingList: any = [];
+  allFilterList: any = [];
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
     { name: 'Filter', icon: 'cog-outline' },
@@ -373,7 +378,7 @@ setTimeout(() => {
       this.openFilter();
     }
   }
-  
+
   async openFilter() {
     const modal = await this.modalCtrl.create({
       component: GlobalFilterTractorComponent,
@@ -386,6 +391,7 @@ setTimeout(() => {
 
           { displayName: 'Not Sold', value: 'NOT_SOLD' },
           { displayName: 'Sold', value: 'SOLD' },
+          { displayName: 'Booked', value: 'BOOKED' },
           { displayName: 'Mapped', value: 'MAPPED' },
           { displayName: 'Not-Mapped', value: 'NOT_MAPPED' },
           { displayName: '0-Image', value: '0_IMAGE' },
@@ -399,7 +405,7 @@ setTimeout(() => {
         lower: this.lower,
         upper: this.upper,
         yearChecked: this.yearChecked,
-        brandList:this.brandList
+        brandList: this.brandList,
       },
       cssClass: 'midium-model',
     });
@@ -424,15 +430,21 @@ setTimeout(() => {
       action: 'tractorSummary',
       image: './././assets/images/data-analysis.png',
     },
-        {
+    {
       name: 'Tractor NDP',
       action: 'tractorNDP',
       image: './././assets/images/rupee-sign.png',
     },
-       {
+    {
       name: 'View Tractor All Images',
       action: 'viewTractorAllImage',
       image: './././assets/images/all_image_icon.png',
+    },
+    {
+      name: 'Booking Tractor',
+      action: 'BookTractor',
+      showAction:false,
+      image: './././assets/images/book-now.png',
     },
   ];
   keyList: any = [
@@ -446,6 +458,7 @@ setTimeout(() => {
     { key: 'Mapped To Repair', value: 'isMapped', type: 'CONDITIONAL' },
     { key: 'Refurbish Status', value: 'repairStatus', type: 'INPUT' },
     { key: 'Status', value: 'tractor_status_current', type: 'INPUT' },
+    { key: 'Booked', value: 'bookedStatus', type: 'INPUT' },
 
     {
       key: 'Franchise(Alloted)',
@@ -497,7 +510,7 @@ setTimeout(() => {
 
           // }
         },
-        (error: any) => {}
+        (error: any) => {},
       );
     }, 0);
   }
@@ -528,7 +541,7 @@ setTimeout(() => {
         this.share?.spinner?.dismiss('active_two');
         this.backupList = res.data;
       },
-      (error: any) => {}
+      (error: any) => {},
     );
   }
   async searchTractor() {
@@ -542,7 +555,7 @@ setTimeout(() => {
         searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: [] },
       },
-           cssClass: 'midium-model',
+      cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();

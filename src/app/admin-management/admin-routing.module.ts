@@ -23,6 +23,7 @@ import { BufferStockListComponent } from './buffer-stock-list/buffer-stock-list.
 import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-maintainance-cost.component';
 import { FindingReportsComponent } from './finding-reports/finding-reports.component';
 import { NewFindingReportComponent } from './new-finding-report/new-finding-report.component';
+import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tractor-sheet.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -51,6 +52,7 @@ const routes: Routes = [
          { path: 'sales-officer/:srcPage', component: SalesOfficerComponent},
          { path: 'finding-reports/:srcPage', component: FindingReportsComponent},
          { path: 'new-finding-reports/:srcPage', component: NewFindingReportComponent},
+         { path: 'booked-tractor-sheets/:srcPage', component: BookedTractorSheetComponent},
          {
               path: 'view-costing-dashboard/:id',
               component: TractorCostingDashboardComponent,

@@ -34,6 +34,9 @@
     <div class="global_input_block">
       <ion-input label="Expense Date" fill="outline" labelPlacement="stacked" type="date" formControlName="expense_date"></ion-input>
     </div>
+        <div class="global_input_block">
+      <ion-input label="From To Location" fill="outline" labelPlacement="stacked" type="text" formControlName="remark"></ion-input>
+    </div>
     <div class="page_submit_btn">
       <ion-button *ngIf="!data" (click)="saveExpense()" class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
       <ion-button *ngIf="data" (click)="updateItem()" class="global_submit_color_button dynamic_bgcolor" expand="block">Update</ion-button>

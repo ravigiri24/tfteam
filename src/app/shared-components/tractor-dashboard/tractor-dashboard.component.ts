@@ -27,6 +27,7 @@ import { AddDealerPriceComponent } from 'src/app/purchase-management/add-dealer-
 import { AddRtoInsuranceCostComponent } from '../add-rto-insurance-cost/add-rto-insurance-cost.component';
 import { SellBackComponent } from '../sell-back/sell-back.component';
 import { AllotStoreComponent } from '../allot-store/allot-store.component';
+import { TransportCostListComponent } from 'src/app/transport-management/transport-cost-list/transport-cost-list.component';
 @Component({
   selector: 'app-tractor-dashboard',
   templateUrl: './tractor-dashboard.component.html',
@@ -468,6 +469,25 @@ export class TractorDashboardComponent implements OnInit {
       cssClass: 'custom-modal',
       componentProps: {
         tractorDetails: this.tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.dataEnterd) {
+      // this.tractorDetails.dealerPrice = data?.dealerPrice;
+      // this.tractorDetails.isSoldToDealer = true;
+      // this.tractorDetails.tractordetailadmin.wareHouseLocation =
+      //   data?.wareHouseLocation;
+      this.getTractorDetails('Refreshing Data...')
+    }
+  }
+    async intraDealerTransport() {
+    const modal = await this.modalCtrl.create({
+      component: TransportCostListComponent,
+
+      cssClass: 'custom-modal',
+      componentProps: {
+        tarctor_id: this.tractorDetails?.id,
       },
     });
     await modal.present();

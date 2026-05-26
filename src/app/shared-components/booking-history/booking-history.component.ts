@@ -23,9 +23,11 @@ export class BookingHistoryComponent  implements OnInit {
   ) {}
   @Input() listColorClass: any = "fifthColor";
   ngOnInit() {
-
+this.showAction=this.button.showAction
     this.getBookingByTractor()
   }
+  showAction=true
+  button:any
   dismiss() {
     this.modalController.dismiss();
   }

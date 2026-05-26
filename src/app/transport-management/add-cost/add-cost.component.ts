@@ -40,6 +40,7 @@ export class AddCostComponent implements OnInit {
         Validators.required,
       ]),
       expense_date: new FormControl(data?.expense_date || null),
+      remark: new FormControl(data?.remark || null),
       tractor_id: new FormControl(this.tarctor_id || null, [
         Validators.required,
       ]),
