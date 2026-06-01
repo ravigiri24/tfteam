@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportFilterComponent } from './report-filter/report-filter.component';
 import { ModalController } from '@ionic/angular';
+import { ServiceReportsComponent } from './service-reports/service-reports.component';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -14,6 +15,20 @@ export class ReportsComponent implements OnInit {
   async showReport(reportType: any = 'Job List') {
     const modal = await this.modalCtrl.create({
       component: ReportFilterComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+
+        reportType: reportType,
+
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+
+  }
+    async showServiceReport(reportType: any = 'Job List') {
+    const modal = await this.modalCtrl.create({
+      component: ServiceReportsComponent,
       cssClass: 'midium-model',
       componentProps: {
 

@@ -12,6 +12,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 //import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { RemarkPopupComponent } from './remark-popup/remark-popup.component';
 import { RemarkMissPopupComponent } from './remark-miss-popup/remark-miss-popup.component';
+import { ServiceCostingSummaryComponent } from './service-costing-summary/service-costing-summary.component';
 import { jsPDF } from 'jspdf';
 pdfMake.fonts = {
   Roboto: {
@@ -78,8 +79,22 @@ export class JobCardComponent implements OnInit {
       this.spareList,
       this.expenseMaterialList, "categroyWiseMaterial", this.categroyWiseMaterial
     );
-  }
+       let staffDetails: any = this.share.get_staff();
 
+    this.staffD = JSON.parse(staffDetails);
+    if(this.isJobDone){
+    if(this.staffD?.isRepairHead==1){
+    this.alloService=true
+    }else{
+      this.alloService=false
+    }
+  }else{
+this.alloService=true
+  }
+  }
+  alloService=false
+
+staffD:any
   async actionJob(msg: any, status: any) {
     const alert = await this.alertCtrl.create({
       header: msg,
@@ -102,6 +117,7 @@ export class JobCardComponent implements OnInit {
       this.completeJob(status);
     }
   }
+  updateAccessService:any
   todayDate = new Date()
   completeJob(status: any) {
     let obj = {
@@ -277,6 +293,24 @@ export class JobCardComponent implements OnInit {
     const { data, role } = await modal.onWillDismiss();
     if (data) {
       this.jobDetails.remark = data?.remark
+    }
+  }
+    async updateServiceCosting() {
+    const modal = await this.modalCtrl.create({
+      component: ServiceCostingSummaryComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        jobDetails: this.jobDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.jobDetails.totalBillService = data?.totalBillService
+      this.jobDetails.ProfitService = data?.ProfitService
+      this.jobDetails.DiscountService = data?.DiscountService
+      this.jobDetails.NetPayService = data?.NetPayService
     }
   }
   async addRemarkMiss() {

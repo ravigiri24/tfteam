@@ -34,6 +34,9 @@ import { AddReducePartComponent } from './repair-dashboard/build-job/add-reduce-
 import { AddNewTractorAlertComponent } from './create/add-new-tractor-alert/add-new-tractor-alert.component';
 import { RemarkPopupComponent } from './repair-dashboard/job-card/remark-popup/remark-popup.component';
 import { RemarkMissPopupComponent } from './repair-dashboard/job-card/remark-miss-popup/remark-miss-popup.component';
+import { ChangeRepairTypeComponent } from './job-list/change-repair-type/change-repair-type.component';
+import { ServiceCostingSummaryComponent } from './repair-dashboard/job-card/service-costing-summary/service-costing-summary.component';
+import { ServiceReportsComponent } from './reports/service-reports/service-reports.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -56,7 +59,10 @@ import { RemarkMissPopupComponent } from './repair-dashboard/job-card/remark-mis
     ReportFilterComponent,
     AddNewTractorAlertComponent,
     RemarkPopupComponent,
-    RemarkMissPopupComponent
+    RemarkMissPopupComponent,
+    ChangeRepairTypeComponent,
+    ServiceCostingSummaryComponent,
+    ServiceReportsComponent
     
   ],
   imports: [

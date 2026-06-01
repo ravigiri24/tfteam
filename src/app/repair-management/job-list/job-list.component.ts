@@ -103,11 +103,21 @@ this.deleteItem(e?.tractor)
       action: 'viewJob',
       image: './././assets/images/layout.png',
     }
+     repairTypeObj={
+      name: 'Change Repair Type',
+      action: 'changeRepairType',
+      image: './././assets/images/mechanic.png',
+    }
     buttonArray: any = [
  {
       name: 'View Job Detail',
       action: 'viewJob',
       image: './././assets/images/layout.png',
+    },
+     {
+      name: 'Change Repair Type',
+      action: 'changeRepairType',
+      image: './././assets/images/mechanic.png',
     }
   ];
   listColorClass='secondColor'
@@ -128,6 +138,7 @@ this.deleteItem(e?.tractor)
     { key: 'Registration Number', value: 'regNumber', type: 'INPUT' },
     { key: 'Chasis Number', value: 'chassisNumber', type: 'INPUT' },
     { key: 'Hours', value: 'hours', type: 'INPUT' },
+    { key: 'Repair Type', value: 'repair_type', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
   showSearch=false
@@ -142,6 +153,9 @@ this.deleteItem(e?.tractor)
     //   this.jobType = params?.type;
     //    }
     // });
+    if(this.staffDetails?.isRepairHead==1){
+     
+    }
     this.jobList = [];
     this.jobType=false
     this.getJobList();
@@ -169,11 +183,13 @@ job.modalName=job?.modelDetails?.name
        })
        if(this.jobType){
         this.buttonArray.push(this.dashboardObj)
+        this.buttonArray.push(this.repairTypeObj)
        
        }else{
         this.buttonArray.unshift(this.dashboardObj)
         this.buttonArray.unshift(this.deleteObj)
         this.buttonArray.unshift(this.editobj)
+        this.buttonArray.unshift(this.repairTypeObj)
        }
         this.share.spinner.dismiss('active_two');
       },

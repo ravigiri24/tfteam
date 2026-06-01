@@ -110,7 +110,7 @@ export class SyncTractorWithMaintaninanceComponent implements OnInit {
           f.name = f?.tfCode + '-' + f?.modelDetails?.name + ' ( '+ formattedDate +' )';
           this.jobList.push(f);
         });
-
+this.jobList=this.jobList?.filter((f:any)=>f.repair_type=='REFURBISH')
         this.share.spinner.dismiss();
       },
       (error: any) => {}

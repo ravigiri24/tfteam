@@ -1,9 +1,12 @@
   <ion-header [ngClass]="listColorClass">
   <ion-toolbar class="header_toolbar dynamic_color">
     <div class="main_lefttitle">Job Dashboard</div>
-    <ion-button (click)="createJob()" class="add-button dynamic_bgcolor" slot="end" expand="block">
+    <ion-button *ngIf="showRefurbish" (click)="createJob()" class="add-button dynamic_bgcolor" slot="end" expand="block">
       <ion-icon class="icon-size" name="add-outline"></ion-icon>
-      Create New Job</ion-button>
+      Refurbish</ion-button>
+  <ion-button *ngIf="showService"  (click)="createService()" class="add-button dynamic_bgcolor" slot="end" expand="block">
+      <ion-icon class="icon-size" name="add-outline"></ion-icon>
+     Service </ion-button>
     <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
     <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
   </ion-toolbar>

@@ -1,0 +1,11 @@
+<ion-content class="ion-padding internal_card_container">
+  <div class="bottom_small_popup">
+    <div class="global_input_block ">
+      <ion-select (ionChange)="updateType()" [(ngModel)]="repair_type" fill="outline" label="Select Repair Type"
+        label-placement="type">
+        <ion-select-option value="REFURBISH">Refurbish</ion-select-option>
+        <ion-select-option value="SERVICE">Service</ion-select-option>
+      </ion-select>
+    </div>
+  </div>
+</ion-content>

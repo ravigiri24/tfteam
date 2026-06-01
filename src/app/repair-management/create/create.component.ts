@@ -63,10 +63,13 @@ export class CreateComponent implements OnInit {
     );
   }
   srcPage: any;
+  repair_type: any;
   ionViewWillEnter() {
        let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
+    console.log("  this.staffDetails",  this.staffDetails);
+    
     this.createdJobDetails = null
     if (this.newTractorForm) {
       this.newTractorForm.reset()
@@ -75,6 +78,7 @@ export class CreateComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: any) => {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
+      this.repair_type = params?.repair_type||null;
     });
     if (this.jobId != undefined) {
       this.getJobByRowId(this.jobId);
@@ -230,6 +234,7 @@ export class CreateComponent implements OnInit {
       ),
       otherIssues: new FormControl(this.data?.otherIssues || null, []),
       customer_name: new FormControl(this.data?.customer_name || null, []),
+      repair_type: new FormControl(this.data?.repair_type || this.repair_type, []),
       contact_number: new FormControl(this.data?.contact_number || null, []),
       issueOptions: new FormControl(this.data?.issueOptions || null, []),
       inventoryOptions: new FormControl(

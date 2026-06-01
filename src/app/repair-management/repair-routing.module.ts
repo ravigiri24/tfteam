@@ -16,7 +16,7 @@ const routes: Routes = [
 
        { path: 'job-dashboard', component: JobDashboardComponent},
        { path: 'user-management', component: UserManagementComponent},
-       { path: 'create-job/:srcPage', component: CreateComponent},
+       { path: 'create-job/:srcPage/:repair_type', component: CreateComponent},
        { path: 'update-job/:id/:srcPage', component: CreateComponent},
        { path: 'repair-dashboard/:id/:srcPage', component: RepairDashboardComponent},
        { path: 'job-list', component:  JobListComponent   },

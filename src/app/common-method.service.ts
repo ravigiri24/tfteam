@@ -49,6 +49,7 @@ import { ActionPopupComponent } from './purchase-management/new-findings/action-
 import { EditPurchaseHistoryComponent } from './new-arrivals-management/edit-purchase-history/edit-purchase-history.component';
 import { BookingHistoryComponent } from './shared-components/booking-history/booking-history.component';
 import { TransportCostListComponent } from './transport-management/transport-cost-list/transport-cost-list.component';
+import { ChangeRepairTypeComponent } from './repair-management/job-list/change-repair-type/change-repair-type.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -202,7 +203,10 @@ export class CommonMethodService {
     }if(e?.button?.name == 'Booking Tractor'){
       this.bookingMethod(e)
     }
-    
+    if(e?.button?.name == 'Change Repair Type'){
+    await  this.changeRepairType(e?.tractor)
+    }
+
   }
 
   async addRemark(customer: any = null, button: any = null) {
@@ -937,5 +941,22 @@ export class CommonMethodService {
     if (role === 'confirm') {
     }
  }
- 
+   async changeRepairType(job: any) {
+
+    const modal = await this.modalCtrl.create({
+      component: ChangeRepairTypeComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        job: job,
+       
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
 }

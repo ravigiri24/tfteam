@@ -29,7 +29,36 @@
       </ion-row>
     </ion-card>
   </ion-grid>
-
+  <div *ngIf="jobDetails?.repair_type=='SERVICE' " class="global-inner-heading">
+    <span id="PrintInvoice">Service Costing Summary</span>
+    <div class="right_button">
+      <div *ngIf="alloService" (click)="updateServiceCosting()" class="dynamic_color" fill="clear">
+        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
+        <span>Costing</span>
+      </div>
+    
+    </div>
+  </div>
+    <ion-grid  *ngIf="jobDetails?.repair_type=='SERVICE'" class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row>
+        <ion-col>Total Bill</ion-col>
+        <ion-col class="amount_col"> {{ jobDetails?.totalBillService || '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Discount</ion-col>
+        <ion-col class="amount_col"> {{ jobDetails?.DiscountService || '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Net Pay</ion-col>
+        <ion-col class="amount_col"> {{ jobDetails?.NetPayService || '-' }}</ion-col>
+      </ion-row>
+        <ion-row>
+        <ion-col>Profit</ion-col>
+        <ion-col class="amount_col"> {{ jobDetails?.ProfitService || '-' }}</ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
   <span class="global-inner-heading">Service Expenses</span>
   <ion-grid class="main_block_details" *ngIf="expenseServiceList?.length">
     <ion-card class="table_block_details">
