@@ -1,193 +1,140 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">New Findings</span>
-      </div>
-      <div class="right_action">
-        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
-      </div>
-    </ion-label>
-
+  <ion-toolbar class="finding-toolbar">
+    <div class="toolbar-inner">
+      <ion-icon class="toolbar-back" (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
+      <span class="toolbar-title">New Findings Report</span>
+      <div class="toolbar-spacer"></div>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding internal_card_container">
 
-    <div class="top-position-body">
-  <div class="global_input_block select_option_with_add">
-      <ion-select [(ngModel)]="selectedItem"  labelPlacement="stacked" fill="outline" label="Select Status"
-        label-placement="stacked">
-        <ion-select-option  value="OPEN">Open</ion-select-option>
-        <ion-select-option  value="APPROVED">Approved</ion-select-option>
-        <ion-select-option  value="REJECTED">Rejected</ion-select-option>
-      </ion-select>
-      
-    </div>
-      <!-- <div class="global_input_block select_option_with_add">
-      <ion-select [(ngModel)]="selectedDealer"  labelPlacement="stacked" fill="outline" label="Select Dealer"
-        label-placement="stacked">
-        <ion-select-option *ngFor="let deal of dealerList"  [value]="deal.id">{{deal?.name}}</ion-select-option>
+<ion-content class="finding-content">
 
-      </ion-select>
-      
-    </div> -->
-         <div class="global-inner-heading">
-      <span>Select Dealer    
-               <!-- <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
-              <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon> -->
-            </span>
+  <!-- ── Filter Card ── -->
+  <div class="filter-card">
+    <p class="filter-card-title">Filters</p>
 
-    </div>
-    <div class="global_input_block global_location_block" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
-
-    <span class="top_layers">Dealer/Bank</span>
-    <span class="name_selected">{{dealerName}}</span>
-    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-
-     
-  </div> 
-
+    <!-- Status chips -->
+    <span class="field-label">Status</span>
+    <div class="status-row">
+      <div class="status-chip open" [class.active]="selectedItem === 'OPEN'" (click)="selectedItem = 'OPEN'">
+        Open
+      </div>
+      <div class="status-chip approved" [class.active]="selectedItem === 'APPROVED'" (click)="selectedItem = 'APPROVED'">
+        Approved
+      </div>
+      <div class="status-chip rejected" [class.active]="selectedItem === 'REJECTED'" (click)="selectedItem = 'REJECTED'">
+        Rejected
+      </div>
     </div>
 
-  <div class="row">
-    <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
+    <!-- Dealer selector -->
+    <span class="field-label">Dealer / Bank</span>
+    <div class="dealer-selector" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
+      <span class="dealer-name" [class.placeholder]="!dealerName">
+        {{ dealerName || 'Select Dealer / Bank' }}
+      </span>
+      <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
+    </div>
   </div>
+
+  <!-- ── Generate Button ── -->
+  <div class="generate-wrap ion-padding-horizontal">
+    <ion-button (click)="genrateReport()" expand="block" class="generate-btn">
+      <ion-icon slot="start" name="document-text-outline"></ion-icon>
+      Generate Report
+    </ion-button>
+  </div>
+
+  <!-- ── Results ── -->
   <ng-container *ngIf="tractorArray?.length && showData">
-    <hr />
-    <div class="margin-top">
-      <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
-    </div>
-    <div class="scroll" *ngIf="tractorArray?.length && showData" id="new-finding-sheet-report" class="top-margin scroll"
-      style="width: 100%;">
-      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
-    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
-  </div> -->
-      <table cellpadding="5" cellspacing="5" style="width: 100%;">
-        <tbody>
+    <div class="results-section">
 
-          <tr>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total
-              Tractor
-            </th>
-            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By
-            </th>
-            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
-
-          </tr>
-         
-          <!-- <tr>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
-      
-      </tr> -->
-
-
-        </tbody>
-      </table>
-      <h2 style="text-align: center;margin: 10px 0px;">New Finding Sheet</h2>
-      <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
-        <tbody>
-          <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
-            </th>
-                 <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-            Image</th>
-               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Purchase Number</th>
-                     <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Finding Date</th>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-          Model</th>
-          
-             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Year Of Manufactoring</th>
-   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Dealer</th>
-     <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Contact</th>          
-           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Location</th>           
-   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Hours</th>
-               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Tyre</th>
-                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Body</th>
-                      <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Quote By Dealer</th>
-                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-             Quote By TF</th>
-                 <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-           FinalPrice</th>
-               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-           Expense Estimation(Total)</th>
-              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-          Total Costing(Dealer Price)</th>
-                 <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-          Total Costing(TF Price)</th>
-             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-          Total Costing(Final Price)</th>
-              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-          Selling Estimation</th>
-              <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-           Registration Number</th>
-                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-           Chasis Number</th>
-                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
-           Engine Number</th>
-          </tr>
-          
-          <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
-            style="border: 1px solid #e1e1e1;text-align: left">
-            <td style="text-align: center;">{{tracIndex+1}}</td>
-            <td (click)="uploadNewFindingImage(tractor)" style="text-align: center;"> <img style="width: 50px;height: 50px;" src="./././assets/images/all_image_icon.png" /></td>
-            <td style="text-align: center;">{{tractor?.purchaseSrNo}}</td>
-            <td style="text-align: center;">{{tractor?.createdOn | date}}</td>
-            <td style="text-align: center;">{{tractor?.modelDetails?.name}}</td>
-            <td style="text-align: center;">{{tractor?.yearOfManufactoring}}</td>
-                        <td style="text-align: center;">{{tractor?.delearDetails?.name }}</td>
-            <td style="text-align: center;">{{tractor?.delearDetails?.contactNo}}</td>
-            <td style="text-align: center;">{{tractor?.delearDetails?.location}}</td>
-            <td style="text-align: center;">{{tractor?.hours}}</td>
-            <td style="text-align: center;">{{tractor?.tyreCondition}}</td>
-            <td style="text-align: center;">{{tractor?.bodyCondition}}</td>
-            <td style="text-align: center;">{{tractor?.quoteByDealer}}</td>
-            <td style="text-align: center;">{{tractor?.quoteByTf}}</td>
-            <td style="text-align: center;">{{tractor?.finalPrice}}</td>
-            <td style="text-align: center;">{{tractor?.totalAmount}}</td>
-            <td style="text-align: center;">{{tractor?.quoteByDealer ? tractor?.totalCosting_quoteByDealer:'NA'}}</td>
-            <td style="text-align: center;">{{tractor?.quoteByTf ? tractor?.totalCosting_quoteByTf:'NA'}}</td>
-            <td style="text-align: center;">{{tractor?.finalPrice ? tractor?.totalCosting_finalPrice:'NA'  }}</td>
-            <td style="text-align: center;">{{tractor?.selling_estimation}}</td>
-                <!-- <td style="text-align: center;">{{tractor?.totalAmount}}</td> -->
-            <td style="text-align: center;">{{tractor?.registractionNo}}</td>
-            <td style="text-align: center;">{{tractor?.chassisNumber}}</td>
-            <td style="text-align: center;">{{tractor?.engineNo}}</td>
-        
-
-        
-
-          </tr>
-          <!-- <tr>
-        <td colspan="3"  style="padding: 5px 10px;">
-          {{catTotal[expenseHeader[0]]}}
-        </td>
-        <div *ngFor="let head of expenseHeader;let indi=index">
-          <div  *ngIf="indi>0" >
-            <td style="padding: 5px 10px;">
-              {{catTotal[expenseHeader[0]]}}
-            </td> 
-
-          </div>
+      <!-- Summary stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">{{ tractorArray?.length }}</div>
+          <div class="stat-label">Total Tractors</div>
         </div>
-     
-      </tr> -->
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ staffDetails?.name }}</div>
+          <div class="stat-label">Printed By</div>
+        </div>
+      </div>
 
-        </tbody>
-      </table>
+      <!-- Excel export -->
+      <div class="excel-wrap">
+        <ion-button (click)="generateExcel()" expand="block" class="excel-btn">
+          <ion-icon slot="start" name="download-outline"></ion-icon>
+          Export to Excel
+        </ion-button>
+      </div>
+
+      <!-- Table -->
+      <h3 class="table-title">New Finding Sheet</h3>
+      <div class="table-scroll-container" id="new-finding-sheet-report">
+        <table class="finding-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Image</th>
+              <th>Purchase No.</th>
+              <th>Finding Date</th>
+              <th>Model</th>
+              <th>Mfg. Year</th>
+              <th>Dealer</th>
+              <th>Contact</th>
+              <th>Location</th>
+              <th>Hours</th>
+              <th>Tyre</th>
+              <th>Body</th>
+              <th>Quote (Dealer)</th>
+              <th>Quote (TF)</th>
+              <th>Final Price</th>
+              <th>Expense Est. (Total)</th>
+              <th>Total Cost (Dealer)</th>
+              <th>Total Cost (TF)</th>
+              <th>Total Cost (Final)</th>
+              <th>Selling Est.</th>
+              <th>Reg. Number</th>
+              <th>Chassis No.</th>
+              <th>Engine No.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tractor of tractorArray; let tracIndex = index">
+              <td>{{ tracIndex + 1 }}</td>
+              <td>
+                <img class="img-btn" (click)="uploadNewFindingImage(tractor)"
+                  src="./././assets/images/all_image_icon.png" />
+              </td>
+              <td>{{ tractor?.purchaseSrNo }}</td>
+              <td>{{ tractor?.createdOn | date }}</td>
+              <td>{{ tractor?.modelDetails?.name }}</td>
+              <td>{{ tractor?.yearOfManufactoring }}</td>
+              <td>{{ tractor?.delearDetails?.name }}</td>
+              <td>{{ tractor?.delearDetails?.contactNo }}</td>
+              <td>{{ tractor?.delearDetails?.location }}</td>
+              <td>{{ tractor?.hours }}</td>
+              <td>{{ tractor?.tyreCondition }}</td>
+              <td>{{ tractor?.bodyCondition }}</td>
+              <td>{{ tractor?.quoteByDealer }}</td>
+              <td>{{ tractor?.quoteByTf }}</td>
+              <td>{{ tractor?.finalPrice }}</td>
+              <td>{{ tractor?.totalAmount }}</td>
+              <td>{{ tractor?.quoteByDealer ? tractor?.totalCosting_quoteByDealer : 'NA' }}</td>
+              <td>{{ tractor?.quoteByTf ? tractor?.totalCosting_quoteByTf : 'NA' }}</td>
+              <td>{{ tractor?.finalPrice ? tractor?.totalCosting_finalPrice : 'NA' }}</td>
+              <td>{{ tractor?.selling_estimation }}</td>
+              <td>{{ tractor?.registractionNo }}</td>
+              <td>{{ tractor?.chassisNumber }}</td>
+              <td>{{ tractor?.engineNo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </ng-container>
+
 </ion-content>

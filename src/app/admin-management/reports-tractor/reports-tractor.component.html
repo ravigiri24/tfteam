@@ -1,216 +1,111 @@
-<ion-header>  
-  <ion-toolbar>
-    <ion-title>Heads</ion-title>
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
-  </ion-toolbar> 
-</ion-header>  
-<ion-content class="ion-padding">
+<ion-header>
+  <ion-toolbar class="reports-toolbar">
+    <ion-title class="reports-title">Reports Hub</ion-title>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content class="reports-content">
+  <div class="page-header">
+    <p class="page-subtitle">Select a report category</p>
+  </div>
 
- 
-  <div class="row">
-    <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="masterSheet()" class="image-style" src="././assets/images/google-sheets.png" />
-    <ion-card-header >
-      <ion-card-title (click)="masterSheet()" class="title-style">Master Sheet</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-    <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="workSheet()" class="image-style" src="././assets/images/document.png" />
-    <ion-card-header >
-      <ion-card-title (click)="workSheet()" class="title-style">Work Report</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-  <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="unsoldReport()" class="image-style" src="././assets/images/tractor_report.png" />
-    <ion-card-header >
-      <ion-card-title (click)="unsoldReport()" class="title-style">Unsold Tractors</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-  <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="unsoldReportSpecific()" class="image-style" src="././assets/images/tractor_report.png" />
-    <ion-card-header >
-      <ion-card-title (click)="unsoldReportSpecific()" class="title-style">Unsold Spec</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-  <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="salesReport()"  class="image-style" src="././assets/images/market-analysis.png" />
-    <ion-card-header >
-      <ion-card-title (click)="salesReport()" class="title-style">Sale Report</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-    <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="leadManagement()" class="image-style" src="././assets/images/lead-generation.png" />
-    <ion-card-header >
-      <ion-card-title (click)="leadManagement()" class="title-style">Lead Management</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-   <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="storeManagement()" class="image-style" src="././assets/images/store.png" />
-    <ion-card-header >
-      <ion-card-title (click)="storeManagement()" class="title-style">Sales Manager</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
+  <div class="cards-grid">
+    <div class="report-card card-blue" (click)="masterSheet()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/google-sheets.png" />
+      </div>
+      <div class="card-label">Master Sheet</div>
+    </div>
 
-</div>
-   <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="TeamManagement()" class="image-style" src="././assets/images/partners.png" />
-    <ion-card-header >
-      <ion-card-title (click)="TeamManagement()" class="title-style">Terr. Manager</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="goToSo()" class="image-style" src="././assets/images/audience.png" />
-    <ion-card-header >
-      <ion-card-title (click)="goToSo()" class="title-style">Sales Officer</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="lastSeen()" class="image-style" src="././assets/images/clock.png" />
-    <ion-card-header >
-      <ion-card-title (click)="lastSeen()" class="title-style">Last Activity</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
- <!-- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="transactionOverview()" class="image-style" src="././assets/images/report.png" />
-    <ion-card-header >
-      <ion-card-title (click)="transactionOverview()" class="title-style">Transaction Overview</ion-card-title>
+    <div class="report-card card-teal" (click)="workSheet()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/document.png" />
+      </div>
+      <div class="card-label">Work Report</div>
+    </div>
 
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div> -->
- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="bufferList()" class="image-style" src="././assets/images/report.png" />
-    <ion-card-header >
-      <ion-card-title (click)="bufferList()" class="title-style">Buffer Stock</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
- <!-- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="viewMaintainance()" class="image-style" src="././assets/images/report.png" />
-    <ion-card-header >
-      <ion-card-title (click)="viewMaintainance()" class="title-style">Maintainance Cost</ion-card-title>
-   
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div> -->
- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="viewFindingReports()" class="image-style" src="././assets/images/checklist.png" />
-    <ion-card-header >
-      <ion-card-title (click)="viewFindingReports()" class="title-style">Findings</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
-<div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="newFindingReports()" class="image-style" src="././assets/images/checklist.png" />
-    <ion-card-header >
-      <ion-card-title (click)="newFindingReports()" class="title-style">Findings Report</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
-<div class="col-md-6 col-6 block">
-  <ion-card >
-    <img (click)="bookedTractorSheets()" class="image-style" src="././assets/images/booking.png" />
-    <ion-card-header >
-      <ion-card-title (click)="bookedTractorSheets()" class="title-style">Booked Tractor</ion-card-title>
-      <!-- <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle> -->
-    </ion-card-header>
-  
-  </ion-card>
-  
-</div>
+    <div class="report-card card-orange" (click)="unsoldReport()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/tractor_report.png" />
+      </div>
+      <div class="card-label">Unsold Tractors</div>
+    </div>
 
+    <div class="report-card card-amber" (click)="unsoldReportSpecific()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/tractor_report.png" />
+      </div>
+      <div class="card-label">Unsold Spec</div>
+    </div>
 
-<!-- <div class="col-md-6 col-6 block">
-  <ion-card >
-    <img class="image-style" src="././assets/images/close.jpg" />
-    <ion-card-header>
-      <ion-card-title class="title-style">Closed Job</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">{{jobData?.closeJob}}</ion-card-subtitle>
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-<div class="col-md-6 col-6 block">
-  <ion-card >
-    <img class="image-style" src="././assets/images/deleted.png" />
-    <ion-card-header>
-      <ion-card-title class="title-style">Deleted Jobs</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">{{jobData?.deletedJob}}</ion-card-subtitle>
-    </ion-card-header>
-  
-  </ion-card>
-</div>
-<div class="col-md-6 col-6 block">
-  <ion-card >
-    <img class="image-style" src="././assets/images/total.png" />
-    <ion-card-header>
-      <ion-card-title class="title-style"> Total Jobs</ion-card-title>
-      <ion-card-subtitle class="sub-title-style">{{jobData?.openJob+jobData?.closeJob}}</ion-card-subtitle>
-    </ion-card-header>
-  
-  </ion-card>
-</div> -->
-</div>
+    <div class="report-card card-green" (click)="salesReport()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/market-analysis.png" />
+      </div>
+      <div class="card-label">Sale Report</div>
+    </div>
+
+    <div class="report-card card-purple" (click)="leadManagement()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/lead-generation.png" />
+      </div>
+      <div class="card-label">Lead Management</div>
+    </div>
+
+    <div class="report-card card-pink" (click)="storeManagement()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/store.png" />
+      </div>
+      <div class="card-label">Sales Manager</div>
+    </div>
+
+    <div class="report-card card-cyan" (click)="TeamManagement()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/partners.png" />
+      </div>
+      <div class="card-label">Terr. Manager</div>
+    </div>
+
+    <div class="report-card card-brown" (click)="goToSo()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/audience.png" />
+      </div>
+      <div class="card-label">Sales Officer</div>
+    </div>
+
+    <div class="report-card card-red" (click)="lastSeen()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/clock.png" />
+      </div>
+      <div class="card-label">Last Activity</div>
+    </div>
+
+    <div class="report-card card-slate" (click)="bufferList()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/report.png" />
+      </div>
+      <div class="card-label">Buffer Stock</div>
+    </div>
+
+    <div class="report-card card-lime" (click)="viewFindingReports()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/checklist.png" />
+      </div>
+      <div class="card-label">Findings</div>
+    </div>
+
+    <div class="report-card card-emerald" (click)="newFindingReports()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/checklist.png" />
+      </div>
+      <div class="card-label">Findings Report</div>
+    </div>
+
+    <div class="report-card card-navy" (click)="bookedTractorSheets()">
+      <div class="card-icon-wrap">
+        <img class="card-icon" src="././assets/images/booking.png" />
+      </div>
+      <div class="card-label">Booked Tractor</div>
+    </div>
+  </div>
 </ion-content>
