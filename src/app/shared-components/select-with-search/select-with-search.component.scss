@@ -1,17 +1,269 @@
-.radio_block_container {
-  padding: 15px 15px 0px 25px;
-  position: relative;
-  z-index: -1;
-  .radio_block {
-    // overflow-x: scroll;
-    display: flex;
-    padding: 5px 10px;
-    background: #ffffff;
-    border-bottom: dashed 1px #e1e1e1;
-    transition: .5s all;
-    &:hover {
-      background: transparent;
-      border-color: #f5f5ff;
-    }
+/* ── Animations ── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(123, 31, 162, 0.4); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 8px rgba(123, 31, 162, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(123, 31, 162, 0); }
+}
+
+@keyframes emptyBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── Header ── */
+.sws-header {
+  --background: transparent;
+  background: linear-gradient(135deg, #1a0033 0%, #4a148c 55%, #7b1fa2 100%) !important;
+}
+
+.sws-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  padding: 4px 0 8px 0;
+}
+
+.sws-title-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px 6px 16px;
+  gap: 10px;
+  animation: slideDown 0.35s ease both;
+}
+
+.sws-title-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 18px;
+    color: #ffffff;
   }
+}
+
+.sws-title {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.sws-close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  ion-icon {
+    font-size: 20px;
+    color: #ffffff;
+  }
+
+  &:active {
+    background: rgba(255,255,255,0.35);
+    transform: rotate(90deg) scale(0.9);
+  }
+}
+
+/* ── Content ── */
+.sws-content {
+  --background: #f8f0ff;
+}
+
+/* ── Search ── */
+.sws-search-wrap {
+  padding: 14px 14px 8px 14px;
+  animation: slideDown 0.4s ease 0.1s both;
+}
+
+.sws-search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1.5px solid #ce93d8;
+  padding: 0 12px;
+  box-shadow: 0 3px 12px rgba(74, 20, 140, 0.10);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: #7b1fa2;
+    box-shadow: 0 4px 16px rgba(123, 31, 162, 0.18);
+  }
+}
+
+.sws-search-icon {
+  font-size: 18px;
+  color: #9c27b0;
+  flex-shrink: 0;
+  margin-right: -4px;
+}
+
+.sws-searchbar {
+  --background: transparent;
+  --box-shadow: none;
+  --border-radius: 0;
+  --placeholder-color: #b39ddb;
+  --color: #311b4f;
+  --icon-color: transparent;
+  --clear-button-color: #9c27b0;
+  padding: 0 !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ── List ── */
+.sws-list-wrap {
+  padding: 4px 20px 24px 14px;
+}
+
+.sws-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sws-item-wrap {
+  animation: fadeSlideIn 0.35s ease both;
+}
+
+.sws-radio-item {
+  display: block;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1.5px solid #e1bee7;
+  padding: 0;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(74, 20, 140, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  --color: #7b1fa2;
+  --color-checked: #4a148c;
+  --inner-padding-end: 18px;
+  --padding-end: 18px;
+
+  &:hover {
+    border-color: #9c27b0;
+    box-shadow: 0 4px 14px rgba(123, 31, 162, 0.14);
+    transform: translateX(3px);
+  }
+
+  &.radio-checked, &.item-radio-checked {
+    border-color: #7b1fa2;
+    background: linear-gradient(135deg, #f3e5f5, #ede7f6);
+    box-shadow: 0 4px 14px rgba(123, 31, 162, 0.18);
+  }
+}
+
+.sws-item-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px 11px 14px;
+}
+
+.sws-item-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7b1fa2, #ab47bc);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(123, 31, 162, 0.25);
+}
+
+.sws-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c1a3e;
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* ── Empty state ── */
+.sws-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 20px 20px;
+  text-align: center;
+}
+
+.sws-empty-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f3e5f5, #ede7f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  animation: emptyBounce 2s ease infinite;
+  box-shadow: 0 4px 16px rgba(123, 31, 162, 0.15);
+}
+
+.sws-empty-icon {
+  font-size: 34px;
+  color: #9c27b0;
+}
+
+.sws-empty-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #4a148c;
+  margin: 0 0 6px 0;
+}
+
+.sws-empty-sub {
+  font-size: 13px;
+  color: #b39ddb;
+  margin: 0 0 20px 0;
+}
+
+.sws-add-btn {
+  --background: linear-gradient(135deg, #4a148c, #9c27b0);
+  --border-radius: 12px;
+  --color: #ffffff;
+  font-weight: 700;
+  width: 100%;
+}
+
+/* Force right spacing on native radio element */
+.sws-radio-item::part(native) {
+  padding-inline-end: 20px;
+}
+
+.sws-radio-item::part(container) {
+  margin-right: 16px;
+}
+
+/* ── Existing color class overrides (listColorClass) ── */
+.sixColor {
+  ion-toolbar { --background: transparent; }
 }

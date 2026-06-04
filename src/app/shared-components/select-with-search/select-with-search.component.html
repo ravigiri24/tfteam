@@ -1,34 +1,62 @@
-<ion-header [ngClass]="listColorClass">
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">Selectt {{itemName}}</span>
+<ion-header [ngClass]="listColorClass" class="sws-header">
+  <ion-toolbar class="sws-toolbar">
+    <div class="sws-title-row">
+      <div class="sws-title-icon">
+        <ion-icon name="list-outline"></ion-icon>
       </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <span class="sws-title">Select {{itemName}}</span>
+      <div class="sws-close-btn" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
       </div>
-    </ion-label>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container" [ngClass]="listColorClass">
-  <div class="inner-heading-list">
-    <ion-searchbar (ionFocus)="onInputFocus()" (ionBlur)="focusOut()" [(ngModel)]="search.name" slot="fixed"
-      placeholder="Search {{itemName}}"></ion-searchbar>
+
+<ion-content class="sws-content" [ngClass]="listColorClass">
+
+  <!-- Search bar -->
+  <div class="sws-search-wrap">
+    <div class="sws-search-box">
+      <ion-icon class="sws-search-icon" name="search-outline"></ion-icon>
+      <ion-searchbar
+        (ionFocus)="onInputFocus()"
+        (ionBlur)="focusOut()"
+        [(ngModel)]="search.name"
+        placeholder="Search {{itemName}}"
+        class="sws-searchbar"
+        [showCancelButton]="'never'"
+        mode="md">
+      </ion-searchbar>
+    </div>
   </div>
-  <div class="radio_block_container">
-    <ion-radio-group (ionChange)="selectItem($event)">
-      <ion-radio class="radio_block" *ngFor="let item of list| filterBy: search ;let in=index"
-        value="{{item?.id}}"><span class="radio_name">{{item[jsonKey]}}</span></ion-radio>
-    </ion-radio-group>
-    <div class="no_found_text_main_block" *ngIf="(list | filterBy: search).length === 0">
-      <div class="no_found_text_block">
-        <ion-icon name="warning"></ion-icon>
-        <span class="no_found_text">No {{itemName}} Found</span>
+
+  <!-- List -->
+  <div class="sws-list-wrap">
+    <ion-radio-group (ionChange)="selectItem($event)" class="sws-radio-group">
+      <div class="sws-item-wrap"
+        *ngFor="let item of list | filterBy: search; let i = index"
+        [style.animation-delay]="(i * 40) + 'ms'">
+        <ion-radio class="sws-radio-item" value="{{item?.id}}">
+          <div class="sws-item-inner">
+            <div class="sws-item-avatar">{{ item[jsonKey]?.charAt(0)?.toUpperCase() }}</div>
+            <span class="sws-item-name">{{item[jsonKey]}}</span>
+          </div>
+        </ion-radio>
       </div>
-      <ion-button *ngIf="showAddButton" class="global_submit_color_button dynamic_bgcolor" (click)="addNewItem()">
-        <ion-icon class="icon-size" name="add-circle-outline"></ion-icon>
-        <span>Add New</span>
+    </ion-radio-group>
+
+    <!-- Empty state -->
+    <div class="sws-empty" *ngIf="(list | filterBy: search).length === 0">
+      <div class="sws-empty-icon-wrap">
+        <ion-icon name="search-outline" class="sws-empty-icon"></ion-icon>
+      </div>
+      <p class="sws-empty-title">No {{itemName}} Found</p>
+      <p class="sws-empty-sub">Try a different search term</p>
+      <ion-button *ngIf="showAddButton" class="sws-add-btn" (click)="addNewItem()" shape="round" expand="block">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Add "{{search?.name}}"
       </ion-button>
     </div>
   </div>
+
 </ion-content>
