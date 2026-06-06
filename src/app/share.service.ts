@@ -525,7 +525,7 @@ export class ShareService {
             //  this.router.navigate(['/operational/buffer-stock']);
             this.router.navigate(['/operational/all-tractor-management']);
           } else if (userde?.staff_role == 'PURCHASE') {
-            this.router.navigate(['/purchase-management/new-findings']);
+            this.router.navigate(['/purchase-management/new-findings-deals']);
           } else if (
             userde?.staff_role == 'SUPER_ADMIN' ||
             userde?.staff_role == 'ADMIN'
@@ -572,7 +572,7 @@ export class ShareService {
           } else if (userde?.currentRole == 'OPERATIONAL') {
             this.router.navigate(['/operational/all-tractor-management']);
           } else if (userde?.currentRole == 'PURCHASE') {
-            this.router.navigate(['/purchase-management/new-findings']);
+            this.router.navigate(['/purchase-management/new-findings-deals']);
           } else if (
             userde?.currentRole == 'SUPER_ADMIN' ||
             userde?.currentRole == 'ADMIN'

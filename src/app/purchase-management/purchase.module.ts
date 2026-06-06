@@ -33,6 +33,10 @@ import { AddCostEstimationComponent } from './new-findings/cost-estimation/add-c
 import { ActionPopupComponent } from './new-findings/action-popup/action-popup.component';
 import { ViewPurchaseHistoryComponent } from '../new-arrivals-management/view-purchase-history/view-purchase-history.component';
 import { EditPurchaseHistoryComponent } from '../new-arrivals-management/edit-purchase-history/edit-purchase-history.component';
+import { NewFindingsDealsComponent } from './new-findings-deals/new-findings-deals.component';
+import { AddNewDealComponent } from './new-findings-deals/add-new-deal/add-new-deal.component';
+import { ViewNewFindingDealComponent } from './new-findings-deals/view-new-finding-deal/view-new-finding-deal.component';
+import { DeleteNewFindingsComponent } from './new-findings-deals/delete-new-findings/delete-new-findings.component';
 @NgModule({
   declarations: [
 
@@ -59,7 +63,11 @@ PurchaseDetailsComponent,
     AddCostEstimationComponent,
     ActionPopupComponent,
     ViewPurchaseHistoryComponent,
-    EditPurchaseHistoryComponent
+    EditPurchaseHistoryComponent,
+    ViewNewFindingDealComponent,
+    AddNewDealComponent,
+    NewFindingsDealsComponent,
+    DeleteNewFindingsComponent
   ],
   imports: [
     PurchaseRoutingModule,

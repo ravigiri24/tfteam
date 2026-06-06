@@ -10,6 +10,7 @@ import { StorePaymentTransactionComponent } from './store-payment-transaction/st
 import { AddNewArrivalsComponent } from 'src/app/new-arrivals-management/add-new-arrivals/add-new-arrivals.component';
 import { NewArrivalsManagementComponent } from 'src/app/new-arrivals-management/new-arrivals-management.component';
 import { InventoryListComponent } from './inventory-list/inventory-list.component';
+import { NewFindingsDealsComponent } from './new-findings-deals/new-findings-deals.component';
 const routes: Routes = [
   {
     path: "", component: PurchaseManagementComponent,
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'store-Transaction', component: StorePaymentTransactionComponent},
       { path: 'new-arrivals', component: NewArrivalsManagementComponent},
       { path: 'inventory-list', component: InventoryListComponent},
+      { path: 'new-findings-deals', component: NewFindingsDealsComponent},
     
     
      

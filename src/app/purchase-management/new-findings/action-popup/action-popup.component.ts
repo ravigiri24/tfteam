@@ -72,7 +72,7 @@ export class ActionPopupComponent  implements OnInit {
     if(this.tractor.action_taken==0){
   this.onSaveTractor() 
     }
-      if(this.tractor.action_taken==1 && this.tractor?.approved_status=='REJECTED' ){
+   else if(this.tractor.action_taken==1 && this.tractor?.approved_status=='REJECTED' ){
   this.onSaveTractor() 
     }
   else{

@@ -17,6 +17,9 @@
     <!-- Status chips -->
     <span class="field-label">Status</span>
     <div class="status-row">
+        <div class="status-chip open" [class.active]="selectedItem === 'ALL'" (click)="selectedItem = 'ALL'">
+        All
+      </div>
       <div class="status-chip open" [class.active]="selectedItem === 'OPEN'" (click)="selectedItem = 'OPEN'">
         Open
       </div>
@@ -36,6 +39,20 @@
       </span>
       <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
     </div>
+<ng-container *ngIf="dealList?.length">
+     <span class="field-label">Deal</span>
+    <div class="dealer-selector" (click)="selectItem(dealList,'Deal','new_finding_deals')">
+      <span class="dealer-name" [class.placeholder]="!dealerName">
+        {{ dealName || 'Select Deal' }}
+      </span>
+      <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="!dealList?.length">
+          <span class="dealer-name" >
+    No Deals Found
+      </span>
+    </ng-container>
   </div>
 
   <!-- ── Generate Button ── -->
@@ -61,7 +78,26 @@
           <div class="stat-label">Printed By</div>
         </div>
       </div>
-
+    <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">{{totalProfit}}</div>
+          <div class="stat-label">Total Profit</div>
+        </div>
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ averageProfit}}</div>
+          <div class="stat-label">Average Profit</div>
+        </div>
+      </div>
+          <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">{{percentInProfit}}</div>
+          <div class="stat-label">Profit Percent</div>
+        </div>
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ calculationIn}} Out Of {{tractorArray?.length}}</div>
+          <div class="stat-label">Calucated IN</div>
+        </div>
+      </div>
       <!-- Excel export -->
       <div class="excel-wrap">
         <ion-button (click)="generateExcel()" expand="block" class="excel-btn">
@@ -79,12 +115,15 @@
               <th>S.No</th>
               <th>Image</th>
               <th>Purchase No.</th>
+              <th>Status</th>
               <th>Finding Date</th>
               <th>Model</th>
               <th>Mfg. Year</th>
               <th>Dealer</th>
+         
               <th>Contact</th>
               <th>Location</th>
+                   <th>Deal</th>
               <th>Hours</th>
               <th>Tyre</th>
               <th>Body</th>
@@ -96,6 +135,7 @@
               <th>Total Cost (TF)</th>
               <th>Total Cost (Final)</th>
               <th>Selling Est.</th>
+              <th>Profit</th>
               <th>Reg. Number</th>
               <th>Chassis No.</th>
               <th>Engine No.</th>
@@ -109,12 +149,14 @@
                   src="./././assets/images/all_image_icon.png" />
               </td>
               <td>{{ tractor?.purchaseSrNo }}</td>
+              <td>{{ tractor?.approved_status }}</td>
               <td>{{ tractor?.createdOn | date }}</td>
               <td>{{ tractor?.modelDetails?.name }}</td>
               <td>{{ tractor?.yearOfManufactoring }}</td>
               <td>{{ tractor?.delearDetails?.name }}</td>
               <td>{{ tractor?.delearDetails?.contactNo }}</td>
               <td>{{ tractor?.delearDetails?.location }}</td>
+              <td>{{ tractor?.dealName }}</td>
               <td>{{ tractor?.hours }}</td>
               <td>{{ tractor?.tyreCondition }}</td>
               <td>{{ tractor?.bodyCondition }}</td>
@@ -126,9 +168,37 @@
               <td>{{ tractor?.quoteByTf ? tractor?.totalCosting_quoteByTf : 'NA' }}</td>
               <td>{{ tractor?.finalPrice ? tractor?.totalCosting_finalPrice : 'NA' }}</td>
               <td>{{ tractor?.selling_estimation }}</td>
+              <td>{{ tractor?.profit }}</td>
               <td>{{ tractor?.registractionNo }}</td>
               <td>{{ tractor?.chassisNumber }}</td>
               <td>{{ tractor?.engineNo }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><b>{{total_finalPrice}}</b></td>
+              <td></td>
+              <td></td>
+              <td></td>
+             
+              <td><b>{{total_costing}}</b></td>
+              <td><b>{{total_selling_estimation}}</b></td>
+          
+              <td><b>{{totalProfit}}</b></td>
             </tr>
           </tbody>
         </table>

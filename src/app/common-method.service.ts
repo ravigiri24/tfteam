@@ -50,6 +50,9 @@ import { EditPurchaseHistoryComponent } from './new-arrivals-management/edit-pur
 import { BookingHistoryComponent } from './shared-components/booking-history/booking-history.component';
 import { TransportCostListComponent } from './transport-management/transport-cost-list/transport-cost-list.component';
 import { ChangeRepairTypeComponent } from './repair-management/job-list/change-repair-type/change-repair-type.component';
+import { AddNewDealComponent } from './purchase-management/new-findings-deals/add-new-deal/add-new-deal.component';
+import { NewFindingsComponent } from './purchase-management/new-findings/new-findings.component';
+import { DeleteNewFindingsComponent } from './purchase-management/new-findings-deals/delete-new-findings/delete-new-findings.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -206,6 +209,16 @@ export class CommonMethodService {
     if(e?.button?.name == 'Change Repair Type'){
     await  this.changeRepairType(e?.tractor)
     }
+        if (e?.button?.name == 'New Finding Deals Edit') {
+      await this.updateNewFinfingDeals(e?.tractor);
+    }
+        if (e?.button?.name == 'Deals Tractor List') {
+      await this.dealsTractorList(e?.tractor);
+    }
+    else if (e?.button?.name == 'Delete New Findings') {
+      await this.deleteNewFindings(e);
+    }
+    
 
   }
 
@@ -951,6 +964,54 @@ export class CommonMethodService {
       componentProps: {
         job: job,
        
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+    async updateNewFinfingDeals(dataUpdate: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: AddNewDealComponent,
+      componentProps: {
+        data: dataUpdate,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+  }
+   async dealsTractorList(deal: any = null){
+       const modal = await this.modalCtrl.create({
+      component: NewFindingsComponent,
+      componentProps: {
+        deal: deal,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+   }
+     async deleteNewFindings(obj: any) {
+    const modal = await this.modalCtrl.create({
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      component: DeleteNewFindingsComponent,
+      componentProps: {
+        tractor: obj?.tractor,
       },
     });
     await modal.present();

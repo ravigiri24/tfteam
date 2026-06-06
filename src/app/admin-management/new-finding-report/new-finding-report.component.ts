@@ -16,6 +16,7 @@ import * as XLSX from 'xlsx';
 import { ViewImageComponent } from 'src/app/purchase-management/view-image/view-image.component';
 import { jsPDF } from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-new-finding-report',
   templateUrl: './new-finding-report.component.html',
@@ -30,6 +31,7 @@ export class NewFindingReportComponent implements OnInit {
     private inAppBrowser: InAppBrowser,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private datePipe: DatePipe,
   ) {
     (window as any).pdfMake.vfs = pdfMake.vfs;
     pdfMake.fonts = {
@@ -44,29 +46,28 @@ export class NewFindingReportComponent implements OnInit {
       },
     };
   }
-    async uploadNewFindingImage(dataUpdate: any = null) {
-      const modal = await this.modalCtrl.create({
-        component: ViewImageComponent,
-        componentProps: {
-          tractor: dataUpdate,
-        },
-      });
-      await modal.present();
-      const { data, role } = await modal.onWillDismiss();
-      console.log('role', role);
-      if (data) {
-     
-      }
-      if (role === 'confirm') {
-      }
+  async uploadNewFindingImage(dataUpdate: any = null) {
+    const modal = await this.modalCtrl.create({
+      component: ViewImageComponent,
+      componentProps: {
+        tractor: dataUpdate,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
     }
+    if (role === 'confirm') {
+    }
+  }
   srcPage: any;
   ionViewWillEnter() {
     this.activatedRoute.params.subscribe((params: any) => {
       this.srcPage = params?.srcPage;
     });
-this.tractorArray=[]
-this.showData=false
+    this.tractorArray = [];
+    this.showData = false;
     this.newFindingList = [];
     // this.getTractorList();
     this.getDealerList();
@@ -82,9 +83,11 @@ this.showData=false
     let obj = {
       operate: this.staffDetails?.staffCode,
       type: this.selectedItem,
+      selectedDeal: this.selectedDeal,
+      selectedDealer: this.selectedDealer,
     };
     this.share.showLoading(msg);
-    this.api.postapi('getNewFindingList', obj).subscribe(
+    this.api.postapi('getNewFindingByDealDealer', obj).subscribe(
       (res: any) => {
         this.tractorArray = res.data;
         this.newFindingListSrc = res?.data;
@@ -103,6 +106,13 @@ this.showData=false
         }
         this.showData = true;
         console.log('Tractor', this.tractorArray);
+        this.totalProfit = 0;
+        this.averageProfit = 0;
+        this.total_selling_estimation = 0;
+        this.total_costing = 0;
+        this.total_costing = 0;
+        this.total_finalPrice = 0;
+        this.percentInProfit = 0;
         this.tractorArray?.forEach((tractor: any) => {
           tractor.totalAmount = 0;
           tractor?.expenseEstimation?.forEach((cost: any) => {
@@ -115,12 +125,51 @@ this.showData=false
             Number(tractor?.quoteByTf) + Number(tractor.totalAmount);
           tractor.totalCosting_finalPrice =
             Number(tractor?.finalPrice) + Number(tractor.totalAmount);
+
+          let formattedDate = this.datePipe.transform(
+            new Date(tractor?.dealDetails?.deal_date),
+            'dd-MM-yyyy',
+          );
+          tractor.dealName =
+            tractor?.dealDetails?.dealerDetails?.name + '-' + formattedDate;
+
+          let finalPrice = tractor?.finalPrice;
+          if (Number(finalPrice)>0 && Number(tractor?.selling_estimation) > 0) {
+            tractor.profit =
+              Number(tractor?.selling_estimation) -
+              Number(tractor?.totalCosting_finalPrice);
+          } else {
+            tractor.profit = 'NA';
+          }
+          if (tractor.profit != 'NA') {
+            this.totalProfit = this.totalProfit + Number(tractor?.profit);
+          }
+          this.total_selling_estimation =
+            this.total_selling_estimation + Number(tractor?.selling_estimation);
+          this.total_finalPrice =
+            this.total_finalPrice + Number(tractor?.finalPrice);
+          this.total_costing =
+            this.total_costing + Number(tractor?.totalCosting_finalPrice);
         });
+        if (this.totalProfit && this.tractorArray?.length) {
+          this.averageProfit = this.totalProfit / this.tractorArray?.length;
+        }
+        this.percentInProfit = Number(
+          ((this.totalProfit / this.total_selling_estimation) * 100).toFixed(2),
+        );
+        this.calculationIn=this.tractorArray?.filter((tractor:any)=>Number(tractor?.finalPrice)>0 && Number(tractor?.selling_estimation) > 0)?.length
         this.share.spinner.dismiss();
       },
       (error: any) => {},
     );
   }
+  percentInProfit = 0;
+  totalProfit: any = 0;
+  averageProfit: any = 0;
+  calculationIn: any = 0;
+  total_selling_estimation: any = 0;
+  total_costing: any = 0;
+  total_finalPrice: any = 0;
   // listData: any;
   // totalAmount = 0;
   // getListEstimation(tractor: any) {
@@ -182,13 +231,24 @@ this.showData=false
 
     if (data) {
       //   this.newFindingForms.controls['dealerId'].setValue(data?.id);
-      this.selectedDealer = data?.id;
+      if (table_name == 'dealer_list') {
+        this.selectedDealer = data?.id;
 
-      this.dealerName = data?.name;
+        this.dealerName = data?.name;
+        this.getDealList(true);
+      } else if (table_name == 'new_finding_deals') {
+        this.selectedDeal = data?.id;
+
+        this.dealName = data?.name;
+      }
+
       //this.resetOtherValue()
     }
 
-    console.log('role', role, data);
+    (console.log('role', role, data),
+      this.selectedDeal,
+      'dd',
+      this.selectedDealer);
 
     if (role === 'confirm') {
     }
@@ -284,8 +344,9 @@ this.showData=false
       (res: any) => {
         this.dealerList = res.data;
         this.dealerList.unshift({ id: 'ALL', name: 'All' });
-        this.selectedDealer = this.dealerList[0]?.id;
-        this.dealerName = this.dealerList[0]?.name;
+        this.selectedDealer = this.dealerList[1]?.id;
+        this.dealerName = this.dealerList[1]?.name;
+        this.getDealList();
         if (loader) {
           this.share?.spinner?.dismiss();
         }
@@ -293,4 +354,41 @@ this.showData=false
       (error: any) => {},
     );
   }
+  dealList: any = [];
+  getDealList(loader: any = false) {
+    this.dealList = [];
+    let obj: any = this.share.getListObj('dealer_list', false, [], false);
+    if (loader) {
+      this.share.showLoading('Loading...');
+    }
+    obj.dealerId = this.selectedDealer;
+    // this.share.showLoading('Loading...')
+    this.api.postapi('getDealListById', obj).subscribe(
+      (res: any) => {
+        this.dealList = res.data;
+        this.dealList?.forEach((f: any) => {
+          let formattedDate = this.datePipe.transform(
+            new Date(f?.deal_date),
+            'dd-MM-yyyy',
+          );
+          f.name = f.dealerName + '-' + formattedDate;
+        });
+        if (this.dealList?.length) {
+          this.dealList.unshift({ id: 'ALL', name: 'All' });
+          this.selectedDeal = this.dealList[1]?.id;
+          this.dealName = this.dealList[1]?.name;
+        } else {
+          this.selectedDeal = null;
+          this.dealName = null;
+        }
+
+        if (loader) {
+          this.share?.spinner?.dismiss();
+        }
+      },
+      (error: any) => {},
+    );
+  }
+  dealName: any;
+  selectedDeal: any;
 }
