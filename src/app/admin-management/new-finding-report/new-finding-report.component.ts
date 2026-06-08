@@ -152,7 +152,7 @@ export class NewFindingReportComponent implements OnInit {
             this.total_costing + Number(tractor?.totalCosting_finalPrice);
         });
         if (this.totalProfit && this.tractorArray?.length) {
-          this.averageProfit = this.totalProfit / this.tractorArray?.length;
+          this.averageProfit = Number((this.totalProfit / this.tractorArray?.length).toFixed(2));
         }
         this.percentInProfit = Number(
           ((this.totalProfit / this.total_selling_estimation) * 100).toFixed(2),

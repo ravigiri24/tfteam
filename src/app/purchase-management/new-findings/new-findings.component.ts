@@ -30,7 +30,7 @@ export class NewFindingsComponent implements OnInit {
   ngOnInit() {}
   ionViewWillEnter() {
     this.newFindingList = [];
-       this.selectedItem = 'OPEN'
+       this.selectedItem = 'ALL'
     this.resetFilterVal()
         this.getBrandList();
     this.getTractorList();
@@ -268,6 +268,7 @@ export class NewFindingsComponent implements OnInit {
   ];
   keyList: any = [
         { key: 'Purchase Number', value: 'purchaseSrNo', type: 'INPUT' },
+        { key: 'Status', value: 'approved_status', type: 'INPUT' },
     {
       key: 'Year Of Manufactoring',
       value: 'yearOfManufactoring',
@@ -482,8 +483,12 @@ export class NewFindingsComponent implements OnInit {
     console.log('getListByBrand', this.selectedBrand);
     this.getTractorList(true);
   }
-    selectedItem = 'OPEN';
+    selectedItem = 'ALL';
   optionsArray: any = [
+       {
+      id: 'ALL',
+      name: 'All',
+    },
     {
       id: 'OPEN',
       name: 'Open',

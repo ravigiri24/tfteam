@@ -135,6 +135,22 @@ export class NewFindingsDealsComponent implements OnInit {
             'dd-MM-yyyy',
           );
           f.name = f.dealerName + '-' + formattedDate;
+          f.tractorsCount=f?.tractorsInDeal?.length;
+          f.haveNoc=f?.tractorsInDeal?.filter((trF:any)=>trF.isNoc=='YES')?.length
+          let totalCosting=0
+          let totalSellingEstimation=0
+          f?.tractorsInDeal?.forEach((trF:any)=>{
+totalCosting=totalCosting+Number(trF?.finalPrice)
+totalSellingEstimation=totalSellingEstimation+Number(trF?.selling_estimation)
+          })
+          f.totalCosting=totalCosting
+          f.totalSellingEstimation=totalSellingEstimation
+          f.profitEstimation=f.totalSellingEstimation-f.totalCosting
+        f.inDiscussion=f?.tractorsInDeal?.filter((trF:any)=>trF.approved_status=='OPEN')?.length
+        f.approved=f?.tractorsInDeal?.filter((trF:any)=>trF.approved_status=='APPROVED')?.length
+        f.rejected=f?.tractorsInDeal?.filter((trF:any)=>trF.approved_status=='REJECTED')?.length
+        f.calculationIn=f?.tractorsInDeal?.filter((tractorF:any)=>Number(tractorF?.finalPrice)>0 && Number(tractorF?.selling_estimation) > 0)?.length + ' Out Of ' +f?.tractorsCount
+        f.averageProfit=Number((f.profitEstimation/Number(f?.tractorsCount)).toFixed(2))
         });
         this.newFindingListSrc?.forEach((f: any) => {
           let formattedDate = this.datePipe.transform(
@@ -208,11 +224,7 @@ export class NewFindingsDealsComponent implements OnInit {
       image: './././assets/images/edit.png',
     },
 
-    {
-      name: 'View New Finding Deals',
-      action: 'viewNewFindingDeals',
-      image: './././assets/images/visual.png',
-    },
+    
      {
       name: 'Deals Tractor List',
       action: 'dealsTractorList',
@@ -221,8 +233,17 @@ export class NewFindingsDealsComponent implements OnInit {
 
   ];
   keyList: any = [
+
     { key: 'Deal Date', value: 'deal_date', type: 'INPUT' },
-    { key: 'Tractors', value: 'deal_date', type: 'INPUT' },
+    { key: 'Tractors', value: 'tractorsCount', type: 'INPUT' },
+    { key: 'Deal Open', value: 'inDiscussion', type: 'INPUT' },
+    { key: 'APPROVED', value: 'approved', type: 'INPUT' },
+    { key: 'REJECTED', value: 'rejected', type: 'INPUT' },
+    { key: 'Purchase Cost', value: 'totalCosting', type: 'INPUT' },
+    { key: 'Selling Estimation', value: 'totalSellingEstimation', type: 'INPUT' },
+    { key: 'Profit Estimation', value: 'profitEstimation', type: 'INPUT' },
+    { key: 'Average Profit', value: 'averageProfit', type: 'INPUT' },
+    { key: 'Calculated In', value: 'calculationIn', type: 'INPUT' },
   
 
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },

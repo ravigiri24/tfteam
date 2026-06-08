@@ -409,6 +409,21 @@
           </ion-card>
 
           <ion-card class="accordian_card tcd-accordion-card">
+            <ion-accordion value="Eighth">
+              <ion-item slot="header" class="dynamic_bgcolor tcd-accordion-header">
+                <ion-icon name="stats-chart-outline" class="tcd-acc-icon" slot="start"></ion-icon>
+                <ion-label class="accordian_label">Tractor Part Details</ion-label>
+              </ion-item>
+              <div class="ion-padding tcd-acc-content" slot="content">
+                <ion-grid class="secondartColor tcd-detail-grid">
+                  <ion-row><ion-col>Engine No</ion-col><ion-col>{{tractorDetails?.purchasedetail?.engineNumber|| '-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Chassis Numer</ion-col><ion-col>{{tractorDetails?.purchasedetail?.chasisNumber|| '-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Registration Numner</ion-col><ion-col>{{tractorDetails?.purchasedetail?.registrationNumber||'-'}}</ion-col></ion-row>
+                </ion-grid>
+              </div>
+            </ion-accordion>
+          </ion-card>
+           <ion-card class="accordian_card tcd-accordion-card">
             <ion-accordion value="seventh">
               <ion-item slot="header" class="dynamic_bgcolor tcd-accordion-header">
                 <ion-icon name="stats-chart-outline" class="tcd-acc-icon" slot="start"></ion-icon>
