@@ -130,6 +130,8 @@
               <th>Quote (Dealer)</th>
               <th>Quote (TF)</th>
               <th>Final Price</th>
+              <th *ngFor="let costE of expenseTypeList">{{costE?.name}}(H)</th>
+
               <th>Expense Est. (Total)</th>
               <th>Total Cost (Dealer)</th>
               <th>Total Cost (TF)</th>
@@ -163,6 +165,7 @@
               <td>{{ tractor?.quoteByDealer }}</td>
               <td>{{ tractor?.quoteByTf }}</td>
               <td>{{ tractor?.finalPrice }}</td>
+              <td *ngFor="let costE of expenseTypeList">{{ tractor?.costEstimationWithHeader[costE?.id] || 0 }}</td>
               <td>{{ tractor?.totalAmount }}</td>
               <td>{{ tractor?.quoteByDealer ? tractor?.totalCosting_quoteByDealer : 'NA' }}</td>
               <td>{{ tractor?.quoteByTf ? tractor?.totalCosting_quoteByTf : 'NA' }}</td>
@@ -173,7 +176,36 @@
               <td>{{ tractor?.chassisNumber }}</td>
               <td>{{ tractor?.engineNo }}</td>
             </tr>
+                  <tr>
+              <td>Average</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><b>{{(quoteByDealerTotal/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+              <td><b>{{(quoteByTfTotal/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+              <td><b>{{(total_finalPrice/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+                   <td *ngFor="let costE of expenseTypeList"><b>{{((costE?.totalHeadAmount/tractorArray?.length)| number:'1.2-2')||0}}</b>&nbsp;(AVG)</td>
+              <td><b>{{( totalAmountExpense/tractorArray?.length )| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+              <td><b>{{(totalCosting_quoteByDealerAllTotal/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+              <td><b>{{(totalCosting_quoteByTfAllTotal/tractorArray?.length)| number:'1.2-2'}})</b>&nbsp;(AVG</td>
+             
+              <td><b>{{(total_costing/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+              <td><b>{{(total_selling_estimation/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+          
+              <td><b>{{(totalProfit/tractorArray?.length)| number:'1.2-2'}}</b>&nbsp;(AVG)</td>
+            </tr>
             <tr>
+              <td>Total</td>
               <td></td>
               <td></td>
               <td></td>
@@ -187,13 +219,15 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <td><b>{{quoteByDealerTotal}}</b>&nbsp;(AVG)</td>
+              <td><b>{{quoteByTfTotal}}</b>&nbsp;(AVG)</td>
               <td><b>{{total_finalPrice}}</b></td>
-              <td></td>
-              <td></td>
-              <td></td>
+                   <td *ngFor="let costE of expenseTypeList"><b>{{costE?.totalHeadAmount||0}}</b></td>
+              <td><b>{{ totalAmountExpense }}</b></td>
+              <td><b>{{totalCosting_quoteByDealerAllTotal}}</b></td>
+              <td><b>{{totalCosting_quoteByTfAllTotal}}</b></td>
+         
+       
              
               <td><b>{{total_costing}}</b></td>
               <td><b>{{total_selling_estimation}}</b></td>

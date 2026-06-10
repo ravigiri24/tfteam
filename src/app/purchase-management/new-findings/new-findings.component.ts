@@ -88,6 +88,7 @@ export class NewFindingsComponent implements OnInit {
 
     if (role === 'confirm') {
       this.getTractorList();
+          this.hadAction=true
     }
   }
    async openCostPrediction(dataUpdate: any = null) {
@@ -399,6 +400,7 @@ export class NewFindingsComponent implements OnInit {
       this.share.showLoading('Updating...');
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.presentToast('Updated Successfully');
+            this.hadAction=true
         this.getTractorList()
         this.getOldTractorList()
         this.share.spinner.dismiss();

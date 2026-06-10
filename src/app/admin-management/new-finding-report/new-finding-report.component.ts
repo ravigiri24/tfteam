@@ -71,11 +71,23 @@ export class NewFindingReportComponent implements OnInit {
     this.newFindingList = [];
     // this.getTractorList();
     this.getDealerList();
+    this.getExpense()
   }
   staffDetails: any;
   newFindingList: any = [];
   newFindingListSrc: any = [];
   selectedItem = 'OPEN';
+    expenseTypeList: any = [];
+  getExpense() {
+    let obj: any = this.share.getListObj('cost_estimation_heading', false, [], true);
+ 
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.expenseTypeList = res.data;
+      },
+      (error: any) => {}
+    );
+  }
   genrateReport(msg: any = 'Loading...') {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -86,6 +98,7 @@ export class NewFindingReportComponent implements OnInit {
       selectedDeal: this.selectedDeal,
       selectedDealer: this.selectedDealer,
     };
+     this.tractorArray=[]
     this.share.showLoading(msg);
     this.api.postapi('getNewFindingByDealDealer', obj).subscribe(
       (res: any) => {
@@ -112,13 +125,31 @@ export class NewFindingReportComponent implements OnInit {
         this.total_costing = 0;
         this.total_costing = 0;
         this.total_finalPrice = 0;
+        this.totalCosting_quoteByDealerAllTotal = 0;
+        this.totalCosting_quoteByTfAllTotal = 0;
+         this.quoteByTfTotal=0
+         this.quoteByDealerTotal=0
+        this.totalAmountExpense = 0;
         this.percentInProfit = 0;
         this.tractorArray?.forEach((tractor: any) => {
           tractor.totalAmount = 0;
+          let costEstimationWithHeader:any={}
           tractor?.expenseEstimation?.forEach((cost: any) => {
+
+
             tractor.totalAmount =
               Number(tractor.totalAmount) + Number(cost?.cost_value);
+              costEstimationWithHeader[cost?.cost_estimation_id]=cost?.cost_value
+              let findInExpenseTyepList= this.expenseTypeList.findIndex((ex:any)=>ex?.id==cost?.cost_estimation_id)
+              if(findInExpenseTyepList>-1){
+                if(!this.expenseTypeList[findInExpenseTyepList].totalHeadAmount){
+                  this.expenseTypeList[findInExpenseTyepList].totalHeadAmount=0
+                }
+         this.expenseTypeList[findInExpenseTyepList].totalHeadAmount=Number(this.expenseTypeList[findInExpenseTyepList].totalHeadAmount)+Number(cost?.cost_value)
+              }
+     
           });
+          tractor.costEstimationWithHeader=costEstimationWithHeader
           tractor.totalCosting_quoteByDealer =
             Number(tractor?.quoteByDealer) + Number(tractor.totalAmount);
           tractor.totalCosting_quoteByTf =
@@ -150,6 +181,11 @@ export class NewFindingReportComponent implements OnInit {
             this.total_finalPrice + Number(tractor?.finalPrice);
           this.total_costing =
             this.total_costing + Number(tractor?.totalCosting_finalPrice);
+           this.totalCosting_quoteByDealerAllTotal=this.totalCosting_quoteByDealerAllTotal+Number(tractor.totalCosting_quoteByDealer) 
+           this.totalCosting_quoteByTfAllTotal=this.totalCosting_quoteByTfAllTotal+Number(tractor.totalCosting_quoteByTf)
+           this.quoteByTfTotal=Number(this.quoteByTfTotal)+   Number(tractor?.quoteByTf) 
+           this.quoteByDealerTotal=Number(this.quoteByDealerTotal)+   Number(tractor?.quoteByDealer) 
+           this.totalAmountExpense=this.totalAmountExpense+Number(tractor.totalAmount) 
         });
         if (this.totalProfit && this.tractorArray?.length) {
           this.averageProfit = Number((this.totalProfit / this.tractorArray?.length).toFixed(2));
@@ -164,6 +200,11 @@ export class NewFindingReportComponent implements OnInit {
     );
   }
   percentInProfit = 0;
+  totalCosting_quoteByDealerAllTotal:any=0
+  totalCosting_quoteByTfAllTotal:any=0
+  quoteByTfTotal:any=0
+  quoteByDealerTotal:any=0
+  totalAmountExpense:any=0
   totalProfit: any = 0;
   averageProfit: any = 0;
   calculationIn: any = 0;
