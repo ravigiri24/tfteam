@@ -1,177 +1,345 @@
-.main_card_block {
-    ion-card-content {
-        background-color: #f5f5ff;
-    }
+// ═══════════════════════════════════════════════════
+//  KEYFRAMES
+// ═══════════════════════════════════════════════════
 
-    .flex_block_container {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        padding-bottom: 30px;
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-        .right_details_block {
-            width: 100%;
-            position: relative;
+@keyframes heroFade {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-            &:before {
-                content: "";
-                position: absolute;
-                width: 120px;
-                height: 120px;
-                top: -50px;
-                left: -40px;
-                border-radius: 50%;
-                z-index: 0;
-                opacity: 0.1;
-            }
+@keyframes circleFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-12px) scale(1.04); }
+}
 
-            &:after {
-                content: "";
-                position: absolute;
-                width: 100px;
-                height: 100px;
-                bottom: -10px;
-                right: -65px;
-                transform: rotate(45deg);
-                z-index: 0;
-                opacity: 0.1;
-            }
+@keyframes circleFloat2 {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(10px) scale(0.96); }
+}
 
-            ion-card-title {
-                font-size: 16px;
+@keyframes shimmerText {
+  0%   { background-position: -300% center; }
+  100% { background-position: 300% center; }
+}
 
-                .dynamic_color {
-                    font-size: 24px;
-                    padding-bottom: 5px;
-                    display: flex;
-                    letter-spacing: .5px;
-                }
-            }
+@keyframes rowPress {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
 
-            ion-card-subtitle {
-                margin: 5px 0px 5px 0px;
+// ═══════════════════════════════════════════════════
+//  PAGE BASE
+// ═══════════════════════════════════════════════════
 
-                b {
-                    span {
-                        font-size: 20px;
-                        font-weight: 500;
-                    }
-                }
-            }
-        }
+.db-page {
+  --background: #f4f6ff;
+}
 
-        .main_title_text {
-            color: #6f6e6e;
-            font-size: 14px;
+// ═══════════════════════════════════════════════════
+//  HERO HEADER
+// ═══════════════════════════════════════════════════
 
-        }
-    }
-    .card_heading {
-        font-size: 16px;
-    }
+.db-hero {
+  position: relative;
+  min-height: 230px;
+  padding: 40px 20px 100px;
+  overflow: hidden;
+  animation: heroFade 0.5s ease both;
+}
 
-    .tab_main_block {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 10px 0px 10px 0px;
-        flex-flow: wrap;
+.firstColor  .db-hero { background: linear-gradient(135deg, rgba(16,  63,  236, 1)  0%, rgba(92,  120, 255, 0.9) 100%); }
+.secondColor .db-hero { background: linear-gradient(135deg, rgba(37,  172, 162, 1)  0%, rgba(80,  210, 195, 0.9) 100%); }
+.thirdColor  .db-hero { background: linear-gradient(135deg, rgba(233, 124, 32,  1)  0%, rgba(255, 165, 80,  0.9) 100%); }
+.fourthColor .db-hero { background: linear-gradient(135deg, rgba(235, 67,  35,  1)  0%, rgba(255, 110, 70,  0.9) 100%); }
+.fifthColor  .db-hero { background: linear-gradient(135deg, rgba(190, 28,  65,  1)  0%, rgba(225, 70,  110, 0.9) 100%); }
+.sixColor    .db-hero { background: linear-gradient(135deg, rgba(208, 57,  159, 1)  0%, rgba(150, 32,  198, 0.9) 100%); }
+.sevenColor  .db-hero { background: linear-gradient(135deg, rgba(150, 32,  198, 1)  0%, rgba(100, 20,  160, 0.9) 100%); }
 
-        .tab_block {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 48%;
-            position: relative;
-            padding-left: 45px;
-            min-height: 65px;
+// Decorative blurred circles
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
 
-            .tab_icon {
-                display: flex;
-                align-items: center;
-                width: 50px;
-                height: 50px;
-                justify-content: center;
-                border-radius: 50%;
-                background: #ffffff;
-                border: dashed 1px;
-                box-shadow: var(--app-brand-shadow-small);
-                position: absolute;
-                left: 0px;
-                border-right: none;
-                z-index: 2;
+  &.c1 {
+    width: 200px; height: 200px;
+    top: -70px; right: -60px;
+    animation: circleFloat 7s ease-in-out infinite;
+  }
+  &.c2 {
+    width: 130px; height: 130px;
+    bottom: 20px; left: -40px;
+    background: rgba(255, 255, 255, 0.08);
+    animation: circleFloat2 9s ease-in-out infinite;
+  }
+  &.c3 {
+    width: 80px; height: 80px;
+    top: 30px; left: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    animation: circleFloat 11s ease-in-out infinite 2s;
+  }
+}
 
-                ion-icon {
-                    font-size: 28px;
-                    filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.4));
-                }
-            }
+// SVG wave that sits over the hero bottom edge
+.hero-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 55px;
+}
 
-            .tabs {
-                width: 100%;
-                background: #ffffff;
-                padding: 5px 5px 5px 15px;
-                display: flex;
-                border: dashed 1px;
-                border-left: 0px;
-                z-index: 2;
-                letter-spacing: .5px;
+// Top row: back button + tag
+.hero-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
 
-                span {
-                    color: #666666;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
-        }
+.back-fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  flex-shrink: 0;
 
-        .left_details_block {
-            width: 48%;
-            display: flex;
-            align-items: center;
+  ion-icon { font-size: 20px; color: #fff; }
+  &:active { background: rgba(255,255,255,0.3); transform: scale(0.92); }
+}
 
-            ul {
-                margin: 0px;
-                list-style: none;
-                padding: 0px;
-                font-size: 12px;
+.hero-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
 
-                li {
-                    font-size: 13px;
-                }
-            }
-        }
+// Tractor name & info
+.hero-info { position: relative; z-index: 2; }
 
-        .width_auto {
-            width: auto;
-        }
+.hero-name {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  margin: 0 0 12px;
+  line-height: 1.15;
+  color: transparent;
+  background: linear-gradient(90deg,
+    #fff 0%, rgba(255,255,255,0.6) 30%,
+    #fff 50%, rgba(255,255,255,0.6) 70%, #fff 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmerText 5s linear infinite;
+}
 
-        .details_tab {
-            z-index: 1;
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
 
-            &:before {
-                content: "";
-                position: absolute;
-                width: 1px;
-                border-right: dashed 1px;
-                right: -12.5%;
-                height: 50px;
-                top: 50%;
-            }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  ion-icon { font-size: 11px; }
+  .dot-icon { font-size: 8px; }
 
-            &:after {
-                content: "";
-                position: absolute;
-                width: 12.5%;
-                border-top: dashed 1px;
-                right: -12.5%;
-                height: 1px;
-            }
-        }
+  &.chip-reg    { background: rgba(255,255,255,0.18); }
+  &.chip-live   { background: rgba(34, 197, 94, 0.8); }
+  &.chip-draft  { background: rgba(234, 179, 8, 0.8); }
+  &.chip-archived { background: rgba(100,116,139,0.8); }
+  &.chip-sold   { background: rgba(239,68,68,0.8); }
+}
 
-        .selected_tab {
-            font-weight: bold;
-        }
-    }
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    ion-icon { font-size: 13px; }
+  }
+}
+
+// ═══════════════════════════════════════════════════
+//  BODY / CARDS AREA
+// ═══════════════════════════════════════════════════
+
+.db-body {
+  padding: 10px 14px 36px;
+  background: #f4f6ff;
+}
+
+// ═══════════════════════════════════════════════════
+//  DASHBOARD CARD
+// ═══════════════════════════════════════════════════
+
+.db-card {
+  background: #ffffff;
+  border-radius: 18px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.anim-card {
+  animation: cardSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 1) * 0.06s);
+}
+
+// Card header band
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid #f0f2ff;
+  background: linear-gradient(90deg, #f7f8ff 0%, #fff 100%);
+}
+
+.card-head-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  ion-icon { font-size: 17px; color: #fff; }
+}
+
+.card-head-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: 0.2px;
+}
+
+// Card rows
+.card-rows { padding: 4px 0 4px; }
+
+.row-divider {
+  height: 1px;
+  background: #f0f2ff;
+  margin: 0 16px;
+}
+
+.row-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  cursor: pointer;
+  transition: background 0.18s;
+
+  &:active {
+    background: #f4f6ff;
+    animation: rowPress 0.2s ease;
+  }
+}
+
+.row-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  ion-icon { font-size: 19px; color: #fff; }
+}
+
+.row-label-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  letter-spacing: 0.1px;
+}
+
+.row-sub {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-arrow {
+  font-size: 17px;
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: transform 0.18s;
+  .row-item:active & { transform: translateX(4px); }
+}
+
+// ═══════════════════════════════════════════════════
+//  INFO ROW  (RTO & Insurance)
+// ═══════════════════════════════════════════════════
+
+.info-row {
+  display: flex;
+  gap: 0;
+}
+
+.info-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+
+  & + .info-box {
+    border-left: 1px solid #f0f2ff;
+  }
+
+  ion-icon { font-size: 22px; flex-shrink: 0; }
+}
+
+.info-label {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0 0 2px;
+  font-weight: 500;
+}
+
+.info-val {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
 }

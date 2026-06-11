@@ -1,191 +1,266 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
-    <ion-buttons (click)="backToSrcPage()" slot="end">
-      <ion-icon class="theme-color icon-size" name="arrow-back-outline"></ion-icon>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-<ion-content class="main_card_block">
-  <ion-card-content [ngClass]="listColorClass" *ngIf="tractorDetails">
-    <div class="flex_block_container">
-      <div class="right_details_block">
-        <ion-card-title><span class="dynamic_color">{{tractorDetails?.name}}</span></ion-card-title>
-        <ion-card-subtitle>
-          <span><b>
-              <span>{{ tractorDetails?.registractionNo }}</span>
-              <span *ngIf="tractorDetails?.tractor_status">-&nbsp; {{tractorDetails?.tractor_status }}</span>
-              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0 ">-Live</span>
-              <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1 ">-Draft</span>
-              <span *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">-Sold To Customer</span>
-              <span *ngIf="tractorDetails?.isSoldToDealer==1">- Sold To Dealer</span>
-              <span *ngIf="tractorDetails?.isSold==0 && tractorDetails?.isSoldToDealer==0">- Not Sold</span>
-            </b>
+<ion-content class="db-page">
+
+  <div *ngIf="tractorDetails" [ngClass]="listColorClass">
+
+    <!-- ── HERO HEADER ─────────────────────────────────────────── -->
+    <div class="db-hero">
+      <!-- curved wave at bottom -->
+      <svg class="hero-wave" viewBox="0 0 430 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 Q215,60 430,0 L430,60 L0,60 Z" fill="#f4f6ff"/>
+      </svg>
+
+      <!-- decorative circles -->
+      <div class="hero-circle c1"></div>
+      <div class="hero-circle c2"></div>
+      <div class="hero-circle c3"></div>
+
+      <div class="hero-top">
+        <button class="back-fab" (click)="backToSrcPage()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
+        <span class="hero-tag">Tractor Dashboard</span>
+      </div>
+
+      <div class="hero-info">
+        <h1 class="hero-name">{{tractorDetails?.name}}</h1>
+        <div class="hero-chips">
+          <span class="chip chip-reg">
+            <ion-icon name="card-outline"></ion-icon>
+            {{tractorDetails?.registractionNo}}
           </span>
-        </ion-card-subtitle>
-        <span class="main_title_text">
-          {{ tractorDetails?.yearOfManufactoring }} | {{ tractorDetails?.createdOn | date }} | {{ tractorDetails?.hours
-          }}
-        </span>
-      </div>
-      <ion-buttons class="right_backbtn dynamic_color" (click)="backToSrcPage()" slot="end">
-        <ion-icon class="icon-size" name="arrow-back-outline"></ion-icon>
-      </ion-buttons>
-    </div>
-    <ion-label class="card_heading">Purchase Card</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="openPurchaseCard()">
-        <div class="tab_icon"><ion-icon name="card-outline"></ion-icon></div>
-        <span class="tabs"><span>Generate</span></span>
-      </div>
-      <div class="tab_block" (click)="download(cardHistory?.imageUrlUrl)">
-        <div class="tab_icon"><ion-icon name="cloud-download-outline"></ion-icon></div>
-        <span class="tabs"><span>Download</span></span>
-      </div>
-    </div>
-    <ion-label class="card_heading">Images</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="goToUplodeSection()">
-        <div class="tab_icon"><ion-icon name="cloud-upload-outline"></ion-icon></div>
-        <span class="tabs"><span>Uploads</span></span>
+          <span class="chip"
+            [class.chip-live]="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0"
+            [class.chip-draft]="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1"
+            [class.chip-archived]="tractorDetails?.tractor_status=='ARCHIVED'"
+            [class.chip-sold]="tractorDetails?.isSold==1">
+            <ion-icon name="ellipse" class="dot-icon"></ion-icon>
+            <span *ngIf="tractorDetails?.tractor_status">{{tractorDetails?.tractor_status}}</span>
+            <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==0">Live</span>
+            <span *ngIf="!tractorDetails?.tractor_status && tractorDetails?.isDraft==1">Draft</span>
+            <span *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">Sold · Customer</span>
+            <span *ngIf="tractorDetails?.isSoldToDealer==1">Sold · Dealer</span>
+            <span *ngIf="tractorDetails?.isSold==0 && tractorDetails?.isSoldToDealer==0">Not Sold</span>
+          </span>
+        </div>
+        <div class="hero-meta">
+          <span><ion-icon name="calendar-outline"></ion-icon> {{tractorDetails?.yearOfManufactoring}}</span>
+          <span><ion-icon name="time-outline"></ion-icon> {{tractorDetails?.createdOn | date:'mediumDate'}}</span>
+          <span><ion-icon name="speedometer-outline"></ion-icon> {{tractorDetails?.hours}} hrs</span>
+        </div>
       </div>
     </div>
-    <ion-label class="card_heading">Basic Details</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="openEdit()">
-        <div class="tab_icon"><ion-icon name="create-outline"></ion-icon></div>
-        <span class="tabs"><span>Edit Details</span></span>
-      </div>
-      <div class="tab_block" (click)="startTranspotation()">
-        <div class="tab_icon"><ion-icon name="newspaper-outline"></ion-icon></div>
-        <span class="tabs"><span>Transport Details</span></span>
-      </div>
-    </div>
-    <ion-label class="card_heading">Logistic</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="intraDealerTransport()">
-        <div class="tab_icon"><ion-icon name="card-outline"></ion-icon></div>
-        <span class="tabs"><span>Expense</span></span>
-      </div>
-      <div class="tab_block" (click)="addStatusTransport()">
-        <div class="tab_icon"><ion-icon name="information-circle-outline"></ion-icon></div>
-        <span class="tabs"><span>Remark</span></span>
-      </div>
-      <div class="tab_block" (click)="showDeliveryModal()">
-        <div class="tab_icon"><ion-icon name="albums-outline"></ion-icon></div>
-        <span class="tabs"><span>Delivery Details</span></span>
-      </div>
-    </div>
-    <ion-label class="card_heading">Archived</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" *ngIf="tractorDetails?.tractor_status==null" (click)="archivedAlert()">
-        <div class="tab_icon"><ion-icon name="archive-outline"></ion-icon></div>
-        <span class="tabs"><span>Send Archived</span></span>
-      </div>
-      <div class="tab_block" *ngIf="tractorDetails?.tractor_status=='ARCHIVED'" (click)="sendDraftAlert()">
-        <div class="tab_icon"><ion-icon name="cog-outline"></ion-icon></div>
-        <span class="tabs"><span>Send Buffer</span></span>
-      </div>
-    </div>
-    <ion-label class="card_heading">Allot Store</ion-label>
-       <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="allotStore()">
-        <div class="tab_icon"><ion-icon name="git-pull-request-outline"></ion-icon></div>
-        <span class="tabs"><span>Allot</span></span>
-      </div>
-      <div class="tab_block" (click)="intraDealerTransport()">
-        <div class="tab_icon"><ion-icon name="git-pull-request-outline"></ion-icon></div>
-        <span class="tabs"><span>Intra-Dealer Transport</span></span>
-      </div>
-    </div>
-    <ion-label class="card_heading">Sell To Franchies</ion-label>
-    <div class="tab_main_block selected_tab">
-    
-      <div class="tab_block" [ngClass]="{'width_auto': tractorDetails?.isSoldToDealer==1 }" *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1"
-        (click)="openDealerPrice()">
-        <div class="tab_icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
-        <span class="tabs">Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To
-            {{tractorDetails?.franchiseDettails?.name}} Franchise At
-            {{tractorDetails?.dealerPrice}})</span></span>
-      </div>
-        <div class="tab_block" [ngClass]="{'width_auto': tractorDetails?.isSoldToDealer==1 }" *ngIf="tractorDetails?.isSoldToDealer==1"
-        (click)="sellBack('FRANCHISE')">
-        <div class="tab_icon"><ion-icon name="bag-handle-outline"></ion-icon></div>
-        <span class="tabs">Sell Back(Franchise) </span>
-      </div>
-      <div class="tab_block width_auto" *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0"
-        (click)="changeSoldAlert()">
-        <div class="tab_icon"><ion-icon name="enter-outline"></ion-icon></div>
-        <span class="tabs"><span>Tractor Sold To Customer</span></span>
-      </div>
-    </div>
-    <!-- <div class="ion-padding" slot="content">
-      <ion-list>
-        <ion-item *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1">
-          <ion-button (click)="openDealerPrice()" fill="clear">
-            <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
-            <span>Sell <span *ngIf="tractorDetails?.isSoldToDealer==1">(Sold To
-                {{tractorDetails?.franchiseDettails?.name}} Franchise At
-                {{tractorDetails?.dealerPrice}})</span></span>
-          </ion-button>
 
-        </ion-item>
-        <ion-item *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0">
-          <h3>Tractor Sold To Customer <ion-icon (click)="changeSoldAlert()" class="left_card_icons"
-              name="enter-outline"></ion-icon></h3>
-        </ion-item>
-      </ion-list>
-    </div> -->
-    <ion-label class="card_heading">RTO and Insurance</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="addRtoCost()">
-        <div class="tab_icon"><ion-icon name="medkit-outline"></ion-icon></div>
-        <span class="tabs"><span>Update Cost</span></span>
-      </div>
-      <div class="left_details_block">
-        <ul>
-          <li>RTO Cost : <b>{{tractorDetails?.rto_cost}}</b></li>
-          <li>Insurance Cost : <b>{{tractorDetails?.insurance_cost}}</b></li>
-        </ul>
-      </div>
-    </div>
-    <!-- <div class="ion-padding" slot="content">
-      <ion-list>
-        <ion-item>
-          <ion-button (click)="addRtoCost()" fill="clear">
-            <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
-            <span>Update Cost</span>
-          </ion-button>
+    <!-- ── CONTENT AREA ───────────────────────────────────────── -->
+    <div class="db-body">
 
-        </ion-item>
-        <ion-item>
-          <ul>
-            <li>RTO Cost-<b>{{tractorDetails?.rto_cost}}</b></li>
-            <li>Insurance Cost-<b>{{tractorDetails?.insurance_cost}}</b></li>
-          </ul>
-        </ion-item>
-      </ion-list>
-    </div> -->
-    <ion-label class="card_heading">Other Expenses</ion-label>
-    <div class="tab_main_block selected_tab">
-      <div class="tab_block" (click)="AddOtherExpense()">
-        <div class="tab_icon"><ion-icon name="cash-outline"></ion-icon></div>
-        <span class="tabs"><span>Add Expenses</span></span>
+      <!-- Purchase Card -->
+      <div class="db-card anim-card" style="--i:1">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="card-outline"></ion-icon></div>
+          <span class="card-head-title">Purchase Card</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="openPurchaseCard()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="document-text-outline"></ion-icon></div>
+            <span class="row-label">Generate Card</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider"></div>
+          <div class="row-item" (click)="download(cardHistory?.imageUrlUrl)">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="cloud-download-outline"></ion-icon></div>
+            <span class="row-label">Download Card</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- <div class="ion-padding" slot="content">
-      <ion-list>
-        <ion-item>
-          <ion-button (click)="AddOtherExpense()" fill="clear">
-            <ion-icon class="right-margine theme-color" name="cash-outline"></ion-icon>
-            Add Other Expenses
-          </ion-button>
-        </ion-item>
-      </ion-list>
-    </div> -->
-  </ion-card-content>
+
+      <!-- Images -->
+      <div class="db-card anim-card" style="--i:2">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="images-outline"></ion-icon></div>
+          <span class="card-head-title">Images</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="goToUplodeSection()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="cloud-upload-outline"></ion-icon></div>
+            <span class="row-label">Upload Images</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Basic Details -->
+      <div class="db-card anim-card" style="--i:3">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="information-circle-outline"></ion-icon></div>
+          <span class="card-head-title">Basic Details</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="openEdit()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="create-outline"></ion-icon></div>
+            <span class="row-label">Edit Details</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider"></div>
+          <div class="row-item" (click)="startTranspotation()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="newspaper-outline"></ion-icon></div>
+            <span class="row-label">Transport Details</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logistic -->
+      <div class="db-card anim-card" style="--i:4">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="cube-outline"></ion-icon></div>
+          <span class="card-head-title">Logistic</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="intraDealerTransport()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="wallet-outline"></ion-icon></div>
+            <span class="row-label">Expense</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider"></div>
+          <div class="row-item" (click)="addStatusTransport()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></div>
+            <span class="row-label">Remark</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider"></div>
+          <div class="row-item" (click)="showDeliveryModal()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="albums-outline"></ion-icon></div>
+            <span class="row-label">Delivery Details</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Archived -->
+      <div class="db-card anim-card" style="--i:5">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="archive-outline"></ion-icon></div>
+          <span class="card-head-title">Archived</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" *ngIf="tractorDetails?.tractor_status==null" (click)="archivedAlert()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="archive-outline"></ion-icon></div>
+            <span class="row-label">Send to Archive</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-item" *ngIf="tractorDetails?.tractor_status=='ARCHIVED'" (click)="sendDraftAlert()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="cog-outline"></ion-icon></div>
+            <span class="row-label">Send to Buffer</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allot Store -->
+      <div class="db-card anim-card" style="--i:6">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="storefront-outline"></ion-icon></div>
+          <span class="card-head-title">Allot Store</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="allotStore()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="git-pull-request-outline"></ion-icon></div>
+            <span class="row-label">Allot</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider"></div>
+          <div class="row-item" (click)="intraDealerTransport()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="swap-horizontal-outline"></ion-icon></div>
+            <span class="row-label">Intra-Dealer Transport</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sell To Franchise -->
+      <div class="db-card anim-card" style="--i:7">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="bag-handle-outline"></ion-icon></div>
+          <span class="card-head-title">Sell To Franchise</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item"
+            *ngIf="tractorDetails?.isSold==0 || tractorDetails?.isSoldToDealer==1"
+            (click)="openDealerPrice()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="bag-handle-outline"></ion-icon></div>
+            <div class="row-label-wrap">
+              <span class="row-label">Sell</span>
+              <span class="row-sub" *ngIf="tractorDetails?.isSoldToDealer==1">
+                Sold to {{tractorDetails?.franchiseDettails?.name}} &#64; {{tractorDetails?.dealerPrice}}
+              </span>
+            </div>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider" *ngIf="tractorDetails?.isSoldToDealer==1"></div>
+          <div class="row-item" *ngIf="tractorDetails?.isSoldToDealer==1" (click)="sellBack('FRANCHISE')">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="return-down-back-outline"></ion-icon></div>
+            <span class="row-label">Sell Back (Franchise)</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-item" *ngIf="tractorDetails?.isSold==1 && tractorDetails?.isSoldToDealer==0"
+            (click)="changeSoldAlert()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="enter-outline"></ion-icon></div>
+            <span class="row-label">Tractor Sold To Customer</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- RTO & Insurance -->
+      <div class="db-card anim-card" style="--i:8">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+          <span class="card-head-title">RTO &amp; Insurance</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="addRtoCost()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="pencil-outline"></ion-icon></div>
+            <span class="row-label">Update Cost</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-divider"></div>
+          <div class="info-row">
+            <div class="info-box">
+              <ion-icon name="car-outline" class="dynamic_color"></ion-icon>
+              <div>
+                <p class="info-label">RTO Cost</p>
+                <p class="info-val dynamic_color">{{tractorDetails?.rto_cost || '—'}}</p>
+              </div>
+            </div>
+            <div class="info-box">
+              <ion-icon name="shield-outline" class="dynamic_color"></ion-icon>
+              <div>
+                <p class="info-label">Insurance</p>
+                <p class="info-val dynamic_color">{{tractorDetails?.insurance_cost || '—'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Expenses -->
+      <div class="db-card anim-card" style="--i:9">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="cash-outline"></ion-icon></div>
+          <span class="card-head-title">Other Expenses</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" (click)="AddOtherExpense()">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="add-circle-outline"></ion-icon></div>
+            <span class="row-label">Add Expenses</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /db-body -->
+  </div>
+
 </ion-content>
