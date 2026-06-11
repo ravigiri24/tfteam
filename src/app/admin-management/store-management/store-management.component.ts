@@ -78,7 +78,7 @@ if(data){
 
 obj.staff_role='SALES_HEAD'
     setTimeout(() => {
-      this.api.postapi('getStaffListRoleWise', obj).subscribe(
+      this.api.postapi('getSalesHeadList', obj).subscribe(
         (res: any) => {
           this.staffList = res?.data;
      this.share.spinner.dismiss('active_one')

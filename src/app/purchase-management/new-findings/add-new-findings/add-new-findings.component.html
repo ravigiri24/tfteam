@@ -73,7 +73,7 @@
         <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon>
       </div>
     </div> -->
-        <div class="global-inner-heading">
+        <!-- <div class="global-inner-heading">
       <span>Select Dealer           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
               <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon></span>
 
@@ -85,6 +85,17 @@
     <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
 
      
+  </div> -->
+      <div class="global_input_block" >
+  <ion-select 
+  formControlName="isNoc" label="Is NOC" fill="outline" label-placement="type">
+    <ion-select-option value="YES">Yes</ion-select-option>
+    <ion-select-option value="NO">No</ion-select-option>
+   
+
+  
+
+  </ion-select>
   </div>
         <div class="global_input_block" >
   <ion-select 
@@ -116,7 +127,7 @@
         formControlName="remark"></ion-input>
     </div>
   <div class="global_input_block">
-      <ion-input label="Selling Estimation" fill="outline" labelPlacement="stacked" type="text"
+      <ion-input label="Selling Estimation" fill="outline" labelPlacement="stacked" type="number"
         formControlName="selling_estimation"></ion-input>
     </div>
 

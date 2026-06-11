@@ -43,10 +43,56 @@ export class TractorCostingDashboardComponent implements OnInit {
   }
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {
+     this.findingDetails=null
+     this.findingCostingDetails=null
     this.getTractorDetails();
     this.getLogisticList();
     this.getMaintanance();
     this.getListOther();
+   
+   
+  }
+   getFindingDetails(findingId:any) {
+
+    let obj: any = this.share.getListObj('model', true, ['logo'], false);
+    this.share.showLoading('Checking Availaibility');
+    obj.tractor_id = findingId
+    this.api.postapi('getNewFindingAllDetails', obj).subscribe(
+      (res: any) => {
+        this.findingDetails = res?.data
+      this.findingDetails.total_costingWithExpense=Number(this.findingDetails?.finalPrice)+Number(this.estimationTotal)
+      this.findingDetails.profitEstimation=Number(this.findingDetails?.selling_estimation)-Number(this.findingDetails?.total_costingWithExpense)
+
+
+        this.share?.spinner?.dismiss();
+      },
+      (error: any) => { }
+    );
+  }
+  findingDetails:any
+  findingCostingDetails:any
+  estimationTotal:any
+    getListEstimation(findingId:any) {
+      this.findingCostingDetails=null
+    let obj: any = this.share.getListObj('tractor_cost_estimation', false, [], true);
+    obj.tractor_id =findingId;
+    this.share.showLoading('Loading...');
+    this.api.postapi('tractor_cost_estimation_byId', obj).subscribe(
+      (res: any) => {
+        this.findingCostingDetails = res.data;
+     
+     
+        this.findingCostingDetails.reverse();
+        this.estimationTotal = 0;
+        this.findingCostingDetails?.forEach((f: any) => {
+          this.estimationTotal =
+            Number(this.estimationTotal) + Number(f?.cost_value);
+        });
+        this.getFindingDetails(findingId)
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
   }
   selectedTab = 'DETAILS';
   DETAILS = 'DETAILS';
@@ -456,6 +502,10 @@ export class TractorCostingDashboardComponent implements OnInit {
         this.getRTODataByID();
         this.getDataByIDSellData();
         this.getDataByIDFinance();
+        if(this.tractorDetails?.newFindingId>0){
+          this.getListEstimation(this.tractorDetails?.newFindingId)
+    
+        }
         this.share.spinner.dismiss();
       },
       (error: any) => {}

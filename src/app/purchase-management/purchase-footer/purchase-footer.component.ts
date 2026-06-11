@@ -16,7 +16,7 @@ export class PurchaseFooterComponent  implements OnInit {
   this.selectedTab=tab
   if(tab=='New-findings'){
    
-    this.router.navigate(['/purchase-management/new-findings'])
+    this.router.navigate(['/purchase-management/new-findings-deals'])
   }
     if(tab=='New-arrivals'){
            this.activeTabsColor = "sevenColor";

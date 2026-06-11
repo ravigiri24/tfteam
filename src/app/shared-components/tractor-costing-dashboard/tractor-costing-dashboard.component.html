@@ -409,6 +409,21 @@
           </ion-card>
 
           <ion-card class="accordian_card tcd-accordion-card">
+            <ion-accordion value="Eighth">
+              <ion-item slot="header" class="dynamic_bgcolor tcd-accordion-header">
+                <ion-icon name="stats-chart-outline" class="tcd-acc-icon" slot="start"></ion-icon>
+                <ion-label class="accordian_label">Tractor Part Details</ion-label>
+              </ion-item>
+              <div class="ion-padding tcd-acc-content" slot="content">
+                <ion-grid class="secondartColor tcd-detail-grid">
+                  <ion-row><ion-col>Engine No</ion-col><ion-col>{{tractorDetails?.purchasedetail?.engineNumber|| '-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Chassis Numer</ion-col><ion-col>{{tractorDetails?.purchasedetail?.chasisNumber|| '-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Registration Numner</ion-col><ion-col>{{tractorDetails?.purchasedetail?.registrationNumber||'-'}}</ion-col></ion-row>
+                </ion-grid>
+              </div>
+            </ion-accordion>
+          </ion-card>
+           <ion-card class="accordian_card tcd-accordion-card">
             <ion-accordion value="seventh">
               <ion-item slot="header" class="dynamic_bgcolor tcd-accordion-header">
                 <ion-icon name="stats-chart-outline" class="tcd-acc-icon" slot="start"></ion-icon>
@@ -423,7 +438,28 @@
               </div>
             </ion-accordion>
           </ion-card>
-
+    <ion-card class="accordian_card tcd-accordion-card">
+            <ion-accordion value="Nine">
+              <ion-item slot="header" class="dynamic_bgcolor tcd-accordion-header">
+                <ion-icon name="stats-chart-outline" class="tcd-acc-icon" slot="start"></ion-icon>
+                <ion-label class="accordian_label">Finding History</ion-label>
+              </ion-item>
+              <div class="ion-padding tcd-acc-content" slot="content">
+                <ion-grid class="secondartColor tcd-detail-grid">
+                  <ion-row><ion-col>Purchase No.</ion-col><ion-col>{{findingDetails?.purchaseSrNo || '-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Finding Date</ion-col><ion-col>{{findingDetails?.createdOn||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Dealer</ion-col><ion-col>{{findingDetails?.dealerName||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Tyre</ion-col><ion-col>{{findingDetails?.tyreCondition||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Body</ion-col><ion-col>{{findingDetails?.bodyCondition||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Final Price</ion-col><ion-col>{{findingDetails?.finalPrice||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Expense Est. (Total)</ion-col><ion-col>{{estimationTotal||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Total Cost (Final)</ion-col><ion-col>{{(findingDetails?.total_costingWithExpense)||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Selling Est.</ion-col><ion-col>{{findingDetails?.selling_estimation||'-'}}</ion-col></ion-row>
+                  <ion-row><ion-col>Profit Estimation</ion-col><ion-col>{{findingDetails?.profitEstimation||'-'}}</ion-col></ion-row>
+                </ion-grid>
+              </div>
+            </ion-accordion>
+          </ion-card>
         </ion-accordion-group>
       </ng-container>
 

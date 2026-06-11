@@ -21,11 +21,11 @@ import { ToastController } from '@ionic/angular';
 import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
 @Component({
-  selector: 'app-add-new-findings',
-  templateUrl: './add-new-findings.component.html',
-  styleUrls: ['./add-new-findings.component.scss'],
+  selector: 'app-add-new-deal',
+  templateUrl: './add-new-deal.component.html',
+  styleUrls: ['./add-new-deal.component.scss'],
 })
-export class AddNewFindingsComponent implements OnInit {
+export class AddNewDealComponent  implements OnInit {
   constructor(
     private fb: FormBuilder,
     private share: ShareService,
@@ -39,91 +39,12 @@ export class AddNewFindingsComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    this.getBrandList();
+
     this.getDealerList()
-    this.createYearArray()
+   
   }
-    yearArray: any = [];
-  createYearArray() {
-    let date = new Date();
-    let getyear = date.getFullYear();
-    let tillyear = Number(getyear) - 41;
-    for (let index = getyear; index > tillyear; index--) {
-      this.yearArray.push(index);
-    }
-  }
-  brandList: any = [];
-  isShowOnly=false
-  getBrandList() {
-    this.share.showLoading('Loading...');
-    let obj = this.share.getListObj('brand', false, [], true);
-    this.api.postapi('getList', obj).subscribe(
-      (res: any) => {
-        this.brandList = res.data;
-        this.brandList = this.brandList.reverse();
-        if(!this.data){
-        this.newFindingForms.controls['brand_id'].setValue(
-          this.brandList[0]?.id
-        );
-      }
-        this.getModelList();
-        //  this.share.spinner.dismiss();
-      },
-      (error: any) => {}
-    );
-  }
-  deal:any
-    getPurchaseNumber() {
-      //    if (this.newFindingForms.valid) {
-      
-    this.modelList = [];
-     let prchaseNo=null
-    let obj = this.share.getListObj('model', false, [], false);
-    // this.share.showLoading('Loading...')
-    this.api.postapi('getPurchaseNumberLast', obj).subscribe(
-      (res: any) => {
-      let lastPurchaseNo=res?.data?.purchaseSrNo
-      if(res?.data && lastPurchaseNo){
-let arr = lastPurchaseNo.split("-");
-console.log("arr",arr);
-let number=Number(arr[1])
-let newnumber=number+1
-let prNo='PR-'+newnumber
-this.saveForm(prNo)
-      }else{
-        let prchaseNo="PR-1"
-        this.saveForm(prchaseNo)
-      }
- 
-      
-      },
-      (error: any) => {}
-    );
-  // }
-  // else {
-  //     this.share.presentToast('Please Fill required fields');
-  //     this.newFindingForms.markAllAsTouched();
-  //   }
-  }
-  modelList: any = [];
-  modelListAll: any = [];
-  getModelList() {
-    this.modelList = [];
-    let obj = this.share.getListObj('model', false, [], false);
-    // this.share.showLoading('Loading...')
-    this.api.postapi('getList', obj).subscribe(
-      (res: any) => {
-        this.modelListAll = res.data;
-        if(!this.data){
-        this.getModelsbyBrand();
-        }else{
-          this.getModelsbyBrand(false);
-        }
-        this.share?.spinner?.dismiss();
-      },
-      (error: any) => {}
-    );
-  }
+
+
     dealerList: any = [];
 
   getDealerList(loader:any=false) {
@@ -200,29 +121,19 @@ this.share.showLoading('Loading...')
         }
       }
       dealerName:any
-  getModelsbyBrand(setValue:any=true) {
-    if(setValue){
-    this.newFindingForms.controls['model_id'].setValue(null);
-    }
-    this.modelList = this.modelListAll.filter(
-      (f: any) => f.brandID == this.newFindingForms.controls['brand_id']?.value
-    );
-    if (this.modelList?.length && !setValue) {
-      this.newFindingForms.controls['model_id'].setValue(this.data?.model_id);
-    }
-  }
+
   dismiss() {
     this.modalCntrol.dismiss();
   }
-  saveForm(prNo:any) {
+  saveForm() {
  
     if (this.newFindingForms.valid) {
       
       let obj:any = {
-        src: 'new_findings',
+        src: 'new_finding_deals',
         data: this.newFindingForms.value,
       };
-      obj.data.purchaseSrNo=prNo
+   
       this.share.showLoading('Saving');
       this.api.postapi('addOpp', obj).subscribe((res: any) => {
         this.share.presentToast('Saved Successfully');
@@ -240,7 +151,7 @@ this.share.showLoading('Loading...')
   updateForm() {
     if (this.newFindingForms.valid) {
       let obj = {
-        src: 'new_findings',
+        src: 'new_finding_deals',
         data: this.newFindingForms.value,
         id:this.data?.id
       };
@@ -266,36 +177,14 @@ this.share.showLoading('Loading...')
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
     this.staffDetails = JSON.parse(staffDetails);
-        let yearOfManufactoring=null
-    if(this.data?.yearOfManufactoring){
-     yearOfManufactoring=Number(this.data?.yearOfManufactoring)
-    }
 
     this.newFindingForms = this.fb.group({
-      brand_id: new FormControl(this.data?.brand_id || null, [
-        Validators.required,
-      ]),
-      model_id: new FormControl(this.data?.model_id || null, [
-        Validators.required,
-      ]),
- 
-      quoteByDealer: new FormControl(this.data?.quoteByDealer, []),
-      quoteByTf: new FormControl(this.data?.quoteByTf, []),
-      finalPrice: new FormControl(this.data?.finalPrice, []),
-      tyreCondition: new FormControl(this.data?.tyreCondition, [Validators.required]),
-      bodyCondition: new FormControl(this.data?.bodyCondition, [Validators.required]),
-      dealerId: new FormControl(this.data?.dealerId||this.deal?.dealerId, [Validators.required]),
+       dealerId: new FormControl(this.data?.dealerId, [Validators.required]),
       actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
-      yearOfManufactoring: new FormControl(yearOfManufactoring, [Validators.required]),
-      registractionNo: new FormControl(this.data?.registractionNo, []),
-      hours: new FormControl(this.data?.hours, [Validators.required]),
-      isNoc: new FormControl(this.data?.isNoc||'YES', [Validators.required]),
-      deal_id: new FormControl(this.data?.deal_id||this.deal?.id, [Validators.required]),
-      id: new FormControl(this.data?.id || null),
-      remark: new FormControl(this.data?.remark, []),
-      chassisNumber: new FormControl(this.data?.chassisNumber, []),
-      engineNo: new FormControl(this.data?.engineNo, []),
-      selling_estimation: new FormControl(this.data?.selling_estimation, []),
+    
+      deal_date: new FormControl(this.data?.deal_date, [Validators.required]),
+   
     });
   }
+
 }

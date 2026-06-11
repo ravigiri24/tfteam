@@ -72,7 +72,7 @@ export class ActionPopupComponent  implements OnInit {
     if(this.tractor.action_taken==0){
   this.onSaveTractor() 
     }
-      if(this.tractor.action_taken==1 && this.tractor?.approved_status=='REJECTED' ){
+   else if(this.tractor.action_taken==1 && this.tractor?.approved_status=='REJECTED' ){
   this.onSaveTractor() 
     }
   else{
@@ -134,6 +134,8 @@ export class ActionPopupComponent  implements OnInit {
    grp?.controls['chasisNumber'].setValue(this.tractor?.chassisNumber)
    grp?.controls['registrationNumber'].setValue(this.tractor?.registractionNo)
    grp?.controls['engineNumber'].setValue(this.tractor?.engineNo)
+   grp?.controls['dealer_id'].setValue(this.tractor?.dealerId)
+   grp?.controls['purchasePrice'].setValue(this.tractor?.finalPrice)
       grp?.updateValueAndValidity();
       this.modelForm.updateValueAndValidity();
      console.log('this.newTractorForm', this.modelForm.value);

@@ -1,0 +1,15 @@
+<app-common-header   
+ class="app_common_header"
+  [isListFilter]="false" [brandList]="brandList" [listColorClass]="listColorClass"
+  [title]="'Deals'" [list]="newFindingList" [allFilterList]="allFilterList" [showFilterList]="true"
+  [showWareHouse]="false" [headerDisplayArray]="headerDisplayArray" (actionEventHeader)="actionEventHeader($event)"
+  (expandListEvent)="expandListEvent()"   (optionActionEvent)="optionActionEvent($event)" ></app-common-header>
+<ion-content>
+
+
+  <app-view-list *ngIf="newFindingList?.length" [showImage]="false" [rowLineCount]="4" [listColorClass]="listColorClass"
+    [buttonArray]="buttonArray" [keyList]="keyList" [list]="newFindingList" [search]="search"
+    (actionEventCall)="actionEventCall($event)" [searchKey]="'name'"></app-view-list>
+  <!-- <app-no-data-view [ngClass]="listColorClass"
+    *ngIf="!newFindingList?.length && !share?.globalLoading"></app-no-data-view> -->
+</ion-content>
