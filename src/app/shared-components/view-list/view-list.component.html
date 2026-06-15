@@ -3,290 +3,265 @@
   placeholder="Enter TF Code"></ion-searchbar>
 <ion-searchbar class="search_bar_row" *ngIf="showSearch && allSearch" [(ngModel)]="searchText"
   placeholder="Search Tractor"></ion-searchbar>
+
 <ion-list class="list_row top-position-list" *ngIf="list?.length">
   <ion-row>
-         <ng-container *ngIf="!allSearch">
-   <ion-col *ngFor="let tractor of list | filterBy: search; let i=index" size="12" size-md="6">
-      <ion-grid class="main_block_details" [ngClass]="listColorClass">
-        <ion-card>
 
-          <!-- ── Decorative vector background (visual only, no logic) ── -->
-          <div class="vl-bg-vectors" aria-hidden="true">
-            <svg class="vl-svg" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <filter id="blur-sm"><feGaussianBlur stdDeviation="3"/></filter>
-              </defs>
+    <!-- ══ filterBy search ══ -->
+    <ng-container *ngIf="!allSearch">
+      <ion-col *ngFor="let tractor of list | filterBy: search; let i=index" size="12" size-md="6">
+        <ion-grid class="main_block_details" [ngClass]="listColorClass">
+          <ion-card>
 
-              <!-- large soft background blobs -->
-              <circle class="vl-blob b1" cx="300" cy="25"  r="80" filter="url(#blur-sm)"/>
-              <circle class="vl-blob b2" cx="15"  cy="200" r="65" filter="url(#blur-sm)"/>
-              <circle class="vl-blob b3" cx="170" cy="120" r="40" filter="url(#blur-sm)"/>
+            <!-- image overlay (unchanged logic) -->
+            <div class="custom-overlay" *ngIf="activeCardIndex == i" [ngClass]="{'show': showOverlay}">
+              <div class="top_right_close_box">
+                <ion-icon name="close-circle-outline" class="close_icon" (click)="onOverlayAnimationEnd()"></ion-icon>
+              </div>
+              <div class="middle-image-section">
+                <ng-container *ngFor="let innerImages of tractor?.imagesToShow">
+                  <img (click)="viewInSlider(innerImages,tractor?.imagesToShow)" [src]="innerImages?.imageUrlUrl"
+                    onerror="this.src='././assets/images/tractor_display.png';" />
+                </ng-container>
+              </div>
+            </div>
 
-              <!-- wavy lines accent -->
-              <g class="vl-waves">
-                <path class="vl-wave-path" d="M0,180 Q50,160 100,180 Q150,200 200,180 Q250,160 300,180 Q320,188 340,180" fill="none" stroke-width="2" opacity="0.18"/>
-                <path class="vl-wave-path" d="M0,195 Q50,175 100,195 Q150,215 200,195 Q250,175 300,195 Q320,203 340,195" fill="none" stroke-width="1.5" opacity="0.12"/>
-              </g>
+            <!-- ── COLOURED HEADER ── -->
+            <div class="vl-card-header">
+              <!-- header background vectors -->
+              <div class="vl-hdr-vectors" aria-hidden="true">
+                <svg viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                  <circle class="hdr-blob hb1" cx="300" cy="20" r="70"/>
+                  <circle class="hdr-blob hb2" cx="30"  cy="90" r="50"/>
+                  <polygon class="hdr-poly" points="0,0 55,0 0,55"/>
+                  <polygon class="hdr-poly" points="340,110 285,110 340,55"/>
+                  <!-- dot row -->
+                  <circle class="hdr-dot" cx="120" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="145" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="170" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="195" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="220" cy="18" r="3"/>
+                  <!-- tractor mini -->
+                  <g class="hdr-tractor" transform="translate(30,30) scale(0.38)">
+                    <rect x="8"  y="28" width="88" height="38" rx="8"/>
+                    <rect x="42" y="8"  width="48" height="28" rx="6"/>
+                    <rect x="82" y="2"  width="8"  height="14" rx="3"/>
+                    <circle cx="30" cy="70" r="20" fill="none" stroke-width="7"/>
+                    <circle cx="92" cy="70" r="13" fill="none" stroke-width="5"/>
+                  </g>
+                </svg>
+              </div>
 
-              <!-- 5-pointed star / sparkle accent top-left -->
-              <g class="vl-sparkle s1" transform="translate(22,22) scale(0.7)">
-                <polygon points="12,0 15,9 24,9 17,14 20,23 12,18 4,23 7,14 0,9 9,9" opacity="0.18"/>
-              </g>
-              <g class="vl-sparkle s2" transform="translate(305,185) scale(0.5)">
-                <polygon points="12,0 15,9 24,9 17,14 20,23 12,18 4,23 7,14 0,9 9,9" opacity="0.14"/>
-              </g>
+              <!-- tractor name -->
+              <ion-label class="main_title">{{tractor?.name}}</ion-label>
 
-              <!-- corner triangles -->
-              <polygon class="vl-poly p1" points="305,150 340,220 270,220"/>
-              <polygon class="vl-poly p2" points="0,0   45,0   0,45"/>
+              <!-- camera button -->
+              <div *ngIf="showImage" class="camera-icon-container" (click)="triggerOverlayAnimation(i,tractor)">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{ tractor?.imageslength }}</span>
+              </div>
 
-              <!-- dot grid (right side) -->
-              <g class="vl-dots">
-                <circle cx="210" cy="30" r="2.5"/><circle cx="235" cy="30" r="2.5"/><circle cx="260" cy="30" r="2.5"/>
-                <circle cx="210" cy="52" r="2.5"/><circle cx="235" cy="52" r="2.5"/><circle cx="260" cy="52" r="2.5"/>
-                <circle cx="210" cy="74" r="2.5"/><circle cx="235" cy="74" r="2.5"/><circle cx="260" cy="74" r="2.5"/>
-              </g>
+              <!-- wave divider -->
+              <svg class="vl-hdr-wave" viewBox="0 0 340 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,0 Q85,30 170,15 Q255,0 340,20 L340,30 L0,30 Z" fill="#ffffff"/>
+              </svg>
+            </div>
 
-              <!-- tractor silhouette — centre-right -->
-              <g class="vl-tractor-icon" transform="translate(185,105) scale(0.62)">
-                <!-- body -->
-                <rect x="8"  y="30" width="88" height="40" rx="8"  fill-opacity="1"/>
-                <!-- cabin -->
-                <rect x="42" y="8"  width="48" height="30" rx="6"  fill-opacity="0.7"/>
-                <!-- exhaust pipe -->
-                <rect x="82" y="2"  width="8"  height="14" rx="3"  fill-opacity="0.5"/>
-                <!-- front axle bar -->
-                <rect x="0"  y="52" width="18" height="6"  rx="3"  fill-opacity="0.5"/>
-                <!-- big rear wheel -->
-                <circle cx="30" cy="74" r="22" fill="none" stroke-width="7"/>
-                <circle cx="30" cy="74" r="10" fill-opacity="0.3"/>
-                <!-- small front wheel -->
-                <circle cx="92" cy="74" r="14" fill="none" stroke-width="5"/>
-                <circle cx="92" cy="74" r="6"  fill-opacity="0.3"/>
-              </g>
-
-              <!-- wheat stalk — bottom-left -->
-              <g class="vl-wheat" transform="translate(8,80) scale(0.9)">
-                <line x1="18" y1="130" x2="18" y2="0" stroke-width="2.5" stroke-linecap="round" opacity="0.18"/>
-                <ellipse cx="18" cy="18" rx="9" ry="16" opacity="0.14" transform="rotate(-18,18,18)"/>
-                <ellipse cx="18" cy="42" rx="9" ry="16" opacity="0.14" transform="rotate(18,18,42)"/>
-                <ellipse cx="18" cy="66" rx="9" ry="16" opacity="0.14" transform="rotate(-18,18,66)"/>
-                <ellipse cx="18" cy="90" rx="9" ry="16" opacity="0.14" transform="rotate(18,18,90)"/>
-              </g>
-            </svg>
-
-            <!-- animated CSS particles -->
-            <span class="vl-dot vd1"></span>
-            <span class="vl-dot vd2"></span>
-            <span class="vl-dot vd3"></span>
-          </div>
-          <!-- ── /vector background ── -->
-
-          <div class="custom-overlay" *ngIf="activeCardIndex == i" [ngClass]="{'show': showOverlay}">
-            <div class="top_right_close_box"><ion-icon name="close-circle-outline" class="close_icon"
-                (click)="onOverlayAnimationEnd()"></ion-icon></div>
-            <div class="middle-image-section">
-              <ng-container *ngFor="let innerImages of tractor?.imagesToShow; let j=index;">
-                <img (click)="viewInSlider(innerImages,tractor?.imagesToShow)" [src]="innerImages?.imageUrlUrl"
-                  onerror="this.src='././assets/images/tractor_display.png';" />
+            <!-- ── DATA ROWS ── -->
+            <div class="vl-card-body">
+              <ng-container *ngFor="let keyValue of keyList; let i=index">
+                <div class="vl-data-row" [class.vl-row-alt]="i % 2 !== 0">
+                  <ng-container *ngIf="keyValue?.type=='INPUT' && !keyValue?.getFromObj">
+                    <span class="left_row_title">{{keyValue?.key}}</span>
+                    <span class="amount_col">{{tractor[keyValue?.value]}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="keyValue?.type=='INPUT' && keyValue?.getFromObj">
+                    <span class="left_row_title">{{keyValue?.key}}</span>
+                    <span class="amount_col" *ngIf="tractor[keyValue?.objName]">{{tractor[keyValue?.objName][keyValue?.value] || ""}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="keyValue?.type=='DATE'">
+                    <span class="left_row_title">{{keyValue?.key}}</span>
+                    <span class="amount_col">{{tractor[keyValue?.value] | date}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="keyValue?.type=='CONDITIONAL'">
+                    <ng-container *ngIf="!keyValue?.getFromObj">
+                      <span class="left_row_title">{{keyValue?.key}}</span>
+                      <span class="amount_col" *ngIf="tractor[keyValue?.value]==1"><b style="color:green">Yes</b></span>
+                      <span class="amount_col" *ngIf="tractor[keyValue?.value]==0"><b style="color:red">No</b></span>
+                      <span class="amount_col" *ngIf="tractor[keyValue?.value]==null"><b style="color:#f59e0b">N/A</b></span>
+                    </ng-container>
+                    <ng-container *ngIf="keyValue?.getFromObj">
+                      <span class="left_row_title">{{keyValue?.key}}</span>
+                      <ng-container *ngIf="tractor[keyValue?.objName]">
+                        <span class="amount_col" *ngIf="tractor[keyValue?.objName][keyValue?.value]==1"><b style="color:green">Yes</b></span>
+                        <span class="amount_col" *ngIf="tractor[keyValue?.objName][keyValue?.value]==0"><b style="color:red">No</b></span>
+                        <span class="amount_col" *ngIf="tractor[keyValue?.objName][keyValue?.value]==null"><b style="color:#f59e0b">N/A</b></span>
+                      </ng-container>
+                      <span class="amount_col" *ngIf="!tractor[keyValue?.objName]"><b style="color:#f59e0b">N/A</b></span>
+                    </ng-container>
+                  </ng-container>
+                </div>
               </ng-container>
             </div>
-          </div>
 
-          <div *ngIf="showImage" class="camera-icon-container" (click)="triggerOverlayAnimation(i,tractor)">
-            <ion-icon name="camera-outline"></ion-icon>
-            <span class="camera-counter">{{ tractor?.imageslength }}</span>
-          </div>
-
-          <ion-label class="main_title">{{tractor?.name}}</ion-label>
-
-          <ng-container *ngFor="let keyValue of keyList; let i=index">
-            <ion-row class="vl-data-row">
-              <ng-container *ngIf="keyValue?.type=='INPUT' && !keyValue?.getFromObj">
-                <ion-col class="left_row_title">{{keyValue?.key}}</ion-col>
-                <ion-col class="amount_col">{{tractor[keyValue?.value]}}</ion-col>
-              </ng-container>
-              <ng-container *ngIf="keyValue?.type=='INPUT' && keyValue?.getFromObj">
-                <ion-col class="left_row_title">{{keyValue?.key}}</ion-col>
-                <ion-col *ngIf="tractor[keyValue?.objName]" class="amount_col">
-                  {{tractor[keyValue?.objName][keyValue?.value] || ""}}</ion-col>
-              </ng-container>
-              <ng-container *ngIf="keyValue?.type=='DATE'">
-                <ion-col class="left_row_title">{{keyValue?.key}}</ion-col>
-                <ion-col class="amount_col">{{tractor[keyValue?.value] | date }}</ion-col>
-              </ng-container>
-              <ng-container *ngIf="keyValue?.type=='CONDITIONAL'">
-                <ng-container *ngIf="!keyValue?.getFromObj">
-                  <ion-col class="left_row_title">{{keyValue?.key}} </ion-col>
-                  <ion-col *ngIf="tractor[keyValue?.value]==1"  class="amount_col"><span style="color:green">Yes</span></ion-col>
-                  <ion-col *ngIf="tractor[keyValue?.value]==0"  class="amount_col"><span style="color:red">No</span></ion-col>
-                  <ion-col *ngIf="tractor[keyValue?.value]==null" class="amount_col"><span style="color:red">Not Availaible</span></ion-col>
-                </ng-container>
-                <ng-container *ngIf="keyValue?.getFromObj">
-                  <ion-col class="left_row_title">{{keyValue?.key}} </ion-col>
-                  <ng-container *ngIf="tractor[keyValue?.objName]">
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==1"  class="amount_col"><span style="color:green">Yes</span></ion-col>
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==0"  class="amount_col"><span style="color:red">No</span></ion-col>
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==null" class="amount_col"><span style="color:red">Not Availaible</span></ion-col>
+            <!-- ── BUTTON FOOTER ── -->
+            <div class="vl-card-footer" *ngIf="buttonArray?.length">
+              <ion-row>
+                <ng-container *ngFor="let button of buttonArray">
+                  <ng-container *ngIf="!button?.showOnCondition">
+                    <ion-col class="action_col" (click)="actionEvent(tractor,button)">
+                      <img [src]="button?.image" />
+                      <span class="shape">
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                      </span>
+                    </ion-col>
                   </ng-container>
-                  <ng-container *ngIf="!tractor[keyValue?.objName]">
-                    <ion-col class="amount_col"><span style="color:red">Not Availaible</span></ion-col>
+                  <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==button?.obVal && tractor?.[button?.objNameSecond]==button?.obValSecond">
+                    <ion-col class="action_col" (click)="actionEvent(tractor,button)">
+                      <img [src]="button?.image" />
+                      <span class="shape">
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                      </span>
+                    </ion-col>
                   </ng-container>
                 </ng-container>
-              </ng-container>
-            </ion-row>
-          </ng-container>
+              </ion-row>
+            </div>
 
-          <ion-row *ngIf="buttonArray?.length" class="vl-btn-row">
-            <ng-container *ngFor="let button of buttonArray">
-              <ng-container *ngIf="!button?.showOnCondition">
-                <ion-col class="action_col" (click)="actionEvent(tractor,button)">
-                  <img [src]="button?.image" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                  </span>
-                </ion-col>
-              </ng-container>
-              <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==button?.obVal && tractor?.[button?.objNameSecond]==button?.obValSecond">
-                <ion-col class="action_col" (click)="actionEvent(tractor,button)">
-                  <img [src]="button?.image" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                  </span>
-                </ion-col>
-              </ng-container>
-            </ng-container>
-          </ion-row>
-
-        </ion-card>
-      </ion-grid>
-    </ion-col>
+          </ion-card>
+        </ion-grid>
+      </ion-col>
     </ng-container>
 
+    <!-- ══ allSearch ══ -->
     <ng-container *ngIf="allSearch">
-    <ion-col *ngFor="let tractor of list | search:searchText; let i=index" size="12" size-md="6">
-      <ion-grid class="main_block_details" [ngClass]="listColorClass">
-        <ion-card>
+      <ion-col *ngFor="let tractor of list | search:searchText; let i=index" size="12" size-md="6">
+        <ion-grid class="main_block_details" [ngClass]="listColorClass">
+          <ion-card>
 
-          <!-- ── Decorative vector background (visual only) ── -->
-          <div class="vl-bg-vectors" aria-hidden="true">
-            <svg class="vl-svg" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-              <circle class="vl-blob b1" cx="290" cy="30"  r="70" />
-              <circle class="vl-blob b2" cx="20"  cy="190" r="55" />
-              <circle class="vl-blob b3" cx="160" cy="110" r="35" />
-              <polygon class="vl-poly p1" points="310,160 340,220 280,220"/>
-              <polygon class="vl-poly p2" points="0,0 40,0 0,40"/>
-              <g class="vl-dots">
-                <circle cx="60"  cy="20" r="2"/><circle cx="100" cy="20" r="2"/><circle cx="140" cy="20" r="2"/>
-                <circle cx="60"  cy="50" r="2"/><circle cx="100" cy="50" r="2"/><circle cx="140" cy="50" r="2"/>
-                <circle cx="60"  cy="80" r="2"/><circle cx="100" cy="80" r="2"/><circle cx="140" cy="80" r="2"/>
-              </g>
-              <g class="vl-tractor-icon" transform="translate(200,130) scale(0.55)">
-                <rect x="10" y="28" width="80" height="36" rx="6"/>
-                <rect x="40" y="10" width="44" height="26" rx="4"/>
-                <circle cx="28" cy="68" r="18" fill="none" stroke-width="6"/>
-                <circle cx="90" cy="68" r="13" fill="none" stroke-width="5"/>
-                <rect x="84" y="25" width="32" height="8" rx="3"/>
-              </g>
-            </svg>
-            <span class="vl-dot vd1"></span>
-            <span class="vl-dot vd2"></span>
-            <span class="vl-dot vd3"></span>
-          </div>
-          <!-- ── /vector background ── -->
+            <div class="custom-overlay" *ngIf="activeCardIndex == i" [ngClass]="{'show': showOverlay}">
+              <div class="top_right_close_box">
+                <ion-icon name="close-circle-outline" class="close_icon" (click)="onOverlayAnimationEnd()"></ion-icon>
+              </div>
+              <div class="middle-image-section">
+                <ng-container *ngFor="let innerImages of tractor?.imagesToShow">
+                  <img (click)="viewInSlider(innerImages,tractor?.imagesToShow)" [src]="innerImages?.imageUrlUrl"
+                    onerror="this.src='././assets/images/tractor_display.png';" />
+                </ng-container>
+              </div>
+            </div>
 
-          <div class="custom-overlay" *ngIf="activeCardIndex == i" [ngClass]="{'show': showOverlay}">
-            <div class="top_right_close_box"><ion-icon name="close-circle-outline" class="close_icon"
-                (click)="onOverlayAnimationEnd()"></ion-icon></div>
-            <div class="middle-image-section">
-              <ng-container *ngFor="let innerImages of tractor?.imagesToShow; let j=index;">
-                <img (click)="viewInSlider(innerImages,tractor?.imagesToShow)" [src]="innerImages?.imageUrlUrl"
-                  onerror="this.src='././assets/images/tractor_display.png';" />
+            <div class="vl-card-header">
+              <div class="vl-hdr-vectors" aria-hidden="true">
+                <svg viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                  <circle class="hdr-blob hb1" cx="300" cy="20" r="70"/>
+                  <circle class="hdr-blob hb2" cx="30"  cy="90" r="50"/>
+                  <polygon class="hdr-poly" points="0,0 55,0 0,55"/>
+                  <polygon class="hdr-poly" points="340,110 285,110 340,55"/>
+                  <circle class="hdr-dot" cx="120" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="145" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="170" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="195" cy="18" r="3"/>
+                  <circle class="hdr-dot" cx="220" cy="18" r="3"/>
+                  <g class="hdr-tractor" transform="translate(30,30) scale(0.38)">
+                    <rect x="8"  y="28" width="88" height="38" rx="8"/>
+                    <rect x="42" y="8"  width="48" height="28" rx="6"/>
+                    <rect x="82" y="2"  width="8"  height="14" rx="3"/>
+                    <circle cx="30" cy="70" r="20" fill="none" stroke-width="7"/>
+                    <circle cx="92" cy="70" r="13" fill="none" stroke-width="5"/>
+                  </g>
+                </svg>
+              </div>
+
+              <ion-label class="main_title">{{tractor?.name}}</ion-label>
+
+              <div class="camera-icon-container" *ngIf="showImage" (click)="triggerOverlayAnimation(i,tractor)">
+                <ion-icon name="camera-outline"></ion-icon>
+                <span class="camera-counter dynamic_bgcolor">{{ tractor?.imageslength }}</span>
+              </div>
+
+              <svg class="vl-hdr-wave" viewBox="0 0 340 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,0 Q85,30 170,15 Q255,0 340,20 L340,30 L0,30 Z" fill="#ffffff"/>
+              </svg>
+            </div>
+
+            <div class="vl-card-body">
+              <ng-container *ngFor="let keyValue of keyList; let i=index">
+                <div class="vl-data-row" [class.vl-row-alt]="i % 2 !== 0">
+                  <ng-container *ngIf="keyValue?.type=='INPUT' && !keyValue?.getFromObj">
+                    <span class="left_row_title">{{keyValue?.key}}</span>
+                    <span class="amount_col">{{tractor[keyValue?.value]}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="keyValue?.type=='INPUT' && keyValue?.getFromObj">
+                    <span class="left_row_title">{{keyValue?.key}}</span>
+                    <span class="amount_col" *ngIf="tractor[keyValue?.objName]">{{tractor[keyValue?.objName][keyValue?.value] || ""}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="keyValue?.type=='DATE'">
+                    <span class="left_row_title">{{keyValue?.key}}</span>
+                    <span class="amount_col">{{tractor[keyValue?.value] | date}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="keyValue?.type=='CONDITIONAL'">
+                    <ng-container *ngIf="!keyValue?.getFromObj">
+                      <span class="left_row_title">{{keyValue?.key}}</span>
+                      <span class="amount_col" *ngIf="tractor[keyValue?.value]==1"><b style="color:green">Yes</b></span>
+                      <span class="amount_col" *ngIf="tractor[keyValue?.value]==0"><b style="color:red">No</b></span>
+                      <span class="amount_col" *ngIf="tractor[keyValue?.value]==null"><b style="color:#f59e0b">N/A</b></span>
+                    </ng-container>
+                    <ng-container *ngIf="keyValue?.getFromObj">
+                      <span class="left_row_title">{{keyValue?.key}}</span>
+                      <ng-container *ngIf="tractor[keyValue?.objName]">
+                        <span class="amount_col" *ngIf="tractor[keyValue?.objName][keyValue?.value]==1"><b style="color:green">Yes</b></span>
+                        <span class="amount_col" *ngIf="tractor[keyValue?.objName][keyValue?.value]==0"><b style="color:red">No</b></span>
+                        <span class="amount_col" *ngIf="tractor[keyValue?.objName][keyValue?.value]==null"><b style="color:#f59e0b">N/A</b></span>
+                      </ng-container>
+                      <span class="amount_col" *ngIf="!tractor[keyValue?.objName]"><b style="color:#f59e0b">N/A</b></span>
+                    </ng-container>
+                  </ng-container>
+                </div>
               </ng-container>
             </div>
-          </div>
 
-          <div class="camera-icon-container" *ngIf="showImage" (click)="triggerOverlayAnimation(i,tractor)">
-            <ion-icon name="camera-outline"></ion-icon>
-            <span class="camera-counter">{{ tractor?.imageslength }}</span>
-          </div>
-
-          <ion-label class="main_title">{{tractor?.name}}</ion-label>
-
-          <ng-container *ngFor="let keyValue of keyList; let i=index">
-            <ion-row class="vl-data-row">
-              <ng-container *ngIf="keyValue?.type=='INPUT' && !keyValue?.getFromObj">
-                <ion-col class="left_row_title">{{keyValue?.key}}</ion-col>
-                <ion-col class="amount_col">{{tractor[keyValue?.value]}}</ion-col>
-              </ng-container>
-              <ng-container *ngIf="keyValue?.type=='INPUT' && keyValue?.getFromObj">
-                <ion-col class="left_row_title">{{keyValue?.key}}</ion-col>
-                <ion-col *ngIf="tractor[keyValue?.objName]" class="amount_col">
-                  {{tractor[keyValue?.objName][keyValue?.value] || ""}}</ion-col>
-              </ng-container>
-              <ng-container *ngIf="keyValue?.type=='DATE'">
-                <ion-col class="left_row_title">{{keyValue?.key}}</ion-col>
-                <ion-col class="amount_col">{{tractor[keyValue?.value] | date }}</ion-col>
-              </ng-container>
-              <ng-container *ngIf="keyValue?.type=='CONDITIONAL'">
-                <ng-container *ngIf="!keyValue?.getFromObj">
-                  <ion-col class="left_row_title">{{keyValue?.key}} </ion-col>
-                  <ion-col *ngIf="tractor[keyValue?.value]==1"  class="amount_col"><span style="color:green">Yes</span></ion-col>
-                  <ion-col *ngIf="tractor[keyValue?.value]==0"  class="amount_col"><span style="color:red">No</span></ion-col>
-                  <ion-col *ngIf="tractor[keyValue?.value]==null" class="amount_col"><span style="color:red">Not Availaible</span></ion-col>
-                </ng-container>
-                <ng-container *ngIf="keyValue?.getFromObj">
-                  <ion-col class="left_row_title">{{keyValue?.key}} </ion-col>
-                  <ng-container *ngIf="tractor[keyValue?.objName]">
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==1"  class="amount_col"><span style="color:green">Yes</span></ion-col>
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==0"  class="amount_col"><span style="color:red">No</span></ion-col>
-                    <ion-col *ngIf="tractor[keyValue?.objName][keyValue?.value]==null" class="amount_col"><span style="color:red">Not Availaible</span></ion-col>
+            <div class="vl-card-footer" *ngIf="buttonArray?.length">
+              <ion-row>
+                <ng-container *ngFor="let button of buttonArray">
+                  <ng-container *ngIf="!button?.showOnCondition">
+                    <ion-col class="action_col" (click)="actionEvent(tractor,button)">
+                      <img [src]="button?.image" />
+                      <span class="shape">
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                      </span>
+                    </ion-col>
                   </ng-container>
-                  <ng-container *ngIf="!tractor[keyValue?.objName]">
-                    <ion-col class="amount_col"><span style="color:red">Not Availaible</span></ion-col>
+                  <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==button?.obVal && tractor?.[button?.objNameSecond]==button?.obValSecond">
+                    <ion-col class="action_col" (click)="actionEvent(tractor,button)">
+                      <img [src]="button?.image" />
+                      <span class="shape">
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                        <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
+                      </span>
+                    </ion-col>
                   </ng-container>
                 </ng-container>
-              </ng-container>
-            </ion-row>
-          </ng-container>
+              </ion-row>
+            </div>
 
-          <ion-row *ngIf="buttonArray?.length" class="vl-btn-row">
-            <ng-container *ngFor="let button of buttonArray">
-              <ng-container *ngIf="!button?.showOnCondition">
-                <ion-col class="action_col" (click)="actionEvent(tractor,button)">
-                  <img [src]="button?.image" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                  </span>
-                </ion-col>
-              </ng-container>
-              <ng-container *ngIf="button?.showOnCondition && tractor?.[button?.objName]==button?.obVal && tractor?.[button?.objNameSecond]==button?.obValSecond">
-                <ion-col class="action_col" (click)="actionEvent(tractor,button)">
-                  <img [src]="button?.image" />
-                  <span class="shape">
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                    <span class="dynamic_bgcolor"></span><span class="dynamic_bgcolor"></span>
-                  </span>
-                </ion-col>
-              </ng-container>
-            </ng-container>
-          </ion-row>
-
-        </ion-card>
-      </ion-grid>
-    </ion-col>
+          </ion-card>
+        </ion-grid>
+      </ion-col>
     </ng-container>
+
   </ion-row>
 </ion-list>
+
 <app-no-data-view [ngClass]="listColorClass" *ngIf="(list | filterBy: search)?.length == 0"></app-no-data-view>
