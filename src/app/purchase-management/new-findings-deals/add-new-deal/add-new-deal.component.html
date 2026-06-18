@@ -1,50 +1,91 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title *ngIf="!data">Add New Finding</ion-title>  
-    <ion-title *ngIf="data " >Update</ion-title>  
+<!-- ── GRADIENT HEADER ─────────────────────────────── -->
+<div class="nd-header">
+  <div class="nd-hdr-bg" aria-hidden="true">
+    <span class="nd-blob nb1"></span>
+    <span class="nd-blob nb2"></span>
+    <svg class="nd-dots" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="2.5" fill="rgba(255,255,255,0.35)"/>
+      <circle cx="48" cy="20" r="2.5" fill="rgba(255,255,255,0.25)"/>
+      <circle cx="76" cy="20" r="2.5" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="20" cy="44" r="2.5" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="48" cy="44" r="2.5" fill="rgba(255,255,255,0.28)"/>
+      <circle cx="76" cy="44" r="2.5" fill="rgba(255,255,255,0.2)"/>
+      <!-- handshake / deal icon -->
+      <g transform="translate(130,8) scale(0.55)" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5">
+        <path d="M10,30 Q20,15 35,20 L50,20 Q60,20 65,30" fill="none" stroke-width="4" stroke-linecap="round"/>
+        <path d="M10,30 Q5,38 10,45" fill="none" stroke-width="3" stroke-linecap="round"/>
+        <path d="M65,30 Q70,38 65,45" fill="none" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="37" cy="20" r="6" fill="rgba(255,255,255,0.2)"/>
+      </g>
+    </svg>
+  </div>
 
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>  
-</ion-header>  
-<ion-content class="ion-padding">
-<form [formGroup]="newFindingForms">
+  <div class="nd-hdr-row">
+    <div class="nd-hdr-icon">
+      <ion-icon name="receipt-outline" *ngIf="!data"></ion-icon>
+      <ion-icon name="create-outline"  *ngIf="data"></ion-icon>
+    </div>
+    <div class="nd-hdr-text">
+      <h2 *ngIf="!data">Add New Deal</h2>
+      <h2 *ngIf="data">Update Deal</h2>
+      <p>Enter deal date and select dealer</p>
+    </div>
+    <button class="nd-close" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
 
+  <svg class="nd-wave" viewBox="0 0 400 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 Q100,28 200,14 Q300,0 400,22 L400,28 L0,28 Z" fill="#f4f6ff"/>
+  </svg>
+</div>
 
-  
-        
-        <div class="global_input_block">
-      <ion-input label="Deal Date" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="deal_date"></ion-input>
+<!-- ── FORM CONTENT ──────────────────────────────── -->
+<ion-content class="nd-content">
+  <form [formGroup]="newFindingForms" class="nd-form">
+
+    <!-- Deal Date card -->
+    <div class="nd-card nd-card--primary">
+      <div class="nd-card-label">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>Deal Date</span>
+      </div>
+      <div class="nd-field">
+        <ion-input label="Deal Date" fill="outline" labelPlacement="stacked"
+          type="date" formControlName="deal_date"></ion-input>
+      </div>
     </div>
 
-
-      
-  
-        <div class="global-inner-heading">
-      <span>Select Dealer           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
-              <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon></span>
-
+    <!-- Dealer selection card -->
+    <div class="nd-card nd-card--secondary">
+      <div class="nd-card-label">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Select Dealer</span>
+        <ion-icon class="nd-action-icon" name="add-circle-outline" (click)="openCrudManagement('DEALER_LIST')"></ion-icon>
+        <ion-icon class="nd-action-icon" name="refresh-outline" (click)="getDealerList(true)"></ion-icon>
+      </div>
+      <div class="nd-dealer-select" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
+        <div class="nd-dealer-inner">
+          <span class="nd-dealer-label">Dealer / Bank</span>
+          <span class="nd-dealer-value" [class.nd-dealer-placeholder]="!dealerName">
+            {{ dealerName || 'Tap to select...' }}
+          </span>
+        </div>
+        <ion-icon name="chevron-down-outline" class="nd-chevron"></ion-icon>
+      </div>
     </div>
-    <div class="global_input_block global_location_block" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
 
-    <span class="top_layers">Dealer/Bank</span>
-    <span class="name_selected">{{dealerName}}</span>
-    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- Submit -->
+    <div class="nd-submit">
+      <button class="nd-btn" *ngIf="!data" (click)="saveForm()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Save Deal
+      </button>
+      <button class="nd-btn" *ngIf="data" (click)="updateForm()">
+        <ion-icon name="save-outline"></ion-icon>
+        Update Deal
+      </button>
+    </div>
 
-     
-  </div>
- 
-
-    
-   
-
-  <div class="login-button">
-  
-    <ion-button *ngIf="!data" (click)="saveForm()"  style="text-align: center;" expand="block" >Save</ion-button>
-    <ion-button *ngIf="data" (click)="updateForm()"  style="text-align: center;" expand="block" >Update</ion-button>
-  </div>
   </form>
 </ion-content>

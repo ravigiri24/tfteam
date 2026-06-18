@@ -991,6 +991,7 @@ export class CommonMethodService {
    async dealsTractorList(deal: any = null){
        const modal = await this.modalCtrl.create({
       component: NewFindingsComponent,
+      cssClass: 'midium-model',
       componentProps: {
         deal: deal,
       },
