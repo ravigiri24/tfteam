@@ -64,7 +64,7 @@ export class ViewListComponent implements OnInit {
     let imagesToShow = tractor?.rawImages?.filter(
       (img: any) =>
         img?.imageGroup == 'BEFORE_SERVICE' ||
-        img?.imageGroup == 'AFTER_SERVICE'
+        img?.imageGroup == 'AFTER_SERVICE' 
     );
     tractor.imagesToShow = imagesToShow;
   }

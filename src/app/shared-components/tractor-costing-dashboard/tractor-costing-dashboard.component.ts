@@ -89,9 +89,44 @@ export class TractorCostingDashboardComponent implements OnInit {
             Number(this.estimationTotal) + Number(f?.cost_value);
         });
         this.getFindingDetails(findingId)
+        this.getAllImage(findingId)
         this.share.spinner.dismiss();
       },
       (error: any) => {}
+    );
+  }
+  allImages:any=[]
+  tractorImages:any=[]
+  kycDocs:any=[]
+  nocDocs:any=[]
+  otherDocs:any=[]
+   getAllImage(getAllImage:any) {
+    let obj: any = {};
+    obj.operate = this.share.getStaffObj()?.operate;
+    obj.tractor_id =getAllImage;
+
+    this.share.showLoading('Getting Image');
+    this.api.postapi('getNewFindingImages', obj).subscribe(
+      (res: any) => {
+        this.allImages = res?.data?.filter((f: any) => f.isDeleted == '0');
+        this.tractorImages = this.allImages?.filter(
+          (f: any) => f.imageGroup == 'NEW_FINDING',
+        );
+        this.kycDocs = this.allImages?.filter(
+          (f: any) => f.imageGroup == 'KYC_PAPER',
+        );
+        this.nocDocs = this.allImages?.filter(
+          (f: any) => f.imageGroup == 'NOC_PAPER',
+        );
+        this.otherDocs = this.allImages?.filter(
+          (f: any) => f.imageGroup == 'OTHER_DOCUMENTS',
+        );
+
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {
+        this.share.spinner.dismiss();
+      },
     );
   }
   selectedTab = 'DETAILS';
@@ -675,6 +710,31 @@ export class TractorCostingDashboardComponent implements OnInit {
     let imageArray = this.tractorDetails?.rawImages.filter(
       (f: any) => f?.imageGroup == imageGroup
     ) ||[];
+    let image = null;
+    if (imageArray?.length > 0) {
+      image = imageArray[0];
+    }
+    if(imageArray?.length){
+    const modal = await this.modalCtrl.create({
+      component: ImageSliderComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        image: image,
+        imageArray: imageArray,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+
+    if (role === 'confirm') {
+    }}
+    else{
+      this.share.presentToast("Images Not Availaible")
+    }
+  }
+    async viewInSliderWithImageArray(imageArray:any) {
+  
     let image = null;
     if (imageArray?.length > 0) {
       image = imageArray[0];

@@ -278,17 +278,15 @@ export class NewFindingsComponent implements OnInit {
     { key: 'Registration Number', value: 'registractionNo', type: 'INPUT' },
     { key: 'Delear', value: 'name', getFromObj: true,
       objName: 'delearDetails', type: 'INPUT' },
-        { key: 'Contact', value: 'contactNo', getFromObj: true,
-      objName: 'delearDetails', type: 'INPUT' },
-             { key: 'Location', value: 'location', getFromObj: true,
-      objName: 'delearDetails', type: 'INPUT' },
-    { key: 'Quote Delear', value: 'quoteByDealer', type: 'INPUT' },
-    { key: 'Quote By TF', value: 'quoteByTf', type: 'INPUT' },
+ 
     { key: 'Final Price', value: 'finalPrice', type: 'INPUT' },
 
-    { key: 'Hours', value: 'hours', type: 'INPUT' },
+
     { key: 'Selling Estimation', value: 'selling_estimation', type: 'INPUT' },
     { key: 'Is NOC', value: 'isNoc', type: 'INPUT' },
+    { key: 'In New Arrivals', value: 'inNewArivals', type: 'CONDITIONAL'},
+   
+    { key: 'TF Code', value: 'tfCode', type: 'INPUT'},
 
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },
   ];
@@ -307,7 +305,7 @@ export class NewFindingsComponent implements OnInit {
       this.openCostPrediction();
     }
        else if (e?.name == 'Close') {
-      this.modalCtrl.dismiss(this.hadAction);
+      this.modalCtrl.dismiss(this.hadAction); 
     }
     
     if (this.commonMethod.reloadMethod) {

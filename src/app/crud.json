@@ -844,8 +844,15 @@
             "title": "Enter Name",
             "type": "text",
             "key": "name",
-            "errorMsg": "type is required",
+            "errorMsg": "name is required",
             "validation":true
+             },
+                {
+            "title": "Cost Type",
+            "type": "text",
+            "key": "costType",
+            "errorMsg": "type is required",
+            "validation":false
              }
         
           

@@ -121,7 +121,16 @@ export class MasterSheetsComponent implements OnInit {
             this.allDetails = res?.data;
             this.allDetails.spareList = this.allDetails.spareList.reverse();
             this.tractorArray = res?.data?.tractorList;
-            this.tractorArray = this.tractorArray.reverse();
+            this.tractorArray?.forEach((f:any)=>{
+              if(f?.registractionNo){
+               const number = parseInt(f?.registractionNo?.split('-')[1], 10);
+                    f.tfCode=number
+              }else{
+                f.tfCode=100000
+              }
+            })
+             this.tractorArray?.sort((a:any, b:any) => a?.tfCode - b?.tfCode);
+            //this.tractorArray = this.tractorArray.reverse();
             this.tractorArray?.forEach((tractor: any) => {
               let logisticExpense: any = {};
               let totalAmountBreakup = 0;

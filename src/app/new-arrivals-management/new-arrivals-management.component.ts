@@ -206,7 +206,7 @@ export class NewArrivalsManagementComponent implements OnInit {
           (f: any) => f?.tractor_status == 'NEW_ARRIVAL'
         );
         this.newArivalsList?.forEach((tract: any) => {
-          let beforeService = tract?.rawImages?.filter((f: any) => f.imageGroup == 'BEFORE_SERVICE')
+          let beforeService = tract?.rawImages?.filter((f: any) => f.imageGroup == 'BEFORE_SERVICE' )
           tract.beforeServiceImages = beforeService
           if (tract.beforeServiceImages?.length) {
             tract.imageUrlUrl = tract.beforeServiceImages[0]?.imageUrlUrl

@@ -48,11 +48,8 @@ this.share.checkLogin()
     }
 
   }
-  addPhotoToGallery() {
-    let image: any = this.addNewToGallery(this.imageArray);
+  
 
-   
-  }
   blobToFile(theBlob: any, fileName: any) {
     //A Blob() is almost a File() - it's just missing the two properties below which we will add
     // theBlob.lastModifiedDate = new Date();
@@ -137,6 +134,79 @@ this.share.checkLogin()
       this.share.presentToast("Uploaded Successfully...")
     });
   }
+  async addPhotoToGallery() {
+
+  const photo = await Camera.getPhoto({
+    resultType: CameraResultType.Uri,
+    source: CameraSource.Camera,
+    quality: 80
+  });
+
+  const response = await fetch(photo.webPath!);
+
+  const blob = await response.blob();
+
+  this.uploadImage(blob);
+
+}
+
+
+uploadImage(file: Blob) {
+  // const maxSize = 10 * 1024 * 1024; // 10 MB
+  const maxSize = 6 * 1024 * 1024; // 6 MB
+
+  if (file.size > maxSize) {
+    this.share.presentToast('Maximum file size allowed is 6 MB');
+ 
+  }else{
+  let staffDetails: any = this.share.get_staff();
+
+  this.staffDetails = JSON.parse(staffDetails);
+
+  const formData = new FormData();
+   
+  formData.append(
+    'image',
+    file,
+    Date.now() + '.jpg'
+  );
+
+  formData.append(
+    'operate',
+    this.staffDetails.staffCode
+  );
+
+  formData.append(
+    'tractor_id',
+    this.jobId
+  );
+
+  formData.append(
+    'actionByid',
+    this.staffDetails.id
+  );
+
+  formData.append(
+    'imageGroup',
+    this.imageGroup
+  );
+
+  this.share.showLoading(
+    'Uploading...',
+    100000
+  );
+   this.api.postFormData('saveRawImagesRepairFormData', formData).subscribe((res: any) => {
+      console.log("saveDataTo",res);
+      this.imageArray.push(res?.data)
+      this.share.spinner.dismiss();
+      this.share.presentToast("Uploaded Successfully...")
+    },(error:any)=>{
+      
+      console.log(error);
+    });
+  }
+
+}
   getRawImages(){
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);

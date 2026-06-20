@@ -350,6 +350,10 @@ totalSellingEstimation=totalSellingEstimation+Number(trF?.selling_estimation)
   }
   selectedItem = 'OPEN';
   optionsArray: any = [
+     {
+      id: 'ALL',
+      name: 'All',
+    },
     {
       id: 'OPEN',
       name: 'Open',

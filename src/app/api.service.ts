@@ -27,7 +27,7 @@ export class ApiService {
   }
   //frontendUrl="https://tractorfactory.in/#"
 
- //rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
+//rootUrl = 'http://localhost/tractorDuniya/tractorDuniya/tractorDuniya/tractorDuniyaAdmin/';
 rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
   private isOnlineSubject = new BehaviorSubject<boolean>(true);
   public isOnline$ = this.isOnlineSubject.asObservable();
@@ -40,6 +40,14 @@ rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
       }
     });
   }
+  postFormData(url: string, formData: FormData) {
+
+  return this.http.post(
+    this.rootUrl + url,
+    formData
+  );
+
+}
   postapi(x: any, object: any): any {
     //  let response:any= this.http.post(this.rootUrl + x, object).pipe(map((res) => res))
     //  if(response.msg=='Invalid Access'){

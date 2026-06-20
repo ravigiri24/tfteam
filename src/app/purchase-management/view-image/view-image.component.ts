@@ -75,7 +75,7 @@ export class ViewImageComponent implements OnInit {
         tarctor_id: this.tractor?.id,
         imageGroup: imageGroup,
         uploadPhoto: true,
-        apiName: 'saveNewFindingImage',
+        apiName: 'saveNewFindingImageFormData',
         getApiName: 'getNewFindingImages',
       },
     });

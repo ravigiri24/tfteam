@@ -190,9 +190,16 @@
                   <ion-row><ion-col>Type Of Purchase</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.typeOfPurchaseDetails ? tractorDetails?.purchasedetail?.typeOfPurchaseDetails?.name : '-' }}</ion-col></ion-row>
                   <ion-row><ion-col>Bank Name(If Auction)</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.bankNameAuction ? tractorDetails?.purchasedetail?.bankNameAuction : '-' }}</ion-col></ion-row>
                   <ion-row><ion-col>Date Of Arrival(Expected)</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.expectedDateOfArrival ? tractorDetails?.purchasedetail?.expectedDateOfArrival : '-' }}</ion-col></ion-row>
-                  <ion-row><ion-col>Seller Name</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.nameOfSeller ? tractorDetails?.purchasedetail?.nameOfSeller : '-' }}</ion-col></ion-row>
-                  <ion-row><ion-col>Seller Address</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.address ? tractorDetails?.purchasedetail?.address : '-' }}</ion-col></ion-row>
-                  <ion-row><ion-col>Seller Contact</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.contact1 ? tractorDetails?.purchasedetail?.contact1 : '-' }}</ion-col></ion-row>
+                  <ng-container *ngIf="tractorDetails?.purchasedetail?.dealerDetails?.name!='Other'">
+                  <ion-row><ion-col>Seller/Dealer Name</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.dealerDetails?.name || tractorDetails?.purchasedetail?.nameOfSeller || '-' }}</ion-col></ion-row>
+                  <ion-row><ion-col>Seller/Dealer Address</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.dealerDetails?.location||  tractorDetails?.purchasedetail?.address || '-' }}</ion-col></ion-row>
+                  <ion-row><ion-col>Seller/Dealer Contact</ion-col><ion-col>{{  tractorDetails?.purchasedetail?.dealerDetails?.contactNo || tractorDetails?.purchasedetail?.contact1 || '-' }}</ion-col></ion-row>
+                  </ng-container>
+                       <ng-container *ngIf="tractorDetails?.purchasedetail?.dealerDetails?.name=='Other'">
+                  <ion-row><ion-col>Seller/Dealer Name</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.nameOfSeller || '-' }}(Other)</ion-col></ion-row>
+                  <ion-row><ion-col>Seller/Dealer Address</ion-col><ion-col>{{   tractorDetails?.purchasedetail?.address || '-' }}</ion-col></ion-row>
+                  <ion-row><ion-col>Seller/Dealer Contact</ion-col><ion-col>{{   tractorDetails?.purchasedetail?.contact1 || '-' }}</ion-col></ion-row>
+                  </ng-container>
                   <ion-row><ion-col>Park Location</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.parkLocation ? tractorDetails?.purchasedetail?.parkLocation : '-' }}</ion-col></ion-row>
                   <ion-row><ion-col>Company Representative</ion-col><ion-col>{{ tractorDetails?.purchasedetail?.companyRepresentativeDetails ? tractorDetails?.purchasedetail?.companyRepresentativeDetails?.name : '-' }}</ion-col></ion-row>
                 </ion-grid>
@@ -595,7 +602,27 @@
                 <div class="tcd-img-name">RTO App. Form</div>
               </div>
             </ion-col>
-
+                 <ion-col (click)="viewInSliderWithImageArray(nocDocs)" class="tcd-img-col" size="6" size-md="4">
+              <div class="tcd-img-card">
+                <span class="tcd-count-badge dynamic_bgcolor">{{nocDocs?.length||0}}</span>
+                <div class="tcd-img-icon-wrap"><img [src]="imageDummyUrl" /></div>
+                <div class="tcd-img-name">NOC(New Findings)</div>
+              </div>
+            </ion-col>
+        <ion-col (click)="viewInSliderWithImageArray(kycDocs)" class="tcd-img-col" size="6" size-md="4">
+              <div class="tcd-img-card">
+                <span class="tcd-count-badge dynamic_bgcolor">{{kycDocs?.length||0}}</span>
+                <div class="tcd-img-icon-wrap"><img [src]="imageDummyUrl" /></div>
+                <div class="tcd-img-name">KYC(New Findings)</div>
+              </div>
+            </ion-col>
+              <ion-col (click)="viewInSliderWithImageArray(otherDocs)" class="tcd-img-col" size="6" size-md="4">
+              <div class="tcd-img-card">
+                <span class="tcd-count-badge dynamic_bgcolor">{{otherDocs?.length||0}}</span>
+                <div class="tcd-img-icon-wrap"><img [src]="imageDummyUrl" /></div>
+                <div class="tcd-img-name">Other Documents(New Findings)</div>
+              </div>
+            </ion-col>
           </ion-row>
         </ion-grid>
       </ng-container>

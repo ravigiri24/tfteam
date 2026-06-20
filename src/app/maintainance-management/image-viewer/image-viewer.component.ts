@@ -23,7 +23,7 @@ export class ImageViewerComponent implements OnInit {
   uploadPhoto: any=true;
   showHeading:'Available Images'
   showDeleteButton: any=false;
-  apiName:any='saveRawImages'
+  apiName:any='saveRawImagesFormData'
   getApiName:any='getRawImages'
   callApi: any=true;
   constructor(
@@ -50,33 +50,7 @@ this.share.checkLogin()
     }
 
   }
-  addPhotoToGallery() {
-    let image: any = this.addNewToGallery(this.imageArray);
-   // let image: any = this.addNewToGalleryNew(this.imageArray);
 
-   
-  }
-  blobToFile(theBlob: any, fileName: any) {
-    //A Blob() is almost a File() - it's just missing the two properties below which we will add
-    // theBlob.lastModifiedDate = new Date();
-    theBlob.name = fileName;
-    return theBlob;
-  }
-  public async addNewToGallery(imageArray: any = []) {
-    // Take a photo
-    const capturedPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-
-      source: CameraSource.Camera,
-      quality: 100,
-    });
-
-    //let file=this.blobToFile(capturedPhoto.webPath,"file")
-    const savedImageFile = await this.savePicture(capturedPhoto);
-    this.capturedPhoto = capturedPhoto;
-
-    console.log('addNewToGallery', imageArray, savedImageFile);
-  }
     originalImageUrl?: string;
   compressedImageUrl?: string;
   originalSizeKB = 0;
@@ -207,6 +181,107 @@ compressBase64Image(base64: string, maxSizeKB: number): Promise<Blob> {
       reader.readAsDataURL(blob);
     });
   }
+  //   addPhotoToGallery() {
+  //   let image: any = this.addNewToGallery(this.imageArray);
+
+
+   
+  // }
+  blobToFile(theBlob: any, fileName: any) {
+    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    // theBlob.lastModifiedDate = new Date();
+    theBlob.name = fileName;
+    return theBlob;
+  }
+  public async addNewToGallery(imageArray: any = []) {
+    // Take a photo
+    const capturedPhoto = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+
+      source: CameraSource.Camera,
+      quality: 100,
+    });
+
+    
+    const savedImageFile = await this.savePicture(capturedPhoto);
+    this.capturedPhoto = capturedPhoto;
+
+    console.log('addNewToGallery', imageArray, savedImageFile);
+  }
+async addPhotoToGallery() {
+
+  const photo = await Camera.getPhoto({
+    resultType: CameraResultType.Uri,
+    source: CameraSource.Camera,
+    quality: 80
+  });
+
+  const response = await fetch(photo.webPath!);
+
+  const blob = await response.blob();
+
+  this.uploadImage(blob);
+
+}
+
+
+uploadImage(file: Blob) {
+  // const maxSize = 10 * 1024 * 1024; // 10 MB
+  const maxSize = 6 * 1024 * 1024; // 6 MB
+
+  if (file.size > maxSize) {
+    this.share.presentToast('Maximum file size allowed is 6 MB');
+ 
+  }else{
+  let staffDetails: any = this.share.get_staff();
+
+  this.staffDetails = JSON.parse(staffDetails);
+
+  const formData = new FormData();
+
+  formData.append(
+    'image',
+    file,
+    Date.now() + '.jpg'
+  );
+
+  formData.append(
+    'operate',
+    this.staffDetails.staffCode
+  );
+
+  formData.append(
+    'tractor_id',
+    this.tarctor_id
+  );
+
+  formData.append(
+    'actionByid',
+    this.staffDetails.id
+  );
+
+  formData.append(
+    'imageGroup',
+    this.imageGroup
+  );
+
+  this.share.showLoading(
+    'Uploading...',
+    100000
+  );
+   this.api.postFormData(this.apiName, formData).subscribe((res: any) => {
+      console.log("saveDataTo",res);
+      this.imageArray.push(res?.data)
+      this.share.spinner.dismiss();
+      this.share.presentToast("Uploaded Successfully...")
+    },(error:any)=>{
+      
+      console.log(error);
+    });
+  }
+
+}
+  
   capturedPhoto: any;
   async savePicture(photo: Photo) {
     // Convert photo to base64 format, required by Filesystem API to save
@@ -249,11 +324,11 @@ console.log(`Image size: ${sizeInKB.toFixed(2)} KB`);
         resolve(reader.result);
      
         this.renderResult = reader.result;
-        if(this.imageSize<=800){
+        //if(this.imageSize<=800){
      this.saveDataTo()
-        }else{
-          this.share.presentToast("Image is larger than 800 kb")
-        }
+        // }else{
+        //   this.share.presentToast("Image is larger than 800 kb")
+        // }
    
         console.log('reader.result', reader.result);
       };
