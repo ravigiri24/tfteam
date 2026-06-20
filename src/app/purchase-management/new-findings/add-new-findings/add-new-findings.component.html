@@ -1,140 +1,193 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title *ngIf="!data">Add New Finding</ion-title>  
-    <ion-title *ngIf="data && !isShowOnly" >Update</ion-title>  
-    <ion-title *ngIf="isShowOnly" >View Details</ion-title>  
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>  
-</ion-header>  
-<ion-content class="ion-padding">
-<form [formGroup]="newFindingForms">
-
-     <div class="global_input_block">
-      <ion-select (ionChange)="getModelsbyBrand()"  formControlName="brand_id" labelPlacement="stacked" fill="outline" label="Select Brand"
-        label-placement="stacked">
-        <ion-select-option *ngFor="let brand of brandList" [value]="brand.id"> {{ brand?.name }}</ion-select-option>
-      </ion-select>
-      
-    </div>
-
-     <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="model_id" labelPlacement="stacked" fill="outline" label="Select Modal"
-        label-placement="stacked">
-        <ion-select-option *ngFor="let model of modelList" [value]="model.id"> {{ model?.name }}</ion-select-option>
-      </ion-select>
-      
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Quote By Dealer" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="quoteByDealer"></ion-input>
-    </div>
-        <div class="global_input_block">
-      <ion-input label="Quote By TF" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="quoteByTf"></ion-input>
-    </div>
-        <div class="global_input_block">
-      <ion-input label="Final Price" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="finalPrice"></ion-input>
-    </div>
-
-      <div class="global_input_block" *ngIf="yearArray?.length">
-    <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">
-      <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
-    </ion-select>
-  </div>
-        <div class="global_input_block">
-      <ion-input      label="Hours" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="hours"></ion-input>
-    </div>
-  <div class="global_input_block">
-      <ion-input       label="Registration Number" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="registractionNo"></ion-input>
-    </div>
-  <div class="global_input_block">
-      <ion-input       label="Chassis Number" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="chassisNumber"></ion-input>
-    </div>
-  <div class="global_input_block">
-      <ion-input       label="Engine Number" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="engineNo"></ion-input>
-    </div>
-    <!-- <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="dealerId" labelPlacement="stacked" fill="outline" label="Select Dealer"
-        label-placement="stacked">
-        <ion-select-option *ngFor="let type of dealerList" [value]="type.id"> {{ type?.name }}</ion-select-option>
-      </ion-select>
-      <div class="right_action_block add_icon">
-        <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
-      </div>
-      <div class="right_action_block refresh_icon">
-        <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon>
-      </div>
-    </div> -->
-        <!-- <div class="global-inner-heading">
-      <span>Select Dealer           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
-              <ion-icon (click)="getDealerList(true)" name="refresh-outline"></ion-icon></span>
-
-    </div>
-    <div class="global_input_block global_location_block" (click)="selectItem(dealerList,'Dealer/Bank','dealer_list')">
-
-    <span class="top_layers">Dealer/Bank</span>
-    <span class="name_selected">{{dealerName}}</span>
-    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-
-     
-  </div> -->
-      <div class="global_input_block" >
-  <ion-select 
-  formControlName="isNoc" label="Is NOC" fill="outline" label-placement="type">
-    <ion-select-option value="YES">Yes</ion-select-option>
-    <ion-select-option value="NO">No</ion-select-option>
-   
-
-  
-
-  </ion-select>
-  </div>
-        <div class="global_input_block" >
-  <ion-select 
-  formControlName="tyreCondition"        label="Tyre Condition" fill="outline" label-placement="type">
-    <ion-select-option value="Poor">0-25%(Poor)</ion-select-option>
-    <ion-select-option value="Average">26-50%(Average)</ion-select-option>
-    <ion-select-option value="Good">51-75%(Good)</ion-select-option>
-    <ion-select-option value="Very_Good">76-100%(Very Good)</ion-select-option>
-
-  
-
-  </ion-select>
+<!-- ── HEADER ─────────────────────────────────────── -->
+<div class="anf-header">
+  <!-- decorative blobs -->
+  <div class="anf-hdr-vectors" aria-hidden="true">
+    <span class="anf-blob ab1"></span>
+    <span class="anf-blob ab2"></span>
+    <span class="anf-blob ab3"></span>
+    <!-- dot grid -->
+    <svg viewBox="0 0 280 70" xmlns="http://www.w3.org/2000/svg" class="anf-dot-svg">
+      <circle cx="20"  cy="20" r="2.5" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="50"  cy="20" r="2.5" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="80"  cy="20" r="2.5" fill="rgba(255,255,255,0.3)"/>
+      <circle cx="110" cy="20" r="2.5" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="20"  cy="45" r="2.5" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="50"  cy="45" r="2.5" fill="rgba(255,255,255,0.25)"/>
+      <circle cx="80"  cy="45" r="2.5" fill="rgba(255,255,255,0.2)"/>
+    </svg>
   </div>
 
-    <div class="global_input_block" >
-  <ion-select   
-  formControlName="bodyCondition"  fill="outline"      label="Body Condition" label-placement="type">
-    <ion-select-option value="Poor">0-25%(Poor)</ion-select-option>
-    <ion-select-option value="Average">26-50%(Average)</ion-select-option>
-    <ion-select-option value="Good">51-75%(Good)</ion-select-option>
-    <ion-select-option value="Very_Good">76-100%(Very Good)</ion-select-option>
+  <div class="anf-hdr-content">
+    <div class="anf-hdr-icon">
+      <ion-icon name="search-outline" *ngIf="!data"></ion-icon>
+      <ion-icon name="create-outline" *ngIf="data && !isShowOnly"></ion-icon>
+      <ion-icon name="eye-outline"    *ngIf="isShowOnly"></ion-icon>
+    </div>
+    <div class="anf-hdr-text">
+      <h2 *ngIf="!data">Add New Finding</h2>
+      <h2 *ngIf="data && !isShowOnly">Update Finding</h2>
+      <h2 *ngIf="isShowOnly">View Details</h2>
+      <p>Fill in the tractor details below</p>
+    </div>
+    <button class="anf-close-btn" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
 
-  
-
-  </ion-select>
+  <!-- wave bottom -->
+  <svg class="anf-hdr-wave" viewBox="0 0 400 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 Q100,28 200,14 Q300,0 400,20 L400,28 L0,28 Z" fill="#f4f6ff"/>
+  </svg>
 </div>
-     <div class="global_input_block">
-      <ion-input  label="Remark" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="remark"></ion-input>
-    </div>
-  <div class="global_input_block">
-      <ion-input label="Selling Estimation" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="selling_estimation"></ion-input>
+
+<!-- ── FORM CONTENT ────────────────────────────────── -->
+<ion-content class="anf-content">
+  <form [formGroup]="newFindingForms" class="anf-form">
+
+    <!-- Section: Tractor Info -->
+    <div class="anf-section">
+      <div class="anf-section-label">
+        <ion-icon name="tractor-outline"></ion-icon>
+        <span>Tractor Info</span>
+      </div>
+
+      <div class="anf-field">
+        <ion-select (ionChange)="getModelsbyBrand()" formControlName="brand_id"
+          labelPlacement="stacked" fill="outline" label="Select Brand">
+          <ion-select-option *ngFor="let brand of brandList" [value]="brand.id">{{ brand?.name }}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="anf-field">
+        <ion-select formControlName="model_id" labelPlacement="stacked" fill="outline" label="Select Model">
+          <ion-select-option *ngFor="let model of modelList" [value]="model.id">{{ model?.name }}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="anf-field" *ngIf="yearArray?.length">
+        <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufacturing Year" label-placement="stacked">
+          <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
+        </ion-select>
+      </div>
     </div>
 
-  <div class="login-button">
-  
-    <ion-button *ngIf="!data && !isShowOnly" (click)="getPurchaseNumber()"  style="text-align: center;" expand="block" >Save</ion-button>
-    <ion-button *ngIf="data && !isShowOnly" (click)="updateForm()"  style="text-align: center;" expand="block" >Update</ion-button>
-  </div>
+    <!-- Section: Pricing -->
+    <div class="anf-section">
+      <div class="anf-section-label">
+        <ion-icon name="cash-outline"></ion-icon>
+        <span>Pricing</span>
+      </div>
+
+      <div class="anf-field-row">
+        <div class="anf-field">
+          <ion-input label="Quote By Dealer" fill="outline" labelPlacement="stacked"
+            type="number" formControlName="quoteByDealer"></ion-input>
+        </div>
+        <div class="anf-field">
+          <ion-input label="Quote By TF" fill="outline" labelPlacement="stacked"
+            type="number" formControlName="quoteByTf"></ion-input>
+        </div>
+      </div>
+
+      <div class="anf-field-row">
+        <div class="anf-field">
+          <ion-input label="Final Price" fill="outline" labelPlacement="stacked"
+            type="number" formControlName="finalPrice"></ion-input>
+        </div>
+        <div class="anf-field">
+          <ion-input label="Selling Estimation" fill="outline" labelPlacement="stacked"
+            type="number" formControlName="selling_estimation"></ion-input>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Tractor Details -->
+    <div class="anf-section">
+      <div class="anf-section-label">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <span>Tractor Details</span>
+      </div>
+
+      <div class="anf-field-row">
+        <div class="anf-field">
+          <ion-input label="Hours" fill="outline" labelPlacement="stacked"
+            type="text" formControlName="hours"></ion-input>
+        </div>
+        <div class="anf-field">
+          <ion-input label="Registration No." fill="outline" labelPlacement="stacked"
+            type="text" formControlName="registractionNo"></ion-input>
+        </div>
+      </div>
+
+      <div class="anf-field-row">
+        <div class="anf-field">
+          <ion-input label="Chassis Number" fill="outline" labelPlacement="stacked"
+            type="text" formControlName="chassisNumber"></ion-input>
+        </div>
+        <div class="anf-field">
+          <ion-input label="Engine Number" fill="outline" labelPlacement="stacked"
+            type="text" formControlName="engineNo"></ion-input>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Condition -->
+    <div class="anf-section">
+      <div class="anf-section-label">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <span>Condition &amp; NOC</span>
+      </div>
+
+      <div class="anf-field">
+        <ion-select formControlName="isNoc" label="Is NOC Available?" fill="outline" label-placement="stacked">
+          <ion-select-option value="YES">Yes</ion-select-option>
+          <ion-select-option value="NO">No</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="anf-field-row">
+        <div class="anf-field">
+          <ion-select formControlName="tyreCondition" label="Tyre Condition" fill="outline" label-placement="stacked">
+            <ion-select-option value="Poor">0–25% (Poor)</ion-select-option>
+            <ion-select-option value="Average">26–50% (Average)</ion-select-option>
+            <ion-select-option value="Good">51–75% (Good)</ion-select-option>
+            <ion-select-option value="Very_Good">76–100% (Very Good)</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="anf-field">
+          <ion-select formControlName="bodyCondition" label="Body Condition" fill="outline" label-placement="stacked">
+            <ion-select-option value="Poor">0–25% (Poor)</ion-select-option>
+            <ion-select-option value="Average">26–50% (Average)</ion-select-option>
+            <ion-select-option value="Good">51–75% (Good)</ion-select-option>
+            <ion-select-option value="Very_Good">76–100% (Very Good)</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Remark -->
+    <div class="anf-section">
+      <div class="anf-section-label">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        <span>Remark</span>
+      </div>
+      <div class="anf-field">
+        <ion-input label="Remark" fill="outline" labelPlacement="stacked"
+          type="text" formControlName="remark"></ion-input>
+      </div>
+    </div>
+
+    <!-- Save / Update Button -->
+    <div class="anf-submit">
+      <button class="anf-btn" *ngIf="!data && !isShowOnly" (click)="getPurchaseNumber()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Save Finding
+      </button>
+      <button class="anf-btn" *ngIf="data && !isShowOnly" (click)="updateForm()">
+        <ion-icon name="save-outline"></ion-icon>
+        Update Finding
+      </button>
+    </div>
+
   </form>
 </ion-content>
