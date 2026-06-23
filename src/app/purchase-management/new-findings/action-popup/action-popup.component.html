@@ -1,118 +1,207 @@
-<ion-header [ngClass]="listColorClass">
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text" *ngIf="!data">Action</span>
-     
-      </div>
-      <div class="right_action">
-        <ion-icon (click)="dismiss()" class="dynamic_color" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
-  <form [formGroup]="form">
-    <div  class="global_input_block select_option_with_add">      
-      <ion-select (ionChange)="selectActionOnApproved()" formControlName="approved_status" fill="outline" label="Action" label-placement="stacked">
-        <ion-select-option  value="APPROVED"> Approve</ion-select-option>
-        <ion-select-option  value="REJECTED"> Reject</ion-select-option>
-      </ion-select>
-  
-      <!-- <ion-icon (click)="openCrudManagement('TYPE_OF_EXPENSE')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="getExpense()" name="refresh-outline"></ion-icon> -->
+<!-- ── Header ── -->
+<div class="ap-header" [ngClass]="listColorClass">
+  <div class="ap-blob ab1"></div>
+  <div class="ap-blob ab2"></div>
+
+  <div class="ap-header-inner">
+    <div class="ap-header-icon">
+      <ion-icon name="checkmark-done-outline"></ion-icon>
     </div>
-      <div class="global_input_block">
-      <ion-input label="Action Date" fill="outline" labelPlacement="stacked" type="date" formControlName="action_date"></ion-input>
+    <div class="ap-header-text">
+      <span class="ap-title">Action</span>
+      <span class="ap-sub">Approve or reject this finding</span>
     </div>
-    <div class="global_input_block">
-     <ion-textarea formControlName="action_remark" label="Remark" fill="outline" labelPlacement="stacked"
-      placeholder="write remark here..."></ion-textarea>
-    </div>
-    <ng-container *ngIf="form.controls['approved_status'].value=='APPROVED'">
-     <div class="global-inner-heading">
-      <span>Tractor Basic Details</span>
-    </div>
-    <div class="global-inner-heading">
-      <span>Dates</span>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Select Purchase Date" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="purchanseDate"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Expected Date Of Arrival" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="expectedDateOfArrival"></ion-input>
-    </div>
-     <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="typeOfPurchase" labelPlacement="stacked" fill="outline" label="Type Of Purchase"
-        label-placement="stacked">
-        <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id"> {{ type?.name }}</ion-select-option>
-      </ion-select>
-      <div class="right_action_block add_icon">
-        <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')" name="add-circle-outline"></ion-icon>
-      </div>
-      <div class="right_action_block refresh_icon">
-        <ion-icon (click)="getPurchaseList(true)" name="refresh-outline"></ion-icon>
-      </div>
-    </div>
-      <div class="global_input_block">
-      <ion-input label="Purchase Price" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="purchasePrice"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Amount Transfer Date" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="amountTransferDate"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Park Location" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="parkLocation"></ion-input>
-    </div>
-       <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="companyRepresentative" fill="outline" label="Company Representative"
-        label-placement="type" labelPlacement="stacked">
-        <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id"> {{ comp?.name
-          }}</ion-select-option>
-      </ion-select>
-      <div class="right_action_block add_icon">
-        <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
-      </div>
-      <div class="right_action_block refresh_icon">
-        <ion-icon (click)="getCompanyRepresentativeList(true)" name="refresh-outline"></ion-icon>
-      </div>
-    </div>
-      <div class="global-inner-heading">
-    <span>RTO/INSURANCE COST</span>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="RTO Cost" fill="outline" labelPlacement="stacked" type="number"
-      formControlName="rto_cost"></ion-input>
-  </div>
-  <div class="global_input_block">
-    <ion-input label="Insurance Cost" fill="outline" labelPlacement="stacked" type="number"
-      formControlName="insurance_cost"></ion-input>
-  </div>
-  <div class="global-inner-heading">
-    <span>Estimation</span>
-  </div>
-  <!-- <div class="global_input_block" >
-      <ion-input label="RTO Estimation" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="rtoEstimationCost"></ion-input>
-    </div> -->
-  <div class="global_input_block">
-    <ion-input label="Inward Estimation" fill="outline" labelPlacement="stacked" type="text"
-      formControlName="inwardEstimationCost"></ion-input>
+    <button class="ap-close-btn" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
   </div>
 
+  <svg class="ap-wave" viewBox="0 0 400 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 Q100,24 200,12 Q300,0 400,18 L400,24 L0,24 Z" fill="#f0f4ff"/>
+  </svg>
+</div>
 
-  <div class="global_input_block">
-    <ion-input label="Maintainance Estimation" fill="outline" labelPlacement="stacked" type="text"
-      formControlName="maintainanceEstimationCost"></ion-input>
-  </div>
-</ng-container>
-    <div class="page_submit_btn">
-      <ion-button  (click)="saveExpense()" class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
+<!-- ── Content ── -->
+<ion-content class="ap-content" [ngClass]="listColorClass">
+  <form [formGroup]="form" class="ap-form">
 
+    <!-- Section: Decision -->
+    <div class="ap-section ap-section-1">
+      <div class="ap-section-label">
+        <ion-icon name="flag-outline"></ion-icon>
+        <span>Decision</span>
+      </div>
+
+      <div class="ap-field">
+        <div class="global_input_block">
+          <ion-select (ionChange)="selectActionOnApproved()"
+            formControlName="approved_status"
+            fill="outline" label="Action" labelPlacement="stacked">
+            <ion-select-option value="APPROVED">Approve</ion-select-option>
+            <ion-select-option value="REJECTED">Reject</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <div class="ap-field">
+        <div class="global_input_block">
+          <ion-input label="Action Date" fill="outline" labelPlacement="stacked"
+            type="date" formControlName="action_date"></ion-input>
+        </div>
+      </div>
+
+      <div class="ap-field">
+        <div class="global_input_block">
+          <ion-textarea formControlName="action_remark" label="Remark"
+            fill="outline" labelPlacement="stacked"
+            placeholder="Write remark here..."></ion-textarea>
+        </div>
+      </div>
     </div>
+
+    <!-- ── APPROVED extra fields ── -->
+    <ng-container *ngIf="form.controls['approved_status'].value === 'APPROVED'">
+
+      <!-- Section: Dates -->
+      <div class="ap-section ap-section-2">
+        <div class="ap-section-label">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>Dates</span>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Purchase Date" fill="outline" labelPlacement="stacked"
+              type="date" formControlName="purchanseDate"></ion-input>
+          </div>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Expected Date Of Arrival" fill="outline" labelPlacement="stacked"
+              type="date" formControlName="expectedDateOfArrival"></ion-input>
+          </div>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Amount Transfer Date" fill="outline" labelPlacement="stacked"
+              type="date" formControlName="amountTransferDate"></ion-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Purchase Details -->
+      <div class="ap-section ap-section-3">
+        <div class="ap-section-label">
+          <ion-icon name="receipt-outline"></ion-icon>
+          <span>Purchase Details</span>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block select_option_with_add">
+            <ion-select formControlName="typeOfPurchase" labelPlacement="stacked"
+              fill="outline" label="Type Of Purchase">
+              <ion-select-option *ngFor="let type of typePurchaseList" [value]="type.id">
+                {{ type?.name }}
+              </ion-select-option>
+            </ion-select>
+            <div class="right_action_block add_icon">
+              <ion-icon (click)="openCrudManagement('TYPE_OF_PURCHASE')" name="add-circle-outline"></ion-icon>
+            </div>
+            <div class="right_action_block refresh_icon">
+              <ion-icon (click)="getPurchaseList(true)" name="refresh-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Purchase Price" fill="outline" labelPlacement="stacked"
+              type="text" formControlName="purchasePrice"></ion-input>
+          </div>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Park Location" fill="outline" labelPlacement="stacked"
+              type="text" formControlName="parkLocation"></ion-input>
+          </div>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block select_option_with_add">
+            <ion-select formControlName="companyRepresentative" fill="outline"
+              label="Company Representative" labelPlacement="stacked">
+              <ion-select-option *ngFor="let comp of companyRepresentativeList" [value]="comp.id">
+                {{ comp?.name }}
+              </ion-select-option>
+            </ion-select>
+            <div class="right_action_block add_icon">
+              <ion-icon (click)="openCrudManagement('COMPANYREPRESENTATIVE')" name="add-circle-outline"></ion-icon>
+            </div>
+            <div class="right_action_block refresh_icon">
+              <ion-icon (click)="getCompanyRepresentativeList(true)" name="refresh-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: RTO / Insurance -->
+      <div class="ap-section ap-section-4">
+        <div class="ap-section-label">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+          <span>RTO / Insurance Cost</span>
+        </div>
+
+        <div class="ap-field-row">
+          <div class="ap-field">
+            <div class="global_input_block">
+              <ion-input label="RTO Cost" fill="outline" labelPlacement="stacked"
+                type="number" formControlName="rto_cost"></ion-input>
+            </div>
+          </div>
+          <div class="ap-field">
+            <div class="global_input_block">
+              <ion-input label="Insurance Cost" fill="outline" labelPlacement="stacked"
+                type="number" formControlName="insurance_cost"></ion-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Estimation -->
+      <div class="ap-section ap-section-5">
+        <div class="ap-section-label">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          <span>Estimation</span>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Inward Estimation" fill="outline" labelPlacement="stacked"
+              type="text" formControlName="inwardEstimationCost"></ion-input>
+          </div>
+        </div>
+
+        <div class="ap-field">
+          <div class="global_input_block">
+            <ion-input label="Maintenance Estimation" fill="outline" labelPlacement="stacked"
+              type="text" formControlName="maintainanceEstimationCost"></ion-input>
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <!-- Submit -->
+    <div class="ap-submit">
+      <ion-button (click)="saveExpense()"
+        class="global_submit_color_button ap-submit-btn dynamic_bgcolor" expand="block">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        Save
+      </ion-button>
+    </div>
+
   </form>
 </ion-content>

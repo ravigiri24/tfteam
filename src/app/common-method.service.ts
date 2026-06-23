@@ -843,6 +843,7 @@ export class CommonMethodService {
   async updateNewFinfing(dataUpdate: any = null) {
     const modal = await this.modalCtrl.create({
       component: AddNewFindingsComponent,
+      cssClass: 'modal-dark-backdrop',
       componentProps: {
         data: dataUpdate,
       },

@@ -1,74 +1,51 @@
-<ion-header>  
-  <ion-toolbar>  
-    <ion-title >Dashboard</ion-title>  
-  
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size"  (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+<!-- ── Header ── -->
+<div class="tov-header">
+  <div class="tov-blob tb1"></div>
+  <div class="tov-blob tb2"></div>
 
-  </ion-toolbar>  
-
-</ion-header>  
-<ion-content>
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title>Before Service</ion-card-title>
-     
-    </ion-card-header>
-  
-  
-  
-    <ion-button (click)="viewImage('BEFORE_SERVICE')"   fill="clear"><ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
-  </ion-card> -->
-
-    <div (click)="startTranspotation()" class="block">
-     <span class="succes-tag-line">Forward</span>
-      </div>
-    <div class=" block">
-
-  
-    <img (click)="startTranspotation()" class="image-style" src="././assets/images/fast-forward-button.png" />
-
+  <div class="tov-header-inner">
+    <div class="tov-header-icon">
+      <ion-icon name="settings-outline"></ion-icon>
     </div>
-  <div (click)="goToUplodeSection()" class="block margin-body">
-     <span class="succes-tag-line">Gallery</span>
-      </div>
-    <div (click)="goToUplodeSection()" class=" block">
-
-  
-    <img  class="image-style" src="././assets/images/gallary.png" />
-
+    <div class="tov-header-text">
+      <span class="tov-title">Dashboard</span>
+      <span class="tov-sub">Choose an action below</span>
     </div>
-     <!-- <div class="block margin-body">
-     <span class="succes-tag-line">Overview</span>
+    <button class="tov-close-btn" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+
+  <svg class="tov-wave" viewBox="0 0 400 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 Q100,24 200,12 Q300,0 400,18 L400,24 L0,24 Z" fill="#f8f0ff"/>
+  </svg>
+</div>
+
+<!-- ── Content ── -->
+<ion-content class="tov-content">
+  <div class="tov-grid">
+
+    <!-- Forward -->
+    <div class="tov-card tov-card-forward" (click)="startTranspotation()">
+      <div class="tov-card-glow"></div>
+      <div class="tov-card-icon-wrap">
+        <img class="tov-card-img" src="././assets/images/fast-forward-button.png" />
       </div>
-    <div class=" block">
+      <div class="tov-card-label">Forward</div>
+      <div class="tov-card-desc">Send to transport</div>
+      <ion-icon class="tov-card-arrow" name="arrow-forward-circle-outline"></ion-icon>
+    </div>
 
-  
-    <img  class="image-style" src="././assets/images/list.png" />
-
-    </div> -->
-       <!-- <div (click)="deleteItem()" class="block margin-body">
-     <span class="succes-tag-line">Delete</span>
+    <!-- Gallery -->
+    <div class="tov-card tov-card-gallery" (click)="goToUplodeSection()">
+      <div class="tov-card-glow"></div>
+      <div class="tov-card-icon-wrap">
+        <img class="tov-card-img" src="././assets/images/gallary.png" />
       </div>
-    <div class=" block">
+      <div class="tov-card-label">Gallery</div>
+      <div class="tov-card-desc">Upload images</div>
+      <ion-icon class="tov-card-arrow" name="images-outline"></ion-icon>
+    </div>
 
-  
-    <img (click)="deleteItem()" class="image-style" src="././assets/images/deleted.png" />
-
-    </div> -->
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title>Payment Screenshot</ion-card-title>
-     
-    </ion-card-header>
-  
-  
-  
-    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  
-  </ion-card> -->
-
+  </div>
 </ion-content>

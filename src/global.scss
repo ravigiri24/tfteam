@@ -136,6 +136,37 @@ app-salary-slip {
   
 }
 
+// ─── Global Modal Border Radius ────────────────────────────────────────────
+ion-modal {
+  --border-radius: 12px;
+
+  &::part(content) {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}
+// ───────────────────────────────────────────────────────────────────────────
+
+// ─── Modal Backdrop Overlay ────────────────────────────────────────────────
+// Ionic built-in rule sets --backdrop-opacity: 0 for every modal after the
+// first one (selector: .show-modal ~ ion-modal.modal-default). Override it.
+ion-modal.modal-default.show-modal ~ ion-modal.modal-default {
+  --backdrop-opacity: 0.65 !important;
+}
+
+// All modals — base dark backdrop
+ion-modal ion-backdrop {
+  --backdrop-opacity: 0.65;
+  opacity: 0.65 !important;
+}
+
+// Darker overlay for explicitly marked secondary modals
+ion-modal.modal-dark-backdrop ion-backdrop {
+  --backdrop-opacity: 0.75;
+  opacity: 0.75 !important;
+}
+// ───────────────────────────────────────────────────────────────────────────
+
 .select_option_with_add {
   display: flex;
   align-items: center;
