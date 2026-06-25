@@ -76,6 +76,7 @@ export class NewFindingsComponent implements OnInit {
   async showModal(dataUpdate: any = null) {
     const modal = await this.modalCtrl.create({
       component: AddNewFindingsComponent,
+      cssClass: 'modal-dark-backdrop',
       componentProps: {
         data: dataUpdate,
         deal:this.deal
@@ -109,6 +110,7 @@ export class NewFindingsComponent implements OnInit {
   async viewData(dataUpdate: any = null) {
     const modal = await this.modalCtrl.create({
       component: AddNewFindingsComponent,
+      cssClass: 'modal-dark-backdrop',
       componentProps: {
         data: dataUpdate,
         isShowOnly: true,
