@@ -1,77 +1,103 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>{{ crudDetail?.headerTitle }}</ion-title>
-    <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>  
-    <ion-button class="button-theme" *ngIf="view === 'LIST'" class="add-button" slot="end" (click)="viewAction('FORM')"
-      fill="outline"><ion-icon class="theme-color" name="add-circle-outline"></ion-icon></ion-button>
-    <ion-button class="button-theme" *ngIf="view === 'FORM'" class="add-button" slot="end" (click)="viewAction('LIST')"
-      fill="outline"><ion-icon class="theme-color" name="list-outline"></ion-icon></ion-button>
-    <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
 <ion-header [ngClass]="listColorClass">
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">{{ crudDetail?.headerTitle }}</span>
+  <ion-toolbar class="cp-toolbar">
+    <div class="cp-header-inner">
+      <div class="cp-header-left">
+        <div class="cp-header-icon">
+          <ion-icon name="layers-outline"></ion-icon>
+        </div>
+        <span class="cp-header-title">{{ crudDetail?.headerTitle }}</span>
       </div>
-      <div class="right_action">
-        <ion-icon (click)="viewAction('FORM')" *ngIf="view === 'LIST'" name="add-circle-outline"></ion-icon>
-        <ion-icon (click)="viewAction('LIST')" *ngIf="view === 'FORM'" name="list-outline"></ion-icon>
-        <ion-icon class="dynamic_color" (click)="dismiss()" name="arrow-back-outline"></ion-icon>
+      <div class="cp-header-actions">
+        <button class="cp-action-btn" (click)="viewAction('FORM')" *ngIf="view === 'LIST'">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </button>
+        <button class="cp-action-btn" (click)="viewAction('LIST')" *ngIf="view === 'FORM'">
+          <ion-icon name="list-outline"></ion-icon>
+        </button>
+        <button class="cp-close-btn dynamic_color" (click)="dismiss()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
       </div>
-    </ion-label>
+    </div>
+    <div class="cp-view-tabs">
+      <span class="cp-view-tab" [class.active]="view === 'LIST'">List</span>
+      <span class="cp-view-tab" [class.active]="view === 'FORM'">
+        {{ formAction === 'UPDATE' ? 'Edit' : 'Add New' }}
+      </span>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container ion-padding" [ngClass]="listColorClass">
+
+<ion-content class="cp-content" [ngClass]="listColorClass">
+
+  <!-- ── LIST VIEW ── -->
   <ng-container *ngIf="view === 'LIST'">
-    <ion-list class="list_row" *ngIf="listData?.length">
-      <ion-item *ngFor="let row of listData;let in=index">
-        <ion-label>
-          <h2>{{row[crudDetail?.colArray[0]]}}</h2>
-          <p *ngFor="let col of crudDetail?.colArray;let i=index">
-            <ng-container *ngIf="i>0">
-              {{ row[col] }}
-            </ng-container>
-          </p>
+    <div class="cp-list-wrap" *ngIf="listData?.length">
+      <ion-item *ngFor="let row of listData; let i = index"
+        class="cp-list-item"
+        [style.animation-delay]="(i * 45) + 'ms'">
+        <div class="cp-item-avatar" slot="start">
+          {{ row[crudDetail?.colArray[0]]?.toString()?.charAt(0)?.toUpperCase() }}
+        </div>
+        <ion-label class="cp-item-label">
+          <h2 class="cp-item-title">{{ row[crudDetail?.colArray[0]] }}</h2>
+          <ng-container *ngFor="let col of crudDetail?.colArray; let ci = index">
+            <p class="cp-item-sub" *ngIf="ci > 0 && row[col]">{{ row[col] }}</p>
+          </ng-container>
         </ion-label>
-        <ion-icon (click)="editData(row)" class="right-margine dynamic_color" name="create-outline"></ion-icon>
+        <button class="cp-edit-btn dynamic_color" (click)="editData(row)" slot="end">
+          <ion-icon name="create-outline"></ion-icon>
+        </button>
       </ion-item>
-    </ion-list>
+    </div>
     <app-no-data-view [ngClass]="listColorClass" *ngIf="!listData?.length"></app-no-data-view>
   </ng-container>
-  <div class="page_inner_container" *ngIf="view === 'FORM'">
+
+  <!-- ── FORM VIEW ── -->
+  <div class="cp-form-wrap" *ngIf="view === 'FORM'">
     <form [formGroup]="form">
-      <div *ngFor="let fields of crudDetail?.data">
-        <ng-container *ngIf="fields?.type==='text'">
-          <div class="global_input_block">
-            <ion-input label="{{fields.title}}" fill="outline" labelPlacement="stacked" type="text"
-              formControlName="{{ fields.key }}"></ion-input>
+      <div class="cp-field-group" *ngFor="let fields of crudDetail?.data">
+
+        <ng-container *ngIf="fields?.type === 'text'">
+          <div class="global_input_block cp-input-block">
+            <ion-input label="{{ fields.title }}" fill="outline" labelPlacement="stacked"
+              type="text" formControlName="{{ fields.key }}"></ion-input>
           </div>
         </ng-container>
-        <ng-container *ngIf="fields?.type==='number'">
-          <div class="global_input_block">
-            <ion-input label="{{fields.title}}" fill="outline" labelPlacement="stacked" type="number"
-              formControlName="{{ fields.key }}"></ion-input>
+
+        <ng-container *ngIf="fields?.type === 'number'">
+          <div class="global_input_block cp-input-block">
+            <ion-input label="{{ fields.title }}" fill="outline" labelPlacement="stacked"
+              type="number" formControlName="{{ fields.key }}"></ion-input>
           </div>
         </ng-container>
-        <ng-container *ngIf="fields?.type==='list'">
-          <div class="global_input_block">
-            <ion-select formControlName="{{ fields.key }}" fill="outline" label="{{fields.title}}"
-              label-placement="type">
-              <ion-select-option *ngFor="let row of dynamicListData" [value]="row?.id">{{row?.name}}</ion-select-option>
+
+        <ng-container *ngIf="fields?.type === 'list'">
+          <div class="global_input_block cp-input-block">
+            <ion-select formControlName="{{ fields.key }}" fill="outline"
+              label="{{ fields.title }}" labelPlacement="stacked">
+              <ion-select-option *ngFor="let row of dynamicListData" [value]="row?.id">
+                {{ row?.name }}
+              </ion-select-option>
             </ion-select>
           </div>
         </ng-container>
+
       </div>
     </form>
-    <div class="page_submit_btn">
-      <ion-button (click)="addItem()" *ngIf="formAction==='ADD'" class="global_submit_color_button dynamic_bgcolor"
-        expand="block">Save</ion-button>
-      <ion-button (click)="updateItem()" *ngIf="formAction==='UPDATE'"
-        class="global_submit_color_button dynamic_bgcolor" expand="block">Update</ion-button>
+
+    <div class="cp-submit-wrap">
+      <ion-button (click)="addItem()" *ngIf="formAction === 'ADD'"
+        class="global_submit_color_button cp-submit-btn dynamic_bgcolor" expand="block">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        Save
+      </ion-button>
+      <ion-button (click)="updateItem()" *ngIf="formAction === 'UPDATE'"
+        class="global_submit_color_button cp-submit-btn dynamic_bgcolor" expand="block">
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+        Update
+      </ion-button>
     </div>
   </div>
+
 </ion-content>
