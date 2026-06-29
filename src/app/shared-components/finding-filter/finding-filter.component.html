@@ -1,99 +1,88 @@
 <ion-header [ngClass]="listColorClass">
-  <ion-toolbar class="top_heading">
-    <div class="left_text">Apply Filter</div>
-    <ion-buttons class="right_action" (click)="dismiss()" slot="end">
-      <ion-icon class="dynamic_color icon-size" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
+  <ion-toolbar class="ff-toolbar">
+    <div class="ff-header-inner">
+      <div class="ff-header-left">
+        <div class="ff-header-icon">
+          <ion-icon name="options-outline"></ion-icon>
+        </div>
+        <div class="ff-header-text">
+          <span class="ff-header-title">Apply Filter</span>
+          <span class="ff-header-sub">Select year &amp; brands</span>
+        </div>
+      </div>
+      <button class="ff-close-btn" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <svg class="ff-wave" viewBox="0 0 400 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,0 Q100,24 200,12 Q300,0 400,18 L400,24 L0,24 Z" fill="#f8f0ff"/>
+    </svg>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding filter_main_container">
-  <div [ngClass]="listColorClass">
 
+<ion-content class="ff-content">
+  <div class="ff-body" [ngClass]="listColorClass">
 
-    <div class="global-inner-heading dynamic_color selected_show">Selected Year :<b>{{ yearChecked }}</b></div>
-    <div class="radio_block_main_container">
-      <ion-radio-group class="radio_block_container" [(ngModel)]="yearChecked" (ionChange)="selectItem($event)">
-        <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
-            class="name">All</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2021 & Above" labelPlacement="end"><span
-            class="name">2021 &
-            Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2018-2020" labelPlacement="end"><span
-            class="name">2018 -2020
-            </span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2014-2017" labelPlacement="end">
-          <span class="name">2014 -
-            2017</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2010-2013" labelPlacement="end">
-          <span class="name">2010 - 2013</span></ion-radio>
-            <ion-radio class="radio_block dynamic_color" value="2000-2009" labelPlacement="end">
-          <span class="name">2000 - 2009</span></ion-radio>
+    <!-- ── Year Filter ── -->
+    <div class="ff-section">
+      <div class="ff-section-header">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span class="ff-section-title">Manufacturing Year</span>
+        <span class="ff-selected-badge" *ngIf="yearChecked !== 'ALL'">{{ yearChecked }}</span>
+      </div>
+
+      <!-- hidden ion-radio-group keeps [(ngModel)] & (ionChange) intact -->
+      <ion-radio-group [(ngModel)]="yearChecked" (ionChange)="selectItem($event)" class="ff-hidden-group">
+        <ion-radio value="ALL"></ion-radio>
+        <ion-radio value="2021 & Above"></ion-radio>
+        <ion-radio value="2018-2020"></ion-radio>
+        <ion-radio value="2014-2017"></ion-radio>
+        <ion-radio value="2010-2013"></ion-radio>
+        <ion-radio value="2000-2009"></ion-radio>
       </ion-radio-group>
-      <!-- <p>Selected: {{ yearChecked }}</p> -->
-    </div>
-       <!-- <div class="global-inner-heading dynamic_color selected_show">Wheel Drive :<b>{{ wheeldrive }}</b></div>
-    <div class="radio_block_main_container">
-      <ion-radio-group class="radio_block_container" [(ngModel)]="wheeldrive" (ionChange)="selectWheel($event)">
-        <ion-radio class="radio_block dynamic_color" value="ALL" labelPlacement="end"><span
-            class="name">All</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="2WD" labelPlacement="end"><span
-            class="name">2WD
-            Above</span></ion-radio>
-        <ion-radio class="radio_block dynamic_color" value="4WD" labelPlacement="end"><span
-            class="name">4WD
-            Above</span></ion-radio>
 
-      </ion-radio-group>
- 
-    </div> -->
-
-    <span class="global-inner-heading dynamic_color">Brands
-      <!-- <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')"
-          name="add-circle-outline"></ion-icon> -->
-    </span>
-    <div class="multiple_options_container">
-      <ion-checkbox class="checkbox_block dynamic_color" (ionChange)="selectBrand($event,'ALL')" [checked]="checkedAll"
-        labelPlacement="end"><span class="name">All</span></ion-checkbox>
-      <ion-checkbox class="checkbox_block dynamic_color" *ngFor="let brand of brandList" [checked]="brand?.checked"
-        (ionChange)="selectBrand($event,brand)" labelPlacement="end"><span
-          class="name">{{brand?.name}}</span></ion-checkbox>
-    </div>
-    <div class="bottom_fixed_buttons">
-      <div class="row">
-        <div class="col-6">
-          <ion-button (click)="applyFilter()" class="global_submit_color_button dynamic_bgcolor"
-            expand="block">Apply</ion-button>
-        </div>
-        <div class="col-6">
-          <ion-button (click)="reset()" class="global_submit_color_button theme-bgcolor-secondary"
-            expand="block">Reset</ion-button>
-        </div>
+      <!-- visual chips -->
+      <div class="ff-chips-wrap">
+        <div class="ff-chip" [class.ff-chip-active]="yearChecked === 'ALL'"         (click)="yearChecked = 'ALL'">All Years</div>
+        <div class="ff-chip" [class.ff-chip-active]="yearChecked === '2021 & Above'" (click)="yearChecked = '2021 & Above'">2021 &amp; Above</div>
+        <div class="ff-chip" [class.ff-chip-active]="yearChecked === '2018-2020'"    (click)="yearChecked = '2018-2020'">2018 – 2020</div>
+        <div class="ff-chip" [class.ff-chip-active]="yearChecked === '2014-2017'"    (click)="yearChecked = '2014-2017'">2014 – 2017</div>
+        <div class="ff-chip" [class.ff-chip-active]="yearChecked === '2010-2013'"    (click)="yearChecked = '2010-2013'">2010 – 2013</div>
+        <div class="ff-chip" [class.ff-chip-active]="yearChecked === '2000-2009'"    (click)="yearChecked = '2000-2009'">2000 – 2009</div>
       </div>
     </div>
-    <!-- <div *ngIf="listBy=='BY_DATE'">
-  <form *ngIf="form" [formGroup]="form">
-  <div class="row top-position-body">
 
-    <div class="col-md-6 col-6">
-      <div class="global_input_block">
-        <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked" type="date" ></ion-input>
+    <!-- ── Brand Filter ── -->
+    <div class="ff-section">
+      <div class="ff-section-header">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <span class="ff-section-title">Brands</span>
       </div>
-    </div>
-    <div class="col-md-6 col-6">
-      <div class="global_input_block">
-        <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked" type="date" ></ion-input>
+
+      <div class="ff-chips-wrap">
+        <div class="ff-chip" [class.ff-chip-active]="checkedAll"
+             (click)="selectBrand({ detail: { checked: !checkedAll } }, 'ALL')">
+          All
+        </div>
+        <div class="ff-chip" *ngFor="let brand of brandList"
+             [class.ff-chip-active]="brand?.checked"
+             (click)="selectBrand({ detail: { checked: !brand?.checked } }, brand)">
+          {{ brand?.name }}
+        </div>
       </div>
     </div>
 
   </div>
-  
-</form>
-  <div class="row" >
-    <ion-button  (click)="setDate()" class="global_submit_button" >
-    
-      Generate</ion-button>
-    </div>
-</div> -->
-  </div>
-
 </ion-content>
+
+<!-- ── Fixed Bottom Buttons ── -->
+<div class="ff-footer">
+  <button class="ff-btn ff-btn-reset" (click)="reset()">
+    <ion-icon name="refresh-outline"></ion-icon>
+    Reset
+  </button>
+  <button class="ff-btn ff-btn-apply" (click)="applyFilter()">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    Apply Filter
+  </button>
+</div>
