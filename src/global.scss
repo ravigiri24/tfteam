@@ -93,6 +93,11 @@ app-salary-slip {
     font-size: 14px;
     color: #666666;
     background: #ffffff;
+    --border-radius: 14px;
+
+    &::part(native) {
+      border-radius: 14px;
+    }
 
     input {
       font-size: 12px !important;
@@ -110,7 +115,7 @@ app-salary-slip {
   width: 100%;
   justify-content: space-between;
   border: solid thin #b1b1b1;
-  border-radius: 5px;
+  border-radius: 14px;
   padding: 11px 15px;
   color: #666666;
   background: #ffffff;
@@ -133,7 +138,7 @@ app-salary-slip {
     padding: 0px 5px;
     left: 10px;
   }
-  
+
 }
 
 // ─── Global Modal Border Radius ────────────────────────────────────────────
@@ -170,30 +175,43 @@ ion-modal.modal-dark-backdrop ion-backdrop {
 .select_option_with_add {
   display: flex;
   align-items: center;
+  gap: 6px;
 
   .right_action_block {
-    min-width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    color: #ffffff;
-    margin-left: 10px;
-    box-shadow: var(--app-brand-shadow-small);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.18s, opacity 0.18s;
+
+    ion-icon {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    &:active {
+      transform: scale(0.88);
+      opacity: 0.85;
+    }
   }
 
   .add_btn {
-    border-radius: 5px;
+    border-radius: 50%;
     overflow: hidden;
   }
 
   .add_icon {
-    background: var(--app-primary-color);
+    background: linear-gradient(135deg, #4a148c, #7b1fa2);
+    box-shadow: 0 2px 8px rgba(74, 20, 140, 0.35);
   }
 
   .refresh_icon {
-    background: var(--app-secondary-color);
+    background: linear-gradient(135deg, #1565c0, #1976d2);
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.35);
   }
 }
 
@@ -212,7 +230,7 @@ ion-modal.modal-dark-backdrop ion-backdrop {
     padding-bottom: 30px;
 
     ion-input {
-      border-radius: 6px;
+      border-radius: 14px;
     }
 
     .label-text-wrapper {
@@ -278,7 +296,7 @@ ion-modal.modal-dark-backdrop ion-backdrop {
 
   .global_datetextbox {
     border: solid thin #e1e1e1;
-    border-radius: 5px;
+    border-radius: 14px;
     padding: 5px 10px;
     color: #666666;
     max-width: 125px;
@@ -316,7 +334,7 @@ ion-modal.modal-dark-backdrop ion-backdrop {
 
 .header_date_textbox {
   border: solid thin #e1e1e1;
-  border-radius: 5px;
+  border-radius: 14px;
   padding: 5px 10px;
   color: #666666;
   max-width: 140px;
@@ -477,14 +495,24 @@ ion-modal.modal-dark-backdrop ion-backdrop {
   --background: var(--app-theme-element-color) !important;
   --border-color: var(--app-theme-element-color) !important;
   --color: white !important;
+  --border-radius: 28px;
   min-height: 45px;
   width: 100%;
   margin: 0px;
+
+  &::part(native) {
+    border-radius: 28px;
+  }
 }
 
 .global_submit_color_button {
   min-height: 45px;
   width: 100%;
+  --border-radius: 28px;
+
+  &::part(native) {
+    border-radius: 28px;
+  }
 
   ion-icon {
     margin-right: 10px;

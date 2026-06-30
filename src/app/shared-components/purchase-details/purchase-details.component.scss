@@ -12,6 +12,45 @@
 
 //     }
 // }
+
+// ─── Section Action Buttons ────────────────────────────────────────────────
+.pd-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pd-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s, opacity 0.18s;
+
+  ion-icon {
+    font-size: 16px;
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(0.88);
+    opacity: 0.85;
+  }
+}
+
+.pd-add-btn {
+  background: linear-gradient(135deg, #4a148c, #7b1fa2);
+  box-shadow: 0 2px 8px rgba(74, 20, 140, 0.35);
+}
+
+.pd-refresh-btn {
+  background: linear-gradient(135deg, #1565c0, #1976d2);
+  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.35);
+}
 .margin-bottom-headline {
     margin-bottom: 10px !important;
 }

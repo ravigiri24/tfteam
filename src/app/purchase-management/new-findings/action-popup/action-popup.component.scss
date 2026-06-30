@@ -209,8 +209,10 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  background: transparent;
 
   &::part(native) {
     border-radius: 28px;
+    background: linear-gradient(135deg, #0d1b4f, #1565c0);
   }
 }

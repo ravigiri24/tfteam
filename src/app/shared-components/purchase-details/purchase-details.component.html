@@ -12,9 +12,15 @@
         formControlName="expectedDateOfArrival"></ion-input>
     </div>
     <div class="global-inner-heading">
-      <span>Purchase Details           <ion-icon (click)="openCrudManagement('DEALER_LIST')" name="add-circle-outline"></ion-icon>
-              <ion-icon (click)="refreshList('DEALER_LIST')" name="refresh-outline"></ion-icon></span>
-
+      <span>Purchase Details</span>
+      <div class="pd-section-actions">
+        <button class="pd-action-btn pd-add-btn" (click)="openCrudManagement('DEALER_LIST')">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+        <button class="pd-action-btn pd-refresh-btn" (click)="refreshList('DEALER_LIST')">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </button>
+      </div>
     </div>
     <div class="global_input_block select_option_with_add">
       <ion-select formControlName="typeOfPurchase" labelPlacement="stacked" fill="outline" label="Type Of Purchase"
