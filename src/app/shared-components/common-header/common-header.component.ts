@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
+import { ShareService } from 'src/app/share.service';
 
 @Component({
   selector: 'app-common-header',
@@ -13,6 +14,8 @@ export class CommonHeaderComponent implements OnInit {
   @Input() selectedItem: any;
   @Input() isListFilter: any = false;
   @Input() showDateFilter: any = false;
+  @Input() containingAll: any = true;
+  @Input() totalListCount: any = 0;
   @Input() date: any;
   @Input() universalSelect: any = false;
   @Input() showWareHouse: any = false;
@@ -30,7 +33,7 @@ export class CommonHeaderComponent implements OnInit {
   @Input() headerDisplayArray: any = []; //np
   mobiledateOpen: boolean = false;
   // listBy = 'BUFFER';
-  constructor(public api: ApiService) { }
+  constructor(public api: ApiService,public share:ShareService) { }
   actionEventHeaderCall(e: any, opI: any) {
     this.actionEventHeader.emit(e);
     if (opI > 1) {

@@ -20,12 +20,19 @@
             </ion-select>
           </ng-container>
         </ng-container>
-        <b class="total-number">
+        <b *ngIf="containingAll" class="total-number">
           <div class="more_data_load" (click)="expandListEventCall()"><span>{{list?.length}}</span><span
               class="three-dots-loader" *ngIf="allFilterList?.length && (list?.length<allFilterList?.length)"><span
                 class="dot"></span><span class="dot"></span><span class="dot"></span><ion-icon
                 class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div> <span
             class="total_count" *ngIf="showFilterList">/ {{allFilterList?.length}}</span>
+        </b>
+            <b *ngIf="!containingAll" class="total-number">
+          <div class="more_data_load" (click)="expandListEventCall()"><span>{{list?.length}}</span><span
+              class="three-dots-loader" *ngIf="share.totalCount>0 && (list?.length< share.totalCount)"><span
+                class="dot"></span><span class="dot"></span><span class="dot"></span><ion-icon
+                class="unfold_icon dynamic_color" name="chevron-forward-outline"></ion-icon></span></div> <span
+            class="total_count" *ngIf="showFilterList">/ {{share.totalCount}}</span>
         </b>
 
 

@@ -11,7 +11,34 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
-  <span class="global-inner-heading">Details</span>
+    <span class="global-inner-heading">Customer Details</span>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
+         <ion-row>
+        <ion-col>Customer Name</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.customerName|| '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Mobile Number</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.mobileNo || '-'}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Village</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.village || '-' }}</ion-col>
+      </ion-row>
+          <ion-row>
+        <ion-col>City</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.cityName|| '-' }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>State</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.stateName|| '-' }}</ion-col>
+      </ion-row>
+   
+    
+    </ion-card>
+  </ion-grid>
+  <span class="global-inner-heading"> Booking Details</span>
   <ion-grid class="main_block_details">
     <ion-card class="main_card_details">
          <ion-row>
@@ -29,6 +56,14 @@
       <ion-row>
         <ion-col>Booking Date</ion-col>
         <ion-col class="amount_col"> {{ tractorDetails?.booking_date|| '-' }}</ion-col>
+      </ion-row>
+       <ion-row>
+        <ion-col>Sale Type</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.sale_type|| '-' }}</ion-col>
+      </ion-row>
+       <ion-row>
+        <ion-col>Expected Date Of Delivery</ion-col>
+        <ion-col class="amount_col"> {{ tractorDetails?.expectedDateForSale|| '-' }}</ion-col>
       </ion-row>
          <ion-row>
         <ion-col>Remark</ion-col>

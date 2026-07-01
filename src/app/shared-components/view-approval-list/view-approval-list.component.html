@@ -7,8 +7,17 @@
               class="dynamic_color">{{approval?.tractor_name}}</span><small>{{approval?.createdOn |
               date}}</small></span>
           <div class="internal_block">
+            <span>TF Code: {{approval?.tfCode}}</span>
             <span>Request Amount For Sale: {{approval?.approvePrice}}</span>
             <span>Price Of Tractor: {{approval?.expectedPrice}}</span>
+              <span>Advance: {{approval?.booking_price}}</span>
+              <span>Sale Type: {{approval?.sale_type}}</span>
+              <span>Customer Name: {{approval?.customerName}}</span>
+            <span>Mobile No: {{approval?.mobileNo}}</span>
+            <span>State: {{approval?.stateName}}</span>
+            <span>City: {{approval?.cityName}}</span>
+            <span>Village: {{approval?.village}}</span>
+          
 
             <span>Expected Date: {{approval?.expectedDateOfSale | date}}</span>
             <span>Request By: {{approval?.requestByName}}</span>

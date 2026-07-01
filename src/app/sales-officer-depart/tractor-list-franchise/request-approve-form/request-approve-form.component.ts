@@ -8,6 +8,7 @@ import {
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
+import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 
 @Component({
   selector: 'app-request-approve-form',
@@ -34,6 +35,8 @@ export class RequestApproveFormComponent implements OnInit {
     // console.log('staffDetails', staffDetails);
     // this.selectedStore = JSON.parse(selectedStore);
 this.getStoreByid()
+this.getCityList()
+this.getStateList()
     this.initialize(this.approvalData);
   }
   dismiss() {
@@ -50,13 +53,21 @@ this.getStoreByid()
       tractor_id: new FormControl(this.tractor?.id, [Validators.required]),
       approvePrice: new FormControl(data?.approvePrice, [Validators.required]),
       expectedDateOfSale: new FormControl(data?.approvePrice, []),
-      remark: new FormControl(data?.remark, [Validators.required]),
+      remark: new FormControl(data?.remark, []),
 
       storeId: new FormControl(this.selectedStore, [Validators.required]),
       actionByid: new FormControl(this?.staffDetails?.id, [
         Validators.required,
       ]),
       requestBy: new FormControl(this?.staffDetails?.id, [Validators.required]),
+
+      customerName: new FormControl(data?.customerName, []),
+      mobileNo: new FormControl(data?.mobileNo, [Validators.required]),
+      village: new FormControl(data?.village, [Validators.required]),
+      state_id: new FormControl(data?.state_id, []),
+      city_id: new FormControl(data?.city_id, []),
+      booking_price: new FormControl(data?.booking_price, [Validators.required]),
+      sale_type: new FormControl(data?.sale_type , [Validators.required]),
     });
 
     // if(data){
@@ -66,6 +77,113 @@ this.getStoreByid()
     //   );
     // }
   }
+   stateList: any = [];
+  stateName:any
+  getStateList() {
+    this.share.showLoading('Loading');
+    let obj = this.share.getListObj('state_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.stateList = res?.data;
+   
+        this.getCityList();
+      },
+      (error: any) => {}
+    );
+  }
+  
+  cityList: any = [];
+  cityName:any
+  getCityList() {
+    let obj = this.share.getListObj('city_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.cityList = res?.data;
+        let find= this.cityList.find((d:any)=>d.id==this.form.controls['city_id'].value)  
+        if(find){
+          this.cityName = find?.name;
+        } 
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
+  }
+  cityListFilter: any = [];
+  getCityListFilter() {
+    let getStateId = this.form?.controls['state_id']?.value;
+    let cityList = this.cityList.filter((f: any) => f.state_id == getStateId);
+    this.cityListFilter = cityList;
+  }
+      checkOpenCon(itemName: any) {
+    if (itemName == 'State') {
+      return true;
+    } else if (
+      itemName == 'City' &&
+      this.form.controls['state_id'].value 
+    ) {
+      if(this.cityListFilter?.length){
+        return true;
+      }else{
+        this.getCityListFilter()
+   
+        return true;
+      }
+   
+    } else {
+      return false;
+    }
+  }
+    async selectItem(list: any, itemName: any, table_name: any) {
+      let openStatus = this.checkOpenCon(itemName);
+      if(openStatus){
+  
+     
+      let otherObjects: any;
+      if (itemName == 'City') {
+        list=this.cityListFilter
+        otherObjects = {
+          state_id: this.form.controls['state_id'].value,
+        };
+      }
+  
+      const modal = await this.modalCtrl.create({
+        component: SelectWithSearchComponent,
+        componentProps: {
+          list: list,
+          itemName: itemName,
+          table_name: table_name,
+          otherObjects: otherObjects,
+          jsonKey:'name',
+          search:  {
+            name: null,
+          }
+        },
+      });
+      await modal.present();
+  
+      const { data, role } = await modal.onWillDismiss();
+      if (itemName == 'State') {
+        if (data) {
+          this.form.controls['state_id'].setValue(data?.id);
+          this.form.controls['city_id'].setValue(null);
+          this.cityName = null;
+          this.stateName = data?.name;
+          this.getCityListFilter();
+        }
+      } else if (itemName == 'City') {
+        this.cityName = data?.name;
+        this.form.controls['city_id'].setValue(data?.id);
+        //this.getCityList()
+  
+      }
+      console.log('role', role, data);
+  
+      if (role === 'confirm') {
+      }
+    }else{
+      this.share.presentToast("Please Select State First")
+    }
+    }
   getModel() {
     let valueOf = this.form.controls['modal_ids']?.value || [];
     return valueOf;

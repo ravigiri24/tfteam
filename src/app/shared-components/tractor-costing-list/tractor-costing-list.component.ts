@@ -266,12 +266,13 @@ export class TractorCostingListComponent implements OnInit {
       } else if (this.filterBy == 'SOLD') {
         tractorList = tractorList?.filter((f: any) => f?.isSold == 1);
       } else if (this.filterBy == 'NOT_SOLD') {
-        tractorList = tractorList?.filter(
-          (f: any) =>
-            f?.isSold == 0 &&
-            (f?.getBookedStatus?.currentStatus != 'OPEN' ||
-              !f?.getBookedStatus),
-        );
+        // tractorList = tractorList?.filter(
+        //   (f: any) =>
+        //     f?.isSold == 0 &&
+        //     (f?.getBookedStatus?.currentStatus != 'OPEN' ||
+        //       !f?.getBookedStatus),
+        // );
+        tractorList = tractorList?.filter((f: any) => f?.isSold == 0);
       } else if (this.filterBy == 'BOOKED') {
         tractorList = tractorList?.filter(
           (f: any) =>
@@ -443,7 +444,7 @@ export class TractorCostingListComponent implements OnInit {
     {
       name: 'Booking Tractor',
       action: 'BookTractor',
-      showAction:false,
+      showAction: false,
       image: './././assets/images/book-now.png',
     },
   ];

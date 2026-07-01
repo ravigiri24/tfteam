@@ -9,7 +9,7 @@
   <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button>
   </ion-toolbar>     
 </ion-header> -->
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
@@ -32,8 +32,13 @@
       </div>
     </ion-label>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 <ion-content>
+  <app-common-header [selectedStore]="selectedStore" *ngIf="warehouseList?.length" class="app_common_header"
+  [isListFilter]="true" [brandList]="brandList" [warehouseList]="warehouseList" [listColorClass]="listColorClass"
+  [title]="'Tractors'" [list]="alltractorList" [containingAll]="false" [totalListCount]="totalListCount" [allFilterList]="allFilterList" [showFilterList]="true"
+  [showWareHouse]="true" [headerDisplayArray]="headerDisplayArray" (actionEventHeader)="actionEventHeader($event)"
+  (expandListEvent)="expandListEvent()" (selectWareHouseAction)="tractorListStorewise($event)"></app-common-header>
   <app-view-list [listColorClass]="listColorClass" *ngIf="alltractorList?.length" [buttonArray]="buttonArray"
     [keyList]="keyList" [list]="alltractorList" [search]="search" (actionEventCall)="actionEventCall($event)"
     [searchKey]="'registractionNo'"></app-view-list>

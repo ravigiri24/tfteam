@@ -54,6 +54,8 @@
           <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
             </th>
+                   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Sale Type</th>
                   <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
              Store</th>
                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
@@ -73,15 +75,27 @@
              Booking Price</th>           
    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
              Booking Date</th>
+                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Expected Date Of Delivery</th>
                <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
              Remark</th>
-               
+                    <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Customer Name</th>
+                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Mobile</th>
+                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             Village</th>
+                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             City</th>
+                  <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
+             State</th>
           </tr>
           
           <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
             style="border: 1px solid #e1e1e1;text-align: left">
             <td style="text-align: center;">{{tracIndex+1}}</td>
           
+            <td style="text-align: center;">{{tractor?.sale_type}}</td>
             <td style="text-align: center;">{{tractor?.storeName}}</td>
             <td style="text-align: center;">{{tractor?.tfCode}}</td>
             <td style="text-align: center;">{{tractor?.tractorName}}</td>
@@ -92,7 +106,13 @@
             <td style="text-align: center;">{{tractor?.booking_price}}</td>
        
             <td style="text-align: center;">{{tractor?.booking_date | date}}</td>
+            <td style="text-align: center;">{{tractor?.expectedDateForSale | date}}</td>
             <td style="text-align: center;">{{tractor?.remark}}</td>
+            <td style="text-align: center;">{{tractor?.customerName}}</td>
+            <td style="text-align: center;">{{tractor?.mobileNo}}</td>
+            <td style="text-align: center;">{{tractor?.village}}</td>
+            <td style="text-align: center;">{{tractor?.cityName}}</td>
+            <td style="text-align: center;">{{tractor?.stateName}}</td>
           
           </tr>
           <!-- <tr>

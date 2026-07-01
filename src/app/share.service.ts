@@ -15,6 +15,7 @@ import {
 export class ShareService {
   activeCurrent: any = null;
   showFooter = true;
+  totalCount:any=0
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,
@@ -205,7 +206,7 @@ export class ShareService {
     let tractorList: any = [];
     tractorList = list?.filter(
       (li: any) =>
-        Number(li.price) >= Number(lower) && Number(li.price <= upper),
+       Number(li.price) >= Number(lower) && Number(li.price <= upper),
     );
 
     return tractorList;

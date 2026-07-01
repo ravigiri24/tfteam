@@ -24,6 +24,7 @@ import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-mai
 import { FindingReportsComponent } from './finding-reports/finding-reports.component';
 import { NewFindingReportComponent } from './new-finding-report/new-finding-report.component';
 import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tractor-sheet.component';
+import { MasterSheetAdvanceComponent } from './master-sheet-advance/master-sheet-advance.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -34,6 +35,7 @@ const routes: Routes = [
          { path: 'dashboard-overview', component: DashboardOverviewComponent},
        
          { path: 'master-sheet/:srcPage', component: MasterSheetsComponent},
+        { path: 'master-sheet-advance/:srcPage', component: MasterSheetAdvanceComponent},
          { path: 'sales-report/:srcPage', component: SalesReportComponent},
          { path: 'unsold-tractor-sheet/:srcPage', component: UnsoldTractorListComponent},
          { path: 'unsold-tractor-sheet-specific/:srcPage', component: SpeceficUnsoldTractorListComponent},

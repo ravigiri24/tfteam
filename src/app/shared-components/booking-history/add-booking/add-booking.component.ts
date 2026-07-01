@@ -36,7 +36,7 @@ export class AddBookingComponent  implements OnInit {
     let selectedStore: any = this.share.get_sales_officer_store();
     console.log('staffDetails', staffDetails);
     this.selectedStore = JSON.parse(selectedStore);
-
+this.getStateList()
     this.initialize(this.bookedData);
     if(!this.tractor?.franchiseDettails?.id){
       this.share.presentToast("Store Not Alloted")
@@ -58,10 +58,17 @@ export class AddBookingComponent  implements OnInit {
 
     this.form = this.formBuilder.group({
       tractor_id: new FormControl(this.tractor?.id, [Validators.required]),
+      customerName: new FormControl(data?.customerName, []),
+      mobileNo: new FormControl(data?.mobileNo, []),
+      village: new FormControl(data?.village, []),
+      state_id: new FormControl(data?.state_id, []),
+      city_id: new FormControl(data?.city_id, []),
       deal_price: new FormControl(data?.deal_price, [Validators.required]),
       booking_price: new FormControl(data?.booking_price, []),
       currentStatus: new FormControl('OPEN'),
       booking_date: new FormControl(data?.booking_date , []),
+      sale_type: new FormControl(data?.sale_type , [Validators.required]),
+      expectedDateForSale: new FormControl(data?.expectedDateForSale , []),
       remark: new FormControl(data?.remark, []),
       store_id: new FormControl(this.tractor?.franchiseDettails?.id, [
         Validators.required,
@@ -80,8 +87,119 @@ export class AddBookingComponent  implements OnInit {
     //   );
     // }
   }
+  stateList: any = [];
+  stateName:any
+  getStateList() {
+    this.share.showLoading('Loading');
+    let obj = this.share.getListObj('state_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.stateList = res?.data;
+        if(this.bookedData?.state_id){
 
+      let find= this.stateList.find((d:any)=>d.id==this.form.controls['state_id'].value)  
+      if(find){
+        this.stateName = find?.name;
+      } 
+        }
+        this.getCityList();
+      },
+      (error: any) => {}
+    );
+  }
+  
+  cityList: any = [];
+  cityName:any
+  getCityList() {
+    let obj = this.share.getListObj('city_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.cityList = res?.data;
+        let find= this.cityList.find((d:any)=>d.id==this.form.controls['city_id'].value)  
+        if(find){
+          this.cityName = find?.name;
+        } 
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
+  }
+  cityListFilter: any = [];
+  getCityListFilter() {
+    let getStateId = this.form?.controls['state_id']?.value;
+    let cityList = this.cityList.filter((f: any) => f.state_id == getStateId);
+    this.cityListFilter = cityList;
+  }
+    checkOpenCon(itemName: any) {
+    if (itemName == 'State') {
+      return true;
+    } else if (
+      itemName == 'City' &&
+      this.form.controls['state_id'].value 
+    ) {
+      if(this.cityListFilter?.length){
+        return true;
+      }else{
+        this.getCityListFilter()
+   
+        return true;
+      }
+   
+    } else {
+      return false;
+    }
+  }
+  async selectItem(list: any, itemName: any, table_name: any) {
+    let openStatus = this.checkOpenCon(itemName);
+    if(openStatus){
 
+   
+    let otherObjects: any;
+    if (itemName == 'City') {
+      list=this.cityListFilter
+      otherObjects = {
+        state_id: this.form.controls['state_id'].value,
+      };
+    }
+
+    const modal = await this.modalCtrl.create({
+      component: SelectWithSearchComponent,
+      componentProps: {
+        list: list,
+        itemName: itemName,
+        table_name: table_name,
+        otherObjects: otherObjects,
+        jsonKey:'name',
+        search:  {
+          name: null,
+        }
+      },
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    if (itemName == 'State') {
+      if (data) {
+        this.form.controls['state_id'].setValue(data?.id);
+        this.form.controls['city_id'].setValue(null);
+        this.cityName = null;
+        this.stateName = data?.name;
+        this.getCityListFilter();
+      }
+    } else if (itemName == 'City') {
+      this.cityName = data?.name;
+      this.form.controls['city_id'].setValue(data?.id);
+      //this.getCityList()
+
+    }
+    console.log('role', role, data);
+
+    if (role === 'confirm') {
+    }
+  }else{
+    this.share.presentToast("Please Select State First")
+  }
+  }
   save() {
     if (this.form.valid) {
     

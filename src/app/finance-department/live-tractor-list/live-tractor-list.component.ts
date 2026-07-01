@@ -13,6 +13,7 @@ import { TractorFinanceDetailsComponent } from 'src/app/tractor-finance-details/
 import { FinanceOptionsComponent } from '../finance-options/finance-options.component';
 import { ShowSalesDetailsComponent } from '../show-sales-details/show-sales-details.component';
 import { CommonMethodService } from 'src/app/common-method.service';
+import { GlobalFilterTractorComponent } from 'src/app/shared-components/global-filter-tractor/global-filter-tractor.component';
 @Component({
   selector: 'app-live-tractor-list',
   templateUrl: './live-tractor-list.component.html',
@@ -28,34 +29,434 @@ export class LiveTractorListComponent implements OnInit {
   ) {}
   alltractorList: any = [];
   ngOnInit() {}
+    headerDisplayArray = [
+    { name: 'Search', icon: 'search-outline' },
+    { name: 'Filter', icon: 'cog-outline' },
+  ];
   listColorClass = 'fourthColor';
+    selectedStore: any="ALL";
   ionViewWillEnter() {
     this.alltractorList = [];
-
-    this.filterBy = 'ACTIVE';
-
+       this.share.totalCount=0
+  this.resetFilterVal();
+   
     let staffDetails: any = this.share.get_staff();
 
     this.staffDetails = JSON.parse(staffDetails);
     this.alltractorList = [];
     this.isStoreOnlyAccess = false;
 
-    if (!this.share.checkStoreOnlyAccess()) {
-      this.listBy = 'BRAND_WISE';
+    // if (!this.share.checkStoreOnlyAccess()) {
+    //   this.listBy = 'BRAND_WISE';
 
-      this.getBrandList();
-    } else {
-      this.listBy = 'STORE_WISE';
-    }
+    //   this.getBrandList();
+    // } else {
+    //   this.listBy = 'STORE_WISE';
+    // }
+    this.getBrandList()
     this.getWareHouseList();
     // this.getTractorList();
   }
+    tractorListStorewise(e: any) {
+    this.selectedStore = e?.selectedStore;
+    this.getDataByFilter(true);
+  }
+  allTractorsSrcList: any;
+  getAllTractorListStorewise(loader: any = false) {
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+    if (!this.selectedStore) {
+      this.selectedStore = this.warehouseList[0]?.id;
+    }
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+      store_id: this.selectedStore,
+    };
+    if (loader) {
+      this.share.showLoading('Loading...', 1000);
+    }
+    this.alltractorList = [];
+    let takingTime = true;
+    setTimeout(() => {
+      if (takingTime) {
+        this.share.presentToast('Taking Time,Please Wait...');
+      }
+    }, 2000);
+    this.api.postapi('getTractorsListStoreWise', obj).subscribe(
+      (res: any) => {
+        this.alltractorList = res?.data;
+        this.allTractorsSrcList = res?.data;
+  
+        this.putImage();
+        this.traceTractorPosition();
+    ;
+        setTimeout(() => {
+          this.share.spinner.dismiss('active_one');
+        }, 0);
+
+        // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+        takingTime = false;
+        this.filterActiveAndFilterBy();
+
+        //this.sortByFilter()
+
+        //this.backupList = res.data;
+      },
+      (error: any) => {},
+    );
+  }
+    traceTractorPosition() {
+    this.alltractorList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Trasport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+        tractor.tractor_status_current = 'At WareHouse';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        tractor.tractor_status_current = 'Alloted(At Dealer)';
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'NEW_ARRIVAL') {
+        tractor.tractor_status_current = 'New Arrivals';
+      }
+      if (tractor?.isLive == 0 && tractor?.tractor_status == 'AT_TRANSPORT') {
+        tractor.tractor_status_current = 'At Transport';
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation == null
+      ) {
+        let arch = '';
+        if (tractor?.tractor_status == 'ARCHIVED') {
+          arch = '(Archived)';
+        }
+        tractor.tractor_status_current = 'At WareHouse' + arch;
+      }
+      if (
+        tractor?.isDraft == 1 &&
+        tractor?.isLive == 1 &&
+        tractor?.tractordetailadmin?.wareHouseLocation != null
+      ) {
+        let arch = '';
+        if (tractor?.tractor_status == 'ARCHIVED') {
+          arch = '(Archived)';
+        }
+        tractor.tractor_status_current = 'Alloted(At Dealer)' + arch;
+      }
+      if (tractor?.isDraft == 0 && tractor?.isLive == 1) {
+        tractor.tractor_status_current = 'Live';
+      }
+    });
+  }
+  putImage() {
+    this.alltractorList?.forEach((tractor: any) => {
+      this.share.getImagesToShowPut(tractor);
+    });
+    this.allTractorsSrcList?.forEach((tractor: any) => {
+      this.share.getImagesToShowPut(tractor);
+    });
+  }
+   allFilterList: any = [];
+    actionEventHeader(e: any) {
+    if (e?.name == 'Search') {
+      this.searchTractor();
+    } else if (e?.name == 'Filter') {
+      this.openFilter();
+    }
+  }
+    async openFilter() {
+      const modal = await this.modalCtrl.create({
+        component: GlobalFilterTractorComponent,
+        componentProps: {
+          filterBy: this.filterBy,
+          listBy: this.listBy,
+          listColorClass: this.listColorClass,
+          optionsArray: [
+            { displayName: 'All', value: 'ALL' },
+  
+            { displayName: 'Not Sold', value: 'NOT_SOLD' },
+            { displayName: 'Sold', value: 'SOLD' },
+            { displayName: 'Booked', value: 'BOOKED' },
+            { displayName: 'Mapped', value: 'MAPPED' },
+            { displayName: 'Not-Mapped', value: 'NOT_MAPPED' },
+            { displayName: '0-Image', value: '0_IMAGE' },
+            { displayName: 'Have Image', value: 'HAVE_IMAGE' },
+        { displayName: 'Sold(Dealer)', value: 'SOLD_TO_DEALER' },
+          { displayName: 'Not Sold(Dealer)', value: 'SOLD_NOT_TO_DEALER' },
+       
+            { displayName: 'At Warehouse', value: 'AT_WAREHOUSE' },
+          ],
+          selectedBrand: this.selectedBrand,
+          checkedAll: this.checkedAll,
+          lower: this.lower,
+          upper: this.upper,
+          yearChecked: this.yearChecked,
+          brandList: this.brandList,
+        },
+        cssClass: 'midium-model',
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+  
+      if (data) {
+        this.selectedBrand = data?.selectedBrand;
+        this.checkedAll = data?.checkedAll;
+        this.lower = data?.lower;
+        this.upper = data?.upper;
+        this.yearChecked = data?.yearChecked;
+        this.listBy = data?.listBy;
+        this.filterBy = data?.filterBy;
+        //this.filterActiveAndFilterBy();
+        this.getDataByFilter(true);
+      }
+    }
+      resetFilterVal() {
+    this.checkedAll = true;
+    this.selectedBrand = [];
+    this.allFilterList = [];
+
+    this.lower = 0;
+    this.listBy = 'ACTIVE';
+    this.filterBy = 'NOT_SOLD';
+    this.upper = 1500000;
+    this.yearChecked = 'ALL';
+    this.selectedStore="ALL"
+  }
+      listBy = 'ACTIVE';
+  filterBy: any = 'NOT_SOLD';
+  totalListCount=0
+getDataByFilter(loader:any,listType:any='UP'){
+  // this.share.totalCount=0
+ let staffDetails: any = this.share.get_staff();
+ this.staffDetails = JSON.parse(staffDetails);
+ let brandList:any=[]
+ this.selectedBrand?.forEach((f:any)=>{
+  brandList.push(f?.id)
+ })
+  let listBy=[{filter:this.listBy}]
+  let brand=[{filter:"ALL"}]
+  let obj:any={
+    listBy:listBy,
+    filterBy:[{filter:this.filterBy}],
+    brand:brand,
+    lower:this.lower,
+    checkedAll:this.checkedAll,
+    listType:listType,
+
+    brandList:brandList,
+    upper:this.upper,
+    
+    yearChecked:this.yearChecked,
+     operate: this.staffDetails?.staffCode,
+      store_id: this.selectedStore,
+    
+
+  }
+    if (loader) {
+      this.share.showLoading('Loading...', 1000);
+    }
+    //this.alltractorList = [];
+    let takingTime = true;
+    setTimeout(() => {
+      if (takingTime) {
+        this.share.presentToast('Taking Time,Please Wait...');
+      }
+    }, 2000);
+    this.api.postapi('getTractorsListStoreWiseFilerWise', obj).subscribe(
+      (res: any) => {
+      //  this.alltractorList = res?.data;
+        this.allTractorsSrcList = res?.data?.tractorList;
+  
+   let responsData=res?.data?.tractorList
+   this.totalListCount=res?.data?.totalDataCount
+    this.share.totalCount=res?.data?.totalDataCount
+        if(listType=='UP'){
+     this.alltractorList = responsData;
+        }else{
+                 if (this.alltractorList?.length < this.share.totalCount) {
+        this.alltractorList = [...this.alltractorList, ...responsData];
+     }
+        }
+      
+       this.putImage();
+        this.traceTractorPosition();
+
+    // if (responsData?.length > 30) {
+    //   this.alltractorList = responsData.slice(0, 30);
+    //   this.holddingList = responsData.slice(30, responsData?.length);
+    // } else {
+    //   this.alltractorList = responsData;
+    //   this.holddingList = [];
+    // }
+        setTimeout(() => {
+          this.share.spinner.dismiss('active_one');
+        }, 0);
+
+        // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+        takingTime = false;
+    //    this.filterActiveAndFilterBy();
+
+        //this.sortByFilter()
+
+        //this.backupList = res.data;
+      },
+      (error: any) => {},
+    );
+}
+
+  filterActiveAndFilterBy() {
+    this.share.showLoading('Rendering Data', 2000);
+    this.alltractorList = [];
+    setTimeout(() => {
+      let tractorList: any = [];
+      if (this.listBy == 'ALL') {
+        tractorList = JSON.parse(JSON.stringify(this.allTractorsSrcList));
+      } else if (this.listBy == 'ARCHIVED') {
+        tractorList = this.allTractorsSrcList.filter(
+          (f: any) => f.tractor_status == 'ARCHIVED',
+        );
+      } else if (this.listBy == 'ACTIVE') {
+        tractorList = this.allTractorsSrcList.filter(
+          (f: any) => f.tractor_status != 'ARCHIVED',
+        );
+      }
+      if (this.filterBy == 'ALL') {
+        tractorList = tractorList;
+      } else if (this.filterBy == 'SOLD') {
+        tractorList = tractorList?.filter((f: any) => f?.isSold == 1);
+      } else if (this.filterBy == 'NOT_SOLD') {
+        // tractorList = tractorList?.filter(
+        //   (f: any) =>
+        //     f?.isSold == 0 &&
+        //     (f?.getBookedStatus?.currentStatus != 'OPEN' ||
+        //       !f?.getBookedStatus),
+        // );
+        tractorList = tractorList?.filter((f: any) => f?.isSold == 0);
+      } else if (this.filterBy == 'BOOKED') {
+        tractorList = tractorList?.filter(
+          (f: any) =>
+            f?.isSold == 0 && f?.getBookedStatus?.currentStatus == 'OPEN',
+        );
+      }
+      if (this.filterBy == 'MAPPED') {
+        tractorList = tractorList?.filter(
+          (f: any) => f?.repairMappedData?.length > 0,
+        );
+      }
+      if (this.filterBy == 'NOT_MAPPED') {
+        tractorList = tractorList?.filter(
+          (f: any) => f?.repairMappedData?.length == 0,
+        );
+      }
+      if (this.filterBy == '0_IMAGE') {
+        tractorList = tractorList?.filter(
+          (f: any) => f?.imagesInTractor?.length == 0,
+        );
+      }
+      if (this.filterBy == 'SOLD_TO_DEALER') {
+        tractorList = tractorList?.filter((f: any) => f?.isSoldToDealer == 1);
+      }
+      if (this.filterBy == 'SOLD_NOT_TO_DEALER') {
+        tractorList = tractorList?.filter((f: any) => f?.isSoldToDealer == 0);
+      }
+      if (this.filterBy == 'AT_WAREHOUSE') {
+        tractorList = tractorList?.filter(
+          (f: any) =>
+            f?.isDraft == 1 &&
+            f?.isLive == 1 &&
+            f?.tractordetailadmin?.wareHouseLocation == null,
+        );
+      }
+
+      this.sortByFilter(tractorList);
+    }, 0);
+  }
+  holddingList:any=[]
+  sortByFilter(tractorList: any) {
+    let filteredList = [];
+    if (!this.checkedAll) {
+      // filteredList = this.share.filterByBrand(
+      //   this.allTractorsSrcList,
+      //   this.selectedBrand
+      // );
+      filteredList = this.share.filterByBrand(tractorList, this.selectedBrand);
+    } else {
+      filteredList = JSON.parse(JSON.stringify(tractorList));
+    }
+    filteredList = this.share.filterByPrice(
+      filteredList,
+      this.lower,
+      this.upper,
+    );
+
+    filteredList = this.share.filterByManuYear(filteredList, this.yearChecked);
+    this.allFilterList = filteredList;
+    if (filteredList?.length > 30) {
+      this.alltractorList = filteredList.slice(0, 30);
+      this.holddingList = filteredList.slice(30, filteredList?.length);
+    } else {
+      this.alltractorList = filteredList;
+      this.holddingList = [];
+    }
+
+    //console.log("this.holddingList",this.holddingList,'this.alltractorList',this.alltractorList);
+
+    //this.alltractorList = filteredList;
+
+    // if (this.alltractorList?.length > 50) {
+    //   this.alltractorList=this.alltractorList.splice(50)
+
+    // }else{
+    //   this.share.spinner.dismiss()
+    // }
+    this.holddingList?.forEach((tractor: any) => {
+      this.share.getImagesToShow(tractor);
+    });
+  }
+      checkedAll = true;
+  selectedBrand: any = [];
+  lower = 0;
+  upper = 0;
+  yearChecked = 'ALL';
+    expandListEvent() {
+   this.getDataByFilter(true,'DOWN')
+
+    // this.share.presentToast('Expanding...');
+    // setTimeout(() => {
+    //   if (this.alltractorList?.length < this.allFilterList?.length) {
+    //     this.alltractorList = [...this.alltractorList, ...this.holddingList];
+    //   }
+    // }, 0);
+
+    // setTimeout(() => {
+    
+    // }, 0);
+  }
+
   optionsArray = [
     { displayName: 'All', value: 'ALL' },
     { displayName: 'Active', value: 'ACTIVE' },
     { displayName: 'Archived', value: 'ARCHIVED' },
   ];
-  filterBy: any = 'ACTIVE';
+
   async presentModal() {
     let showList = true;
     if (this.share.checkStoreOnlyAccess()) {
@@ -91,11 +492,11 @@ export class LiveTractorListComponent implements OnInit {
       this.filterBy = data?.filterBy;
       this.alltractorList = [];
       setTimeout(() => {
-        this.sortByFilter();
+      //  this.sortByFilter();
       }, 0);
     }
   }
-  listBy = 'BRAND_WISE';
+
   refreshList() {
     this.getTractorList();
   }
@@ -149,7 +550,7 @@ export class LiveTractorListComponent implements OnInit {
     registractionNo: null,
   };
   brandList: any = [];
-  selectedBrand: any;
+
   getBrandList(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
 
@@ -168,11 +569,8 @@ export class LiveTractorListComponent implements OnInit {
 
           console.log('  this.brandList', this.brandList);
           if (!loader) {
-            this.selectedBrand = this.brandList[0]?.id;
-            if (!this.share.checkStoreOnlyAccess()) {
-              this.getTractorList();
-            }
-            //   this.getTractorList();
+            //this.selectedBrand = this.brandList[0]?.id;
+       
           }
         },
         (error: any) => {}
@@ -192,7 +590,7 @@ export class LiveTractorListComponent implements OnInit {
 
     const { data, role } = await modal.onWillDismiss();
   }
-  allTractorsSrcList: any = [];
+
   getTractorList(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
@@ -216,7 +614,7 @@ export class LiveTractorListComponent implements OnInit {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        this.sortByFilter();
+        //this.sortByFilter();
         this.share.spinner.dismiss('active_four');
         this.backupList = res.data;
       },
@@ -240,14 +638,14 @@ export class LiveTractorListComponent implements OnInit {
         this.alltractorList = res?.data;
         this.allTractorsSrcList = res?.data;
         // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        this.sortByFilter();
+        //this.sortByFilter();
         this.share.spinner.dismiss('active_four');
         this.backupList = res.data;
       },
       (error: any) => {}
     );
   }
-  selectedStore: any;
+ 
   warehouseList: any = [];
   getWareHouseList(loader: any = false) {
     let staffDetails: any = this.share.get_staff();
@@ -264,12 +662,15 @@ export class LiveTractorListComponent implements OnInit {
         (res: any) => {
           this.warehouseList = res?.data;
           this.warehouseList = this.warehouseList.reverse();
-          this.checkStoreOnlyCondition();
+                    this.share.putUnAssignedInWareHouse(this.warehouseList);
+          this.share.putAllInWareHouse(this.warehouseList);
+         
           console.log('this.warehouseList', this.warehouseList);
           if (!loader) {
-            this.selectedStore = this.warehouseList[0]?.id;
+          //  this.selectedStore = this.warehouseList[0]?.id;
 
-            //  this.getAllTractorListStorewise();
+            this.getDataByFilter(true);
+          //  this.getAllTractorListStorewise();
             //   this.share.spinner?.dismiss();
           }
         },
@@ -287,76 +688,56 @@ export class LiveTractorListComponent implements OnInit {
     }
   }
   isStoreOnlyAccess = false;
-  checkStoreOnlyCondition() {
-    if (this.share.checkStoreOnlyAccess()) {
-      let allotedStore = this.staffDetails?.allotedStore;
-      let warehouseList: any = [];
-      this.warehouseList?.forEach((ware: any) => {
-        let checkIn = allotedStore?.find(
-          (store: any) => store.store_id == ware?.id
-        );
-        if (checkIn) {
-          let findI = this.warehouseList?.findIndex(
-            (wareIn: any) => wareIn?.id == ware?.id
-          );
-          warehouseList.push(ware);
-        }
-      });
-      this.listBy = 'STORE_WISE';
-      this.warehouseList = warehouseList;
-      this.selectedStore = this.warehouseList[0]?.id;
-      this.callListApi();
-    }
-  }
-  sortByFilter() {
-    this.alltractorList = this.allTractorsSrcList.filter(
-      (f: any) =>
-        f?.isSold == 1 &&
-        f?.sellingDetailedId &&
-        f?.sellingDetailedIdDetails?.isFinance == 1 &&
-        !f?.financeDetailedId
-    );
 
-    if (this.filterBy == 'ALL') {
-      this.alltractorList = JSON.parse(JSON.stringify(this.alltractorList));
-    } else if (this.filterBy == 'ARCHIVED') {
-      this.alltractorList = this.alltractorList.filter(
-        (f: any) => f.tractor_status == 'ARCHIVED'
-      );
-    } else if (this.filterBy == 'ACTIVE') {
-      this.alltractorList = this.alltractorList.filter(
-        (f: any) => f.tractor_status != 'ARCHIVED'
-      );
-    }
-  }
-  getAllTractorListStorewise(loader: any = false) {
-    let staffDetails: any = this.share.get_staff();
-    this.staffDetails = JSON.parse(staffDetails);
-    if (!this.selectedStore) {
-      this.selectedStore = this.warehouseList[0]?.id;
-    }
-    let obj = {
-      operate: this.staffDetails?.staffCode,
-      store_id: this.selectedStore,
-    };
-    //if (loader) {
-    this.share.showLoading('Loading...');
-    //}
+  // sortByFilter() {
+  //   this.alltractorList = this.allTractorsSrcList.filter(
+  //     (f: any) =>
+  //       f?.isSold == 1 &&
+  //       f?.sellingDetailedId &&
+  //       f?.sellingDetailedIdDetails?.isFinance == 1 &&
+  //       !f?.financeDetailedId
+  //   );
 
-    this.alltractorList = [];
-    this.api.postapi('getTractorsListStoreWise', obj).subscribe(
-      (res: any) => {
-        this.alltractorList = res?.data;
-        this.allTractorsSrcList = res?.data;
-        // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+  //   if (this.filterBy == 'ALL') {
+  //     this.alltractorList = JSON.parse(JSON.stringify(this.alltractorList));
+  //   } else if (this.filterBy == 'ARCHIVED') {
+  //     this.alltractorList = this.alltractorList.filter(
+  //       (f: any) => f.tractor_status == 'ARCHIVED'
+  //     );
+  //   } else if (this.filterBy == 'ACTIVE') {
+  //     this.alltractorList = this.alltractorList.filter(
+  //       (f: any) => f.tractor_status != 'ARCHIVED'
+  //     );
+  //   }
+  // }
+  // getAllTractorListStorewise(loader: any = false) {
+  //   let staffDetails: any = this.share.get_staff();
+  //   this.staffDetails = JSON.parse(staffDetails);
+  //   if (!this.selectedStore) {
+  //     this.selectedStore = this.warehouseList[0]?.id;
+  //   }
+  //   let obj = {
+  //     operate: this.staffDetails?.staffCode,
+  //     store_id: this.selectedStore,
+  //   };
+  //   //if (loader) {
+  //   this.share.showLoading('Loading...');
+  //   //}
 
-        this.sortByFilter();
-        this.share.spinner.dismiss();
-        this.backupList = res.data;
-      },
-      (error: any) => {}
-    );
-  }
+  //   this.alltractorList = [];
+  //   this.api.postapi('getTractorsListStoreWise', obj).subscribe(
+  //     (res: any) => {
+  //       this.alltractorList = res?.data;
+  //       this.allTractorsSrcList = res?.data;
+  //       // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
+
+  //       //this.sortByFilter();
+  //       this.share.spinner.dismiss();
+  //       this.backupList = res.data;
+  //     },
+  //     (error: any) => {}
+  //   );
+  // }
   async viewImage(tractor: any) {
     // const modal = await this.modalCtrl.create({
     //   component: ImageViewerComponent,

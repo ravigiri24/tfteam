@@ -32,6 +32,7 @@ import { ViewMaintainanceCostComponent } from './view-maintainance-cost/view-mai
 import { FindingReportsComponent } from './finding-reports/finding-reports.component';
 import { NewFindingReportComponent } from './new-finding-report/new-finding-report.component';
 import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tractor-sheet.component';
+import { MasterSheetAdvanceComponent } from './master-sheet-advance/master-sheet-advance.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -58,7 +59,8 @@ import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tract
     ViewMaintainanceCostComponent,
     FindingReportsComponent,
     NewFindingReportComponent,
-    BookedTractorSheetComponent
+    BookedTractorSheetComponent,
+    MasterSheetAdvanceComponent
   ],
   imports: [
    

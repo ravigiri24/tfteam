@@ -14,6 +14,37 @@
 <ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
   <form [formGroup]="form" *ngIf="form">
     <div class="margin-bottom-headline">
+      <span class="global-inner-heading">Customer Details</span>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Customer Name" fill="outline" labelPlacement="stacked" labelPlacement="stacked"
+        type="text" placeholder="Customer Name" formControlName="customerName"></ion-input>
+    </div>
+    <div class="global_input_block">
+      <ion-input label="Mobile Number" fill="outline" labelPlacement="stacked" type="number"
+        placeholder="Mobile Number" formControlName="mobileNo"></ion-input>
+    </div>
+     <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+  </div>
+  <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <span class="top_layers">City</span>
+    <span class="name_selected">{{cityName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+        </ion-select> -->
+  </div>
+      <div class="global_input_block">
+      <ion-input label="Village" fill="outline" labelPlacement="stacked" type="text"
+        placeholder="Village" formControlName="village"></ion-input>
+    </div>
+    <div class="margin-bottom-headline">
       <span class="global-inner-heading">Booking Details</span>
     </div>
     <div class="global_input_block">
@@ -27,6 +58,16 @@
         <div class="global_input_block">
       <ion-input label="Enter Booking Date" fill="outline" labelPlacement="stacked" type="date"
         placeholder="Enter Booking Date" formControlName="booking_date"></ion-input>
+    </div>
+        <div class="global_input_block">
+      <ion-select label="Type Of Sale" fill="outline" formControlName="sale_type" label-placement="type">
+        <ion-select-option  value="CASH">Cash</ion-select-option>
+        <ion-select-option  value="FINANCE">Finance</ion-select-option>
+      </ion-select>
+    </div>
+      <div class="global_input_block">
+      <ion-input label="Expected Date For Sale" fill="outline" labelPlacement="stacked" type="date"
+        placeholder="Expected Date For Sale" formControlName="expectedDateForSale"></ion-input>
     </div>
       <div class="global_input_block">
       <ion-textarea formControlName="remark" label="Remark" class="bg_white" fill="outline" labelPlacement="stacked"
