@@ -150,6 +150,18 @@ ion-modal {
     overflow: hidden;
   }
 }
+
+// ─── Large Modal ────────────────────────────────────────────────────────────
+ion-modal.modal-xl {
+  --width: 96%;
+  --height: 92%;
+  --max-width: 720px;
+  --border-radius: 16px;
+
+  &::part(content) {
+    border-radius: 16px;
+  }
+}
 // ───────────────────────────────────────────────────────────────────────────
 
 // ─── Modal Backdrop Overlay ────────────────────────────────────────────────
@@ -1871,23 +1883,29 @@ ion-searchbar {
   }
 }
 
+ion-modal.midium-model {
+  --width: 96%;
+  --height: 90%;
+  --border-radius: 16px;
+  --background: white;
+}
+
 @media (min-width: 768px) {
   ion-modal.midium-model {
     --width: 80%;
     --max-width: 1000px;
-    --border-radius: 10px;
+    --border-radius: 16px;
     --background: white;
     --height: calc(100vh - 40px);
     --max-height: calc(100vh - 40px);
   }
-
 }
 
 @media (min-width: 1200px) {
   ion-modal.midium-model {
     --width: 60%;
     --max-width: 1200px;
-    --border-radius: 10px;
+    --border-radius: 16px;
     --background: white;
     --height: calc(100vh - 40px);
     --max-height: calc(100vh - 40px);
