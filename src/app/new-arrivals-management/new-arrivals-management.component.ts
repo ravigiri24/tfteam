@@ -51,9 +51,8 @@ export class NewArrivalsManagementComponent implements OnInit {
  async viewPurchaseHistory(){
         const modal = await this.modalCtrl.create({
       component: ViewPurchaseHistoryComponent,
+      cssClass: 'midium-model',
       componentProps: {
-  
-
       },
     });
     await modal.present();
@@ -172,6 +171,7 @@ export class NewArrivalsManagementComponent implements OnInit {
   async searchTractor() {
     const modal = await this.modalCtrl.create({
       component: SearchTractorWithTfCodeComponent,
+      cssClass: 'midium-model',
       componentProps: {
         buttonArray: this.buttonArray,
         listColorClass: this.listColorClass,
@@ -179,7 +179,6 @@ export class NewArrivalsManagementComponent implements OnInit {
         searchFilter: this.search,
         searchKey: 'registractionNo',
         obj: { optionsUploadButtonArray: [] },
-        cssClass: 'midium-model',
       },
     });
     await modal.present();
