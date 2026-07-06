@@ -1,43 +1,76 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">Purchase History-{{tractorList?.length||0}}</span>
-      </div>
-         <div class="right_action">
-        <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
-    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
-      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding internal_card_container">
-  <form *ngIf="form" [formGroup]="form">
-    <div class="row top-position-body">
+<!-- ── Header ── -->
+<div class="vph-header">
+  <div class="vph-blob vb1"></div>
+  <div class="vph-blob vb2"></div>
 
-      <div class="col-md-6 col-6">
-        <div class="global_input_block">
-          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
-            type="date"></ion-input>
-        </div>
-      </div>
-      <div class="col-md-6 col-6">
-        <div class="global_input_block">
-          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
-            type="date"></ion-input>
-        </div>
-      </div>
-
+  <div class="vph-header-inner">
+    <div class="vph-header-icon">
+      <ion-icon name="document-text-outline"></ion-icon>
     </div>
-
-  </form>
-  <div class="row">
-      <ion-button (click)="getTractors()" class="global_submit_button">View</ion-button>
+    <div class="vph-header-text">
+      <span class="vph-title">Purchase History</span>
+      <span class="vph-sub">{{ tractorList?.length || 0 }} record{{ (tractorList?.length || 0) === 1 ? '' : 's' }} found</span>
+    </div>
+    <button class="vph-search-btn" (click)="searchTractor()">
+      <ion-icon name="search-outline"></ion-icon>
+    </button>
+    <button class="vph-close-btn" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
   </div>
-    <app-view-list *ngIf="tractorList?.length" [showImage]="false" [rowLineCount]="4" [listColorClass]="listColorClass"
-    [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="search"
-    (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+
+  <svg class="vph-wave" viewBox="0 0 400 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 Q100,24 200,12 Q300,0 400,18 L400,24 L0,24 Z" fill="#fff8e1"/>
+  </svg>
+</div>
+
+<!-- ── Content ── -->
+<ion-content class="vph-content">
+
+  <!-- Date Filter Card -->
+  <form *ngIf="form" [formGroup]="form">
+    <div class="vph-filter-card">
+      <div class="vph-filter-row">
+        <div class="vph-date-field">
+          <div class="global_input_block">
+            <ion-input label="Start Date *" fill="outline" formControlName="startDate"
+              labelPlacement="stacked" type="date"></ion-input>
+          </div>
+        </div>
+        <div class="vph-date-field">
+          <div class="global_input_block">
+            <ion-input label="End Date *" fill="outline" formControlName="endDate"
+              labelPlacement="stacked" type="date"></ion-input>
+          </div>
+        </div>
+        <button class="vph-view-btn" (click)="getTractors()">
+          <ion-icon name="eye-outline"></ion-icon>
+          <span>View</span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Results -->
+  <div class="vph-results-wrap" *ngIf="tractorList?.length">
+    <div class="vph-results-header">
+      <ion-icon name="layers-outline"></ion-icon>
+      <span>Tractor Records</span>
+      <span class="vph-count-badge">{{ tractorList?.length }}</span>
+    </div>
+    <app-view-list
+      [showImage]="false"
+      [rowLineCount]="4"
+      [listColorClass]="listColorClass"
+      [buttonArray]="buttonArray"
+      [keyList]="keyList"
+      [list]="tractorList"
+      [search]="search"
+      (actionEventCall)="actionEventCall($event)"
+      [searchKey]="'registractionNo'">
+    </app-view-list>
+  </div>
+
   <app-no-data-view *ngIf="!tractorList?.length && !share?.globalLoading"></app-no-data-view>
-    </ion-content>
+
+</ion-content>

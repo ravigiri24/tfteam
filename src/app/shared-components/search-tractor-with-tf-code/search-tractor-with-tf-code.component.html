@@ -1,43 +1,62 @@
-<ion-header [ngClass]="listColorClass">
-  <ion-toolbar class="top_heading">
-    <div class="left_text">Search Tractor</div>
-    <ion-buttons class="right_action" (click)="dismiss()" slot="end">
-      <ion-icon class="dynamic_color icon-size" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="internal_card_container ion-padding" [ngClass]="listColorClass">
-  <div class="search_with_btn select_option_with_add">
-    <ion-searchbar [(ngModel)]="search.tfCode" slot="fixed" placeholder="Enter TF Code Ex: TF-123"></ion-searchbar>
-    <ion-button class="dynamic_bgcolor" (click)="searchTractor()" expand="block">
-      <ion-icon class="icon-size" name="search-outline"></ion-icon>
-    </ion-button>
-  </div>
-  <!-- <span class="inner-heading-list top-margin-heading" *ngIf="tractorList?.length">Tractor</span> -->
-  <ion-card class="popup_search_container" *ngIf="tractorList?.length">
-    <app-view-list [listColorClass]="listColorClass"
-      [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="searchFilter"
-      (actionEventCall)="actionEvent($event)" [searchKey]="searchKey"></app-view-list>
-  </ion-card>
-  <!-- <ion-list class="list_row top-position scroll-body" *ngIf="tractorList?.length">
+<!-- ── Header ── -->
+<div class="st-header" [ngClass]="listColorClass">
+  <div class="st-blob sb1"></div>
+  <div class="st-blob sb2"></div>
 
-  <ion-item *ngFor="let tractor of tractorList;let in=index">
-      <ion-row>
-    <ion-label>
-      <h2 class="theme-color">{{tractor?.name}}</h2>
-      <p>{{tractor?.yearOfManufactoring}} | {{tractor?.registractionNo}} | {{tractor?.hours}} | {{tractor?.createdOn |
-        date }}</p>
-    </ion-label>
-    </ion-row>
-   
-              <ion-row *ngIf="buttonArray?.length">
-            
-                <ion-col *ngFor="let button of buttonArray">    
-                     <img (click)="actionEvent(tractor,button)" class="image-style " style="width: 60px;height: 50px; margin: 11px;" [src]="button?.image" />
-                   </ion-col>
-            
-             
-              </ion-row>
-  </ion-item>
-</ion-list> -->
+  <div class="st-header-inner">
+    <div class="st-header-icon">
+      <ion-icon name="search-circle-outline"></ion-icon>
+    </div>
+    <div class="st-header-text">
+      <span class="st-title">Search Tractor</span>
+      <span class="st-sub">Find tractor by TF Code</span>
+    </div>
+    <button class="st-close-btn" (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+
+  <svg class="st-wave" viewBox="0 0 400 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 Q100,24 200,12 Q300,0 400,18 L400,24 L0,24 Z" fill="#e0f2f1"/>
+  </svg>
+</div>
+
+<!-- ── Content ── -->
+<ion-content class="st-content" [ngClass]="listColorClass">
+
+  <!-- Search Card -->
+  <div class="st-search-card">
+    <div class="st-search-label">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <span>Enter TF Code</span>
+    </div>
+    <div class="st-search-row">
+      <ion-searchbar [(ngModel)]="search.tfCode"
+        placeholder="Ex: TF-123"
+        class="st-searchbar"
+        [debounce]="0"></ion-searchbar>
+      <button class="st-search-btn" (click)="searchTractor()">
+        <ion-icon name="search-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="st-results-card" *ngIf="tractorList?.length">
+    <div class="st-results-label">
+      <ion-icon name="list-outline"></ion-icon>
+      <span>Results Found</span>
+      <span class="st-results-count">{{ tractorList?.length }}</span>
+    </div>
+    <app-view-list
+      [listColorClass]="listColorClass"
+      [buttonArray]="buttonArray"
+      [keyList]="keyList"
+      [list]="tractorList"
+      [search]="searchFilter"
+      (actionEventCall)="actionEvent($event)"
+      [searchKey]="searchKey">
+    </app-view-list>
+  </div>
+
 </ion-content>
