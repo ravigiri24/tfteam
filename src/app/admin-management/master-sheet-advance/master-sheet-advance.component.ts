@@ -283,39 +283,85 @@ makePeroidArray() {
   //   this.convertBlobToBase64(blob, 'xlsx');
    
   // }
-  generateExcel() {
-  const element = document.getElementById('master-sheet-report');
 
-  const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-  const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+//   generateExcel() {
+//   const element = document.getElementById('master-sheet-report');
 
-  const wbout = XLSX.write(wb, {
-    bookType: 'xlsx',
-    type: 'array'
-  });
+//   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+//   const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-  const blob = new Blob(
-    [wbout],
-    {
+//   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+//   const wbout = XLSX.write(wb, {
+//     bookType: 'xlsx',
+//     type: 'array'
+//   });
+
+//   const blob = new Blob(
+//     [wbout],
+//     {
+//       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+//     }
+//   );
+
+//   const file = new File(
+//     [blob],
+//     'MasterSheet.xlsx',
+//     {
+//       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+//     }
+//   );
+
+//   this.uploadExcel(file);
+// }
+
+generateExcel() {
+
+  const div = document.getElementById('master-sheet-report');
+  const table = div?.querySelector('table') as HTMLTableElement;
+
+  if (!table) {
+    this.share.presentToast('Table not found');
+    return;
+  }
+
+  //this.share.presentToast('Rows: ' + table.rows.length);
+
+  try {
+
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    const wbout = XLSX.write(wb, {
+      bookType: 'xlsx',
+      type: 'array'
+    });
+
+    //this.share.presentToast('Array: ' + wbout.byteLength + ' bytes');
+
+    const blob = new Blob([wbout], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    }
-  );
+    });
 
-  const file = new File(
-    [blob],
-    'MasterSheet.xlsx',
-    {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    }
-  );
+   // this.share.presentToast('Blob: ' + blob.size + ' bytes');
 
-  this.uploadExcel(file);
+    this.uploadExcel(blob);
+
+  } catch (e: any) {
+    console.log(e);
+    this.share.presentToast('Excel Error : ' + e);
+  }
+
 }
-uploadExcel(file: File) {
-    let staffDetails: any = this.share.get_staff();
-    this.staffDetails = JSON.parse(staffDetails);
+uploadExcel(blob: Blob) {
+
+  let staffDetails: any = this.share.get_staff();
+  this.staffDetails = JSON.parse(staffDetails);
+
+  //this.share.presentToast('Upload Blob: ' + blob.size + ' bytes');
 
   const formData = new FormData();
 
@@ -327,24 +373,44 @@ uploadExcel(file: File) {
   formData.append('startDate', this.reportDatesRecord?.startDate);
   formData.append('endDate', this.reportDatesRecord?.endDate);
 
-  // Excel File
-  formData.append('file', file, file.name);
+  // Blob upload
+  formData.append(
+    'file',
+    blob,
+    'MasterSheet.xlsx'
+  );
 
   this.share.showLoading('Uploading Excel', 20000);
 
   this.api.postapi('savemastersheetAdvance', formData).subscribe(
+
     (res: any) => {
+
       this.share.spinner.dismiss();
+
+      this.share.presentToast('Upload Success');
+
+      console.log(res);
 
       if (res?.data?.imageUrlUrl) {
         this.pdfUrl = res.data.imageUrlUrl;
         this.openPDF(this.pdfUrl);
       }
+
     },
-    () => {
+
+    (err: any) => {
+
       this.share.spinner.dismiss();
+
+      console.log(err);
+
+      this.share.presentToast('Upload Failed');
+
     }
+
   );
+
 }
   srcPage: any;
   ionViewWillEnter() {

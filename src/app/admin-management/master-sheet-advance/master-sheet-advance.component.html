@@ -13,7 +13,9 @@
       expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding internal_card_container">
+ 
     <div class="filter-card">
     <p class="filter-card-title">Filters</p>
 
@@ -108,24 +110,24 @@
   <div class="row">
     <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
   </div>
-    <div *ngIf="tractorArray?.length && showData" class="margin-top">
-      <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
-    </div>
+     <!-- <div *ngIf="tractorArray?.length && showData" class="row">
+          <ion-button (click)="generateExcel()" class="global_submit_button">Generate Excel</ion-button>
+    
+    </div> -->
   <ng-container *ngIf="tractorArray?.length && showData">
     <hr />
   
-       <!-- <div class="excel-wrap">
+       <div class="excel-wrap">
         <ion-button (click)="generateExcel()" expand="block" class="excel-btn">
           <ion-icon slot="start" name="download-outline"></ion-icon>
           Export to Excel
         </ion-button>
-      </div> -->
+      </div>
+  
     <div class="scroll" *ngIf="tractorArray?.length && showData" id="master-sheet-report" class="top-margin scroll"
       style="width: 100%;">
-      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
-    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
-  </div> -->
-      <div class="stats-bar">
+          <ng-container *ngIf="tractorArray?.length && showData">
+          <div class="stats-bar">
         <div class="stat-card">
           <div class="stat-value">{{ tractorArray?.length }}</div>
           <div class="stat-label">Total Tractors</div>
@@ -252,6 +254,11 @@
         </div>
     
       </div>
+      </ng-container>
+      <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
+    <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
+  </div> -->
+    
          <!-- <div class="stats-bar">
          
           <div class="stat-card by-label">
