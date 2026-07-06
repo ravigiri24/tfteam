@@ -10,17 +10,19 @@ import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import pdfMake from 'pdfmake/build/pdfmake';
+import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 import * as XLSX from 'xlsx';
 
 import { jsPDF } from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs';
+import { CommonMethodService } from 'src/app/common-method.service';
 @Component({
   selector: 'app-master-sheet-advance',
   templateUrl: './master-sheet-advance.component.html',
   styleUrls: ['./master-sheet-advance.component.scss'],
 })
-export class MasterSheetAdvanceComponent  implements OnInit {
-
+export class MasterSheetAdvanceComponent implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     private formBuilder: FormBuilder,
@@ -29,6 +31,7 @@ export class MasterSheetAdvanceComponent  implements OnInit {
     private inAppBrowser: InAppBrowser,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private commonService:CommonMethodService
   ) {
     (window as any).pdfMake.vfs = pdfMake.vfs;
     pdfMake.fonts = {
@@ -43,6 +46,7 @@ export class MasterSheetAdvanceComponent  implements OnInit {
       },
     };
   }
+  selectedItem: any = 'YEARLY';
   initialize() {
     this.form = this.formBuilder.group({
       startDate: new FormControl(null, [Validators.required]),
@@ -50,35 +54,298 @@ export class MasterSheetAdvanceComponent  implements OnInit {
     });
     console.log('this.dateForm', this.form.value);
   }
+  openDetails(tractor:any){
+this.commonService.tractorSummaryDetails(tractor)
+  }
+  yearArray:any=[]
+makePeroidArray() {
+  const calculationYear = this.share.calculationYear;
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+
+  // Current Financial Year (Apr-Mar)
+  const currentFinancialYear =
+    currentDate.getMonth() >= 3
+      ? currentDate.getFullYear()
+      : currentDate.getFullYear() - 1;
+
+  // ===========================
+  // Year Array
+  // ===========================
+  this.yearArray = Array.from(
+    { length: currentYear - calculationYear + 1 },
+    (_, i) => {
+      const year = calculationYear + i;
+
+      return {
+        id: year,
+        name: `Year ${year}-${year + 1}`,
+        startDate: `${year}-04-01`,
+        endDate: `${year + 1}-03-31`
+      };
+    }
+  ).reverse();
+
+  this.yearArray.forEach((f: any) => {
+    const year = f.id;
+    const isCurrentFY = year === currentFinancialYear;
+
+    // ===========================
+    // Quarter Array
+    // ===========================
+    let quarterArray = [
+      {
+        id: `${year}-Q1`,
+        yearId: year,
+        quarterNo: 1,
+        name: `Q1 (Apr ${String(year).slice(-2)}-Jun ${String(year).slice(-2)})`,
+        startDate: `${year}-04-01`,
+        endDate: `${year}-06-30`
+      },
+      {
+        id: `${year}-Q2`,
+        yearId: year,
+        quarterNo: 2,
+        name: `Q2 (Jul ${String(year).slice(-2)}-Sep ${String(year).slice(-2)})`,
+        startDate: `${year}-07-01`,
+        endDate: `${year}-09-30`
+      },
+      {
+        id: `${year}-Q3`,
+        yearId: year,
+        quarterNo: 3,
+        name: `Q3 (Oct ${String(year).slice(-2)}-Dec ${String(year).slice(-2)})`,
+        startDate: `${year}-10-01`,
+        endDate: `${year}-12-31`
+      },
+      {
+        id: `${year}-Q4`,
+        yearId: year,
+        quarterNo: 4,
+        name: `Q4 (Jan ${String(year + 1).slice(-2)}-Mar ${String(year + 1).slice(-2)})`,
+        startDate: `${year + 1}-01-01`,
+        endDate: `${year + 1}-03-31`
+      }
+    ];
+
+    // Only current & past quarters for current FY
+    if (isCurrentFY) {
+      quarterArray = quarterArray.filter(q => new Date(q.startDate) <= currentDate);
+    }
+
+    f.quarter = quarterArray;
+
+    // ===========================
+    // Month Array
+    // ===========================
+    let monthArray: any[] = [];
+
+    const months = [
+      { name: 'April', month: 3 },
+      { name: 'May', month: 4 },
+      { name: 'June', month: 5 },
+      { name: 'July', month: 6 },
+      { name: 'August', month: 7 },
+      { name: 'September', month: 8 },
+      { name: 'October', month: 9 },
+      { name: 'November', month: 10 },
+      { name: 'December', month: 11 },
+      { name: 'January', month: 0 },
+      { name: 'February', month: 1 },
+      { name: 'March', month: 2 }
+    ];
+
+    months.forEach((m) => {
+      const actualYear = m.month >= 3 ? year : year + 1;
+
+      const monthNumber = String(m.month + 1).padStart(2, '0');
+      const lastDay = new Date(actualYear, m.month + 1, 0).getDate();
+
+      const monthData = {
+        id: `${actualYear}${monthNumber}`, // e.g. 202504
+        yearId: year,
+        monthNo: m.month + 1,
+        name: `${m.name} ${String(actualYear).slice(-2)}`,
+        startDate: `${actualYear}-${monthNumber}-01`,
+        endDate: `${actualYear}-${monthNumber}-${String(lastDay).padStart(2, '0')}`
+      };
+
+      // For current FY show only current/past months
+      if (!isCurrentFY || new Date(monthData.startDate) <= currentDate) {
+        monthArray.push(monthData);
+      }
+    });
+
+    f.monthArray = monthArray;
+  });
+
+  console.log(this.yearArray);
+
+  this.selectedYear = this.yearArray[0];
+  this.selectedItem = 'YEARLY';
+}
+  selectedMonth:any
+  selectQuarter:any
+   async selectItem(list: any, itemName: any, table_name: any) {
+      const modal = await this.modalCtrl.create({
+        component: SelectWithSearchComponent,
+        componentProps: {
+          list: list,
+          itemName: itemName,
+          table_name: table_name,
+          showAddButton: false,
+          otherObjects: null,
+          jsonKey: 'name',
+          search: {
+            name: null,
+          },
+        },
+      });
+      await modal.present();
+  
+      const { data, role } = await modal.onWillDismiss();
+  
+      if (data) {
+        //   this.newFindingForms.controls['dealerId'].setValue(data?.id);
+
+      if(itemName=='Year'){
+        this.selectedYear=data
+        this.selectQuarter=null;
+        this.selectedMonth=null;
+        console.log("this.selectedYear",this.selectedYear);
+        
+      }
+        if(itemName=='Quarter'){
+  
+        this.selectQuarter=data;
+        
+        this.selectedMonth=null;
+             console.log("this.selectQuarter",this.selectQuarter);
+      }
+        if(itemName=='Month'){
+  
+        this.selectQuarter=null;
+        this.selectedMonth=data;
+          console.log("this.selectedMonth",this.selectedMonth);
+      }
+  
+        //this.resetOtherValue()
+      }
+  
+  
+      if (role === 'confirm') {
+      }
+    }
+  getFilterElemnets(item: any) {
+    if (item === 'YEARLY') {
+      return { title: 'Year', selectedItem: null, };
+    } else if (item === 'QUARTERLY') {
+      return { title: 'Quarterly', selectedItem: null };
+    } else if (item === 'MONTHLY') {
+      return { title: 'Monthly', selectedItem: null };
+    } else if (item === 'DATE') {
+      return { title: 'Date', selectedItem: null };
+    }
+
+    return { title: '', selectedItem: null }; // Default return
+  }
+  selectedYear:any
+  selectedFilter: any = {};
+  selectFilter(item: any) {
+    this.selectedItem = item;
+    // let element = this.getFilterElemnets(item);
+
+    console.log("this.selectedFilter",this.selectedFilter);
+    
+  }
   form: FormGroup;
   dismiss() {
     return this.modalCtrl.dismiss(null);
   }
+  // generateExcel() {
+   
+  //   const element = document.getElementById('master-sheet-report');
+
+
+  //   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+ 
+  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+
+  //   const wbout: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+   
+  //   const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' });
+
+  
+  //   this.convertBlobToBase64(blob, 'xlsx');
+   
+  // }
   generateExcel() {
-    // Get the HTML content of the div you want to export
-    const element = document.getElementById('master-sheet-report');
+  const element = document.getElementById('master-sheet-report');
 
-    // Create a worksheet from the table
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+  const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-    // Create a new workbook with the generated worksheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    // Write the workbook as a binary string
-    const wbout: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const wbout = XLSX.write(wb, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
 
-    // Create a Blob object from the binary data
-    const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' });
+  const blob = new Blob(
+    [wbout],
+    {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    }
+  );
 
-    // Create a link to trigger the download
-    // const link = document.createElement('a');
-    //    link.href = URL.createObjectURL(blob);
-    //  link.download = 'generated_file.xlsx'; // Name of the file to be downloaded
-    this.convertBlobToBase64(blob, 'xlsx');
-    // Trigger the link click to download the file
-    // link.click();
-  }
+  const file = new File(
+    [blob],
+    'MasterSheet.xlsx',
+    {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    }
+  );
+
+  this.uploadExcel(file);
+}
+uploadExcel(file: File) {
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+  const formData = new FormData();
+
+  formData.append('operate', this.staffDetails?.staffCode);
+  formData.append('actionByid', this.staffDetails?.id);
+  formData.append('report_type', 'MASTER_SHEET');
+  formData.append('extension', 'xlsx');
+  formData.append('reparing_center', this.staffDetails?.repair_center);
+  formData.append('startDate', this.reportDatesRecord?.startDate);
+  formData.append('endDate', this.reportDatesRecord?.endDate);
+
+  // Excel File
+  formData.append('file', file, file.name);
+
+  this.share.showLoading('Uploading Excel', 20000);
+
+  this.api.postapi('savemastersheetAdvance', formData).subscribe(
+    (res: any) => {
+      this.share.spinner.dismiss();
+
+      if (res?.data?.imageUrlUrl) {
+        this.pdfUrl = res.data.imageUrlUrl;
+        this.openPDF(this.pdfUrl);
+      }
+    },
+    () => {
+      this.share.spinner.dismiss();
+    }
+  );
+}
   srcPage: any;
   ionViewWillEnter() {
     let staffDetails: any = this.share.get_staff();
@@ -94,43 +361,70 @@ export class MasterSheetAdvanceComponent  implements OnInit {
       this.srcPage = params?.srcPage;
     });
     this.initialize();
+    this.makePeroidArray()
+    //this.selectFilter(this.selectedFilter)
+
   }
   allDetails: any;
   tractorArray: any;
   showData = false;
+  selectedPeriod:any
   genrateReport() {
+this.resetValue()
     this.showData = false;
-    if (this.form.valid) {
+    let startDate:any
+    let endDate:any
+    if(this.selectedItem=='YEARLY'){
+          this.selectedPeriod=this.selectedYear
+   startDate=this.selectedYear?.startDate;
+   endDate=this.selectedYear?.endDate
+    }   else if(this.selectedItem=='QUARTERLY'){
+          this.selectedPeriod=this.selectQuarter
+   startDate=this.selectQuarter?.startDate;
+   endDate=this.selectQuarter?.endDate
+    }
+     else if(this.selectedItem=='MONTHLY'){
+          this.selectedPeriod=this.selectedMonth
+   startDate=this.selectedMonth?.startDate;
+   endDate=this.selectedMonth?.endDate
+    }
+    else if(this.selectedItem=='DATE'){
+ startDate=this.form.value.startDate
+ endDate=this.form.value.endDate
+ this.selectedPeriod={startDate:this.form.value.startDate,endDate:this.form.value.endDate}
+    }
+  
       if (
-        this.form.controls['startDate']?.value <=
-        this.form.controls['endDate']?.value
+        startDate <=
+        endDate
       ) {
         let obj: any = this.share.getListObj(
-          'getTractorSheetByDate',
+          'getTractorSheetByDateAdvance',
           false,
           [],
           true,
         );
 
-        obj.startDate = this.form.controls['startDate'].value;
-        obj.endDate = this.form.controls['endDate'].value;
-
-        this.share.showLoading('Fetching Report...');
+        obj.startDate =startDate;
+        obj.endDate = endDate;
+   //this.selectedPeriod.startDate='2025-04-01'
+        this.share.showLoading('Fetching Report...',20000);
         this.reportDatesRecord = obj;
-        this.api.postapi('getTractorSheetByDate', obj).subscribe(
+        this.api.postapi('getTractorSheetByDateAdvance', obj).subscribe(
           (res: any) => {
+                this.share.presentToast("Data Fetched please Wait")
             this.allDetails = res?.data;
             this.allDetails.spareList = this.allDetails.spareList.reverse();
             this.tractorArray = res?.data?.tractorList;
-            this.tractorArray?.forEach((f:any)=>{
-              if(f?.registractionNo){
-               const number = parseInt(f?.registractionNo?.split('-')[1], 10);
-                    f.tfCode=number
-              }else{
-                f.tfCode=100000
+            this.tractorArray?.forEach((f: any) => {
+              if (f?.registractionNo) {
+                const number = parseInt(f?.registractionNo?.split('-')[1], 10);
+                f.tfCode = number;
+              } else {
+                f.tfCode = 100000;
               }
-            })
-             this.tractorArray?.sort((a:any, b:any) => a?.tfCode - b?.tfCode);
+            });
+            this.tractorArray?.sort((a: any, b: any) => a?.tfCode - b?.tfCode);
             //this.tractorArray = this.tractorArray.reverse();
             this.tractorArray?.forEach((tractor: any) => {
               let logisticExpense: any = {};
@@ -196,19 +490,154 @@ export class MasterSheetAdvanceComponent  implements OnInit {
             console.log('tractorArray', this.tractorArray);
 
             this.share.spinner.dismiss();
+        
             setTimeout(() => {
               this.showData = true;
             }, 0);
+            
+            // caluclation regarding advance 
+            let purchasedTractor= this.tractorArray.filter((f: any) =>
+  new Date(f.reachDate) >= new Date(this.selectedPeriod.startDate) &&
+  new Date(f.reachDate) <= new Date(this.selectedPeriod.endDate)
+);
+      this.totalPurchaseNo=  purchasedTractor?.length||0
+      purchasedTractor?.forEach((pr:any)=>{
+    this.totalPurchaseAmount=Number(this.totalPurchaseAmount)+ Number(pr?.purchasedetail?.purchasePrice||0)
+      })
+            let saleTractorsAll= this.tractorArray.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)|| f?.isSoldToDealer==1 );
+           let saleTractorsPeriodAtStore=  saleTractorsAll.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)&&
+(  new Date(f.sellingDetailedIdDetails?.sellingDate) >= new Date(this.selectedPeriod.startDate) &&
+  new Date(f.sellingDetailedIdDetails?.sellingDate) <= new Date(this.selectedPeriod.endDate))
+);
+//console.log("saleTractorsAll.filter((f:any)=>f?.isSoldToDealer==1)",saleTractorsAll.filter((f:any)=>f?.isSoldToDealer==1),"aa",saleTractorsAll.filter((f:any)=>f?.isSoldToDealer==1 && !f?.dateOfDealerSale));
+// let notIndate= saleTractorsAll.filter((f: any) => ( f?.isSoldToDealer==1)&&
+// (  new Date(f.dateOfDealerSale) < new Date(this.selectedPeriod.startDate) ||
+//   new Date(f.dateOfDealerSale) > new Date(this.selectedPeriod.endDate))
+// );
+// console.log("notIndate",notIndate);
+
+this.totalSaleStoreNumberInp=saleTractorsPeriodAtStore?.length||0
+
+  let saleTractorsPeriodAtFranchise=  saleTractorsAll.filter((f: any) => ( f?.isSoldToDealer==1)&&
+(  new Date(f.dateOfDealerSale) >= new Date(this.selectedPeriod.startDate) &&
+  new Date(f.dateOfDealerSale) <= new Date(this.selectedPeriod.endDate))
+);
+this.totalSaleFranchiseNumberInp=saleTractorsPeriodAtFranchise?.length||0
+let saleTractorsPeriod = [...saleTractorsPeriodAtStore, ...saleTractorsPeriodAtFranchise];
+ saleTractorsPeriod?.forEach((f:any)=>{
+  this.totalPurchasePriceOfSoldTractorInPeriod=Number(this.totalPurchasePriceOfSoldTractorInPeriod)+Number(f.totalExpenseT||0)
+})
+this.totalSaleNumberInP=saleTractorsPeriod?.length ||0
+let storeSale=0;
+ saleTractorsPeriodAtStore?.forEach((sale:any)=>{
+  storeSale=Number(storeSale)+ Number(sale?.sellingDetailedIdDetails?.sellingPrice||0)
+      })
+ let saleInprofitAtStoreNumber=saleTractorsPeriodAtStore?.filter((f:any)=>f.sellingDetailedIdDetails?.sellingPrice>=f.totalExpenseT)?.length||0
+ let saleInlossAtStoreNumber=saleTractorsPeriodAtStore?.filter((f:any)=>f.sellingDetailedIdDetails?.sellingPrice<f.totalExpenseT)?.length||0
+
+ let saleInprofitAtFranciseNumber=saleTractorsPeriodAtFranchise?.filter((f:any)=>f?.dealerPrice>=f.totalExpenseT)?.length||0
+ let saleInlossAtFranchisNumber=saleTractorsPeriodAtFranchise?.filter((f:any)=>f?.dealerPrice<f.totalExpenseT)?.length||0
+this.saleInprofitNumber=saleInprofitAtStoreNumber+saleInprofitAtFranciseNumber
+this.saleInlossNumber=saleInlossAtStoreNumber+saleInlossAtFranchisNumber
+
+      this.totalSaleStoreAmountInp=storeSale
+      let franchiseSale=0;
+ saleTractorsPeriodAtFranchise?.forEach((sale:any)=>{
+  franchiseSale=Number(franchiseSale)+ Number(sale?.dealerPrice||0)
+      })
+       this.totalSaleFranchiseAmountInp=franchiseSale
+      this.totalSaleAmountInP=Number(franchiseSale)+Number(storeSale)
+let profitInPeriod=this.totalSaleAmountInP-this.totalPurchasePriceOfSoldTractorInPeriod
+    this.profitInPeriod=Number(((profitInPeriod).toFixed(2)) as any).toLocaleString('en-IN')
+    this.averageProfit=Number(Number(profitInPeriod)/Number(this.totalSaleNumberInP)).toFixed(2)
+     this.averageProfitPercent=Number((profitInPeriod/this.totalPurchasePriceOfSoldTractorInPeriod)*100).toFixed(2)
+   //unsold status 
+  let unSoldInPeriod= this.tractorArray?.filter((f:any)=>(f.isSold==0 && f?.isSoldToDealer==0) && (  new Date(f.reachDate) >= new Date(this.selectedPeriod.startDate) &&
+  new Date(f.reachDate) <= new Date(this.selectedPeriod.endDate)))  
+  this.totalUnsoleInperiod=unSoldInPeriod?.length||0
+  unSoldInPeriod?.forEach((f:any)=>{
+    this.totalUnsoldTractorAmountInperiod=Number(this.totalUnsoldTractorAmountInperiod)+Number(f?.purchasedetail?.purchasePrice||0)
+  })
+
+ 
+
+    let unSoldBeforePeriod = this.tractorArray.filter((f: any) =>
+ (f.isSold==0 && f?.isSoldToDealer==0) &&
+  new Date(f.reachDate) < new Date(this.selectedPeriod.startDate)
+);
+  this.totalUnsoldBeforePeriod=unSoldBeforePeriod?.length||0
+  unSoldBeforePeriod?.forEach((f:any)=>{
+    this.totalUnsoldTractorAmountBerfore=Number(this.totalUnsoldTractorAmountBerfore)+Number(f?.purchasedetail?.purchasePrice||0)
+  })
+
+this.totalUnsoldTractorAmount=(Number( this.totalUnsoldTractorAmountInperiod))+Number(this.totalUnsoldTractorAmountBerfore)
+this.totalUnsoldTractorNumber= this.totalUnsoldBeforePeriod+ this.totalUnsoleInperiod
           },
+
+
           (error: any) => {},
         );
       } else {
         this.share.presentToast('Error:End Date is less than Start Date');
       }
-    } else {
-      this.share.presentToast('Error:Please Fill Required(*) Fields');
-    }
+   
   }
+    totalPurchaseAmount:any=0
+  totalPurchaseNo:any=0
+  totalSaleNumberInP=0
+  totalSaleAmountInP=0
+
+  totalSaleStoreNumberInp=0
+  totalSaleStoreAmountInp=0
+   totalSaleFranchiseNumberInp=0
+  totalSaleFranchiseAmountInp=0
+
+  totalUnsoleInperiod=0
+  totalUnsoldBeforePeriod=0
+  totalUnsoldTractorAmount=0
+  totalUnsoldTractorAmountInperiod=0
+  totalUnsoldTractorAmountBerfore=0
+  totalUnsoldTractorNumber=0
+
+  totalPurchasePriceOfSoldTractorInPeriod=0
+  profitInPeriod:any=0
+  averageProfit:any=0
+  averageProfitPercent:any=0
+
+  saleInprofitNumber:any=0
+  saleInlossNumber:any=0
+
+  resetValue(){
+    this.totalPurchaseAmount=0
+    this.totalPurchaseNo=0
+    this.totalSaleNumberInP=0
+    this.totalSaleAmountInP=0
+
+      this.totalSaleStoreNumberInp=0
+  this.totalSaleStoreAmountInp=0
+   this.totalSaleFranchiseNumberInp=0
+  this.totalSaleFranchiseAmountInp=0
+
+
+   this.totalUnsoleInperiod=0
+  this.totalUnsoldBeforePeriod=0
+  this.totalUnsoldTractorAmountInperiod=0
+  this.totalUnsoldTractorAmountBerfore=0
+  this.totalUnsoldTractorNumber=0
+
+  this.totalPurchasePriceOfSoldTractorInPeriod=0
+  this.profitInPeriod=0
+  this.averageProfit=0
+  this.averageProfitPercent=0
+
+
+      this.saleInprofitNumber=0
+  this.saleInlossNumber=0
+  }
+  getTractorsOnPeriod(tractorArray:any){
+    return tractorArray.filter((f:any)=>this.selectedPeriod.startDate>=f.reachDate && this.selectedPeriod.startDate>=f.reachDate)
+  }
+
   totalSellingCost: any = 0;
   calculateRepairCost(tractor: any) {
     //service
@@ -402,5 +831,4 @@ export class MasterSheetAdvanceComponent  implements OnInit {
     // this.error = dataUrl;
     browser.show();
   }
-
 }

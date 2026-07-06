@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Master Sheet</span>
+  
+          <p class="filter-card-title">Master Sheet</p>
       </div>
       <div class="right_action">
         <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
@@ -13,7 +14,57 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding internal_card_container">
-  <form *ngIf="form" [formGroup]="form">
+    <div class="filter-card">
+    <p class="filter-card-title">Filters</p>
+
+    <!-- Status chips -->
+    <span class="field-label">Period</span>
+    <div class="status-row">
+        <div class="status-chip open" [class.active]="selectedItem === 'YEARLY'" (click)="selectFilter('YEARLY')">
+        Yearly
+      </div>
+      <div class="status-chip open" [class.active]="selectedItem === 'QUARTERLY'" (click)="selectFilter('QUARTERLY')">
+        Quarterly
+      </div>
+      <div class="status-chip approved" [class.active]="selectedItem === 'MONTHLY'" (click)="selectFilter('MONTHLY')">
+        Monthly
+      </div>
+      <div class="status-chip rejected" [class.active]="selectedItem === 'DATE'" (click)="selectFilter('DATE')">
+        BY Date
+      </div>
+    </div>
+    <ng-container *ngIf="selectedItem=='YEARLY'||selectedItem=='QUARTERLY' || selectedItem=='MONTHLY'">
+  <span class="field-label">Select Year</span>
+    <div class="dealer-selector" (click)="selectItem(yearArray,'Year','')">
+      <span class="dealer-name" >
+        {{ selectedYear?.name || 'Select Year'}}
+      </span>
+      <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
+    </div>
+
+ </ng-container>
+   <ng-container *ngIf="selectedItem=='QUARTERLY'">
+  <span class="field-label">Select Quarter</span>
+    <div class="dealer-selector" (click)="selectItem(selectedYear?.quarter,'Quarter','')">
+      <span class="dealer-name" >
+        {{ selectQuarter?.name || 'Select Quarter'}}
+      </span>
+      <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
+    </div>
+
+ </ng-container>
+   <ng-container *ngIf="selectedItem=='MONTHLY'">
+  <span class="field-label">Select Month</span>
+    <div class="dealer-selector" (click)="selectItem(selectedYear?.monthArray,'Month','')">
+      <span class="dealer-name" >
+        {{ selectedMonth?.name || 'Select Month'}}
+      </span>
+      <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
+    </div>
+
+ </ng-container>
+    <ng-container *ngIf="selectedItem=='DATE'">
+   <form *ngIf="form" [formGroup]="form">
     <div class="row top-position-body">
 
       <div class="col-md-6 col-6">
@@ -32,57 +83,193 @@
     </div>
 
   </form>
+  </ng-container>
+  </div>
+ 
+  <!-- <form *ngIf="form" [formGroup]="form">
+    <div class="row top-position-body">
+
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="Start Date *" fill="outline" formControlName="startDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+      <div class="col-md-6 col-6">
+        <div class="global_input_block">
+          <ion-input label="End Date *" fill="outline" formControlName="endDate" labelPlacement="stacked"
+            type="date"></ion-input>
+        </div>
+      </div>
+
+    </div>
+
+  </form> -->
   <div class="row">
     <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
   </div>
-  <ng-container *ngIf="tractorArray?.length && showData">
-    <hr />
-    <div class="margin-top">
+    <div *ngIf="tractorArray?.length && showData" class="margin-top">
       <ion-button (click)="generateExcel()" class="global_submit_button" expand="block">Generate Excel</ion-button>
     </div>
+  <ng-container *ngIf="tractorArray?.length && showData">
+    <hr />
+  
+       <!-- <div class="excel-wrap">
+        <ion-button (click)="generateExcel()" expand="block" class="excel-btn">
+          <ion-icon slot="start" name="download-outline"></ion-icon>
+          Export to Excel
+        </ion-button>
+      </div> -->
     <div class="scroll" *ngIf="tractorArray?.length && showData" id="master-sheet-report" class="top-margin scroll"
       style="width: 100%;">
       <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
   </div> -->
-      <table cellpadding="5" cellspacing="5" style="width: 100%;">
-        <tbody>
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">{{ tractorArray?.length }}</div>
+          <div class="stat-label">Total Tractors</div>
+        </div>
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ staffDetails?.name }}</div>
+          <div class="stat-label">Printed By</div>
+        </div>
+      </div>
+    <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">{{selectedPeriod?.name}}({{selectedPeriod?.startDate|date}}-{{selectedPeriod?.endDate|date}})</div>
+          <div class="stat-label">Period</div>
+        </div>
+        <!-- <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ averageProfit}}</div>
+          <div class="stat-label">Average Profit</div>
+        </div> -->
+      </div>
+           <div class="stats-bar">
+             <div class="stat-card">
+          <div class="stat-value">{{ totalPurchaseNo | number:'1.0-0'}}</div>
+          <div class="stat-label">Total Purchase(No.)(In Period)</div>
+        </div>
+ 
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ totalPurchaseAmount | number:'1.0-0' }}</div>
+          <div class="stat-label">Total Purchase Amount(In Period)</div>
+        </div>
+      </div>
+       <div class="stats-bar">
+             <div class="stat-card">
+          <div class="stat-value">{{ totalSaleNumberInP | number:'1.0-0'}}</div>
+          <div class="stat-label">Total Sold(No.)(In Period)</div>
+        </div>
+ 
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ totalSaleAmountInP | number:'1.0-0' }}</div>
+          <div class="stat-label">Total Sold Amount(In Period)
+        </div>
+      </div>
+      </div>
+           <div class="stats-bar">
+             <div class="stat-card">
+          <div class="stat-value">{{ totalSaleStoreNumberInp | number:'1.0-0'}}</div>
+          <div class="stat-label">Store Sale(No.)(In Period)</div>
+        </div>
+ 
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ totalSaleStoreAmountInp | number:'1.0-0' }}</div>
+          <div class="stat-label">Store Sale Amount(In Period)
+        </div>
+      </div>
+      </div>
+          <div class="stats-bar">
+             <div class="stat-card">
+          <div class="stat-value">{{ totalSaleFranchiseNumberInp | number:'1.0-0'}}</div>
+          <div class="stat-label">Franchise Sale(No.)(In Period)</div>
+        </div>
+ 
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ totalSaleFranchiseAmountInp | number:'1.0-0' }}</div>
+          <div class="stat-label">Franchise Sale Amount(In Period)
+        </div>
+      </div>
+      </div>
+              <div class="stats-bar">
+         <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ totalUnsoleInperiod }}</div>
+          <div class="stat-label">Total Unsold(No.)(In Period)</div>
+        </div>
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ totalUnsoldTractorAmountInperiod}}</div>
+          <div class="stat-label">Total Unsold(Amount)(In Period)</div>
+        </div>
+      </div>
+          <div class="stats-bar">
+         <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{totalUnsoldBeforePeriod }}</div>
+          <div class="stat-label">Total Unsold Before Period(No.)</div>
+        </div>
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{totalUnsoldTractorAmountBerfore }}</div>
+          <div class="stat-label">Total Unsold Before Period Amount</div>
+        </div>
+      </div>
+        <div class="stats-bar">
+         <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{totalUnsoldTractorNumber }}</div>
+          <div class="stat-label">Total Unsold(No.)(All)</div>
+        </div>
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{totalUnsoldTractorAmount }}</div>
+          <div class="stat-label">Total Unsold Amount (All)</div>
+        </div>
+      </div>
+       <div class="stats-bar">
+       
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ profitInPeriod}}</div>
+          <div class="stat-label">Profit/loss</div>
+        </div>
+      </div>
 
-          <tr>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Total
-              Tractor
-            </th>
-            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{tractorArray?.length}}</td>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Print By
-            </th>
-            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{staffDetails?.name}}</td>
-
-          </tr>
-          <tr>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Start Date
-            </th>
-            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.startDate}}</td>
-            <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">End Date
-            </th>
-            <td style="border: 1px solid #ddd;padding: 5px 10px;">{{reportDatesRecord?.endDate}}</td>
-
-          </tr>
-          <!-- <tr>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;">Report Type</th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;">{{this.searchBy}}</td>
-        <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px;font-weight: 500;"></th>
-        <td style="border: 1px solid #ddd;padding: 5px 10px;"></td>
+            <div class="stats-bar">
+         <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ averageProfit }}</div>
+          <div class="stat-label">Average Profit</div>
+        </div>
+           <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ averageProfitPercent}}</div>
+          <div class="stat-label">Profit(%)</div>
+        </div>
       
-      </tr> -->
-
-
-        </tbody>
-      </table>
+      </div>
+          <div class="stats-bar">
+              <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ saleInprofitNumber }}</div>
+          <div class="stat-label">Profit  In Tractor(No.)</div>
+        </div>
+         <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ saleInlossNumber }}</div>
+          <div class="stat-label">Loss(No.) In Tractor </div>
+        </div>
+    
+      </div>
+         <!-- <div class="stats-bar">
+         
+          <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ staffDetails?.name }}</div>
+          <div class="stat-label">No Of Booking </div>
+        </div>
+       
+      </div> -->
+      <!-- Excel export -->
+   
+   
       <h2 style="text-align: center;margin: 10px 0px;">Master Sheet</h2>
       <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
         <tbody>
           <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
+            </th>
+               <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">Details
             </th>
             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">
               Inventory
@@ -232,6 +419,10 @@
           <tr *ngFor="let tractor of tractorArray;let tracIndex=index"
             style="border: 1px solid #e1e1e1;text-align: left">
             <td style="text-align: center;">{{tracIndex+1}}</td>
+          <td>
+                <img class="img-btn" (click)="openDetails(tractor)"
+                  src="./././assets/images/data-analysis.png" />
+              </td>
             <td style="text-align: center;">{{tractor?.registractionNo}}</td>
             <td style="padding: 5px 10px;">{{tractor?.franchiseDettails?.name}}</td>
             <td style="padding: 5px 10px;">{{tractor?.brandName}}</td>

@@ -16,6 +16,7 @@ export class ShareService {
   activeCurrent: any = null;
   showFooter = true;
   totalCount:any=0
+  calculationYear=2025
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,
