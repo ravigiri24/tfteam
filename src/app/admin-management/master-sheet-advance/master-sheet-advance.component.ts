@@ -560,17 +560,19 @@ this.resetValue()
             setTimeout(() => {
               this.showData = true;
             }, 0);
-            
-            // caluclation regarding advance 
+         // caluclation regarding advance 
             let purchasedTractor= this.tractorArray.filter((f: any) =>
   new Date(f.reachDate) >= new Date(this.selectedPeriod.startDate) &&
   new Date(f.reachDate) <= new Date(this.selectedPeriod.endDate)
 );
+ 
+      
+
       this.totalPurchaseNo=  purchasedTractor?.length||0
       purchasedTractor?.forEach((pr:any)=>{
     this.totalPurchaseAmount=Number(this.totalPurchaseAmount)+ Number(pr?.purchasedetail?.purchasePrice||0)
       })
-            let saleTractorsAll= this.tractorArray.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)|| f?.isSoldToDealer==1 );
+            let saleTractorsAll= this.tractorArray.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)|| (f?.isSoldToDealer==1 || f?.isSoldToDealer=='1') );
            let saleTractorsPeriodAtStore=  saleTractorsAll.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)&&
 (  new Date(f.sellingDetailedIdDetails?.sellingDate) >= new Date(this.selectedPeriod.startDate) &&
   new Date(f.sellingDetailedIdDetails?.sellingDate) <= new Date(this.selectedPeriod.endDate))
@@ -584,9 +586,16 @@ this.resetValue()
 
 this.totalSaleStoreNumberInp=saleTractorsPeriodAtStore?.length||0
 
-  let saleTractorsPeriodAtFranchise=  saleTractorsAll.filter((f: any) => ( f?.isSoldToDealer==1)&&
-(  new Date(f.dateOfDealerSale) >= new Date(this.selectedPeriod.startDate) &&
-  new Date(f.dateOfDealerSale) <= new Date(this.selectedPeriod.endDate))
+  let saleTractorsPeriodAtFranchise=  saleTractorsAll.filter((f: any) =>{
+    
+
+
+  return (
+    Number(f.isSoldToDealer) === 1 &&
+    f.dateOfDealerSale >= this.selectedPeriod.startDate &&
+    f.dateOfDealerSale <= this.selectedPeriod.endDate
+  );
+  }
 );
 this.totalSaleFranchiseNumberInp=saleTractorsPeriodAtFranchise?.length||0
 let saleTractorsPeriod = [...saleTractorsPeriodAtStore, ...saleTractorsPeriodAtFranchise];
