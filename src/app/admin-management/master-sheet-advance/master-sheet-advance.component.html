@@ -1,23 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-  
-          <p class="filter-card-title">Master Sheet</p>
-      </div>
-      <div class="right_action">
-        <ion-icon (click)="backToDashboard()" name="arrow-back-outline"></ion-icon>
-      </div>
-    </ion-label>
-    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
-      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+<ion-header class="master-header">
+  <ion-toolbar class="master-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" class="back-button" (click)="backToDashboard()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="toolbar-title">Master Sheet</span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding internal_card_container">
- 
-    <div class="filter-card">
-    <p class="filter-card-title">Filters</p>
+<ion-content class="master-content">
+  <section class="hero-panel">
+    <div>
+      <p class="hero-kicker">Inventory intelligence</p>
+      <h1>Master Sheet</h1>
+      <p class="hero-copy">Generate period-wise tractor inventory, purchase, sale, and profit summaries.</p>
+    </div>
+  </section>
+
+  <section class="filter-card">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">Filters</p>
+        <h2>Choose report period</h2>
+      </div>
+    </div>
 
     <!-- Status chips -->
     <span class="field-label">Period</span>
@@ -86,7 +95,14 @@
 
   </form>
   </ng-container>
-  </div>
+
+    <div class="generate-wrap">
+      <ion-button (click)="genrateReport()" expand="block" class="generate-btn">
+        <ion-icon slot="start" name="analytics-outline"></ion-icon>
+        Generate Report
+      </ion-button>
+    </div>
+  </section>
  
   <!-- <form *ngIf="form" [formGroup]="form">
     <div class="row top-position-body">
@@ -107,26 +123,26 @@
     </div>
 
   </form> -->
-  <div class="row">
-    <ion-button (click)="genrateReport()" class="global_submit_button">Generate</ion-button>
-  </div>
      <!-- <div *ngIf="tractorArray?.length && showData" class="row">
           <ion-button (click)="generateExcel()" class="global_submit_button">Generate Excel</ion-button>
     
     </div> -->
   <ng-container *ngIf="tractorArray?.length && showData">
-    <hr />
-  
-       <div class="excel-wrap">
-        <ion-button (click)="generateExcel()" expand="block" class="excel-btn">
+    <section class="results-section">
+      <div class="results-heading">
+        <div>
+          <p class="section-kicker">Report output</p>
+          <h2>Summary and sheet preview</h2>
+        </div>
+        <ion-button (click)="generateExcel()" class="excel-btn">
           <ion-icon slot="start" name="download-outline"></ion-icon>
-          Export to Excel
+          Export
         </ion-button>
       </div>
-  
-    <div class="scroll" *ngIf="tractorArray?.length && showData" id="master-sheet-report" class="top-margin scroll"
-      style="width: 100%;">
+
+    <div class="report-shell" *ngIf="tractorArray?.length && showData" id="master-sheet-report">
           <ng-container *ngIf="tractorArray?.length && showData">
+            <div class="summary-grid">
           <div class="stats-bar">
         <div class="stat-card">
           <div class="stat-value">{{ tractorArray?.length }}</div>
@@ -138,7 +154,7 @@
         </div>
       </div>
     <div class="stats-bar">
-        <div class="stat-card">
+        <div class="stat-card period-card">
           <div class="stat-value">{{selectedPeriod?.name}}({{selectedPeriod?.startDate|date}}-{{selectedPeriod?.endDate|date}})</div>
           <div class="stat-label">Period</div>
         </div>
@@ -254,6 +270,7 @@
         </div>
     
       </div>
+      </div>
       </ng-container>
       <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
@@ -270,8 +287,9 @@
       <!-- Excel export -->
    
    
-      <h2 style="text-align: center;margin: 10px 0px;">Master Sheet</h2>
-      <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+      <h2 class="table-title">Master Sheet</h2>
+      <div class="table-scroll-container">
+      <table class="master-table" cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
         <tbody>
           <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
             <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">S.No
@@ -552,6 +570,8 @@
 
         </tbody>
       </table>
+      </div>
     </div>
+    </section>
   </ng-container>
 </ion-content>
