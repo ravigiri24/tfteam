@@ -435,8 +435,8 @@
             <td style="padding: 5px 10px;">{{tractor?.brandName}}</td>
             <td style="padding: 5px 10px;">{{tractor?.modalName}}</td>
             <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.typeOfPurchaseDetails?.name}}</td>
-            <td style="padding: 5px 10px;"><span *ngIf="tractor?.isSold==1">Sold</span><span
-                *ngIf="tractor?.isSold==0 || tractor?.isSold==null">Un-Sold</span></td>
+            <td style="padding: 5px 10px;"><span *ngIf="(tractor?.isSold==1) || tractor?.isSoldToDealer==1 ">Sold</span><span
+                *ngIf="(tractor?.isSold==0 || tractor?.isSold==null) && tractor?.isSoldToDealer==0">Un-Sold</span></td>
             <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.registrationNumber}}</td>
             <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.engineNumber}}</td>
             <td style="padding: 5px 10px;">{{tractor?.purchasedetail?.chasisNumber}}</td>
@@ -522,7 +522,8 @@
             <td style="padding: 5px 10px;">{{tractor?.financeDetails?.second_disbursal_date||'0'}}</td>
             <td style="padding: 5px 10px;">{{tractor?.financeDetails?.net_market||'0'}}</td>
             <td style="padding: 5px 10px;">{{tractor?.financeDetails?.outstanding ||'0'}}</td>
-            <td style="padding: 5px 10px;">{{tractor?.sellingDetailedIdDetails?.sellingDate||''}}</td>
+            <td style="padding: 5px 10px;"><span *ngIf="tractor?.isSoldToDealer==0">{{tractor?.sellingDetailedIdDetails?.sellingDate||''}}</span><span *ngIf="tractor?.isSoldToDealer==1">{{tractor?.dateOfDealerSale||''}}</span></td>
+
 
             <!-- <td style="padding: 5px 10px;">{{cus?.socialType}}</td>
         <td style="padding: 5px 10px;">{{cus?.lastDemand?.demand ||'-'}}</td>

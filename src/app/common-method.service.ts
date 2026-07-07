@@ -261,7 +261,7 @@ export class CommonMethodService {
       componentProps: {
         tractor_id: tractor?.id,
       },
-      cssClass: 'custom-modal',
+      cssClass: 'midium-model',
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
