@@ -1,34 +1,51 @@
 <ion-header [ngClass]="listColorClass">
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span *ngIf="!data" class="selected_text">Add New Arrivals</span>
-        <span *ngIf="data" class="selected_text">Update</span>
+  <ion-toolbar class="arrival-toolbar">
+    <ion-label class="top_heading arrival-heading">
+      <div class="left_text arrival-title-block">
+        <span class="arrival-kicker">Purchase Management</span>
+        <span *ngIf="!data" class="selected_text">Add New Arrival</span>
+        <span *ngIf="data" class="selected_text">Update Arrival</span>
       </div>
       <div class="right_action">
-        <ion-icon (click)="backToNewArrivals()" name="arrow-back-outline"></ion-icon>
+        <button class="arrival-back-button" type="button" (click)="backToNewArrivals()" aria-label="Back to new arrivals">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
       </div>
     </ion-label>
     <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
       expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding" [ngClass]="listColorClass">
-  <div *ngIf="isForm">
+<ion-content class="arrival-content" [ngClass]="listColorClass">
+  <div *ngIf="isForm" class="arrival-page-shell">
+    <div class="arrival-hero">
+      <div>
+        <span class="arrival-hero-label">New stock entry</span>
+        <h1 *ngIf="!data">Capture tractor arrival details</h1>
+        <h1 *ngIf="data">Update tractor arrival details</h1>
+        <p>Choose the model, confirm key specifications, then complete purchase information.</p>
+      </div>
+      <div class="arrival-hero-icon">
+        <ion-icon name="car-sport-outline"></ion-icon>
+      </div>
+    </div>
+
+    <div class="arrival-card">
     <ion-tabs class="inner-tabs">
       <ion-tab-bar slot="top">
         <ion-tab-button *ngIf="!rowCode" (click)="goToPage('MODEL')" [ngClass]="{'selected_tab':selectedTab==='MODEL'}"
           tab="MODEL">
-          <span class="tabs"> Select
-            Model</span>
+          <span class="tab-number">1</span>
+          <span class="tabs">Select Model</span>
         </ion-tab-button>
         <ion-tab-button (click)="goToPage('BASIC_INFO')" [ngClass]="{'selected_tab':selectedTab==='BASIC_INFO'}"
           tab="BASIC_INFO">
-          <span class="tabs">Basic
-            Info</span>
+          <span class="tab-number">{{rowCode ? '1' : '2'}}</span>
+          <span class="tabs">Basic Info</span>
         </ion-tab-button>
         <ion-tab-button *ngIf="!isStockEntry" (click)="goToPage('PURCHASE_DETAILES')"
           [ngClass]="{'selected_tab':selectedTab==='PURCHASE_DETAILES'}" tab="PURCHASE_DETAILES">
+          <span class="tab-number">{{rowCode ? '2' : '3'}}</span>
           <span class="tabs">Purchase Details</span>
         </ion-tab-button>
       </ion-tab-bar>
@@ -65,15 +82,21 @@
       </ion-content>
     </ng-container> -->
     </div>
-  </div>
-  <div *ngIf="!isForm">
-    <div class="block">
-      <span class="succes-tag-line">Great! You've successfully added a new tractor. </span>
     </div>
-    <div class=" block">
+  </div>
+  <div *ngIf="!isForm" class="arrival-success-shell">
+    <div class="arrival-success-card">
+    <div class="success-icon-ring">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+    </div>
+    <div class="block">
+      <span class="succes-tag-line">Great! You've successfully added a new tractor.</span>
+      <span class="success-subtitle">You can upload supporting screenshots now or return to the arrivals list.</span>
+    </div>
+    <div class="block">
       <img class="image-style" src="././assets/images/tractorsuccess.png" />
     </div>
-    <div class="row top-position">
+    <div class="row top-position success-actions">
       <div class="col-md-6 col-6">
         <ion-button (click)="goToNewArrivals()" class="global_submit_button">
           {{buttonRouted}}</ion-button>
@@ -82,6 +105,7 @@
         <ion-button (click)="goToUplodeSection()" class="global_submit_button">
           Next</ion-button>
       </div>
+    </div>
     </div>
   </div>
 </ion-content>
