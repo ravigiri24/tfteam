@@ -1,3 +1,86 @@
+<div class="ce-redesign">
+  <div class="ce-header">
+    <div class="ce-header-art" aria-hidden="true">
+      <span class="ce-orb ce-orb-one"></span>
+      <span class="ce-orb ce-orb-two"></span>
+      <span class="ce-dot ce-dot-one"></span>
+      <span class="ce-dot ce-dot-two"></span>
+      <span class="ce-dot ce-dot-three"></span>
+    </div>
+
+    <div class="ce-header-content">
+      <div class="ce-header-icon">
+        <ion-icon name="calculator-outline"></ion-icon>
+      </div>
+      <div class="ce-header-text">
+        <h2>Cost Estimation</h2>
+        <p>Track projected expenses for this tractor</p>
+      </div>
+      <button class="ce-close-btn" type="button" (click)="dismiss()" aria-label="Close cost estimation">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <svg class="ce-header-wave" viewBox="0 0 400 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,2 Q95,26 200,14 Q305,2 400,18 L400,28 L0,28 Z" fill="#f7f0ff" />
+    </svg>
+  </div>
+
+  <ion-content class="ce-content">
+    <div class="ce-shell">
+      <div class="ce-summary-card">
+        <div class="ce-summary-left">
+          <span class="ce-summary-label">Estimated Total</span>
+          <strong>₹ {{totalAmount || 0}}</strong>
+        </div>
+        <div class="ce-summary-count">
+          <span>{{listData?.length || 0}}</span>
+          <small>Items</small>
+        </div>
+      </div>
+
+      <div class="ce-action-row">
+        <button class="ce-action-btn ce-add-btn" type="button" (click)="showModal()">
+          <ion-icon name="add-outline"></ion-icon>
+          <span>Add Cost</span>
+        </button>
+        <button class="ce-action-btn ce-refresh-btn" type="button" (click)="getList()">
+          <ion-icon name="refresh-outline"></ion-icon>
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <div class="ce-section">
+        <div class="ce-section-label">
+          <ion-icon name="receipt-outline"></ion-icon>
+          <span>Cost Breakdown</span>
+        </div>
+
+        <ion-list class="ce-list" *ngIf="listData?.length">
+          <ion-item class="ce-item" *ngFor="let row of listData;let in=index">
+            <ion-label>
+              <h2>{{row?.name}}</h2>
+              <p>₹ {{row?.cost_value || 0}}</p>
+            </ion-label>
+            <button class="ce-edit-btn" type="button" (click)="showModal(row)" aria-label="Edit cost item">
+              <ion-icon name="create-outline"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
+
+        <div class="ce-empty" *ngIf="!listData?.length">
+          <div class="ce-empty-icon">
+            <ion-icon name="receipt-outline"></ion-icon>
+          </div>
+          <h3>No cost added yet</h3>
+          <p>Add the first estimate to start building the cost summary.</p>
+          <button class="ce-empty-btn" type="button" (click)="showModal()">Add Cost</button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</div>
+
 <!-- <ion-header>
   <ion-toolbar>
     <div class="left-margin">

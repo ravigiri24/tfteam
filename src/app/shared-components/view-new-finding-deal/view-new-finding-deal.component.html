@@ -5,7 +5,9 @@
         <span class="selected_text">View Finding Details</span>
       </div>
       <div class="right_action">
-        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        <button class="vfd-close-btn" type="button" (click)="dismiss()" aria-label="Close details">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
       </div>
     </ion-label>
   </ion-toolbar>
@@ -150,6 +152,7 @@
       </ion-row>
     </ion-card>
   </ion-grid>
+  <div class="vfd-bottom-spacer" aria-hidden="true"></div>
   <!-- <div class="margin-bottom-headline">
     <span class="global-inner-heading">Analyse</span>
   </div>
