@@ -137,6 +137,7 @@ this.deleteItem(e?.tractor)
     // { key: 'Staus', value: 'tractor_status', type: 'INPUT' },
     { key: 'Registration Number', value: 'regNumber', type: 'INPUT' },
     { key: 'Chasis Number', value: 'chassisNumber', type: 'INPUT' },
+  { key: 'Is Reopend', value: 'isReopened', type: 'CONDITIONAL' },
     { key: 'Hours', value: 'hours', type: 'INPUT' },
     { key: 'Repair Type', value: 'repair_type', type: 'INPUT' },
     { key: 'Registered Date', value: 'createdOn', type: 'DATE' },

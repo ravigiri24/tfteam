@@ -2,6 +2,14 @@
   <ion-toolbar>
     <ion-title>Add Service</ion-title>
     <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="(addedItems?.length > 0 && openAddedItemList() )&& !editData"
+        style="position: relative; margin-right: 8px;">
+        <ion-icon class="dynamic_color icon-size" name="list-outline"></ion-icon>
+        <ion-badge color="danger"
+          style="position: absolute; top: 0; right: 0; min-width: 18px; height: 18px; padding: 0; border-radius: 50%; font-size: 11px; line-height: 18px;">
+          {{addedItems?.length||0}}
+        </ion-badge>
+      </ion-button>
       <ion-icon class="button-right-margin theme-color" (click)="openCrudManagement('TYPE_OF_REPAIRING_EXPENSE')"
         name="add-circle-outline"></ion-icon>
       <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>

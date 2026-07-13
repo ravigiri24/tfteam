@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
+import { AddedServiceItemListComponent } from './added-service-item-list/added-service-item-list.component';
 @Component({
   selector: 'app-add-service-charge',
   templateUrl: './add-service-charge.component.html',
@@ -77,6 +78,20 @@ export class AddServiceChargeComponent implements OnInit {
     }
     console.log('role', role);
   }
+  async openAddedItemList() {
+    if (!this.addedItems?.length) {
+      return;
+    }
+
+    const modal = await this.modalControl.create({
+      component: AddedServiceItemListComponent,
+      componentProps: {
+        addedItems: this.addedItems,
+        listColorClass: this.listColorClass,
+      },
+    });
+    await modal.present();
+  }
   expenseTypeList: any = [];
   expenseTypeListBackup: any = [];
   getExpense(loader: any = false) {
@@ -142,6 +157,7 @@ if(save==true){
 }
     });
   }
+  addedItems:any=[]
   saveExepense(objServie: any) {
     let obj = {
       src: 'repair_expense_costing',
@@ -151,11 +167,25 @@ if(save==true){
 
     this.share.showLoading('Saving Data...');
     this.api.postapi('addOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
-      this.form.reset();
+    //  this.share.spinner.dismiss();
+    //  this.form.reset();
+    let rowObj:any=res?.rowData
+rowObj.serviceName=this.selectedItem?.name
+      this.addedItems.push(res?.rowData)
+this.resetVal()
+      console.log("addedItems",this.addedItems);
+  
       this.share.presentToast('Saved Successfully...');
-      this.dismiss();
+      //this.dismiss();
     });
+  }
+  resetVal(){
+      this.selectedItem={
+    name: null,
+    id: null,
+  }
+      this.form.controls['expense_amount'].setValue(null)
+      this.form.controls['expense_id'].setValue(null)
   }
   saveData() {
     if (this.form.valid && this.selectedItem?.name && this.tractorDetails?.id) {

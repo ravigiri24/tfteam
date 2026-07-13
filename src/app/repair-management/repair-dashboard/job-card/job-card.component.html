@@ -29,6 +29,27 @@
       </ion-row>
     </ion-card>
   </ion-grid>
+    <div *ngIf="jobDetails?.isReopened=='1'" class="global-inner-heading">
+    <span id="PrintInvoice">Reopen History</span>
+  
+  </div>
+      <ion-grid  *ngIf="jobDetails?.isReopened=='1'" class="main_block_details">
+    <ion-card class="main_card_details">
+      <ion-row >
+        <ion-col>Start Date</ion-col>
+        <ion-col>End Date</ion-col>
+        <ion-col>Reason</ion-col>
+      
+      </ion-row>
+      <ion-row *ngFor="let histReopen of reopenedHistory">
+        <ion-col class="amount_col"> {{ histReopen?.startDate | date }}</ion-col>
+        <ion-col class="amount_col"> {{ histReopen?.endDate | date }}</ion-col>
+        <ion-col class="amount_col"> {{ histReopen?.reason }}</ion-col>
+       
+      </ion-row>
+   
+    </ion-card>
+  </ion-grid>
   <div *ngIf="jobDetails?.repair_type=='SERVICE' " class="global-inner-heading">
     <span id="PrintInvoice">Service Costing Summary</span>
     <div class="right_button">
@@ -123,7 +144,7 @@
     <ion-button *ngIf="!isJobDone" (click)="actionJob('Close Job',true)"
       class="global_submit_color_button dynamic_bgcolor" expand="block">
       Job Complete</ion-button>
-    <ion-button (click)="actionJob('Reopen Job',false)" *ngIf="isJobDone"
+    <ion-button (click)="reopenStatus()" *ngIf="isJobDone"
       class="global_submit_color_button dynamic_bgcolor" expand="block">
       Reopen Job</ion-button>
   </div>

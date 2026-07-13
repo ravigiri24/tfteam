@@ -1,0 +1,19 @@
+<ion-header [ngClass]="listColorClass">
+  <ion-toolbar>
+    <ion-title>Added Items</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="added-item-list ion-padding" [ngClass]="listColorClass">
+  <ion-list class="list_row list_row_without_padding" *ngIf="addedItems?.length">
+    <ion-item *ngFor="let item of addedItems">
+      <ion-label>
+        <h2>{{ item?.serviceName }}</h2>
+        <p>Amount : {{ item?.expense_amount}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

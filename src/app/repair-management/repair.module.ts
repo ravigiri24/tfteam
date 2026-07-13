@@ -37,6 +37,8 @@ import { RemarkMissPopupComponent } from './repair-dashboard/job-card/remark-mis
 import { ChangeRepairTypeComponent } from './job-list/change-repair-type/change-repair-type.component';
 import { ServiceCostingSummaryComponent } from './repair-dashboard/job-card/service-costing-summary/service-costing-summary.component';
 import { ServiceReportsComponent } from './reports/service-reports/service-reports.component';
+import { ReopenReasonComponent } from './repair-dashboard/job-card/reopen-reason/reopen-reason.component';
+import { AddedServiceItemListComponent } from './repair-dashboard/build-job/add-service-charge/added-service-item-list/added-service-item-list.component';
 @NgModule({
   declarations: [
     RepairManagementComponent,
@@ -62,7 +64,9 @@ import { ServiceReportsComponent } from './reports/service-reports/service-repor
     RemarkMissPopupComponent,
     ChangeRepairTypeComponent,
     ServiceCostingSummaryComponent,
-    ServiceReportsComponent
+    ServiceReportsComponent,
+    ReopenReasonComponent,
+    AddedServiceItemListComponent
     
   ],
   imports: [

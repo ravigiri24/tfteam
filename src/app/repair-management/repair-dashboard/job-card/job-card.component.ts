@@ -14,6 +14,7 @@ import { RemarkPopupComponent } from './remark-popup/remark-popup.component';
 import { RemarkMissPopupComponent } from './remark-miss-popup/remark-miss-popup.component';
 import { ServiceCostingSummaryComponent } from './service-costing-summary/service-costing-summary.component';
 import { jsPDF } from 'jspdf';
+import { ReopenReasonComponent } from './reopen-reason/reopen-reason.component';
 pdfMake.fonts = {
   Roboto: {
     normal:
@@ -36,6 +37,7 @@ export class JobCardComponent implements OnInit {
   @Input() expenseServiceList: any = [];
   @Input() expenseMaterialList: any = [];
   @Input() reduceItemList: any = [];
+  @Input() reopenedHistory: any = [];
   @Input() materialList: any = [];
   @Input() spareList: any = [];
   @Input() categroyWiseMaterial: any = [];
@@ -113,14 +115,98 @@ staffD:any
     });
     await alert.present();
     const result = await alert.onDidDismiss();
-    if (result?.role == 'Yes') {
+    if (result?.role == 'Yes' && this.jobDetails?.isReopened==0) {
       this.completeJob(status);
+    }else if(result?.role == 'Yes' && this.jobDetails?.isReopened==1){
+       this.completeJobWithReopenStatus();
+    }
+  }
+  completeJobWithReopenStatus(){
+         let obj = {
+      src: 'repairing_record',
+      data: { isCompleted: true },
+      id: this.jobDetails?.id,
+    };
+  let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
+    this.share.showLoading('Closing Job...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+   
+              let description =
+            this.staffDetails?.name +
+            ' has closed the job card TF Code- '+this.jobDetails?.tfCode+ ' at ' +
+            'the repair center';
+          this.api.genreteJobCardNotification(
+            'Job Card Closed(Reopened)',
+            description,
+          this.staffDetails
+          );
+          this.getLastReopenJobDetails()
+        
+    });
+    
+  }
+  getLastReopenJobDetails(){
+         let obj:any = {
+ 
+  
+      job_id: this.jobDetails?.id,
+    };
+  let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
+    obj.operate= this.staffDetails?.staffCode,
+  
+    this.api.postapi('getLastReopenJobDetails', obj).subscribe((res: any) => {
+if(res?.data?.id){
+  this.updateReopenData(res?.data)
+}
+
+    })
+  }
+  updateReopenData(lastEntry:any){
+      let staffDetails: any = this.share.get_staff();
+
+    this.staffDetails = JSON.parse(staffDetails);
+           let obj:any = {
+      src: 'jobreopenhistory',
+      data: { endDate: new Date(),closedBy:this.staffDetails?.id,isOpen:false },
+      id: lastEntry?.id,
+    };
+    obj.operate= this.staffDetails?.staffCode,
+    this.share.showLoading('Closing Job...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+   
+    
+     
+      this.share.presentToast('Closed Successfully...');
+      this.router.navigate(['/repair-management/job-list']);
+    });
+    
+  }
+ async reopenStatus(){
+  const modal = await this.modalCtrl.create({
+      component: ReopenReasonComponent,
+
+      cssClass: 'midium-model',
+      componentProps: {
+        jobDetails: this.jobDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+     this.router.navigate(['/repair-management/job-list']);
     }
   }
   updateAccessService:any
   todayDate = new Date()
   completeJob(status: any) {
-    let obj = {
+ 
+        let obj = {
       src: 'repairing_record',
       data: { isCompleted: status, completeDate: new Date() },
       id: this.jobDetails?.id,
@@ -141,6 +227,7 @@ staffD:any
             description,
           this.staffDetails
           );
+              this.share.presentToast('Closed Successfully...');
         }else{
             let description =
             this.staffDetails?.name +
@@ -151,11 +238,17 @@ staffD:any
             description,
           this.staffDetails
           );
+
         }
       this.share.presentToast('Closed Successfully...');
       this.router.navigate(['/repair-management/job-list']);
     });
+    
+  
+  
+  
   }
+  
   jsPDF: any;
   generatePDF() {
     //const { jsPDF } = window.jspdf;

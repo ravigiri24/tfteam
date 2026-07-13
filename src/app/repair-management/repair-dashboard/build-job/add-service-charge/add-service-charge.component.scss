@@ -116,6 +116,7 @@
 .page_inner_container {
   padding: 25px;
   --background: #f5f5ff;
+  --padding-bottom: 96px;
 
   .inner-heading {
     font-size: 16px;
@@ -147,6 +148,45 @@
 
     .dynamic_bgcolor {
       margin-top: 20px;
+    }
+  }
+}
+
+.add-service-footer {
+  .add-service-footer-actions {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  ion-toolbar {
+    --background: #f5f5ff;
+    --border-width: 1px 0 0;
+    --padding-bottom: max(12px, var(--ion-safe-area-bottom));
+    --padding-end: 16px;
+    --padding-start: 16px;
+    --padding-top: 12px;
+  }
+
+  ion-button {
+    margin: 0;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page_inner_container {
+    --padding-bottom: 88px;
+  }
+
+  .add-service-footer {
+    .add-service-footer-actions {
+      grid-template-columns: 1fr;
+    }
+
+    ion-toolbar {
+      --padding-end: 12px;
+      --padding-start: 12px;
     }
   }
 }

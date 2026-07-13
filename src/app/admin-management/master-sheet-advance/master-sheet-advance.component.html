@@ -127,12 +127,12 @@
           <ion-button (click)="generateExcel()" class="global_submit_button">Generate Excel</ion-button>
     
     </div> -->
-  <ng-container *ngIf="tractorArray?.length && showData">
+  <ng-container *ngIf="showData">
     <section class="results-section">
       <div class="results-heading">
         <div>
-          <p class="section-kicker">Report output</p>
-          <h2>Summary and sheet preview</h2>
+          <p class="section-kicker">Business at a Glance</p>
+          <h2>Business Overview Summary</h2>
         </div>
         <ion-button (click)="generateExcel()" class="excel-btn">
           <ion-icon slot="start" name="download-outline"></ion-icon>
@@ -140,12 +140,12 @@
         </ion-button>
       </div>
 
-    <div class="report-shell" *ngIf="tractorArray?.length && showData" id="master-sheet-report">
-          <ng-container *ngIf="tractorArray?.length && showData">
+    <div class="report-shell" *ngIf="  showData" id="master-sheet-report">
+          <ng-container *ngIf=" showData">
             <div class="summary-grid">
           <div class="stats-bar">
         <div class="stat-card">
-          <div class="stat-value">{{ tractorArray?.length }}</div>
+          <div class="stat-value">{{ totalTractor }}</div>
           <div class="stat-label">Total Tractors</div>
         </div>
         <div class="stat-card by-label">
@@ -272,6 +272,48 @@
       </div>
       </div>
       </ng-container>
+           <div class="results-heading">
+        <div>
+          <p class="section-kicker">Store Wise</p>
+          <h2>Business Overview Summary</h2>
+        </div>
+       
+      </div>
+          <ng-container >
+  <span class="field-label">Select Store</span>
+    <div class="dealer-selector" (click)="selectItem(warehouseList,'Store','')">
+      <span class="dealer-name" >
+        {{ storeName || 'Select Store'}}
+      </span>
+      <ion-icon class="dealer-arrow" name="caret-down-outline"></ion-icon>
+    </div>
+
+ </ng-container>
+           <ng-container *ngIf="showData && storeName!='All'">
+            <div class="summary-grid">
+          <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-value">{{ storeName }}</div>
+          <div class="stat-label">Store Name</div>
+        </div>
+         <div class="stat-card">
+          <div class="stat-value">{{ tractorArray?.length }}</div>
+          <div class="stat-label">Total Tractor</div>
+        </div>
+      </div>
+           <div class="stats-bar">
+     
+        <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ staffDetails?.name }}</div>
+          <div class="stat-label">Sell (No.)(During Period)</div>
+        </div>
+           <div class="stat-card by-label">
+          <div class="stat-value" style="font-size:14px;">{{ staffDetails?.name }}</div>
+          <div class="stat-label">Sell Amount(During Period)</div>
+        </div>
+      </div>
+            </div>
+           </ng-container>
       <!-- <div class="top_header" style="margin: 15px 0px; text-align: center;">
     <img id="imageLogo" src="././assets/images/tflogoPdf.png" height="50px;width:150px" />
   </div> -->

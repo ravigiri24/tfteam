@@ -48,6 +48,7 @@ export class RepairDashboardComponent implements OnInit {
         this.getInventory();
         this.getIssueList();
         this.getMaterialList();
+        this.getReopenHistory()
       },
       (error: any) => { }
     );
@@ -63,6 +64,7 @@ export class RepairDashboardComponent implements OnInit {
   }
 
   inventoryArray: any = [];
+  getReopenedHistory: any = [];
   getInventoryName() {
     this.inventoryArray = [];
     this.jobDetails.inventoryOptions?.forEach((f: any) => {
@@ -92,6 +94,28 @@ export class RepairDashboardComponent implements OnInit {
       }
     });
   }
+  reopenedHistory:any=[]
+    getReopenHistory(loader: any = false) {
+    let obj: any = this.share.getListObj(
+      'repair_expense_costing',
+      false,
+      [],
+      true
+    );
+    obj.job_id = this.jobDetails?.id;
+    if (loader) {
+      this.share.showLoading('Fetching Data...');
+    }
+    this.materialLoader = true;
+    this.api.postapi('getReopenHistory', obj).subscribe(
+      (res: any) => {
+     this.reopenedHistory=res?.data
+      },
+      (error: any) => {
+     
+      }
+    );
+  }
   ionViewWillEnter() {
     this.activatedRoute.params.subscribe((params: any) => {
       this.jobId = params?.id;
@@ -101,6 +125,7 @@ export class RepairDashboardComponent implements OnInit {
     this.isJobDone = false;
     this.getJobByRowId();
     this.getRawImages();
+   // this.getReopenHistory()
   }
   beforeService: any = [];
   afterService: any = [];

@@ -41,6 +41,9 @@ export class ReportsTractorComponent  implements OnInit {
   masterSheet(){
     this.router.navigate(['/admin-block/master-sheet-advance','/admin-block/reports-tractor'])
   }
+    masterSheet_old(){
+    this.router.navigate(['/admin-block/master-sheet','/admin-block/reports-tractor'])
+  }
     workSheet(){
     this.router.navigate(['/admin-block/work-sheet','/admin-block/reports-tractor'])
   }

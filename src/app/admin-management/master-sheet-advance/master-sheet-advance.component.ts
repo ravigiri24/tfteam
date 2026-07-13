@@ -228,6 +228,11 @@ makePeroidArray() {
         this.selectedMonth=data;
           console.log("this.selectedMonth",this.selectedMonth);
       }
+      if(itemName=='Store'){
+     this.selectedStore=data?.id
+     this.storeName=data?.name
+     this.getDataOfStore()
+      }
   
         //this.resetOtherValue()
       }
@@ -423,6 +428,7 @@ uploadExcel(blob: Blob) {
     this.tractorArray = [];
     this.showData = false;
     this.getLogisticExpense();
+    this.getWareHouseList()
     this.activatedRoute.params.subscribe((params: any) => {
       this.srcPage = params?.srcPage;
     });
@@ -430,6 +436,31 @@ uploadExcel(blob: Blob) {
     this.makePeroidArray()
     //this.selectFilter(this.selectedFilter)
 
+  }
+  selectedStore:any
+  storeName:any
+    warehouseList: any = [];
+  getWareHouseList(loader: any = false) {
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+    let obj: any = this.share.getListObj('warehouselocation', false, [], true);
+    obj.storeId = this.staffDetails?.storeId;
+
+    setTimeout(() => {
+      this.api.postapi('getList', obj).subscribe(
+        (res: any) => {
+          this.warehouseList = res?.data;
+          this.warehouseList = this.warehouseList.reverse();
+          this.share.putAllInWareHouse(this.warehouseList)
+          console.log('this.warehouseList', this.warehouseList);
+          //if (!loader) {
+            this.selectedStore = this.warehouseList[0]?.id;
+            this.storeName=this.warehouseList[0]?.name
+          //}
+        },
+        (error: any) => { }
+      );
+    }, 0);
   }
   allDetails: any;
   tractorArray: any;
@@ -473,6 +504,8 @@ this.resetValue()
 
         obj.startDate =startDate;
         obj.endDate = endDate;
+          this.selectedStore = this.warehouseList[0]?.id;
+            this.storeName=this.warehouseList[0]?.name
    //this.selectedPeriod.startDate='2025-04-01'
         this.share.showLoading('Fetching Report...',20000);
         this.reportDatesRecord = obj;
@@ -647,6 +680,11 @@ let profitInPeriod=this.totalSaleAmountInP-this.totalPurchasePriceOfSoldTractorI
 
 this.totalUnsoldTractorAmount=(Number( this.totalUnsoldTractorAmountInperiod))+Number(this.totalUnsoldTractorAmountBerfore)
 this.totalUnsoldTractorNumber= this.totalUnsoldBeforePeriod+ this.totalUnsoleInperiod
+
+if(this.tractorArray?.length){
+this.tractorArraySrc=JSON.parse(JSON.stringify(this.tractorArray))
+}
+this.totalTractor=this.tractorArraySrc?.length||0
           },
 
 
@@ -657,6 +695,19 @@ this.totalUnsoldTractorNumber= this.totalUnsoldBeforePeriod+ this.totalUnsoleInp
       }
    
   }
+totalTractor:any=0
+storeSoldInP:any=0
+  getDataOfStore(){
+    if(this.selectedStore=='ALL'){
+      this.tractorArray=JSON.parse(JSON.stringify(this.tractorArraySrc))
+    }else if(this.selectedStore!='ALL'){
+let tractorListAll=JSON.parse(JSON.stringify(this.tractorArraySrc))
+this.tractorArray=tractorListAll?.filter((f:any)=>f?.tractordetailadmin?.wareHouseLocation==this.selectedStore)||[]
+
+
+    }
+  }
+  tractorArraySrc:any[]=[]
     totalPurchaseAmount:any=0
   totalPurchaseNo:any=0
   totalSaleNumberInP=0
@@ -683,6 +734,7 @@ this.totalUnsoldTractorNumber= this.totalUnsoldBeforePeriod+ this.totalUnsoleInp
   saleInlossNumber:any=0
 
   resetValue(){
+    this.totalTractor=0
     this.totalPurchaseAmount=0
     this.totalPurchaseNo=0
     this.totalSaleNumberInP=0
