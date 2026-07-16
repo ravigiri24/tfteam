@@ -167,7 +167,7 @@ if(save==true){
 
     this.share.showLoading('Saving Data...');
     this.api.postapi('addOpp', obj).subscribe((res: any) => {
-    //  this.share.spinner.dismiss();
+     this.share.spinner.dismiss();
     //  this.form.reset();
     let rowObj:any=res?.rowData
 rowObj.serviceName=this.selectedItem?.name

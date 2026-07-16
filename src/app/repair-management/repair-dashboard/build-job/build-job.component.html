@@ -1,8 +1,11 @@
 <div class="top-position height-body" [ngClass]="listColorClass">
   <ion-tabs class="inner-tabs">
-    <ion-tab-bar slot="top">
+    <ion-tab-bar slot="top" class="scrollable-tab-bar">
       <ion-tab-button (click)="goToPage('SERVICE')" [ngClass]="{'selected_tab':selectedTab==='SERVICE'}" tab="MODEL">
         <span class="tabs">Services</span>
+      </ion-tab-button>
+         <ion-tab-button *ngFor="let cat of spareList" (click)="goToPage(cat?.name)" [ngClass]="{'selected_tab':selectedTab===cat?.name}" tab="GALLERY">
+        <span class="tabs">{{cat?.name}}</span>
       </ion-tab-button>
       <ion-tab-button (click)="goToPage('PARTS')" [ngClass]="{'selected_tab':selectedTab==='PARTS'}" tab="GALLERY">
         <span class="tabs">Parts</span>
@@ -40,6 +43,13 @@
         </div>
       </div>
     </ng-container>
+       <ng-container *ngIf="selectedTab!='PARTS'&&selectedTab!='SERVICE'&& selectedTab!='REDUCE_ITEMS'">
+      <!-- <ng-container *ngFor="*ngFor=let cat of categroyWiseMaterial">
+     
+
+        </ng-container> -->
+        <h1>Hello</h1>
+        </ng-container>
     <ng-container *ngIf="selectedTab==='PARTS'">
       <div class="global-inner-heading dynamic_color">
         <span>Spare Charges</span>

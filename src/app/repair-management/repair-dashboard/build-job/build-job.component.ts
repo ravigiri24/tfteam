@@ -16,6 +16,7 @@ export class BuildJobComponent implements OnInit {
   @Input() expenseServiceList: any;
   @Input() expenseMaterialList: any = [];
   @Input() reduceItemList: any = [];
+  @Input() spareList: any = []
   @Input() prdeictionMaterialList: any = [];
   @Input() isJobDone: any =false
   @Input() listColorClass = 'secondColor';
@@ -34,6 +35,7 @@ export class BuildJobComponent implements OnInit {
   jobId: any;
   ngOnInit() {}
   goToPage(tab: any) {
+    
     this.selectedTab = tab;
   }
 

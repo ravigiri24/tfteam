@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-title>Add Service</ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="(addedItems?.length > 0 && openAddedItemList() )&& !editData"
+      <ng-container *ngIf="addedItems?.length > 0  && !editData">
+      <ion-button fill="clear" (click)=" openAddedItemList()"
         style="position: relative; margin-right: 8px;">
         <ion-icon class="dynamic_color icon-size" name="list-outline"></ion-icon>
         <ion-badge color="danger"
@@ -10,6 +11,7 @@
           {{addedItems?.length||0}}
         </ion-badge>
       </ion-button>
+      </ng-container>
       <ion-icon class="button-right-margin theme-color" (click)="openCrudManagement('TYPE_OF_REPAIRING_EXPENSE')"
         name="add-circle-outline"></ion-icon>
       <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>

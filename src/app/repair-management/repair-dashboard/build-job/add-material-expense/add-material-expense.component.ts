@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
+import { AddedServiceItemListComponent } from '../add-service-charge/added-service-item-list/added-service-item-list.component';
 @Component({
   selector: 'app-add-material-expense',
   templateUrl: './add-material-expense.component.html',
@@ -39,6 +40,7 @@ export class AddMaterialExpenseComponent implements OnInit {
   dismiss() {
     this.modalControl.dismiss();
   }
+  addedItems:any=[]
   form: FormGroup;
   initialize(data: any = null) {
     this.form = this.formBuilder.group({
@@ -64,6 +66,20 @@ export class AddMaterialExpenseComponent implements OnInit {
       this.form.updateValueAndValidity();
     }
   }
+    async openAddedItemList() {
+      if (!this.addedItems?.length) {
+        return;
+      }
+  
+      const modal = await this.modalControl.create({
+        component: AddedServiceItemListComponent,
+        componentProps: {
+          addedItems: this.addedItems,
+          listColorClass: this.listColorClass,
+        },
+      });
+      await modal.present();
+    }
 
   async openCrudManagement(type: any = 'MATERIAL_OF_REPAIRING') {
     const modal = await this.modalControl.create({
@@ -190,10 +206,23 @@ export class AddMaterialExpenseComponent implements OnInit {
     this.share.showLoading('Saving Data...');
     this.api.postapi('addOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
-      this.form.reset();
+      //this.form.reset();
       this.share.presentToast('Saved Successfully...');
-      this.dismiss();
+       let rowObj:any=res?.rowData
+      rowObj.serviceName=this.selectedItem?.name
+      this.addedItems.push(res?.rowData)
+this.resetVal()
+    
     });
+  }
+   resetVal(){
+      this.selectedItem={
+    name: null,
+    id: null,
+  }
+      this.form.controls['expense_amount'].setValue(null)
+      this.form.controls['expense_id'].setValue(null)
+      this.form.controls['qty'].setValue(null)
   }
   saveData() {
     if (this.form.valid && this.selectedItem?.name && this.tractorDetails?.id) {
@@ -213,6 +242,7 @@ export class AddMaterialExpenseComponent implements OnInit {
         objData.expense_id = this.selectedItem?.id;
         this.saveExepense(objData);
       }
+      
     } else {
       this.share.presentToast('Please Fill Required Fields');
     }

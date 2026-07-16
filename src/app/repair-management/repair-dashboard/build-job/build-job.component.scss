@@ -16,6 +16,19 @@
     margin-top: 50px;
 }
 
+.scrollable-tab-bar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    ion-tab-button {
+        flex: 0 0 auto;
+        min-width: max-content;
+    }
+}
+
 // .top-position-heading {
 //     position: relative;
 // }

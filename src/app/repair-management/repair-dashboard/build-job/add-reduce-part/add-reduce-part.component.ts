@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
+import { AddedServiceItemListComponent } from '../add-service-charge/added-service-item-list/added-service-item-list.component';
 @Component({
   selector: 'app-add-reduce-part',
   templateUrl: './add-reduce-part.component.html',
@@ -186,11 +187,40 @@ export class AddReducePartComponent implements OnInit {
     this.share.showLoading('Saving Data...');
     this.api.postapi('addOpp', obj).subscribe((res: any) => {
       this.share.spinner.dismiss();
-      this.form.reset();
+     // this.form.reset();
       this.share.presentToast('Saved Successfully...');
-      this.dismiss();
+             let rowObj:any=res?.rowData
+      rowObj.serviceName=this.selectedItem?.name
+      this.addedItems.push(res?.rowData)
+this.resetVal()
+     // this.dismiss();
     });
   }
+     resetVal(){
+      this.selectedItem={
+    name: null,
+    id: null,
+  }
+      this.form.controls['reduce_amount'].setValue(null)
+      this.form.controls['part_id'].setValue(null)
+      this.form.controls['qty'].setValue(null)
+      this.form.controls['remark'].setValue(null)
+  }
+     async openAddedItemList() {
+        if (!this.addedItems?.length) {
+          return;
+        }
+    
+        const modal = await this.modalControl.create({
+          component: AddedServiceItemListComponent,
+          componentProps: {
+            addedItems: this.addedItems,
+            listColorClass: this.listColorClass,
+          },
+        });
+        await modal.present();
+      }
+  addedItems:any=[]
   saveData() {
     if (this.form.valid && this.selectedItem?.name && this.tractorDetails?.id) {
       let objData: any = this.form.value;

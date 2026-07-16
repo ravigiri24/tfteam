@@ -42,7 +42,7 @@
       <app-build-job (refreshMaterailList)="getMaterialList(true)" (refreshServiceList)="getServiceList(true)"
         (refreshReducelList)="getReduceList(true)"
         *ngIf="jobDetails && !serviceLoader && !materialLoader  && !reduceLoader"
-        [expenseServiceList]="expenseServiceList" [jobDetails]="jobDetails" [reduceItemList]="reduceItemList"
+        [expenseServiceList]="expenseServiceList"    [spareList]="spareList" [jobDetails]="jobDetails" [reduceItemList]="reduceItemList"
         [expenseMaterialList]="expenseMaterialList" [prdeictionMaterialList]="prdeictionMaterialList"
         [isJobDone]="isJobDone"></app-build-job>
     </ng-container>

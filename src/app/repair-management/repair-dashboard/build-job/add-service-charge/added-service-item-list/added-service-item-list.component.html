@@ -12,7 +12,8 @@
     <ion-item *ngFor="let item of addedItems">
       <ion-label>
         <h2>{{ item?.serviceName }}</h2>
-        <p>Amount : {{ item?.expense_amount}}</p>
+        <p *ngIf="item?.qty">Qty : {{ item?.qty}}</p>
+        <p>Amount : {{ item?.total_expense || item?.total_amount}}</p>
       </ion-label>
     </ion-item>
   </ion-list>
