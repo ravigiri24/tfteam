@@ -168,6 +168,19 @@ ion-modal.modal-xl {
 }
 // ───────────────────────────────────────────────────────────────────────────
 
+// ─── Full-width Image Viewer Modal ─────────────────────────────────────────
+ion-modal.modal-image-viewer {
+  --width: 100%;
+  --height: 100%;
+  --max-width: 100%;
+  --border-radius: 0;
+
+  &::part(content) {
+    border-radius: 0;
+  }
+}
+// ───────────────────────────────────────────────────────────────────────────
+
 // ─── Modal Backdrop Overlay ────────────────────────────────────────────────
 // Ionic built-in rule sets --backdrop-opacity: 0 for every modal after the
 // first one (selector: .show-modal ~ ion-modal.modal-default). Override it.
