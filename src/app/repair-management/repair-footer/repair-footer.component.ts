@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ShareService } from 'src/app/share.service';
 
 @Component({
   selector: 'app-repair-footer',
@@ -7,9 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./repair-footer.component.scss'],
 })
 export class RepairFooterComponent  implements OnInit {
-  constructor(private router:Router) { }
+  constructor(private router:Router,private share:ShareService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+      this.share.changeRepairFooterAction$.subscribe((data:any) => {
+    if (data) {
+   this.goToPage(data)
+    }
+  });
+  }
   activeTabsColor="firstColor"
   selectedTab:any='Job-dashboard'
   goToPage(tab:any){
@@ -20,7 +27,7 @@ export class RepairFooterComponent  implements OnInit {
   }
   if(tab=='Job-List'){
        this.activeTabsColor='secondColor'
-    this.router.navigate(['/repair-management/job-list'])
+    this.router.navigate(['/repair-management/job-list',false])
   }
   if(tab=='Reports'){
        this.activeTabsColor='fourthColor'

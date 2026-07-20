@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   FormGroup,
   FormControl,
@@ -13,10 +14,17 @@ import {
   providedIn: 'root',
 })
 export class ShareService {
+    public changeRepairFooter = new BehaviorSubject<any>(null);
+
+    openJobType=false
+  // Observable to subscribe
+  changeRepairFooterAction$: Observable<any> = this.changeRepairFooter.asObservable();
   activeCurrent: any = null;
   showFooter = true;
   totalCount:any=0
   calculationYear=2025
+
+  selectedRepairTab='SERVICE'
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,

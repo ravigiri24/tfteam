@@ -2,17 +2,17 @@
   <ion-tabs class="inner-tabs">
     <ion-tab-bar slot="top" class="scrollable-tab-bar">
       <ion-tab-button (click)="goToPage('SERVICE')" [ngClass]="{'selected_tab':selectedTab==='SERVICE'}" tab="MODEL">
-        <span class="tabs">Services</span>
+        <span class="tabs">Services({{expenseServiceList?.length}})</span>
       </ion-tab-button>
-         <ion-tab-button *ngFor="let cat of spareList" (click)="goToPage(cat?.name)" [ngClass]="{'selected_tab':selectedTab===cat?.name}" tab="GALLERY">
-        <span class="tabs">{{cat?.name}}</span>
+         <ion-tab-button *ngFor="let cat of spareList" (click)="goToPage(cat?.name,cat)" [ngClass]="{'selected_tab':selectedTab===cat?.name}" tab="GALLERY">
+        <span class="tabs">{{cat?.name}}({{cat?.spareWiseArray?.length||0}})</span>
       </ion-tab-button>
-      <ion-tab-button (click)="goToPage('PARTS')" [ngClass]="{'selected_tab':selectedTab==='PARTS'}" tab="GALLERY">
+      <!-- <ion-tab-button (click)="goToPage('PARTS')" [ngClass]="{'selected_tab':selectedTab==='PARTS'}" tab="GALLERY">
         <span class="tabs">Parts</span>
-      </ion-tab-button>
+      </ion-tab-button> -->
       <ion-tab-button (click)="goToPage('REDUCE_ITEMS')" [ngClass]="{'selected_tab':selectedTab==='REDUCE_ITEMS'}"
         tab="GALLERY">
-        <span class="tabs">Reduce Item</span>
+        <span class="tabs">Reduce Item({{reduceItemList?.length}})</span>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
@@ -44,11 +44,34 @@
       </div>
     </ng-container>
        <ng-container *ngIf="selectedTab!='PARTS'&&selectedTab!='SERVICE'&& selectedTab!='REDUCE_ITEMS'">
-      <!-- <ng-container *ngFor="*ngFor=let cat of categroyWiseMaterial">
-     
-
-        </ng-container> -->
-        <h1>Hello</h1>
+         <div class="global-inner-heading dynamic_color">
+        <span>{{selectedCat?.name}} Items</span>
+        <ion-icon *ngIf="!this.isJobDone" (click)="addMaterial('EXPENSE')" class="dynamic_color icon-size-add"
+          name="add-circle-outline"></ion-icon>
+      </div>
+      <div class="top-position-heading">
+        <ion-list class="list_row list_row_without_padding" *ngIf="expenseMaterialList?.length">
+          <ion-item *ngFor="let mat of catWiseItemList;let in=index">
+            <ion-label>
+              <h2>{{mat?.materialDetail?.name}}</h2>
+              <p>{{mat?.expense_amount}}|{{mat?.qty}} | {{mat?.total_expense}} | {{mat?.createdOn|date}} </p>
+            </ion-label>
+            <div class="list_right_action">
+                <ion-icon (click)="selectItem(spareList,'Category For Change',mat)" class="right-margine dynamic_color"
+                name="arrow-redo-outline"></ion-icon>
+              <ion-icon (click)="openEdit(mat,'EXPENSE')" class="right-margine dynamic_color"
+                name="create-outline"></ion-icon>
+             
+              <ion-icon (click)="deleteItem(mat,'Delete Spare')" class="right-margine delete_color"
+                name="trash-outline"></ion-icon>
+            </div>
+          </ion-item>
+        </ion-list>
+        <div class="dynamic_block no_found_dynamic_block" *ngIf="!catWiseItemList?.length">
+          <app-no-data-view [title]="'No Item Found In This Category'" [subtitleShow]="false"></app-no-data-view>
+        </div>
+      </div>
+   
         </ng-container>
     <ng-container *ngIf="selectedTab==='PARTS'">
       <div class="global-inner-heading dynamic_color">

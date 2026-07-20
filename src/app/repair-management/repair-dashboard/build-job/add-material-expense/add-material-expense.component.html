@@ -52,7 +52,7 @@
   <form class="service_selected_amount_block" [formGroup]="form" *ngIf="selectedItem?.name">
     <span class="inner-heading"><span>Selected Spare : </span><span>{{selectedItem?.name}}</span></span>
     <div *ngIf="selectedItem?.name && !selectedItem?.id" class="global_input_block">
-      <ion-select (ionChange)="setSpareCategory()" [(ngModel)]="category" fill="outline" label="Select Category*"
+      <ion-select (ionChange)="setSpareCategory($event)"  fill="outline" label="Select Category*"
         label-placement="type">
         <ion-select-option *ngFor="let spare of spareList" [value]="spare?.id">{{spare?.name}}</ion-select-option>
       </ion-select>

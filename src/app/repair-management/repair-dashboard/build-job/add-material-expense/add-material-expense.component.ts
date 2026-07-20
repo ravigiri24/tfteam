@@ -20,6 +20,7 @@ export class AddMaterialExpenseComponent implements OnInit {
   tractorDetails: any;
   expense_head: any;
   editData: any = null;
+  selectedCategory:any=null
   constructor(
     private modalControl: ModalController,
     private formBuilder: FormBuilder,
@@ -36,7 +37,9 @@ export class AddMaterialExpenseComponent implements OnInit {
     this.getSpareCategory();
     // this.getRepairingCenterList();
     this.initialize(this.editData);
+    this.addedItems=this.catWiseItemList
   }
+  catWiseItemList:any=[]
   dismiss() {
     this.modalControl.dismiss();
   }
@@ -53,6 +56,7 @@ export class AddMaterialExpenseComponent implements OnInit {
       qty: new FormControl(data?.qty || 1, [Validators.required]),
 
       expense_date: new FormControl(data?.expense_date || null, []),
+      cat_id: new FormControl(this.selectedCategory?.id || null, []),
       expense_type: new FormControl('REPAIR'),
       repairing_center: new FormControl(
         this.staffDetails?.repair_center || null,
@@ -337,7 +341,10 @@ this.resetVal()
   }
   category: any = 1
 
-  setSpareCategory() {
-    this.selectedItem.category = false
+  setSpareCategory(event:any) {
+    console.log("event",event,event.detail.value);
+    
+    this.selectedItem.category =event.detail.value;
+    this.category =event.detail.value;
   }
 }

@@ -183,7 +183,7 @@ if(res?.data?.id){
     
      
       this.share.presentToast('Closed Successfully...');
-      this.router.navigate(['/repair-management/job-list']);
+      this.router.navigate(['/repair-management/job-list',this.share.openJobType]);
     });
     
   }
@@ -199,7 +199,7 @@ if(res?.data?.id){
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (data) {
-     this.router.navigate(['/repair-management/job-list']);
+     this.router.navigate(['/repair-management/job-list',this.share.openJobType]);
     }
   }
   updateAccessService:any
@@ -241,7 +241,7 @@ if(res?.data?.id){
 
         }
       this.share.presentToast('Closed Successfully...');
-      this.router.navigate(['/repair-management/job-list']);
+      this.router.navigate(['/repair-management/job-list',this.share.openJobType]);
     });
     
   

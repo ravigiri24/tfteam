@@ -307,10 +307,11 @@ export class CommonMethodService {
     ]);
   }
   openRepairDashboard(job: any) {
+    const randomNumber = Math.floor(100000 + Math.random() * 900000);
     this.router.navigate([
       '/repair-management/repair-dashboard',
       job?.id,
-      '/repair-management/job-list',
+      '/repair-management/job-list',randomNumber
     ]);
   }
   async transerToNewArrivals(tractor: any, button: any) {

@@ -144,26 +144,33 @@ this.deleteItem(e?.tractor)
   ];
   showSearch=false
   ionViewWillEnter() {
+  
         let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
     if(this.staffDetails?.isRepairHead ==1){
       this.showSearch=true
     }
-    //    this.activatedRoute.params.subscribe((params: any) => {
-    //     if(params?.type){
-    //   this.jobType = params?.type;
-    //    }
-    // });
+       this.activatedRoute.params.subscribe((params: any) => {
+    if(params?.jobType=="true"){
+           this.jobType = true
+    }else if(params?.jobType=="false"){
+     this.jobType = false
+    }
+ 
+     
+    });
     if(this.staffDetails?.isRepairHead==1){
      
     }
+    this.share.openJobType=this.jobType
     this.jobList = [];
-    this.jobType=false
+   // this.jobType=false
     this.getJobList();
   }
   staffDetails: any;
   jobType=false
   getJobList() {
+    this.share.openJobType=this.jobType
     let staffDetails: any = this.share.get_staff();
     this.staffDetails = JSON.parse(staffDetails);
   this.buttonArray=[]
@@ -174,6 +181,13 @@ this.deleteItem(e?.tractor)
     };
     this.share.showLoading('Loading');
          this.jobList=[]
+                 let takingTime=true
+        setTimeout(() => {
+  if(takingTime){
+  this.share.presentToast("Taking Time,Please Wait...")
+}
+
+}, 2000);
     this.api.postapi('jobList', obj).subscribe(
       (res: any) => {
 
@@ -193,6 +207,7 @@ job.modalName=job?.modelDetails?.name
         this.buttonArray.unshift(this.repairTypeObj)
        }
         this.share.spinner.dismiss('active_two');
+        takingTime=false
       },
       (error: any) => {}
     );

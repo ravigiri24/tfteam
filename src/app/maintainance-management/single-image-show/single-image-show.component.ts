@@ -9,7 +9,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   templateUrl: './single-image-show.component.html',
   styleUrls: ['./single-image-show.component.scss'],
 })
-export class SingleImageShowComponent implements OnInit {
+export class  SingleImageShowComponent implements OnInit {
   image: any;
   showDeleteButton: any = false;
   constructor(

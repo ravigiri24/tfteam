@@ -72,7 +72,8 @@ export class JobDashboardComponent implements OnInit {
     );
   }
   jobList(type: any) {
-    //  this.router.navigate(['/repair-management/job-list',type])
+    this.share.changeRepairFooter.next('Job-List')
+      this.router.navigate(['/repair-management/job-list',type])
   }
   createJob() {
     this.router.navigate([

@@ -6,6 +6,7 @@ import { ShareService } from 'src/app/share.service';
 import { ApiService } from 'src/app/api.service';
 import { AddMaterialExpenseComponent } from './add-material-expense/add-material-expense.component';
 import { AddReducePartComponent } from './add-reduce-part/add-reduce-part.component';
+import { SelectWithSearchComponent } from 'src/app/shared-components/select-with-search/select-with-search.component';
 @Component({
   selector: 'app-build-job',
   templateUrl: './build-job.component.html',
@@ -13,8 +14,10 @@ import { AddReducePartComponent } from './add-reduce-part/add-reduce-part.compon
 })
 export class BuildJobComponent implements OnInit {
   @Input() jobDetails: any;
+  @Input() selectedTabBuild: any;
   @Input() expenseServiceList: any;
   @Input() expenseMaterialList: any = [];
+  @Input() materialList: any = [];
   @Input() reduceItemList: any = [];
   @Input() spareList: any = []
   @Input() prdeictionMaterialList: any = [];
@@ -33,11 +36,117 @@ export class BuildJobComponent implements OnInit {
   selectedTab: any = 'SERVICE';
 
   jobId: any;
-  ngOnInit() {}
-  goToPage(tab: any) {
+  ngOnInit() {
+      if(this.share.selectedRepairTab!='SERVICE' && this.share.selectedRepairTab!='REDUCE_ITEMS'){
+let selectedTab=this.spareList?.find((f:any)=>f.name==this.share.selectedRepairTab)
+ this.goToPage(this.share.selectedRepairTab,selectedTab)
+      
+    }else{
+  this.goToPage(this.share.selectedRepairTab)
+    }
+  
+  }
+  selectedCat:any
+  goToPage(tab: any,selectedCat:any=null) {
     
     this.selectedTab = tab;
+  this.share.selectedRepairTab= tab;
+    if(this.selectedTab!='SERVICE' && this.selectedTab!='REDUCE_ITEMS'){
+this.selectedCat=selectedCat
+this.get_list_catWise(this.expenseMaterialList)
+      
+    }
   }
+    async selectItem(list: any, itemName: any, item: any) {
+      const modal = await this.modalControl.create({
+        component: SelectWithSearchComponent,
+        componentProps: {
+          list: list,
+          itemName: itemName,
+          table_name: item,
+          showAddButton: false,
+          otherObjects: null,
+          jsonKey: 'name',
+          search: {
+            name: null,
+          },
+        },
+      });
+      await modal.present();
+  
+      const { data, role } = await modal.onWillDismiss();
+  
+      if (data) {
+        //   this.newFindingForms.controls['dealerId'].setValue(data?.id);
+     this.changeCategoryAlert(data,item)
+        //this.resetOtherValue()
+      }
+  
+      console.log('role', role, data);
+  
+      if (role === 'confirm') {
+      }
+    }
+    async  changeCategoryAlert(data:any,item:any){
+      let get
+         let header='Changing Category From '+this.selectedCat?.name+' to '+data?.name
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.updateItemCategory(item,data)
+    
+    }
+  
+  }
+  updateItemCategory(item:any,data:any){
+      let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+    let obj = {
+      src: 'repair_expense_costing',
+      data: { cat_id:data?.id,},
+      id: item?.id,
+    };
+
+    this.share.showLoading('Deleting Data...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+
+      this.share.presentToast('Category Changed Successfully...');
+     this.refreshMaterailList.emit();
+    });
+  }
+  catWiseItemList:any=[]
+  itemCount=0
+get_list_catWise(list:any=[]){
+  this.catWiseItemList=[]
+  let itemOfCatId=list.filter((f:any)=>f.cat_id==this.selectedCat?.id)||[]
+  let itemDOntHaceCatId=list.filter((f:any)=>f.cat_id==null)
+  let catWiseArray=[]
+  itemDOntHaceCatId?.forEach((f:any)=>{
+    let getMaterial=this.materialList?.find((mat:any)=>mat.id==f.expense_id)
+    if(getMaterial?.category==this.selectedCat?.id){
+catWiseArray.push(f)
+    }
+this.catWiseItemList=[...itemOfCatId,...catWiseArray]
+  })
+
+}
 
   addParts() {}
   async addService(expense_head: any, obj: any = null) {
@@ -66,6 +175,8 @@ export class BuildJobComponent implements OnInit {
         tractorDetails: this.jobDetails,
         expense_head: expense_head,
         editData: obj,
+        selectedCategory:this.selectedCat,
+         catWiseItemList:this.catWiseItemList
       },
     });
     await modal.present();
@@ -76,6 +187,7 @@ export class BuildJobComponent implements OnInit {
     //  this.refreshServiceList.emit();
     //} else {
       this.refreshMaterailList.emit();
+      
   //  }
     console.log('role', role);
 

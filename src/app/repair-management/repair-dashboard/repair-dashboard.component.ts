@@ -117,6 +117,7 @@ export class RepairDashboardComponent implements OnInit {
     );
   }
   ionViewWillEnter() {
+    this.share.selectedRepairTab='SERVICE'
     this.activatedRoute.params.subscribe((params: any) => {
       this.jobId = params?.id;
       this.srcPage = params?.srcPage;
@@ -208,6 +209,7 @@ export class RepairDashboardComponent implements OnInit {
       }
     );
   }
+  selectedTabBuild='SERVICE'
   materialList: any = [];
   getMaterial(loader: any = false) {
     let obj = this.share.getListObj('repairmateriallist', false, [], true);
@@ -236,10 +238,27 @@ export class RepairDashboardComponent implements OnInit {
       (error: any) => { }
     );
   }
+  getCountCatWise(){
+  this.spareList?.forEach((spare:any)=>{
+    let spareWiseArray:any=[]
+    this.expenseMaterialList?.forEach((mat:any)=>{
+     if(mat?.cat_id===spare?.id){
+spareWiseArray.push(mat)
+      }else if(mat?.cat_id==null){
+           let getMaterial=this.materialList?.find((material:any)=>material.id==mat.expense_id)
+    if(getMaterial?.category==spare?.id){
+spareWiseArray.push(mat)
+    }
+      }
+    })
+    spare.spareWiseArray=spareWiseArray
+  })
+}
   categroyWiseMaterial: any = [];
   setCatWiseMatList() {
     this.expenseMaterialList.forEach((expense: any) => {
-      let findinMatList = this.materialList.find(
+   if(expense?.cat_id==null || expense?.cat_id==undefined){
+  let findinMatList = this.materialList.find(
         (mat: any) => mat.id == expense?.expense_id
       );
       let getCat = this.spareList.find(
@@ -264,7 +283,34 @@ export class RepairDashboardComponent implements OnInit {
           this.categroyWiseMaterial.push(obj);
         }
       }
+    }else{
+     
+  
+        let findExist = this.categroyWiseMaterial.findIndex(
+          (cat: any) => cat.id == expense.cat_id
+        );
+           let getCat = this.spareList.find(
+        (spare: any) => spare.id == expense.cat_id
+      );
+        if (findExist > -1) {
+          this.categroyWiseMaterial[findExist].total_amount =
+            Number(this.categroyWiseMaterial[findExist].total_amount) +
+            Number(expense?.total_expense);
+          this.categroyWiseMaterial[findExist].materialList.push(expense);
+        } else {
+          let obj = {
+            catName: getCat.name,
+            id: expense.cat_id,
+            materialList: [expense],
+            total_amount: expense?.total_expense || 0,
+          };
+          this.categroyWiseMaterial.push(obj);
+        }
+      
+    }
     });
+    
+    this.getCountCatWise()
   }
   expenseServiceList: any = [];
   prdeictionServiceList: any = [];
@@ -403,6 +449,6 @@ export class RepairDashboardComponent implements OnInit {
     );
   }
   backToSrcPage() {
-    this.router.navigate([this.srcPage]);
+    this.router.navigate([this.srcPage,this.share.openJobType]);
   }
 }
