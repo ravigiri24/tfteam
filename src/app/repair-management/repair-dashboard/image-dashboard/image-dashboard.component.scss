@@ -1,34 +1,83 @@
-.icon-size-add {
-  font-size: 30px;
+:host {
+  --idb-primary: #0f9b8e;
+  --idb-primary-strong: #0d7d73;
+  --idb-primary-bright: #17b3a3;
+  display: block;
 }
 
-.top-position {
-  position: relative;
-  top: 40px;
+.idb-section {
+  background: #ffffff;
+  border: 1px solid rgba(15, 155, 142, 0.12);
+  border-left: 4px solid var(--idb-primary);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 155, 142, 0.08);
+  margin-bottom: 16px;
+  padding: 12px;
 }
 
-.dynamic_block {
-  margin-bottom: 15px;
+.idb-section-label {
+  align-items: center;
+  border-bottom: 1px dashed rgba(15, 155, 142, 0.16);
+  color: var(--idb-primary-strong);
   display: flex;
-  flex-flow: wrap;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 2px 0 10px;
 
-  .main_card_block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  span {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+}
 
+.idb-add-btn {
+  align-items: center;
+  background: linear-gradient(135deg, var(--idb-primary-strong), var(--idb-primary-bright));
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 8px 18px rgba(15, 155, 142, 0.28);
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  padding: 0;
+  width: 30px;
+
+  ion-icon {
+    color: #ffffff;
+    font-size: 18px;
+  }
+}
+
+.idb-image-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 600px) {
+  .idb-image-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.idb-image-card {
+  background: #fbfcff;
+  border: 1px solid #edf0f7;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(15, 155, 142, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 10px 22px rgba(15, 155, 142, 0.16);
+    transform: translateY(-2px);
   }
 
-  ion-card {
-    padding: 5px;
-    border-radius: 15px;
-    border: dashed 1px;
-    margin: 0px 15px 10px 0px;
-
-    .image_upload_card {
-      max-width: 150px;
-      width: 150px;
-      border-radius: 10px;
-    }
+  img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 100%;
   }
 }

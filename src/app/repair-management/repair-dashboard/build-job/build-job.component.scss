@@ -1,34 +1,186 @@
-.top-position {
-    position: relative;
-    top: 40px !important;
+:host {
+  --bj-primary: #0f9b8e;
+  --bj-primary-dark: #0b5f5a;
+  --bj-primary-strong: #0d7d73;
+  --bj-primary-bright: #17b3a3;
+  --bj-text: #1f2937;
+  --bj-muted: #64748b;
+  display: block;
 }
 
-.top-position-body {
-    position: relative;
-    top: 65px;
+.bj-tab-bar {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(15, 155, 142, 0.08);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  padding: 5px;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-.hieght-body {
-    height: 100%;
+.bj-tab-btn {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--bj-muted);
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 800;
+  gap: 10px;
+  min-width: max-content;
+  padding: 8px 12px;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &.bj-tab-active {
+    background: linear-gradient(135deg, var(--bj-primary-strong), var(--bj-primary-bright));
+    box-shadow: 0 6px 14px rgba(15, 155, 142, 0.28);
+    color: #ffffff;
+
+    .bj-badge {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--bj-primary-strong);
+    }
+  }
+}
+
+.bj-badge {
+  align-items: center;
+  background: var(--bj-primary);
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 900;
+  height: 18px;
+  justify-content: center;
+  line-height: 1;
+  margin-inline-start: 2px;
+  min-width: 18px;
+  padding: 0 6px;
+}
+
+.global-inner-heading {
+  align-items: center;
+  background: #ffffff;
+  border-left: 4px solid var(--bj-primary);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(15, 155, 142, 0.08);
+  color: var(--bj-primary-strong) !important;
+  display: flex;
+  font-size: 12px;
+  font-weight: 900;
+  justify-content: space-between;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  text-transform: uppercase;
+}
+
+.icon-size-add {
+  align-items: center;
+  background: linear-gradient(135deg, var(--bj-primary-strong), var(--bj-primary-bright));
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(15, 155, 142, 0.28);
+  color: #ffffff !important;
+  display: flex;
+  font-size: 18px;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --background: #ffffff;
+  --border-radius: 10px;
+  --inner-border-width: 0;
+  --inner-padding-end: 8px;
+  --padding-start: 12px;
+  border: 1px solid #edf0f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(15, 155, 142, 0.06);
+  margin-bottom: 10px;
+
+  h2 {
+    color: var(--bj-text);
+    font-size: 14px;
+    font-weight: 800;
+    margin: 0 0 4px;
+  }
+
+  p {
+    color: var(--bj-muted);
+    font-size: 12px;
+    margin: 0;
+  }
+}
+
+.bj-item-meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bj-meta-chip {
+  align-items: center;
+  background: rgba(15, 155, 142, 0.08);
+  border-radius: 999px;
+  color: var(--bj-primary-strong);
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  gap: 4px;
+  padding: 3px 8px;
+
+  ion-icon {
+    font-size: 12px;
+  }
+}
+
+.bj-meta-date {
+  color: var(--bj-muted);
+  font-size: 11px;
+}
+
+.list_right_action {
+  display: flex;
+  gap: 6px;
+
+  ion-icon {
+    align-items: center;
+    background: rgba(15, 155, 142, 0.1);
+    border-radius: 50%;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    margin: 0 !important;
+    padding: 6px;
+    width: 30px;
+  }
+
+  .dynamic_color {
+    color: var(--bj-primary) !important;
+  }
+
+  .delete_color {
+    background: rgba(198, 40, 40, 0.1);
+    color: #c62828 !important;
+  }
 }
 
 .no_found_dynamic_block {
-    margin-top: 50px;
+  margin-top: 24px;
 }
-
-.scrollable-tab-bar {
-    justify-content: flex-start;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
-
-    ion-tab-button {
-        flex: 0 0 auto;
-        min-width: max-content;
-    }
-}
-
-// .top-position-heading {
-//     position: relative;
-// }

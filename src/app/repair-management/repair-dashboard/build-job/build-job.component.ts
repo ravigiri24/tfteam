@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, EventEmitter, Output } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AddServiceChargeComponent } from './add-service-charge/add-service-charge.component';
 import { ShareService } from 'src/app/share.service';
@@ -12,7 +12,7 @@ import { SelectWithSearchComponent } from 'src/app/shared-components/select-with
   templateUrl: './build-job.component.html',
   styleUrls: ['./build-job.component.scss'],
 })
-export class BuildJobComponent implements OnInit {
+export class BuildJobComponent implements OnInit, OnChanges {
   @Input() jobDetails: any;
   @Input() selectedTabBuild: any;
   @Input() expenseServiceList: any;
@@ -45,6 +45,16 @@ let selectedTab=this.spareList?.find((f:any)=>f.name==this.share.selectedRepairT
   this.goToPage(this.share.selectedRepairTab)
     }
   
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes['expenseMaterialList'] &&
+      !changes['expenseMaterialList'].firstChange &&
+      this.selectedTab != 'SERVICE' &&
+      this.selectedTab != 'REDUCE_ITEMS'
+    ) {
+      this.get_list_catWise(this.expenseMaterialList);
+    }
   }
   selectedCat:any
   goToPage(tab: any,selectedCat:any=null) {
@@ -137,14 +147,14 @@ get_list_catWise(list:any=[]){
   this.catWiseItemList=[]
   let itemOfCatId=list.filter((f:any)=>f.cat_id==this.selectedCat?.id)||[]
   let itemDOntHaceCatId=list.filter((f:any)=>f.cat_id==null)
-  let catWiseArray=[]
+  let catWiseArray: any[] = []
   itemDOntHaceCatId?.forEach((f:any)=>{
     let getMaterial=this.materialList?.find((mat:any)=>mat.id==f.expense_id)
     if(getMaterial?.category==this.selectedCat?.id){
 catWiseArray.push(f)
     }
-this.catWiseItemList=[...itemOfCatId,...catWiseArray]
   })
+  this.catWiseItemList=[...itemOfCatId,...catWiseArray]
 
 }
 
@@ -152,6 +162,7 @@ this.catWiseItemList=[...itemOfCatId,...catWiseArray]
   async addService(expense_head: any, obj: any = null) {
     const modal = await this.modalControl.create({
       component: AddServiceChargeComponent,
+      cssClass: 'modal-xl',
       componentProps: {
         tractorDetails: this.jobDetails,
         expense_head: expense_head,
@@ -171,6 +182,7 @@ this.catWiseItemList=[...itemOfCatId,...catWiseArray]
   async addMaterial(expense_head: any, obj: any = null, type: any = 'SERVICE') {
     const modal = await this.modalControl.create({
       component: AddMaterialExpenseComponent,
+      cssClass: 'modal-xl',
       componentProps: {
         tractorDetails: this.jobDetails,
         expense_head: expense_head,
@@ -197,6 +209,7 @@ this.catWiseItemList=[...itemOfCatId,...catWiseArray]
   async addReduceMaterial( obj: any = null) {
     const modal = await this.modalControl.create({
       component: AddReducePartComponent,
+      cssClass: 'modal-xl',
       componentProps: {
         tractorDetails: this.jobDetails,
      

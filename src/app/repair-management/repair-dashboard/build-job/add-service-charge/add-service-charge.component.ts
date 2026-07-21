@@ -246,25 +246,6 @@ this.resetVal()
       this.dismiss();
     });
   }
-  showSearchList = false;
-  onInputFocus() {
-    console.log(
-      'onInputFocus',
-      this.expenseTypeList,
-      this.expenseTypeListBackup
-    );
-    //  this.expenseTypeList=this.expenseTypeListBackup
-
-    this.showSearchList = true;
-  }
-  focusOut() {
-    console.log('focusOut');
-    // this.search.name=null
-    // this.search.id=null
-    setTimeout(() => {
-      this.showSearchList = false;
-    }, 100);
-  }
   search: any = {
     name: null,
     id: null,
@@ -280,13 +261,18 @@ this.resetVal()
     this.selectedItem.id = val?.id;
     this.search.name = null;
   }
+  changeService() {
+    this.selectedItem = {
+      name: null,
+      id: null,
+    };
+  }
   test(e: any) {
     console.log('test', this.search.name);
   }
   addNewService() {
     this.selectedItem.name = this.search.name;
     this.selectedItem.id = null;
-    this.showSearchList = false;
     this.search.name = null;
   }
 }

@@ -1,70 +1,58 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Add Service</ion-title>
+    <ion-title class="asc-title">Add Service</ion-title>
     <ion-buttons slot="end">
-      <ng-container *ngIf="addedItems?.length > 0  && !editData">
-      <ion-button fill="clear" (click)=" openAddedItemList()"
-        style="position: relative; margin-right: 8px;">
-        <ion-icon class="dynamic_color icon-size" name="list-outline"></ion-icon>
-        <ion-badge color="danger"
-          style="position: absolute; top: 0; right: 0; min-width: 18px; height: 18px; padding: 0; border-radius: 50%; font-size: 11px; line-height: 18px;">
-          {{addedItems?.length||0}}
-        </ion-badge>
-      </ion-button>
-      </ng-container>
-      <ion-icon class="button-right-margin theme-color" (click)="openCrudManagement('TYPE_OF_REPAIRING_EXPENSE')"
-        name="add-circle-outline"></ion-icon>
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <button class="asc-icon-btn" *ngIf="addedItems?.length > 0 && !editData" type="button" (click)="openAddedItemList()" aria-label="View added items">
+        <ion-icon name="list-outline"></ion-icon>
+        <span class="asc-badge">{{addedItems?.length||0}}</span>
+      </button>
+      <button class="asc-icon-btn" type="button" (click)="openCrudManagement('TYPE_OF_REPAIRING_EXPENSE')" aria-label="Add service type">
+        <ion-icon name="add-outline"></ion-icon>
+      </button>
+      <button class="asc-icon-btn asc-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-toolbar>
+  <div class="asc-header-art">
+    <span class="asc-orb asc-orb-one"></span>
+    <span class="asc-orb asc-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content class="page_inner_container ion-padding" [ngClass]="listColorClass">
-  <ion-searchbar (ionFocus)="onInputFocus()" (ionBlur)="focusOut()" [(ngModel)]="search.name" slot="fixed"
-    placeholder="Search Service"></ion-searchbar>
-  <div [ngClass]="{'searchList':showSearchList==true}">
-    <ion-content>
-      <ion-list *ngIf="showSearchList" class="list_row">
-        <ion-item (click)="setValue(expense)" *ngFor="let expense of expenseTypeList| filterBy: search ;let in=index">
-          <ion-label>
-            <h2>{{expense?.name}}</h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-      <div class="not_found_block" *ngIf="(expenseTypeList | filterBy: search).length === 0">
-        <small>In this service not found, do you want add this one.</small>
-        <ion-button (click)="addNewService()" class="dynamic_bgcolor">
-          <span class="color-white">Add New Service</span></ion-button>
-      </div>
-    </ion-content>
+<ion-content class="ion-padding asc-content">
+  <ion-searchbar *ngIf="!selectedItem?.name" [(ngModel)]="search.name" class="asc-searchbar" placeholder="Search Service"></ion-searchbar>
+  <div class="asc-search-wrap" *ngIf="!selectedItem?.name">
+    <ion-list class="asc-search-list" *ngIf="(expenseTypeList | filterBy: search).length">
+      <ion-item class="asc-search-item" (click)="setValue(expense)" *ngFor="let expense of expenseTypeList| filterBy: search ;let in=index">
+        <ion-icon name="construct-outline"></ion-icon>
+        <ion-label>
+          <h2>{{expense?.name}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <div class="asc-not-found" *ngIf="(expenseTypeList | filterBy: search).length === 0">
+      <small>In this service not found, do you want add this one.</small>
+      <button class="asc-add-new-btn" type="button" (click)="addNewService()">Add New Service</button>
+    </div>
   </div>
 
-
-  <div class="service_selected_amount_block" *ngIf="selectedItem?.name">
+  <div class="asc-selected-block" *ngIf="selectedItem?.name">
     <form [formGroup]="form">
-      <span class="inner-heading"><span>Selected Service : </span><span>{{selectedItem?.name}}</span></span>
-      <div class="global_input_block">
+      <div class="asc-selected-row">
+        <div class="asc-selected-text">
+          <span>Selected Service :</span>
+          <span class="asc-selected-value">{{selectedItem?.name}}</span>
+        </div>
+        <button class="asc-change-btn" type="button" (click)="changeService()" aria-label="Change service">
+          <ion-icon name="swap-horizontal-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="global_input_block asc-input-block">
         <ion-input label="Amount" fill="outline" labelPlacement="stacked" type="number"
           formControlName="expense_amount"></ion-input>
       </div>
-      <div class="global_submit_button">
-        <ion-button *ngIf="!editData" (click)="saveData()" class="dynamic_bgcolor global_submit_color_button" expand="block"><span
-            class="color-white">Add Service</span></ion-button>
-        <ion-button *ngIf="editData" (click)="updateData()" class="dynamic_bgcolor global_submit_color_button" expand="block"><span
-            class="color-white">Update Service</span></ion-button>
-      </div>
+      <button class="asc-submit-btn" type="button" *ngIf="!editData" (click)="saveData()">Add Service</button>
+      <button class="asc-submit-btn" type="button" *ngIf="editData" (click)="updateData()">Update Service</button>
     </form>
   </div>
-  <!-- <ion-item  *ngIf="expense_head!='PREDICTION'" class="bottom-margin">
-      <ion-icon (click)="openCrudManagement('REPAIRINGCENTER')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="getRepairingCenterList(true)" name="refresh-outline"></ion-icon>
-      <ion-select  formControlName="repairing_center"    label="Repairing Center" label-placement="type">
-        <ion-select-option *ngFor="let rep of repairingCenterList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>  
-      </ion-select>
-    </ion-item> -->
-  <!-- <div class="global_input_block">
-      <ion-input  (ionFocus)="onInputFocus()"   label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
-    </div> -->
-  <!-- <div class="global_input_block top-position-search">
-      <ion-input  label="Search Service" fill="outline" (ionFocus)="onInputFocus()"  (ionBlur)="focusOut()"  [(ngModel)]="search.name"  labelPlacement="stacked" ></ion-input>
-    </div> -->
 </ion-content>

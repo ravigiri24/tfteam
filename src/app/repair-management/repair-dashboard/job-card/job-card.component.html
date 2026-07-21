@@ -2,16 +2,6 @@
 <div [classList]="'main_page_container ' + listColorClass">
   <div class="global-inner-heading">
     <span id="PrintInvoice">Vehicle Details</span>
-    <div class="right_button">
-      <div (click)="addRemark()" class="dynamic_color" fill="clear">
-        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-        <span>Add Remark</span>
-      </div>
-      <div (click)="addRemarkMiss()" class="dynamic_color" fill="clear">
-        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-        <span>Add Remark (Misc)</span>
-      </div>
-    </div>
   </div>
   <ion-grid class="main_block_details">
     <ion-card class="main_card_details">
@@ -139,6 +129,32 @@
   </ion-grid>
   <div class="dynamic_block no_found_dynamic_block" *ngIf="!reduceItemList?.length">
     <app-no-data-view [title]="'No Reduce Costing found.'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  <div class="global-inner-heading">
+    <span>Remark</span>
+    <div class="right_button">
+      <div (click)="addRemark()" class="dynamic_color" fill="clear">
+        <ion-icon class="icon-size-add right-margin" [name]="jobDetails?.remark ? 'create-outline' : 'add-circle-outline'"></ion-icon>
+        <span>{{jobDetails?.remark ? 'Edit Remark' : 'Add Remark'}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="jc-remark-card">
+    <p *ngIf="jobDetails?.remark">{{jobDetails?.remark}}</p>
+    <app-no-data-view *ngIf="!jobDetails?.remark" [title]="'No remark added yet.'" [subtitleShow]="false"></app-no-data-view>
+  </div>
+  <div class="global-inner-heading">
+    <span>Remark (Misc)</span>
+    <div class="right_button">
+      <div (click)="addRemarkMiss()" class="dynamic_color" fill="clear">
+        <ion-icon class="icon-size-add right-margin" [name]="jobDetails?.miscellaneous_remark ? 'create-outline' : 'add-circle-outline'"></ion-icon>
+        <span>{{jobDetails?.miscellaneous_remark ? 'Edit Remark (Misc)' : 'Add Remark (Misc)'}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="jc-remark-card">
+    <p *ngIf="jobDetails?.miscellaneous_remark">{{jobDetails?.miscellaneous_remark}}</p>
+    <app-no-data-view *ngIf="!jobDetails?.miscellaneous_remark" [title]="'No remark added yet.'" [subtitleShow]="false"></app-no-data-view>
   </div>
   <div class="page_submit_btn">
     <ion-button *ngIf="!isJobDone" (click)="actionJob('Close Job',true)"

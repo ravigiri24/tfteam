@@ -1,8 +1,8 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<div class="top-position" [ngClass]="listColorClass">
+<div class="jd-wrap">
   <span class="global-inner-heading">Vehicle Details</span>
-  <ion-grid class="main_block_details" [ngClass]="listColorClass">
-    <ion-card>
+  <ion-grid class="main_block_details">
+    <ion-card class="main_card_details">
       <ion-row>
         <ion-col>TF Code</ion-col>
         <ion-col class="amount_col"> {{ jobDetails?.tfCode || '-' }}</ion-col>
@@ -45,23 +45,21 @@
       </ion-row>
     </ion-card>
   </ion-grid>
-  <div class="issue-body">
-    <span class="global-inner-heading">Issues
-      <!-- <ion-icon (click)="openIssuePopup()"  class="small_icon20 theme-color" name="create-outline"></ion-icon> -->
-    </span>
+  <div class="jd-section">
+    <span class="global-inner-heading">Issues</span>
     <div class="chips_container">
-      <ion-chip class="chips_block" [ngClass]="{'isItDone':issue.isCompleted}" [ngClass]="{ 'isItnotDone': !issue?.iscompleted}" (click)="completeJob(issue)"
-        *ngFor="let issue of issueArray" color="danger">{{issue?.name}}</ion-chip>
-      <!-- // eslint-disable-next-line @angular-eslint/template/eqeqeq -->
-      <ion-chip class="chips_block" [ngClass]="{'isItDone':jobDetails?.isOtherIssueDone==1}"
-        (click)="updateOtherStatus()" color="danger">{{jobDetails?.otherIssues}} other</ion-chip>
+      <ion-chip class="chips_block" [class.jd-chip-done]="issue.isCompleted" [class.jd-chip-pending]="!issue?.isCompleted"
+        (click)="completeJob(issue)" *ngFor="let issue of issueArray">{{issue?.name}}</ion-chip>
+      <ion-chip class="chips_block" [class.jd-chip-done]="jobDetails?.isOtherIssueDone==1"
+        [class.jd-chip-pending]="jobDetails?.isOtherIssueDone!=1"
+        (click)="updateOtherStatus()">{{jobDetails?.otherIssues}} other</ion-chip>
     </div>
   </div>
-  <div class="inventory-issue">
+  <div class="jd-section">
     <span class="global-inner-heading">Inventory</span>
     <div class="chips_container">
-      <ion-chip class="chips_block" *ngFor="let inventory of inventoryArray">{{inventory?.name}}</ion-chip>
-      <ion-chip class="chips_block">{{jobDetails?.otherInventoryOptions}} Other</ion-chip>
+      <ion-chip class="chips_block jd-chip-neutral" *ngFor="let inventory of inventoryArray">{{inventory?.name}}</ion-chip>
+      <ion-chip class="chips_block jd-chip-neutral">{{jobDetails?.otherInventoryOptions}} Other</ion-chip>
     </div>
   </div>
 </div>

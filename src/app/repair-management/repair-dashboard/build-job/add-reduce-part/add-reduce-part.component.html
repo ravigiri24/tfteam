@@ -1,81 +1,74 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Add Reduce Material</ion-title>
+    <ion-title class="arp-title">Add Reduce Material</ion-title>
     <ion-buttons slot="end">
-       <ng-container *ngIf="addedItems?.length > 0  && !editData">
-      <ion-button fill="clear" (click)=" openAddedItemList()"
-        style="position: relative; margin-right: 8px;">
-        <ion-icon class="dynamic_color icon-size" name="list-outline"></ion-icon>
-        <ion-badge color="danger"
-          style="position: absolute; top: 0; right: 0; min-width: 18px; height: 18px; padding: 0; border-radius: 50%; font-size: 11px; line-height: 18px;">
-          {{addedItems?.length||0}}
-        </ion-badge>
-      </ion-button>
-      </ng-container>
-      <ion-icon class="button-right-margin dynamic_color" (click)="openCrudManagement('CATEGOEY_OF_MATERIAL')"
-        name="add-circle"></ion-icon>
-      <ion-icon class="button-right-margin dynamic_color" (click)="openCrudManagement('MATERIAL_OF_REPAIRING')"
-        name="add-circle-outline"></ion-icon>
-      <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <button class="arp-icon-btn" *ngIf="addedItems?.length > 0 && !editData" type="button" (click)="openAddedItemList()" aria-label="View added items">
+        <ion-icon name="list-outline"></ion-icon>
+        <span class="arp-badge">{{addedItems?.length||0}}</span>
+      </button>
+      <button class="arp-icon-btn" type="button" (click)="openCrudManagement('CATEGOEY_OF_MATERIAL')" aria-label="Add category">
+        <ion-icon name="pricetags-outline"></ion-icon>
+      </button>
+      <button class="arp-icon-btn" type="button" (click)="openCrudManagement('MATERIAL_OF_REPAIRING')" aria-label="Add material">
+        <ion-icon name="add-outline"></ion-icon>
+      </button>
+      <button class="arp-icon-btn arp-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-toolbar>
+  <div class="arp-header-art">
+    <span class="arp-orb arp-orb-one"></span>
+    <span class="arp-orb arp-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content class="page_inner_container ion-padding" [ngClass]="listColorClass">
-  <!-- <ion-item  *ngIf="expense_head!='PREDICTION'" class="bottom-margin">
-      <ion-icon (click)="openCrudManagement('REPAIRINGCENTER')" name="add-circle-outline"></ion-icon>
-      <ion-icon (click)="getRepairingCenterList(true)" name="refresh-outline"></ion-icon>
-      <ion-select  formControlName="repairing_center"    label="Repairing Center" label-placement="type">
-        <ion-select-option *ngFor="let rep of repairingCenterList" [value]="rep.id">    {{ rep?.name }}</ion-select-option>
-    
-      </ion-select>
-    </ion-item> -->
-  <!-- <div class="global_input_block">
-      <ion-input  (ionFocus)="onInputFocus()"   label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
-    </div> -->
-  <ion-searchbar (ionFocus)="onInputFocus()" (ionBlur)="focusOut()" [(ngModel)]="search.name" slot="fixed"
-    placeholder="Search Spare"></ion-searchbar>
-  <!-- <div class="global_input_block top-position-search">
-      <ion-input  label="Search Service" fill="outline" (ionFocus)="onInputFocus()"  (ionBlur)="focusOut()"  [(ngModel)]="search.name"  labelPlacement="stacked" ></ion-input>
-    </div> -->
-  <div [ngClass]="{'searchList':showSearchList==true}">
-    <ion-list *ngIf="showSearchList" class="list_row">
-      <ion-item (click)="setValue(expense)" *ngFor="let expense of materialList| filterBy: search ;let in=index">
+<ion-content class="ion-padding arp-content">
+  <ion-searchbar *ngIf="!selectedItem?.name" [(ngModel)]="search.name" class="arp-searchbar" placeholder="Search Spare"></ion-searchbar>
+  <div class="arp-search-wrap" *ngIf="!selectedItem?.name">
+    <ion-list class="arp-search-list" *ngIf="(materialList | filterBy: search).length">
+      <ion-item class="arp-search-item" (click)="setValue(expense)" *ngFor="let expense of materialList| filterBy: search ;let in=index">
+        <ion-icon name="cube-outline"></ion-icon>
         <ion-label>
           <h2>{{expense?.name}}</h2>
         </ion-label>
       </ion-item>
     </ion-list>
-    <div class="not_found_block" *ngIf="(materialList | filterBy: search).length === 0">
+    <div class="arp-not-found" *ngIf="(materialList | filterBy: search).length === 0">
       <small>In this part not found, do you want add this one.</small>
-      <ion-button (click)="addNewService()" class="dynamic_bgcolor">
-        <span class="color-white">Add New Part</span></ion-button>
+      <button class="arp-add-new-btn" type="button" (click)="addNewService()">Add New Part</button>
     </div>
   </div>
-  <form class="service_selected_amount_block" [formGroup]="form" *ngIf="selectedItem?.name">
-    <span class="inner-heading"><span>Selected Spare : </span><span>{{selectedItem?.name}}</span></span>    
-    <div *ngIf="selectedItem?.name && !selectedItem?.id" class="global_input_block">
-      <ion-select (ionChange)="setSpareCategory()" [(ngModel)]="category" fill="outline" label="Select Category*"
-        label-placement="type">
-        <ion-select-option *ngFor="let spare of spareList" [value]="spare?.id">{{spare?.name}}</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Amount" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="reduce_amount"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Quantity" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="qty"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-textarea label="Remark" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="remark"></ion-textarea>
-    </div>
-    <div class="global_submit_button">
-      <ion-button *ngIf="!editData" (click)="saveData()" class="dynamic_bgcolor" expand="block"><span
-          class="color-white">Add</span></ion-button>
-      <ion-button *ngIf="editData" (click)="updateData()" class="dynamic_bgcolor" expand="block"><span
-          class="color-white">Update</span></ion-button>
-    </div>
-  </form>
+
+  <div class="arp-selected-block" *ngIf="selectedItem?.name">
+    <form [formGroup]="form">
+      <div class="arp-selected-row">
+        <div class="arp-selected-text">
+          <span>Selected Spare :</span>
+          <span class="arp-selected-value">{{selectedItem?.name}}</span>
+        </div>
+        <button class="arp-change-btn" type="button" (click)="changeSpare()" aria-label="Change spare">
+          <ion-icon name="swap-horizontal-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="global_input_block arp-input-block" *ngIf="selectedItem?.name && !selectedItem?.id">
+        <ion-select (ionChange)="setSpareCategory()" [(ngModel)]="category" [ngModelOptions]="{standalone: true}" fill="outline" label="Select Category*" label-placement="type">
+          <ion-select-option *ngFor="let spare of spareList" [value]="spare?.id">{{spare?.name}}</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="global_input_block arp-input-block">
+        <ion-input label="Amount" fill="outline" labelPlacement="stacked" type="number"
+          formControlName="reduce_amount"></ion-input>
+      </div>
+      <div class="global_input_block arp-input-block">
+        <ion-input label="Quantity" fill="outline" labelPlacement="stacked" type="number"
+          formControlName="qty"></ion-input>
+      </div>
+      <div class="global_input_block arp-input-block">
+        <ion-textarea label="Remark" fill="outline" labelPlacement="stacked" type="text"
+          formControlName="remark"></ion-textarea>
+      </div>
+      <button class="arp-submit-btn" type="button" *ngIf="!editData" (click)="saveData()">Add</button>
+      <button class="arp-submit-btn" type="button" *ngIf="editData" (click)="updateData()">Update</button>
+    </form>
+  </div>
 </ion-content>

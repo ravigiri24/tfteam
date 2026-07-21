@@ -275,24 +275,6 @@ this.resetVal()
       this.dismiss();
     });
   }
-  showSearchList = false;
-  onInputFocus() {
-
-    //  this.expenseTypeList=this.expenseTypeListBackup
-
-    this.showSearchList = true;
-  }
-  focusOut() {
-    console.log('focusOut');
-    // this.search.name=null
-    // this.search.id=null
-    setTimeout(() => {
-      // if(!this.spareListOpen){
-      this.showSearchList = false;
-      // }
-
-    }, 100);
-  }
   search: any = {
     name: null,
     id: null,
@@ -309,6 +291,13 @@ this.resetVal()
     this.selectedItem.id = val?.id;
     this.search.name = null;
   }
+  changeSpare() {
+    this.selectedItem = {
+      name: null,
+      id: null,
+      category: null,
+    };
+  }
   test(e: any) {
     console.log('test', this.search.name);
   }
@@ -316,7 +305,6 @@ this.resetVal()
 
     this.selectedItem.name = this.search.name;
     this.selectedItem.id = null;
-    this.showSearchList = false;
     this.search.name = null;
   }
   spareListOpen = false

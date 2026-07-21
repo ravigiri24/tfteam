@@ -1,20 +1,31 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Added Items</ion-title>
+    <ion-title class="asi-title">Added Items</ion-title>
     <ion-buttons slot="end">
-      <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <button class="asi-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-toolbar>
+  <div class="asi-header-art">
+    <span class="asi-orb asi-orb-one"></span>
+    <span class="asi-orb asi-orb-two"></span>
+  </div>
 </ion-header>
 
-<ion-content class="added-item-list ion-padding" [ngClass]="listColorClass">
-  <ion-list class="list_row list_row_without_padding" *ngIf="addedItems?.length">
-    <ion-item *ngFor="let item of addedItems">
-      <ion-label>
+<ion-content class="ion-padding asi-content">
+  <div class="asi-list" *ngIf="addedItems?.length">
+    <div class="asi-card" *ngFor="let item of addedItems">
+      <div class="asi-icon">
+        <ion-icon name="construct-outline"></ion-icon>
+      </div>
+      <div class="asi-info">
         <h2>{{ item?.serviceName }}</h2>
-        <p *ngIf="item?.qty">Qty : {{ item?.qty}}</p>
-        <p>Amount : {{ item?.total_expense || item?.total_amount}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+        <p *ngIf="item?.qty">Qty : {{ item?.qty }}</p>
+      </div>
+      <span class="asi-amount">₹{{ item?.total_expense || item?.total_amount }}</span>
+    </div>
+  </div>
+
+  <app-no-data-view *ngIf="!addedItems?.length" [title]="'No items added yet.'" [subtitleShow]="false"></app-no-data-view>
 </ion-content>

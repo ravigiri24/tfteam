@@ -1,22 +1,21 @@
-<div class="top-position height-body" [ngClass]="listColorClass">
-  <ion-tabs class="inner-tabs">
-    <ion-tab-bar slot="top" class="scrollable-tab-bar">
-      <ion-tab-button (click)="goToPage('SERVICE')" [ngClass]="{'selected_tab':selectedTab==='SERVICE'}" tab="MODEL">
-        <span class="tabs">Services({{expenseServiceList?.length}})</span>
-      </ion-tab-button>
-         <ion-tab-button *ngFor="let cat of spareList" (click)="goToPage(cat?.name,cat)" [ngClass]="{'selected_tab':selectedTab===cat?.name}" tab="GALLERY">
-        <span class="tabs">{{cat?.name}}({{cat?.spareWiseArray?.length||0}})</span>
-      </ion-tab-button>
-      <!-- <ion-tab-button (click)="goToPage('PARTS')" [ngClass]="{'selected_tab':selectedTab==='PARTS'}" tab="GALLERY">
-        <span class="tabs">Parts</span>
-      </ion-tab-button> -->
-      <ion-tab-button (click)="goToPage('REDUCE_ITEMS')" [ngClass]="{'selected_tab':selectedTab==='REDUCE_ITEMS'}"
-        tab="GALLERY">
-        <span class="tabs">Reduce Item({{reduceItemList?.length}})</span>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
-  <div class="tab_withinner_block top-position-body">
+<div class="bj-wrap">
+  <div class="bj-tab-bar">
+    <button class="bj-tab-btn" [class.bj-tab-active]="selectedTab==='SERVICE'" type="button" (click)="goToPage('SERVICE')">
+      <span>Services</span>
+      <span class="bj-badge" *ngIf="expenseServiceList?.length">{{expenseServiceList?.length}}</span>
+    </button>
+    <button class="bj-tab-btn" *ngFor="let cat of spareList" [class.bj-tab-active]="selectedTab===cat?.name" type="button"
+      (click)="goToPage(cat?.name,cat)">
+      <span>{{cat?.name}}</span>
+      <span class="bj-badge" *ngIf="cat?.spareWiseArray?.length">{{cat?.spareWiseArray?.length}}</span>
+    </button>
+    <button class="bj-tab-btn" [class.bj-tab-active]="selectedTab==='REDUCE_ITEMS'" type="button"
+      (click)="goToPage('REDUCE_ITEMS')">
+      <span>Reduce Item</span>
+      <span class="bj-badge" *ngIf="reduceItemList?.length">{{reduceItemList?.length}}</span>
+    </button>
+  </div>
+  <div class="tab_withinner_block">
     <ng-container *ngIf="selectedTab==='SERVICE'">
       <div class="global-inner-heading dynamic_color">
         <span>Service Charges</span>
@@ -28,7 +27,10 @@
           <ion-item *ngFor="let mat of expenseServiceList;let in=index">
             <ion-label>
               <h2>{{mat?.materialDetail?.name}}</h2>
-              <p>{{mat?.total_expense}} | {{mat?.createdOn | date}} </p>
+              <p class="bj-item-meta">
+                <span class="bj-meta-chip"><ion-icon name="wallet-outline"></ion-icon>₹{{mat?.total_expense}}</span>
+                <span class="bj-meta-date">{{mat?.createdOn | date}}</span>
+              </p>
             </ion-label>
             <div class="list_right_action">
               <ion-icon (click)="openServiceEdit(mat,'EXPENSE')" class="right-margine dynamic_color"
@@ -54,7 +56,11 @@
           <ion-item *ngFor="let mat of catWiseItemList;let in=index">
             <ion-label>
               <h2>{{mat?.materialDetail?.name}}</h2>
-              <p>{{mat?.expense_amount}}|{{mat?.qty}} | {{mat?.total_expense}} | {{mat?.createdOn|date}} </p>
+              <p class="bj-item-meta">
+                <span class="bj-meta-chip"><ion-icon name="pricetag-outline"></ion-icon>₹{{mat?.expense_amount}}</span>
+                <span class="bj-meta-chip"><ion-icon name="layers-outline"></ion-icon>Qty {{mat?.qty}}</span>
+                <span class="bj-meta-date">{{mat?.createdOn|date}}</span>
+              </p>
             </ion-label>
             <div class="list_right_action">
                 <ion-icon (click)="selectItem(spareList,'Category For Change',mat)" class="right-margine dynamic_color"
@@ -84,7 +90,11 @@
           <ion-item *ngFor="let mat of expenseMaterialList;let in=index">
             <ion-label>
               <h2>{{mat?.materialDetail?.name}}</h2>
-              <p>{{mat?.expense_amount}}|{{mat?.qty}} | {{mat?.total_expense}} | {{mat?.createdOn|date}} </p>
+              <p class="bj-item-meta">
+                <span class="bj-meta-chip"><ion-icon name="pricetag-outline"></ion-icon>₹{{mat?.expense_amount}}</span>
+                <span class="bj-meta-chip"><ion-icon name="layers-outline"></ion-icon>Qty {{mat?.qty}}</span>
+                <span class="bj-meta-date">{{mat?.createdOn|date}}</span>
+              </p>
             </ion-label>
             <div class="list_right_action">
               <ion-icon (click)="openEdit(mat,'EXPENSE')" class="right-margine dynamic_color"
@@ -110,7 +120,11 @@
           <ion-item *ngFor="let mat of reduceItemList;let in=index">
             <ion-label>
               <h2>{{mat?.materialDetail?.name}}</h2>
-              <p>{{mat?.reduce_amount}}|{{mat?.qty}} | {{mat?.total_amount}} | {{mat?.createdOn|date}} </p>
+              <p class="bj-item-meta">
+                <span class="bj-meta-chip"><ion-icon name="pricetag-outline"></ion-icon>₹{{mat?.reduce_amount}}</span>
+                <span class="bj-meta-chip"><ion-icon name="layers-outline"></ion-icon>Qty {{mat?.qty}}</span>
+                <span class="bj-meta-date">{{mat?.createdOn|date}}</span>
+              </p>
             </ion-label>
             <div class="list_right_action">
               <ion-icon (click)="openEditReduce(mat)" class="right-margine dynamic_color"

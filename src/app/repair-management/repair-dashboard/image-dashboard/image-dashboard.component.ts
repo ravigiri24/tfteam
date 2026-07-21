@@ -31,6 +31,7 @@ export class ImageDashboardComponent implements OnInit {
   async viewImage(imageGroup: any) {
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
+      cssClass: 'modal-xl',
       componentProps: {
 
         jobId: this.jobDetails?.id,
@@ -49,14 +50,21 @@ export class ImageDashboardComponent implements OnInit {
   async viewImageSingle(image: any) {
     const modal = await this.modalControl.create({
       component: SingleImageShowComponent,
+      cssClass: 'modal-image-viewer',
       componentProps: {
-
+        showDeleteButton: true,
         image: image,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
+
+    if (data?.isDeleted && data?.deletedId) {
+      this.beforeService = this.beforeService?.filter((f: any) => f?.id != data.deletedId);
+      this.jobArray = this.jobArray?.filter((f: any) => f?.id != data.deletedId);
+      this.reloadImage.emit();
+    }
 
     if (role === 'confirm') {
       this.reloadImage.emit()
@@ -65,8 +73,9 @@ export class ImageDashboardComponent implements OnInit {
     async viewInSlider(image: any,imageArray:any) {
     const modal = await this.modalControl.create({
       component: ImageSliderComponent,
+      cssClass: 'light-modal modal-image-viewer',
       componentProps: {
- 
+        showDeleteButton: true,
         image: image,
         imageArray:imageArray
       },
@@ -74,6 +83,11 @@ export class ImageDashboardComponent implements OnInit {
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
+
+    if (data?.isDeleted && data?.deletedId) {
+      this.afterService = this.afterService?.filter((f: any) => f?.id != data.deletedId);
+      this.reloadImage.emit();
+    }
 
     if (role === 'confirm') {
       this.reloadImage.emit()
