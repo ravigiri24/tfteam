@@ -1,26 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Available Images</ion-title>
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
+    <ion-title class="iv-title">Available Images</ion-title>
     <ion-buttons slot="end">
-      <ion-icon class="theme-color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <button class="iv-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-toolbar>
+  <div class="iv-header-art">
+    <span class="iv-orb iv-orb-one"></span>
+    <span class="iv-orb iv-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content>
-  <ion-grid *ngIf="imageArray?.length">
-    <ion-row>
-      <ion-col size="6" *ngFor="let photo of imageArray; index as position">
-        <ion-card class="m-0">
-          <img (click)="viewImage(photo)" [src]="photo?.imageUrlUrl" />
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content class="ion-padding">
+  <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
 
-  <ion-fab *ngIf="uploadPhoto" vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="addPhotoToGallery()">
-      <ion-icon name="camera"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div class="iv-image-grid" *ngIf="imageArray?.length">
+    <div class="iv-image-card" *ngFor="let photo of imageArray; index as position">
+      <img (click)="viewImage(photo)" [src]="photo?.imageUrlUrl" />
+    </div>
+  </div>
+
+  <app-no-data-view *ngIf="!imageArray?.length" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
 </ion-content>
+<ion-footer *ngIf="uploadPhoto" class="iv-footer">
+  <button class="iv-fab-btn" type="button" (click)="openUploadOptions()" aria-label="Add image">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-footer>

@@ -1,24 +1,16 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Image</ion-title>
-    <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon> 
-  </ion-toolbar>
-</ion-header> -->
-<ion-header class="main_header">
-  <ion-toolbar>
-    <ion-buttons class="right_close_download" slot="end">
-      <ion-icon class="theme-color icon-size" (click)="openPDF(image?.imageUrlUrl)" name="download-outline"></ion-icon>
-    </ion-buttons>
-    <ion-buttons *ngIf="showDeleteButton" class="right_close_delete" slot="end">
-      <ion-icon class="delete_color icon-size" (click)="deleteItem()" name="trash-outline"></ion-icon>
-    </ion-buttons>
-    <ion-buttons class="right_close" slot="end">
-      <ion-icon class="icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="single_image_content">
-  <ion-card>
-    <ion-img [src]="image.imageUrlUrl"></ion-img>
-  </ion-card>
-</ion-content>
+<div class="sis-viewer">
+  <div class="sis-action-bar">
+    <button class="sis-icon-btn" type="button" (click)="openPDF(image?.imageUrlUrl)" aria-label="Download">
+      <ion-icon name="download-outline"></ion-icon>
+    </button>
+    <button class="sis-icon-btn sis-delete" *ngIf="showDeleteButton" type="button" (click)="deleteItem()" aria-label="Delete">
+      <ion-icon name="trash-outline"></ion-icon>
+    </button>
+    <button class="sis-icon-btn sis-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  <div class="sis-image-wrap">
+    <img [src]="image?.imageUrlUrl" />
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PhotoService } from 'src/app/photo.service';
 import { Filesystem, Directory } from '@capacitor/filesystem';
@@ -24,6 +24,7 @@ export class ImageViewerComponent implements OnInit {
   apiName:any='saveRawImages'
   getApiName:any='getRawImages'
   callApi: any=true;
+  @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
   constructor(
     public photoService: PhotoService,
     private modalControl: ModalController,
@@ -33,6 +34,16 @@ export class ImageViewerComponent implements OnInit {
   ) {}
   dismiss() {
     this.modalControl.dismiss();
+  }
+  openUploadOptions() {
+    this.fileInput.nativeElement.click();
+  }
+  onFileSelected(event: any) {
+    const file: File = event?.target?.files?.[0];
+    if (file) {
+      this.uploadImage(file);
+    }
+    event.target.value = '';
   }
   imageArray: any = [];
   ngOnInit() {
@@ -201,7 +212,8 @@ uploadImage(file: Blob) {
       this.share.spinner.dismiss();
       this.share.presentToast("Uploaded Successfully...")
     },(error:any)=>{
-      
+      this.share.spinner.dismiss();
+      this.share.presentToast('Failed to upload image, please try again.');
       console.log(error);
     });
   }
@@ -218,23 +230,27 @@ uploadImage(file: Blob) {
     this.share.showLoading('Fetching Data...');
     this.api.postapi('getRawImagesRepair', obj).subscribe((res: any) => {
       console.log("data",res);
-      this.imageArray=res?.data || []
+      this.imageArray=res?.data?.filter((f:any)=>f.isDeleted=='0') || []
       this.imageArray= this.imageArray.filter((f:any)=>f.imageGroup==this.imageGroup)
       this.share.spinner.dismiss();
- 
+
     });
   }
   async viewImage(image:any){
     const modal = await this.modalCtrl.create({
       component: SingleImageShowComponent,
+      cssClass: 'modal-image-viewer',
       componentProps: {
-     
+        showDeleteButton: true,
         image: image,
       },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
+    if (data?.isDeleted && data?.deletedId) {
+      this.imageArray = this.imageArray.filter((f: any) => f?.id != data.deletedId);
+    }
 
     if (role === 'confirm') {
    

@@ -63,17 +63,22 @@ export class  SingleImageShowComponent implements OnInit {
 
   deleteConfirm() {
     let obj = {
-      src: 'raw_image',
+      src: 'new_findings_image',
       data: { isDeleted: true },
       id: this.image?.id,
     };
 
     this.share.showLoading('Deleting Image...');
-    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
-
-      this.share.presentToast('Deleted Successfully...');
-        this.modalControl.dismiss({isDeleted:true});
-    });
+    this.api.postapi('updateOpp', obj).subscribe(
+      (res: any) => {
+        this.share.spinner.dismiss();
+        this.share.presentToast('Deleted Successfully...');
+        this.modalControl.dismiss({ isDeleted: true, deletedId: this.image?.id });
+      },
+      (error: any) => {
+        this.share.spinner.dismiss();
+        this.share.presentToast('Failed to delete image, please try again.');
+      },
+    );
   }
 }
