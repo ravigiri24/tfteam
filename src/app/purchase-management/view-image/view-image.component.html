@@ -1,86 +1,81 @@
-<ion-header [ngClass]="listColorClass">
-   <ion-toolbar>
+<ion-header>
+  <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
         <span class="selected_text">View All Image</span>
       </div>
       <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+        <button class="vi-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
       </div>
     </ion-label>
   </ion-toolbar>
+  <div class="vi-header-art">
+    <span class="vi-orb vi-orb-one"></span>
+    <span class="vi-orb vi-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
-<div class="top-position" [ngClass]="listColorClass">
-  <div class="global-inner-heading dynamic_color">
-    <span>Tractor Images</span>
-    <ion-icon (click)="viewImage('NEW_FINDING')"   class="dynamic_color icon-size-add"
-      name="add-circle-outline"></ion-icon>
-  </div>
-  <div class="dynamic_block" *ngIf="tractorImages?.length">
-    <div class="main_card_block" *ngFor="let photo of tractorImages; index as position">
-      <ion-card>
-        <img class="image_upload_card" (click)="viewInSlider(photo,tractorImages)" [src]="photo?.imageUrlUrl" />
-      </ion-card>
+
+  <ion-content class="ion-padding">
+    <div class="vi-section">
+      <div class="vi-section-label">
+        <span>Tractor Images</span>
+        <button class="vi-add-btn" type="button" (click)="viewImage('NEW_FINDING')" aria-label="Add tractor image">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="vi-image-grid" *ngIf="tractorImages?.length">
+        <div class="vi-image-card" *ngFor="let photo of tractorImages; index as position">
+          <img [src]="photo?.imageUrlUrl" (click)="viewInSlider(photo, tractorImages)" />
+        </div>
+      </div>
+      <app-no-data-view *ngIf="!tractorImages?.length" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
     </div>
-  </div>
-  <div class="dynamic_block no_found_dynamic_block" *ngIf="!tractorImages?.length">
-    <app-no-data-view class="image_record_minwidth" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
-  </div>
-  
-</div>
-<div class="top-position" [ngClass]="listColorClass">
-  <div class="global-inner-heading dynamic_color">
-    <span>Noc Paper</span>
-    <ion-icon (click)="viewImage('NOC_PAPER')"   class="dynamic_color icon-size-add"
-      name="add-circle-outline"></ion-icon>
-  </div>
-  <div class="dynamic_block" *ngIf="nocDocs?.length">
-    <div class="main_card_block" *ngFor="let photo of nocDocs; index as position">
-      <ion-card>
-        <img class="image_upload_card" (click)="viewInSlider(photo,nocDocs)" [src]="photo?.imageUrlUrl" />
-      </ion-card>
+
+    <div class="vi-section">
+      <div class="vi-section-label">
+        <span>Noc Paper</span>
+        <button class="vi-add-btn" type="button" (click)="viewImage('NOC_PAPER')" aria-label="Add noc paper">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="vi-image-grid" *ngIf="nocDocs?.length">
+        <div class="vi-image-card" *ngFor="let photo of nocDocs; index as position">
+          <img [src]="photo?.imageUrlUrl" (click)="viewInSlider(photo, nocDocs)" />
+        </div>
+      </div>
+      <app-no-data-view *ngIf="!nocDocs?.length" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
     </div>
-  </div>
-  <div class="dynamic_block no_found_dynamic_block" *ngIf="!nocDocs?.length">
-    <app-no-data-view class="image_record_minwidth" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
-  </div>
-  
-</div>
-<div class="top-position" [ngClass]="listColorClass">
-  <div class="global-inner-heading dynamic_color">
-    <span>KYC Paper</span>
-    <ion-icon (click)="viewImage('KYC_PAPER')"   class="dynamic_color icon-size-add"
-      name="add-circle-outline"></ion-icon>
-  </div>
-  <div class="dynamic_block" *ngIf="kycDocs?.length">
-    <div class="main_card_block" *ngFor="let photo of kycDocs; index as position">
-      <ion-card>
-        <img class="image_upload_card" (click)="viewInSlider(photo,kycDocs)" [src]="photo?.imageUrlUrl" />
-      </ion-card>
+
+    <div class="vi-section">
+      <div class="vi-section-label">
+        <span>KYC Paper</span>
+        <button class="vi-add-btn" type="button" (click)="viewImage('KYC_PAPER')" aria-label="Add kyc paper">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="vi-image-grid" *ngIf="kycDocs?.length">
+        <div class="vi-image-card" *ngFor="let photo of kycDocs; index as position">
+          <img [src]="photo?.imageUrlUrl" (click)="viewInSlider(photo, kycDocs)" />
+        </div>
+      </div>
+      <app-no-data-view *ngIf="!kycDocs?.length" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
     </div>
-  </div>
-  <div class="dynamic_block no_found_dynamic_block" *ngIf="!kycDocs?.length">
-    <app-no-data-view class="image_record_minwidth" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
-  </div>
-  
-</div>
-<div class="top-position" [ngClass]="listColorClass">
-  <div class="global-inner-heading dynamic_color">
-    <span>Other Documents</span>
-    <ion-icon (click)="viewImage('OTHER_DOCUMENTS')"   class="dynamic_color icon-size-add"
-      name="add-circle-outline"></ion-icon>
-  </div>
-  <div class="dynamic_block" *ngIf="otherDocs?.length">
-    <div class="main_card_block" *ngFor="let photo of otherDocs; index as position">
-      <ion-card>
-        <img class="image_upload_card" (click)="viewInSlider(photo,otherDocs)" [src]="photo?.imageUrlUrl" />
-      </ion-card>
+
+    <div class="vi-section">
+      <div class="vi-section-label">
+        <span>Other Documents</span>
+        <button class="vi-add-btn" type="button" (click)="viewImage('OTHER_DOCUMENTS')" aria-label="Add other document">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="vi-image-grid" *ngIf="otherDocs?.length">
+        <div class="vi-image-card" *ngFor="let photo of otherDocs; index as position">
+          <img [src]="photo?.imageUrlUrl" (click)="viewInSlider(photo, otherDocs)" />
+        </div>
+      </div>
+      <app-no-data-view *ngIf="!otherDocs?.length" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
     </div>
-  </div>
-  <div class="dynamic_block no_found_dynamic_block" *ngIf="!otherDocs?.length">
-    <app-no-data-view class="image_record_minwidth" [title]="'No images found.'" [subtitleShow]="false"></app-no-data-view>
-  </div>
-  
-</div>
-</ion-content>
+    <div class="vi-scroll-spacer"></div>
+  </ion-content>

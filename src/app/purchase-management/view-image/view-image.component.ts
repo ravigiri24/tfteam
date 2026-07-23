@@ -71,6 +71,7 @@ export class ViewImageComponent implements OnInit {
   async viewImage(imageGroup: any) {
     const modal = await this.modalControl.create({
       component: ImageViewerComponent,
+      cssClass: 'modal-xl',
       componentProps: {
         tarctor_id: this.tractor?.id,
         imageGroup: imageGroup,
@@ -107,7 +108,7 @@ export class ViewImageComponent implements OnInit {
   async viewInSlider(image: any, imageArray: any) {
     const modal = await this.modalControl.create({
       component: ImageSliderComponent,
-      cssClass: 'light-modal',
+      cssClass: 'light-modal modal-image-viewer',
       componentProps: {
         showDeleteButton: true,
         image: image,
@@ -117,6 +118,13 @@ export class ViewImageComponent implements OnInit {
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
     console.log('role', role);
+
+    if (data?.isDeleted && data?.deletedId) {
+      this.tractorImages = this.tractorImages?.filter((f: any) => f?.id != data.deletedId);
+      this.nocDocs = this.nocDocs?.filter((f: any) => f?.id != data.deletedId);
+      this.kycDocs = this.kycDocs?.filter((f: any) => f?.id != data.deletedId);
+      this.otherDocs = this.otherDocs?.filter((f: any) => f?.id != data.deletedId);
+    }
 
     if (role === 'confirm') {
       this.reloadImage.emit();
