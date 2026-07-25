@@ -1,117 +1,62 @@
-  <ion-header [ngClass]="listColorClass">
-  <ion-toolbar class="header_toolbar dynamic_color">
-    <div class="main_lefttitle">Job Dashboard</div>
-    <ion-button *ngIf="showRefurbish" (click)="createJob()" class="add-button dynamic_bgcolor" slot="end" expand="block">
-      <ion-icon class="icon-size" name="add-outline"></ion-icon>
-      Refurbish</ion-button>
-  <ion-button *ngIf="showService"  (click)="createService()" class="add-button dynamic_bgcolor" slot="end" expand="block">
-      <ion-icon class="icon-size" name="add-outline"></ion-icon>
-     Service </ion-button>
-    <!-- <ion-icon name='close-circle' (click)='dismiss()' style='float: right;'></ion-icon>   -->
-    <!-- <ion-button  class="button-theme" class="add-button" slot="end" (click)="refreshList()"  fill="outline"><ion-icon class="theme-color" name="refresh-outline" ></ion-icon></ion-button> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="jd-title">Job Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <button class="jd-action-btn" *ngIf="showRefurbish" type="button" (click)="createJob()">
+        <ion-icon name="add-outline"></ion-icon>
+        <span>Refurbish</span>
+      </button>
+      <button class="jd-action-btn" *ngIf="showService" type="button" (click)="createService()">
+        <ion-icon name="add-outline"></ion-icon>
+        <span>Service</span>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
+  <div class="jd-header-art">
+    <span class="jd-orb jd-orb-one"></span>
+    <span class="jd-orb jd-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content class="ion-padding main_3d_container" [ngClass]="listColorClass">
-  <div class="row" [ngClass]="listColorClass">
-    <div (click)="jobList(false)" class="col-md-6 col-6">
-      <div  class="brics_cardmain_block">
-        <div class="image_block">
-          <img class="image-style" src="././assets/images/3D/open.png" />
-        </div>
-        <ion-card>
-          <ion-card-title class="title-style">Open Jobs</ion-card-title>
-          <ion-card-title class="sub-title-style">{{jobData?.openJob}}</ion-card-title>
-        </ion-card>
+<ion-content class="ion-padding jd-content">
+  <div class="jd-grid">
+    <div class="jd-stat-card jd-card-open" (click)="jobList(false)">
+      <div class="jd-icon-wrap">
+        <img class="jd-icon-img" src="././assets/images/3D/open.png" />
+      </div>
+      <div class="jd-stat-body">
+        <span class="jd-stat-label">Open Jobs</span>
+        <span class="jd-stat-value">{{jobData?.openJob}}</span>
       </div>
     </div>
-    <div (click)="jobList(true)" class="col-md-6 col-6">
-      <div class="brics_cardmain_block">
-        <div class="image_block">
-          <img class="image-style" src="././assets/images/3D/close.png" />
-        </div>
-        <ion-card>
-          <ion-card-title class="title-style">Closed Job</ion-card-title>
-          <ion-card-title class="sub-title-style">{{jobData?.closeJob}}</ion-card-title>
-        </ion-card>
+
+    <div class="jd-stat-card jd-card-closed" (click)="jobList(true)">
+      <div class="jd-icon-wrap">
+        <img class="jd-icon-img" src="././assets/images/3D/close.png" />
+      </div>
+      <div class="jd-stat-body">
+        <span class="jd-stat-label">Closed Job</span>
+        <span class="jd-stat-value">{{jobData?.closeJob}}</span>
       </div>
     </div>
-    <div class="col-md-6 col-6">
-      <div class="brics_cardmain_block">
-        <div class="image_block">
-          <img class="image-style" src="././assets/images/3D/deleted.png" />
-        </div>
-        <ion-card>
-          <ion-card-title class="title-style">Deleted Jobs</ion-card-title>
-          <ion-card-title class="sub-title-style">{{jobData?.deletedJob}}</ion-card-title>
-        </ion-card>
+
+    <div class="jd-stat-card jd-card-deleted">
+      <div class="jd-icon-wrap">
+        <img class="jd-icon-img" src="././assets/images/3D/deleted.png" />
+      </div>
+      <div class="jd-stat-body">
+        <span class="jd-stat-label">Deleted Jobs</span>
+        <span class="jd-stat-value">{{jobData?.deletedJob}}</span>
       </div>
     </div>
-    <div class="col-md-6 col-6">
-      <div class="brics_cardmain_block">
-        <div class="image_block">
-          <img class="image-style" src="././assets/images/3D/total.png" />
-        </div>
-        <ion-card>
-          <ion-card-title class="title-style"> Total Jobs</ion-card-title>
-          <ion-card-title class="sub-title-style">{{jobData?.openJob+jobData?.closeJob}}</ion-card-title>
-        </ion-card>
+
+    <div class="jd-stat-card jd-card-total">
+      <div class="jd-icon-wrap">
+        <img class="jd-icon-img" src="././assets/images/3D/total.png" />
+      </div>
+      <div class="jd-stat-body">
+        <span class="jd-stat-label">Total Jobs</span>
+        <span class="jd-stat-value">{{jobData?.openJob+jobData?.closeJob}}</span>
       </div>
     </div>
   </div>
 </ion-content>
-<!-- <ion-content class="ion-padding main_dashboard_container">
-  <div class="row" [ngClass]="listColorClass">
-    <div class="col-md-6 col-6">
-      <div class="cardmain_block">
-        <div class="image_block dynamic_bgcolor">
-          <img class="image-style" src="././assets/images/3D/open.png" />
-        </div>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title class="title-style">Open Jobs</ion-card-title>
-            <ion-card-subtitle class="sub-title-style">{{jobData?.openJob}}</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </div>
-    </div>
-    <div class="col-md-6 col-6">
-      <div class="cardmain_block">
-        <div class="image_block dynamic_bgcolor">
-          <img class="image-style" src="././assets/images/3D/close.png" />
-        </div>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title class="title-style">Closed Job</ion-card-title>
-            <ion-card-subtitle class="sub-title-style">{{jobData?.closeJob}}</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </div>
-    </div>
-    <div class="col-md-6 col-6">
-      <div class="cardmain_block">
-        <div class="image_block dynamic_bgcolor">
-          <img class="image-style" src="././assets/images/3D/deleted.png" />
-        </div>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title class="title-style">Deleted Jobs</ion-card-title>
-            <ion-card-subtitle class="sub-title-style">{{jobData?.deletedJob}}</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </div>
-    </div>
-    <div class="col-md-6 col-6">
-      <div class="cardmain_block">
-        <div class="image_block dynamic_bgcolor">
-          <img class="image-style" src="././assets/images/3D/total.png" />
-        </div>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title class="title-style"> Total Jobs</ion-card-title>
-            <ion-card-subtitle class="sub-title-style">{{jobData?.openJob+jobData?.closeJob}}</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </div>
-    </div>
-  </div>
-</ion-content> -->
