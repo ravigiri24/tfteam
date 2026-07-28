@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -15,6 +15,13 @@ export class ImageSliderComponent implements OnInit {
   image: any;
   showDeleteButton: any = false;
   @Input() listColorClass = 'sixColor';
+  @ViewChild('swiperRef') swiperRef: ElementRef<any>;
+  slidePrev() {
+    this.swiperRef?.nativeElement?.swiper?.slidePrev();
+  }
+  slideNext() {
+    this.swiperRef?.nativeElement?.swiper?.slideNext();
+  }
   ngOnInit() {
     let findselectedImage = this.imageArray.findIndex(
       (f: any) => f.imageUrlUrl == this.image?.imageUrlUrl
@@ -72,12 +79,18 @@ export class ImageSliderComponent implements OnInit {
 console.log("obj",obj);
 
     this.share.showLoading('Deleting Image...');
-    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
-this.imageArray=this.imageArray.filter((f:any)=>f?.id!=img.id)
-      this.share.presentToast('Deleted Successfully...');
-        this.modalCtrl.dismiss({isDeleted:true});
-    });
+    this.api.postapi('updateOpp', obj).subscribe(
+      (res: any) => {
+        this.share.spinner.dismiss();
+        this.imageArray = this.imageArray.filter((f: any) => f?.id != img.id);
+        this.share.presentToast('Deleted Successfully...');
+        this.modalCtrl.dismiss({ isDeleted: true, deletedId: img?.id });
+      },
+      (error: any) => {
+        this.share.spinner.dismiss();
+        this.share.presentToast('Failed to delete image, please try again.');
+      },
+    );
   }
  
 }

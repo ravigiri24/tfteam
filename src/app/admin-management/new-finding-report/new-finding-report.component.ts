@@ -49,6 +49,7 @@ export class NewFindingReportComponent implements OnInit {
   async uploadNewFindingImage(dataUpdate: any = null) {
     const modal = await this.modalCtrl.create({
       component: ViewImageComponent,
+      cssClass: 'modal-xl',
       componentProps: {
         tractor: dataUpdate,
       },
