@@ -240,7 +240,7 @@ if(loader){
            this.share.spinner.dismiss()
            
           this.share.presentToast("Saved Succssfully...");
-          this.modalControl.dismiss(true)
+          this.modalControl.dismiss({data:res?.data,action:"ADD",tractor:this.tractorDetails})
         },
         (error:any) => {
          

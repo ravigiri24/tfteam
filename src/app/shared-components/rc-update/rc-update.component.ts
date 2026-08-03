@@ -35,7 +35,13 @@ isrtoDone:any
       this.share.spinner.dismiss();
   
       this.share.presentToast('Updated Successfully...');
-      this.modalcontrol.dismiss(true)
+      let isrtoDone
+      if(this.isrtoDone==true){
+isrtoDone=1
+      }else if(this.isrtoDone==false){
+isrtoDone=0
+      }
+  this.modalcontrol.dismiss({isrtoDone:isrtoDone,action:"RTODONE",tractor:this.tractor})
      
       //  this.dismiss();
     });

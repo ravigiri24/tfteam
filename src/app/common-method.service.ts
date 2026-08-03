@@ -376,6 +376,7 @@ export class CommonMethodService {
     }
   }
   async rcUpdate(obj: any) {
+    this.carryData=null
     if (obj?.tractor?.rtoDetailsIdDetails) {
       let isrtoDone;
       if (obj?.tractor?.rtoDetailsIdDetails?.isrtoDone == null) {
@@ -398,7 +399,8 @@ export class CommonMethodService {
       await modal.present();
       const { data, role } = await modal.onWillDismiss();
       if (data) {
-        this.reloadMethod = true;
+        this.carryData=data
+    //    this.reloadMethod = true;
       }
     } else {
       this.presentToast('Please Fill RTO Details First');
@@ -428,7 +430,9 @@ export class CommonMethodService {
   async addRTOExpense(tractor: any) {
     this.router.navigate(['/rto-department/add-rto-cost', tractor?.id]);
   }
+  carryData:any
   async addRTODetails(tractor: any) {
+    this.carryData=null;
     const modal = await this.modalCtrl.create({
       component: RtoDetailsFormComponent,
       componentProps: {
@@ -440,7 +444,8 @@ export class CommonMethodService {
     console.log('role', role);
 
     if (data) {
-      this.reloadMethod = true;
+      this.carryData=data
+   //   this.reloadMethod = true;
     }
   }
   async viewDetailsRtoSales(tractor: any, obj: any) {

@@ -506,6 +506,20 @@ export class RtoSoldProcessComponent implements OnInit {
     // this.addRTOExpense(e?.tractor)
     //     }
 
+    if(this.commonMethod.carryData?.action=='ADD'){
+      let carryData=this.commonMethod.carryData
+    let findTractor=  this.alltractorList.findIndex((f:any)=>f.id==carryData?.tractor?.id)
+    if(findTractor>-1){
+      this.alltractorList[findTractor].rtoDetailsId=carryData?.data?.id
+      this.alltractorList[findTractor].rtoDetailsIdDetails=carryData?.data
+    }
+    }else if(this.commonMethod.carryData?.action=='RTODONE'){
+          let carryData=this.commonMethod.carryData
+    let findTractor=  this.alltractorList.findIndex((f:any)=>f.id==carryData?.tractor?.id)
+    if(findTractor>-1){
+      this.alltractorList[findTractor].rtoDetailsIdDetails.isrtoDone=carryData?.isrtoDone
+    }
+    }
     if (this.commonMethod.reloadMethod) {
       this.callListApi();
     }

@@ -211,6 +211,7 @@ totalProfit:any=0
       obj.DiscountService=job?.DiscountService||0
       obj.NetPayService=job?.NetPayService||0
       obj.ProfitService=job?.ProfitService||0
+      obj.remark=job?.remark
       this.totalDiscount=Number(this.totalDiscount)+ Number(obj.DiscountService)
       this.totalBill=Number(this.totalBill)+ Number(obj.totalBillService)
       this.totalNetPay=Number(this.totalNetPay)+ Number(obj.NetPayService)
@@ -235,7 +236,22 @@ totalProfit:any=0
     let getMaterialList = expenses?.filter(
       (ex: any) => ex?.expense_method == 'MATERIAL'
     );
-    getMaterialList?.forEach((material: any) => {
+    // getMaterialList?.forEach((material: any) => {
+    //   let getMateraiDetail = this.materialList?.find(
+    //     (mat: any) => mat.id == material?.expense_id
+    //   );
+    //   let getCategory = this.categoryList?.find(
+    //     (cat: any) => cat?.id == getMateraiDetail?.category
+    //   );
+     
+    //   obj[getCategory?.name] =
+    //     Number(obj[getCategory?.name]) + Number(material?.total_expense);
+    //   this.catTotal[getCategory?.name] =
+    //     this.catTotal[getCategory?.name] + Number(material?.total_expense);
+  
+    // });
+     getMaterialList?.forEach((material: any) => {
+         if(material?.cat_id==null || material?.cat_id==undefined){
       let getMateraiDetail = this.materialList?.find(
         (mat: any) => mat.id == material?.expense_id
       );
@@ -248,6 +264,24 @@ totalProfit:any=0
       this.catTotal[getCategory?.name] =
         this.catTotal[getCategory?.name] + Number(material?.total_expense);
       // }
+    }else{
+          let getMateraiDetail = this.materialList?.find(
+        (mat: any) => mat.id == material?.expense_id
+      );
+      // let getCategory = this.categoryList?.find(
+      //   (cat: any) => cat?.id == getMateraiDetail?.category
+      // );
+
+           let getCategory = this.categoryList.find(
+        (spare: any) => spare.id == material.cat_id
+      );
+
+      //  if (obj[getCategory?.name]) {
+      obj[getCategory?.name] =
+        Number(obj[getCategory?.name]) + Number(material?.total_expense);
+      this.catTotal[getCategory?.name] =
+        this.catTotal[getCategory?.name] + Number(material?.total_expense);
+    }
     });
     console.log('  this.catTotal', this.catTotal);
   }

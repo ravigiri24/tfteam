@@ -188,7 +188,7 @@ catWiseArray.push(f)
         expense_head: expense_head,
         editData: obj,
         selectedCategory:this.selectedCat,
-         catWiseItemList:this.catWiseItemList
+         catWiseItemList:[]
       },
     });
     await modal.present();

@@ -211,7 +211,7 @@
       </tbody>
     </table>
     <h2 style="text-align: center;margin: 10px 0px;" *ngIf="expenseServiceList?.length">Service</h2>
-    <table cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
+    <table *ngIf="expenseServiceList?.length" cellpadding="5" cellspacing="5" style="width: 100%;color: #666666;">
       <tbody>
         <tr style="border: 1px solid #e1e1e1;padding: 8px;text-align: left;">
           <th style="background-color: #f4f4f4;border: 1px solid #ddd;padding: 5px 10px; text-align: center;">#</th>

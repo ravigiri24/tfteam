@@ -174,12 +174,15 @@ export class ReportFilterComponent implements OnInit {
 
   createReport() {
     this.jobList = [];
-    this.allDetails?.jobList?.forEach((job: any) => {
+      let jobList=this.allDetails?.jobList?.filter((f:any)=>f.repair_type=='REFURBISH')
+    //this.allDetails?.jobList?.forEach((job: any) => {
+    jobList?.forEach((job: any) => {
       let obj: any = {
         tfCode: job?.tfCode,
         modelName: job?.modelDetails?.name,
         Service: 0,
         reduceItemTotalAmount: 0,
+        remark:null
       };
       this.categoryList?.forEach((cat: any) => {
         if (!obj[cat?.name]) {
@@ -191,6 +194,8 @@ export class ReportFilterComponent implements OnInit {
       job?.reducedItemList?.forEach((reduce: any) => {
         obj.reduceItemTotalAmount =
           obj.reduceItemTotalAmount + Number(reduce?.total_amount);
+
+            obj.remark=job?.remark
       });
       this.jobList.push(obj);
     });
@@ -213,6 +218,7 @@ export class ReportFilterComponent implements OnInit {
       (ex: any) => ex?.expense_method == 'MATERIAL'
     );
     getMaterialList?.forEach((material: any) => {
+         if(material?.cat_id==null || material?.cat_id==undefined){
       let getMateraiDetail = this.materialList?.find(
         (mat: any) => mat.id == material?.expense_id
       );
@@ -225,6 +231,24 @@ export class ReportFilterComponent implements OnInit {
       this.catTotal[getCategory?.name] =
         this.catTotal[getCategory?.name] + Number(material?.total_expense);
       // }
+    }else{
+          let getMateraiDetail = this.materialList?.find(
+        (mat: any) => mat.id == material?.expense_id
+      );
+      // let getCategory = this.categoryList?.find(
+      //   (cat: any) => cat?.id == getMateraiDetail?.category
+      // );
+
+           let getCategory = this.categoryList.find(
+        (spare: any) => spare.id == material.cat_id
+      );
+
+      //  if (obj[getCategory?.name]) {
+      obj[getCategory?.name] =
+        Number(obj[getCategory?.name]) + Number(material?.total_expense);
+      this.catTotal[getCategory?.name] =
+        this.catTotal[getCategory?.name] + Number(material?.total_expense);
+    }
     });
     console.log('  this.catTotal', this.catTotal);
   }
