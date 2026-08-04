@@ -24,20 +24,17 @@
   
   </div>
       <ion-grid  *ngIf="jobDetails?.isReopened=='1'" class="main_block_details">
-    <ion-card class="main_card_details">
-      <ion-row >
-        <ion-col>Start Date</ion-col>
-        <ion-col>End Date</ion-col>
-        <ion-col>Reason</ion-col>
-      
+    <ion-card class="table_block_details">
+      <ion-row class="table_main_header dynamic_bgcolor">
+        <ion-col class="item_name_col">Start Date</ion-col>
+        <ion-col class="item_name_col">End Date</ion-col>
+        <ion-col class="item_name_col">Reason</ion-col>
       </ion-row>
-      <ion-row *ngFor="let histReopen of reopenedHistory">
-        <ion-col class="amount_col"> {{ histReopen?.startDate | date }}</ion-col>
-        <ion-col class="amount_col"> {{ histReopen?.endDate | date }}</ion-col>
-        <ion-col class="amount_col"> {{ histReopen?.reason }}</ion-col>
-       
+      <ion-row class="table_row" *ngFor="let histReopen of reopenedHistory">
+        <ion-col class="item_name_col">{{ histReopen?.startDate | date }}</ion-col>
+        <ion-col class="item_name_col">{{ histReopen?.endDate | date }}</ion-col>
+        <ion-col class="item_name_col">{{ histReopen?.reason }}</ion-col>
       </ion-row>
-   
     </ion-card>
   </ion-grid>
   <div *ngIf="jobDetails?.repair_type=='SERVICE' " class="global-inner-heading">

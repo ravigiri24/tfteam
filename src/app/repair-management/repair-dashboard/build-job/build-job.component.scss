@@ -181,6 +181,19 @@ ion-item {
   }
 }
 
+.dynamic_block {
+  display: flex !important;
+  flex-flow: wrap;
+  justify-content: center !important;
+  width: 100%;
+}
+
 .no_found_dynamic_block {
   margin-top: 24px;
+  width: 100%;
+
+  ::ng-deep .empty {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }

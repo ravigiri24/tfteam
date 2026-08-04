@@ -81,3 +81,10 @@
     width: 100%;
   }
 }
+
+app-no-data-view {
+  ::ng-deep .empty {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}

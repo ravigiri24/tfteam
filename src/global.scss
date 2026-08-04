@@ -168,6 +168,190 @@ ion-modal.modal-xl {
 }
 // ───────────────────────────────────────────────────────────────────────────
 
+// ─── No-data empty state ────────────────────────────────────────────────────
+// Ensures the empty-state card centers via margin:auto instead of collapsing
+// to inline width and sitting flush-left inside its wrapper.
+app-no-data-view {
+  display: block;
+  width: 100%;
+}
+// ───────────────────────────────────────────────────────────────────────────
+
+// ─── Confirmation Alert (AlertController) ──────────────────────────────────
+@keyframes alert-icon-pop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.3) rotate(-12deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1) rotate(3deg);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes alert-icon-breathe {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+@keyframes alert-band-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.alert-wrapper {
+  border-radius: 20px !important;
+  box-shadow: 0 24px 56px rgba(15, 23, 42, 0.26) !important;
+  overflow: hidden;
+  padding-top: 78px !important;
+  position: relative;
+}
+
+.alert-wrapper::before {
+  animation: alert-band-shift 6s ease infinite;
+  background: linear-gradient(120deg, #0b5f5a, #0f9b8e, #34c9b8, #17b3a3, #0b5f5a);
+  background-size: 300% 300%;
+  content: '';
+  height: 64px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.alert-head {
+  padding-top: 6px !important;
+  position: relative;
+  text-align: center !important;
+  width: 100%;
+  z-index: 2;
+
+  &::before {
+    align-items: center;
+    animation: alert-icon-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      alert-icon-breathe 2.4s ease-in-out 0.5s infinite;
+    background:
+      linear-gradient(#ffffff, #ffffff) padding-box,
+      linear-gradient(135deg, #0b5f5a, #0f9b8e, #34c9b8) border-box;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.22);
+    color: #0d7d73;
+    content: '?';
+    display: flex;
+    font-size: 24px;
+    font-weight: 900;
+    height: 52px;
+    justify-content: center;
+    left: 50%;
+    position: absolute;
+    top: -44px;
+    width: 52px;
+  }
+
+  .alert-title {
+    color: #0d7d73;
+    display: block;
+    font-size: 17px !important;
+    font-weight: 900 !important;
+    margin-top: 26px;
+    text-align: center !important;
+    width: 100%;
+  }
+
+  .alert-sub-title {
+    color: #64748b;
+    display: block;
+    text-align: center !important;
+  }
+}
+
+.alert-message {
+  color: #1f2937 !important;
+  display: block !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  position: relative;
+  text-align: center !important;
+  width: 100%;
+  z-index: 2;
+}
+
+.alert-button-group {
+  align-items: center !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 12px;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  padding: 16px 20px 20px !important;
+  position: relative;
+  width: 100% !important;
+  z-index: 2;
+}
+
+.alert-button {
+  align-items: center !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  flex: 1 1 0;
+  font-weight: 800 !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  max-width: 130px;
+  text-align: center !important;
+  text-transform: none !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+
+  .alert-button-inner {
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    width: 100%;
+  }
+
+  &.alert-button-role-cancel,
+  &:first-child {
+    --background: transparent;
+    border: 2px solid #cbd5e1;
+    color: #64748b !important;
+
+    &:hover {
+      border-color: #94a3b8;
+    }
+  }
+
+  &:last-child {
+    background: linear-gradient(135deg, #0d7d73, #17b3a3) !important;
+    border: 2px solid transparent;
+    box-shadow: 0 8px 18px rgba(15, 155, 142, 0.32);
+    color: #ffffff !important;
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+// ───────────────────────────────────────────────────────────────────────────
+
 // ─── Full-width Image Viewer Modal ─────────────────────────────────────────
 ion-modal.modal-image-viewer {
   --width: 100%;

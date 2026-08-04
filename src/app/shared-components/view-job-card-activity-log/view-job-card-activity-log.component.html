@@ -1,29 +1,35 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header>
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">Activity Log</div>
-      <div class="right_action">
-        <ion-buttons slot="end">
-          <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-        </ion-buttons>
-      </div>
-    </ion-label>
+    <ion-title class="ajl-title">Activity Log</ion-title>
+    <ion-buttons slot="end">
+      <button class="ajl-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
-  <div class="notification_container">
-    <ng-container *ngFor="let noti of noti_list">
-      <div class="notification_block">
-        <div class="notification_icon">
-          <ion-icon name="notifications-outline"></ion-icon>
-        </div>
-        <div class="notification_text">
-          <span class="notification_title"><span
-              class="delete_color">{{noti?.title}}</span><small>{{noti?.createdOn | date:'dd MMM yyyy, HH:mm' }}</small></span>
-          <div class="notification_desc">{{noti?.description}}</div>
-        </div>
-      </div>
-    </ng-container>
-    <app-no-data-view [ngClass]="listColorClass" class="full_width_norecord"  *ngIf="!noti_list?.length"></app-no-data-view>
+  <div class="ajl-header-art">
+    <span class="ajl-orb ajl-orb-one"></span>
+    <span class="ajl-orb ajl-orb-two"></span>
   </div>
+</ion-header>
+<ion-content class="ion-padding ajl-content">
+  <div class="ajl-list">
+    <div class="ajl-card"
+      [class.ajl-card-punched]="noti?.title?.includes('Punched')"
+      [class.ajl-card-reopen]="noti?.title?.includes('Reopen')"
+      [class.ajl-card-closed]="noti?.title?.includes('Closed')"
+      *ngFor="let noti of noti_list">
+      <div class="ajl-icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
+      <div class="ajl-body">
+        <div class="ajl-row">
+          <span class="ajl-heading">{{noti?.title}}</span>
+          <span class="ajl-date">{{noti?.createdOn | date:'dd MMM yyyy, HH:mm' }}</span>
+        </div>
+        <p class="ajl-desc">{{noti?.description}}</p>
+      </div>
+    </div>
+  </div>
+  <app-no-data-view *ngIf="!noti_list?.length" [title]="'No activity logs found.'" [subtitleShow]="false"></app-no-data-view>
 </ion-content>

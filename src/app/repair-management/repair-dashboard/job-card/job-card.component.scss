@@ -136,12 +136,18 @@
 
   .dynamic_block {
     padding: 10px 0px;
-    display: flex;
+    display: flex !important;
     flex-flow: wrap;
-    justify-content: center;
+    justify-content: center !important;
+    width: 100%;
 
     app-no-data-view {
       min-width: 350px;
+
+      ::ng-deep .empty {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
     }
   }
 

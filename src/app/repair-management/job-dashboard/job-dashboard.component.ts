@@ -33,8 +33,9 @@ export class JobDashboardComponent implements OnInit {
      async openJobCardActiviyLog() {
       const modal = await this.modal.create({
         component: ViewJobCardActivityLogComponent,
+        cssClass: 'modal-xl',
         componentProps: {
-  
+
         },
       });
       await modal.present();
