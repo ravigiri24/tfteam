@@ -52,7 +52,7 @@ export class AddMaterialExpenseComponent implements OnInit {
         Validators.required,
       ]),
 
-      expense_amount: new FormControl(data?.expense_amount || null, []),
+      expense_amount: new FormControl(data?.expense_amount || null, [Validators.required]),
       qty: new FormControl(data?.qty || 1, [Validators.required]),
 
       expense_date: new FormControl(data?.expense_date || null, []),
@@ -201,6 +201,7 @@ export class AddMaterialExpenseComponent implements OnInit {
     });
   }
   saveExepense(objServie: any) {
+    if(this.form.valid){
     let obj = {
       src: 'repair_expense_costing',
       data: objServie,
@@ -217,7 +218,9 @@ export class AddMaterialExpenseComponent implements OnInit {
       this.addedItems.push(res?.rowData)
 this.resetVal()
     
-    });
+    });}else{
+      this.share.presentToast("Please Enter Required Fields('*')")
+    }
   }
    resetVal(){
       this.selectedItem={

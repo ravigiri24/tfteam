@@ -798,6 +798,7 @@ this.tractorArray=tractorListAll?.filter((f:any)=>f?.tractordetailadmin?.wareHou
       categroyWiseMaterial.push(obj);
     });
     expenseMaterialList?.forEach((expense: any) => {
+                 if(expense?.cat_id==null || expense?.cat_id==undefined){
       let findinMatList = this.allDetails?.materialList?.find(
         (mat: any) => mat.id == expense?.expense_id,
       );
@@ -823,6 +824,37 @@ this.tractorArray=tractorListAll?.filter((f:any)=>f?.tractordetailadmin?.wareHou
           categroyWiseMaterial.push(obj);
         }
       }
+    }
+    else {
+           let findinMatList = this.allDetails?.materialList?.find(
+        (mat: any) => mat.id == expense?.expense_id,
+      );
+      // let getCat = this.allDetails?.spareList?.find(
+      //   (spare: any) => spare.id == findinMatList?.category,
+      // );
+                 let getCat = this.allDetails?.spareList.find(
+        (spare: any) => spare.id == expense.cat_id
+      );
+      if (getCat) {
+        let findExist = categroyWiseMaterial?.findIndex(
+          (cat: any) => cat.id == getCat.id,
+        );
+        if (findExist > -1) {
+          categroyWiseMaterial[findExist].total_amount =
+            Number(categroyWiseMaterial[findExist]?.total_amount) +
+            Number(expense?.total_expense);
+          categroyWiseMaterial[findExist]?.materialList.push(expense);
+        } else {
+          let obj = {
+            catName: getCat?.name,
+            id: getCat?.id,
+            materialList: [expense],
+            total_amount: expense?.total_expense || 0,
+          };
+          categroyWiseMaterial.push(obj);
+        }
+      }
+    }
     });
     // let catMaterialTotal=0
     // categroyWiseMaterial?.forEach((catM:any)=>{

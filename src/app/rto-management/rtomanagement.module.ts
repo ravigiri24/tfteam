@@ -31,7 +31,7 @@ import { NocViewOptionsComponent } from './rto-noc/noc-view-options/noc-view-opt
 import { SearchRtoNocComponent } from './rto-noc/search-rto-noc/search-rto-noc.component';
 import { AddRtoCostingComponent } from './rto-sold-process/add-rto-costing/add-rto-costing.component';
 import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-list/add-rto-costing-list.component';
-
+import { RtoRequiredComponent } from './rto-required/rto-required.component';
 @NgModule({
   declarations: [
   RtoManagementComponent,
@@ -49,7 +49,7 @@ import { AddRtoCostingListComponent } from './rto-sold-process/add-rto-costing-l
  AddRtoCostingComponent,
  AddRtoCostingListComponent,
  TractorDocStatusComponent,
-
+RtoRequiredComponent
     
   ],
   imports: [

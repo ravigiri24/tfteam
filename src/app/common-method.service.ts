@@ -53,6 +53,7 @@ import { ChangeRepairTypeComponent } from './repair-management/job-list/change-r
 import { AddNewDealComponent } from './purchase-management/new-findings-deals/add-new-deal/add-new-deal.component';
 import { NewFindingsComponent } from './purchase-management/new-findings/new-findings.component';
 import { DeleteNewFindingsComponent } from './purchase-management/new-findings-deals/delete-new-findings/delete-new-findings.component';
+import { RtoRequiredComponent } from './rto-management/rto-required/rto-required.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -89,13 +90,43 @@ export class CommonMethodService {
       this.reloadMethod = true;
     }
   }
+    async nocRequired(tractor: any) {
+    let nocRequired;
+    if (tractor?.nocRequired == null) {
+      nocRequired = null;
+    } else if (tractor?.nocRequired == 1) {
+      nocRequired = true;
+    } else if (tractor?.nocRequired == 0) {
+      nocRequired = false;
+    }
+    const modal = await this.modalCtrl.create({
+      component: RtoRequiredComponent,
+      breakpoints: [0, 0.4, 1],
+      initialBreakpoint: 0.4,
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractor: tractor,
+        nocRequired: nocRequired,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
   reloadMethod = false;
   async actionEventCall(e: any, obj: any = null) {
     console.log('actionEventCall', e);
     this.reloadMethod = false;
     if (e?.button?.name == 'IS Noc') {
       await this.nocUpdate(e?.tractor);
-    } else if (e?.button?.name == 'View Details') {
+    } 
+     else if (e?.button?.name == 'IS NOC REQUIRED') {
+      await this.nocRequired(e?.tractor);
+    }
+    
+    else if (e?.button?.name == 'View Details') {
       await this.viewDetails(e?.tractor, obj);
     } else if (e?.button?.name == 'Add RTO Details') {
       await this.addRTODetails(e?.tractor);

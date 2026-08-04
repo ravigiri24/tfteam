@@ -396,6 +396,11 @@ export class RtoNocComponent implements OnInit {
       action: 'nocUpdate',
       image: './././assets/images/stamp.png',
     },
+        {
+      name: 'IS NOC REQUIRED',
+      action: 'ISnOCREQUIRED',
+      image: './././assets/images/requirement.png',
+    },
       {
       name: 'View Details',
       action: 'viewDetails',

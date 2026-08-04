@@ -1,8 +1,10 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
+import { ViewJobCardActivityLogComponent } from 'src/app/shared-components/view-job-card-activity-log/view-job-card-activity-log.component';
 @Component({
   selector: 'app-job-dashboard',
   templateUrl: './job-dashboard.component.html',
@@ -13,6 +15,7 @@ export class JobDashboardComponent implements OnInit {
     private router: Router,
     private share: ShareService,
     private api: ApiService,
+    private modal:ModalController
   ) {}
 
   ngOnInit() {}
@@ -27,7 +30,20 @@ export class JobDashboardComponent implements OnInit {
     this.getJobData();
     this.getRepairCenter();
   }
-
+     async openJobCardActiviyLog() {
+      const modal = await this.modal.create({
+        component: ViewJobCardActivityLogComponent,
+        componentProps: {
+  
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+      }
+    }
   getRepairCenter() {
     let obj = this.share.getListObj('repairing_center', false, [], true);
     this.api.postapi('getList', obj).subscribe(
