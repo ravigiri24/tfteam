@@ -1,59 +1,314 @@
-.multiple_options_container {
-  max-height: 150px;
-  overflow: auto;
+:host {
+  --cj-primary: var(--app-dynamic-color-first);
+  --cj-primary-dark: rgba(9, 26, 150, 0.92);
+  --cj-primary-dark: color-mix(in srgb, var(--app-dynamic-color-first) 100%, black 38%);
+  --cj-primary-light: rgba(94, 124, 255, 0.75);
+  --cj-primary-light: color-mix(in srgb, var(--app-dynamic-color-first) 100%, white 32%);
+  --cj-primary-strong: rgba(12, 45, 205, 0.9);
+  --cj-primary-strong: color-mix(in srgb, var(--app-dynamic-color-first) 100%, black 15%);
+  --cj-primary-bright: rgba(59, 91, 255, 0.85);
+  --cj-primary-bright: color-mix(in srgb, var(--app-dynamic-color-first) 100%, white 15%);
+  --cj-glow-soft: rgba(16, 63, 236, 0.08);
+  --cj-glow-soft: color-mix(in srgb, var(--app-dynamic-color-first) 10%, transparent);
+  --cj-glow-medium: rgba(16, 63, 236, 0.22);
+  --cj-glow-medium: color-mix(in srgb, var(--app-dynamic-color-first) 28%, transparent);
+  --cj-glow-strong: rgba(16, 63, 236, 0.32);
+  --cj-glow-strong: color-mix(in srgb, var(--app-dynamic-color-first) 38%, transparent);
+  --cj-page: #eef1fd;
+  --cj-page: color-mix(in srgb, var(--app-dynamic-color-first) 5%, white);
+  --cj-text: #1f2937;
+  --cj-muted: #64748b;
+  display: block;
+  height: 100%;
+}
+
+ion-header {
+  background: linear-gradient(135deg, var(--cj-primary-dark) 0%, var(--cj-primary) 52%, var(--cj-primary-light) 100%);
+  box-shadow: 0 10px 28px var(--cj-glow-strong) !important;
+  min-height: 92px;
+  overflow: hidden;
+  position: relative;
+
+  ion-toolbar {
+    --background: transparent;
+    --border-width: 0;
+    --min-height: 78px;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.cj-title {
+  font-size: 18px;
+  font-weight: 900;
+  padding-inline-start: 16px;
+}
+
+.cj-back-btn {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
   display: flex;
-  flex-flow: wrap;
-  padding-bottom: 20px;
+  flex: 0 0 38px;
+  height: 40px;
+  justify-content: center;
+  margin-inline: 8px 4px;
+  padding: 0;
+  transition: transform 0.18s ease, background 0.18s ease;
+  width: 40px;
 
-  .checkbox_block {
-    padding: 0px 10px;
-    border: dashed 1px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    min-height: 36px;
-    margin: 0px 15px 10px 0px;
+  ion-icon {
+    color: #ffffff !important;
+    filter: none !important;
+    font-size: 20px;
+    margin: 0;
+  }
 
-    input {
-      font-size: 12px;
+  &:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.9);
+  }
+}
+
+.cj-header-art {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+.cj-orb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.cj-orb-one {
+  height: 120px;
+  right: -34px;
+  top: -50px;
+  width: 120px;
+}
+
+.cj-orb-two {
+  background: rgba(255, 255, 255, 0.08);
+  height: 58px;
+  left: 45%;
+  top: 10px;
+  width: 58px;
+}
+
+.cj-content {
+  --background: var(--cj-page);
+  --padding-bottom: 110px;
+
+  &::part(scroll) {
+    padding-bottom: 110px !important;
+  }
+}
+
+@keyframes cj-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cj-section {
+  animation: cj-fade-up 0.45s ease both;
+  background: #ffffff;
+  border: 1px solid var(--cj-glow-medium);
+  border-left: 4px solid var(--cj-primary);
+  border-radius: 12px;
+  box-shadow: 0 8px 22px var(--cj-glow-soft);
+  margin-bottom: 16px;
+  padding: 16px 14px 4px;
+
+  @for $i from 1 through 4 {
+    &:nth-of-type(#{$i}) {
+      animation-delay: #{$i * 0.06}s;
     }
   }
 }
 
-:host ::ng-deep ion-checkbox::part(label) {
-  color: #666666 !important;
+.cj-section-head {
+  align-items: center;
+  color: var(--cj-primary-strong);
+  display: flex;
+  font-size: 14px;
+  font-weight: 900;
+  gap: 10px;
+  letter-spacing: 0.3px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
 }
 
-.margin-set {
-  margin-left: 20px;
-}
-
-.icon-position {
-  position: relative;
-  left: 17px;
-  font-size: 27px;
-}
-
-.tfCOde {
-  position: relative;
-  left: 32px;
-  font-weight: 700;
-  top: 0px;
+.cj-section-icon {
+  align-items: center;
+  background: linear-gradient(135deg, var(--cj-primary-strong), var(--cj-primary-bright));
+  border-radius: 50%;
+  box-shadow: 0 6px 14px var(--cj-glow-medium);
+  color: #ffffff;
+  display: flex;
+  flex: 0 0 28px;
   font-size: 15px;
-  color: var(--app-secondary-color);
+  height: 28px;
+  justify-content: center;
+  width: 28px;
 }
 
+.cj-add-btn {
+  align-items: center;
+  background: var(--cj-page);
+  border: 1px solid var(--cj-glow-medium);
+  border-radius: 50%;
+  color: var(--cj-primary-strong);
+  display: flex;
+  flex: 0 0 26px;
+  height: 26px;
+  justify-content: center;
+  margin-inline-start: auto;
+  padding: 0;
+  transition: transform 0.18s ease, background 0.18s ease;
+  width: 26px;
 
-// .inner-heading-small {
-//   font-size: 12px;
-//   // color: var(--app-secondary-color);
-//   color: #666666;
-//   width: 100%;
-//   display: inline-flex;
-//   padding: 10px 10px 10px 16px;
-//   background: #f5f5ff;
-//   margin-bottom: 8px;
-//   top: 0px;
+  ion-icon {
+    font-size: 16px;
+  }
 
-//   border-bottom: solid thin #e1e1e17d;
-// }
+  &:active {
+    background: var(--cj-glow-medium);
+    transform: scale(0.88);
+  }
+}
+
+.cj-tf-generate {
+  align-items: center;
+  background: linear-gradient(135deg, var(--cj-glow-soft), var(--cj-glow-medium));
+  border: 1px dashed var(--cj-primary);
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px 12px;
+
+  span:first-child {
+    color: var(--cj-primary-strong);
+    font-size: 13px;
+    font-weight: 800;
+  }
+}
+
+@keyframes cj-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--cj-glow-strong);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+.cj-tf-generate-btn {
+  align-items: center;
+  animation: cj-pulse 1.8s ease-in-out infinite;
+  background: linear-gradient(135deg, var(--cj-primary-strong), var(--cj-primary-bright));
+  border: 0;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  flex: 0 0 32px;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  width: 32px;
+
+  ion-icon {
+    font-size: 17px;
+  }
+}
+
+.cj-tf-code {
+  color: var(--cj-primary-dark);
+  font-size: 14px;
+  font-weight: 900;
+  margin-inline-start: auto;
+}
+
+.cj-chip-container {
+  display: flex;
+  flex-flow: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  max-height: 190px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 6px 14px;
+}
+
+.cj-chip {
+  --background: #ffffff;
+  --background-checked: var(--cj-primary-strong);
+  --border-color: var(--cj-glow-strong);
+  --border-color-checked: var(--cj-primary-strong);
+  --border-radius: 8px;
+  --border-width: 1.5px;
+  --checkmark-color: #ffffff;
+  --size: 18px;
+  align-items: center;
+  border: 1px solid var(--cj-glow-medium);
+  border-radius: 999px;
+  color: var(--cj-text);
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 36px;
+  padding: 0 12px 0 10px;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+
+  &.cj-chip-active {
+    background: var(--cj-glow-soft);
+    border-color: var(--cj-primary-strong);
+    box-shadow: 0 4px 12px var(--cj-glow-medium);
+    color: var(--cj-primary-dark);
+    font-weight: 800;
+    transform: scale(1.04);
+  }
+}
+
+:host ::ng-deep ion-checkbox.cj-chip::part(label) {
+  margin-inline-start: 8px;
+}
+
+.cj-submit-wrap {
+  margin-top: 8px;
+  padding-bottom: 8px;
+}
+
+.cj-submit-btn {
+  background: linear-gradient(135deg, var(--cj-primary-strong), var(--cj-primary-bright));
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px var(--cj-glow-medium);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  min-height: 50px;
+  text-transform: uppercase;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+
+  &:active {
+    box-shadow: 0 4px 10px var(--cj-glow-medium);
+    transform: scale(0.98);
+  }
+}

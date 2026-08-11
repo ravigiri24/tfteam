@@ -1,114 +1,118 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<ion-header [ngClass]="listColorClass">
+<ion-header>
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">{{ data ? 'Update Job' : 'Create Job' }}</span>
-      </div>
-      <div class="right_action">
-        <ion-icon (click)="backToDashboard()" class="dynamic_color" name="arrow-back-outline"></ion-icon>
-      </div>
-    </ion-label>
-    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
-      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+    <ion-buttons slot="start">
+      <button class="cj-back-btn" type="button" (click)="backToDashboard()" aria-label="Back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title class="cj-title">{{ data ? 'Update Job' : 'Create Job' }}</ion-title>
   </ion-toolbar>
+  <div class="cj-header-art">
+    <span class="cj-orb cj-orb-one"></span>
+    <span class="cj-orb cj-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content [ngClass]="listColorClass" *ngIf="form" class="ion-padding">
+<ion-content *ngIf="form" class="ion-padding cj-content">
   <form [formGroup]="form">
-    <!-- <span class="global-inner-heading">Customer Details</span>
-    <div class="global_input_block">
-      <ion-input label="Customer Name*" fill="outline" labelPlacement="stacked" type="text" formControlName="customer_name"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Contact Number*" fill="outline" labelPlacement="stacked" type="text" formControlName="contact_number"></ion-input>
-    </div> -->
-    <span class="global-inner-heading dynamic_color">Tractor Details</span>
-    <div class="global_input_block">
-      <ion-select (ionChange)="getModelsbyBrand()" formControlName="brand_id" fill="outline" label="Select Brand *"
-        label-placement="type">
-        <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-select formControlName="model_id" fill="outline" label="Select Model *" label-placement="type">
-        <ion-select-option *ngFor="let model of modelList" [value]="model?.id">{{model?.name}}</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block" *ngIf="!data">
-      <ion-select (ionChange)="clearTfCode()" formControlName="isTfCode" fill="outline" label="TF Code Availaible ?*"
-        label-placement="type">
-        <ion-select-option value="YES">Yes</ion-select-option>
-        <ion-select-option value="NO">No</ion-select-option>
-      </ion-select>
-    </div>
-    <span *ngIf="form.controls['isTfCode'].value=='NO' && !data" class="global-inner-heading">Generate TF Code -
-      <ion-icon (click)="assignTF()" class="small_icon20 theme-color icon-position" name="medkit-outline"></ion-icon>-
-      <span class="tfCOde">{{form.controls['tfCode'].value}}</span>
-    </span>
-    <div *ngIf="form.controls['isTfCode'].value=='YES' || data" class="global_input_block">
-      <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="tfCode"></ion-input>
-    </div>
-
-
-    <!-- <div  class="global_input_block">
-    <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text" formControlName="tfCode"></ion-input>
-  </div> -->
-
-    <div class="global_input_block">
-      <ion-input label="Registration Number" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="regNumber"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Hours" fill="outline" labelPlacement="stacked" type="text" formControlName="hours"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Chasis Number" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="chassisNumber"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="engineNumber"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Cost Estimated" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="costEstimated"></ion-input>
-    </div>
-    <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="mechanicAlloted" fill="outline" label="Allot Mechanic" label-placement="type">
-        <ion-select-option *ngFor="let mechanic of mechanicList"
-          [value]="mechanic?.id">{{mechanic?.name}}</ion-select-option>
-      </ion-select>
-      <div class="right_action_block dynamic_bgcolor">
-        <ion-icon (click)="openCrudManagement('MECHANIC_LIST')" name="add-circle-outline"></ion-icon>
+    <div class="cj-section">
+      <div class="cj-section-head">
+        <span class="cj-section-icon"><ion-icon name="construct-outline"></ion-icon></span>
+        <span>Tractor Details</span>
       </div>
-      <div class="right_action_block refresh_icon">
-        <ion-icon (click)="getMechanicList(true)" name="refresh-outline"></ion-icon>
+      <div class="global_input_block">
+        <ion-select (ionChange)="getModelsbyBrand()" formControlName="brand_id" fill="outline" label="Select Brand *"
+          label-placement="type">
+          <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="global_input_block">
+        <ion-select formControlName="model_id" fill="outline" label="Select Model *" label-placement="type">
+          <ion-select-option *ngFor="let model of modelList" [value]="model?.id">{{model?.name}}</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="global_input_block" *ngIf="!data">
+        <ion-select (ionChange)="clearTfCode()" formControlName="isTfCode" fill="outline" label="TF Code Availaible ?*"
+          label-placement="type">
+          <ion-select-option value="YES">Yes</ion-select-option>
+          <ion-select-option value="NO">No</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="cj-tf-generate" *ngIf="form.controls['isTfCode'].value=='NO' && !data">
+        <span>Generate TF Code</span>
+        <button class="cj-tf-generate-btn" type="button" (click)="assignTF()" aria-label="Generate TF Code">
+          <ion-icon name="medkit-outline"></ion-icon>
+        </button>
+        <span class="cj-tf-code">{{form.controls['tfCode'].value}}</span>
+      </div>
+      <div *ngIf="form.controls['isTfCode'].value=='YES' || data" class="global_input_block">
+        <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text"
+          formControlName="tfCode"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Registration Number" fill="outline" labelPlacement="stacked" type="text"
+          formControlName="regNumber"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Hours" fill="outline" labelPlacement="stacked" type="text" formControlName="hours"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Chasis Number" fill="outline" labelPlacement="stacked" type="text"
+          formControlName="chassisNumber"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Engine Number" fill="outline" labelPlacement="stacked" type="text"
+          formControlName="engineNumber"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Cost Estimated" fill="outline" labelPlacement="stacked" type="text"
+          formControlName="costEstimated"></ion-input>
+      </div>
+      <div class="global_input_block select_option_with_add">
+        <ion-select formControlName="mechanicAlloted" fill="outline" label="Allot Mechanic" label-placement="type">
+          <ion-select-option *ngFor="let mechanic of mechanicList"
+            [value]="mechanic?.id">{{mechanic?.name}}</ion-select-option>
+        </ion-select>
+        <div class="right_action_block add_icon" (click)="openCrudManagement('MECHANIC_LIST')">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </div>
+        <div class="right_action_block refresh_icon" (click)="getMechanicList(true)">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="global_input_block" *ngIf="yearArray?.length">
+        <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">
+          <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
+        </ion-select>
       </div>
     </div>
 
-    <div class="global_input_block" *ngIf="yearArray?.length">
-      <ion-select formControlName="yearOfManufactoring" fill="outline" label="Manufactoring" label-placement="type">
-        <ion-select-option *ngFor="let year of yearArray" [value]="year">{{year}}</ion-select-option>
-      </ion-select>
+    <div class="cj-section">
+      <div class="cj-section-head">
+        <span class="cj-section-icon"><ion-icon name="speedometer-outline"></ion-icon></span>
+        <span>Tractor Condition</span>
+      </div>
+      <div class="global_input_block">
+        <ion-select formControlName="fuelLevel" fill="outline" label="Fuel Level" label-placement="type">
+          <ion-select-option value="0-20%">0-20%</ion-select-option>
+          <ion-select-option value="20-40%">20-40%</ion-select-option>
+          <ion-select-option value="40-60%">40-60%</ion-select-option>
+          <ion-select-option value="60-80%">60-80%</ion-select-option>
+          <ion-select-option value="80-100%">80-100%</ion-select-option>
+        </ion-select>
+      </div>
     </div>
-    <span class="global-inner-heading">Tractor Condition</span>
-    <div class="global_input_block">
-      <ion-select formControlName="fuelLevel" fill="outline" label="Fuel Level" label-placement="type">
-        <ion-select-option value="0-20%">0-20%</ion-select-option>
-        <ion-select-option value="20-40%">20-40%</ion-select-option>
-        <ion-select-option value="40-60%">40-60%</ion-select-option>
-        <ion-select-option value="60-80%">60-80%</ion-select-option>
-        <ion-select-option value="80-100%">80-100%</ion-select-option>
-      </ion-select>
-    </div>
-    <div>
-      <span class="global-inner-heading dynamic_color">Tractor Inventory
-        <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_INVENTORY')"
-          name="add-circle-outline"></ion-icon>
-      </span>
-      <div class="multiple_options_container">
-        <ion-checkbox class="checkbox_block dynamic_color" *ngFor="let inven of inventoryList"
+
+    <div class="cj-section">
+      <div class="cj-section-head">
+        <span class="cj-section-icon"><ion-icon name="cube-outline"></ion-icon></span>
+        <span>Tractor Inventory</span>
+        <button class="cj-add-btn" type="button" (click)="openCrudManagement('TRACTOR_INVENTORY')" aria-label="Add inventory type">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="cj-chip-container">
+        <ion-checkbox class="cj-chip" [class.cj-chip-active]="inven?.checked" *ngFor="let inven of inventoryList"
           [checked]="inven?.checked" (ionChange)="selectInventory($event,inven)"
           labelPlacement="end">{{inven?.name}}</ion-checkbox>
       </div>
@@ -117,24 +121,29 @@
           formControlName="otherInventoryOptions"></ion-input>
       </div>
     </div>
-    <div>
-      <span class="global-inner-heading dynamic_color">Issues
-        <ion-icon class="dynamic_color margin-set" (click)="openCrudManagement('TRACTOR_ISSUES')"
-          name="add-circle-outline"></ion-icon>
-      </span>
-      <div class="multiple_options_container">
-        <ion-checkbox class="checkbox_block dynamic_color" *ngFor="let issue of issueList" [checked]="issue?.checked"
-          (ionChange)="selectIssue($event,issue)" labelPlacement="end">{{issue?.name}}</ion-checkbox>
+
+    <div class="cj-section">
+      <div class="cj-section-head">
+        <span class="cj-section-icon"><ion-icon name="alert-circle-outline"></ion-icon></span>
+        <span>Issues</span>
+        <button class="cj-add-btn" type="button" (click)="openCrudManagement('TRACTOR_ISSUES')" aria-label="Add issue type">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="cj-chip-container">
+        <ion-checkbox class="cj-chip" [class.cj-chip-active]="issue?.checked" *ngFor="let issue of issueList"
+          [checked]="issue?.checked" (ionChange)="selectIssue($event,issue)"
+          labelPlacement="end">{{issue?.name}}</ion-checkbox>
       </div>
       <div class="global_input_block">
         <ion-input label="Other Issue" fill="outline" labelPlacement="stacked" type="text"
           formControlName="otherIssues"></ion-input>
       </div>
     </div>
-    <div class="page_submit_btn">
-      <ion-button *ngIf="!data" (click)="checkTfCode()" class="global_submit_button" expand="block">Save</ion-button>
-      <ion-button *ngIf="data" (click)="checkTfCodeOnUpdate()" class="global_submit_button"
-        expand="block">Update</ion-button>
+
+    <div class="cj-submit-wrap">
+      <button class="cj-submit-btn" type="button" *ngIf="!data" (click)="checkTfCode()">Save</button>
+      <button class="cj-submit-btn" type="button" *ngIf="data" (click)="checkTfCodeOnUpdate()">Update</button>
     </div>
   </form>
 </ion-content>
