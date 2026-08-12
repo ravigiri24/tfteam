@@ -9,6 +9,7 @@ import { ShareService } from 'src/app/share.service';
 export class LoaderColorfullComponent implements OnInit {
   constructor(public share:ShareService) { }
   loader = false;
+
   ngOnInit() {
     this.loader = true;
   }
