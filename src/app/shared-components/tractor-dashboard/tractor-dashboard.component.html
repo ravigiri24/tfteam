@@ -138,7 +138,26 @@
         </div>
       </div>
 
-      <!-- Archived -->
+      <!-- Mark As Scrap -->
+      <div class="db-card anim-card" style="--i:5">
+        <div class="card-head">
+          <div class="card-head-icon dynamic_bgcolor"><ion-icon name="archive-outline"></ion-icon></div>
+          <span class="card-head-title">Mark As Scrap</span>
+        </div>
+        <div class="card-rows">
+          <div class="row-item" *ngIf="tractorDetails?.isScrap==0" (click)="markAsScrap(true,'Mark As Scrap Tractor')">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="archive-outline"></ion-icon></div>
+            <span class="row-label">Mark As Scrap</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="row-item" *ngIf="tractorDetails?.isScrap==1" (click)="markAsScrap(false,'UnMark As Scrap Tractor')">
+            <div class="row-icon dynamic_bgcolor"><ion-icon name="cog-outline"></ion-icon></div>
+            <span class="row-label">UnMark As Scrap</span>
+            <ion-icon class="row-arrow dynamic_color" name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+  <!-- Archived -->
       <div class="db-card anim-card" style="--i:5">
         <div class="card-head">
           <div class="card-head-icon dynamic_bgcolor"><ion-icon name="archive-outline"></ion-icon></div>
@@ -157,7 +176,6 @@
           </div>
         </div>
       </div>
-
       <!-- Allot Store -->
       <div class="db-card anim-card" style="--i:6">
         <div class="card-head">

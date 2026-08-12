@@ -1,217 +1,148 @@
 .main_loader {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+
+  /*
+   * IMPORTANT:
+   * No background here.
+   * Entire loader overlay is transparent.
+   */
+  background: transparent;
+
+  pointer-events: none;
+
+  box-sizing: border-box;
+
+  .loader_main_container {
+    width: 180px;
+    height: 180px;
+
     display: flex;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    position: fixed;
     justify-content: center;
-    padding: 15px;
-    background: linear-gradient(225deg, #e5e5e5 0%, #bebebe 100%);
-    z-index: 9999;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    flex: 0 0 180px;
+  }
+
+  .loader_video {
+    display: block;
+
+    width: 180px !important;
+    height: 180px !important;
+
+    max-width: 180px !important;
+    max-height: 180px !important;
+
+    margin: 0;
+    padding: 0;
+
+    object-fit: contain;
+
+    background: transparent;
+
+    border: 0;
+  }
+}
+
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media screen and (max-width: 576px) {
+
+  .main_loader {
 
     .loader_main_container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
+      width: 140px;
+      height: 140px;
 
-        .loader_video {
-            width: 220px;
-            max-width: 60vw;
-            height: auto;
-            object-fit: contain;
-        }
+      flex: 0 0 140px;
     }
+
+    .loader_video {
+      width: 140px !important;
+      height: 140px !important;
+
+      max-width: 140px !important;
+      max-height: 140px !important;
+    }
+  }
 }
 
-/* Original starting loader styles, kept as a backup (not active)
-.main_loader {
-    .one {
-        background: rgba(16, 63, 236, 0.75);
-        transform: rotateZ(225deg);
+
+/* ================================
+   TABLET
+   ================================ */
+
+@media screen and (min-width: 577px) and (max-width: 991px) {
+
+  .main_loader {
+
+    .loader_main_container {
+      width: 160px;
+      height: 160px;
+
+      flex: 0 0 160px;
     }
 
-    .two {
-        background: rgba(37, 172, 162, 0.75);
-        transform: rotateZ(180deg);
+    .loader_video {
+      width: 160px !important;
+      height: 160px !important;
+
+      max-width: 160px !important;
+      max-height: 160px !important;
     }
-
-    .three {
-        background: rgba(233, 124, 32, 0.75);
-        transform: rotateZ(135deg);
-    }
-
-    .four {
-        background: rgba(235, 67, 35, 0.75);
-        transform: rotateZ(90deg);
-    }
-
-    .five {
-        background: rgba(190, 28, 65, 0.75);
-        transform: rotateZ(45deg);
-    }
-
-    .six {
-        background: rgba(208, 57, 159, 0.75);
-        transform: rotateZ(0);
-    }
-
-    .seven {
-        background: rgba(150, 32, 198, 0.75);
-        transform: rotateZ(-45deg);
-    }
-
-    .eight {
-        background: rgba(95, 33, 203, 0.75);
-        transform: rotateZ(-90deg);
-    }
-
-    .center_spin {
-        display: block;
-        position: absolute;
-        top: calc(50% - 10em);
-        left: calc(50% - 10em);
-        width: 20em;
-        height: 20em;
-        animation: spin 5s linear infinite;
-
-        .large.circle {
-            box-shadow: 0 1em 2em rgba(0, 0, 0, 0.5);
-        }
-
-        .circle {
-            border-radius: 50%;
-            left: calc(50% - 6.25em);
-            top: calc(50% - 12.5em);
-            transform-origin: 50% 12.5em;
-        }
-
-        .circle,
-        .squircle {
-            width: 12.5em;
-            height: 12.5em;
-            position: absolute;
-            border-top: 0.1em solid rgba(255, 255, 255, 0.4);
-        }
-    }
-
-    .small_spin {
-        display: block;
-        position: absolute;
-        top: calc(50% - 10em);
-        left: calc(50% - 10em);
-        width: 20em;
-        height: 20em;
-        animation: spin-pulse 10s linear infinite;
-        font-size: .875em;
-        font-weight: 400;
-
-        .circle {
-            border-radius: 50%;
-        }
-
-        .squircle {
-            border-radius: 25%;
-            background: none;
-            box-shadow: none;
-
-            &::after {
-                content: "";
-                border-radius: 25%;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                background: red;
-                transform: rotateZ(-45deg);
-                box-shadow: -0.25em 0.25em 0.5em rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        .small {
-            width: 4em;
-            height: 4em;
-            left: calc(50% - 2em);
-            top: calc(50% - 15em);
-            transform-origin: 50% 15em;
-            position: relative;
-            transform: initial;
-        }
-
-        .eight {
-            &::after {
-                background: rgba(95, 33, 203, 0.75);
-            }
-        }
-
-        .six {
-            &:after {
-                background: rgba(208, 57, 159, 0.75);
-            }
-        }
-
-        .four {
-            &:after {
-                background: rgba(235, 67, 35, 0.75);
-            }
-        }
-
-        .two {
-            &:after {
-                background: rgba(37, 172, 162, 0.75);
-            }
-        }
-    }
+  }
 }
 
-.active_page {
-    .small_spin {
-        .small {
-            transition: .5s all;
-            transform: scale(0);
-        }
+
+/* ================================
+   DESKTOP
+   ================================ */
+
+@media screen and (min-width: 992px) {
+
+  .main_loader {
+
+    .loader_main_container {
+      width: 180px;
+      height: 180px;
+
+      flex: 0 0 180px;
     }
 
-    .center_spin {
-        .circle {
-            transition: 1s all;
-            transform: scale(0);
-            transform-origin: center;
-        }
+    .loader_video {
+      width: 180px !important;
+      height: 180px !important;
+
+      max-width: 180px !important;
+      max-height: 180px !important;
     }
+  }
 }
-
-.active_one .center_spin .one,
-.active_two .center_spin .two,
-.active_three .center_spin .three,
-.active_four .center_spin .four,
-.active_five .center_spin .five,
-.active_six .center_spin .six,
-.active_seven .center_spin .seven {
-    transform: scale(20);
-}
-
-@keyframes spin {
-    0% {
-        transform: rotateZ(0);
-    }
-
-    100% {
-        transform: rotateZ(360deg);
-    }
-}
-
-@keyframes spin-pulse {
-    0% {
-        transform: scale(1) rotateZ(0);
-    }
-
-    50% {
-        transform: scale(0.9) rotateZ(180deg);
-    }
-
-    100% {
-        transform: scale(1) rotateZ(360deg);
-    }
-}
-*/

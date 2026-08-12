@@ -382,6 +382,7 @@ export class TractorDashboardComponent implements OnInit {
       this.doArchive();
     }
   }
+
   async sellBack(backFrom: any) {
     const modal = await this.modalCtrl.create({
       breakpoints: [0, 0.4, 1],
@@ -439,6 +440,50 @@ export class TractorDashboardComponent implements OnInit {
       this.registerOnAchviedHistory(this.tractorDetails)
       this.getTractorDetails()
       this.share.presentToast('Archived Successfully...');
+
+      //  this.dismiss();
+    });
+  }
+    async markAsScrap(status:any,msg:any) {
+    const alert = await this.alertCtrl.create({
+      header: msg,
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.doScrapAction(status);
+    }
+  }
+    doScrapAction(status:any) {
+    let objData: any = {
+      isScrap: status,
+  
+    };
+    let obj = {
+      src: 'tractor',
+      data: objData,
+      id: this.tractorDetails?.id,
+    };
+
+    this.share.showLoading('Updating Data...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+      this.getTractorDetails()
+
+
+      this.share.presentToast('Done Successfully...');
 
       //  this.dismiss();
     });

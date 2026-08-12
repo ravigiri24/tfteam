@@ -308,6 +308,10 @@ export class TractorCostingListComponent implements OnInit {
             f?.tractordetailadmin?.wareHouseLocation == null,
         );
       }
+       if (this.filterBy == 'SCRAP_TRACTOR') {
+   
+        tractorList = tractorList?.filter((f: any) => f?.isScrap == 1);
+      }
 
       this.sortByFilter(tractorList);
     }, 0);
@@ -400,6 +404,7 @@ export class TractorCostingListComponent implements OnInit {
           { displayName: 'Sold(Dealer)', value: 'SOLD_TO_DEALER' },
           { displayName: 'Not Sold(Dealer)', value: 'SOLD_NOT_TO_DEALER' },
           { displayName: 'At Warehouse', value: 'AT_WAREHOUSE' },
+          { displayName: 'Scrap', value: 'SCRAP_TRACTOR' },
         ],
         selectedBrand: this.selectedBrand,
         checkedAll: this.checkedAll,
