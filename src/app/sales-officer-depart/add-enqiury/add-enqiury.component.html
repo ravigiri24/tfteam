@@ -1,126 +1,151 @@
-<ion-header [ngClass]="listColorClass">
-  <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text" *ngIf="!enquiry">Add Enquiry</span>
-        <span class="selected_text" *ngIf="enquiry">Update Enquiry</span>
+<ion-header [ngClass]="listColorClass" class="enquiry_header">
+  <ion-toolbar class="enquiry_toolbar">
+    <div class="enquiry_title_row">
+      <div class="enquiry_title_icon">
+        <ion-icon name="person-add-outline"></ion-icon>
       </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+      <span class="enquiry_title" *ngIf="!enquiry">Add Enquiry</span>
+      <span class="enquiry_title" *ngIf="enquiry">Update Enquiry</span>
+      <div class="enquiry_close_btn" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
       </div>
-    </ion-label>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
+<ion-content class="ion-padding enquiry_content" [ngClass]="listColorClass">
   <form [formGroup]="form" *ngIf="form">
-    <div class="margin-bottom-headline">
-      <span class="global-inner-heading">Customer Details</span>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Enter Customer name" fill="outline" labelPlacement="stacked" labelPlacement="stacked"
-        type="text" placeholder="Customer name" formControlName="customerName"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Enter Mobile Number" fill="outline" labelPlacement="stacked" type="text"
-        placeholder="Customer Number" formControlName="mobileNo"></ion-input>
-    </div>
-    <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
-      <span class="top_layers">State</span>
-      <span class="name_selected">{{stateName}}</span>
-      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
-      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
-    </ion-select> -->
-    </div>
-    <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
-      <span class="top_layers">City</span>
-      <span class="name_selected">{{cityName}}</span>
-      <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-      <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
-          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
-        </ion-select> -->
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Enter Village" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
-        placeholder="Enter Village" formControlName="village"></ion-input>
-    </div>
-    <div class="margin-bottom-headline">
-      <span class="global-inner-heading">Requirement</span>
-    </div>
-    <div class="global_input_block">
-      <ion-select formControlName="strength" fill="outline" label="Lead Temperature" label-placement="stacked">
-        <ion-select-option value="HOT">Hot</ion-select-option>
-        <ion-select-option value="WARM">Warm</ion-select-option>
-        <ion-select-option value="COLD">Cold</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="addModel">
-      <div [ngClass]="[getModel()?.length ? '' : 'margin-bottom-headline']">
-        <span class="global-inner-heading">
-          <span>Selected Model</span>
-          <ion-icon (click)="selectModelList()" class="dynamic_color" name="add-circle-outline"></ion-icon></span>
-      </div>
-      <ion-grid class="main_block_details" *ngIf="getModel()?.length">
-        <ion-card class="global_table_block_details">
-          <ion-row class="table_main_header dynamic_bgcolor">
-            <ion-col class="item_name_col">Model Name</ion-col>
-            <ion-col class="availability_col">Availaible</ion-col>
-            <ion-col class="actions_col">Actions</ion-col>
-          </ion-row>
-          <!-- <ng-container *ngFor="let model of getModel()">
-            <ion-item>
-              <ion-label>
-                <h3>{{model?.name}}
-                  <ion-icon (click)="deleteModel(model)" class="theme-color" name="trash-outline"></ion-icon>
-                </h3>
-                <p *ngIf="model?.availaibility?.length">{{model?.availaibility?.length || 0}} Availaible <ion-icon
-                    (click)="viewModel(model)" class="theme-color" name="eye-outline"></ion-icon></p>
-                <p *ngIf="!model?.availaibility?.length">Opps,It Seems No Stock Avalaible</p>
-              </ion-label>
-            </ion-item>            
-          </ng-container> -->
-          <ion-row class="table_row" *ngFor="let model of getModel()">
-            <ion-col class="item_name_col">{{model?.name}}</ion-col>
-            <ion-col class="availability_col">
-              <span *ngIf="model?.availaibility?.length">{{model?.availaibility?.length || 0}}</span>
-              <span *ngIf="!model?.availaibility?.length">No Stock Avalaible</span>
-            </ion-col>
-            <ion-col class="actions_col">
-              <ion-icon *ngIf="model?.availaibility?.length" (click)="viewModel(model)"
-                class="dynamic_color action_icon" name="eye-outline"></ion-icon>
-              <ion-icon (click)="deleteModel(model)" class="delete_color action_icon" name="trash-outline"></ion-icon>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-      </ion-grid>
 
-      <div class="margin-bottom-headline" *ngIf="!form.controls['modal_ids']?.value?.length">
-        <div class="dynamic_block" [ngClass]="listColorClass">
-          <app-no-data-view [title]="'No Model Selected.'" [subtitleShow]="false"></app-no-data-view>
+    <div class="section_card">
+      <div class="section_head">
+        <span class="section_icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+        <span class="section_title">Customer Details</span>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Customer Name" fill="outline" labelPlacement="stacked" type="text"
+          placeholder="Enter customer name" formControlName="customerName"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Mobile Number" fill="outline" labelPlacement="stacked" type="text"
+          placeholder="Enter mobile number" formControlName="mobileNo"></ion-input>
+      </div>
+      <div class="location_row">
+        <div class="global_input_block global_location_block half_block"
+          (click)="selectItem(this.stateList,'State','state_list')">
+          <span class="top_layers">State</span>
+          <div class="location_value">
+            <ion-icon class="location_pin" name="location-outline"></ion-icon>
+            <span class="name_selected" [ngClass]="{'placeholder': !stateName}">{{stateName || 'Select'}}</span>
+          </div>
+          <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+        </div>
+        <div class="global_input_block global_location_block half_block"
+          (click)="selectItem(this.cityListFilter,'City','city_list')">
+          <span class="top_layers">City</span>
+          <div class="location_value">
+            <ion-icon class="location_pin" name="location-outline"></ion-icon>
+            <span class="name_selected" [ngClass]="{'placeholder': !cityName}">{{cityName || 'Select'}}</span>
+          </div>
+          <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
         </div>
       </div>
+      <div class="global_input_block">
+        <ion-input label="Village" fill="outline" labelPlacement="stacked" type="text" placeholder="Enter village"
+          formControlName="village"></ion-input>
+      </div>
     </div>
-    <div class="global_input_block">
-      <ion-input label="Other" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
-        placeholder="Other" formControlName="other"></ion-input>
+
+    <div class="section_card">
+      <div class="section_head">
+        <span class="section_icon"><ion-icon name="flame-outline"></ion-icon></span>
+        <span class="section_title">Lead Temperature</span>
+      </div>
+      <ion-segment formControlName="strength" class="strength_segment">
+        <ion-segment-button value="HOT" class="seg_hot">
+          <ion-icon name="flame"></ion-icon>
+          <ion-label>Hot</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="WARM" class="seg_warm">
+          <ion-icon name="sunny"></ion-icon>
+          <ion-label>Warm</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="COLD" class="seg_cold">
+          <ion-icon name="snow"></ion-icon>
+          <ion-label>Cold</ion-label>
+        </ion-segment-button>
+      </ion-segment>
     </div>
-    <div class="global_input_block">
-      <ion-select formControlName="inStoke" fill="outline" label="Availaibility" label-placement="stacked">
-        <ion-select-option value="IN_STOCK">In Stock</ion-select-option>
-        <ion-select-option value="DEMAND">Demand</ion-select-option>
-      </ion-select>
+
+    <div class="section_card">
+      <div class="section_head">
+        <span class="section_icon"><ion-icon name="construct-outline"></ion-icon></span>
+        <span class="section_title">Selected Model</span>
+        <div class="add_model_btn" (click)="selectModelList()">
+          <ion-icon name="add-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="model_list" *ngIf="getModel()?.length">
+        <div class="model_card" *ngFor="let model of getModel()">
+          <div class="model_avatar">{{ model?.name?.charAt(0)?.toUpperCase() }}</div>
+          <div class="model_info">
+            <span class="model_name">{{model?.name}}</span>
+            <span class="model_avail" *ngIf="model?.availaibility?.length">
+              <ion-icon name="checkmark-circle"></ion-icon>{{model?.availaibility?.length}} Available
+            </span>
+            <span class="model_avail no_stock" *ngIf="!model?.availaibility?.length">
+              <ion-icon name="alert-circle"></ion-icon>No Stock Available
+            </span>
+          </div>
+          <div class="model_actions">
+            <ion-icon *ngIf="model?.availaibility?.length" (click)="viewModel(model)"
+              class="dynamic_color action_icon" name="eye-outline"></ion-icon>
+            <ion-icon (click)="deleteModel(model)" class="delete_color action_icon" name="trash-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty_model_block" *ngIf="!form.controls['modal_ids']?.value?.length">
+        <div class="dynamic_block" [ngClass]="listColorClass">
+          <app-no-data-view [title]="'No Model Selected'" [subTitle]="'Tap the + icon to add a model'"
+            [subtitleShow]="true"></app-no-data-view>
+        </div>
+      </div>
+
+      <div class="global_input_block other_input">
+        <ion-input label="Other" fill="outline" labelPlacement="stacked" type="text"
+          placeholder="Any other requirement" formControlName="other"></ion-input>
+      </div>
     </div>
-    <div class="global_input_block">
-      <ion-textarea formControlName="remark" label="Remark" class="bg_white" fill="outline" labelPlacement="stacked"
-        placeholder="write remark here..."></ion-textarea>
-    </div>
-    <div class="page_submit_btn">
-      <ion-button *ngIf="!enquiry" (click)="save()" class="global_submit_color_button dynamic_bgcolor">
-        <ion-icon class="icon-size" name="add-circle-outline"></ion-icon><span>Add New Enquiry</span>
-      </ion-button>
-      <ion-button *ngIf="enquiry" (click)="update()" class="global_submit_color_button dynamic_bgcolor">
-        <ion-icon class="icon-size" name="create-outline"></ion-icon><span>Update Enquiry</span>
-      </ion-button>
+
+    <div class="section_card">
+      <div class="section_head">
+        <span class="section_icon"><ion-icon name="cube-outline"></ion-icon></span>
+        <span class="section_title">Availability</span>
+      </div>
+      <ion-segment formControlName="inStoke" class="avail_segment">
+        <ion-segment-button value="IN_STOCK" class="seg_in_stock">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+          <ion-label>In Stock</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="DEMAND" class="seg_demand">
+          <ion-icon name="time-outline"></ion-icon>
+          <ion-label>Demand</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <div class="global_input_block remark_input">
+        <ion-textarea formControlName="remark" label="Remark" class="bg_white" fill="outline"
+          labelPlacement="stacked" placeholder="Write remark here..." autoGrow="true"></ion-textarea>
+      </div>
     </div>
   </form>
 </ion-content>
+<ion-footer *ngIf="form" class="page_submit_footer" [ngClass]="listColorClass">
+  <div class="page_submit_btn">
+    <ion-button *ngIf="!enquiry" (click)="save()" class="enquiry_submit_btn">
+      <ion-icon class="icon-size" name="add-circle-outline"></ion-icon><span>Add New Enquiry</span>
+    </ion-button>
+    <ion-button *ngIf="enquiry" (click)="update()" class="enquiry_submit_btn">
+      <ion-icon class="icon-size" name="create-outline"></ion-icon><span>Update Enquiry</span>
+    </ion-button>
+  </div>
+</ion-footer>

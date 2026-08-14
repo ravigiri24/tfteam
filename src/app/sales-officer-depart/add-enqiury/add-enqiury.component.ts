@@ -27,7 +27,7 @@ export class AddEnqiuryComponent implements OnInit {
   ) {}
   staffDetails: any;
   selectedStore: any;
-  @Input() listColorClass = 'sixColor';
+  @Input() listColorClass = 'fourthColor';
   ngOnInit() {
     let staffDetails: any = this.share.get_staff();
     console.log('staffDetails', staffDetails);
