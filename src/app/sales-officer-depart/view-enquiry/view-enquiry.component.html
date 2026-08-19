@@ -1,156 +1,73 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header class="enquiry-header" [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">View Enquiry</span>
+    <div class="header-canvas" aria-hidden="true">
+      <span class="canvas-orb orb-one"></span>
+      <span class="canvas-orb orb-two"></span>
+      <span class="canvas-line line-one"></span>
+      <span class="canvas-line line-two"></span>
+    </div>
+    <div class="header-content">
+      <div class="header-title">
+        <span class="header-icon"><ion-icon name="document-text-outline"></ion-icon></span>
+        <div><span class="eyebrow">CUSTOMER ENQUIRY</span><h1>Enquiry Details</h1><p>Complete customer and lead information</p></div>
       </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
+      <ion-button class="close-button" fill="clear" aria-label="Close enquiry details" (click)="dismiss()"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
-  <span class="global-inner-heading">Customer Details</span>
-  <ion-grid class="main_block_details">
-    <ion-card class="main_card_details">
-      <ion-row>
-        <ion-col>Enquiry Date</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.createdOn | date }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Customer Name</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.customerName || '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Mobile No</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.mobileNo|| '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Village</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.village }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>City</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.cityName }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>State</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.stateName }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Handle By</ion-col>
-        <ion-col class="amount_col"> {{enquiry?.operateBy}}</ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-grid>
-  <div class="margin-bottom-headline">
-    <span class="global-inner-heading">Lead Details</span>
-  </div>
-  <ion-grid class="main_block_details">
-    <ion-card class="main_card_details">
-      <ion-row>
-        <ion-col>Remark</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.remark }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Is Lead open</ion-col>
-        <ion-col class="amount_col" *ngIf="enquiry?.isOpen==1"> Open</ion-col>
-        <ion-col class="amount_col" *ngIf="enquiry?.isOpen==0">Closed</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Lead Temperature</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.strength }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>In Stoke</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.inStoke }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Other Requirement</ion-col>
-        <ion-col class="amount_col"> {{ enquiry?.other }}</ion-col>
-      </ion-row>
 
-    </ion-card>
-  </ion-grid>
-  <ng-container>
-    <span class="global-inner-heading">Demanding Models</span>
-    <ion-grid class="main_block_details" *ngIf="modelList?.length">
-      <ion-card class="global_table_block_details">
-        <ion-row class="table_main_header dynamic_bgcolor">
-          <ion-col class="item_name_col">Model Name</ion-col>
-          <ion-col class="availability_col">Availaible</ion-col>
-          <ion-col class="actions_col">Actions</ion-col>
-        </ion-row>
-        <ion-row class="table_row" *ngFor="let model of modelList">
-          <ion-col class="item_name_col">{{model?.name}}</ion-col>
-          <ion-col class="availability_col">
-            <span *ngIf="model?.availaibility?.length">{{model?.availaibility?.length || 0}}</span>
-            <span *ngIf="!model?.availaibility?.length">No Stock Avalaible</span>
-          </ion-col>
-          <ion-col class="actions_col">
-            <ion-icon *ngIf="model?.availaibility?.length" (click)="viewModel(model)" class="dynamic_color action_icon"
-              name="eye-outline"></ion-icon>
-          </ion-col>
-        </ion-row>
+<ion-content class="enquiry-content" [ngClass]="listColorClass">
+  <div class="ambient-canvas" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="content-wrapper">
+    <section class="detail-section">
+      <div class="section-heading"><span class="section-icon"><ion-icon name="person-outline"></ion-icon></span><div><h2>Customer Details</h2><p>Contact and location information</p></div></div>
+      <ion-card class="detail-card"><div class="detail-grid">
+        <div class="detail-item"><span class="label">Enquiry Date</span><span class="value">{{ (enquiry?.createdOn | date:'mediumDate') || '-' }}</span></div>
+        <div class="detail-item"><span class="label">Customer Name</span><span class="value primary-value">{{ enquiry?.customerName || '-' }}</span></div>
+        <div class="detail-item"><span class="label">Mobile Number</span><span class="value">{{ enquiry?.mobileNo || '-' }}</span></div>
+        <div class="detail-item"><span class="label">Village</span><span class="value">{{ enquiry?.village || '-' }}</span></div>
+        <div class="detail-item"><span class="label">City</span><span class="value">{{ enquiry?.cityName || '-' }}</span></div>
+        <div class="detail-item"><span class="label">State</span><span class="value">{{ enquiry?.stateName || '-' }}</span></div>
+        <div class="detail-item full-width"><span class="label">Handled By</span><span class="value">{{ enquiry?.operateBy || '-' }}</span></div>
+      </div></ion-card>
+    </section>
+
+    <section class="detail-section">
+      <div class="section-heading"><span class="section-icon"><ion-icon name="thermometer-outline"></ion-icon></span><div><h2>Lead Details</h2><p>Current requirement and lead status</p></div></div>
+      <ion-card class="detail-card"><div class="detail-grid">
+        <div class="detail-item"><span class="label">Lead Status</span><span class="status-pill" [class.closed]="enquiry?.isOpen == 0"><span></span>{{ enquiry?.isOpen == 1 ? 'Open' : 'Closed' }}</span></div>
+        <div class="detail-item"><span class="label">Lead Temperature</span><span class="temperature-pill" [class.hot]="enquiry?.strength?.toUpperCase() === 'HOT'">{{ enquiry?.strength || '-' }}</span></div>
+        <div class="detail-item"><span class="label">Stock Preference</span><span class="value">{{ enquiry?.inStoke || '-' }}</span></div>
+        <div class="detail-item"><span class="label">Other Requirement</span><span class="value">{{ enquiry?.other || '-' }}</span></div>
+        <div class="detail-item full-width"><span class="label">Remark</span><span class="value remark">{{ enquiry?.remark || 'No remark added' }}</span></div>
+      </div></ion-card>
+    </section>
+
+    <section class="detail-section">
+      <div class="section-heading"><span class="section-icon"><ion-icon name="car-sport-outline"></ion-icon></span><div><h2>Demanding Models</h2><p>Requested models and current availability</p></div></div>
+      <ion-card class="models-card" *ngIf="modelList?.length">
+        <div class="model-row model-header"><span>Model</span><span>Availability</span><span>Action</span></div>
+        <div class="model-row" *ngFor="let model of modelList">
+          <span class="model-name">{{ model?.name || '-' }}</span>
+          <span class="stock-pill" [class.out-of-stock]="!model?.availaibility?.length">{{ model?.availaibility?.length ? (model?.availaibility?.length + ' available') : 'No stock' }}</span>
+          <ion-button class="view-button" fill="clear" [disabled]="!model?.availaibility?.length" (click)="viewModel(model)" aria-label="View available model"><ion-icon name="eye-outline"></ion-icon><span>View</span></ion-button>
+        </div>
       </ion-card>
-    </ion-grid>
-    <div class="margin-bottom-headline" *ngIf="!modelList?.length">
-      <div class="dynamic_block" [ngClass]="listColorClass">
-        <app-no-data-view [title]="'No Demanding Model Selected.'" [subtitleShow]="false"></app-no-data-view>
-      </div>
-    </div>
-    <!-- <ng-container *ngFor="let model of modelList">
-      <ion-item>
-        <ion-label>
-          <h3>{{model?.name}}
+      <div class="empty-models" *ngIf="!modelList?.length"><ion-icon name="car-outline"></ion-icon><p>No demanding model selected</p></div>
+    </section>
 
-          </h3>
-          <p *ngIf="model?.availaibility?.length">{{model?.availaibility?.length || 0}} Availaible <ion-icon
-              (click)="viewModel(model)" class="theme-color" name="eye-outline"></ion-icon></p>
-          <p *ngIf="!model?.availaibility?.length">Opps,It Seems No Stock Avalaible</p>
-        </ion-label>
-      </ion-item>
-    </ng-container> 
-     <app-no-data-view *ngIf="!modelList?.length"></app-no-data-view> -->
-  </ng-container>
-  <ng-container *ngIf="enquiry?.isOpen==0">
-    <div class="margin-bottom-headline">
-      <span class="global-inner-heading">Closing Details</span>
-    </div>
-    <ion-card class="main_card_details">
-      <ion-row>
-        <ion-col>Closing Date</ion-col>
-        <ion-col class="amount_col"> {{enquiry?.close_date}}</ion-col>
-
-      </ion-row>
-      <ion-row>
-        <ion-col>Closing Remark</ion-col>
-        <ion-col class="amount_col"> {{enquiry?.closing_remark}}</ion-col>
-
-      </ion-row>
-
-      <ion-row>
-        <ion-col>Is Converted To Deal</ion-col>
-        <ion-col class="amount_col" *ngIf="enquiry?.isBooked==1"> Yes</ion-col>
-        <ion-col class="amount_col" *ngIf="enquiry?.isBooked==0">No</ion-col>
-      </ion-row>
-      <ng-container *ngIf="enquiry?.isBooked==1">
-        <ion-row>
-          <ion-col>Booked Date</ion-col>
-          <ion-col class="amount_col"> {{ enquiry?.bookedDate }}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Booked Model</ion-col>
-          <ion-col class="amount_col"> {{ enquiry?.bookedModelName }}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Will Buy (Date)</ion-col>
-          <ion-col class="amount_col"> {{ enquiry?.willBuyDate }}</ion-col>
-        </ion-row>
-      </ng-container>
-
-
-    </ion-card>
-  </ng-container>
+    <section class="detail-section" *ngIf="enquiry?.isOpen == 0">
+      <div class="section-heading"><span class="section-icon"><ion-icon name="checkmark-done-outline"></ion-icon></span><div><h2>Closing Details</h2><p>Lead closure and conversion information</p></div></div>
+      <ion-card class="detail-card"><div class="detail-grid">
+        <div class="detail-item"><span class="label">Closing Date</span><span class="value">{{ enquiry?.close_date || '-' }}</span></div>
+        <div class="detail-item"><span class="label">Converted to Deal</span><span class="value">{{ enquiry?.isBooked == 1 ? 'Yes' : 'No' }}</span></div>
+        <div class="detail-item full-width"><span class="label">Closing Remark</span><span class="value remark">{{ enquiry?.closing_remark || '-' }}</span></div>
+        <ng-container *ngIf="enquiry?.isBooked == 1">
+          <div class="detail-item"><span class="label">Booked Date</span><span class="value">{{ enquiry?.bookedDate || '-' }}</span></div>
+          <div class="detail-item"><span class="label">Booked Model</span><span class="value">{{ enquiry?.bookedModelName || '-' }}</span></div>
+          <div class="detail-item full-width"><span class="label">Expected Purchase Date</span><span class="value">{{ enquiry?.willBuyDate || '-' }}</span></div>
+        </ng-container>
+      </div></ion-card>
+    </section>
+  </div>
 </ion-content>
