@@ -1,32 +1,20 @@
-
-  <div class="internal_list_data">
-    <ion-list class="list_row">
-      <ion-item *ngFor="let chat of chatHistory">
-        <ion-label>
-          <h2 class="staff_name"><span class="theme-color">{{chat?.staffDetails?.name}}</span> <span
-              class="date-time">{{chat?.createdOn}}</span></h2>
-          <p>{{chat?.status}}</p>
-          <!-- <p><b>{{chat?.staffDetails?.name}}</b> <span class="date-time">{{chat?.createdOn}}</span></p>
-          <p class="text-size">{{chat?.status}}</p> -->
-        </ion-label>
-      </ion-item>
-    </ion-list>
+<!-- Shared remarks conversation -->
+<div class="chat-shell">
+  <div class="conversation-list">
+    <div class="empty-chat" *ngIf="!chatHistory?.length"><span><ion-icon name="chatbubble-ellipses-outline"></ion-icon></span><h3>No remarks yet</h3><p>Start the conversation by adding the first message.</p></div>
+    <article class="message" *ngFor="let chat of chatHistory" [class.own-message]="chat?.employeId == staffDetails?.staffCode">
+      <div class="avatar">{{ (chat?.staffDetails?.name || 'U').charAt(0) | uppercase }}</div>
+      <div class="message-content">
+        <div class="message-meta"><strong>{{ chat?.staffDetails?.name || 'Team member' }}</strong><time>{{ chat?.createdOn }}</time></div>
+        <p>{{ chat?.status }}</p>
+      </div>
+    </article>
   </div>
-  <form [formGroup]="form">
-    <!-- <div class="chat-box">
-      <div>
-        <input class="chat-typing" type="text" formControlName="status" />
-        <ion-spinner *ngIf="loader" class="send-icon" color="primary"></ion-spinner>
-        <ion-icon *ngIf="!loader" (click)="onSave()" name="send" class="send-icon"></ion-icon>
-      </div>
-    </div> -->
-    <div class="chat_box_bottom">
-      <div class="button_withtext_block">
-        <textarea class="chat-typing" type="text" placeholder="Message" formControlName="status"></textarea>
-      </div>
-      <div class="right_action_buttons">
-        <ion-spinner *ngIf="loader" class="send_data_loader" color="white"></ion-spinner>
-        <ion-icon *ngIf="!loader" (click)="onSave()" name="send" class="send-icon"></ion-icon>
-      </div>
-    </div>
+
+  <form class="composer" [formGroup]="form" (ngSubmit)="onSave()">
+    <div class="composer-input"><ion-icon name="chatbox-ellipses-outline"></ion-icon><textarea rows="1" placeholder="Write a remark..." formControlName="status" aria-label="Remark message"></textarea></div>
+    <button class="send-button" type="submit" [disabled]="loader || form.invalid" aria-label="Send remark">
+      <ion-spinner *ngIf="loader" name="crescent"></ion-spinner><ion-icon *ngIf="!loader" name="send"></ion-icon>
+    </button>
   </form>
+</div>

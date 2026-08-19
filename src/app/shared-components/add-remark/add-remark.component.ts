@@ -6,7 +6,7 @@ import { ShareService } from 'src/app/share.service';
 @Component({
   selector: 'app-add-remark',
   templateUrl: './add-remark.component.html',
-  styleUrls: ['./add-remark.component.scss'],
+  styleUrl: './add-remark.component.scss',
 })
 export class AddRemarkComponent  implements OnInit {
 @Input() data:any

@@ -10,12 +10,12 @@
 .enquiry-header { position: relative; overflow: hidden; }
 .enquiry-header ion-toolbar { --background: linear-gradient(115deg, #4c1d18 0%, #8d2e1d 45%, #ec705b 100%); --border-width: 0; padding: 8px 12px; overflow: hidden; }
 .enquiry-header::after { display: none; }
-.header-canvas { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.header-canvas { position: absolute; top: 0; right: 0; bottom: 0; left: auto; width: 58%; pointer-events: none; overflow: hidden; }
 .canvas-orb { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.07); animation: orb-float 7s ease-in-out infinite; }
-.orb-one { width: 180px; height: 180px; right: -35px; top: -105px; }
-.orb-two { width: 90px; height: 90px; left: 55px; bottom: -67px; animation-delay: -3s; }
-.canvas-line { position: absolute; width: 160px; height: 1px; right: 100px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); transform: rotate(-25deg); animation: line-shimmer 5s ease-in-out infinite; }
-.line-one { top: 18px; }.line-two { top: 52px; right: 145px; animation-delay: -2.5s; }
+.orb-one { width: 180px; height: 180px; right: -54px; top: -128px; transform-origin: top right; }
+.orb-two { width: 90px; height: 90px; right: 112px; top: -64px; animation-delay: -3s; transform-origin: top right; }
+.canvas-line { position: absolute; width: 160px; height: 1px; right: 36px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); transform: rotate(-25deg); animation: line-shimmer 5s ease-in-out infinite; }
+.line-one { top: 14px; }.line-two { top: 43px; right: 82px; animation-delay: -2.5s; }
 .header-content { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; min-height: 68px; }
 .header-title { display: flex; align-items: center; gap: 12px; }
 .header-icon, .section-icon { display: grid; place-items: center; color: var(--enquiry-accent); background: rgba(var(--enquiry-accent-rgb), .1); }

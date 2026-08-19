@@ -1,119 +1,65 @@
-// .right-margine{
-//     margin-right: 5px;
-// }
-// .left-margin{
-//  position: relative;
-//  left:20px
-// }
-// .add-button{
-//     position: relative;
-//     right: 10px;
-// }
-// .icon-size{
-//   font-size: 30px;
-// }
-// .remark-side{
-//   margin-left: 20px;
-//   .remark-color{
-//     color: var(--app-theme-element-color) !important;
-//     font-weight: 600;
-//   }
+:host { --review-accent:#f36c52; --review-pink:#d84b91; --review-rgb:243,108,82; display:flex; flex-direction:column; width:100%; height:100%; min-height:0; overflow:hidden; }
+.review-header { position:relative; z-index:10; flex:0 0 auto; background:#fff; box-shadow:0 5px 18px rgba(75,32,27,.09); }.review-header::after { display:none; }.review-header ion-toolbar { --background:linear-gradient(115deg,#481c18 0%,#8b2d1d 48%,#ef765f 100%); --border-width:0; padding:8px 12px; overflow:hidden; }
+.header-canvas { position:absolute; top:0; right:0; bottom:0; left:auto; width:58%; overflow:hidden; pointer-events:none; }.orb { position:absolute; border:1px solid rgba(255,255,255,.14); border-radius:50%; background:rgba(255,255,255,.07); animation:orb-float 7s ease-in-out infinite; }.orb-one { width:180px; height:180px; right:-54px; top:-128px; transform-origin:top right; }.orb-two { width:90px; height:90px; right:112px; top:-64px; animation-delay:-3s; transform-origin:top right; }.glow-line { position:absolute; right:36px; width:155px; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent); transform:rotate(-25deg); animation:line-shimmer 5s ease-in-out infinite; }.line-one { top:14px; }.line-two { top:43px; right:82px; animation-delay:-2.5s; }
+.header-content { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; min-height:68px; }.title-wrap { display:flex; align-items:center; gap:12px; }.title-icon { display:grid; place-items:center; width:44px; height:44px; flex:0 0 44px; color:#fff; border:1px solid rgba(255,255,255,.2); border-radius:13px; background:rgba(255,255,255,.16); backdrop-filter:blur(8px); }.title-icon ion-icon { font-size:22px; }.eyebrow { display:block; color:rgba(255,255,255,.65); font-size:8px; font-weight:600; letter-spacing:1.35px; }.title-wrap h1 { margin:1px 0 0; color:#fff; font-size:17px; font-weight:600; }.title-wrap p { margin:2px 0 0; color:rgba(255,255,255,.7); font-size:10px; }.close-button { --color:#fff; --background:rgba(255,255,255,.14); --background-hover:rgba(255,255,255,.23); width:40px; height:40px; margin:0; border-radius:50%; overflow:hidden; }
+.schedule-strip { position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 18px; border-bottom:1px solid rgba(var(--review-rgb),.13); background:rgba(255,255,255,.96); }.schedule-copy { display:flex; align-items:center; gap:9px; }.schedule-copy>span { display:grid; place-items:center; width:32px; height:32px; color:var(--review-accent); border-radius:9px; background:rgba(var(--review-rgb),.1); }.schedule-copy strong,.schedule-copy small { display:block; }.schedule-copy strong { color:#4b4244; font-size:11px; }.schedule-copy small { margin-top:1px; color:#9a9092; font-size:9px; }.date-control { position:relative; display:flex; align-items:center; min-width:144px; height:38px; border:1px solid #e2d9db; border-radius:11px; background:#fffaf9; overflow:hidden; }.date-control input { width:100%; height:100%; padding:0 34px 0 11px; color:#5b5153; border:0; outline:0; background:transparent; font:500 10px var(--app-brand-font); }.date-control ion-icon { position:absolute; right:10px; color:var(--review-accent); font-size:13px; pointer-events:none; }
+.review-content { --background:linear-gradient(145deg,#fff8f5 0%,#f8f3f5 52%,#fff 100%); flex:1 1 auto; min-height:0; }.review-content app-add-remark { position:relative; z-index:1; display:block; height:100%; }.ambient-canvas { position:absolute; inset:0; overflow:hidden; pointer-events:none; }.ambient-canvas span { position:absolute; border-radius:50%; animation:ambient-drift 10s ease-in-out infinite; }.ambient-canvas span:first-child { width:180px; height:180px; right:-70px; top:45px; background:rgba(243,108,82,.08); }.ambient-canvas span:last-child { width:120px; height:120px; left:-55px; bottom:12%; background:rgba(216,75,145,.055); animation-delay:-4s; }
+@keyframes orb-float { 0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-10px,8px,0) scale(1.05)} } @keyframes line-shimmer { 0%,100%{opacity:.25;transform:translateX(0) rotate(-25deg)}50%{opacity:.75;transform:translateX(18px) rotate(-25deg)} } @keyframes ambient-drift { 0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(10px,-14px,0)} }
+@media(max-width:600px){.schedule-strip{padding:9px 12px}.schedule-copy small{display:none}.date-control{min-width:135px}.title-wrap p{display:none}}
+@media(prefers-reduced-motion:reduce){.orb,.glow-line,.ambient-canvas span{animation:none}}
 
-// }
-// .button-theme{
-//     border-color:var(--app-theme-element-color) !important;
-//     ion-button {
-//         --background: var(--app-theme-element-color) !important;
-//         --border-color:var(--app-theme-element-color) !important;
-//         --outline-color:var(--app-theme-element-color) !important;
-//         --color:white !important;
+// The shared remark component is projected inside this modal. Keep its popup
+// presentation scoped here so Angular's emulated encapsulation cannot leave the
+// child markup unstyled during an incremental rebuild.
+:host ::ng-deep app-add-remark {
+  --chat-accent: #f36c52;
+  --chat-pink: #d84b91;
+  --chat-rgb: 243, 108, 82;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
 
-//         }
-// }
-// :host {
-//     ion-button {
-
-
-//         --outline-color:var(--app-theme-element-color) !important;
-//         --color:var(--app-theme-element-color) !important;
-
-//         }
-//   }
-//   .total-number{
-//     position: relative;
-//     left: 6px;
-//   }
-//   .list-position{
-//     position: relative;
-//     top: 45px;
-//   }
-
-.title_with_contact {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .right_actions {
-        display: flex;
-        align-items: center;
-
-        a {
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-
-            .whatsapp-color {
-                font-size: 26px;
-            }
-        }
-    }
-
+  .chat-shell { display:flex; flex-direction:column; width:100%; height:100%; min-height:0; }
+  .conversation-list { position:relative; flex:1 1 auto; min-height:0; padding:18px 22px 24px; overflow-y:auto; scroll-behavior:smooth; }
+  .conversation-list::-webkit-scrollbar { width:6px; }
+  .conversation-list::-webkit-scrollbar-track { background:transparent; }
+  .conversation-list::-webkit-scrollbar-thumb { border-radius:10px; background:rgba(116,91,87,.38); }
+  .message { display:flex; align-items:flex-start; gap:10px; max-width:82%; margin:0 0 14px; animation:review-message-arrive .35s ease both; }
+  .avatar { display:grid; place-items:center; width:32px; height:32px; flex:0 0 32px; color:#fff; border-radius:10px; background:linear-gradient(135deg,#f36c52,#ff9579); box-shadow:0 5px 12px rgba(243,108,82,.2); font-size:11px; font-weight:600; }
+  .message-content { flex:1; min-width:0; padding:11px 13px; border:1px solid rgba(243,108,82,.12); border-radius:4px 14px 14px 14px; background:rgba(255,255,255,.92); box-shadow:0 6px 18px rgba(75,40,35,.055); backdrop-filter:blur(8px); }
+  .message-meta { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:5px; }
+  .message-meta strong { color:#8b4136; font-size:10px; font-weight:600; }
+  .message-meta time { color:#aaa0a1; font-size:8px; white-space:nowrap; }
+  .message-content p { margin:0; color:#554f52; font-size:11px; line-height:1.5; overflow-wrap:anywhere; }
+  .message.own-message { margin-left:auto; flex-direction:row-reverse; }
+  .own-message .avatar { background:linear-gradient(135deg,#d84b91,#9748c5); box-shadow:0 5px 12px rgba(183,61,139,.2); }
+  .own-message .message-content { border-color:rgba(216,75,145,.14); border-radius:14px 4px 14px 14px; background:linear-gradient(135deg,#fff7fb,#fff); }
+  .own-message .message-meta strong { color:#a43d76; }
+  .empty-chat { position:absolute; top:50%; left:50%; width:260px; padding:24px; text-align:center; transform:translate(-50%,-55%); }
+  .empty-chat span { display:grid; place-items:center; width:54px; height:54px; margin:0 auto 10px; color:#f36c52; border:1px solid rgba(243,108,82,.15); border-radius:18px; background:rgba(255,255,255,.76); box-shadow:0 9px 24px rgba(98,42,34,.08); }
+  .empty-chat ion-icon { font-size:25px; }
+  .empty-chat h3 { margin:0; color:#51494b; font-size:13px; }
+  .empty-chat p { margin:5px 0 0; color:#9d9395; font-size:10px; line-height:1.5; }
+  .composer { display:flex; flex:0 0 auto; align-items:flex-end; gap:9px; padding:11px 18px calc(11px + env(safe-area-inset-bottom)); border-top:1px solid rgba(243,108,82,.13); background:rgba(255,255,255,.94); box-shadow:0 -7px 22px rgba(75,32,27,.07); backdrop-filter:blur(14px); }
+  .composer-input { display:flex; flex:1; align-items:center; min-height:44px; padding:7px 13px; border:1px solid #e2dadd; border-radius:22px; background:#fbf8fa; transition:border-color .2s ease,box-shadow .2s ease; }
+  .composer-input:focus-within { border-color:rgba(243,108,82,.65); box-shadow:0 0 0 3px rgba(243,108,82,.08); }
+  .composer-input ion-icon { margin-right:8px; color:#f36c52; font-size:17px; }
+  .composer-input textarea { width:100%; max-height:90px; padding:4px 0 2px; resize:none; color:#4e484b; border:0; outline:0; background:transparent; font:400 11px var(--app-brand-font); line-height:18px; }
+  .composer-input textarea::placeholder { color:#aaa2a5; }
+  .send-button { display:grid; place-items:center; width:44px; height:44px; flex:0 0 44px; padding:0; color:#fff; border:0; border-radius:50%; background:linear-gradient(135deg,#ee614b,#e54a8d); box-shadow:0 7px 16px rgba(224,76,101,.28); cursor:pointer; transition:transform .2s ease,box-shadow .2s ease,opacity .2s ease; }
+  .send-button:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 20px rgba(224,76,101,.34); }
+  .send-button:disabled { opacity:.48; cursor:not-allowed; }
+  .send-button ion-icon { font-size:18px; transform:translateX(1px); }
+  .send-button ion-spinner { width:19px; height:19px; color:#fff; }
 }
 
-.right_date {
-    margin: 5px 0px;
-    font-size: 12px;
-    color: #b9b7b7;
-    width: 100%;
-    text-align: right;
-    display: inline-block;
-}
-.sub_title {
-    font-size: 12px;
-    margin: 0px 0px;
-}
-.chat_history_block {
-    background: #f5f5ff;
-    margin-top: 10px;
-    border: dashed 1px #e1e1e1;
-    border-radius: 5px;
-    border-top: none;
+@keyframes review-message-arrive { from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)} }
 
-    .chat_details_block {
-        border-top: dashed 1px #e1e1e1;
-        padding: 5px 10px;
-
-        .top_row {
-            display: flex;
-            font-size: 12px;
-            justify-content: space-between;
-
-            .date {
-                font-size: 12px;
-                color: #666666;
-
-                b {
-                    font-size: 11px;
-                    margin-right: 5px;
-                }
-            }
-        }
-
-        .chat_details {
-            min-height: 20px;
-            display: flex;
-            width: 100%;
-            font-size: 12px;
-        }
-    }
+@media(max-width:600px) {
+  :host ::ng-deep app-add-remark {
+    .conversation-list { padding:14px 12px 18px; }
+    .message { max-width:92%; }
+    .composer { padding:9px 11px calc(9px + env(safe-area-inset-bottom)); }
+  }
 }
