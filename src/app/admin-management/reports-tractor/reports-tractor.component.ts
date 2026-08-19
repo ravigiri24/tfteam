@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
+import { ViewSaleActivityLogComponent } from '../view-sale-activity-log/view-sale-activity-log.component';
+
 @Component({
   selector: 'app-reports-tractor',
   templateUrl: './reports-tractor.component.html',
@@ -9,13 +12,17 @@ import { ShareService } from 'src/app/share.service';
 })
 export class ReportsTractorComponent  implements OnInit {
 
-  constructor(private router:Router,private share:ShareService,private api:ApiService) { }
+  constructor(private router:Router,private share:ShareService,private api:ApiService,private modal:ModalController) { }
 
   ngOnInit() {}
   staffDetails:any
   jobData:any
   ionViewWillEnter() {
-  
+         let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+     let obj: any = this.share.getStaffObj();
+    obj.staff_id = this.staffDetails?.id;
+    this.api.checkNotification(obj);
    // this.getJobData();
   }
   getJobData() {
@@ -102,5 +109,20 @@ bookedTractorSheets(){
   this.router.navigate(['/admin-block/booked-tractor-sheets','/admin-block/reports-tractor']);
   
 }
+     async openSaleActiviyLog() {
+      const modal = await this.modal.create({
+        component: ViewSaleActivityLogComponent,
+        cssClass: 'modal-xl',
+        componentProps: {
+
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+      }
+    }
   
 }

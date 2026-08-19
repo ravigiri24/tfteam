@@ -540,6 +540,7 @@ export class ShareService {
             userde?.staff_role == 'SUPER_ADMIN' ||
             userde?.staff_role == 'ADMIN'
           ) {
+                 
             this.router.navigate(['/admin-block/reports-tractor']);
           } else if (userde?.staff_role == 'FRANCHISE') {
             this.router.navigate(['/franchise-management/new-tractor']);

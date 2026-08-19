@@ -8,6 +8,8 @@ import {
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
+import { ViewApprovalsComponent } from './view-approvals/view-approvals.component';
+import { ViewEnquiryComponent } from 'src/app/sales-officer-depart/view-enquiry/view-enquiry.component';
 @Component({
   selector: 'app-notification-pop-up',
   templateUrl: './notification-pop-up.component.html',
@@ -50,5 +52,59 @@ this.share.showLoading("Getting Notification")
       );
 
   }
+  checkDetail(noti:any){
+    if(noti?.worked_on_id){
+      if(noti?.type=='APPROVAL'){
+        this.openApprovalDetails(noti)
+      }
+         if(noti?.type=='Enquiry'){
+        this.getEnquiryDeatailsById(noti)
+      }
+    }
+  }
+ async openApprovalDetails(noti:any){
+    const modal = await this.modalCtrl.create({
+          component: ViewApprovalsComponent,
+          componentProps: {
+    approval_id:noti?.worked_on_id
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+        }
+  }
+  getEnquiryDeatailsById(noti:any){
+   let obj: any = this.share.getStaffObj()
+    obj.requestBy = this.staffDetails?.id
+
+    obj.enqiury_id = noti?.worked_on_id
+  
+    this.share.showLoading("Getting Data...")
+    this.api.postapi('getEnquiryDetailByID', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+      let enquireDetail=res?.data
+      this.openEnquryDetails(enquireDetail)
+
+    });
+
+  }
+  async openEnquryDetails(enquireDetail:any){
+     const modal = await this.modalCtrl.create({
+          component: ViewEnquiryComponent,
+          componentProps: {
+    enquiry:enquireDetail
+          },
+        });
+        await modal.present();
+        const { data, role } = await modal.onWillDismiss();
+        console.log('role', role);
+    
+        if (role === 'confirm') {
+        }
+  }
+
     
 }

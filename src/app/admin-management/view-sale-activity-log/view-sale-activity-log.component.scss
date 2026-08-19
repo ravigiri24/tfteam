@@ -1,0 +1,233 @@
+:host {
+  --ajl-primary: #0f9b8e;
+  --ajl-primary-dark: #0b5f5a;
+  --ajl-primary-light: #34c9b8;
+  --ajl-primary-strong: #0d7d73;
+  --ajl-primary-bright: #17b3a3;
+  --ajl-page: #f0faf9;
+  --ajl-text: #1f2937;
+  --ajl-muted: #64748b;
+  display: block;
+  height: 100%;
+}
+
+ion-header {
+  background: linear-gradient(135deg, var(--ajl-primary-dark) 0%, var(--ajl-primary) 52%, var(--ajl-primary-light) 100%);
+  box-shadow: 0 10px 28px rgba(15, 155, 142, 0.25) !important;
+  min-height: 92px;
+  overflow: hidden;
+  position: relative;
+
+  ion-toolbar {
+    --background: transparent;
+    --border-width: 0;
+    --min-height: 78px;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.ajl-title {
+  font-size: 18px;
+  font-weight: 900;
+  padding-inline-start: 16px;
+}
+
+.ajl-close-btn {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  flex: 0 0 38px;
+  height: 40px;
+  justify-content: center;
+  margin-inline-end: 8px;
+  padding: 0;
+  width: 40px;
+
+  ion-icon {
+    color: #ffffff !important;
+    filter: none !important;
+    font-size: 22px;
+    margin: 0;
+  }
+}
+
+.ajl-header-art {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+.ajl-orb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.ajl-orb-one {
+  height: 120px;
+  right: -34px;
+  top: -50px;
+  width: 120px;
+}
+
+.ajl-orb-two {
+  background: rgba(255, 255, 255, 0.08);
+  height: 58px;
+  left: 45%;
+  top: 10px;
+  width: 58px;
+}
+
+.ajl-content {
+  --background: var(--ajl-page);
+  --padding-bottom: 96px;
+
+  &::part(scroll) {
+    padding-bottom: 96px !important;
+  }
+}
+
+.ajl-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes ajl-bell-ring {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(-14deg);
+  }
+
+  20% {
+    transform: rotate(11deg);
+  }
+
+  30% {
+    transform: rotate(-9deg);
+  }
+
+  40% {
+    transform: rotate(6deg);
+  }
+
+  50% {
+    transform: rotate(-3deg);
+  }
+
+  60% {
+    transform: rotate(0deg);
+  }
+}
+
+.ajl-card {
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid #edf0f7;
+  border-left: 3px solid #ef5350;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(15, 155, 142, 0.08);
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+
+  &.ajl-card-punched {
+    border-left-color: #2ea05a;
+
+    .ajl-icon {
+      background: linear-gradient(135deg, #1b7a3e, #2ea05a);
+      box-shadow: 0 6px 14px rgba(46, 160, 90, 0.28);
+    }
+
+    .ajl-heading {
+      color: #1b7a3e;
+    }
+  }
+
+  &.ajl-card-reopen {
+    border-left-color: #e08a1f;
+
+    .ajl-icon {
+      background: linear-gradient(135deg, #b96f10, #e08a1f);
+      box-shadow: 0 6px 14px rgba(224, 138, 31, 0.28);
+    }
+
+    .ajl-heading {
+      color: #b96f10;
+    }
+  }
+
+  &.ajl-card-closed {
+    border-left-color: #c62828;
+
+    .ajl-icon {
+      background: linear-gradient(135deg, #c62828, #ef5350);
+      box-shadow: 0 6px 14px rgba(198, 40, 40, 0.28);
+    }
+
+    .ajl-heading {
+      color: #c62828;
+    }
+  }
+}
+
+.ajl-icon {
+  align-items: center;
+  background: linear-gradient(135deg, #0d7d73, #17b3a3);
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(15, 155, 142, 0.28);
+  display: flex;
+  flex: 0 0 38px;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+
+  ion-icon {
+    animation: ajl-bell-ring 3.2s ease-in-out infinite;
+    color: #ffffff;
+    font-size: 18px;
+    transform-origin: 50% 20%;
+  }
+}
+
+.ajl-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ajl-row {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.ajl-heading {
+  color: #c62828;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ajl-date {
+  color: var(--ajl-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ajl-desc {
+  color: var(--ajl-text);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}

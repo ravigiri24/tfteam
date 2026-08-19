@@ -312,6 +312,7 @@ export class AddEnqiuryComponent implements OnInit {
 
       this.api.postapi('saveEnquiry', obj).subscribe(
         (res: any) => {
+          let enquiry_id=res?.data
           let description =
             this.staffDetails?.name +
             ' generate new enquiry at ' +
@@ -320,7 +321,7 @@ export class AddEnqiuryComponent implements OnInit {
             'New Enquiry Punched',
             description,
             this.selectedStore,
-            this.staffDetails
+            this.staffDetails,'Enquiry',enquiry_id
           );
           this.share.presentToast('Enquiry Generated Successfully');
           this.share.spinner.dismiss();
@@ -353,7 +354,7 @@ export class AddEnqiuryComponent implements OnInit {
             'Enquiry Updated',
             description,
             this.selectedStore,
-            this.staffDetails
+            this.staffDetails,'Enquiry',this.enquiry?.id
           );
 
           this.share.presentToast('Enquiry Updated Successfully');

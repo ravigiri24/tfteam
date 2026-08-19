@@ -106,7 +106,7 @@ export class CloseEnquiryComponent implements OnInit {
             'Enquiry Restart',
             description,
             this.selectedStore,
-            this.staffDetails
+            this.staffDetails,'Enquiry',this.enquiry?.id
           );
       this.share.spinner.dismiss();
       this.share.presentToast('Restart Successfully...');
@@ -130,7 +130,7 @@ export class CloseEnquiryComponent implements OnInit {
             'Enquiry Closed',
             description,
             this.selectedStore,
-            this.staffDetails
+            this.staffDetails,'Enquiry',this.enquiry?.id
           );
         this.share.spinner.dismiss();
         this.share.presentToast('Closed Successfully...');

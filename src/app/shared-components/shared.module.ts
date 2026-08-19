@@ -88,6 +88,7 @@ import { BookingHistoryComponent } from './booking-history/booking-history.compo
 import { AddBookingComponent } from './booking-history/add-booking/add-booking.component';
 import { ViewBookingComponent } from './booking-history/view-booking/view-booking.component';
 import { CancelBookingComponent } from './booking-history/cancel-booking/cancel-booking.component';
+import { ViewApprovalsComponent } from './notification-pop-up/view-approvals/view-approvals.component';
 import { DatePipe } from '@angular/common';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -183,7 +184,8 @@ import { DatePipe } from '@angular/common';
     BookingHistoryComponent,
     AddBookingComponent,
     ViewBookingComponent,
-    CancelBookingComponent
+    CancelBookingComponent,
+    ViewApprovalsComponent
     
   ],
 
@@ -204,7 +206,8 @@ import { DatePipe } from '@angular/common';
     TeamManagerComponent,
     VisitingManagementComponent,
     FollowUpManagementComponent,
-    ViewApprovalListComponent
+    ViewApprovalListComponent,
+    
    
   ],
   providers: [ApiService, InAppBrowser,DatePipe],
