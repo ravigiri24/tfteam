@@ -60,6 +60,7 @@ rootUrl= "https://tractorfactory.in/admin/backend/tractorDuniyaAdmin/"
     let getStaff: any = JSON.parse(getStaffDetail);
 
     this.accesCheck();
+
    object.staff_code_id=getStaff?.id
     return this.http.post(this.rootUrl + x, object).pipe(map((res) => res));
   }
@@ -159,7 +160,7 @@ isModalOpen=false
       }
     }
     }
-     getNotificationObj(title:any,description:any,selectedStore:any,type:any){
+     getNotificationObj(title:any,description:any,selectedStore:any,type:any,worked_on_id:any=null){
         let getStaffDetail: any = this.get_staff();
     let getStaff: any = JSON.parse(getStaffDetail);
     return {
@@ -168,7 +169,8 @@ isModalOpen=false
       title:title,
       description:description,
       type:type,
-      storeId:selectedStore
+      storeId:selectedStore,
+      worked_on_id:worked_on_id
     }
   }
    genreteJobCardNotification(title:any,description:any,staffDetails:any) {
@@ -183,17 +185,19 @@ null,
 
     });
   }
-  genreteEnquiry(title:any,description:any,selectedStore:any,staffDetails:any) {
+  genreteEnquiry(title:any,description:any,selectedStore:any,staffDetails:any,type:any='Enquiry',workedOn_id:any=null) {
  
     let obj = this.getNotificationObj(
      title,
       description,
       selectedStore?.store_id,
-      'Enquiry'
+      type,
+      workedOn_id
     );
 
     this.postapi('generateEnquiry', obj).subscribe((res: any) => {
       this.generateNotifcationToAboveStaff(res?.rowData,staffDetails, selectedStore?.store_id);
+      this.generateNotifcationToAlloweStaff(res?.rowData,staffDetails, selectedStore?.store_id);
     });
   }
   generateNotifcationToAboveStaff(noti: any,staffDetails:any,storeId:any) {
@@ -205,6 +209,19 @@ null,
     obj.storeId = storeId
 
     this.postapi('generateNotifcationToAboveStaff', obj).subscribe(
+      (res: any) => {},
+      (error: any) => {}
+    );
+  }
+    generateNotifcationToAlloweStaff(noti: any,staffDetails:any,storeId:any) {
+    let obj: any = {};
+    obj.operate = this.share.getStaffObj()?.operate;
+
+    obj.staff_id = staffDetails?.id;
+    obj.noti_id = noti?.id;
+    obj.storeId = storeId
+
+    this.postapi('generateNotifcationToAlloweStaffSalesDepart', obj).subscribe(
       (res: any) => {},
       (error: any) => {}
     );

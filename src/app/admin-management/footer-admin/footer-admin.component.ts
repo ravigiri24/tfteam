@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
+import { ShareService } from 'src/app/share.service';
 
 @Component({
   selector: 'app-footer-admin',
@@ -7,14 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer-admin.component.scss'],
 })
 export class FooterAdminComponent  implements OnInit {
-  constructor(private router:Router) { }
+  constructor(private router:Router,private share:ShareService,private api:ApiService) { }
 
   ngOnInit() {}
   selectedTab:any='Reports'
   activeTabsColor='firstColor'
+  staffDetails:any
   goToPage(tab:any){
-    
-    
+       let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+     let obj: any = this.share.getStaffObj();
+    obj.staff_id = this.staffDetails?.id;
+    if(tab!='Reports'){
+    this.api.checkNotification(obj);
+    }
+
   this.selectedTab=tab
   if(tab=='Digital-analyse'){
     this.router.navigate(['/admin-block/digital-analyse'])

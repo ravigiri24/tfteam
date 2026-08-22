@@ -211,6 +211,7 @@ this.getStateList()
       };
       this.share.showLoading('Requesting');
       this.api.postapi('addOpp', obj).subscribe((res: any) => {
+        let approvalData=res?.rowData
         let description =
           this.staffDetails?.name +
           ' has requested the sale of an ' +
@@ -221,7 +222,7 @@ this.getStateList()
           'Request For Approval',
           description,
         {store_id:this.selectedStore}  ,
-          this.staffDetails
+          this.staffDetails,'APPROVAL',approvalData?.id
         );
         this.share.spinner.dismiss();
 

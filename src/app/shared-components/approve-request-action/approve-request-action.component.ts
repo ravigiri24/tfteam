@@ -73,7 +73,7 @@ export class ApproveRequestActionComponent implements OnInit {
             'Request Approved',
             description,
             { store_id: this.approval?.storeId },
-            this.staffDetails,
+            this.staffDetails,'APPROVAL',this.approval?.id
           );
           this.bookedTractor();
         } else {
@@ -89,7 +89,7 @@ export class ApproveRequestActionComponent implements OnInit {
             'Request Rejected',
             description,
             { store_id: this.approval?.storeId },
-            this.staffDetails,
+            this.staffDetails,'APPROVAL',this.approval?.id
           );
           this.share.presentToast('Action Done Successfully...');
         }

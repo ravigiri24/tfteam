@@ -21,8 +21,8 @@
 
             <span>Expected Date: {{approval?.expectedDateOfSale | date}}</span>
             <span>Request By: {{approval?.requestByName}}</span>
-            <span *ngIf="approval?.actionTaken==1">Approved By: {{approval?.approvalGivenBy}}</span>
-            <div class="notification_desc"> Your Remark-{{approval?.remark}}</div>
+            <span *ngIf="approval?.actionTaken==1">Action By: {{approval?.approvalGivenBy}}</span>
+            <div class="notification_desc">Remark-{{approval?.remark}}</div>
             <div class="notification_desc"> Store-{{approval?.storeName}}</div>
             <div class="notification_desc" *ngIf="approval?.actionTaken==1"> Action Remark-{{approval?.apporveRemark}}
             </div>

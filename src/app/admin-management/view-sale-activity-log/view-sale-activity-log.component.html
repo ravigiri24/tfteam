@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ajl-title">Activity Log(Sales)</ion-title>
+    <ion-buttons slot="end">
+      <button class="ajl-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="ajl-header-art">
+    <span class="ajl-orb ajl-orb-one"></span>
+    <span class="ajl-orb ajl-orb-two"></span>
+  </div>
+</ion-header>
+<ion-content class="ion-padding ajl-content">
+  <div class="ajl-list">
+    <div class="ajl-card ajl-card-punched"
+      
+  
+     (click)="checkDetail(noti)" *ngFor="let noti of noti_list">
+      <div class="ajl-icon">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
+      <div class="ajl-body">
+        <div class="ajl-row">
+          <span class="ajl-heading">{{noti?.title}}</span>
+          <span class="ajl-date">{{noti?.createdOn | date:'dd MMM yyyy, HH:mm' }}</span>
+        </div>
+        <p class="ajl-desc">{{noti?.description}}</p>
+      </div>
+    </div>
+  </div>
+  <app-no-data-view *ngIf="!noti_list?.length" [title]="'No activity logs found.'" [subtitleShow]="false"></app-no-data-view>
+</ion-content>

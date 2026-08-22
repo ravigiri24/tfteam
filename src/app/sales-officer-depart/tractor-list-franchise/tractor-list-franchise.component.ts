@@ -145,11 +145,7 @@ export class TractorListFranchiseComponent implements OnInit {
       this.buttonArray=this.buttonArrayCore
     }else{
       this.buttonArray=[
-        {
-      name: 'View Refurbish Details',
-      action: 'viewRefurbishDetails',
-      image: './././assets/images/layout.png',
-    },
+     
          {
       name: 'View Tractor All Images',
       action: 'viewTractorAllImage',
@@ -175,12 +171,7 @@ export class TractorListFranchiseComponent implements OnInit {
       action: 'viewTractorAllImage',
       image: './././assets/images/all_image_icon.png',
     },
-     {
-      name: 'View Refurbish Details',
-      action: 'viewRefurbishDetails',
-      image: './././assets/images/layout.png',
-    }
-   
+
   ];
   headerDisplayArray = [
     { name: 'Search', icon: 'search-outline' },
@@ -381,11 +372,7 @@ this.getAllTractorListStorewise(true)
       component: SearchTractorWithTfCodeComponent,
       componentProps: {
         buttonArray: [
-        {
-      name: 'View Refurbish Details',
-      action: 'viewRefurbishDetails',
-      image: './././assets/images/layout.png',
-    },
+       
          {
       name: 'View Tractor All Images',
       action: 'viewTractorAllImage',
