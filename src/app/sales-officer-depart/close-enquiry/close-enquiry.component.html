@@ -1,58 +1,76 @@
-<ion-header [ngClass]="listColorClass">
+<!-- Close enquiry popup view -->
+<ion-header class="close-header" [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">Closed Enquiry</span>
+    <div class="header-canvas" aria-hidden="true">
+      <span class="canvas-orb orb-one"></span><span class="canvas-orb orb-two"></span>
+      <span class="canvas-line line-one"></span><span class="canvas-line line-two"></span>
+    </div>
+    <div class="header-content">
+      <div class="header-title">
+        <span class="header-icon"><ion-icon name="checkmark-done-outline"></ion-icon></span>
+        <div><span class="eyebrow">LEAD MANAGEMENT</span><h1>{{ enquiry?.isOpen == 1 ? 'Close Enquiry' : 'Update Closure' }}</h1><p>Complete the lead outcome and conversion details</p></div>
       </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
+      <ion-button class="close-button" fill="clear" aria-label="Close dialog" (click)="dismiss()"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
-  <form [formGroup]="form">
-    <div class="global_input_block">
-      <ion-input label="Closing Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
-        placeholder="Closing Date" formControlName="close_date"></ion-input>
+
+<ion-content class="close-content" [ngClass]="listColorClass">
+  <div class="ambient-canvas" aria-hidden="true"><span></span><span></span><span></span></div>
+  <form class="form-shell" [formGroup]="form">
+    <div class="intro-strip">
+      <span class="intro-icon"><ion-icon name="information-circle-outline"></ion-icon></span>
+      <div><strong>Closure information</strong><p>Add the final outcome for {{ enquiry?.customerName || customerData?.name || 'this customer' }}.</p></div>
     </div>
-    <div class="global_input_block">
-      <ion-input label="Closing Remark" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="text"
-        placeholder="Closing Remark" formControlName="closing_remark"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-toggle (ionChange)="toggleChanged($event)" class="dynamic_toggle_color" formControlName="isBooked">Is
-        Booked</ion-toggle>
-    </div>
-    <ng-container *ngIf="form.controls['isBooked'].value==true||form.controls['isBooked'].value==1">
-      <div class="global_input_block global_location_block" (click)="selectItem()">
-        <span class="top_layers">Model</span>
-        <span class="name_selected">{{modelName}}</span>
-        <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
-        <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
-          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
-        </ion-select> -->
+
+    <section class="form-card">
+      <div class="section-heading"><span class="section-icon"><ion-icon name="document-text-outline"></ion-icon></span><div><h2>Closing Details</h2><p>Date and final conversation summary</p></div></div>
+      <div class="fields-grid">
+        <div class="field-block">
+          <label><ion-icon name="calendar-clear-outline"></ion-icon> Closing Date <em>*</em></label>
+          <ion-input fill="outline" type="date" formControlName="close_date"></ion-input>
+        </div>
+        <div class="field-block full-width">
+          <label><ion-icon name="chatbox-ellipses-outline"></ion-icon> Closing Remark <em>*</em></label>
+          <ion-textarea fill="outline" autoGrow="true" rows="3" placeholder="Write a short closing remark..." formControlName="closing_remark"></ion-textarea>
+        </div>
       </div>
-      <ng-container>
-        <div class="global_input_block">
-          <ion-input label="Booked Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
-            placeholder="Booked Date" formControlName="bookedDate"></ion-input>
+    </section>
+
+    <section class="conversion-card" [class.active]="form.controls['isBooked'].value == true || form.controls['isBooked'].value == 1">
+      <div class="conversion-copy">
+        <span class="conversion-icon"><ion-icon name="car-sport-outline"></ion-icon></span>
+        <div><h2>Converted to Booking?</h2><p>Enable this when the customer has confirmed a model.</p></div>
+      </div>
+      <ion-toggle (ionChange)="toggleChanged($event)" class="booking-toggle dynamic_toggle_color" formControlName="isBooked" aria-label="Converted to booking"></ion-toggle>
+    </section>
+
+    <section class="form-card booking-card" *ngIf="form.controls['isBooked'].value == true || form.controls['isBooked'].value == 1">
+      <div class="section-heading"><span class="section-icon booking"><ion-icon name="ribbon-outline"></ion-icon></span><div><h2>Booking Details</h2><p>Selected model and expected purchase timeline</p></div></div>
+      <div class="fields-grid">
+        <button type="button" class="model-select full-width" (click)="selectItem()">
+          <span class="model-select-icon"><ion-icon name="car-outline"></ion-icon></span>
+          <span class="model-copy"><small>Booked Model</small><strong [class.placeholder]="!modelName">{{ modelName || 'Select a tractor model' }}</strong></span>
+          <ion-icon class="select-arrow" name="chevron-forward-outline"></ion-icon>
+        </button>
+        <div class="field-block">
+          <label><ion-icon name="calendar-number-outline"></ion-icon> Booked Date</label>
+          <ion-input fill="outline" type="date" formControlName="bookedDate"></ion-input>
         </div>
-        <div class="global_input_block">
-          <ion-input label="Will Purchase" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
-            placeholder="Will Purchase" formControlName="willBuyDate"></ion-input>
+        <div class="field-block">
+          <label><ion-icon name="time-outline"></ion-icon> Expected Purchase</label>
+          <ion-input fill="outline" type="date" formControlName="willBuyDate"></ion-input>
         </div>
-      </ng-container>
-    </ng-container>
-    <div class="page_flex_submit_btn">
-      <ion-button *ngIf="enquiry.isOpen == 1" (click)="close()" class="global_submit_color_button dynamic_bgcolor">
-        <ion-icon class="icon-size" name="close-circle-outline"></ion-icon><span>Close Enquiry</span>
-      </ion-button>
-      <ion-button *ngIf="enquiry.isOpen == 0" (click)="close()" class="global_submit_color_button dynamic_bgcolor">
-        <ion-icon class="icon-size" name="create-outline"></ion-icon><span>Update Enquiry</span></ion-button>
-      <ion-button *ngIf="enquiry.isOpen == 0" (click)="restart()"
-        class="global_submit_color_button theme-bgcolor-primary">
-        <ion-icon class="icon-size" name="refresh-outline"></ion-icon><span>Restart Enquiry</span></ion-button>
-    </div>
+      </div>
+    </section>
+
   </form>
 </ion-content>
+
+<ion-footer class="action-footer" [ngClass]="listColorClass">
+  <div class="action-bar">
+    <ion-button *ngIf="enquiry.isOpen == 1" (click)="close()" class="primary-action"><ion-icon name="checkmark-circle-outline"></ion-icon><span>Close Enquiry</span></ion-button>
+    <ion-button *ngIf="enquiry.isOpen == 0" (click)="close()" class="primary-action"><ion-icon name="create-outline"></ion-icon><span>Update Enquiry</span></ion-button>
+    <ion-button *ngIf="enquiry.isOpen == 0" (click)="restart()" class="secondary-action" fill="outline"><ion-icon name="refresh-outline"></ion-icon><span>Restart Enquiry</span></ion-button>
+  </div>
+</ion-footer>
