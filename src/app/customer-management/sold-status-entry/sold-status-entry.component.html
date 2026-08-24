@@ -1,52 +1,72 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header [ngClass]="listColorClass" class="sold-header">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">Sold Status</span>
+    <div class="modal-heading">
+      <span class="heading-icon"><ion-icon name="checkmark-done-outline"></ion-icon></span>
+      <div>
+        <small>Customer conversion</small>
+        <h1>{{ customerDetails?.soldStatus ? 'Update Sale Details' : 'Mark as Sold' }}</h1>
+        <p>{{ customerDetails?.name || 'Complete tractor sale information' }}</p>
       </div>
-      <div class="right_action">
-        <ion-icon (click)="dismiss()" class="dynamic_color" name="arrow-back-outline"></ion-icon>
-      </div>
-    </ion-label>
-    <!-- <ion-button class="button-theme" class="add-button" slot="end" (click)="backToNewArrivals()" id="open-modal"
-      expand="block" fill="outline"><ion-icon class="theme-color" name="arrow-back-outline"></ion-icon></ion-button> -->
+    </div>
+    <ion-buttons slot="end">
+      <ion-button class="close-button" aria-label="Close sold status" (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="form" class="ion-padding internal_card_container" [ngClass]="listColorClass">
-  <form [formGroup]="form">
-    <!-- <span class="inner-heading">Customer Details</span>
-    <div class="global_input_block">
-      <ion-input label="Customer Name*" fill="outline" labelPlacement="stacked" type="text" formControlName="customer_name"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Contact Number*" fill="outline" labelPlacement="stacked" type="text" formControlName="contact_number"></ion-input>
-    </div> -->
-    <span class="inner-heading">Tractor Details</span>
-    <div class="global_input_block">
-      <ion-select (ionChange)="getModelsbyBrand()" formControlName="brand_id" fill="outline" label="Select Brand *"
-        label-placement="type">
-        <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{brand?.name}}</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-select formControlName="model_id" fill="outline" label="Select Model *" label-placement="type">
-        <ion-select-option *ngFor="let model of modelList" [value]="model?.id">{{model?.name}}</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="TF Code *" fill="outline" labelPlacement="stacked" type="text"
-        formControlName="tfCode"></ion-input>
-    </div>
+<ion-content *ngIf="form" class="sold-content" [ngClass]="listColorClass">
+  <main class="form-page">
+    <section class="form-card">
+      <div class="section-heading">
+        <span><ion-icon name="car-sport-outline"></ion-icon></span>
+        <div><h2>Tractor Details</h2><p>Select the sold tractor and enter its sale information.</p></div>
+      </div>
 
-    <div class="global_input_block">
-      <ion-input label="Date Of Sale*" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="dateOfSale"></ion-input>
-    </div>
-    <div class="page_submit_btn">
-      <ion-button *ngIf="!customerDetails?.soldStatus" (click)="save()" class="global_submit_color_button dynamic_bgcolor"
-        expand="block">Save</ion-button>
-      <ion-button *ngIf="customerDetails?.soldStatus" (click)="update()" class="global_submit_color_button dynamic_bgcolor"
-        expand="block">Update</ion-button>
-    </div>
-  </form>
+      <form [formGroup]="form">
+        <div class="field-grid">
+          <div class="field-block">
+            <label>Brand <b>*</b></label>
+            <ion-select (ionChange)="getModelsbyBrand()" formControlName="brand_id" fill="outline"
+              interface="popover" placeholder="Select tractor brand">
+              <ion-select-option *ngFor="let brand of brandList" [value]="brand?.id">{{ brand?.name }}</ion-select-option>
+            </ion-select>
+          </div>
+          <div class="field-block">
+            <label>Model <b>*</b></label>
+            <ion-select formControlName="model_id" fill="outline" interface="popover" placeholder="Select tractor model">
+              <ion-select-option *ngFor="let model of modelList" [value]="model?.id">{{ model?.name }}</ion-select-option>
+            </ion-select>
+          </div>
+          <div class="field-block">
+            <label>TF Code <b>*</b></label>
+            <ion-input fill="outline" type="text" formControlName="tfCode" placeholder="Enter TF code">
+              <ion-icon slot="start" name="barcode-outline"></ion-icon>
+            </ion-input>
+          </div>
+          <div class="field-block">
+            <label>Date of sale <b>*</b></label>
+            <ion-input fill="outline" type="date" formControlName="dateOfSale">
+              <ion-icon slot="start" name="calendar-outline"></ion-icon>
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="form-note">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>Please verify the tractor and sale date before saving.</span>
+        </div>
+
+        <div class="form-actions">
+          <ion-button fill="clear" class="cancel-button" (click)="dismiss()">Cancel</ion-button>
+          <ion-button *ngIf="!customerDetails?.soldStatus" (click)="save()" class="save-button">
+            <ion-icon slot="start" name="checkmark-outline"></ion-icon>Save sale details
+          </ion-button>
+          <ion-button *ngIf="customerDetails?.soldStatus" (click)="update()" class="save-button">
+            <ion-icon slot="start" name="checkmark-outline"></ion-icon>Update sale details
+          </ion-button>
+        </div>
+      </form>
+    </section>
+  </main>
 </ion-content>
