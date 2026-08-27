@@ -22,7 +22,6 @@ import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-add-visitng-status',
   templateUrl: './add-visitng-status.component.html',
-  styleUrls: ['./add-visitng-status.component.scss'],
 })
 export class AddVisitngStatusComponent implements OnInit {
   constructor(
@@ -71,5 +70,9 @@ export class AddVisitngStatusComponent implements OnInit {
     else {
       this.share.presentToast("Please fill required fields")
     }
+  }
+
+  dismiss() {
+    this.modalCtrl.dismiss();
   }
 }

@@ -1,25 +1,49 @@
-<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
-  <form [formGroup]="form" class="bottom_small_popup">
-    <div class="global_input_block">
-      <ion-select formControlName="visitng_type" fill="outline" label="Purchasing Possibility"
-        label-placement="stacked">
-        <ion-select-option value="NOT_INTRESTED"><b style="color: red;">Not Intrested</b></ion-select-option>
-        <ion-select-option value="WILL_VISIT"><b style="color: yellow;">Will Visit</b></ion-select-option>
-        <ion-select-option value="VISITED"><b style="color: yellow;">Visited</b></ion-select-option>
-      </ion-select>
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<ion-header [ngClass]="listColorClass" class="visit-header">
+  <ion-toolbar>
+    <div class="modal-heading">
+      <span class="heading-icon"><ion-icon name="navigate-outline"></ion-icon></span>
+      <div><small>Customer interaction</small><h1>Add Visit</h1><p>Schedule or record a customer visit</p></div>
     </div>
-    <div *ngIf="(form.controls['visitng_type'].value=='WILL_VISIT' ||form.controls['visitng_type'].value=='VISITED')"
-      class="global_input_block">
-      <ion-input label="Select Date" fill="outline" labelPlacement="stacked" labelPlacement="stacked" type="date"
-        placeholder="elect Date" formControlName="visiting_date"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
-        placeholder="write remark here..."></ion-textarea>
-    </div>
-  </form>
-  <div class="page_submit_btn">
-    <ion-button (click)="saveForm()" class="global_submit_color_button dynamic_bgcolor" expand="block">Save</ion-button>
+    <ion-buttons slot="end">
+      <ion-button class="close-button" aria-label="Close add visit" (click)="dismiss()"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  </div>
+<ion-content *ngIf="form" class="visit-content" [ngClass]="listColorClass">
+  <main class="visit-page">
+    <section class="customer-context">
+      <span class="customer-avatar">{{ (customerSelected?.name || 'C').charAt(0) | uppercase }}</span>
+      <div><small>Adding visit for</small><strong>{{ customerSelected?.name || 'Customer' }}</strong><p>{{ customerSelected?.mobileNo || '' }}</p></div>
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </section>
+
+    <form [formGroup]="form" class="visit-card">
+      <div class="field-grid">
+        <div class="field-block">
+          <label>Purchasing possibility <b>*</b></label>
+          <ion-select formControlName="visitng_type" fill="outline" interface="popover" placeholder="Select visit status">
+            <ion-select-option value="NOT_INTRESTED">Not Interested</ion-select-option>
+            <ion-select-option value="WILL_VISIT">Will Visit</ion-select-option>
+            <ion-select-option value="VISITED">Visited</ion-select-option>
+          </ion-select>
+        </div>
+        <div *ngIf="form.controls['visitng_type'].value=='WILL_VISIT' || form.controls['visitng_type'].value=='VISITED'" class="field-block">
+          <label>{{ form.controls['visitng_type'].value=='VISITED' ? 'Visit date' : 'Planned visit date' }}</label>
+          <ion-input fill="outline" type="date" formControlName="visiting_date"><ion-icon slot="start" name="calendar-outline"></ion-icon></ion-input>
+        </div>
+        <div class="field-block remark-field">
+          <div class="field-label"><label>Remark</label><small>{{ form.get('remark')?.value?.length || 0 }}/500</small></div>
+          <ion-textarea formControlName="remark" fill="outline" autoGrow="true" rows="3" maxlength="500" placeholder="Add visit notes or customer feedback..."></ion-textarea>
+        </div>
+      </div>
+
+      <div class="form-note"><ion-icon name="bulb-outline"></ion-icon><span>Add the expected date for a planned visit or the actual date for a completed visit.</span></div>
+
+      <div class="inline-submit">
+        <ion-button expand="block" class="save-button" (click)="saveForm()"><ion-icon slot="start" name="checkmark-outline"></ion-icon>Save visit</ion-button>
+      </div>
+    </form>
+  </main>
 </ion-content>

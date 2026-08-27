@@ -82,8 +82,8 @@ export class ViewCustomerDataComponent implements OnInit {
   async addDemand() {
     const modal = await this.modalctr.create({
       component: AddDemandComponent,
-      breakpoints: [0, 0.4, 1],
-      initialBreakpoint: 0.6,
+      breakpoints: [0, 0.6, 0.85, 1],
+      initialBreakpoint: 0.85,
       cssClass: 'custom-modal',
       componentProps: {
         customerSelected: this.customerSelected
@@ -104,8 +104,8 @@ export class ViewCustomerDataComponent implements OnInit {
 
     const modal = await this.modalctr.create({
       component: AddVisitngStatusComponent,
-      breakpoints: [0, 0.4, 1],
-      initialBreakpoint: 0.6,
+      breakpoints: [0, 0.6, 0.85, 1],
+      initialBreakpoint: 0.85,
       cssClass: 'custom-modal',
       componentProps: {
         customerSelected: this.customerSelected

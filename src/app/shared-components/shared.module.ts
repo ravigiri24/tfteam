@@ -46,6 +46,7 @@ import { AddCityComponent } from './district-management/add-city/add-city.compon
 import { ViewCustomerListComponent } from './view-customer-list/view-customer-list.component';
 import { ReviewPageComponent } from '../customer-management/review-page/review-page.component';
 import { ViewCustomerDataComponent } from '../customer-management/view-customer-data/view-customer-data.component';
+import { AddVisitngStatusComponent } from '../customer-management/view-customer-data/add-visitng-status/add-visitng-status.component';
 import { ViewStaffListComponent } from './view-staff-list/view-staff-list.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
 import { SelectCityModelComponent } from './select-city-model/select-city-model.component';
@@ -145,6 +146,7 @@ import { DatePipe } from '@angular/common';
     ViewCustomerListComponent,
     ReviewPageComponent,
     ViewCustomerDataComponent,
+    AddVisitngStatusComponent,
     ViewStaffListComponent,
 
     SelectCityModelComponent,

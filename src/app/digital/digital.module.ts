@@ -24,7 +24,6 @@ import { SearchCustomerComponent } from '../customer-management/search-customer/
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AddDemandComponent } from '../customer-management/view-customer-data/add-demand/add-demand.component';
-import { AddVisitngStatusComponent } from '../customer-management/view-customer-data/add-visitng-status/add-visitng-status.component';
 // import { VisitingManagementComponent } from '../visiting-management/visiting-management.component';
 
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -47,7 +46,6 @@ import { CloseHotDealComponent } from '../customer-management/view-customer-data
     AddCustomerPopUpComponent,
     //ReviewPageComponent,
     //ViewCustomerDataComponent,
-    AddVisitngStatusComponent,
     AddDemandComponent,
    // VisitingManagementComponent,
     CustomerDashboardComponent,
