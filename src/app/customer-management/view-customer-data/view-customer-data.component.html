@@ -1,212 +1,72 @@
+<!-- Customer detail modal -->
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<ion-header [ngClass]="listColorClass">
+<ion-header [ngClass]="listColorClass" class="customer-header">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">Customer Details </span>
+    <div class="modal-heading">
+      <span class="heading-icon"><ion-icon name="person-outline"></ion-icon></span>
+      <div>
+        <small>Customer profile</small>
+        <h1>Customer Details</h1>
+        <p>Complete customer and lead information</p>
       </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="cancel()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
+    </div>
+    <ion-buttons slot="end"><ion-button class="close-button" aria-label="Close" (click)="cancel()"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button></ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container" [ngClass]="listColorClass">
-  <div class="customer_alldetails">
-    <div class="title_with_contact">
-      <ion-card-title class="dynamic_color">{{customerSelected?.name}}</ion-card-title>
-      <div class="right_actions">
-        <a target="_blank" href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello">
-          <ion-icon class="whatsapp-color" name="logo-whatsapp"></ion-icon>
-        </a>
-        <a href="tel:{{customerSelected?.mobileNo}}" class="book-now-btn"><ion-icon class="theme-color"
-            name="call-outline"></ion-icon></a>
-      </div>
-    </div>
-    <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} |
-      <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
-      <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action
-        Taken</span></ion-card-subtitle>
-    <ion-card-subtitle class="sub_title">{{customerSelected?.cityDetails?.name || '-'}}, {{
-      customerSelected?.stateDetails?.name || '-'}}, India
-    </ion-card-subtitle>
-    <div class="date_row">
-      <ion-row>
-        <ion-col>Registered : </ion-col>
-        <ion-col class="date_col"> {{ customerSelected?.createdOn|date  }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Next Follw-up Date : </ion-col>
-        <ion-col class="date_col"> {{ customerSelected?.followUpDate?.next_lead_date|date  }}</ion-col>
-      </ion-row>
-    </div>
-    <div *ngIf="showActionsButton" class="action_row">
-      <ion-button (click)="addDemand()" class="dynamic_bgcolor" fill="clear">
-        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-        <span>Demand</span>
-      </ion-button>
-      <ion-button (click)="visiting_dates()" class="dynamic_bgcolor" fill="clear">
-        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-        <span>Visitng</span>
-      </ion-button>
-      <ion-button class="dynamic_bgcolor" *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen"
-        (click)="considerAsHotDeal()" fill="clear">
-        <ion-icon class="icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-        <span>Start As Hot Deal</span>
-      </ion-button>
-      <ion-button class="dynamic_bgcolor" (click)="closeHotDeal()" *ngIf="lastHotDeal?.isDealOpen==1" fill="clear">
-        <ion-icon class="icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
-        <span>Remove As Hot Deal</span>
-      </ion-button>
-    </div>
-    <ion-card class="buy_card">
-      <ion-row>
-        <ion-col>Is customer buy a tracor</ion-col>
-        <ion-col class="amount_col">
-          <span>{{customerSelected?.soldStatus? "Yes" : "NO"}}</span>
-        </ion-col>
-        <div *ngIf="showActionsButton" class="action_row res_width100">
-          <ion-button class="dynamic_bgcolor" *ngIf="customerSelected?.soldStatus" (click)="removeSoldStatus()"
-            fill="clear">
-            <ion-icon class="icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
-            <span>Remove Sold Status</span>
-          </ion-button>
-          <ion-button class="dynamic_bgcolor remove_margin" (click)="sold_status()" fill="clear">
-            <ion-icon class="icon-size-add right-margin" name="create-outline"></ion-icon>
-            <span>Update Status</span>
-          </ion-button>
-        </div>
-      </ion-row>
-    </ion-card>
-  </div>
-  <ion-card>
-    <ion-card-content>
-      <!-- <ion-card-subtitle class="sub_title">{{customerSelected?.mobileNo}} | {{customerSelected?.customerType}} | {{
-        customerSelected?.socialType || '-' }} |
-        <span *ngIf="customerSelected?.leadsChat?.length" style="color: green;">Action Taken</span>
-        <span *ngIf="!customerSelected?.leadsChat?.length" style="color: red;">No Action
-          Taken</span></ion-card-subtitle>
-      <span class="right_date">{{customerSelected?.createdOn}}</span>
-      {{customerSelected?.followUpDate?.next_lead_date || 'Not Scheduled'}}
-      <ion-grid class="main_block_details">
-        <ion-card>
 
-          <ion-row>
-            <ion-col>State</ion-col>
-            <ion-col class="amount_col"> {{ customerSelected?.stateDetails?.name || '-' }}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>City</ion-col>
-            <ion-col class="amount_col"> {{ customerSelected?.cityDetails?.name || '-' }}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>Platform</ion-col>
-            <ion-col class="amount_col"> {{ customerSelected?.socialType || '-' }}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>Next Follw-up Date</ion-col>
-            <ion-col class="amount_col"> {{ customerSelected?.followUpDate?.next_lead_date || '-' }}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col> <ion-button (click)="addDemand()" fill="clear">
-                <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-                Demand
-              </ion-button></ion-col>
-            <ion-col class="amount_col"> <ion-button (click)="visiting_dates()" fill="clear">
-                <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-                Visitng
-              </ion-button></ion-col>
-          </ion-row>
-        </ion-card>
-        <ion-card>
-          <ion-row>
-            <ion-col>Mark Hot Deal</ion-col>
-            <ion-col *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen" class="amount_col"> <ion-col
-                class="amount_col"> <ion-button (click)="considerAsHotDeal()" fill="clear">
-                  <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-                  Start As Hot Deal
-                </ion-button></ion-col></ion-col>
-            <ion-col *ngIf="lastHotDeal?.isDealOpen==1" class="amount_col"> <ion-col class="amount_col"> <ion-button
-                  (click)="closeHotDeal()" fill="clear">
-                  <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
-                  Remove As Hot Deal
-                </ion-button></ion-col></ion-col>
-          </ion-row>
-        </ion-card>
-      </ion-grid> -->
-      <div class="chat_history_block" *ngIf="hotDeal_history?.length">
-        <div class="chat_details_block" *ngFor="let deal of hotDeal_history; let i = index;">
-          <div class="top_row">
-            <div *ngIf="deal?.isDealOpen==1" class="type">Hot Deal Running</div>
-            <div *ngIf="deal?.isDealOpen==0" class="type">Hot Deal Closed</div>
-            <div class="date"><b>Start Date</b>{{deal?.createdOn | date}}</div>
+<ion-content [ngClass]="listColorClass" class="customer-content">
+  <main class="customer-page">
+    <section class="customer-summary">
+      <div class="summary-main">
+        <div class="avatar">{{ (customerSelected?.name || 'C').charAt(0) | uppercase }}</div>
+        <div class="identity">
+          <div class="name-row">
+            <h1>{{ customerSelected?.name || 'Customer' }}</h1>
+            <span class="status-pill" [class.status-pill--active]="customerSelected?.leadsChat?.length"><i></i>{{ customerSelected?.leadsChat?.length ? 'Action taken' : 'No action taken' }}</span>
           </div>
+          <div class="contact-line">
+            <span><ion-icon name="call-outline"></ion-icon>{{ customerSelected?.mobileNo || '-' }}</span>
+            <span><ion-icon name="person-outline"></ion-icon>{{ customerSelected?.customerType || '-' }}</span>
+          </div>
+          <div class="location-line"><ion-icon name="location-outline"></ion-icon>{{ customerSelected?.cityDetails?.name || '-' }}, {{ customerSelected?.stateDetails?.name || '-' }}, India</div>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <a target="_blank" rel="noopener" href="https://wa.me/{{customerSelected?.mobileNo}}/?text=Hello" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+        <a href="tel:{{customerSelected?.mobileNo}}" aria-label="Call"><ion-icon name="call-outline"></ion-icon></a>
+      </div>
+    </section>
 
-          <ion-card-title *ngIf="deal?.isDealOpen==0" class="chat_details">{{deal?.close_remark}}</ion-card-title>
-          <span class="right_date" *ngIf="deal?.isDealOpen==0">Close Date: {{deal?.closeHotDealDate | date}}</span>
+    <section class="date-strip">
+      <div class="date-item"><span><ion-icon name="calendar-outline"></ion-icon></span><div><small>Registered on</small><strong>{{ customerSelected?.createdOn | date:'mediumDate' }}</strong></div></div>
+      <div class="date-item"><span><ion-icon name="alarm-outline"></ion-icon></span><div><small>Next follow-up</small><strong>{{ (customerSelected?.followUpDate?.next_lead_date | date:'mediumDate') || 'Not scheduled' }}</strong></div></div>
+    </section>
 
-        </div>
+    <section *ngIf="showActionsButton" class="quick-actions" aria-label="Customer actions">
+      <button type="button" class="action-demand" (click)="addDemand()"><span class="action-icon"><ion-icon name="clipboard-outline"></ion-icon></span><span><strong>Add demand</strong><small>Record a requirement</small></span></button>
+      <button type="button" class="action-visit" (click)="visiting_dates()"><span class="action-icon"><ion-icon name="navigate-outline"></ion-icon></span><span><strong>Add visit</strong><small>Schedule or log a visit</small></span></button>
+      <button type="button" class="action-hot" *ngIf="lastHotDeal?.isDealOpen==0 || !lastHotDeal?.isDealOpen" (click)="considerAsHotDeal()"><span class="action-icon"><ion-icon name="flame-outline"></ion-icon></span><span><strong>Start hot deal</strong><small>Mark as high priority</small></span></button>
+      <button type="button" class="action-hot" *ngIf="lastHotDeal?.isDealOpen==1" (click)="closeHotDeal()"><span class="action-icon"><ion-icon name="flame-outline"></ion-icon></span><span><strong>Close hot deal</strong><small>Remove high priority</small></span></button>
+    </section>
+
+    <section class="purchase-card">
+      <div class="purchase-info"><span class="purchase-icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span><div><small>Purchase status</small><strong>{{ customerSelected?.soldStatus ? 'Tractor purchased' : 'Not purchased yet' }}</strong></div></div>
+      <div *ngIf="showActionsButton" class="purchase-actions">
+        <ion-button *ngIf="customerSelected?.soldStatus" fill="clear" (click)="removeSoldStatus()">Remove status</ion-button>
+        <ion-button class="dynamic_bgcolor update-button" (click)="sold_status()"><ion-icon slot="start" name="create-outline"></ion-icon>Update status</ion-button>
       </div>
-      <div class="chat_history_block" *ngIf="chatHistory?.length">
-        <div class="chat_details_block" *ngFor="let chat of chatHistory; let i = index;">
-          <div class="top_row">
-            <div class="type">{{chat?.chat_type}}</div>
-            <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div>
-          </div>
-          <ion-card-title class="chat_details">{{chat?.status}}</ion-card-title>
-          <span class="right_date">{{chat?.createdOn}}</span>
-        </div>
+    </section>
+
+    <section class="activity-card">
+      <header><div><h2>Activity history</h2><p>Customer interactions and updates</p></div><ion-icon name="time-outline"></ion-icon></header>
+      <div class="timeline" *ngIf="hotDeal_history?.length || chatHistory?.length || nextFolloupHistory?.length || demand_history?.length || visitng_history?.length; else noActivity">
+        <article *ngFor="let deal of hotDeal_history"><span class="marker marker-hot"><ion-icon name="flame-outline"></ion-icon></span><div class="entry"><div class="meta"><b>{{ deal?.isDealOpen==1 ? 'Hot deal started' : 'Hot deal closed' }}</b><time>{{ deal?.createdOn | date:'medium' }}</time></div><p *ngIf="deal?.isDealOpen==0">{{ deal?.close_remark || 'Hot deal closed' }}</p><small *ngIf="deal?.closeHotDealDate">Closed {{ deal?.closeHotDealDate | date:'medium' }}</small></div></article>
+        <article *ngFor="let chat of chatHistory"><span class="marker marker-chat"><ion-icon name="chatbubble-outline"></ion-icon></span><div class="entry"><div class="meta"><b>Chat</b><time>{{ chat?.createdOn | date:'medium' }}</time></div><p>{{ chat?.status || '-' }}</p><small *ngIf="chat?.next_lead_date">Next date: {{ chat?.next_lead_date | date:'mediumDate' }}</small></div></article>
+        <article *ngFor="let chat of nextFolloupHistory"><span class="marker marker-follow"><ion-icon name="calendar-outline"></ion-icon></span><div class="entry"><div class="meta"><b>Follow-up</b><time>{{ chat?.createdOn | date:'medium' }}</time></div><p>{{ chat?.status || '-' }}</p><small *ngIf="chat?.next_lead_date">Scheduled for {{ chat?.next_lead_date | date:'mediumDate' }}</small></div></article>
+        <article *ngFor="let demand of demand_history"><span class="marker marker-demand"><ion-icon name="clipboard-outline"></ion-icon></span><div class="entry"><div class="meta"><b>Demand</b><time>{{ demand?.createdOn | date:'medium' }}</time></div><p>{{ demand?.demand || '-' }}</p></div></article>
+        <article *ngFor="let visiting of visitng_history"><span class="marker marker-visit"><ion-icon name="navigate-outline"></ion-icon></span><div class="entry"><div class="meta"><b>{{ visiting?.visitng_type || 'Visit' }}</b><time>{{ visiting?.createdOn | date:'medium' }}</time></div><p>{{ visiting?.remark || '-' }}</p><small *ngIf="visiting?.visiting_date">Visit date: {{ visiting?.visiting_date | date:'mediumDate' }}</small></div></article>
       </div>
-      <div class="chat_history_block" *ngIf="nextFolloupHistory?.length">
-        <div class="chat_details_block" *ngFor="let chat of nextFolloupHistory; let i = index;">
-          <div class="top_row">
-            <div class="type">{{chat?.chat_type}}</div>
-            <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div>
-          </div>
-          <ion-card-title class="chat_details">{{chat?.status}}</ion-card-title>
-          <span class="right_date">{{chat?.createdOn}}</span>
-        </div>
-      </div>
-      <div class="chat_history_block" *ngIf="demand_history?.length">
-        <div class="chat_details_block" *ngFor="let demand of demand_history; let i = index;">
-          <div class="top_row">
-            <div class="type">Demand</div>
-            <!-- <div class="date" *ngIf="chat?.next_lead_date"><b>Next Date</b>{{chat?.next_lead_date}}</div> -->
-          </div>
-          <ion-card-title class="chat_details">{{demand?.demand}}</ion-card-title>
-          <span class="right_date">{{demand?.createdOn}}</span>
-        </div>
-      </div>
-      <div class="chat_history_block" *ngIf="visitng_history?.length">
-        <div class="chat_details_block" *ngFor="let visiting of visitng_history; let i = index;">
-          <div class="top_row">
-            <div class="type">{{visiting?.visitng_type}}</div>
-            <div class="date"><b>Date</b>{{visiting?.visiting_date}}</div>
-          </div>
-          <ion-card-title class="chat_details">{{visiting?.remark}}</ion-card-title>
-          <span class="right_date">{{visiting?.createdOn}}</span>
-        </div>
-      </div>
-      <!-- <ion-grid class="main_block_details">
-        <ion-card>
-          <ion-row>
-            <ion-col>is customer buy a tracor</ion-col>
-            <ion-col class="amount_col">{{customerSelected?.soldStatus? "Yes" : "NO"}}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col><ion-button (click)="sold_status()" fill="clear">
-                <ion-icon class="theme-color icon-size-add right-margin" name="add-circle-outline"></ion-icon>
-                Status
-              </ion-button></ion-col>
-            <ion-col class="amount_col">
-              <ion-button *ngIf="customerSelected?.soldStatus" (click)="removeSoldStatus()" fill="clear">
-                <ion-icon class="theme-color icon-size-add right-margin" name="remove-circle-outline"></ion-icon>
-                Remove
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-      </ion-grid> -->
-    </ion-card-content>
-  </ion-card>
+      <ng-template #noActivity><div class="empty-state"><ion-icon name="chatbubbles-outline"></ion-icon><strong>No activity yet</strong><span>Customer updates will appear here.</span></div></ng-template>
+    </section>
+  </main>
 </ion-content>
