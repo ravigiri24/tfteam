@@ -54,6 +54,7 @@ import { AddNewDealComponent } from './purchase-management/new-findings-deals/ad
 import { NewFindingsComponent } from './purchase-management/new-findings/new-findings.component';
 import { DeleteNewFindingsComponent } from './purchase-management/new-findings-deals/delete-new-findings/delete-new-findings.component';
 import { RtoRequiredComponent } from './rto-management/rto-required/rto-required.component';
+import { PayoutDetailsComponent } from './finance-department/payout-details/payout-details.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -237,6 +238,9 @@ export class CommonMethodService {
     }if(e?.button?.name == 'Booking Tractor'){
       this.bookingMethod(e)
     }
+    if(e?.button?.name == 'View Booked Details'){
+      this.bookingViewMethod(e)
+    }
     if(e?.button?.name == 'Change Repair Type'){
     await  this.changeRepairType(e?.tractor)
     }
@@ -246,6 +250,11 @@ export class CommonMethodService {
         if (e?.button?.name == 'Deals Tractor List') {
       await this.dealsTractorList(e?.tractor);
     }
+      if (e?.button?.name == 'Payout Details') {
+        
+      await this.payoutDetails(e?.tractor);
+    }
+    
     else if (e?.button?.name == 'Delete New Findings') {
       await this.deleteNewFindings(e);
     }
@@ -1056,6 +1065,40 @@ export class CommonMethodService {
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+    async bookingViewMethod(e: any = null) {
+     const modal = await this.modalCtrl.create({
+      component: BookingHistoryComponent,
+      componentProps: {
+        tractor: e?.tractor,
+        button: e?.button,
+     showAction:false
+      },
+        cssClass: 'custom-modal',
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+    if (role === 'confirm') {
+    }
+ }
+   async payoutDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: PayoutDetailsComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
     if (data) {
       this.reloadMethod = true;
     }

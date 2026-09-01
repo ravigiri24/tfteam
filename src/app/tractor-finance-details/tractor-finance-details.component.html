@@ -33,14 +33,14 @@
       </ion-select>
     </ion-item> -->
     <div class="global_input_block select_option_with_add">
-      <ion-select formControlName="bankId" labelPlacement="stacked" fill="outline" label="Financer"
+      <ion-select (ionChange)="selectPayout()" formControlName="bankId" labelPlacement="stacked" fill="outline" label="Financer"
         label-placement="stacked">
         <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
           {{ fin?.name }}</ion-select-option>
       </ion-select>
-      <!-- <div class="right_action_block dynamic_bgcolor">
+      <div class="right_action_block dynamic_bgcolor">
         <ion-icon (click)="openCrudManagement('BANK_DETAILS')" name="add-circle-outline"></ion-icon>
-      </div> -->
+      </div>
       <div class="right_action_block refresh_icon">
         <ion-icon (click)="getfinancerList(true)" name="refresh-outline"></ion-icon>
       </div>
@@ -53,6 +53,27 @@
         <ion-select-option value="NO">No</ion-select-option>
       </ion-select>
     </div>
+        <div class="global_input_block">
+      <ion-select formControlName="insurance_firm" label="Insurance From?" fill="outline" label-placement="type"
+        label-placement="type">
+        <ion-select-option value="TF">TF</ion-select-option>
+        <ion-select-option value="Insurance">Insurance</ion-select-option>
+      </ion-select>
+    </div>
+       <div class="global_input_block">
+      <ion-select formControlName="is_viechle_registered" label="Viechle Registration?" fill="outline" label-placement="type"
+        label-placement="type">
+        <ion-select-option [value]="true">Yes</ion-select-option>
+        <ion-select-option [value]="false">No</ion-select-option>
+      </ion-select>
+    </div>
+      <div class="global_input_block">
+      <ion-select formControlName="customer_type" label="Customer Type?" fill="outline" label-placement="type"
+        label-placement="type">
+        <ion-select-option value="EXCHANGE">Exchange</ion-select-option>
+        <ion-select-option value="FRESH">Fresh</ion-select-option>
+      </ion-select>
+    </div>
     <div class="global_input_block">
       <ion-input label="Finance Amount" fill="outline" labelPlacement="stacked" type="number"
         formControlName="financeAmount"></ion-input>
@@ -62,6 +83,13 @@
         formControlName="downPayment"></ion-input>
     </div>
     <div class="global-inner-heading header_margin">Disbursal Details</div>
+       <div class="global_input_block">
+      <ion-select formControlName="receiveFinanceAmountType" label="Finance Amount Received" fill="outline" label-placement="type"
+        label-placement="type">
+        <ion-select-option value="FINANCE">FINANCE</ion-select-option>
+        <ion-select-option value="CASH">CASH</ion-select-option>
+      </ion-select>
+    </div>
     <div class="global_input_block">
       <ion-input label="1st Disbursal" fill="outline" labelPlacement="stacked" type="number"
         formControlName="first_disbursal"></ion-input>
@@ -86,6 +114,18 @@
     <div class="global_input_block">
       <ion-input label="Outstanding" fill="outline" labelPlacement="stacked" type="number"
         formControlName="outstanding"></ion-input>
+    </div>
+    <div class="global_input_block" >
+      <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
+      placeholder="write Remark here..."></ion-textarea>
+</div>
+ <div class="global-inner-heading header_margin">Final Settle</div>
+    <div class="global_input_block">
+      <ion-select formControlName="isFinanceAmountReceived" label="Finance Amount Received" fill="outline" label-placement="type"
+        label-placement="type">
+        <ion-select-option [value]="true">Yes</ion-select-option>
+        <ion-select-option [value]="false">No</ion-select-option>
+      </ion-select>
     </div>
     <div class="popup_submit_btn_block">
       <ion-button *ngIf="!financeData" (click)="save()" class="global_submit_color_button dynamic_bgcolor"

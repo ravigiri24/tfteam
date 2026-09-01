@@ -652,6 +652,7 @@
         "headerTitle":"Bank",
          "field":1,
          "colArray":["name"],
+        "isDynamicList":false,
          "deleteHeading":"delete Bank?",
          "deleteSubHeading":"Are you sure to delete this",
          "data": [
@@ -661,7 +662,26 @@
             "key": "name",
             "errorMsg": "name is required",
             "validation":true
-             }
+
+             },
+                  {
+              "title": "Payout Status",
+              "type": "list_static",
+              "options":["YES","NO"],
+
+              "key": "payout_status"
+          
+
+               },
+                  {
+              "title": "Payout Percent",
+              "type": "number",
+            "key": "percent_0f_payout",
+            "errorMsg": "Percent is required",
+            "validation":true
+          
+
+               }
           
         ]
       },

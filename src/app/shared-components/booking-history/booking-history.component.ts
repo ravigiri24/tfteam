@@ -26,6 +26,7 @@ export class BookingHistoryComponent  implements OnInit {
 this.showAction=this.button.showAction
     this.getBookingByTractor()
   }
+  
   showAction=true
   button:any
   dismiss() {

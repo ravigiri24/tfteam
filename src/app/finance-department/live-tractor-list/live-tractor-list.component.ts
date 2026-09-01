@@ -195,14 +195,11 @@ export class LiveTractorListComponent implements OnInit {
             { displayName: 'Not Sold', value: 'NOT_SOLD' },
             { displayName: 'Sold', value: 'SOLD' },
             { displayName: 'Booked', value: 'BOOKED' },
-            { displayName: 'Mapped', value: 'MAPPED' },
-            { displayName: 'Not-Mapped', value: 'NOT_MAPPED' },
-            { displayName: '0-Image', value: '0_IMAGE' },
-            { displayName: 'Have Image', value: 'HAVE_IMAGE' },
-        { displayName: 'Sold(Dealer)', value: 'SOLD_TO_DEALER' },
+            { displayName: 'RC Ready', value: 'RC_READY' },
+            { displayName: 'Have Finance Details', value: 'HAVE_FINANCE_DETAILS' },
+           { displayName: 'Sold(Dealer)', value: 'SOLD_TO_DEALER' },
           { displayName: 'Not Sold(Dealer)', value: 'SOLD_NOT_TO_DEALER' },
-       
-            { displayName: 'At Warehouse', value: 'AT_WAREHOUSE' },
+
           ],
           selectedBrand: this.selectedBrand,
           checkedAll: this.checkedAll,
@@ -235,13 +232,13 @@ export class LiveTractorListComponent implements OnInit {
 
     this.lower = 0;
     this.listBy = 'ACTIVE';
-    this.filterBy = 'NOT_SOLD';
+    this.filterBy = 'BOOKED';
     this.upper = 1500000;
     this.yearChecked = 'ALL';
     this.selectedStore="ALL"
   }
       listBy = 'ACTIVE';
-  filterBy: any = 'NOT_SOLD';
+  filterBy: any = 'BOOKED';
   totalListCount=0
 getDataByFilter(loader:any,listType:any='UP'){
   // this.share.totalCount=0
@@ -810,11 +807,27 @@ getDataByFilter(loader:any,listType:any='UP'){
       action: 'salesOption',
       image: './././assets/images/documentation.png',
     },
-    {
-      name: 'Sales Details',
-      action: 'salesDetails',
+       {
+      name: 'Tractor Summary',
+      action: 'tractorSummary',
+      image: './././assets/images/data-analysis.png',
+    },
+    // {
+    //   name: 'Sales Details',
+    //   action: 'salesDetails',
+    //   image: './././assets/images/resume.png',
+    // },
+        {
+      name: 'View Booked Details',
+      action: 'bookingViewMethod',
       image: './././assets/images/resume.png',
     },
+      {
+      name: 'Payout Details',
+      action: 'payoutDetails',
+      image: './././assets/images/saving.png',
+    },
+    
   ];
 
   async actionEventCall(e: any) {
