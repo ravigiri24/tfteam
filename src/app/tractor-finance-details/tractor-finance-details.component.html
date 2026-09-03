@@ -1,138 +1,229 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header class="tfd-header">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">Add Finance Details</div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding internal_card_container" *ngIf="financeForm" [ngClass]="listColorClass">
-  <form [formGroup]="financeForm">
-    <div class="global-inner-heading header_margin">
-      Finance Details
-    </div>
-    <!-- <ion-item class="bottom-margin">
-      <ion-icon
-        (click)="openCrudManagement('BANK_DETAILS')"
-        name="add-circle-outline"
-      ></ion-icon>
-      <ion-icon
-        (click)="getfinancerList(true)"
-        name="refresh-outline"
-      ></ion-icon>
-      <ion-select
-        formControlName="bankId"
-        label="Financer"
-        label-placement="type"
-      >
-        <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
-          {{ fin?.name }}</ion-select-option
-        >
-      </ion-select>
-    </ion-item> -->
-    <div class="global_input_block select_option_with_add">
-      <ion-select (ionChange)="selectPayout()" formControlName="bankId" labelPlacement="stacked" fill="outline" label="Financer"
-        label-placement="stacked">
-        <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
-          {{ fin?.name }}</ion-select-option>
-      </ion-select>
-      <div class="right_action_block dynamic_bgcolor">
-        <ion-icon (click)="openCrudManagement('BANK_DETAILS')" name="add-circle-outline"></ion-icon>
-      </div>
-      <div class="right_action_block refresh_icon">
-        <ion-icon (click)="getfinancerList(true)" name="refresh-outline"></ion-icon>
-      </div>
-    </div>
+    <ion-title class="tfd-title">
+      <span class="tfd-title-icon" aria-hidden="true">
+        <ion-icon name="business-outline"></ion-icon>
+      </span>
+      <span class="tfd-title-copy">
+        <strong>{{ financeData ? 'Update Finance Details' : 'Add Finance Details' }}</strong>
+        <small>Financer, disbursal, and settlement information</small>
+      </span>
+    </ion-title>
 
-    <div class="global_input_block">
-      <ion-select formControlName="isFIDone" label="FIDone?" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option value="YES">Yes</ion-select-option>
-        <ion-select-option value="NO">No</ion-select-option>
-      </ion-select>
-    </div>
-        <div class="global_input_block">
-      <ion-select formControlName="insurance_firm" label="Insurance From?" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option value="TF">TF</ion-select-option>
-        <ion-select-option value="Insurance">Insurance</ion-select-option>
-      </ion-select>
-    </div>
-       <div class="global_input_block">
-      <ion-select formControlName="is_viechle_registered" label="Viechle Registration?" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option [value]="true">Yes</ion-select-option>
-        <ion-select-option [value]="false">No</ion-select-option>
-      </ion-select>
-    </div>
-      <div class="global_input_block">
-      <ion-select formControlName="customer_type" label="Customer Type?" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option value="EXCHANGE">Exchange</ion-select-option>
-        <ion-select-option value="FRESH">Fresh</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Finance Amount" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="financeAmount"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Down Payment" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="downPayment"></ion-input>
-    </div>
-    <div class="global-inner-heading header_margin">Disbursal Details</div>
-       <div class="global_input_block">
-      <ion-select formControlName="receiveFinanceAmountType" label="Finance Amount Received" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option value="FINANCE">FINANCE</ion-select-option>
-        <ion-select-option value="CASH">CASH</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="1st Disbursal" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="first_disbursal"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="1st Disbursal Date" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="first_disbursal_date"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="2nd Disbursal" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="second_disbursal"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="2nd Disbursal Date" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="second_disbursal_date"></ion-input>
-    </div>
-    <div class="global-inner-heading header_margin">Other Details</div>
-    <div class="global_input_block">
-      <ion-input label="Net Market" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="net_market"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="Outstanding" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="outstanding"></ion-input>
-    </div>
-    <div class="global_input_block" >
-      <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
-      placeholder="write Remark here..."></ion-textarea>
-</div>
- <div class="global-inner-heading header_margin">Final Settle</div>
-    <div class="global_input_block">
-      <ion-select formControlName="isFinanceAmountReceived" label="Finance Amount Received" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option [value]="true">Yes</ion-select-option>
-        <ion-select-option [value]="false">No</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="popup_submit_btn_block">
-      <ion-button *ngIf="!financeData" (click)="save()" class="global_submit_color_button dynamic_bgcolor"
-        expand="block"><span class="color-white">Save</span></ion-button>
-      <ion-button *ngIf="financeData" (click)="updateSellingDetails()"
-        class="global_submit_color_button dynamic_bgcolor" expand="block"><span
-          class="color-white">Update</span></ion-button>
-    </div>
+    <ion-buttons slot="end">
+      <button class="tfd-close-btn" type="button" (click)="dismiss()" aria-label="Close finance details">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div class="tfd-header-art" aria-hidden="true">
+    <span class="tfd-orb tfd-orb-one"></span>
+    <span class="tfd-orb tfd-orb-two"></span>
+  </div>
+</ion-header>
+
+<ion-content class="tfd-content" [ngClass]="listColorClass">
+  <form *ngIf="financeForm" [formGroup]="financeForm" class="tfd-page">
+    <section class="tfd-card" aria-labelledby="finance-setup-title">
+      <div class="tfd-section-heading">
+        <span class="tfd-section-icon" aria-hidden="true">
+          <ion-icon name="wallet-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="finance-setup-title">Finance Setup</strong>
+          <small>Select the financer and configure the deal</small>
+        </span>
+      </div>
+
+      <div class="tfd-financer-row">
+        <div class="global_input_block tfd-input-block tfd-financer-select">
+          <ion-select (ionChange)="selectPayout()" formControlName="bankId" label="Financer"
+            label-placement="stacked" fill="outline">
+            <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
+              {{ fin?.name }}
+            </ion-select-option>
+          </ion-select>
+          <small class="tfd-error"
+            *ngIf="financeForm.controls['bankId'].touched && financeForm.controls['bankId'].invalid">
+            Please select a financer.
+          </small>
+        </div>
+
+        <button class="tfd-action-btn tfd-add-btn" type="button"
+          (click)="openCrudManagement('BANK_DETAILS')" aria-label="Add financer" title="Add financer">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+
+        <button class="tfd-action-btn tfd-refresh-btn" type="button" (click)="getfinancerList(true)"
+          aria-label="Refresh financer list" title="Refresh financer list">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="tfd-payout-note" *ngIf="financeForm.controls['bankId'].value"
+        [class.tfd-payout-eligible]="financeForm.controls['payout_eligibility'].value"
+        [class.tfd-payout-ineligible]="!financeForm.controls['payout_eligibility'].value">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <span>
+          <small>Payout eligibility</small>
+          <strong>
+            {{ financeForm.controls['payout_eligibility'].value ? 'Eligible' : 'Not eligible' }}
+            <ng-container *ngIf="financeForm.controls['payout_percentage'].value != null">
+              · {{ financeForm.controls['payout_percentage'].value }}% default payout
+            </ng-container>
+          </strong>
+        </span>
+      </div>
+
+      <div class="tfd-form-grid">
+        <div class="global_input_block tfd-input-block">
+          <ion-select formControlName="isFIDone" label="FI Completed" fill="outline" label-placement="stacked">
+            <ion-select-option value="YES">Yes</ion-select-option>
+            <ion-select-option value="NO">No</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-select formControlName="insurance_firm" label="Insurance Provider" fill="outline"
+            label-placement="stacked">
+            <ion-select-option value="TF">TF</ion-select-option>
+            <ion-select-option value="Insurance">Insurance</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-select formControlName="is_viechle_registered" label="Vehicle Registered" fill="outline"
+            label-placement="stacked">
+            <ion-select-option [value]="true">Yes</ion-select-option>
+            <ion-select-option [value]="false">No</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-select formControlName="customer_type" label="Customer Type" fill="outline"
+            label-placement="stacked">
+            <ion-select-option value="EXCHANGE">Exchange</ion-select-option>
+            <ion-select-option value="FRESH">Fresh</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Finance Amount" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="financeAmount">
+          </ion-input>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Down Payment" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="downPayment">
+          </ion-input>
+        </div>
+      </div>
+    </section>
+
+    <section class="tfd-card" aria-labelledby="disbursal-title">
+      <div class="tfd-section-heading">
+        <span class="tfd-section-icon" aria-hidden="true">
+          <ion-icon name="swap-horizontal-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="disbursal-title">Disbursal Details</strong>
+          <small>Record payment source, amounts, and dates</small>
+        </span>
+      </div>
+
+      <div class="tfd-form-grid">
+        <div class="global_input_block tfd-input-block tfd-grid-full">
+          <ion-select formControlName="receiveFinanceAmountType" label="Finance Amount Received Through"
+            fill="outline" label-placement="stacked">
+            <ion-select-option value="FINANCE">Finance</ion-select-option>
+            <ion-select-option value="CASH">Cash</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="First Disbursal Amount" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="first_disbursal">
+          </ion-input>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="First Disbursal Date" fill="outline" labelPlacement="stacked" type="date"
+            formControlName="first_disbursal_date">
+          </ion-input>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Second Disbursal Amount" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="second_disbursal">
+          </ion-input>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Second Disbursal Date" fill="outline" labelPlacement="stacked" type="date"
+            formControlName="second_disbursal_date">
+          </ion-input>
+        </div>
+      </div>
+    </section>
+
+    <section class="tfd-card" aria-labelledby="settlement-title">
+      <div class="tfd-section-heading">
+        <span class="tfd-section-icon" aria-hidden="true">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="settlement-title">Settlement Details</strong>
+          <small>Complete the market and outstanding information</small>
+        </span>
+      </div>
+
+      <div class="tfd-form-grid">
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Net Market" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="net_market">
+          </ion-input>
+        </div>
+
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Outstanding Amount" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="outstanding">
+          </ion-input>
+        </div>
+
+        <div class="global_input_block tfd-input-block tfd-grid-full">
+          <ion-select formControlName="isFinanceAmountReceived" label="Finance Amount Status" fill="outline"
+            label-placement="stacked">
+            <ion-select-option [value]="true">Received</ion-select-option>
+            <ion-select-option [value]="false">Not Received</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="global_input_block tfd-input-block tfd-grid-full">
+          <ion-textarea formControlName="remark" label="Remark" fill="outline" labelPlacement="stacked"
+            autoGrow="true" rows="3" placeholder="Add a remark about these finance details">
+          </ion-textarea>
+        </div>
+      </div>
+    </section>
   </form>
 </ion-content>
+
+<ion-footer class="tfd-footer" *ngIf="financeForm">
+  <ion-toolbar>
+    <div class="tfd-footer-actions">
+      <button class="tfd-secondary-btn" type="button" (click)="dismiss()">Cancel</button>
+
+      <button class="tfd-primary-btn" type="button" *ngIf="!financeData" (click)="save()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Save Finance Details
+      </button>
+
+      <button class="tfd-primary-btn" type="button" *ngIf="financeData" (click)="updateSellingDetails()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Update Finance Details
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

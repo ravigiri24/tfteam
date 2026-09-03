@@ -1,99 +1,224 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header class="vb-header">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">View Booking Details</span>
-      </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
+    <ion-title class="vb-title">
+      <span class="vb-title-icon" aria-hidden="true">
+        <ion-icon name="receipt-outline"></ion-icon>
+      </span>
+      <span class="vb-title-copy">
+        <strong>Booking Details</strong>
+        <small>Customer and reservation information</small>
+      </span>
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <button class="vb-close-btn" type="button" (click)="dismiss()" aria-label="Close booking details">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding global_bgpopup_container" [ngClass]="listColorClass">
-    <span class="global-inner-heading">Customer Details</span>
-  <ion-grid class="main_block_details">
-    <ion-card class="main_card_details">
-         <ion-row>
-        <ion-col>Customer Name</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.customerName|| '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Mobile Number</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.mobileNo || '-'}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Village</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.village || '-' }}</ion-col>
-      </ion-row>
-          <ion-row>
-        <ion-col>City</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.cityName|| '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>State</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.stateName|| '-' }}</ion-col>
-      </ion-row>
-   
-    
-    </ion-card>
-  </ion-grid>
-  <span class="global-inner-heading"> Booking Details</span>
-  <ion-grid class="main_block_details">
-    <ion-card class="main_card_details">
-         <ion-row>
-        <ion-col>Status</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.currentStatus }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>DealPrice</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.deal_price }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Booking Price</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.booking_price || '-' }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Booking Date</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.booking_date|| '-' }}</ion-col>
-      </ion-row>
-       <ion-row>
-        <ion-col>Sale Type</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.sale_type|| '-' }}</ion-col>
-      </ion-row>
-       <ion-row>
-        <ion-col>Expected Date Of Delivery</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.expectedDateForSale|| '-' }}</ion-col>
-      </ion-row>
-         <ion-row>
-        <ion-col>Remark</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.remark|| '-' }}</ion-col>
-      </ion-row>
-  
-      
 
-       <ion-row>
-        <ion-col>Registered Date</ion-col>
-        <ion-col class="amount_col"> {{ (tractorDetails?.createdOn | date) || '-' }}</ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-grid>
-      <div *ngIf="tractorDetails?.currentStatus=='CANCELED'" class="margin-bottom-headline">
-    <span class="global-inner-heading">Cancel Details</span>
+  <div class="vb-header-art" aria-hidden="true">
+    <span class="vb-orb vb-orb-one"></span>
+    <span class="vb-orb vb-orb-two"></span>
   </div>
-    <ion-grid *ngIf="tractorDetails?.currentStatus=='CANCELED'"  class="main_block_details">
-    <ion-card class="main_card_details">
-      <ion-row>
-        <ion-col>Cancel Date</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.canceled_date }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Cancel Reason</ion-col>
-        <ion-col class="amount_col"> {{ tractorDetails?.canceled_reason }}</ion-col>
-      </ion-row>
-   
-  
-    </ion-card>
-  </ion-grid>
+</ion-header>
 
+<ion-content class="vb-content" [ngClass]="listColorClass">
+  <main class="vb-page" *ngIf="tractorDetails">
+    <section class="vb-overview-card" aria-labelledby="booking-customer-name">
+      <div class="vb-customer-avatar" aria-hidden="true">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+
+      <div class="vb-overview-copy">
+        <small>Booked for</small>
+        <h1 id="booking-customer-name">{{ tractorDetails?.customerName || 'Customer name unavailable' }}</h1>
+        <a class="vb-phone-link" [attr.href]="tractorDetails?.mobileNo ? 'tel:' + tractorDetails.mobileNo : null">
+          <ion-icon name="call-outline"></ion-icon>
+          {{ tractorDetails?.mobileNo || 'Mobile number unavailable' }}
+        </a>
+      </div>
+
+      <span class="vb-status-badge"
+        [class.vb-status-open]="tractorDetails?.currentStatus == 'OPEN'"
+        [class.vb-status-canceled]="tractorDetails?.currentStatus == 'CANCELED'"
+        [class.vb-status-neutral]="tractorDetails?.currentStatus != 'OPEN' && tractorDetails?.currentStatus != 'CANCELED'">
+        <span class="vb-status-dot"></span>
+        {{ tractorDetails?.currentStatus || 'Unknown' }}
+      </span>
+    </section>
+
+    <section class="vb-card" aria-labelledby="customer-details-title">
+      <div class="vb-section-heading">
+        <span class="vb-section-icon" aria-hidden="true">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="customer-details-title">Customer Information</strong>
+          <small>Contact and location details</small>
+        </span>
+      </div>
+
+      <div class="vb-details-grid">
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="person-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Customer name</small>
+            <strong>{{ tractorDetails?.customerName || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="call-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Mobile number</small>
+            <strong>{{ tractorDetails?.mobileNo || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="home-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Village</small>
+            <strong>{{ tractorDetails?.village || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="location-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>City</small>
+            <strong>{{ tractorDetails?.cityName || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item vb-grid-full">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="map-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>State</small>
+            <strong>{{ tractorDetails?.stateName || '-' }}</strong>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="vb-card" aria-labelledby="booking-details-title">
+      <div class="vb-section-heading">
+        <span class="vb-section-icon" aria-hidden="true">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="booking-details-title">Booking Information</strong>
+          <small>Pricing, schedule, and sale information</small>
+        </span>
+      </div>
+
+      <div class="vb-price-grid">
+        <div class="vb-price-card vb-deal-price">
+          <span class="vb-price-icon" aria-hidden="true"><ion-icon name="pricetag-outline"></ion-icon></span>
+          <span>
+            <small>Deal price</small>
+            <strong *ngIf="tractorDetails?.deal_price != null">₹ {{ tractorDetails?.deal_price | number:'1.0-0' }}</strong>
+            <strong *ngIf="tractorDetails?.deal_price == null">-</strong>
+          </span>
+        </div>
+
+        <div class="vb-price-card vb-booking-price">
+          <span class="vb-price-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
+          <span>
+            <small>Booking amount</small>
+            <strong *ngIf="tractorDetails?.booking_price != null">₹ {{ tractorDetails?.booking_price | number:'1.0-0' }}</strong>
+            <strong *ngIf="tractorDetails?.booking_price == null">-</strong>
+          </span>
+        </div>
+      </div>
+
+      <div class="vb-details-grid vb-booking-grid">
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="pulse-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Status</small>
+            <strong>{{ tractorDetails?.currentStatus || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="calendar-number-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Booking date</small>
+            <strong>{{ (tractorDetails?.booking_date | date:'dd MMM yyyy') || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="cash-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Sale type</small>
+            <strong>{{ tractorDetails?.sale_type || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="car-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Expected delivery</small>
+            <strong>{{ (tractorDetails?.expectedDateForSale | date:'dd MMM yyyy') || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item vb-grid-full">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="time-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Registered on</small>
+            <strong>{{ (tractorDetails?.createdOn | date:'dd MMM yyyy') || '-' }}</strong>
+          </span>
+        </div>
+      </div>
+
+      <div class="vb-remark-block">
+        <span class="vb-remark-icon" aria-hidden="true"><ion-icon name="document-text-outline"></ion-icon></span>
+        <span>
+          <small>Remark</small>
+          <strong>{{ tractorDetails?.remark || 'No remark added' }}</strong>
+        </span>
+      </div>
+    </section>
+
+    <section class="vb-card vb-cancel-card" *ngIf="tractorDetails?.currentStatus == 'CANCELED'"
+      aria-labelledby="cancel-details-title">
+      <div class="vb-section-heading vb-cancel-heading">
+        <span class="vb-section-icon" aria-hidden="true">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="cancel-details-title">Cancellation Information</strong>
+          <small>Reason and cancellation date</small>
+        </span>
+      </div>
+
+      <div class="vb-details-grid">
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="calendar-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Cancelled on</small>
+            <strong>{{ (tractorDetails?.canceled_date | date:'dd MMM yyyy') || '-' }}</strong>
+          </span>
+        </div>
+
+        <div class="vb-detail-item">
+          <span class="vb-detail-icon" aria-hidden="true"><ion-icon name="chatbox-ellipses-outline"></ion-icon></span>
+          <span class="vb-detail-copy">
+            <small>Cancellation reason</small>
+            <strong>{{ tractorDetails?.canceled_reason || '-' }}</strong>
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="vb-empty-state" *ngIf="!tractorDetails">
+    <ion-icon name="receipt-outline"></ion-icon>
+    <strong>Booking details unavailable</strong>
+    <small>No booking information was found for this tractor.</small>
+  </div>
 </ion-content>

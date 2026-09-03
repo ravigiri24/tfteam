@@ -14,7 +14,7 @@ import { ShareService } from 'src/app/share.service';
   styleUrls: ['./view-booking.component.scss'],
 })
 export class ViewBookingComponent  implements OnInit {
-  @Input() listColorClass = 'sixColor';
+  @Input() listColorClass = 'fourthColor';
   constructor(
     public modalCtrl: ModalController,
     private formBuilder: FormBuilder,

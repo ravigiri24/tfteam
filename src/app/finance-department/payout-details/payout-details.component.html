@@ -1,151 +1,231 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header class="pd-header">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">Payout Details</div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
+    <ion-title class="pd-title">
+      <span class="pd-title-icon" aria-hidden="true">
+        <ion-icon name="wallet-outline"></ion-icon>
+      </span>
+      <span>
+        <strong>Payout Details</strong>
+        <small>Finance payout and receiving information</small>
+      </span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <button class="pd-close-btn" type="button" (click)="dismiss()" aria-label="Close payout details">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
+  <div class="pd-header-art" aria-hidden="true">
+    <span class="pd-orb pd-orb-one"></span>
+    <span class="pd-orb pd-orb-two"></span>
+  </div>
 </ion-header>
-<ion-content class="ion-padding"  [ngClass]="listColorClass">
-  <div *ngIf="!noFinanceDetails && financeForm">
 
-    <div>
-         <ion-card >
-            <div>
-          
-              <span>Finance Details</span>
-            </div>
-            <ion-row >
-              <ion-col class="tcd-label">
-              Financer Name
-              </ion-col>
-              <ion-col class="amount_col tcd-amount">{{financeData?.bankDetails?.name}}</ion-col>
-            </ion-row>
-                        <ion-row >
-              <ion-col class="tcd-label">
-              Finance Amount
-              </ion-col>
-              <ion-col class="amount_col tcd-amount">{{financeData?.financeAmount ? financeData?.financeAmount:"Not Available"}}</ion-col>
-            </ion-row>
-                  <ion-row >
-              <ion-col class="tcd-label">
-              Payout Percentage(On Deal)
-              </ion-col>
-              <ion-col class="amount_col tcd-amount" *ngIf="financeData?.payoutType == 'PERCENT'" >{{financeData?.payout_percentage}}</ion-col>
-              <ion-col class="amount_col tcd-amount" *ngIf="financeData?.payoutType == 'AMOUNT'" >Amount Selected</ion-col>
-              <ion-col class="amount_col tcd-amount" *ngIf="financeData?.payoutType == null" >No Payout Selected</ion-col>
+<ion-content class="pd-content" [ngClass]="listColorClass">
+  <div class="pd-page" *ngIf="!noFinanceDetails && financeForm">
+    <section class="pd-summary-card" aria-labelledby="finance-summary-title">
+      <div class="pd-section-heading pd-summary-heading">
+        <div class="pd-heading-copy">
+          <span class="pd-heading-icon" aria-hidden="true">
+            <ion-icon name="business-outline"></ion-icon>
+          </span>
+          <span>
+            <strong id="finance-summary-title">Financer Overview</strong>
+            <small>Deal-linked finance information</small>
+          </span>
+        </div>
 
+        <span class="pd-status-badge"
+          [class.pd-status-active]="financeData?.payout_eligibility == 1"
+          [class.pd-status-inactive]="financeData?.payout_eligibility != 1">
+          <span class="pd-status-dot"></span>
+          {{ financeData?.payout_eligibility == 1 ? 'Eligible' : 'Not eligible' }}
+        </span>
+      </div>
 
-            </ion-row>
-                 <ion-row >
-              <ion-col class="tcd-label">
-              Payout Percentage(By Default)
-              </ion-col>
-              <ion-col class="amount_col tcd-amount">{{selectedFinancer?.percent_0f_payout ? selectedFinancer?.percent_0f_payout : 'Not Available'}}
-                            <ion-icon (click)="updatePercent()" class="left_card_icons" name="create-outline"></ion-icon>
-              </ion-col>
-            </ion-row>
-            <ion-row >
-              <ion-col class="tcd-label">
-             
-                Payout Eligibility
-              </ion-col>
-              <ion-col class="amount_col tcd-amount">{{ financeData?.payout_eligibility == 1 ? 'Yes' : 'No' }}
-                  <ion-icon (click)="checkStatus()" class="left_card_icons" name="create-outline"></ion-icon>
-              </ion-col>
-            </ion-row>
-         
-          </ion-card>
+      <div class="pd-summary-grid">
+        <div class="pd-summary-item">
+          <span class="pd-summary-icon" aria-hidden="true"><ion-icon name="business-outline"></ion-icon></span>
+          <span class="pd-summary-copy">
+            <small>Financer name</small>
+            <strong>{{ financeData?.bankDetails?.name || 'Not available' }}</strong>
+          </span>
+        </div>
+
+        <div class="pd-summary-item">
+          <span class="pd-summary-icon" aria-hidden="true"><ion-icon name="cash-outline"></ion-icon></span>
+          <span class="pd-summary-copy">
+            <small>Finance amount</small>
+            <strong *ngIf="financeData?.financeAmount != null">₹ {{ financeData?.financeAmount | number:'1.0-0' }}</strong>
+            <strong *ngIf="financeData?.financeAmount == null">Not available</strong>
+          </span>
+        </div>
+
+        <div class="pd-summary-item">
+          <span class="pd-summary-icon" aria-hidden="true"><ion-icon name="analytics-outline"></ion-icon></span>
+          <span class="pd-summary-copy">
+            <small>Payout on deal</small>
+            <strong *ngIf="financeData?.payoutType == 'PERCENT'">
+              {{ financeData?.payout_percentage || 0 }}%
+            </strong>
+            <strong *ngIf="financeData?.payoutType == 'AMOUNT'">Fixed amount</strong>
+            <strong *ngIf="!financeData?.payoutType">Not configured</strong>
+          </span>
+        </div>
+
+        <div class="pd-summary-item pd-summary-item-actionable">
+          <span class="pd-summary-icon" aria-hidden="true"><ion-icon name="settings-outline"></ion-icon></span>
+          <span class="pd-summary-copy">
+            <small>Default payout percentage</small>
+            <strong *ngIf="selectedFinancer?.percent_0f_payout != null">
+              {{ selectedFinancer?.percent_0f_payout }}%
+            </strong>
+            <strong *ngIf="selectedFinancer?.percent_0f_payout == null">Not available</strong>
+          </span>
+          <button class="pd-edit-btn" type="button" (click)="updatePercent()"
+            aria-label="Edit default payout percentage">
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <button class="pd-eligibility-action" type="button" (click)="checkStatus()">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <span>
+          <small>Payout eligibility</small>
+          <strong>{{ financeData?.payout_eligibility == 1 ? 'Eligible for payout' : 'Not eligible for payout' }}</strong>
+        </span>
+        <span class="pd-change-label">Change</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </section>
+
+    <form *ngIf="financeData?.payout_eligibility == 1" [formGroup]="financeForm" class="pd-form">
+      <section class="pd-form-card" aria-labelledby="payout-information-title">
+        <div class="pd-section-heading">
+          <div class="pd-heading-copy">
+            <span class="pd-heading-icon" aria-hidden="true">
+              <ion-icon name="calculator-outline"></ion-icon>
+            </span>
+            <span>
+              <strong id="payout-information-title">Payout Information</strong>
+              <small>Set the amount and expected payout date</small>
+            </span>
           </div>
-<form *ngIf="financeData?.payout_eligibility==1" [formGroup]="financeForm">
-    <div class="global-inner-heading header_margin">
-      Finance Details
-    </div>
-    <!-- <ion-item class="bottom-margin">
-      <ion-icon
-        (click)="openCrudManagement('BANK_DETAILS')"
-        name="add-circle-outline"
-      ></ion-icon>
-      <ion-icon
-        (click)="getfinancerList(true)"
-        name="refresh-outline"
-      ></ion-icon>
-      <ion-select
-        formControlName="bankId"
-        label="Financer"
-        label-placement="type"
-      >
-        <ion-select-option *ngFor="let fin of financerList" [value]="fin.id">
-          {{ fin?.name }}</ion-select-option
-        >
-      </ion-select>
-    </ion-item> -->
+        </div>
 
+        <div class="pd-form-grid">
+          <div class="global_input_block pd-input-block">
+            <ion-select (ionChange)="calculateAmount()" formControlName="payoutType" label="Payout Type"
+              fill="outline" label-placement="stacked">
+              <ion-select-option value="AMOUNT">Fixed Amount</ion-select-option>
+              <ion-select-option value="PERCENT">Percentage</ion-select-option>
+            </ion-select>
+            <small class="pd-error"
+              *ngIf="financeForm.controls['payoutType'].touched && financeForm.controls['payoutType'].invalid">
+              Please select a payout type.
+            </small>
+          </div>
 
- 
-       <div class="global_input_block">
-      <ion-select (ionChange)="calculateAmount()" formControlName="payoutType" label="Payout Type?" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option value="AMOUNT">Amount</ion-select-option>
-        <ion-select-option value="PERCENT">Percent</ion-select-option>
-      </ion-select>
-    </div>
-   <div *ngIf="financeForm.controls['payoutType'].value=='PERCENT'" class="global_input_block">
-      <ion-input (keyup)="calculateAmount()" label="Payout Percent" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="payout_percentage"></ion-input>
-    </div>
-     <div class="global_input_block">
-      <ion-input [readonly]="financeForm.controls['payoutType'].value=='PERCENT'" label="Payout Amount" fill="outline" labelPlacement="stacked" type="number"
-        formControlName="payoutAmount"></ion-input>
-    </div>
-    <div class="global_input_block">
-      <ion-input  label="Expected Date Of Payout" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="expectedDateOfPayout"></ion-input>
-    </div>
-        <div class="global_input_block" >
-      <ion-textarea formControlName="payout_remark" label="Payout Remark" fill="outline" labelPlacement="stacked"
-      placeholder="write Remark here..."></ion-textarea>
-</div>
-     
+          <div *ngIf="financeForm.controls['payoutType'].value == 'PERCENT'"
+            class="global_input_block pd-input-block">
+            <ion-input (ionInput)="calculateAmount()" label="Payout Percentage" fill="outline"
+              labelPlacement="stacked" type="number" inputmode="decimal" formControlName="payout_percentage">
+            </ion-input>
+          </div>
 
-   
-    <div class="global-inner-heading header_margin">Receiving Details</div>
-           <div class="global_input_block">
-      <ion-select formControlName="receivePayoutAmountType" label="Receiving Type"  fill="outline" label-placement="type"
-        label-placement="type">
-     <ion-select-option value="ONLINE">ONLINE</ion-select-option>
-        <ion-select-option value="CASH">CASH</ion-select-option>
-      </ion-select>
-    </div>
-       <div class="global_input_block">
-      <ion-select formControlName="isPayoutReceived" label="Payout Received?" fill="outline" label-placement="type"
-        label-placement="type">
-        <ion-select-option [value]="true">Received</ion-select-option>
-        <ion-select-option [value]="false">Not Received</ion-select-option>
-      </ion-select>
-    </div>
-    <div class="global_input_block">
-      <ion-input label="payout Received Date" fill="outline" labelPlacement="stacked" type="date"
-        formControlName="payoutDate"></ion-input>
-    </div>
+          <div class="global_input_block pd-input-block"
+            [class.pd-readonly-field]="financeForm.controls['payoutType'].value == 'PERCENT'">
+            <ion-input [readonly]="financeForm.controls['payoutType'].value == 'PERCENT'" label="Payout Amount"
+              fill="outline" labelPlacement="stacked" type="number" inputmode="decimal"
+              formControlName="payoutAmount">
+            </ion-input>
+            <small class="pd-helper" *ngIf="financeForm.controls['payoutType'].value == 'PERCENT'">
+              Calculated automatically from the finance amount.
+            </small>
+            <small class="pd-error"
+              *ngIf="financeForm.controls['payoutAmount'].touched && financeForm.controls['payoutAmount'].invalid">
+              Please enter the payout amount.
+            </small>
+          </div>
 
+          <div class="global_input_block pd-input-block">
+            <ion-input label="Expected Payout Date" fill="outline" labelPlacement="stacked" type="date"
+              formControlName="expectedDateOfPayout">
+            </ion-input>
+          </div>
 
-    <div class="popup_submit_btn_block">
-      <ion-button  (click)="save()" class="global_submit_color_button dynamic_bgcolor"
-        expand="block"><span class="color-white">Save</span></ion-button>
-   
-    </div>
-  </form>
-    <div *ngIf="financeData?.payout_eligibility==0" >
-  
-<app-no-data-view [ngClass]="listColorClass" [title]="'No Payout Elligible For This Financer/Deal'" [subTitle]="'No Payout Will Receive'"></app-no-data-view>
+          <div class="global_input_block pd-input-block pd-grid-full">
+            <ion-textarea formControlName="payout_remark" label="Payout Remark" fill="outline"
+              labelPlacement="stacked" autoGrow="true" rows="3" placeholder="Add a remark about this payout">
+            </ion-textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="pd-form-card" aria-labelledby="receiving-information-title">
+        <div class="pd-section-heading">
+          <div class="pd-heading-copy">
+            <span class="pd-heading-icon" aria-hidden="true">
+              <ion-icon name="download-outline"></ion-icon>
+            </span>
+            <span>
+              <strong id="receiving-information-title">Receiving Information</strong>
+              <small>Track how and when the payout was received</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="pd-form-grid pd-receiving-grid">
+          <div class="global_input_block pd-input-block">
+            <ion-select formControlName="receivePayoutAmountType" label="Receiving Type" fill="outline"
+              label-placement="stacked">
+              <ion-select-option value="ONLINE">Online</ion-select-option>
+              <ion-select-option value="CASH">Cash</ion-select-option>
+            </ion-select>
+          </div>
+
+          <div class="global_input_block pd-input-block">
+            <ion-select formControlName="isPayoutReceived" label="Payout Status" fill="outline"
+              label-placement="stacked">
+              <ion-select-option [value]="true">Received</ion-select-option>
+              <ion-select-option [value]="false">Not Received</ion-select-option>
+            </ion-select>
+          </div>
+
+          <div class="global_input_block pd-input-block">
+            <ion-input label="Payout Received Date" fill="outline" labelPlacement="stacked" type="date"
+              formControlName="payoutDate">
+            </ion-input>
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <div class="pd-empty-shell" *ngIf="financeData?.payout_eligibility == 0">
+      <app-no-data-view [ngClass]="listColorClass" [title]="'Payout Not Eligible'"
+        [subTitle]="'This financer or deal is currently not eligible to receive a payout.'">
+      </app-no-data-view>
     </div>
   </div>
-  
-    <div *ngIf="noFinanceDetails">
-  
-<app-no-data-view [ngClass]="listColorClass" [title]="'No Financer Selected'" [subTitle]="'Please Select Financer in Finance Details'"></app-no-data-view>
+
+  <div class="pd-page pd-no-finance" *ngIf="noFinanceDetails">
+    <div class="pd-empty-shell">
+      <app-no-data-view [ngClass]="listColorClass" [title]="'No Financer Selected'"
+        [subTitle]="'Select a financer in Finance Details before adding payout information.'">
+      </app-no-data-view>
     </div>
+  </div>
 </ion-content>
+
+<ion-footer class="pd-footer" *ngIf="!noFinanceDetails && financeForm && financeData?.payout_eligibility == 1">
+  <ion-toolbar>
+    <div class="pd-footer-actions">
+      <button class="pd-secondary-btn" type="button" (click)="dismiss()">Cancel</button>
+      <button class="pd-primary-btn" type="button" (click)="save()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Save Payout Details
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
