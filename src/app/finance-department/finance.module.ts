@@ -16,6 +16,7 @@ import { FinancedTractorListComponent } from './financed-tractor-list/financed-t
 import { FinanceOptionsComponent } from './finance-options/finance-options.component';
 import { PayoutDetailsComponent } from './payout-details/payout-details.component';
 import { UpdatePayoutPercentComponent } from './payout-details/update-payout-percent/update-payout-percent.component';
+import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard.component';
 // import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-details.component';
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpdatePayoutPercentComponent } from './payout-details/update-payout-per
   FinanceDepartmentComponent,
   FinanceOptionsComponent,
   PayoutDetailsComponent,
-  UpdatePayoutPercentComponent
+  UpdatePayoutPercentComponent,
+  FinanceDashboardComponent
   //ShowSalesDetailsComponent
   ],
   imports: [

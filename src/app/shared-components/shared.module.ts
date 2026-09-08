@@ -90,6 +90,9 @@ import { AddBookingComponent } from './booking-history/add-booking/add-booking.c
 import { ViewBookingComponent } from './booking-history/view-booking/view-booking.component';
 import { CancelBookingComponent } from './booking-history/cancel-booking/cancel-booking.component';
 import { ViewApprovalsComponent } from './notification-pop-up/view-approvals/view-approvals.component';
+import { FinanceReportDetailsComponent } from '../finance-department/finance-dashboard/finance-report-details/finance-report-details.component';
+import { PayoutReportDetailsComponent } from '../finance-department/finance-dashboard/payout-report-details/payout-report-details.component';
+import { AddCashTractorComponent } from './add-cash-tractor/add-cash-tractor.component';
 import { DatePipe } from '@angular/common';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -187,7 +190,10 @@ import { DatePipe } from '@angular/common';
     AddBookingComponent,
     ViewBookingComponent,
     CancelBookingComponent,
-    ViewApprovalsComponent
+    ViewApprovalsComponent,
+    FinanceReportDetailsComponent,
+    PayoutReportDetailsComponent,
+    AddCashTractorComponent
     
   ],
 

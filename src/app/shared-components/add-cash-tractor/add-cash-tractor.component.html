@@ -1,0 +1,71 @@
+<ion-header class="cash-header">
+  <ion-toolbar>
+    <ion-title>
+      <span class="cash-title-icon"><ion-icon name="cash-outline"></ion-icon></span>
+      <span>
+        <strong>Add Cash</strong>
+        <small>Record a cash payment received</small>
+      </span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <button class="cash-close-btn" type="button" (click)="dismiss()" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cash-content">
+  <form *ngIf="cashForm" [formGroup]="cashForm" class="cash-form">
+    <section class="cash-card">
+      <div class="cash-section-heading">
+        <span class="cash-section-icon"><ion-icon name="wallet-outline"></ion-icon></span>
+        <span>
+          <strong>Cash Details</strong>
+          <small>Enter the amount and received date</small>
+        </span>
+      </div>
+
+      <div class="global_input_block cash-input-block">
+        <ion-input label="Cash Amount" fill="outline" labelPlacement="stacked" type="number"
+          inputmode="decimal" formControlName="cash_amount">
+        </ion-input>
+        <small class="cash-error" *ngIf="cashForm.controls['cash_amount'].touched && cashForm.controls['cash_amount'].invalid">
+          Please enter a valid cash amount.
+        </small>
+      </div>
+
+      <div class="global_input_block cash-input-block">
+        <ion-input label="Received Date" fill="outline" labelPlacement="stacked" type="date"
+          formControlName="received_date">
+        </ion-input>
+        <small class="cash-error" *ngIf="cashForm.controls['received_date'].touched && cashForm.controls['received_date'].invalid">
+          Please select the received date.
+        </small>
+      </div>
+
+      <div class="global_input_block cash-input-block">
+        <ion-select label="Transaction Type" fill="outline" labelPlacement="stacked"
+          formControlName="transaction_type">
+          <ion-select-option value="ONLINE">Online</ion-select-option>
+          <ion-select-option value="CASH">Cash</ion-select-option>
+        </ion-select>
+        <small class="cash-error" *ngIf="cashForm.controls['transaction_type'].touched && cashForm.controls['transaction_type'].invalid">
+          Please select the transaction type.
+        </small>
+      </div>
+    </section>
+  </form>
+</ion-content>
+
+<ion-footer class="cash-footer">
+  <ion-toolbar>
+    <div class="cash-footer-actions">
+      <button class="cash-cancel-btn" type="button" (click)="dismiss()">Cancel</button>
+      <button class="cash-save-btn" type="button" (click)="save()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Add Cash
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

@@ -24,6 +24,11 @@ export class FinanceFooterComponent  implements OnInit {
        this.activeTabsColor='sevenColor'
     this.router.navigate(['/finance-department/financed-tractor'])
   }
+   else if(tab=='Finance-Dashboard'){
+       this.activeTabsColor='sevenColor'
+    this.router.navigate(['/finance-department/finance-dashboard'])
+  }
+  
 
   else if(tab=='User'){
           this.activeTabsColor='thirdColor'

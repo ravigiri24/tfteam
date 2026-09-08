@@ -246,6 +246,7 @@ export class PayoutDetailsComponent implements OnInit {
   }
 
   save() {
+    this.financeForm.markAllAsTouched()
     if (this.financeForm.valid) {
       let objVal = this.getSensObj();
       let obj = {

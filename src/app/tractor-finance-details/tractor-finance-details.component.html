@@ -24,7 +24,58 @@
 </ion-header>
 
 <ion-content class="tfd-content" [ngClass]="listColorClass">
-  <form *ngIf="financeForm" [formGroup]="financeForm" class="tfd-page">
+  <div *ngIf="financeForm" class="tfd-page">
+    <section class="tfd-summary-card" aria-labelledby="finance-summary-title">
+      <div class="tfd-summary-heading">
+        <div class="tfd-summary-heading-copy">
+          <span class="tfd-summary-heading-icon" aria-hidden="true">
+            <ion-icon name="business-outline"></ion-icon>
+          </span>
+          <span>
+            <strong id="finance-summary-title">Booking Details</strong>
+            <small>Overview of the current finance details</small>
+          </span>
+        </div>
+        <span class="tfd-summary-status"
+          [class.tfd-summary-status-received]="financeForm.controls['isFinanceAmountReceived'].value"
+          [class.tfd-summary-status-pending]="!financeForm.controls['isFinanceAmountReceived'].value">
+          {{ financeForm.controls['isFinanceAmountReceived'].value ? 'Received' : 'Pending' }}
+        </span>
+      </div>
+
+      <div class="tfd-summary-grid">
+        <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="business-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>Financer</small>
+            <strong>{{ selectFinance?.name || 'Not selected' }}</strong>
+          </span>
+        </div>
+        <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="cash-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>Finance Amount</small>
+            <strong>{{ financeForm.controls['financeAmount'].value || 0 | number:'1.0-2' }}</strong>
+          </span>
+        </div>
+        <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="card-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>Down Payment</small>
+            <strong>{{ financeForm.controls['downPayment'].value || 0 | number:'1.0-2' }}</strong>
+          </span>
+        </div>
+        <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>Total Cash Received</small>
+            <strong>{{ totalCashReceived | number:'1.0-2' }}</strong>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <form [formGroup]="financeForm" class="tfd-form">
     <section class="tfd-card" aria-labelledby="finance-setup-title">
       <div class="tfd-section-heading">
         <span class="tfd-section-icon" aria-hidden="true">
@@ -35,8 +86,14 @@
           <small>Select the financer and configure the deal</small>
         </span>
       </div>
-
+     <div class="global_input_block tfd-input-block">
+          <ion-input label="Finance Start Date" fill="outline" labelPlacement="stacked" type="date"
+            formControlName="finance_start_date">
+          </ion-input>
+        </div>
       <div class="tfd-financer-row">
+        
+   
         <div class="global_input_block tfd-input-block tfd-financer-select">
           <ion-select (ionChange)="selectPayout()" formControlName="bankId" label="Financer"
             label-placement="stacked" fill="outline">
@@ -61,16 +118,16 @@
         </button>
       </div>
 
-      <div class="tfd-payout-note" *ngIf="financeForm.controls['bankId'].value"
-        [class.tfd-payout-eligible]="financeForm.controls['payout_eligibility'].value"
-        [class.tfd-payout-ineligible]="!financeForm.controls['payout_eligibility'].value">
+      <div  (click)="updatePercent()" class="tfd-payout-note" *ngIf="financeForm.controls['bankId'].value"
+        [class.tfd-payout-eligible]="selectFinance?.payout_status=='YES'"
+        [class.tfd-payout-ineligible]="selectFinance?.payout_status=='NO'">
         <ion-icon name="shield-checkmark-outline"></ion-icon>
         <span>
           <small>Payout eligibility</small>
           <strong>
-            {{ financeForm.controls['payout_eligibility'].value ? 'Eligible' : 'Not eligible' }}
-            <ng-container *ngIf="financeForm.controls['payout_percentage'].value != null">
-              · {{ financeForm.controls['payout_percentage'].value }}% default payout
+            {{ selectFinance?.payout_status == 'YES'? 'Eligible' : 'Not eligible' }}
+            <ng-container *ngIf="selectFinance?.percent_0f_payout">
+              · {{ selectFinance?.percent_0f_payout }}% default payout
             </ng-container>
           </strong>
         </span>
@@ -166,6 +223,7 @@
           </ion-input>
         </div>
       </div>
+
     </section>
 
     <section class="tfd-card" aria-labelledby="settlement-title">
@@ -207,7 +265,50 @@
         </div>
       </div>
     </section>
-  </form>
+
+    <section class="tfd-card" aria-labelledby="cash-history-title">
+      <div class="tfd-cash-receipts">
+        <div class="tfd-cash-receipts-heading">
+          <span>
+            <strong id="cash-history-title">Cash History</strong>
+            <small>Add each cash payment received</small>
+          </span>
+          <button (click)="addCashHistory()" class="tfd-cash-add-btn" type="button" >
+            <ion-icon name="add-outline"></ion-icon>
+            Add Receipt
+          </button>
+        </div>
+
+        <div class="tfd-cash-receipt-row" *ngFor="let receipt of cashHistory; let i = index"
+          [class.tfd-cash-receipt-deleted]="receipt.isDeleted == 1">
+          <span class="tfd-cash-receipt-number">{{ i + 1 }}</span>
+          <div class="tfd-cash-receipt-value">
+            <small>Cash Amount</small>
+            <strong>{{ receipt.cash_amount }}</strong>
+          </div>
+          <div class="tfd-cash-receipt-value">
+            <small>Received Date</small>
+            <strong>{{ receipt.received_date }}</strong>
+          </div>
+          <div class="tfd-cash-receipt-value">
+            <small>Transaction Type</small>
+            <strong>{{ receipt.transaction_type }}</strong>
+          </div>
+          <span class="tfd-deleted-label" *ngIf="receipt.isDeleted == 1">Deleted</span>
+          <button  class="tfd-cash-remove-btn" type="button" (click)="deleteTranction(receipt)"
+            [disabled]="receipt.isDeleted == 1" [attr.aria-label]="'Delete cash receipt ' + (i + 1)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+
+        <div class="tfd-cash-total-row" *ngIf="cashHistory.length">
+          <span>Total Cash Received</span>
+          <strong>{{ totalCashReceived | number:'1.0-2' }}</strong>
+        </div>
+      </div>
+    </section>
+    </form>
+  </div>
 </ion-content>
 
 <ion-footer class="tfd-footer" *ngIf="financeForm">

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import {
@@ -9,7 +9,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CrudPopupComponent } from '../shared-components/crud-popup/crud-popup.component';
-
+import { UpdatePayoutPercentComponent } from '../finance-department/payout-details/update-payout-percent/update-payout-percent.component';
+import { AddCashTractorComponent } from '../shared-components/add-cash-tractor/add-cash-tractor.component';
 @Component({
   selector: 'app-tractor-finance-details',
   templateUrl: './tractor-finance-details.component.html',
@@ -23,6 +24,7 @@ export class TractorFinanceDetailsComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private formBuilder: FormBuilder,
+    private alertCtrl:AlertController
   ) {}
   dismiss() {
     this.modalControl.dismiss();
@@ -35,9 +37,11 @@ export class TractorFinanceDetailsComponent implements OnInit {
     if (this.tractorDetails?.financeDetailedId) {
       this.getDataByID();
     } else {
+          this.getfinancerList();
       this.initiateSoldForm();
     }
-    this.getfinancerList();
+    this.getCashList()
+
   }
   dataLoader: any;
   sellingData: any;
@@ -52,7 +56,8 @@ export class TractorFinanceDetailsComponent implements OnInit {
     this.api.postapi('getFinanceetailsByID', obj).subscribe(
       (res: any) => {
         this.financeData = res?.data;
-        this.initiateSoldForm();
+        this.getfinancerList()
+   
         this.share.spinner.dismiss();
       },
       (error: any) => {
@@ -66,6 +71,7 @@ export class TractorFinanceDetailsComponent implements OnInit {
       this?.financeData?.is_viechle_registered == 1 ? true : false;
           let isFinanceAmountReceived =
       this?.financeData?.isFinanceAmountReceived == 1 ? true : false;
+
     this.financeForm = this.formBuilder.group({
       tractorID: new FormControl(this?.tractorDetails?.id || null, [
         Validators.required,
@@ -73,7 +79,9 @@ export class TractorFinanceDetailsComponent implements OnInit {
       bankId: new FormControl(this?.financeData?.bankId || null, [
         Validators.required,
       ]),
-
+     finance_start_date: new FormControl(this?.financeData?.finance_start_date || null, [
+        Validators.required,
+      ]),
       isFIDone: new FormControl(this?.financeData?.isFIDone || null, []),
       isFinanceAmountReceived: new FormControl(isFinanceAmountReceived, []),
       receiveFinanceAmountType: new FormControl(this?.financeData?.receiveFinanceAmountType||'FINANCE', []),
@@ -123,15 +131,103 @@ export class TractorFinanceDetailsComponent implements OnInit {
       outstanding: new FormControl(this?.financeData?.outstanding || null),
       actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
     });
+    setTimeout(() => {
+        let selectFinance = this.financerList.find(
+      (f: any) => f.id == this?.financeData?.bankId,
+    );
 
+    if(selectFinance){
+    this.selectFinance=selectFinance
+    }
+    }, 0);
+  
     // if (this.sellingData?.images?.length) {
     //   this.loadedImages = this.sellingData?.images||[];
     // }
   }
+  cashHistory: any[] = [];
+
+
+  get totalCashReceived(): number {
+    return this.cashHistory
+      .filter((receipt: any) => Number(receipt?.isDeleted) !== 1)
+      .reduce((total: number, receipt: any) => total + (Number(receipt?.cash_amount) || 0), 0);
+  }
+    async deleteTranction(tracsaction: any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Delete This Transaction',
+      subHeader: '',
+      message: 'Are You Sure',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'Cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'Yes',
+        },
+      ],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    if (result?.role == 'Yes') {
+      this.removeJob(tracsaction);
+    }
+  }
+  removeJob(tracsaction:any){
+    let objData: any = {
+      isDeleted:true,
+      deletedDate:new Date(),
+      deletedBy:this.staffDetails?.id
+    };
+    let obj = {
+      src: 'cash_receving',
+      data: objData,
+      id: tracsaction?.id,
+    };
+
+    this.share.showLoading('Updating Data...');
+    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+      this.share.spinner.dismiss();
+
+      this.share.presentToast('Removed Successfully...');
+      this.getCashList()
+    //  this.dismiss();
+    });
+  }
+
+    async updatePercent() {
+      const modal = await this.modalControl.create({
+        breakpoints: [0, 0.4, 1],
+        initialBreakpoint: 0.4,
+        cssClass: 'custom-modal',
+        component: UpdatePayoutPercentComponent,
+        componentProps: {
+          tractor: {
+            id: this.selectFinance?.id,
+            percent_0f_payout: this.selectFinance?.percent_0f_payout,
+          },
+          percent_0f_payout: this.selectFinance?.percent_0f_payout,
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      if (data) {
+        this.selectFinance = data;
+        let findIn=this.financerList.findIndex((f:any)=>f.id==this.selectFinance.id)
+this.financerList[findIn]=   this.selectFinance
+    //        this.financeForm.controls['payout_percentage'].setValue(
+    //   this.selectFinance?.percent_0f_payout,
+    // );
+      }
+    }
+  selectFinance:any=null
   selectPayout() {
     let selectFinance = this.financerList.find(
       (f: any) => f.id == this.financeForm.controls['bankId'].value,
     );
+    this.selectFinance=selectFinance
     this.financeForm.controls['payout_percentage'].setValue(
       selectFinance?.percent_0f_payout,
     );
@@ -140,7 +236,10 @@ export class TractorFinanceDetailsComponent implements OnInit {
       payoutElligible = true;
     }
     this.financeForm.controls['payout_eligibility'].setValue(payoutElligible);
-    this.financeForm.controls['payoutAmount'].setValue(null);
+    if(this.financeForm.controls['payoutType'].value == 'PERCENT'){
+ this.financeForm.controls['payoutAmount'].setValue(null);
+    }
+   
   }
   financeForm: FormGroup;
   async openCrudManagement(type: any = 'BANK_DETAILS') {
@@ -158,6 +257,21 @@ export class TractorFinanceDetailsComponent implements OnInit {
     }
     console.log('role', role);
   }
+    async addCashHistory() {
+    const modal = await this.modalControl.create({
+      component: AddCashTractorComponent,
+      cssClass: 'light-modal',
+      componentProps: {
+     tractor:this?.tractorDetails
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+if(data){
+  this.cashHistory.unshift(data)
+}
+    console.log('role', role);
+  }
   financerList: any = [];
   getfinancerList(loader: any = false) {
     if (loader) {
@@ -167,9 +281,24 @@ export class TractorFinanceDetailsComponent implements OnInit {
     this.api.postapi('getList', obj).subscribe(
       (res: any) => {
         this.financerList = res?.data;
+             this.initiateSoldForm();
         if (loader) {
           this.share.spinner.dismiss();
         }
+      },
+      (error: any) => {},
+    );
+  }
+  
+  getCashList() {
+
+    let obj :any= this.share.getListObj('bank', false, [], true);
+    obj.tractor_id=this.tractorDetails?.id
+    this.api.postapi('getCashReceivingList', obj).subscribe(
+      (res: any) => {
+        this.cashHistory = res?.data || [];
+         
+   
       },
       (error: any) => {},
     );
@@ -203,10 +332,12 @@ export class TractorFinanceDetailsComponent implements OnInit {
       obj = this.financeForm.value;
       obj.id = this.financeData?.id;
     }
+  
 
     return obj;
   }
   updateSellingDetails() {
+    this.financeForm.markAllAsTouched()
     if (this.financeForm.valid) {
       let obj = this.getSensObj();
       this.share.showLoading('Updating data...');
@@ -222,6 +353,7 @@ export class TractorFinanceDetailsComponent implements OnInit {
         },
       );
     } else {
+          this.share.presentToast('Please Enter Required Fields');
       this.share.spinner.dismiss();
     }
   }

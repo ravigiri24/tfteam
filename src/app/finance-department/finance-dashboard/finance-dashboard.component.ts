@@ -1,0 +1,116 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ApiService } from 'src/app/api.service';
+import { ShareService } from 'src/app/share.service';
+import { ViewJobCardActivityLogComponent } from 'src/app/shared-components/view-job-card-activity-log/view-job-card-activity-log.component';
+@Component({
+  selector: 'app-finance-dashboard',
+  templateUrl: './finance-dashboard.component.html',
+  styleUrls: ['./finance-dashboard.component.scss'],
+})
+export class FinanceDashboardComponent  implements OnInit {
+
+    constructor(
+    private router: Router,
+    private share: ShareService,
+    private api: ApiService,
+    private modal:ModalController
+  ) {}
+
+  ngOnInit() {}
+  staffDetails: any;
+  jobData: any;
+  @Input() listColorClass = 'firstColor';
+  ionViewWillEnter() {
+     this.showRefurbish = false;
+     this.showService = false;
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+    this.getJobData();
+    this.getRepairCenter();
+  }
+     async openJobCardActiviyLog() {
+      const modal = await this.modal.create({
+        component: ViewJobCardActivityLogComponent,
+        cssClass: 'modal-xl',
+        componentProps: {
+
+        },
+      });
+      await modal.present();
+      const { data, role } = await modal.onWillDismiss();
+      console.log('role', role);
+  
+      if (role === 'confirm') {
+      }
+    }
+  getRepairCenter() {
+    let obj = this.share.getListObj('repairing_center', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.repairCenterList = res?.data;
+        let find = this.repairCenterList.find(
+          (f: any) => f.id == this.staffDetails?.repair_center,
+        );
+        let repairing_types=JSON.parse( find?.repairing_types)
+        if (
+          repairing_types?.filter((f: any) => f == 'REFURBISH')?.length
+        ) {
+          this.showRefurbish = true;
+        }
+        if (repairing_types?.filter((f: any) => f == 'SERVICE')?.length) {
+          this.showService = true;
+        }
+      },
+      (error: any) => {},
+    );
+  }
+  showRefurbish = false;
+  showService = false;
+  repairCenterList: any = [];
+  getJobData() {
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+      repair_center: this.staffDetails?.repair_center,
+    };
+    this.share.showLoading('Loading');
+    this.api.postapi('getJobTally', obj).subscribe(
+      (res: any) => {
+        this.jobData = res.data;
+        console.log('jobData', this.jobData);
+
+        this.share.spinner.dismiss('active_one');
+      },
+      (error: any) => {},
+    );
+  }
+  jobList(type: any) {
+    this.share.changeRepairFooter.next('Job-List')
+      this.router.navigate(['/repair-management/job-list',type])
+  }
+  financeReport(){
+        // this.router.navigate(['/admin-block/master-sheet-advance','/admin-block/reports-tractor'])
+          this.router.navigate(['/finance-department/finance-report','/finance-department/finance-dashboard'])
+  }
+    payoutReport(){
+          this.router.navigate(['/finance-department/payout-report'])
+  }
+  createJob() {
+    this.router.navigate([
+      '/repair-management/create-job',
+      '/repair-management/job-dashboard','REFURBISH',
+    ]);
+  }
+    createService() {
+    this.router.navigate([
+      '/repair-management/create-job',
+      '/repair-management/job-dashboard','SERVICE',
+    ]);
+  }
+
+}
