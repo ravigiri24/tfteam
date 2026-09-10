@@ -1,53 +1,48 @@
-<ion-header>
+<ion-header class="booking-header">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">
-        <span class="selected_text">Tractor Booking</span>
-      </div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-      </div>
-    </ion-label>
+    <div class="header-orb" aria-hidden="true"></div>
+    <div class="booking-title-row">
+      <span class="booking-title-icon"><ion-icon name="calendar-outline" aria-hidden="true"></ion-icon></span>
+      <div class="booking-title"><h1>Tractor Booking</h1><p>Your booking history at a glance</p></div>
+      <button type="button" class="close-button" (click)="dismiss()" aria-label="Close booking history">
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="internal_card_container" [ngClass]="listColorClass">
-  <div class="global_input_block select_option_with_add">
-      <ion-title class="inner-heading-list dynamic_color">Booking</ion-title>
-    <ion-button *ngIf="(lastBookingStatus?.currentStatus=='CANCELED' || !bookingList?.length) && showAction" (click)="addBooking()" class="dynamic_bgcolor add_btn" expand="block">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-button>
+
+<ion-content class="booking-content" [ngClass]="listColorClass">
+  <div class="booking-body">
+    <div class="section-heading">
+      <div class="section-title"><span class="section-icon"><ion-icon name="time-outline" aria-hidden="true"></ion-icon></span><h2>Booking history</h2><span class="booking-count">{{bookingList?.length || 0}}</span></div>
+      <button type="button" *ngIf="(lastBookingStatus?.currentStatus=='CANCELED' || !bookingList?.length) && showAction" (click)="addBooking()" class="new-booking">
+        <ion-icon name="add-outline" aria-hidden="true"></ion-icon><span>New booking</span>
+      </button>
+    </div>
+
+    <div class="booking-list" *ngIf="bookingList?.length">
+      <article class="booking-card" *ngFor="let book of bookingList; let i=index" [style.animation-delay.ms]="i < 8 ? i * 55 : 440">
+        <div class="card-top">
+          <div class="booking-number"><span class="number-icon"><ion-icon name="ticket-outline" aria-hidden="true"></ion-icon></span><span>Booking <strong>#{{i+1}}</strong></span></div>
+          <span class="status-badge" [class.status-open]="book?.currentStatus=='OPEN'" [class.status-canceled]="book?.currentStatus=='CANCELED'"><span class="status-dot" aria-hidden="true"></span>{{book?.currentStatus || 'Unknown'}}</span>
+        </div>
+        <div class="booking-details">
+          <div class="detail"><span class="detail-icon date-icon"><ion-icon name="calendar-outline" aria-hidden="true"></ion-icon></span><div><span class="detail-label">Booking date</span><strong>{{(book?.booking_date | date) || 'Not available'}}</strong></div></div>
+          <div class="detail"><span class="detail-icon store-icon"><ion-icon name="storefront-outline" aria-hidden="true"></ion-icon></span><div><span class="detail-label">Store</span><strong>{{book?.storeName || 'Not available'}}</strong></div></div>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="action-button view-button" (click)="viewBooking(book)" [attr.aria-label]="'View booking ' + (i+1)"><ion-icon name="eye-outline" aria-hidden="true"></ion-icon>View details<ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon></button>
+          <div class="manage-actions" *ngIf="showAction">
+            <button type="button" class="action-button edit-button" *ngIf="book?.currentStatus=='OPEN'" (click)="addBooking(book)" [attr.aria-label]="'Edit booking ' + (i+1)"><ion-icon name="create-outline" aria-hidden="true"></ion-icon>Edit</button>
+            <button type="button" class="action-button cancel-button" (click)="cancelBooking(book)" [attr.aria-label]="'Cancel booking ' + (i+1)"><ion-icon name="close-circle-outline" aria-hidden="true"></ion-icon>Cancel</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="empty-state" *ngIf="!bookingList?.length">
+      <span class="empty-icon"><ion-icon name="calendar-outline" aria-hidden="true"></ion-icon></span>
+      <h2>No bookings yet</h2>
+      <p>{{showAction ? 'Create a booking to start this tractor�s history.' : 'Bookings for this tractor will appear here.'}}</p>
+    </div>
   </div>
-  <ion-card *ngIf="bookingList?.length" class="table_block_details">
-    <ion-row class="table_main_header dynamic_bgcolor">
-      <ion-col class="sno_col">Sr</ion-col>
-      <ion-col class="code_col">Booking Date</ion-col>
-      <ion-col class="date_col">Booking Status</ion-col>
-      <ion-col class="date_col">Store</ion-col>
-      <ion-col *ngIf="showAction" class="date_col" >Edit</ion-col>
-            <ion-col class="action_col">View</ion-col>
-      <ion-col *ngIf="showAction" class="action_col">Cancel</ion-col>
-
-    </ion-row>
-    <ion-row class="table_row" *ngFor="let book of bookingList;let i=index">
-      <ion-col class="sno_col">{{i+1}}</ion-col>
-      <ion-col class="code_col">{{book?.booking_date | date}}</ion-col>
-      <ion-col class="date_col">{{book?.currentStatus}}</ion-col>
-      <ion-col class="date_col">{{book?.storeName}}</ion-col>
-             <ion-col *ngIf="showAction" class="action_col">
-        <ion-icon class="delete_color icon-size" *ngIf="book?.currentStatus=='OPEN'" (click)="addBooking(book)" name="create-outline"></ion-icon>
-            </ion-col>
-            <ion-col class="action_col">
-        <ion-icon class="delete_color icon-size" (click)="viewBooking(book)" name="eye-outline"></ion-icon>
-            </ion-col>
-      <ion-col *ngIf="showAction"  class="action_col">
-        <ion-icon  class="delete_color icon-size" (click)="cancelBooking(book)" name="close-circle-outline"></ion-icon>
-
-      </ion-col>
-      
-    </ion-row>
-  </ion-card>
-  <app-no-data-view [ngClass]="listColorClass" *ngIf="!bookingList?.length"></app-no-data-view>
-  <!-- <div *ngIf="!bookingList?.length" class="no-data-block">
-    <img class="image-no-data" src="././assets/images/no-data-found.png" />
-  </div> -->
 </ion-content>
