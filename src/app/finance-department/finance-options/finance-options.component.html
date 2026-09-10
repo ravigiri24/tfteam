@@ -1,24 +1,54 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header class="finance-options-header ion-no-border" [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">Upload Documents</div>
-      <div class="right_action">
-        <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
+    <div class="finance-options-heading">
+      <span class="finance-options-heading-icon" aria-hidden="true">
+        <ion-icon name="documents-outline"></ion-icon>
+      </span>
+      <div class="finance-options-heading-copy">
+        <h1>Upload documents</h1>
+        <p>Finance &amp; supporting records</p>
       </div>
-    </ion-label>
+    </div>
+
+    <ion-buttons slot="end">
+      <button class="finance-options-close" type="button" (click)="dismiss()"
+        aria-label="Close upload documents">
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding internal_card_container" [ngClass]="listColorClass">
-  <div class="upload-card dynamic_color" (click)="goToUplodeSection('FINANCE_DOCUMENTS')">
-    <img src="./assets/images/envelope.png" class="upload-icon" />
-    <h3>Finance Documents</h3>
-    <p>Upload your financial files..</p>
+
+<ion-content class="finance-options-content" [ngClass]="listColorClass">
+  <div class="finance-options-page">
+    <section class="finance-document-card" aria-labelledby="finance-document-title">
+      <div class="finance-document-intro">
+        <div class="finance-document-art" aria-hidden="true">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span class="finance-document-upload-icon">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+          </span>
+        </div>
+
+        <p class="finance-document-eyebrow">Document library</p>
+        <h2 id="finance-document-title">Finance documents</h2>
+        <p class="finance-document-description">
+          Keep this tractor's finance documents together.<br class="finance-document-break" />
+          Add new photos or review your uploads.
+        </p>
+
+        <button class="finance-document-action" type="button"
+          (click)="goToUplodeSection('FINANCE_DOCUMENTS')">
+          <ion-icon name="folder-open-outline" aria-hidden="true"></ion-icon>
+          <span>Open finance documents</span>
+          <ion-icon class="finance-document-action-arrow" name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+        </button>
+      </div>
+
+      <div class="finance-document-tip">
+        <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+        <p>Use clear photos so every detail is easy to read.</p>
+      </div>
+    </section>
   </div>
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title>Payment Screenshot</ion-card-title>     
-    </ion-card-header>  
-    <ion-button fill="clear" (click)="viewImage('PAYMENT_SCREENSHOT')" >    
-      <ion-icon class="theme-color icon-size-add" name="add-circle-outline"></ion-icon></ion-button>
-  </ion-card> -->
 </ion-content>
