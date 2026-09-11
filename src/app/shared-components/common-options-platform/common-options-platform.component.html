@@ -1,13 +1,21 @@
-<ion-header [ngClass]="listColorClass">
+<ion-header class="options-header ion-no-border" [ngClass]="listColorClass">
   <ion-toolbar>
-    <ion-label class="top_heading">
-      <div class="left_text">Details</div>
-      <div class="right_action">
-        <ion-buttons  slot="end">
-          <ion-icon class="dynamic_color icon-size" (click)="dismiss()" name="close-circle-outline"></ion-icon>
-        </ion-buttons>
+    <ion-title class="options-title">
+      <div class="options-title-layout">
+        <span class="options-title-icon" aria-hidden="true">
+          <ion-icon name="grid-outline"></ion-icon>
+        </span>
+        <span class="options-title-copy">
+          <strong>Details</strong>
+          <small>Choose an option to continue</small>
+        </span>
       </div>
-    </ion-label>
+    </ion-title>
+    <ion-buttons slot="end">
+      <button class="options-close-btn" type="button" (click)="dismiss()" aria-label="Close details">
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="internal_card_container" [ngClass]="listColorClass">

@@ -1,3 +1,89 @@
+.options-header {
+    background: linear-gradient(135deg, #a92e1c, var(--app-dynamic-color-fourth, #c73721), #f05b3a);
+
+    ion-toolbar {
+        --background: transparent;
+        --border-width: 0;
+        --min-height: 76px;
+        --color: #ffffff;
+    }
+
+    .options-title {
+        padding-inline-start: 16px;
+    }
+
+    .options-title-layout {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+        text-align: start;
+        white-space: normal;
+    }
+
+    .options-title-icon {
+        align-items: center;
+        background: rgba(255, 255, 255, .16);
+        border: 1px solid rgba(255, 255, 255, .3);
+        border-radius: 10px;
+        display: flex;
+        flex-shrink: 0;
+        height: 38px;
+        justify-content: center;
+        width: 38px;
+
+        ion-icon {
+            color: #ffffff;
+            font-size: 21px;
+        }
+    }
+
+    .options-title-copy {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+
+        strong {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        small {
+            color: rgba(255, 255, 255, .8);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+    }
+
+    .options-close-btn {
+        align-items: center;
+        background: rgba(255, 255, 255, .16);
+        border: 1px solid rgba(255, 255, 255, .35);
+        border-radius: 50%;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        height: 38px;
+        justify-content: center;
+        margin-inline-end: 12px;
+        padding: 0;
+        width: 38px;
+
+        ion-icon {
+            font-size: 21px;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, .26);
+        }
+
+        &:focus-visible {
+            outline: 2px solid #ffffff;
+            outline-offset: 3px;
+        }
+    }
+}
+
 .section_col {
     overflow: visible !important;
 
