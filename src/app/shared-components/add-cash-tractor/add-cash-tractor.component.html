@@ -1,11 +1,13 @@
 <ion-header class="cash-header">
   <ion-toolbar>
-    <ion-title>
-      <span class="cash-title-icon"><ion-icon name="cash-outline"></ion-icon></span>
-      <span>
-        <strong>Add Cash</strong>
-        <small>Record a cash payment received</small>
-      </span>
+    <ion-title class="cash-title">
+      <div class="cash-title-layout">
+        <span class="cash-title-icon" aria-hidden="true"><ion-icon name="cash-outline"></ion-icon></span>
+        <span class="cash-title-copy">
+          <strong>Add Cash</strong>
+          <small>Record a cash payment received</small>
+        </span>
+      </div>
     </ion-title>
     <ion-buttons slot="end">
       <button class="cash-close-btn" type="button" (click)="dismiss()" aria-label="Close">
