@@ -329,7 +329,7 @@ makePeroidArray() {
 
 generateExcel() {
 
-  const div = document.getElementById('master-sheet-report');
+  const div = document.getElementById('finance-sheet-report');
   const table = div?.querySelector('table') as HTMLTableElement;
 
   if (!table) {
@@ -378,7 +378,7 @@ uploadExcel(blob: Blob) {
 
   formData.append('operate', this.staffDetails?.staffCode);
   formData.append('actionByid', this.staffDetails?.id);
-  formData.append('report_type', 'MASTER_SHEET');
+  formData.append('report_type', 'FINANCE_SHEET');
   formData.append('extension', 'xlsx');
   formData.append('reparing_center', this.staffDetails?.repair_center);
   formData.append('startDate', this.reportDatesRecord?.startDate);
@@ -522,8 +522,8 @@ this.resetValue()
           (res: any) => {
                 this.share.presentToast("Data Fetched please Wait")
             this.allDetails = res?.data;
-            this.allDetails.spareList = this.allDetails.spareList.reverse();
-            this.tractorArray = res?.data?.tractorList;
+     
+            this.tractorArray = res?.data;
             this.tractorArray?.forEach((f: any) => {
               if (f?.registractionNo) {
                 const number = parseInt(f?.registractionNo?.split('-')[1], 10);
@@ -531,169 +531,41 @@ this.resetValue()
               } else {
                 f.tfCode = 100000;
               }
+             let totalCashReceived=0
+             f?.cashHistory?.forEach((cash:any)=>{
+              totalCashReceived=totalCashReceived+Number(cash?.cash_amount||0)
+             })
+             f.totalCashReceived=totalCashReceived
+            let cash_outStanding=Number(f?.financeDetails?.downPayment)-f.totalCashReceived
+            if(cash_outStanding>0){
+              f.cash_outStanding=cash_outStanding
+            }else{
+              f.cash_outStanding=0
+            }
+            if(f?.financeDetails?.second_disbursal>0 && f?.financeDetails?.first_disbursal>0){
+f.finance_outstanding=0
+            }else{
+      let totalRecivedAmountFinance=Number(f?.financeDetails?.first_disbursal||0)+Number(f?.financeDetails?.second_disbursal||0)
+      f.finance_outstanding=Number(f?.financeDetails?.financeAmount)-totalRecivedAmountFinance
+            }
+      
+f.totalOutStanding= f.cash_outStanding+f.finance_outstanding
+
+    const dealPrice = Number(f?.financeDetails?.dealPrice) || 0;
+    const firstDisbursal=Number(f?.financeDetails?.first_disbursal) || 0;
+    const secondDisbursal=Number(f?.financeDetails?.second_disbursal) || 0;
+    const downPayment= f.totalCashReceived;
+    if(firstDisbursal>0 && secondDisbursal>0){
+    f.finance_fees= Number(dealPrice)-Number(firstDisbursal)-Number(secondDisbursal)-Number(downPayment)
+    }
+else{
+      f.finance_fees=0
+}
             });
             this.tractorArray?.sort((a: any, b: any) => a?.tfCode - b?.tfCode);
             //this.tractorArray = this.tractorArray.reverse();
-            this.tractorArray?.forEach((tractor: any) => {
-              let logisticExpense: any = {};
-              let totalAmountBreakup = 0;
-
-              // this.logisticExpenseTypeList?.forEach((log: any) => {
-              //   let haveExpense = tractor?.transportCosting?.find(
-              //     (f: any) => f.expense_id == log?.id
-              //   );
-
-              //   if (haveExpense) {
-              //     totalAmountBreakup =
-              //       Number(totalAmountBreakup) + Number(haveExpense?.expense_amount);
-              //     logisticExpense[log?.name] = haveExpense?.expense_amount;
-              //   } else {
-              //     logisticExpense[log?.name] = 0;
-              //   }
-
-              // });
-
-              tractor?.transportCosting?.forEach((log: any) => {
-                let haveExpense = this.logisticExpenseTypeList?.find(
-                  (f: any) => f.id == log?.expense_id,
-                );
-
-                if (haveExpense) {
-                  totalAmountBreakup =
-                    Number(totalAmountBreakup) + Number(log?.expense_amount);
-                  if (logisticExpense[haveExpense?.name] > 0) {
-                    logisticExpense[haveExpense?.name] =
-                      Number(logisticExpense[haveExpense?.name]) +
-                      Number(log?.expense_amount);
-                  } else {
-                    logisticExpense[haveExpense?.name] = log?.expense_amount;
-                  }
-                } else {
-                  logisticExpense[haveExpense?.name] = 0;
-                }
-              });
-
-              tractor.logisticExpense = logisticExpense;
-              console.log('logisticExpense', logisticExpense);
-              if (tractor?.purchasedetail?.purchasePrice > 0) {
-                totalAmountBreakup =
-                  Number(totalAmountBreakup) +
-                  Number(tractor?.purchasedetail?.purchasePrice);
-              }
-              // if(tractor?.rtoDetails){
-              if (tractor?.rto_cost > 0) {
-                totalAmountBreakup =
-                  Number(totalAmountBreakup) + Number(tractor?.rto_cost);
-              }
-              if (tractor?.insurance_cost > 0) {
-                totalAmountBreakup =
-                  Number(totalAmountBreakup) + Number(tractor?.insurance_cost);
-              }
-              //}
-              tractor.totalAmountBreakup = totalAmountBreakup;
-              //need to call at last for all calculation
-              this.calculateRepairCost(tractor);
-            });
-            // this.createReport();
-            console.log('tractorArray', this.tractorArray);
-
-            this.share.spinner.dismiss();
-        
-            setTimeout(() => {
+          this.share.spinner.dismiss();
               this.showData = true;
-            }, 0);
-         // caluclation regarding advance 
-            let purchasedTractor= this.tractorArray.filter((f: any) =>
-  new Date(f.reachDate) >= new Date(this.selectedPeriod.startDate) &&
-  new Date(f.reachDate) <= new Date(this.selectedPeriod.endDate)
-);
- 
-      
-
-      this.totalPurchaseNo=  purchasedTractor?.length||0
-      purchasedTractor?.forEach((pr:any)=>{
-    this.totalPurchaseAmount=Number(this.totalPurchaseAmount)+ Number(pr?.purchasedetail?.purchasePrice||0)
-      })
-            let saleTractorsAll= this.tractorArray.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)|| (f?.isSoldToDealer==1 || f?.isSoldToDealer=='1') );
-           let saleTractorsPeriodAtStore=  saleTractorsAll.filter((f: any) => (f?.isSold==1 && f?.isSoldToDealer==0)&&
-(  new Date(f.sellingDetailedIdDetails?.sellingDate) >= new Date(this.selectedPeriod.startDate) &&
-  new Date(f.sellingDetailedIdDetails?.sellingDate) <= new Date(this.selectedPeriod.endDate))
-);
-//console.log("saleTractorsAll.filter((f:any)=>f?.isSoldToDealer==1)",saleTractorsAll.filter((f:any)=>f?.isSoldToDealer==1),"aa",saleTractorsAll.filter((f:any)=>f?.isSoldToDealer==1 && !f?.dateOfDealerSale));
-// let notIndate= saleTractorsAll.filter((f: any) => ( f?.isSoldToDealer==1)&&
-// (  new Date(f.dateOfDealerSale) < new Date(this.selectedPeriod.startDate) ||
-//   new Date(f.dateOfDealerSale) > new Date(this.selectedPeriod.endDate))
-// );
-// console.log("notIndate",notIndate);
-
-this.totalSaleStoreNumberInp=saleTractorsPeriodAtStore?.length||0
-
-  let saleTractorsPeriodAtFranchise=  saleTractorsAll.filter((f: any) =>{
-    
-
-
-  return (
-    Number(f.isSoldToDealer) === 1 &&
-    f.dateOfDealerSale >= this.selectedPeriod.startDate &&
-    f.dateOfDealerSale <= this.selectedPeriod.endDate
-  );
-  }
-);
-this.totalSaleFranchiseNumberInp=saleTractorsPeriodAtFranchise?.length||0
-let saleTractorsPeriod = [...saleTractorsPeriodAtStore, ...saleTractorsPeriodAtFranchise];
- saleTractorsPeriod?.forEach((f:any)=>{
-  this.totalPurchasePriceOfSoldTractorInPeriod=Number(this.totalPurchasePriceOfSoldTractorInPeriod)+Number(f.totalExpenseT||0)
-})
-this.totalSaleNumberInP=saleTractorsPeriod?.length ||0
-let storeSale=0;
- saleTractorsPeriodAtStore?.forEach((sale:any)=>{
-  storeSale=Number(storeSale)+ Number(sale?.sellingDetailedIdDetails?.sellingPrice||0)
-      })
- let saleInprofitAtStoreNumber=saleTractorsPeriodAtStore?.filter((f:any)=>f.sellingDetailedIdDetails?.sellingPrice>=f.totalExpenseT)?.length||0
- let saleInlossAtStoreNumber=saleTractorsPeriodAtStore?.filter((f:any)=>f.sellingDetailedIdDetails?.sellingPrice<f.totalExpenseT)?.length||0
-
- let saleInprofitAtFranciseNumber=saleTractorsPeriodAtFranchise?.filter((f:any)=>f?.dealerPrice>=f.totalExpenseT)?.length||0
- let saleInlossAtFranchisNumber=saleTractorsPeriodAtFranchise?.filter((f:any)=>f?.dealerPrice<f.totalExpenseT)?.length||0
-this.saleInprofitNumber=saleInprofitAtStoreNumber+saleInprofitAtFranciseNumber
-this.saleInlossNumber=saleInlossAtStoreNumber+saleInlossAtFranchisNumber
-
-      this.totalSaleStoreAmountInp=storeSale
-      let franchiseSale=0;
- saleTractorsPeriodAtFranchise?.forEach((sale:any)=>{
-  franchiseSale=Number(franchiseSale)+ Number(sale?.dealerPrice||0)
-      })
-       this.totalSaleFranchiseAmountInp=franchiseSale
-      this.totalSaleAmountInP=Number(franchiseSale)+Number(storeSale)
-let profitInPeriod=this.totalSaleAmountInP-this.totalPurchasePriceOfSoldTractorInPeriod
-    this.profitInPeriod=Number(((profitInPeriod).toFixed(2)) as any).toLocaleString('en-IN')
-    this.averageProfit=Number(Number(profitInPeriod)/Number(this.totalSaleNumberInP)).toFixed(2)
-     this.averageProfitPercent=Number((profitInPeriod/this.totalPurchasePriceOfSoldTractorInPeriod)*100).toFixed(2)
-   //unsold status 
-  let unSoldInPeriod= this.tractorArray?.filter((f:any)=>(f.isSold==0 && f?.isSoldToDealer==0) && (  new Date(f.reachDate) >= new Date(this.selectedPeriod.startDate) &&
-  new Date(f.reachDate) <= new Date(this.selectedPeriod.endDate)))  
-  this.totalUnsoleInperiod=unSoldInPeriod?.length||0
-  unSoldInPeriod?.forEach((f:any)=>{
-    this.totalUnsoldTractorAmountInperiod=Number(this.totalUnsoldTractorAmountInperiod)+Number(f?.purchasedetail?.purchasePrice||0)
-  })
-
- 
-
-    let unSoldBeforePeriod = this.tractorArray.filter((f: any) =>
- (f.isSold==0 && f?.isSoldToDealer==0) &&
-  new Date(f.reachDate) < new Date(this.selectedPeriod.startDate)
-);
-  this.totalUnsoldBeforePeriod=unSoldBeforePeriod?.length||0
-  unSoldBeforePeriod?.forEach((f:any)=>{
-    this.totalUnsoldTractorAmountBerfore=Number(this.totalUnsoldTractorAmountBerfore)+Number(f?.purchasedetail?.purchasePrice||0)
-  })
-
-this.totalUnsoldTractorAmount=(Number( this.totalUnsoldTractorAmountInperiod))+Number(this.totalUnsoldTractorAmountBerfore)
-this.totalUnsoldTractorNumber= this.totalUnsoldBeforePeriod+ this.totalUnsoleInperiod
-
-if(this.tractorArray?.length){
-this.tractorArraySrc=JSON.parse(JSON.stringify(this.tractorArray))
-}
-this.totalTractor=this.tractorArraySrc?.length||0
           },
 
 

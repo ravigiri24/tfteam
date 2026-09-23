@@ -11,6 +11,7 @@ import {
 import { CrudPopupComponent } from '../shared-components/crud-popup/crud-popup.component';
 import { UpdatePayoutPercentComponent } from '../finance-department/payout-details/update-payout-percent/update-payout-percent.component';
 import { AddCashTractorComponent } from '../shared-components/add-cash-tractor/add-cash-tractor.component';
+import { SelectWithSearchComponent } from '../shared-components/select-with-search/select-with-search.component';
 @Component({
   selector: 'app-tractor-finance-details',
   templateUrl: './tractor-finance-details.component.html',
@@ -38,9 +39,12 @@ export class TractorFinanceDetailsComponent implements OnInit {
       this.getDataByID();
     } else {
           this.getfinancerList();
+          
       this.initiateSoldForm();
     }
     this.getCashList()
+ 
+  
 
   }
   dataLoader: any;
@@ -57,12 +61,45 @@ export class TractorFinanceDetailsComponent implements OnInit {
       (res: any) => {
         this.financeData = res?.data;
         this.getfinancerList()
-   
+  
         this.share.spinner.dismiss();
       },
       (error: any) => {
         this.share.spinner.dismiss();
       },
+    );
+  }
+    lastBookingStatus:any
+    getLastBookingStatusByTractor(){
+    
+    let staffDetails: any = this.share.get_staff();
+    this.staffDetails = JSON.parse(staffDetails);
+
+    let obj = {
+      operate: this.staffDetails?.staffCode,
+      tractor_id:this.tractorDetails?.id
+    };
+  
+    this.api.postapi('getLastBookingStatusByTractor', obj).subscribe(
+      (res: any) => {
+    this.lastBookingStatus=res?.data
+    if(!this.tractorDetails?.financeDetailedId && this.lastBookingStatus){
+      this.financeForm.controls['customerName'].setValue(this.lastBookingStatus?.customerName)
+      this.financeForm.controls['mobileNo'].setValue(this.lastBookingStatus?.mobileNo)
+      this.financeForm.controls['village'].setValue(this.lastBookingStatus?.village)
+      this.financeForm.controls['state_id'].setValue(this.lastBookingStatus?.state_id)
+      this.financeForm.controls['city_id'].setValue(this.lastBookingStatus?.city_id)
+    }
+
+    setTimeout(() => {
+          this.getStateList()
+    }, 0);
+
+      
+      },
+      (error: any) => {
+     
+      }
     );
   }
   financeData: any;
@@ -79,6 +116,10 @@ export class TractorFinanceDetailsComponent implements OnInit {
       bankId: new FormControl(this?.financeData?.bankId || null, [
         Validators.required,
       ]),
+         dealPrice: new FormControl(this?.financeData?.dealPrice || null, [
+        Validators.required,
+      ]),
+      
      finance_start_date: new FormControl(this?.financeData?.finance_start_date || null, [
         Validators.required,
       ]),
@@ -109,6 +150,11 @@ export class TractorFinanceDetailsComponent implements OnInit {
         [],
       ),
       downPayment: new FormControl(this?.financeData?.downPayment || null, []),
+      customerName: new FormControl(this?.financeData?.customerName || null, []),
+      mobileNo: new FormControl(this?.financeData?.mobileNo || null, []),
+      state_id: new FormControl(this?.financeData?.state_id || null, []),
+      city_id: new FormControl(this?.financeData?.city_id || null, []),
+      village: new FormControl(this?.financeData?.village || null, []),
       payoutAmount: new FormControl(this?.financeData?.payoutAmount || null, []),
       first_disbursal: new FormControl(
         this?.financeData?.first_disbursal || null,
@@ -127,8 +173,8 @@ export class TractorFinanceDetailsComponent implements OnInit {
       second_disbursal_date: new FormControl(
         this?.financeData?.second_disbursal_date || null,
       ),
-      net_market: new FormControl(this?.financeData?.net_market || null),
-      outstanding: new FormControl(this?.financeData?.outstanding || null),
+      // net_market: new FormControl(this?.financeData?.net_market || null),
+     // outstanding: new FormControl(this?.financeData?.outstanding || null),
       actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
     });
     setTimeout(() => {
@@ -140,11 +186,134 @@ export class TractorFinanceDetailsComponent implements OnInit {
     this.selectFinance=selectFinance
     }
     }, 0);
+       this.getLastBookingStatusByTractor()
+         // this.getStateList()
   
     // if (this.sellingData?.images?.length) {
     //   this.loadedImages = this.sellingData?.images||[];
     // }
   }
+   checkOpenCon(itemName: any) {
+    if (itemName == 'State') {
+      return true;
+    } else if (
+      itemName == 'City' &&
+      this.financeForm.controls['state_id'].value 
+    ) {
+      if(this.cityListFilter?.length){
+        return true;
+      }else{
+        this.getCityListFilter()
+   
+        return true;
+      }
+   
+    } else {
+      return false;
+    }
+  }
+    async selectItem(list: any, itemName: any, table_name: any) {
+      let openStatus = this.checkOpenCon(itemName);
+      if(openStatus){
+  
+     
+      let otherObjects: any;
+      if (itemName == 'City') {
+        list=this.cityListFilter
+        otherObjects = {
+          state_id: this.financeForm.controls['state_id'].value,
+        };
+      }
+  
+      const modal = await this.modalControl.create({
+        component: SelectWithSearchComponent,
+        componentProps: {
+          list: list,
+          itemName: itemName,
+          table_name: table_name,
+          otherObjects: otherObjects,
+          jsonKey:'name',
+          search:  {
+            name: null,
+          }
+        },
+      });
+      await modal.present();
+  
+      const { data, role } = await modal.onWillDismiss();
+      if (itemName == 'State') {
+        if (data) {
+          this.financeForm.controls['state_id'].setValue(data?.id);
+          this.financeForm.controls['city_id'].setValue(null);
+          this.cityName = null;
+          this.stateName = data?.name;
+          this.getCityListFilter();
+        }
+      } else if (itemName == 'City') {
+        this.cityName = data?.name;
+        this.financeForm.controls['city_id'].setValue(data?.id);
+        //this.getCityList()
+  
+      }
+      console.log('role', role, data);
+  
+      if (role === 'confirm') {
+      }
+    }else{
+      this.share.presentToast("Please Select State First")
+    }
+    }
+     stateList: any = [];
+  stateName:any
+  getStateList() {
+    this.share.showLoading('Loading');
+    let obj = this.share.getListObj('state_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.stateList = res?.data;
+        if(this.financeData?.state_id){
+
+      let find= this.stateList.find((d:any)=>d.id==this.financeForm.controls['state_id'].value)  
+      if(find){
+        this.stateName = find?.name;
+      } 
+        }
+        else if(!this.tractorDetails?.financeDetailedId){
+ let find= this.stateList.find((d:any)=>d.id==this.financeForm.controls['state_id'].value)  
+      if(find){
+        this.stateName = find?.name;
+      } 
+        }
+        
+        this.getCityList();
+      },
+      (error: any) => {}
+    );
+  }
+  
+  cityList: any = [];
+  cityName:any
+  getCityList() {
+    let obj = this.share.getListObj('city_list', false, [], true);
+    this.api.postapi('getList', obj).subscribe(
+      (res: any) => {
+        this.cityList = res?.data;
+        let find= this.cityList.find((d:any)=>d.id==this.financeForm.controls['city_id'].value)  
+        if(find){
+          this.cityName = find?.name;
+        } 
+        this.share.spinner.dismiss();
+      },
+      (error: any) => {}
+    );
+  }
+      cityListFilter: any = [];
+  getCityListFilter() {
+    let getStateId = this.financeForm?.controls['state_id']?.value;
+    let cityList = this.cityList.filter((f: any) => f.state_id == getStateId);
+    this.cityListFilter = cityList;
+  }
+ 
   cashHistory: any[] = [];
 
 
@@ -152,6 +321,26 @@ export class TractorFinanceDetailsComponent implements OnInit {
     return this.cashHistory
       .filter((receipt: any) => Number(receipt?.isDeleted) !== 1)
       .reduce((total: number, receipt: any) => total + (Number(receipt?.cash_amount) || 0), 0);
+  }
+
+  get cashOutstandingAmount(): number {
+    const downPayment = Number(this.financeForm?.controls['downPayment']?.value) || 0;
+    return Math.max(0, downPayment - this.totalCashReceived);
+  }
+    get allOverPending(): number {
+    const dealPrice = Number(this.financeForm?.controls['dealPrice']?.value) || 0;
+    const firstDisbursal=Number(this.financeForm?.controls['first_disbursal']?.value) || 0;
+    const secondDisbursal=Number(this.financeForm?.controls['second_disbursal']?.value) || 0;
+    const downPayment=this.totalCashReceived;
+    return Number(dealPrice)-Number(firstDisbursal)-Number(secondDisbursal)-Number(downPayment)
+  }
+
+  get financeOutstandingAmount(): number {
+    const financeAmount = Number(this.financeForm?.controls['financeAmount']?.value) || 0;
+    const firstDisbursal = Number(this.financeForm?.controls['first_disbursal']?.value) || 0;
+    const secondDisbursal = Number(this.financeForm?.controls['second_disbursal']?.value) || 0;
+    return Math.max(0, financeAmount - firstDisbursal - secondDisbursal);
+
   }
     async deleteTranction(tracsaction: any) {
     const alert = await this.alertCtrl.create({

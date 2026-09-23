@@ -55,6 +55,7 @@ import { NewFindingsComponent } from './purchase-management/new-findings/new-fin
 import { DeleteNewFindingsComponent } from './purchase-management/new-findings-deals/delete-new-findings/delete-new-findings.component';
 import { RtoRequiredComponent } from './rto-management/rto-required/rto-required.component';
 import { PayoutDetailsComponent } from './finance-department/payout-details/payout-details.component';
+import { UploadDataFinanceComponent } from './finance-department/finance-dashboard/month-wise-upload-data/upload-data-finance/upload-data-finance.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -257,6 +258,11 @@ export class CommonMethodService {
     
     else if (e?.button?.name == 'Delete New Findings') {
       await this.deleteNewFindings(e);
+    }
+     else if (e?.button?.name == 'upload Finance Data') {
+
+
+      await this.uploadFinaceData(e?.tractor);
     }
     
 
@@ -1091,6 +1097,21 @@ export class CommonMethodService {
    async payoutDetails(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: PayoutDetailsComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+   async uploadFinaceData(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: UploadDataFinanceComponent,
       cssClass: 'midium-model',
       componentProps: {
         tractorDetails: tractor,

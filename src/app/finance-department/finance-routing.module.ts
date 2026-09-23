@@ -11,6 +11,8 @@ import { FinancedTractorListComponent } from './financed-tractor-list/financed-t
 import { FinanceReportDetailsComponent } from './finance-dashboard/finance-report-details/finance-report-details.component';
 import { PayoutReportDetailsComponent } from './finance-dashboard/payout-report-details/payout-report-details.component';
 import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard.component';
+import { UploadFinanceDataComponent } from './finance-dashboard/upload-finance-data/upload-finance-data.component';
+import { MonthWiseUploadDataComponent } from './finance-dashboard/month-wise-upload-data/month-wise-upload-data.component';
 const routes: Routes = [
   {
     path: "", component: FinanceDepartmentComponent,
@@ -22,6 +24,8 @@ const routes: Routes = [
       { path: 'finance-report/:srcPage', component: FinanceReportDetailsComponent},
       { path: 'payout-report', component: PayoutReportDetailsComponent},
       { path: 'finance-dashboard', component: FinanceDashboardComponent},
+      { path: 'upload-document', component: UploadFinanceDataComponent},
+      { path: 'month-wise-upload-data', component: MonthWiseUploadDataComponent},
 
     ],
 

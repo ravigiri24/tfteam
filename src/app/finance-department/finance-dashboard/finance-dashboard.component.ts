@@ -22,7 +22,7 @@ export class FinanceDashboardComponent  implements OnInit {
   ngOnInit() {}
   staffDetails: any;
   jobData: any;
-  @Input() listColorClass = 'firstColor';
+  @Input() listColorClass = 'sevenColor';
   ionViewWillEnter() {
      this.showRefurbish = false;
      this.showService = false;
@@ -99,6 +99,13 @@ export class FinanceDashboardComponent  implements OnInit {
   }
     payoutReport(){
           this.router.navigate(['/finance-department/payout-report'])
+  }
+  uploadData(){
+     this.router.navigate(['/finance-department/upload-document'])
+  }
+  monthWiseUploadData(){
+         this.router.navigate(['/finance-department/month-wise-upload-data'])
+    
   }
   createJob() {
     this.router.navigate([

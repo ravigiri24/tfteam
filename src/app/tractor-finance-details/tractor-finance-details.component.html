@@ -25,7 +25,7 @@
 
 <ion-content class="tfd-content" [ngClass]="listColorClass">
   <div *ngIf="financeForm" class="tfd-page">
-    <section class="tfd-summary-card" aria-labelledby="finance-summary-title">
+    <section *ngIf="lastBookingStatus?.currentStatus == 'OPEN'" class="tfd-summary-card" aria-labelledby="finance-summary-title">
       <div class="tfd-summary-heading">
         <div class="tfd-summary-heading-copy">
           <span class="tfd-summary-heading-icon" aria-hidden="true">
@@ -33,43 +33,67 @@
           </span>
           <span>
             <strong id="finance-summary-title">Booking Details</strong>
-            <small>Overview of the current finance details</small>
+            <small>Overview of the current Booking Details</small>
           </span>
         </div>
-        <span class="tfd-summary-status"
-          [class.tfd-summary-status-received]="financeForm.controls['isFinanceAmountReceived'].value"
-          [class.tfd-summary-status-pending]="!financeForm.controls['isFinanceAmountReceived'].value">
-          {{ financeForm.controls['isFinanceAmountReceived'].value ? 'Received' : 'Pending' }}
-        </span>
+    
       </div>
 
       <div class="tfd-summary-grid">
         <div class="tfd-summary-item">
           <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="business-outline"></ion-icon></span>
           <span class="tfd-summary-copy">
-            <small>Financer</small>
-            <strong>{{ selectFinance?.name || 'Not selected' }}</strong>
+            <small>Deal Amount</small>
+            <strong>{{ lastBookingStatus?.deal_price || '-' }}</strong>
           </span>
         </div>
         <div class="tfd-summary-item">
           <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="cash-outline"></ion-icon></span>
           <span class="tfd-summary-copy">
-            <small>Finance Amount</small>
-            <strong>{{ financeForm.controls['financeAmount'].value || 0 | number:'1.0-2' }}</strong>
+            <small>Customer Name</small>
+            <strong>{{ lastBookingStatus?.customerName || '-' }}</strong>
           </span>
         </div>
         <div class="tfd-summary-item">
           <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="card-outline"></ion-icon></span>
           <span class="tfd-summary-copy">
-            <small>Down Payment</small>
-            <strong>{{ financeForm.controls['downPayment'].value || 0 | number:'1.0-2' }}</strong>
+            <small>Booking amount</small>
+            <strong>{{  lastBookingStatus?.booking_price }}</strong>
           </span>
         </div>
         <div class="tfd-summary-item">
           <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
           <span class="tfd-summary-copy">
-            <small>Total Cash Received</small>
-            <strong>{{ totalCashReceived | number:'1.0-2' }}</strong>
+            <small>Booking Date</small>
+            <strong>{{ (lastBookingStatus?.booking_date | date:'dd MMM yyyy') || '-' }}</strong>
+          </span>
+        </div>
+          <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>Mobile Number</small>
+            <strong>{{ (lastBookingStatus?.mobileNo ) || '-' }}</strong>
+          </span>
+        </div>
+          <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>State</small>
+            <strong>{{ (lastBookingStatus?.stateName ) || '-' }}</strong>
+          </span>
+        </div>
+         <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>City</small>
+            <strong>{{ (lastBookingStatus?.cityName ) || '-' }}</strong>
+          </span>
+        </div>
+         <div class="tfd-summary-item">
+          <span class="tfd-summary-icon" aria-hidden="true"><ion-icon name="wallet-outline"></ion-icon></span>
+          <span class="tfd-summary-copy">
+            <small>Address</small>
+            <strong>{{ (lastBookingStatus?.village ) || '-' }}</strong>
           </span>
         </div>
       </div>
@@ -164,7 +188,11 @@
             <ion-select-option value="FRESH">Fresh</ion-select-option>
           </ion-select>
         </div>
-
+   <div class="global_input_block tfd-input-block">
+          <ion-input label="Deal Price" fill="outline" labelPlacement="stacked" type="number"
+            inputmode="decimal" formControlName="dealPrice">
+          </ion-input>
+        </div>
         <div class="global_input_block tfd-input-block">
           <ion-input label="Finance Amount" fill="outline" labelPlacement="stacked" type="number"
             inputmode="decimal" formControlName="financeAmount">
@@ -172,13 +200,53 @@
         </div>
 
         <div class="global_input_block tfd-input-block">
-          <ion-input label="Down Payment" fill="outline" labelPlacement="stacked" type="number"
+          <ion-input label="Margin Money" fill="outline" labelPlacement="stacked" type="number"
             inputmode="decimal" formControlName="downPayment">
           </ion-input>
         </div>
       </div>
     </section>
-
+    <section class="tfd-card" aria-labelledby="customer-details-title">
+      <div class="tfd-section-heading">
+        <span class="tfd-section-icon" aria-hidden="true">
+          <ion-icon name="person-outline"></ion-icon>
+        </span>
+        <span>
+          <strong id="customer-details-title">Customer Details</strong>
+          <small>Add the customer's contact and location details</small>
+        </span>
+      </div>
+      <div class="tfd-form-grid">
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Customer Name" fill="outline" labelPlacement="stacked" type="text"
+            placeholder="Enter customer name" formControlName="customerName"></ion-input>
+        </div>
+        <div class="global_input_block tfd-input-block">
+          <ion-input label="Mobile Number" fill="outline" labelPlacement="stacked" type="tel"
+            inputmode="numeric" placeholder="Enter mobile number" formControlName="mobileNo"></ion-input>
+        </div>
+        <div class="global_input_block global_location_block" (click)="selectItem(this.stateList,'State','state_list')">
+    <span class="top_layers">State</span>
+    <span class="name_selected">{{stateName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+      <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+    </ion-select> -->
+  </div>
+  <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <span class="top_layers">City</span>
+    <span class="name_selected">{{cityName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+        </ion-select> -->
+  </div>
+        <div class="global_input_block tfd-input-block tfd-grid-full">
+          <ion-input label="Address" fill="outline" labelPlacement="stacked" type="text"
+            placeholder="Enter village" formControlName="village"></ion-input>
+        </div>
+      </div>
+    </section>
     <section class="tfd-card" aria-labelledby="disbursal-title">
       <div class="tfd-section-heading">
         <span class="tfd-section-icon" aria-hidden="true">
@@ -238,16 +306,44 @@
       </div>
 
       <div class="tfd-form-grid">
-        <div class="global_input_block tfd-input-block">
-          <ion-input label="Net Market" fill="outline" labelPlacement="stacked" type="number"
-            inputmode="decimal" formControlName="net_market">
-          </ion-input>
-        </div>
+      
 
-        <div class="global_input_block tfd-input-block">
-          <ion-input label="Outstanding Amount" fill="outline" labelPlacement="stacked" type="number"
-            inputmode="decimal" formControlName="outstanding">
-          </ion-input>
+        <div class="tfd-outstanding-card tfd-grid-full">
+          <div class="tfd-outstanding-heading">
+            <span class="tfd-outstanding-icon" aria-hidden="true"><ion-icon name="calculator-outline"></ion-icon></span>
+            <span>
+              <strong>Outstanding Amount</strong>
+              <small>Calculated from payment and disbursal details</small>
+            </span>
+          </div>
+          <div class="tfd-outstanding-values">
+            <div class="tfd-outstanding-value"
+              [class.tfd-outstanding-pending]="cashOutstandingAmount > 0 || allOverPending>0"
+              [class.tfd-outstanding-cleared]="cashOutstandingAmount <= 0 && allOverPending<=0">
+              <small>Cash Outstanding</small>
+              <strong *ngIf="(cashOutstandingAmount>0 || allOverPending>0 )">{{ cashOutstandingAmount | number:'1.0-2' }}</strong>
+              <strong *ngIf="cashOutstandingAmount==0 && allOverPending<=0">0</strong>
+              <span class="tfd-cash-customer-tag" *ngIf="cashOutstandingAmount > 0">
+                <ion-icon name="cash-outline" aria-hidden="true"></ion-icon>
+                Cash from customer
+              </span>
+              <span class="tfd-finance-customer-tag" *ngIf="allOverPending > 0 && (financeForm.controls['first_disbursal'].value && financeForm.controls['second_disbursal'].value)">
+                <ion-icon name="alert-circle-outline" aria-hidden="true"></ion-icon>
+                Finance fees needed from customer  <span *ngIf="cashOutstandingAmount == 0 && (financeForm.controls['first_disbursal'].value && financeForm.controls['second_disbursal'].value)">around {{allOverPending}}</span>
+              </span>
+            </div>
+            <div class="tfd-outstanding-value"
+              [class.tfd-outstanding-pending]="(!financeForm.controls['first_disbursal'].value || !financeForm.controls['second_disbursal'].value)||(financeForm.controls['first_disbursal'].value==0 || financeForm.controls['second_disbursal'].value==0)"
+              [class.tfd-outstanding-cleared]="financeForm.controls['first_disbursal'].value>0 && financeForm.controls['second_disbursal'].value>0">
+              <small>Finance Outstanding</small>
+              <strong *ngIf="financeForm.controls['first_disbursal'].value>0 && financeForm.controls['second_disbursal'].value>0">0</strong>
+              <strong *ngIf="(!financeForm.controls['first_disbursal'].value || !financeForm.controls['second_disbursal'].value)||(financeForm.controls['first_disbursal'].value==0 || financeForm.controls['second_disbursal'].value==0)">{{financeOutstandingAmount}}</strong>
+              <span class="tfd-finance-fee-tag">
+                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                Finance fees deducted from finance amount
+              </span>
+            </div>
+          </div>
         </div>
 
         <div class="global_input_block tfd-input-block tfd-grid-full">

@@ -1,0 +1,79 @@
+<ion-header class="tfd-header"><ion-toolbar><ion-title class="tfd-title"><span class="tfd-title-icon"><ion-icon  (click)="openCrudManagement('BANK_DETAILS')" name="business-outline"></ion-icon></span><span class="tfd-title-copy"><strong>Finance Data</strong><small>Uploaded and finance-detail comparison</small></span></ion-title><ion-buttons slot="end"><button class="tfd-close-btn" type="button" (click)="dismiss()"><ion-icon name="close-outline"></ion-icon></button></ion-buttons></ion-toolbar><div class="tfd-header-art"><span class="tfd-orb tfd-orb-one"></span><span class="tfd-orb tfd-orb-two"></span></div></ion-header>
+
+<ion-content class="tfd-content" [ngClass]="listColorClass"><div class="tfd-page" *ngIf="!isLoading"><section class="tfd-card"><div class="tfd-section-heading"><div class="tfd-heading-copy"><span class="tfd-heading-icon"><ion-icon name="document-text-outline"></ion-icon></span><span><strong>{{tractorDetails?.registractionNo}}</strong><small>Uploaded data and saved details</small></span></div><span class="tfd-data-tag tfd-data-found" *ngIf="tractorDetails?.financeDetailedId > 0"><ion-icon name="checkmark-circle-outline"></ion-icon>Data Found</span><span class="tfd-data-tag tfd-data-not-found" *ngIf="!tractorDetails?.financeDetailedId"><ion-icon name="alert-circle-outline"></ion-icon>Not Found</span></div>
+  <div class="tfd-form-grid">
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Finance Start Date *</small><strong>{{ tractorDetails.uploadedData.finance_start_date || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Finance Start Date" type="date" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.finance_start_date"></ion-input></div><div class="tfd-key-divider"></div>
+
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Customer Name</small><strong>{{ tractorDetails.uploadedData.customerName || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Customer Name" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.customerName"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Village</small><strong>{{ tractorDetails.uploadedData.village || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Village" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.village"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>City Name</small><strong>{{ tractorDetails.uploadedData.cityName || 'Not available' }}</strong></div>  <div class="global_input_block global_location_block" (click)="selectItem(this.cityListFilter,'City','city_list')">
+    <span class="top_layers">City</span>
+    <span class="name_selected">{{cityName}}</span>
+    <ion-icon class="arrow_right" name="caret-down-outline"></ion-icon>
+    <!-- <ion-select    formControlName="city_id" label="State" label-placement="type">
+          <ion-select-option *ngFor="let city of cityListFilter" [value]="city?.id">{{city?.name}}</ion-select-option>
+        </ion-select> -->
+  </div>
+      <div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Mobile Number</small><strong>{{ tractorDetails.uploadedData.mobileNo || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Mobile Number" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.mobileNo"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Customer Type</small><strong>{{ tractorDetails.uploadedData.customer_type || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block">  
+          <ion-select [(ngModel)]="workedOnData.customer_type" label="Customer Type" fill="outline"
+            label-placement="stacked">
+            <ion-select-option value="EXCHANGE">Exchange</ion-select-option>
+            <ion-select-option value="FRESH">Fresh</ion-select-option>
+          </ion-select>
+        </div><div class="tfd-key-divider"></div>
+   
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Deal Price *</small><strong>{{ tractorDetails.uploadedData.deal_price || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Deal Price" fill="outline" labelPlacement="stacked" type="number" [(ngModel)]="workedOnData.deal_price"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Financer Name *</small><strong>{{ tractorDetails.uploadedData.Financer_Name || 'Not available' }}</strong></div>   
+    <div  class="global_input_block tfd-input-block tfd-financer-select">
+         
+           <ion-select      [(ngModel)]="workedOnData.bankId" label="Financer"
+            label-placement="stacked" fill="outline">
+         <ion-select-option
+        *ngFor="let fin of financerListAll"
+        [value]="fin.id"
+      >
+        {{ fin.name }}
+      </ion-select-option>
+          </ion-select>
+  </div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Down Payment</small><strong>{{ tractorDetails.uploadedData.downPayment || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Down Payment" fill="outline" labelPlacement="stacked" type="number" [(ngModel)]="workedOnData.downPayment"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Finance Amount *</small><strong>{{ tractorDetails.uploadedData.financeAmount || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Finance Amount" fill="outline" labelPlacement="stacked" type="number" [(ngModel)]="workedOnData.financeAmount"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Finance Received</small><strong>{{ tractorDetails.uploadedData.finance_received || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Finance Received" fill="outline" labelPlacement="stacked" type="number" [(ngModel)]="workedOnData.finance_received"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Finance Received Date</small><strong>{{ tractorDetails.uploadedData.finance_received_date || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Finance Received Date" type="date" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.finance_received_date"></ion-input></div><div class="tfd-key-divider"></div>
+    <!-- <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Market Outstanding</small><strong>{{ tractorDetails.uploadedData.market_outstanding || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Market Outstanding" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.market_outstanding"></ion-input></div><div class="tfd-key-divider"></div> -->
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Finance Remark</small><strong>{{ tractorDetails.uploadedData.finance_remark || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Finance Remark" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.finance_remark"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Check</span><small>Finance Amount Received</small><strong> Finance Amt. Received</strong></div><div class="global_input_block tfd-input-block tfd-grid-full">
+          <ion-select  [(ngModel)]="workedOnData.isFinanceAmountReceived" label="Finance Amount Status" fill="outline"
+            label-placement="stacked">
+            <ion-select-option [value]="true">Received</ion-select-option>
+            <ion-select-option [value]="false">Not Received</ion-select-option>
+          </ion-select>
+        </div><div class="tfd-key-divider"></div>
+    
+            <div class="tfd-upload-display"><span class="tfd-upload-tag">Check</span><small>FI DONE</small><strong>FI DONE</strong></div><div class="global_input_block tfd-input-block tfd-grid-full">
+         <div class="global_input_block tfd-input-block">
+          <ion-select [(ngModel)]="workedOnData.isFIDone" label="FI Completed" fill="outline" label-placement="stacked">
+            <ion-select-option value="YES">Yes</ion-select-option>
+            <ion-select-option value="NO">No</ion-select-option>
+          </ion-select>
+        </div><div class="tfd-key-divider"></div>
+
+        </div>
+    <!-- <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Payout Receivable</small><strong>{{ tractorDetails.uploadedData.payout_receivable || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Payout Receivable" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.payout_receivable"></ion-input></div><div class="tfd-key-divider"></div>
+    <div class="tfd-upload-display"><span class="tfd-upload-tag">Uploaded</span><small>Payout Received</small><strong>{{ tractorDetails.uploadedData.payout_received || 'Not available' }}</strong></div><div class="global_input_block tfd-input-block"><ion-input label="Payout Received" fill="outline" labelPlacement="stacked" [(ngModel)]="workedOnData.payout_received"></ion-input></div> -->
+  </div>
+</section></div></ion-content>
+
+<ion-footer class="tfd-footer">
+  <ion-toolbar>
+    <div class="tfd-footer-actions">
+      <button class="tfd-secondary-btn" type="button" (click)="dismiss()">Cancel</button>
+      <button class="tfd-primary-btn" type="button" (click)="saveData()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Save
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

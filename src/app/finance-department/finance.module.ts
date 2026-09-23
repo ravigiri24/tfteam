@@ -17,6 +17,9 @@ import { FinanceOptionsComponent } from './finance-options/finance-options.compo
 import { PayoutDetailsComponent } from './payout-details/payout-details.component';
 import { UpdatePayoutPercentComponent } from './payout-details/update-payout-percent/update-payout-percent.component';
 import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard.component';
+import { UploadFinanceDataComponent } from './finance-dashboard/upload-finance-data/upload-finance-data.component';
+import { MonthWiseUploadDataComponent } from './finance-dashboard/month-wise-upload-data/month-wise-upload-data.component';
+import { UploadDataFinanceComponent } from './finance-dashboard/month-wise-upload-data/upload-data-finance/upload-data-finance.component';
 // import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-details.component';
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard
   FinanceOptionsComponent,
   PayoutDetailsComponent,
   UpdatePayoutPercentComponent,
-  FinanceDashboardComponent
+  FinanceDashboardComponent,
+  UploadFinanceDataComponent,
+  MonthWiseUploadDataComponent,
+  UploadDataFinanceComponent
   //ShowSalesDetailsComponent
   ],
   imports: [
