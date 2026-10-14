@@ -41,6 +41,7 @@ export class TractorCostingDashboardComponent implements OnInit {
   dismiss() {
     this.modalCtrl.dismiss();
   }
+  showOnlyDoc=false
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {
      this.findingDetails=null
@@ -49,7 +50,9 @@ export class TractorCostingDashboardComponent implements OnInit {
     this.getLogisticList();
     this.getMaintanance();
     this.getListOther();
-   
+   if(this.showOnlyDoc){
+    this.selectedTab='IMAGES'
+   }
    
   }
    getFindingDetails(findingId:any) {

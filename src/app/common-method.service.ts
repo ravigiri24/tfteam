@@ -264,7 +264,9 @@ export class CommonMethodService {
 
       await this.uploadFinaceData(e?.tractor);
     }
-    
+     else if (e?.button?.name == 'Tractor Docs') {
+      this.tractorDocumentsDetails(e?.tractor);
+ }
 
   }
 
@@ -306,6 +308,20 @@ export class CommonMethodService {
       component: TractorCostingDashboardComponent,
       componentProps: {
         tractor_id: tractor?.id,
+      },
+      cssClass: 'midium-model',
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    //   this.router.navigate(['/admin-block/view-costing-dashboard', tractor?.id]);
+  }
+    async tractorDocumentsDetails(tractor: any) {
+    const modal = await this.modalCtrl.create({
+      component: TractorCostingDashboardComponent,
+      componentProps: {
+        tractor_id: tractor?.id,
+        showOnlyDoc:true
       },
       cssClass: 'midium-model',
     });

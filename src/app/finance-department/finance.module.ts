@@ -20,6 +20,7 @@ import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard
 import { UploadFinanceDataComponent } from './finance-dashboard/upload-finance-data/upload-finance-data.component';
 import { MonthWiseUploadDataComponent } from './finance-dashboard/month-wise-upload-data/month-wise-upload-data.component';
 import { UploadDataFinanceComponent } from './finance-dashboard/month-wise-upload-data/upload-data-finance/upload-data-finance.component';
+import { StoreWiseCashComponent } from './finance-dashboard/store-wise-cash/store-wise-cash.component';
 // import { ShowSalesDetailsComponent } from './show-sales-details/show-sales-details.component';
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UploadDataFinanceComponent } from './finance-dashboard/month-wise-uploa
   FinanceDashboardComponent,
   UploadFinanceDataComponent,
   MonthWiseUploadDataComponent,
-  UploadDataFinanceComponent
+  UploadDataFinanceComponent,
+  StoreWiseCashComponent
   //ShowSalesDetailsComponent
   ],
   imports: [

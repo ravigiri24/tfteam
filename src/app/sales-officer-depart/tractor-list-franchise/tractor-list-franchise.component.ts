@@ -151,6 +151,11 @@ export class TractorListFranchiseComponent implements OnInit {
       action: 'viewTractorAllImage',
       image: './././assets/images/all_image_icon.png',
     },
+      {
+      name: 'Tractor Docs',
+      action: 'tractor Docs',
+      image: './././assets/images/data-analysis.png',
+    },
       ]
     }
   }
@@ -170,6 +175,11 @@ export class TractorListFranchiseComponent implements OnInit {
       name: 'View Tractor All Images',
       action: 'viewTractorAllImage',
       image: './././assets/images/all_image_icon.png',
+    },
+      {
+      name: 'Tractor Docs',
+      action: 'tractor Docs',
+      image: './././assets/images/data-analysis.png',
     },
 
   ];

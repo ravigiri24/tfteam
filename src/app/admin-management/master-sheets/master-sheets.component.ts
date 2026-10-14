@@ -173,6 +173,7 @@ export class MasterSheetsComponent implements OnInit {
               tractor.logisticExpense = logisticExpense;
               console.log('logisticExpense', logisticExpense);
               if (tractor?.purchasedetail?.purchasePrice > 0) {
+               // tractor.purchasedetail.purchasePrice= Number(tractor?.purchasedetail?.purchasePrice)-5000
                 totalAmountBreakup =
                   Number(totalAmountBreakup) +
                   Number(tractor?.purchasedetail?.purchasePrice);
@@ -214,6 +215,11 @@ export class MasterSheetsComponent implements OnInit {
     let expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
       (f: any) => f?.expense_head == 'EXPENSE',
     );
+// const expenseServiceList = tractor?.repairServiceExpenseCost?.filter(
+//   (f: any) =>
+//     f?.expense_head === 'EXPENSE' &&
+//     f?.materialDetail?.name !== 'Labour Charge'
+// ) || [];
     let expenseServiceCost = 0;
     expenseServiceList?.forEach((f: any) => {
       expenseServiceCost = expenseServiceCost + Number(f?.total_expense);

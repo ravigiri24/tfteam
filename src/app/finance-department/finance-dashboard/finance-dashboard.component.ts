@@ -107,6 +107,10 @@ export class FinanceDashboardComponent  implements OnInit {
          this.router.navigate(['/finance-department/month-wise-upload-data'])
     
   }
+    StoreWiseWiseUploadData(){
+  this.router.navigate(['/finance-department/store-wise-cash-data'])
+    
+  }
   createJob() {
     this.router.navigate([
       '/repair-management/create-job',

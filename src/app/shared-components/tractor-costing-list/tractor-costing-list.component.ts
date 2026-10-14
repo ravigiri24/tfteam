@@ -284,6 +284,11 @@ export class TractorCostingListComponent implements OnInit {
           (f: any) => f?.repairMappedData?.length > 0,
         );
       }
+        if (this.filterBy == 'MAPPED_UNSOLD') {
+        tractorList = tractorList?.filter(
+          (f: any) => f?.repairMappedData?.length > 0 && (f.isSold==0 && f.isSoldToDealer==0)
+        );
+      }
       if (this.filterBy == 'NOT_MAPPED') {
         tractorList = tractorList?.filter(
           (f: any) => f?.repairMappedData?.length == 0,
@@ -398,6 +403,7 @@ export class TractorCostingListComponent implements OnInit {
           { displayName: 'Sold', value: 'SOLD' },
           { displayName: 'Booked', value: 'BOOKED' },
           { displayName: 'Mapped', value: 'MAPPED' },
+          { displayName: 'Mapped Unsold', value: 'MAPPED_UNSOLD' },
           { displayName: 'Not-Mapped', value: 'NOT_MAPPED' },
           { displayName: '0-Image', value: '0_IMAGE' },
           { displayName: 'Have Image', value: 'HAVE_IMAGE' },
@@ -457,7 +463,7 @@ export class TractorCostingListComponent implements OnInit {
     { key: 'Model', value: 'name', type: 'INPUT' },
     { key: 'TF Code', value: 'registractionNo', type: 'INPUT' },
     { key: 'Hours', value: 'hours', type: 'INPUT' },
-    { key: 'Price', value: 'price', type: 'INPUT' },
+    { key: 'Selling Price', value: 'sellingprice', type: 'INPUT' },
     { key: 'Manufactoring', value: 'yearOfManufactoring', type: 'INPUT' },
 
     { key: 'Is Sold', value: 'isSold', type: 'CONDITIONAL' },

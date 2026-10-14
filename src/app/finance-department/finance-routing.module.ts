@@ -13,6 +13,7 @@ import { PayoutReportDetailsComponent } from './finance-dashboard/payout-report-
 import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard.component';
 import { UploadFinanceDataComponent } from './finance-dashboard/upload-finance-data/upload-finance-data.component';
 import { MonthWiseUploadDataComponent } from './finance-dashboard/month-wise-upload-data/month-wise-upload-data.component';
+import { StoreWiseCashComponent } from './finance-dashboard/store-wise-cash/store-wise-cash.component';
 const routes: Routes = [
   {
     path: "", component: FinanceDepartmentComponent,
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'finance-dashboard', component: FinanceDashboardComponent},
       { path: 'upload-document', component: UploadFinanceDataComponent},
       { path: 'month-wise-upload-data', component: MonthWiseUploadDataComponent},
+      { path: 'store-wise-cash-data', component: StoreWiseCashComponent},
 
     ],
 

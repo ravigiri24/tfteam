@@ -1,0 +1,14 @@
+<app-common-header    [universalSelect]="true"  [optionsArray]="optionsArray"
+  [selectedItem]="selectedItem" class="app_common_header" *ngIf="optionsArray?.length"
+  [isListFilter]="true" [brandList]="[]" [listColorClass]="listColorClass"
+  [title]="'Findings'" [list]="tractorList" [allFilterList]="allFilterList" [showFilterList]="true"
+  [showWareHouse]="false" [headerDisplayArray]="headerDisplayArray" (actionEventHeader)="actionEventHeader($event)"
+  (expandListEvent)="expandListEvent()"   (optionActionEvent)="optionActionEvent($event)" ></app-common-header>
+<ion-content>
+  
+
+  <app-view-list *ngIf="tractorList?.length" [showImage]="false" [rowLineCount]="4" [listColorClass]="listColorClass"
+    [buttonArray]="buttonArray" [keyList]="keyList" [list]="tractorList" [search]="search"
+    (actionEventCall)="actionEventCall($event)" [searchKey]="'registractionNo'"></app-view-list>
+  <app-no-data-view [ngClass]="listColorClass"
+    *ngIf="!tractorList?.length && !share?.globalLoading"></app-no-data-view>

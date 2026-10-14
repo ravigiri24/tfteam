@@ -155,7 +155,12 @@ export class TarritoryManagerTractorListComponent  implements OnInit {
       name: 'View Refurbish Details',
       action: 'viewRefurbishDetails',
       image: './././assets/images/layout.png',
-    }
+    },
+       {
+      name: 'Tractor Docs',
+      action: 'tractor Docs',
+      image: './././assets/images/data-analysis.png',
+    },
       ]
     }
   }
@@ -180,7 +185,12 @@ export class TarritoryManagerTractorListComponent  implements OnInit {
       name: 'View Refurbish Details',
       action: 'viewRefurbishDetails',
       image: './././assets/images/layout.png',
-    }
+    },
+       {
+      name: 'Tractor Docs',
+      action: 'tractor Docs',
+      image: './././assets/images/data-analysis.png',
+    },
    
   ];
   headerDisplayArray = [
@@ -574,7 +584,12 @@ setTimeout(() => {
       name: 'View Refurbish Details',
       action: 'viewRefurbishDetails',
       image: './././assets/images/layout.png',
-    }
+    },
+       {
+      name: 'Tractor Docs',
+      action: 'tractor Docs',
+      image: './././assets/images/data-analysis.png',
+    },
    
   ];
   keyList: any = [

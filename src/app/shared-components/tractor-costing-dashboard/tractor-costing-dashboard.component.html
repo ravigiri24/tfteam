@@ -53,7 +53,7 @@
     <!-- ── Tabs ── -->
     <div class="tcd-tab-bar tab_withinner_block">
       <div class="tcd-tabs tab_main_block">
-        <div class="tcd-tab tab_block"
+        <div *ngIf="!showOnlyDoc" class="tcd-tab tab_block"
           [class.tcd-tab-active]="selectedTab=='DETAILS'"
           [ngClass]="{'details_tab selected_tab': selectedTab=='DETAILS'}"
           (click)="selectTab('DETAILS')">
