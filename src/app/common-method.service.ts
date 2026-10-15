@@ -56,6 +56,7 @@ import { DeleteNewFindingsComponent } from './purchase-management/new-findings-d
 import { RtoRequiredComponent } from './rto-management/rto-required/rto-required.component';
 import { PayoutDetailsComponent } from './finance-department/payout-details/payout-details.component';
 import { UploadDataFinanceComponent } from './finance-department/finance-dashboard/month-wise-upload-data/upload-data-finance/upload-data-finance.component';
+import { TractorCashHistoryComponent } from './finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -266,6 +267,9 @@ export class CommonMethodService {
     }
      else if (e?.button?.name == 'Tractor Docs') {
       this.tractorDocumentsDetails(e?.tractor);
+ }
+   else if (e?.button?.name == 'Cash History') {
+      this.cashHistory(e?.tractor);
  }
 
   }
@@ -1128,6 +1132,22 @@ export class CommonMethodService {
    async uploadFinaceData(tractor: any) {
     const modal = await this.modalCtrl.create({
       component: UploadDataFinanceComponent,
+      cssClass: 'midium-model',
+      componentProps: {
+        tractorDetails: tractor,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    console.log('role', role);
+    if (data) {
+      this.reloadMethod = true;
+    }
+  }
+ async cashHistory(tractor:any){
+
+      const modal = await this.modalCtrl.create({
+      component: TractorCashHistoryComponent,
       cssClass: 'midium-model',
       componentProps: {
         tractorDetails: tractor,

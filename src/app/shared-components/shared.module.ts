@@ -94,6 +94,7 @@ import { FinanceReportDetailsComponent } from '../finance-department/finance-das
 import { PayoutReportDetailsComponent } from '../finance-department/finance-dashboard/payout-report-details/payout-report-details.component';
 import { AddCashTractorComponent } from './add-cash-tractor/add-cash-tractor.component';
 import { DatePipe } from '@angular/common';
+import { TractorCashHistoryComponent } from '../finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -193,7 +194,8 @@ import { DatePipe } from '@angular/common';
     ViewApprovalsComponent,
     FinanceReportDetailsComponent,
     PayoutReportDetailsComponent,
-    AddCashTractorComponent
+    AddCashTractorComponent,
+    TractorCashHistoryComponent
     
   ],
 

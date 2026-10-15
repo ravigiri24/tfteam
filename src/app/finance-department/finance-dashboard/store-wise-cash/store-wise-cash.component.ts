@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { CommonMethodService } from 'src/app/common-method.service';
 import { ShareService } from 'src/app/share.service';
+import { TractorCashHistoryComponent } from './tractor-cash-history/tractor-cash-history.component';
 @Component({
   selector: 'app-store-wise-cash',
   templateUrl: './store-wise-cash.component.html',
@@ -63,6 +64,19 @@ this.getWareHouseList()
     } 
   }
     async actionEventCall(e: any) {
+    if (e?.button?.action === 'cashHistory') {
+      const modal = await this.modalCtrl.create({
+        component: TractorCashHistoryComponent,
+        cssClass: 'light-modal',
+        componentProps: { tractorDetails: e.tractor },
+      });
+      await modal.present();
+      const { data } = await modal.onDidDismiss();
+      if (data) {
+        this.getTractorListStorwiseFinance();
+      }
+      return;
+    }
     await this.commonMethod.actionEventCall(e, {
       optionsUploadButtonArray: [],
     });
@@ -75,10 +89,11 @@ this.getWareHouseList()
   }
     buttonArray: any = [
     {
-      name: 'upload Finance Data',
-      action: 'uploadFinanceData',
+      name: 'Cash History',
+      action: 'cashHistory',
       image: './././assets/images/visual.png',
-    },
+    }
+ 
   ];
     search = {
     registractionNo: null,
