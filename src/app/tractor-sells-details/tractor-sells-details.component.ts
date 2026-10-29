@@ -291,9 +291,14 @@ export class TractorSellsDetailsComponent implements OnInit {
       this.share.showLoading("Saving...")
       this.api.postapi('addSellingDetails', obj).subscribe(
         (res: any) => {
-          this.share.spinner.dismiss()
+          if(res?.data){
 
           this.share.presentToast("Saved Succssfully...");
+          }else{
+                     this.share.presentToast("Error...");
+          }
+          this.share.spinner.dismiss()
+
           this.modalControl.dismiss(true)
         },
         (error: any) => {

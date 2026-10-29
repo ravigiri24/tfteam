@@ -24,17 +24,7 @@
     <div class="cash-state" *ngIf="error" role="alert">Unable to load cash history. <button class="tfd-cash-add-btn" type="button" (click)="getCashList()">Retry</button></div>
     <p class="cash-state" *ngIf="!loading && !error && !cashHistory.length">No cash receipts found for this tractor.</p>
     <ng-container *ngIf="!loading && !error">
-      <article class="tfd-cash-receipt-row" *ngFor="let receipt of cashHistory; let i = index" [class.tfd-cash-receipt-deleted]="receipt.isDeleted == 1">
-        <span class="tfd-cash-receipt-number">{{ i + 1 }}</span>
-        <div class="tfd-cash-receipt-value"><small>Cash Amount</small><strong>{{ receipt.cash_amount | number:'1.0-2' }}</strong></div>
-        <div class="tfd-cash-receipt-value"><small>Received Date</small><strong>{{ receipt.received_date }}</strong></div>
-        <div class="tfd-cash-receipt-value"><small>Transaction Type</small><strong>{{ receipt.transaction_type }}</strong></div>
-        <span class="tfd-deleted-label" *ngIf="receipt.isDeleted == 1">Deleted</span>
-        <button class="tfd-cash-remove-btn" type="button" (click)="deleteReceipt(receipt)" [disabled]="receipt.isDeleted == 1 || deletingId !== null" [attr.aria-label]="'Delete cash receipt ' + (i + 1)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </button>
-      </article>
-      <div class="tfd-cash-total-row"><span>Total Cash Received</span><strong>{{ totalCashReceived | number:'1.0-2' }}</strong></div>
+      <app-cash-transaction-list [receipts]="cashHistory" (changed)="receiptChanged()"></app-cash-transaction-list>
     </ng-container>
   </section>
 </ion-content>

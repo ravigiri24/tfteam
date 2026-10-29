@@ -66,6 +66,10 @@ const routes: Routes = [
     path: 'finance-department',
     loadChildren: () => import('./finance-department/finance.module').then(m => m.FinanceDepartmentModule)
   },
+  {
+    path: 'account-department',
+    loadChildren: () => import('./account-department/account.module').then(m => m.AccountDepartmentModule)
+  },
     {
     path: 'rto-department',
     loadChildren: () => import('./rto-management/rtomanagement.module').then(m => m.RtoModule)

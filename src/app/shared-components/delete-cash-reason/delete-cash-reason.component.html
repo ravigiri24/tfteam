@@ -1,0 +1,35 @@
+<ion-header class="cash-header">
+  <ion-toolbar>
+    <ion-title class="cash-title">
+      <div class="cash-title-layout">
+        <span class="cash-title-icon" aria-hidden="true"><ion-icon [name]="isReturn ? 'return-down-back-outline' : 'trash-outline'"></ion-icon></span>
+        <span class="cash-title-copy"><strong>{{ isReturn ? 'Return Cash' : 'Delete Transaction' }}</strong><small>{{ isReturn ? 'Enter the reason for returning this cash' : 'Enter the reason for deleting this receipt' }}</small></span>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <button class="cash-close-btn" type="button" (click)="dismiss()" aria-label="Close reason dialog"><ion-icon name="close-outline"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="cash-content">
+  <form class="cash-form" [formGroup]="reasonForm" (ngSubmit)="confirm()">
+    <section class="cash-card">
+      <div class="cash-section-heading">
+        <span class="cash-section-icon" aria-hidden="true"><ion-icon name="document-text-outline"></ion-icon></span>
+        <span><strong>{{ isReturn ? 'Return Reason' : 'Deletion Reason' }}</strong><small>{{ isReturn ? 'A reason is required to return this cash' : 'A reason is required to delete this transaction' }}</small></span>
+      </div>
+      <div class="global_input_block cash-input-block">
+        <ion-textarea label="Reason" fill="outline" labelPlacement="stacked" formControlName="deletedReason"
+          [placeholder]="isReturn ? 'Enter return reason' : 'Enter deletion reason'" [autoGrow]="true" [rows]="3"></ion-textarea>
+        <small class="cash-error" *ngIf="reasonForm.controls.deletedReason.touched && reasonForm.controls.deletedReason.invalid">
+          {{ isReturn ? 'Please enter a return reason.' : 'Please enter a deletion reason.' }}
+        </small>
+      </div>
+        <div class="cash-footer-actions">
+      <button class="cash-cancel-btn" type="button" (click)="dismiss()">Cancel</button>
+      <button class="cash-save-btn" type="submit"><ion-icon [name]="isReturn ? 'return-down-back-outline' : 'trash-outline'"></ion-icon>{{ isReturn ? 'Return Cash' : 'Delete Transaction' }}</button>
+    </div>
+    </section>
+  
+  </form>
+</ion-content>

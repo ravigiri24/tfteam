@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CashTransactionListComponent } from './cash-transaction-list/cash-transaction-list.component';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -95,6 +96,9 @@ import { PayoutReportDetailsComponent } from '../finance-department/finance-dash
 import { AddCashTractorComponent } from './add-cash-tractor/add-cash-tractor.component';
 import { DatePipe } from '@angular/common';
 import { TractorCashHistoryComponent } from '../finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
+import { DeleteCashReasonComponent } from './delete-cash-reason/delete-cash-reason.component';
+import { StoreTransactionComponent } from './store-transaction/store-transaction.component';
+import { TransactionHistoryAccountComponent } from './transaction-history-account/transaction-history-account.component';
 @NgModule({
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -108,6 +112,7 @@ import { TractorCashHistoryComponent } from '../finance-department/finance-dashb
     IonicModule.forRoot({}),
   ],
   declarations: [
+    CashTransactionListComponent,
     CommonHeaderComponent,
     AddRemarkComponent,
     UserManagementComponent,
@@ -195,11 +200,17 @@ import { TractorCashHistoryComponent } from '../finance-department/finance-dashb
     FinanceReportDetailsComponent,
     PayoutReportDetailsComponent,
     AddCashTractorComponent,
-    TractorCashHistoryComponent
+    TractorCashHistoryComponent,
+    DeleteCashReasonComponent,
+    StoreTransactionComponent,
+    TransactionHistoryAccountComponent
     
   ],
 
   exports: [
+    CashTransactionListComponent,
+    TransactionHistoryAccountComponent,
+    StoreTransactionComponent,
     AddRemarkComponent,
     UserManagementComponent,
     SearchpipePipe,

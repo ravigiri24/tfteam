@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import {
@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { CrudPopupComponent } from '../shared-components/crud-popup/crud-popup.component';
 import { UpdatePayoutPercentComponent } from '../finance-department/payout-details/update-payout-percent/update-payout-percent.component';
+import { DeleteCashReasonComponent } from '../shared-components/delete-cash-reason/delete-cash-reason.component';
 import { AddCashTractorComponent } from '../shared-components/add-cash-tractor/add-cash-tractor.component';
 import { SelectWithSearchComponent } from '../shared-components/select-with-search/select-with-search.component';
 @Component({
@@ -25,7 +26,7 @@ export class TractorFinanceDetailsComponent implements OnInit {
     private share: ShareService,
     private api: ApiService,
     private formBuilder: FormBuilder,
-    private alertCtrl:AlertController
+    
   ) {}
   dismiss() {
     this.modalControl.dismiss();
@@ -319,7 +320,7 @@ export class TractorFinanceDetailsComponent implements OnInit {
 
   get totalCashReceived(): number {
     return this.cashHistory
-      .filter((receipt: any) => Number(receipt?.isDeleted) !== 1)
+      .filter((receipt: any) => Number(receipt?.isDeleted) !== 1 && Number(receipt?.isReturned) !== 1)
       .reduce((total: number, receipt: any) => total + (Number(receipt?.cash_amount) || 0), 0);
   }
 
@@ -342,50 +343,81 @@ export class TractorFinanceDetailsComponent implements OnInit {
     return Math.max(0, financeAmount - firstDisbursal - secondDisbursal);
 
   }
-    async deleteTranction(tracsaction: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Delete This Transaction',
-      subHeader: '',
-      message: 'Are You Sure',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'Cancel',
-        },
-        {
-          text: 'Yes',
-          role: 'Yes',
-        },
-      ],
+  deletingId: any = null;
+  async returnReceipt(receipt: any) {
+    if (Number(receipt.isDeleted) === 1 || Number(receipt.isReturned) === 1 || this.deletingId !== null) return;
+    const modal = await this.modalControl.create({
+      component: DeleteCashReasonComponent,
+      componentProps: { action: 'return' },
+      cssClass: 'delete-cash-reason-sheet',
+      breakpoints: [0, 1],
+      initialBreakpoint: 1,
+      handle: true,
     });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    if (result?.role == 'Yes') {
-      this.removeJob(tracsaction);
-    }
-  }
-  removeJob(tracsaction:any){
-    let objData: any = {
-      isDeleted:true,
-      deletedDate:new Date(),
-      deletedBy:this.staffDetails?.id
-    };
-    let obj = {
+    await modal.present();
+    const { data, role } = await modal.onDidDismiss();
+    if (role !== 'confirm' || !data?.returnReason?.trim() || this.deletingId !== null) return;
+    this.deletingId = receipt.id;
+    this.api.postapi('updateOpp', {
       src: 'cash_receving',
-      data: objData,
-      id: tracsaction?.id,
-    };
-
-    this.share.showLoading('Updating Data...');
-    this.api.postapi('updateOpp', obj).subscribe((res: any) => {
-      this.share.spinner.dismiss();
-
-      this.share.presentToast('Removed Successfully...');
-      this.getCashList()
-    //  this.dismiss();
+      id: receipt.id,
+      data: { isReturned: true, returnReason: data.returnReason.trim() },
+    }).subscribe({
+      next: () => {
+        this.deletingId = null;
+        this.share.presentToast('Cash returned successfully.');
+        this.getCashList();
+      },
+      error: () => {
+        this.deletingId = null;
+        this.share.presentToast('Unable to return cash. Please try again.');
+      },
     });
   }
 
+  async deleteTranction(transaction: any) {
+    if (Number(transaction.isDeleted) === 1 || Number(transaction.isReturned) === 1 || this.deletingId !== null) return;
+    const modal = await this.modalControl.create({
+      component: DeleteCashReasonComponent,
+      cssClass: 'delete-cash-reason-sheet',
+      breakpoints: [0, 1],
+      initialBreakpoint: 1,
+      handle: true,
+    });
+    await modal.present();
+    const { data, role } = await modal.onDidDismiss();
+    if (role !== 'confirm' || !data?.deletedReason?.trim()) return;
+    this.removeJob(transaction, data.deletedReason.trim());
+  }
+
+  removeJob(transaction: any, deletedReason: string) {
+    if (!deletedReason.trim() || this.deletingId !== null) return;
+    this.deletingId = transaction.id;
+    const obj = {
+      src: 'cash_receving',
+      id: transaction.id,
+      data: {
+        isDeleted: true,
+        deletedDate: new Date(),
+        deletedBy: this.staffDetails?.id,
+        deletedReason: deletedReason.trim(),
+      },
+    };
+    this.share.showLoading('Updating Data...');
+    this.api.postapi('updateOpp', obj).subscribe({
+      next: () => {
+        this.deletingId = null;
+        this.share.spinner.dismiss();
+        this.share.presentToast('Removed Successfully...');
+        this.getCashList();
+      },
+      error: () => {
+        this.deletingId = null;
+        this.share.spinner.dismiss();
+        this.share.presentToast('Unable to delete receipt. Please try again.');
+      },
+    });
+  }
     async updatePercent() {
       const modal = await this.modalControl.create({
         breakpoints: [0, 0.4, 1],
@@ -547,3 +579,4 @@ if(data){
     }
   }
 }
+

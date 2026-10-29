@@ -1,0 +1,94 @@
+@use '../../finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
+
+
+
+
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.date-filters {
+  margin: 0 0 16px;
+  padding: 20px;
+  border: 1px solid rgba(235, 67, 35, .14);
+  border-radius: 16px;
+  box-shadow: 0 8px 26px rgba(113, 46, 33, .08);
+  background: var(--tfd-surface);
+}
+.date-filter-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+  strong { color: var(--tfd-text); font-size: 14px; }
+  span { color: var(--tfd-muted); font-size: 12px; }
+}
+.date-filter-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  label {
+    display: flex;
+    flex: 1 1 180px;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--tfd-muted);
+    font-size: 12px;
+    min-width: 0;
+  }
+  select, input {
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 10px;
+    border: 1px solid #f2d3cb;
+    border-radius: 8px;
+    background: #fffaf8;
+    color: var(--tfd-text);
+    font: inherit;
+    font-size: 14px;
+    &:focus-visible { outline: 2px solid var(--tfd-primary-strong); outline-offset: 2px; }
+  }
+}
+.date-filter-error { margin: 10px 0 0; color: #b91c1c; font-size: 12px; }
+
+.date-filter-heading > div { display: flex; flex-direction: column; gap: 3px; }
+.date-range-summary { color: var(--tfd-primary-strong); font-size: 12px; margin: 12px 0 0; }
+@media (max-width: 720px) { .date-filters { padding: 14px; } }
+
+.date-filter-month {
+  flex: 1 1 180px;
+  min-width: 0;
+  ion-select {
+    width: 100%;
+    min-height: 66px;
+    padding: 8px 10px;
+    border: 1px solid #f2d3cb;
+    border-radius: 8px;
+    background: #fffaf8;
+    color: var(--tfd-text);
+    --highlight-color-focused: var(--tfd-primary-strong);
+  }
+  ion-select::part(label) { color: var(--tfd-muted); font-size: 12px; }
+}
+
+.date-filter-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
+.date-filter-apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--app-dynamic-color-seven);
+  color: #ffffff;
+  font-weight: 800;
+  &:disabled { opacity: .45; cursor: default; }
+  &:focus-visible { outline: 2px solid var(--app-dynamic-color-seven); outline-offset: 3px; }
+  ion-icon { font-size: 18px; }
+}

@@ -521,6 +521,17 @@
   width: 28px;
 }
 
+.tfd-cash-receipt-row .tfd-cash-receipt-remark {
+  grid-column: 2 / -1;
+  strong { white-space: pre-wrap; overflow-wrap: anywhere; }
+}
+
+.tfd-cash-receipt-row.tfd-cash-receipt-deleted .tfd-cash-deletion-reason strong {
+  text-decoration: none;
+}
+
+.tfd-cash-receipt-row .tfd-cash-remove-btn { grid-column: 6; }
+
 .tfd-cash-receipt-value {
   background: #fffaf8;
   border: 1px solid #f7e6e1;
@@ -567,7 +578,8 @@
   text-transform: uppercase;
 }
 
-.tfd-cash-receipt-deleted {
+.tfd-cash-receipt-deleted,
+.tfd-cash-receipt-returned {
   opacity: .55;
 
   .tfd-cash-receipt-value strong {
@@ -799,7 +811,7 @@
     }
 
     .tfd-deleted-label { grid-column: 3; }
-    .tfd-cash-remove-btn { grid-column: 4; }
+    .tfd-cash-remove-btn { grid-column: 4; grid-row: 1; }
   }
 
   .tfd-footer-actions {
@@ -873,4 +885,33 @@
     font-size: 11px;
     padding-inline: 14px;
   }
+}
+
+.tfd-cash-receipt-row { grid-template-columns: 30px repeat(3, minmax(0, 1fr)) auto auto 36px; }
+.tfd-cash-receipt-row .tfd-cash-remove-btn { grid-column: 7; }
+.tfd-cash-return-btn {
+  grid-column: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 9px;
+  background: #fff7ed;
+  color: #9a3412;
+  font-size: 11px;
+  font-weight: 800;
+  &:disabled { opacity: .45; cursor: default; }
+  ion-icon { font-size: 18px; }
+}
+.tfd-returned-label { background: #ffedd5; color: #9a3412; }
+.tfd-cash-receipt-row.tfd-cash-receipt-returned .tfd-cash-return-reason strong {
+  text-decoration: none;
+}
+@media (max-width: 720px) {
+  .tfd-cash-receipt-row { grid-template-columns: 30px minmax(0, 1fr) auto 36px; }
+  .tfd-cash-receipt-row .tfd-cash-remove-btn { grid-column: 4; grid-row: 1; }
+  .tfd-cash-return-btn { grid-column: 3 / -1; grid-row: 2; }
 }

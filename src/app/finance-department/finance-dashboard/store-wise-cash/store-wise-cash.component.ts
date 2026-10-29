@@ -91,7 +91,7 @@ this.getWareHouseList()
     {
       name: 'Cash History',
       action: 'cashHistory',
-      image: './././assets/images/visual.png',
+      image: './././assets/images/rupee-sign.png',
     }
  
   ];

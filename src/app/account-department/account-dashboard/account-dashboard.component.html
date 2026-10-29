@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar class="reports-toolbar">
+    <ion-title class="reports-title">Account Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="reports-content">
+  <div class="page-header">
+    <p class="page-subtitle">Select a report category</p>
+  </div>
+
+  <div class="cards-grid">
+    <button class="report-card card-blue" type="button" (click)="transactionHistory()">
+      <span class="card-icon-wrap">
+        <ion-icon class="card-icon" name="receipt-outline" aria-hidden="true"></ion-icon>
+      </span>
+      <span class="card-label">Transaction History</span>
+    </button>
+  </div>
+</ion-content>

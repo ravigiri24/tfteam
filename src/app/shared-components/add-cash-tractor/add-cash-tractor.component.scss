@@ -105,7 +105,21 @@
 }
 
 .cash-section-icon { background: #ffede8; border-radius: 10px; color: var(--cash-primary); height: 36px; width: 36px; ion-icon { font-size: 18px; } }
-.cash-input-block { padding-bottom: 16px; ion-input, ion-select { --background: #fff; --border-color: #ddb9b0; --border-radius: 11px; --highlight-color-focused: var(--cash-primary); } }
+.cash-input-block {
+  padding-bottom: 16px;
+
+  ion-input, ion-select, ion-textarea {
+    --background: #fff;
+    --border-color: #ddb9b0;
+    --border-radius: 11px;
+    --highlight-color-focused: var(--cash-primary);
+    color: var(--cash-text);
+  }
+
+  ion-textarea {
+    min-height: 104px;
+  }
+}
 .cash-error { color: #dc2626; display: block; font-size: 10px; margin: 5px 5px 0; }
 
 .cash-footer { background: #fff; box-shadow: 0 -8px 24px rgba(113, 46, 33, .1); ion-toolbar { --background: #fff; --border-width: 0; } }

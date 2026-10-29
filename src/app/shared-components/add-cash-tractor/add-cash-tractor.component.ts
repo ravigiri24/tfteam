@@ -32,7 +32,9 @@ export class AddCashTractorComponent implements OnInit {
       cash_amount: new FormControl(null, [Validators.required, Validators.min(0.01)]),
       received_date: new FormControl(null, [Validators.required]),
       transaction_type: new FormControl('CASH', [Validators.required]),
+      remark: new FormControl(null),
       tractor_id: new FormControl(this.tractor?.id, [Validators.required]),
+      storeId: new FormControl(this.tractor?.tractordetailadmin?.wareHouseLocation, [Validators.required]),
       actionByid: new FormControl(this.staffDetails?.id, [Validators.required]),
     });
   }

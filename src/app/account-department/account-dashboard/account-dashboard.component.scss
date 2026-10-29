@@ -1,0 +1,15 @@
+@use '../../admin-management/reports-tractor/reports-tractor.component';
+
+.report-card {
+  border: 0;
+  font-family: inherit;
+
+  &:focus-visible {
+    outline: 3px solid #1565c0;
+    outline-offset: 3px;
+  }
+}
+
+.card-icon {
+  color: #ffffff;
+}

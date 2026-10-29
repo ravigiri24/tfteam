@@ -146,6 +146,11 @@ app-salary-slip {
 }
 
 // ─── Global Modal Border Radius ────────────────────────────────────────────
+ion-modal.delete-cash-reason-sheet {
+  --height: min(560px, 90vh);
+  --max-height: 90vh;
+}
+
 ion-modal {
   --border-radius: 12px;
 

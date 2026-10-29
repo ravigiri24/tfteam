@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
 import { ShareService } from 'src/app/share.service';
 import { AddCashTractorComponent } from 'src/app/shared-components/add-cash-tractor/add-cash-tractor.component';
@@ -15,25 +15,15 @@ export class TractorCashHistoryComponent implements OnInit {
   loading = false;
   error = false;
   changed = false;
-  deletingId: any = null;
-  private staffDetails: any;
 
   constructor(
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController,
     private api: ApiService,
     private share: ShareService,
   ) {}
 
   ngOnInit() {
-    this.staffDetails = JSON.parse(this.share.get_staff() || 'null');
     this.getCashList();
-  }
-
-  get totalCashReceived(): number {
-    return this.cashHistory
-      .filter(receipt => Number(receipt?.isDeleted) !== 1)
-      .reduce((total, receipt) => total + (Number(receipt?.cash_amount) || 0), 0);
   }
 
   getCashList() {
@@ -41,14 +31,17 @@ export class TractorCashHistoryComponent implements OnInit {
     this.error = false;
     const obj: any = this.share.getListObj('bank', false, [], true);
     obj.tractor_id = this.tractorDetails?.id;
+    this.share.showLoading("Loading")
     this.api.postapi('getCashReceivingList', obj).subscribe({
       next: (res: any) => {
         this.cashHistory = res?.data || [];
         this.loading = false;
+        this.share.spinner.dismiss()
       },
       error: () => {
         this.loading = false;
         this.error = true;
+        this.share.spinner?.dismiss();
       },
     });
   }
@@ -67,33 +60,9 @@ export class TractorCashHistoryComponent implements OnInit {
     }
   }
 
-  async deleteReceipt(receipt: any) {
-    if (Number(receipt.isDeleted) === 1 || this.deletingId !== null) return;
-    const alert = await this.alertCtrl.create({
-      header: 'Delete This Transaction',
-      message: 'Are You Sure',
-      buttons: [{ text: 'Cancel', role: 'cancel' }, { text: 'Yes', role: 'confirm' }],
-    });
-    await alert.present();
-    const { role } = await alert.onDidDismiss();
-    if (role !== 'confirm') return;
-    this.deletingId = receipt.id;
-    this.api.postapi('updateOpp', {
-      src: 'cash_receving',
-      id: receipt.id,
-      data: { isDeleted: true, deletedDate: new Date(), deletedBy: this.staffDetails?.id },
-    }).subscribe({
-      next: () => {
-        this.deletingId = null;
-        this.changed = true;
-        this.share.presentToast('Removed Successfully...');
-        this.getCashList();
-      },
-      error: () => {
-        this.deletingId = null;
-        this.share.presentToast('Unable to delete receipt. Please try again.');
-      },
-    });
+  receiptChanged() {
+    this.changed = true;
+    this.getCashList();
   }
 
   dismiss() {

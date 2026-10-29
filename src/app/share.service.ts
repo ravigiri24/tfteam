@@ -577,6 +577,11 @@ export class ShareService {
               '/tarritory-manager/tarritory-manager-enquiry-list',
             ]);
           }
+          else if (userde?.staff_role == 'ACCOUNT-DEPARTMENT') {
+            this.router.navigate([
+              '/account-department/account-tractor',
+            ]);
+          }
         } else {
           if (userde?.currentRole == 'DIGITAL') {
             this.router.navigate(['/digital/customer-management']);
@@ -622,6 +627,11 @@ export class ShareService {
           } else if (userde?.currentRole == 'TERRITORY_MANAGER') {
             this.router.navigate([
               '/tarritory-manager/tarritory-manager-enquiry-list',
+            ]);
+          }
+                 else if (userde?.currentRole == 'ACCOUNT-DEPARTMENT') {
+            this.router.navigate([
+              '/account-department/account-tractor',
             ]);
           }
         }

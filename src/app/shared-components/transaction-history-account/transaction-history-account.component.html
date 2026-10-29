@@ -1,0 +1,59 @@
+<app-common-header [selectedStore]="selectedStore" class="app_common_header"
+  [isListFilter]="true" [warehouseList]="warehouseList" [listColorClass]="'sevenColor'"
+  [title]="'Transaction History'" [list]="cashHistory" [allFilterList]="cashHistory"
+  [showFilterList]="true" [showWareHouse]="true" [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)"
+  (selectWareHouseAction)="tractorListStorewise($event)"></app-common-header>
+<ion-content class="tfd-content">
+  <section class="date-filters" aria-label="Filter by received date">
+    <div class="date-filter-heading tfd-section-heading">
+      <span class="tfd-section-icon" aria-hidden="true"><ion-icon name="calendar-outline"></ion-icon></span>
+      <div><strong>Received Date</strong><small>Financial Year {{ financialYearLabel }} (April-March)</small></div>
+    </div>
+    <div class="date-filter-fields">
+      <label>
+        <span>Filter by</span>
+        <select [(ngModel)]="dateFilterMode" (ngModelChange)="applyDateFilters()">
+          <option value="month">Financial year month</option>
+          <option value="range">Custom date range</option>
+        </select>
+      </label>
+      <div class="date-filter-month" *ngIf="dateFilterMode === 'month'">
+        <ion-select label="Month" labelPlacement="stacked" interface="alert"
+          [interfaceOptions]="{ header: 'Select month', subHeader: 'Financial Year ' + financialYearLabel }"
+          [(ngModel)]="selectedMonth" (ionChange)="applyDateFilters()" okText="Apply" cancelText="Cancel">
+          <ion-select-option *ngFor="let month of financialYearMonths" [value]="month.value">{{ month.label }}</ion-select-option>
+        </ion-select>
+      </div>
+      <ng-container *ngIf="dateFilterMode === 'range'">
+        <label>
+          <span>From</span>
+          <input type="date" [(ngModel)]="startDate" (ngModelChange)="applyDateFilters()" [max]="endDate || ''" />
+        </label>
+        <label>
+          <span>To</span>
+          <input type="date" [(ngModel)]="endDate" (ngModelChange)="applyDateFilters()" [min]="startDate || ''" />
+        </label>
+      </ng-container>
+    </div>
+    <p class="date-range-summary" *ngIf="startDate && endDate && !dateFilterError">{{ startDate | date:'dd MMM yyyy' }} &ndash; {{ endDate | date:'dd MMM yyyy' }}</p>
+    <p class="date-filter-error" *ngIf="dateFilterError" role="alert">{{ dateFilterError }}</p>
+    <div class="date-filter-actions">
+      <button class="date-filter-apply" type="button" (click)="loadTransactions()"
+        [disabled]="fetchingTransactions || !!dateFilterError || !selectedStore || !startDate || !endDate">
+        <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+        {{ fetchingTransactions ? 'Loading...' : 'Apply Filter' }}
+      </button>
+    </div>
+  </section>
+  <p class="cash-state" *ngIf="fetchingTransactions" role="status">Loading transactions...</p>
+  <div class="cash-state" *ngIf="error" role="alert">Unable to load transactions.
+    <button class="tfd-cash-add-btn" type="button" (click)="loadTransactions()">Retry</button>
+  </div>
+  <section class="tfd-summary-card" *ngIf="!fetchingTransactions && !error">
+    <p class="cash-state" *ngIf="!cashHistory.length">No transactions found for the selected store and dates.</p>
+    <app-cash-transaction-list *ngIf="cashHistory.length" [receipts]="cashHistory" [showTFCode]="true"
+      [showCashHistoryButton]="true" (openCashHistory)="openTractorCashHistory($event)"
+      (changed)="loadTransactions()"></app-cash-transaction-list>
+  </section>
+</ion-content>

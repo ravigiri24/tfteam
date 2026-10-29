@@ -376,7 +376,7 @@
         </div>
 
         <div class="tfd-cash-receipt-row" *ngFor="let receipt of cashHistory; let i = index"
-          [class.tfd-cash-receipt-deleted]="receipt.isDeleted == 1">
+          [class.tfd-cash-receipt-deleted]="receipt.isDeleted == 1" [class.tfd-cash-receipt-returned]="receipt.isReturned == 1">
           <span class="tfd-cash-receipt-number">{{ i + 1 }}</span>
           <div class="tfd-cash-receipt-value">
             <small>Cash Amount</small>
@@ -391,10 +391,28 @@
             <strong>{{ receipt.transaction_type }}</strong>
           </div>
           <span class="tfd-deleted-label" *ngIf="receipt.isDeleted == 1">Deleted</span>
+        <span class="tfd-deleted-label tfd-returned-label" *ngIf="receipt.isReturned == 1">Returned</span>
+        <button class="tfd-cash-return-btn" type="button" (click)="returnReceipt(receipt)"
+          [disabled]="receipt.isDeleted == 1 || receipt.isReturned == 1 || deletingId !== null"
+          [attr.aria-label]="'Return cash receipt ' + (i + 1)">
+          <ion-icon name="return-down-back-outline"></ion-icon>Return
+        </button>
           <button  class="tfd-cash-remove-btn" type="button" (click)="deleteTranction(receipt)"
-            [disabled]="receipt.isDeleted == 1" [attr.aria-label]="'Delete cash receipt ' + (i + 1)">
+            [disabled]="receipt.isDeleted == 1 || receipt.isReturned == 1 || deletingId !== null" [attr.aria-label]="'Delete cash receipt ' + (i + 1)">
             <ion-icon name="trash-outline"></ion-icon>
           </button>
+          <div class="tfd-cash-receipt-value tfd-cash-receipt-remark">
+          <small>Store Name</small><strong>{{ receipt.storeName || '-' }}</strong>
+        </div>
+        <div class="tfd-cash-receipt-value tfd-cash-receipt-remark">
+            <small>Remark</small><strong>{{ receipt.remark || '-' }}</strong>
+          </div>
+          <div class="tfd-cash-receipt-value tfd-cash-receipt-remark tfd-cash-return-reason" *ngIf="receipt.isReturned == 1">
+          <small>Return Reason</small><strong>{{ receipt.returnReason || '-' }}</strong>
+        </div>
+        <div class="tfd-cash-receipt-value tfd-cash-receipt-remark tfd-cash-deletion-reason" *ngIf="receipt.isDeleted == 1">
+            <small>Deletion Reason</small><strong>{{ receipt.deletedReason || '-' }}</strong>
+          </div>
         </div>
 
         <div class="tfd-cash-total-row" *ngIf="cashHistory.length">

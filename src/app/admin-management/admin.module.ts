@@ -34,6 +34,7 @@ import { NewFindingReportComponent } from './new-finding-report/new-finding-repo
 import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tractor-sheet.component';
 import { MasterSheetAdvanceComponent } from './master-sheet-advance/master-sheet-advance.component';
 import { ViewSaleActivityLogComponent } from './view-sale-activity-log/view-sale-activity-log.component';
+import { BookingTrackerComponent } from './booking-tracker/booking-tracker.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -62,7 +63,8 @@ import { ViewSaleActivityLogComponent } from './view-sale-activity-log/view-sale
     NewFindingReportComponent,
     BookedTractorSheetComponent,
     MasterSheetAdvanceComponent,
-    ViewSaleActivityLogComponent
+    ViewSaleActivityLogComponent,
+    BookingTrackerComponent
   ],
   imports: [
    

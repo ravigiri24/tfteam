@@ -1,0 +1,12 @@
+.cash-form { margin: 0 auto; }
+.cash-header { flex-shrink: 0; }
+.cash-title-copy strong { color: #fff; }
+.cash-footer-actions {
+  flex-wrap: wrap;
+  padding: 16px 0;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+}
+.cash-save-btn { justify-content: center; }
+@media (max-width: 360px) {
+  .cash-footer-actions button { flex: 1 1 auto; }
+}

@@ -1,0 +1,9 @@
+@use '../../finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
+
+:host { display: block; height: auto; }
+
+.cash-history-action {
+  grid-column: 2 / -1;
+  display: flex;
+  justify-content: flex-end;
+}
