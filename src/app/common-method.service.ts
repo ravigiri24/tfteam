@@ -57,6 +57,9 @@ import { RtoRequiredComponent } from './rto-management/rto-required/rto-required
 import { PayoutDetailsComponent } from './finance-department/payout-details/payout-details.component';
 import { UploadDataFinanceComponent } from './finance-department/finance-dashboard/month-wise-upload-data/upload-data-finance/upload-data-finance.component';
 import { TractorCashHistoryComponent } from './finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
+import { AllotStoreComponent } from './shared-components/allot-store/allot-store.component';
+import { OutwardTransportComponent } from './transport-management/outward-transport/outward-transport.component';
+import { OutwardHistoryComponent } from './transport-management/outward-history/outward-history.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -271,9 +274,52 @@ export class CommonMethodService {
    else if (e?.button?.name == 'Cash History') {
       this.cashHistory(e?.tractor);
  }
+   else if (e?.button?.name == 'Allot Store') {
+    await  this.allotStore(e?.tractor);
+ }
+ else if (e?.button?.name == 'Start Outward') {
+    await  this.OutwardTransportComponent(e?.tractor);
+ }
+ 
 
   }
+  async OutwardTransportComponent(tractorDetails:any, readOnly = false) {
+    this.reloadMethod=false
+    const modal = await this.modalCtrl.create({
+      component: OutwardHistoryComponent,
 
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: tractorDetails,
+       
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+  
+      this.reloadMethod = true;
+    }
+  }
+  async allotStore(tractorDetails:any) {
+    const modal = await this.modalCtrl.create({
+      component: AllotStoreComponent,
+
+      cssClass: 'custom-modal',
+      componentProps: {
+        tractorDetails: tractorDetails,
+      },
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data?.dataEnterd) {
+      // this.tractorDetails.dealerPrice = data?.dealerPrice;
+      // this.tractorDetails.isSoldToDealer = true;
+      // this.tractorDetails.tractordetailadmin.wareHouseLocation =
+      //   data?.wareHouseLocation;
+      this.reloadMethod = true;
+    }
+  }
   async addRemark(customer: any = null, button: any = null) {
     let showScheduleRamrk = true;
     if (button?.showScheduleRamrk == false) {

@@ -13,6 +13,7 @@ export class CommonHeaderComponent implements OnInit {
   @Input() selectedStore: any;
   @Input() selectedItem: any;
   @Input() isListFilter: any = false;
+  @Input() showCount: any = true;
   @Input() showDateFilter: any = false;
   @Input() containingAll: any = true;
   @Input() totalListCount: any = 0;

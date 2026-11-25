@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShareService } from '../share.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { ConfirmDeliveryComponent } from './confirm-delivery/confirm-delivery.component';
 import { ModalController } from '@ionic/angular';
@@ -12,6 +13,7 @@ import { StartTransportDialogComponent } from './start-transport-dialog/start-tr
 import { TransportOptionsComponent } from './transport-options/transport-options.component';
 import { CommonMethodService } from '../common-method.service';
 import { SearchTractorWithTfCodeComponent } from '../shared-components/search-tractor-with-tf-code/search-tractor-with-tf-code.component';
+import { OutwardHistoryComponent } from './outward-history/outward-history.component';
 @Component({
   selector: 'app-transport-management',
   templateUrl: './transport-management.component.html',
@@ -30,11 +32,33 @@ export class TransportManagementComponent implements OnInit {
   ngOnInit() {}
   listColorClass='sixColor'
   transportList: any = [];
+  transportDirection: 'Inward' | 'Outward' = 'Inward';
+  private listRequestId = 0;
+
+  async openOutwardHistory() {
+    const modal = await this.modalCtrl.create({
+      component: OutwardHistoryComponent,
+      cssClass: 'custom-modal',
+    });
+    await modal.present();
+  }
     async searchTractor() {
+       let buttonArray = JSON.parse(JSON.stringify(this.buttonArray))
+       buttonArray.push({
+      name: 'Allot Store',
+      action: 'allotHistory',
+      image: './././assets/images/assign.png',
+    },
+  {
+      name: 'Start Outward',
+      action: 'startOutward',
+      image: './././assets/images/transfer.png',
+    })
+     
         const modal = await this.modalCtrl.create({
           component: SearchTractorWithTfCodeComponent,
           componentProps: {
-           buttonArray: this.buttonArray,
+           buttonArray: buttonArray,
            listColorClass:this.listColorClass,
            keyList:this.keyList,
            searchFilter:this.search,
@@ -46,13 +70,20 @@ export class TransportManagementComponent implements OnInit {
         await modal.present();
         const { data, role } = await modal.onWillDismiss();
         console.log('role', role);
-    
+      if(this.commonMethod.reloadMethod){
+    this.refreshList()
+  }
         if (role === 'confirm') {
         }
       }
   ionViewWillEnter() {
-    this.transportList = [];
-    this.getTractorList();
+    this.refreshList();
+  }
+
+  changeTransportDirection(direction: 'Inward' | 'Outward') {
+    if (direction === this.transportDirection) return;
+    this.transportDirection = direction;
+    this.refreshList();
   }
         buttonArray: any = [
  {
@@ -74,6 +105,8 @@ export class TransportManagementComponent implements OnInit {
       action: 'moreOptionTransport',
       image: './././assets/images/laptop.png',
     },
+ 
+    
     {
       name: 'Delete Tractor',
       action: 'deleteTractor',
@@ -98,7 +131,7 @@ export class TransportManagementComponent implements OnInit {
       await  this.commonMethod.actionEventCall(e,{optionsUploadButtonArray:[]})
     
   if(this.commonMethod.reloadMethod){
-    this.getTractorList()
+    this.refreshList()
   }
 
     console.log('actionEventCall', e);
@@ -133,8 +166,7 @@ export class TransportManagementComponent implements OnInit {
     this.share.showLoading('Updating...');
     this.api.postapi('updateOpp', obj).subscribe(
       (res: any) => {
-        this.getTractorList();
-        this.share.spinner.dismiss('active_six');
+        this.refreshList();
         this.share.presentToast('Updated Successfully...');
       },
       (error: any) => {}
@@ -163,38 +195,47 @@ export class TransportManagementComponent implements OnInit {
       console.log('role', role);
   
       if (role === 'confirm') {
-        this.getTractorList('Refreshing Data...');
+        this.refreshList('Refreshing Data...');
       }
     }
-  getTractorList(loadingMsg: any = 'Loading...') {
-    let staffDetails: any = this.share.get_staff();
-    this.staffDetails = JSON.parse(staffDetails);
+  getTractorList(loadingMsg = 'Loading...') {
+    this.loadTransportList('getTractorList', loadingMsg);
+  }
 
-    let obj = {
+  getOutwardTransportTractor(loadingMsg = 'Loading...') {
+    this.loadTransportList('getOutwardTransportTractor', loadingMsg);
+  }
+
+  private loadTransportList(endpoint: 'getTractorList' | 'getOutwardTransportTractor', loadingMsg: string) {
+    const requestId = ++this.listRequestId;
+    this.staffDetails = JSON.parse(this.share.get_staff() || 'null');
+    const obj = {
       operate: this.staffDetails?.staffCode,
       isLive: false,
     };
     this.share.showLoading(loadingMsg);
-       this.transportList =[]
-    this.api.postapi('getTractorList', obj).subscribe(
-      (res: any) => {
-        this.transportList = res.data;
-        // this.newArivalsList=this.newArivalsList.filter((f:any)=>f?.tractor_status=='NEW_ARRIVAL')
-        this.transportList = this.transportList.filter(
-          (f: any) => f?.tractor_status == 'AT_TRANSPORT'
-        );
- this.transportList?.forEach((tract:any) => {
-  let beforeService=tract?.rawImages?.filter((f:any)=>f.imageGroup=='BEFORE_SERVICE')
-  tract.beforeServiceImages=beforeService
-  if(tract.beforeServiceImages?.length){
-    tract.imageUrlUrl=tract.beforeServiceImages[0]?.imageUrlUrl
-  }
- });
-        this.share.spinner.dismiss('active_six');
-        this.backupList = res.data;
+    this.transportList = [];
+    this.backupList = [];
+    this.api.postapi(endpoint, obj).pipe(finalize(() => {
+      if (requestId === this.listRequestId) this.share.spinner.dismiss('active_six');
+    })).subscribe({
+      next: (res: any) => {
+        if (requestId !== this.listRequestId) return;
+        this.backupList = Array.isArray(res?.data) ? res.data : [];
+        this.transportList = endpoint === 'getTractorList'
+          ? this.backupList.filter((tractor: any) => tractor?.tractor_status === 'AT_TRANSPORT')
+          : this.backupList;
+        this.transportList.forEach((tractor: any) => {
+          const beforeService = tractor.rawImages?.filter((image: any) => image.imageGroup === 'BEFORE_SERVICE');
+          tractor.beforeServiceImages = beforeService;
+          if (beforeService?.length) tractor.imageUrlUrl = beforeService[0]?.imageUrlUrl;
+        });
       },
-      (error: any) => {}
-    );
+      error: () => {
+        if (requestId !== this.listRequestId) return;
+        this.share.presentToast('Unable to load transport records. Please try again.');
+      },
+    });
   }
   tractor_id: any;
   addStatus(tractor: any) {
@@ -212,7 +253,7 @@ export class TransportManagementComponent implements OnInit {
     console.log('role', role);
 
     if (role === 'confirm') {
-      this.getTractorList('Refreshing Data...');
+      this.refreshList('Refreshing Data...');
     }
   }
     async startRepairing(tractor: any) {
@@ -227,7 +268,7 @@ export class TransportManagementComponent implements OnInit {
       console.log('role', role);
   
       if (role === 'confirm') {
-        this.getTractorList('Refreshing Data...');
+        this.refreshList('Refreshing Data...');
       }
     }
 
@@ -260,8 +301,12 @@ export class TransportManagementComponent implements OnInit {
 
     // }
   }
-  refreshList() {
-    this.getTractorList();
+  refreshList(loadingMsg = 'Loading...') {
+    if (this.transportDirection === 'Outward') {
+      this.getOutwardTransportTractor(loadingMsg);
+    } else {
+      this.getTractorList(loadingMsg);
+    }
   }
   dataClear() {}
   tractorDashboard(tractor: any) {
@@ -280,7 +325,7 @@ export class TransportManagementComponent implements OnInit {
       const { data, role } = await modal.onWillDismiss();
       console.log('role', role);
   if(data?.isDeleted || data?.isForworded || data?.isReached ){
-    this.getTractorList('Refreshing Data...')
+    this.refreshList('Refreshing Data...')
   }
       if (role === 'confirm') {
      

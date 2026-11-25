@@ -40,6 +40,13 @@
       </div>
       <span class="inner_text">Tractors</span>
     </ion-tab-button>
+        <ion-tab-button tab="tractor-costing-advance" (click)="goToPage('tractor-costing-advance')" [class.active]="selectedTab === 'tractor-costing-advance'">
+      <div class="icon-wrapper" [class.selected]="selectedTab === 'tractor-costing-advance'">
+        <ion-icon name="list-outline" *ngIf="selectedTab !== 'tractor-costing-advance'"></ion-icon>
+        <ion-icon name="list" *ngIf="selectedTab === 'tractor-costing-advance'"></ion-icon>
+      </div>
+      <span class="inner_text">TractorsN</span>
+    </ion-tab-button>
      <ion-tab-button tab="User" (click)="goToPage('User')" [class.active]="selectedTab === 'User'">
       <div class="icon-wrapper" [class.selected]="selectedTab === 'User'">
         <ion-icon name="person-circle-outline" *ngIf="selectedTab !== 'User'"></ion-icon>

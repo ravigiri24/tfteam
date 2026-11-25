@@ -35,6 +35,7 @@ import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tract
 import { MasterSheetAdvanceComponent } from './master-sheet-advance/master-sheet-advance.component';
 import { ViewSaleActivityLogComponent } from './view-sale-activity-log/view-sale-activity-log.component';
 import { BookingTrackerComponent } from './booking-tracker/booking-tracker.component';
+import { BookingListComponent } from './booking-tracker/booking-list/booking-list.component';
 @NgModule({
   declarations: [
     FooterAdminComponent,
@@ -64,7 +65,8 @@ import { BookingTrackerComponent } from './booking-tracker/booking-tracker.compo
     BookedTractorSheetComponent,
     MasterSheetAdvanceComponent,
     ViewSaleActivityLogComponent,
-    BookingTrackerComponent
+    BookingTrackerComponent,
+    BookingListComponent
   ],
   imports: [
    

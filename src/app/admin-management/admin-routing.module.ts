@@ -25,6 +25,8 @@ import { FindingReportsComponent } from './finding-reports/finding-reports.compo
 import { NewFindingReportComponent } from './new-finding-report/new-finding-report.component';
 import { BookedTractorSheetComponent } from './booked-tractor-sheet/booked-tractor-sheet.component';
 import { MasterSheetAdvanceComponent } from './master-sheet-advance/master-sheet-advance.component';
+import { BookingTrackerComponent } from './booking-tracker/booking-tracker.component';
+import { TractorCostingListAdvanceComponent } from '../shared-components/tractor-costing-list-advance/tractor-costing-list-advance.component';
 const routes: Routes = [
   {
     path: "", component: AdminManagementComponent,
@@ -44,6 +46,7 @@ const routes: Routes = [
          { path: 'reports-tractor', component: ReportsTractorComponent},
          { path: 'user-management', component: UserManagementComponent},
          { path: 'tractor-costing', component: TractorCostingListComponent},
+         { path: 'tractor-costing-advance', component: TractorCostingListAdvanceComponent},
          { path: 'transaction-overview/:srcPage', component: SalesAnalysisComponent},
          { path: 'lead-mgmt-employee/:srcPage', component: LeadEmployeeMgmtComponent},
          { path: 'sales-manager-list/:srcPage', component: StoreManagementComponent},
@@ -55,6 +58,7 @@ const routes: Routes = [
          { path: 'finding-reports/:srcPage', component: FindingReportsComponent},
          { path: 'new-finding-reports/:srcPage', component: NewFindingReportComponent},
          { path: 'booked-tractor-sheets/:srcPage', component: BookedTractorSheetComponent},
+         { path: 'booking-tracker/:srcPage', component: BookingTrackerComponent},
          {
               path: 'view-costing-dashboard/:id',
               component: TractorCostingDashboardComponent,

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { TractorFinanceDetailsComponent } from '../tractor-finance-details/tractor-finance-details.component';
 import { CommonModule } from '@angular/common';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -35,7 +36,6 @@ import { TractorDashboardComponent } from '../shared-components/tractor-dashboar
 import { AddMaunalChargeComponent } from '../maintainance-management/add-maunal-charge/add-maunal-charge.component';
 import { ImageDashboardComponent } from '../maintainance-management/image-dashboard/image-dashboard.component';
 import { TractorSellsDetailsComponent } from '../tractor-sells-details/tractor-sells-details.component';
-import { TractorFinanceDetailsComponent } from '../tractor-finance-details/tractor-finance-details.component';
 import { SellDocumentComponent } from '../sell-document/sell-document.component';
 import { OtherExpenseListComponent } from '../tractor-dashboard/other-expense-list/other-expense-list.component'
 import { AddOtherExpenseComponent } from '../tractor-dashboard/add-other-expense/add-other-expense.component';
@@ -48,6 +48,7 @@ import { EnterTfCodeComponent } from './enter-tf-code/enter-tf-code.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @NgModule({
   declarations: [
+    TractorFinanceDetailsComponent,
     OperationalComponent,
     HeaderOperationComponent,
     FooterOperationComponent,
@@ -80,7 +81,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     AddMaunalChargeComponent,
     ImageDashboardComponent,
     TractorSellsDetailsComponent,
-    TractorFinanceDetailsComponent,
     SellDocumentComponent,
     OtherExpenseListComponent,
     AddOtherExpenseComponent,

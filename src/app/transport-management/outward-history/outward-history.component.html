@@ -1,0 +1,35 @@
+<app-common-header class="app_common_header" title="Outward History" listColorClass="sevenColor"
+  [list]="history" [headerDisplayArray]="headerDisplayArray" (actionEventHeader)="actionEventHeader($event)">
+</app-common-header>
+
+<ion-content class="tfd-content">
+  <p class="cash-state" *ngIf="loading" role="status">Loading outward history...</p>
+  <div class="cash-state" *ngIf="error" role="alert">
+    Unable to load outward history.
+    <button class="tfd-cash-add-btn" type="button" (click)="loadHistory()">Retry</button>
+  </div>
+  <section class="tfd-summary-card" *ngIf="!loading && !error" aria-label="Outward transport records">
+    <p class="cash-state history-empty" *ngIf="!history.length">No outward transport records found.</p>
+    <article class="history-record" *ngFor="let tractor of history">
+      <div class="tfd-section-heading history-heading">
+        <span class="tfd-section-icon" aria-hidden="true"><ion-icon name="car-outline"></ion-icon></span>
+        <strong>{{ tractor.registractionNo || tractor.name || 'Transport Details' }}</strong>
+        <button class="tfd-cash-add-btn" type="button" (click)="openModal(tractor)">
+          <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
+          View
+        </button>
+      </div>
+      <dl class="history-fields">
+        <div class="tfd-cash-receipt-value">
+          <dt>Status</dt>
+          <dd>{{ tractor.isReached == 1 ? 'Reached' : tractor.isReached == 0 ? 'In Transit' : '—' }}</dd>
+        </div>
+        <div class="tfd-cash-receipt-value" *ngFor="let field of fields">
+          <dt>{{ field.label }}</dt>
+          <dd>{{ (field.key === 'transportDestinationId' ? warehouseNames.get('' + tractor[field.key]) : null)
+            ?? tractor[field.key] ?? '—' }}</dd>
+        </div>
+      </dl>
+    </article>
+  </section>
+</ion-content>

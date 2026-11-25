@@ -14,11 +14,16 @@
   <ion-toolbar>
     <ion-label class="top_heading">
       <div class="left_text">
-        <span class="selected_text">Logistic : </span>
+        <ion-select class="selected_ddl" aria-label="Transport direction" [value]="transportDirection"
+          (ionChange)="changeTransportDirection($event.detail.value)">
+          <ion-select-option value="Inward">Inward</ion-select-option>
+          <ion-select-option value="Outward">Outward</ion-select-option>
+        </ion-select>
         <b class="total-number">{{transportList?.length}}</b>
       </div>
       <div class="right_action">
         <ion-icon class="theme-color icon-size" (click)="searchTractor()" name="search-outline"></ion-icon>
+        <!-- <ion-button type="button" fill="clear" (click)="openOutwardHistory()">Outward History</ion-button> -->
         <ion-icon (click)="refreshList()" name="refresh-outline"></ion-icon>
       </div>
     </ion-label>

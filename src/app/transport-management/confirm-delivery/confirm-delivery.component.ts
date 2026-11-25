@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/api.service';
+import { CommonMethodService } from 'src/app/common-method.service';
 import { ShareService } from 'src/app/share.service';
 import { CrudPopupComponent } from 'src/app/shared-components/crud-popup/crud-popup.component';
 @Component({
@@ -20,7 +21,8 @@ export class ConfirmDeliveryComponent implements OnInit {
     private fb: FormBuilder,
     private share: ShareService,
     private api: ApiService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private commonMethodSerive:CommonMethodService
   ) { }
   @Input() listColorClass: any = "sixColor";
   ngOnInit() {
@@ -112,13 +114,63 @@ export class ConfirmDeliveryComponent implements OnInit {
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.share.spinner.dismiss()
         this.share.presentToast('Details Saved...');
-        this.modalCtrl.dismiss({ isReached: true })
+        this.updateWarehouseAllotement()
+     
 
 
       });
     } else {
       this.share.presentToast("Please fill all details")
       this.loader = false;
+      this.form.markAllAsTouched();
+    }
+  }
+   updateWarehouseAllotement() {
+    if (this.form.valid) {
+      let dataWarehouse: any = {
+        wareHouseLocation: this.form.value.transportDestinationId,
+        assign_date: this.form.value.reachDate,
+      };
+      let obj = {
+        src: 'tractordetailadmin',
+        data: dataWarehouse,
+        id: this.tractorDetails?.tractordetailadmin?.id,
+      };
+  this.share.showLoading("Applying Store")
+      this.api.postapi('updateOpp', obj).subscribe((res: any) => {
+
+     this.saveAllotmentData()
+     this.commonMethodSerive.reloadMethod=true
+         this.modalCtrl.dismiss({ isReached: true })
+        this.share.presentToast('Store Alloted Successfully');
+    
+      });
+    } else {
+      this.share.presentToast('Please fill all details');
+
+   
+    }
+  }
+   saveAllotmentData() {
+    if (this.form.valid) {
+      let dataWarehouse: any = {
+        store_id:this.form.value.transportDestinationId,
+        tractor_id: this.tractorDetails?.id,
+        assign_date: this.form.value.reachDate,
+      };
+      let obj = {
+        src: 'tractor_assiging_history',
+        data: dataWarehouse,
+      
+      };
+
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+
+   
+      });
+    } else {
+      this.share.presentToast('Please fill all details');
+
       this.form.markAllAsTouched();
     }
   }

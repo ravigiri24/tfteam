@@ -1,0 +1,26 @@
+@use '../../finance-department/finance-dashboard/store-wise-cash/tractor-cash-history/tractor-cash-history.component';
+
+.history-empty {
+  font-weight: 700;
+  text-align: center;
+}
+
+.history-record + .history-record {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(235, 67, 35, .14);
+}
+
+.history-heading button {
+  margin-inline-start: auto;
+}
+
+.history-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 12px;
+  margin: 12px 0 0;
+
+  dt { color: var(--tfd-muted); font-size: 12px; }
+  dd { margin: 4px 0 0; color: var(--tfd-text); font-weight: 700; overflow-wrap: anywhere; }
+}

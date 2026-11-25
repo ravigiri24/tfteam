@@ -32,6 +32,11 @@ export class FooterAdminComponent  implements OnInit {
             this.activeTabsColor='secondColor'
     this.router.navigate(['/admin-block/tractor-costing'])
   }
+    else if(tab=='tractor-costing-advance'){
+    this.activeTabsColor='secondColor'
+    this.router.navigate(['/admin-block/tractor-costing-advance'])
+    }
+  
     else if(tab=='Dashboard'){
     this.router.navigate(['/admin-block/dashboard-overview'])
   }

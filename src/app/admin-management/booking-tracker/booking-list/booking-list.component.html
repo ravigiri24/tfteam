@@ -1,0 +1,47 @@
+<app-common-header
+  class="app_common_header"
+  [title]="title"
+  [list]="filteredBookings"
+  [listColorClass]="listColorClass"
+  [headerDisplayArray]="headerDisplayArray"
+  (actionEventHeader)="actionEventHeader($event)">
+</app-common-header>
+
+<ion-content class="tfd-content">
+  <section class="tfd-summary-card" aria-label="Booking list">
+    <div class="tfd-cash-total-row"><span>Total Bookings</span><strong>{{ bookings.length }}</strong></div>
+    <div class="booking-age-summary">
+      <div class="tfd-cash-total-row booking-warning"><span>Older Than 7 Days</span><strong>{{ olderThan7Bookings.length }}</strong></div>
+      <div class="tfd-cash-total-row booking-overdue"><span>Older Than 25 Days</span><strong>{{ olderThan25Bookings.length }}</strong></div>
+    </div>
+    <div class="booking-age-legend" role="group" aria-label="Filter bookings by age">
+      <button type="button" class="booking-all" [class.active]="selectedAgeFilter === 'all'" [attr.aria-pressed]="selectedAgeFilter === 'all'" (click)="selectedAgeFilter = 'all'">All ({{ bookings.length }})</button>
+      <button type="button" class="booking-warning" [class.active]="selectedAgeFilter === 'older7'" [attr.aria-pressed]="selectedAgeFilter === 'older7'" (click)="selectedAgeFilter = 'older7'">Older than 7 days ({{ olderThan7Bookings.length }})</button>
+      <button type="button" class="booking-overdue" [class.active]="selectedAgeFilter === 'older25'" [attr.aria-pressed]="selectedAgeFilter === 'older25'" (click)="selectedAgeFilter = 'older25'">Older than 25 days ({{ olderThan25Bookings.length }})</button>
+    </div>
+    <article class="tfd-cash-receipt-row booking-row" *ngFor="let booking of filteredBookings; let i = index" [ngClass]="bookingAgeClass(booking?.booking_date)" [attr.aria-label]="'Booking ' + (i + 1)">
+      <span class="tfd-cash-receipt-number">{{ i + 1 }}</span>
+      <div class="booking-fields">
+        <ng-container *ngFor="let field of bookingFields">
+          <div class="tfd-cash-receipt-value">
+            <small>{{ field.heading }}</small>
+            <strong [ngSwitch]="field.format">
+              <ng-container *ngSwitchCase="'date'">{{ (booking?.[field.key] | date:'dd MMM yyyy') || '-' }}</ng-container>
+              <ng-container *ngSwitchCase="'number'">{{ booking?.[field.key] != null && booking?.[field.key] !== '' ? (booking[field.key] | number:'1.0-2') : '-' }}</ng-container>
+              <ng-container *ngSwitchDefault>{{ booking?.[field.key] ?? '-' }}</ng-container>
+            </strong>
+          </div>
+        </ng-container>
+        <div class="tfd-cash-receipt-value">
+          <small>Status</small>
+          <strong [class.booking-pending]="booking?.actionTaken == 0"
+            [class.booking-approved]="booking?.actionTaken == 1 && booking?.isApproved == 1"
+            [class.booking-rejected]="booking?.actionTaken == 1 && booking?.isApproved == 0">
+            {{ booking?.actionTaken == 0 ? 'PENDING' : booking?.actionTaken == 1 && booking?.isApproved == 1 ? 'APPROVED' : booking?.actionTaken == 1 && booking?.isApproved == 0 ? 'REJECTED' : (booking?.currentStatus || '-') }}
+          </strong>
+        </div>
+      </div>
+    </article>
+    <p class="cash-state ion-text-center" *ngIf="!filteredBookings.length">No bookings found for this filter</p>
+  </section>
+</ion-content>

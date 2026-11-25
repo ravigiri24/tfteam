@@ -54,6 +54,10 @@ export class AllotStoreComponent  implements OnInit {
         this.tractorDetails?.tractordetailadmin?.wareHouseLocation || null,
         [Validators.required]
       ),
+        assign_date: new FormControl(
+               this.tractorDetails?.tractordetailadmin?.assign_date,
+        [Validators.required]
+      ),
     });
 
     console.log(' this.form', this.form);
@@ -71,6 +75,7 @@ export class AllotStoreComponent  implements OnInit {
     if (this.form.valid) {
       let dataWarehouse: any = {
         wareHouseLocation: this.form.value.wareHouseLocation,
+        assign_date: this.form.value.assign_date,
       };
       let obj = {
         src: 'tractordetailadmin',
@@ -80,13 +85,36 @@ export class AllotStoreComponent  implements OnInit {
 
       this.api.postapi('updateOpp', obj).subscribe((res: any) => {
         this.tractorDetails.dealerPrice = this.form.value.dealerPrice;
-   
+     this.saveAllotmentData()
         this.share.spinner.dismiss();
         this.share.presentToast('Store Alloted Successfulyy');
         this.modalCtrl.dismiss(
           { dataEnterd: true, dealerPrice: this.form.value.dealerPrice,wareHouseLocation: this.form.value.wareHouseLocation },
           'confirm'
         );
+      });
+    } else {
+      this.share.presentToast('Please fill all details');
+
+      this.form.markAllAsTouched();
+    }
+  }
+   saveAllotmentData() {
+    if (this.form.valid) {
+      let dataWarehouse: any = {
+        store_id: this.form.value.wareHouseLocation,
+        tractor_id: this.tractorDetails?.id,
+        assign_date: this.form.value.assign_date,
+      };
+      let obj = {
+        src: 'tractor_assiging_history',
+        data: dataWarehouse,
+      
+      };
+
+      this.api.postapi('addOpp', obj).subscribe((res: any) => {
+        this.tractorDetails.dealerPrice = this.form.value.dealerPrice;
+   
       });
     } else {
       this.share.presentToast('Please fill all details');

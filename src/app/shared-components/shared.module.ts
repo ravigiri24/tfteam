@@ -11,6 +11,7 @@ import { UserManagementComponent } from '../user-management/user-management.comp
 import { SearchpipePipe } from '../searchpipe.pipe';
 import { CrudPopupComponent } from './crud-popup/crud-popup.component';
 import { TractorCostingListComponent } from './tractor-costing-list/tractor-costing-list.component';
+import { TractorCostingListAdvanceComponent } from './tractor-costing-list-advance/tractor-costing-list-advance.component';
 import { TractorCostingDashboardComponent } from './tractor-costing-dashboard/tractor-costing-dashboard.component';
 import { ViewTractorDetailsComponent } from './view-tractor-details/view-tractor-details.component';
 import { ViewTransactionDetailsComponent } from './view-transaction-details/view-transaction-details.component';
@@ -119,6 +120,7 @@ import { TransactionHistoryAccountComponent } from './transaction-history-accoun
     SearchpipePipe,
     CrudPopupComponent,
     TractorCostingListComponent,
+    TractorCostingListAdvanceComponent,
     TractorCostingDashboardComponent,
     ViewTractorDetailsComponent,
     ViewTransactionDetailsComponent,
@@ -208,6 +210,7 @@ import { TransactionHistoryAccountComponent } from './transaction-history-accoun
   ],
 
   exports: [
+    TractorCostingListAdvanceComponent,
     CashTransactionListComponent,
     TransactionHistoryAccountComponent,
     StoreTransactionComponent,

@@ -17,6 +17,8 @@ import { TransportFooterComponent } from './transport-footer/transport-footer.co
 import { AddCostComponent } from './add-cost/add-cost.component';
 import { TransportOptionsComponent } from './transport-options/transport-options.component';
 import { TransportActualDateFormComponent } from './transport-actual-date-form/transport-actual-date-form.component';
+import { OutwardTransportComponent } from './outward-transport/outward-transport.component';
+import { OutwardHistoryComponent } from './outward-history/outward-history.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { TransportActualDateFormComponent } from './transport-actual-date-form/t
     TransportFooterComponent,
     AddCostComponent,
     TransportOptionsComponent,
-    TransportActualDateFormComponent
+    TransportActualDateFormComponent,
+    OutwardTransportComponent,
+    OutwardHistoryComponent
  
   ],
   imports: [

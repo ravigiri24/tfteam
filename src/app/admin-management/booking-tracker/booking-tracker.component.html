@@ -1,3 +1,37 @@
-<p>
-  booking-tracker works!
-</p>
+<app-common-header    [universalSelect]="true"  [optionsArray]="optionsArray"
+  [selectedItem]="selectedItem" [showCount]="false" class="app_common_header"
+  [isListFilter]="true" [brandList]="brandList" [listColorClass]="listColorClass"
+  [title]="'Tractors'" [list]="newFindingList" [allFilterList]="allFilterList" [showFilterList]="true"
+  [showWareHouse]="false" [headerDisplayArray]="headerDisplayArray" (actionEventHeader)="actionEventHeader($event)"
+  (expandListEvent)="expandListEvent()"   (optionActionEvent)="optionActionEvent($event)" ></app-common-header>
+<ion-content class="booking-content">
+  <ion-card class="booking-summary-card">
+    <div class="booking-summary-header">
+      <ion-icon name="storefront-outline" aria-hidden="true"></ion-icon>
+      <span id="booking-summary-title">Store-wise Bookings</span>
+    </div>
+    <table class="booking-summary-table" aria-labelledby="booking-summary-title">
+      <thead>
+        <tr>
+          <th scope="col">Store Name</th>
+          <th scope="col" class="booking-count">Total Bookings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let store of storeBookingSummary">
+          <th scope="row">{{ store.storeName }}</th>
+          <td class="booking-count"><button type="button" class="booking-list-link" (click)="openBookingList(store)" [attr.aria-label]="'View bookings for ' + store.storeName">{{ store.totalBookings }}</button></td>
+        </tr>
+        <tr *ngIf="!storeBookingSummary.length">
+          <td colspan="2" class="booking-empty">No bookings found</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Total</th>
+          <td class="booking-count"><button type="button" class="booking-list-link" (click)="openBookingList()" aria-label="View all bookings">{{ totalBookings }}</button></td>
+        </tr>
+      </tfoot>
+    </table>
+  </ion-card>
+</ion-content>

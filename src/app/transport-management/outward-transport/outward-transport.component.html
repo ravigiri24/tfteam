@@ -1,0 +1,88 @@
+<ion-header class="outward-header">
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="car-outline" aria-hidden="true"></ion-icon>
+      <span><strong>Outward Transport</strong><small>Transport dates and destination information</small></span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="button" aria-label="Close Outward Transport" (click)="close()">
+        <ion-icon slot="icon-only" name="close-outline" aria-hidden="true"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="outward-content" [ngClass]="listColorClass">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
+    <section class="outward-card" aria-labelledby="outward-primary-heading">
+      <h2 class="outward-section-heading" id="outward-primary-heading">
+        <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+        Primary Detail
+      </h2>
+      <div class="global_input_block">
+        <ion-input label="Transport Start Date" fill="outline" labelPlacement="stacked"
+          type="date" [readonly]="readOnly" formControlName="transport_start_date"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Transport Source Place" fill="outline" labelPlacement="stacked"
+          type="text" [readonly]="readOnly" formControlName="transport_src_place"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Expected Reach Date" fill="outline" labelPlacement="stacked"
+          type="date" [readonly]="readOnly" formControlName="expectedReachDate"></ion-input>
+      </div>
+    </section>
+
+    <section class="outward-card" aria-labelledby="outward-reaching-heading">
+      <h2 class="outward-section-heading" id="outward-reaching-heading">
+        <ion-icon name="flag-outline" aria-hidden="true"></ion-icon>
+        Reaching Details
+      </h2>
+      <ng-container *ngIf="!canEditDestination; else reachingSelects">
+        <div class="global_input_block">
+          <ion-input label="Destination Warehouse" fill="outline" labelPlacement="stacked"
+            [value]="destinationWarehouse" [readonly]="true"></ion-input>
+        </div>
+      </ng-container>
+      <ng-template #reachingSelects>
+        <div class="global_input_block select_option_with_add">
+          <ion-select label="Destination Warehouse" fill="outline" labelPlacement="stacked"
+            formControlName="transportDestinationId" [compareWith]="sameWarehouse">
+            <ion-select-option *ngFor="let location of wareHouseLocationList" [value]="location.id">
+              {{ location?.name }}
+            </ion-select-option>
+          </ion-select>
+          <div class="right_action_block refresh_icon">
+            <ion-button fill="clear" type="button" aria-label="Refresh warehouse locations" (click)="getWareHouseLocationList()">
+              <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ng-template>
+      <div class="global_input_block">
+        <ion-select *ngIf="canEditReached; else reachedStatus"
+          label="Is Reached" fill="outline" labelPlacement="stacked" formControlName="isReached">
+          <ion-select-option [value]="true">Yes</ion-select-option>
+          <ion-select-option [value]="false">No</ion-select-option>
+        </ion-select>
+        <ng-template #reachedStatus>
+          <ion-input label="Is Reached" fill="outline" labelPlacement="stacked" [readonly]="true"
+            [value]="reachedLabel"></ion-input>
+        </ng-template>
+      </div>
+      <div class="global_input_block">
+        <ion-input label="Reach Date" fill="outline" labelPlacement="stacked"
+          type="date" [readonly]="readOnly" formControlName="reachDate"></ion-input>
+      </div>
+      <div class="global_input_block">
+        <ion-textarea label="Remark" fill="outline" labelPlacement="stacked" [autoGrow]="true"
+           formControlName="remark"></ion-textarea>
+      </div>
+    </section>
+    <div class="outward-actions" *ngIf="!readOnly">
+      <button class="outward-save-btn" type="submit" [disabled]="saving">
+        <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+        {{ saving ? 'Saving...' : 'Save' }}
+      </button>
+    </div>
+  </form>
+</ion-content>
